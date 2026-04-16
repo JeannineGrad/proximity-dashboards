@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instore — Análisis de Buyers</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a2e; font-size: 13px; }
+
+header {
+  background: #1a1a2e; color: #fff;
+  padding: 13px 24px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+header h1 { font-size: .95rem; font-weight: 600; }
+header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
+
+.tab-bar {
+  background: #23233e; padding: 0 20px;
+  display: flex; gap: 4px; border-bottom: 2px solid #1a1a2e;
+}
+.tab-btn {
+  background: none; border: none; color: rgba(255,255,255,.5);
+  padding: 10px 18px; font-size: .8rem; font-weight: 600; cursor: pointer;
+  border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color .15s;
+}
+.tab-btn:hover { color: rgba(255,255,255,.8); }
+.tab-btn.active { color: #fff; border-bottom-color: #e94560; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.content { padding: 20px 24px; max-width: 1100px; }
+
+/* Section */
+.section { margin-bottom: 28px; }
+.section-title {
+  font-size: 13px; font-weight: 700; color: #fff;
+  background: #1a1a2e; padding: 10px 16px; border-radius: 8px 8px 0 0;
+  letter-spacing: .3px;
+}
+.section-body { background: #fff; border-radius: 0 0 8px 8px; padding: 20px; box-shadow: 0 1px 6px rgba(0,0,0,.08); }
+
+/* KPI cards */
+.kpi-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+.kpi-card {
+  background: #f8f9fc; border-radius: 8px; padding: 14px 18px;
+  border-left: 3px solid #4361ee; min-width: 130px; flex: 1;
+}
+.kpi-card .label { font-size: 10.5px; color: #888; margin-bottom: 4px; }
+.kpi-card .value { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+.kpi-card .sub { font-size: 10px; color: #aaa; margin-top: 2px; }
+.kpi-card.green { border-left-color: #2ecc71; }
+.kpi-card.red { border-left-color: #e94560; }
+.kpi-card.yellow { border-left-color: #f1c40f; }
+.kpi-card.purple { border-left-color: #9b59b6; }
+
+/* Tables */
+.tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.tbl th { background: #f0f2f8; padding: 8px 12px; text-align: left; font-size: 10.5px; font-weight: 700; color: #555; border-bottom: 2px solid #e0e4f0; white-space: nowrap; }
+.tbl td { padding: 7px 12px; border-bottom: 1px solid #f0f2f5; }
+.tbl tr:last-child td { border-bottom: none; }
+.tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+.tbl .highlight { font-weight: 700; color: #4361ee; }
+.tbl .highlight-red { font-weight: 700; color: #e94560; }
+.tbl .highlight-green { font-weight: 700; color: #1a8a3a; }
+
+/* Two-column layout */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+/* Compare cards */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare-card { border-radius: 8px; padding: 16px 18px; }
+.compare-card.onboarded { background: #eef6ee; border-left: 4px solid #2ecc71; }
+.compare-card.no-onboarded { background: #fef3f0; border-left: 4px solid #e94560; }
+.compare-card h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 12px; }
+.compare-card.onboarded h4 { color: #1a8a3a; }
+.compare-card.no-onboarded h4 { color: #c0392b; }
+.compare-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(0,0,0,.06); font-size: 11.5px; }
+.compare-row:last-child { border-bottom: none; }
+.compare-row .val { font-weight: 700; }
+
+/* Definition boxes */
+.def-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.def-card { background: #f8f9fc; border-radius: 8px; padding: 12px 14px; border-top: 3px solid #4361ee; }
+.def-card.lifecycle { border-top-color: #9b59b6; }
+.def-card.mission { border-top-color: #e67e22; }
+.def-card h5 { font-size: 11px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+.def-card p { font-size: 11px; color: #555; line-height: 1.5; }
+
+.note { font-size: 11px; color: #aaa; font-style: italic; margin-top: 10px; }
+.badge {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px; margin-right: 4px;
+}
+.badge-green { background: #e0f7ee; color: #1a8a3a; }
+.badge-red { background: #fdecea; color: #c0392b; }
+.badge-blue { background: #e3e8ff; color: #4361ee; }
+.badge-yellow { background: #fef9e7; color: #7d5a00; }
+.badge-grey { background: #f0f2f5; color: #555; }
+
+.trend-up { color: #1a8a3a; font-weight: 700; }
+.trend-down { color: #c0392b; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Instore — Análisis de Buyers</h1>
+    <div class="sub">Período: octubre 2025 – marzo 2026 &nbsp;·&nbsp; Fuente: BT_ORD_ORDERS + DM_VENTAS_MLA_INSTORE &nbsp;·&nbsp; MLA</div>
+  </div>
+</header>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('lifecycle', event)">Lifecycle</button>
+  <button class="tab-btn" onclick="switchTab('onboarding', event)">Onboarding</button>
+  <button class="tab-btn" onclick="switchTab('perfil', event)">Perfil del buyer</button>
+  <button class="tab-btn" onclick="switchTab('misiones', event)">Misiones de compra</button>
+  <button class="tab-btn" onclick="switchTab('tiendas', event)">Por tienda</button>
+  <button class="tab-btn" onclick="switchTab('definiciones', event)">Definiciones</button>
+</div>
+
+<!-- ── TAB: LIFECYCLE ── -->
+<div class="tab-panel active" id="tab-lifecycle">
+<div class="content">
+
+  <div class="section">
+    <div class="section-title">Cómo leer esta solapa</div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#444;margin-bottom:14px">Muestra la evolución mensual de la base de buyers instore clasificados por segmento de lifecycle, más los clusters de actividad mensual. <strong>Período: octubre 2025 – marzo 2026.</strong></p>
+      <div class="def-grid">
+        <div class="def-card lifecycle"><h5>New</h5><p>Primera compra ever en instore durante el mes.</p></div>
+        <div class="def-card lifecycle"><h5>Repeat</h5><p>Compró este mes Y el mes inmediatamente anterior.</p></div>
+        <div class="def-card lifecycle"><h5>Resurrected</h5><p>Compró este mes, tiene historial previo, pero NO compró el mes anterior.</p></div>
+        <div class="def-card lifecycle"><h5>Churn</h5><p>Compró el mes anterior pero no realizó ninguna compra este mes.</p></div>
+        <div class="def-card lifecycle"><h5>NEW BUYER (cluster)</h5><p>Mes en que el buyer hizo su primera compra. 1+ orden en el mes.</p></div>
+        <div class="def-card lifecycle"><h5>RECURRING (cluster)</h5><p>Exactamente 1 compra en el mes, sin ser su primera compra ever en el canal.</p></div>
+        <div class="def-card lifecycle"><h5>FREQUENT (cluster)</h5><p>2 o más compras en el mes, sin ser su primera compra ever en el canal.</p></div>
+        <div class="def-card lifecycle"><h5>Onboarded</h5><p>Buyer que alcanza 5+ compras dentro de los primeros 90 días desde su primera compra. Proxy de adopción del canal como hábito.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Evolución del base — buyers activos por mes</div>
+    <div class="section-body">
+      <div class="kpi-row">
+        <div class="kpi-card green">
+          <div class="label">Total activos Mar-26</div>
+          <div class="value">4.293</div>
+          <div class="sub">+22x vs oct-25</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">% Repeat Mar-26</div>
+          <div class="value">15.6%</div>
+          <div class="sub">vs 3.9% en nov-25</div>
+        </div>
+        <div class="kpi-card yellow">
+          <div class="label">% Resurrected Mar-26</div>
+          <div class="value">9.3%</div>
+          <div class="sub">vs 0% en nov-25</div>
+        </div>
+        <div class="kpi-card red">
+          <div class="label">% Churn promedio</div>
+          <div class="value">~81%</div>
+          <div class="sub">buyers que no vuelven al mes sig.</div>
+        </div>
+      </div>
+
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>KPI</th>
+            <th class="num">Oct-25</th>
+            <th class="num">Nov-25</th>
+            <th class="num">Dic-25</th>
+            <th class="num">Ene-26</th>
+            <th class="num">Feb-26</th>
+            <th class="num">Mar-26</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Total activos</strong></td><td class="num">188</td><td class="num">878</td><td class="num">2.537</td><td class="num">2.597</td><td class="num">3.598</td><td class="num highlight">4.293</td></tr>
+          <tr><td>&nbsp;&nbsp;— New</td><td class="num">188</td><td class="num">844</td><td class="num">2.391</td><td class="num">2.223</td><td class="num">2.893</td><td class="num">3.223</td></tr>
+          <tr><td>&nbsp;&nbsp;— Repeat</td><td class="num">—</td><td class="num">34</td><td class="num">130</td><td class="num">311</td><td class="num">490</td><td class="num highlight-green">669</td></tr>
+          <tr><td>&nbsp;&nbsp;— Resurrected</td><td class="num">—</td><td class="num">—</td><td class="num">16</td><td class="num">63</td><td class="num">215</td><td class="num highlight-green">401</td></tr>
+          <tr><td><strong>% Repeat</strong></td><td class="num">—</td><td class="num">3.9%</td><td class="num">5.1%</td><td class="num">12.0%</td><td class="num">13.6%</td><td class="num highlight-green">15.6%</td></tr>
+          <tr><td><strong>% Resurrected</strong></td><td class="num">—</td><td class="num">—</td><td class="num">0.6%</td><td class="num">2.4%</td><td class="num">6.0%</td><td class="num highlight-green">9.3%</td></tr>
+          <tr><td><strong>Churn (buyers)</strong></td><td class="num">—</td><td class="num">154</td><td class="num">748</td><td class="num">2.226</td><td class="num">2.107</td><td class="num">2.929</td></tr>
+          <tr><td><strong>% Churn 30d</strong></td><td class="num highlight-red">81.9%</td><td class="num highlight-red">85.2%</td><td class="num highlight-red">87.7%</td><td class="num highlight-red">81.1%</td><td class="num highlight-red">68.2%</td><td class="num" style="color:#aaa">—*</td></tr>
+          <tr><td><strong>% Churn 90d</strong></td><td class="num highlight-red">73.4%</td><td class="num highlight-red">79.6%</td><td class="num highlight-red">81.2%</td><td class="num" style="color:#aaa">—*</td><td class="num" style="color:#aaa">—*</td><td class="num" style="color:#aaa">—*</td></tr>
+          <tr><td><strong>% Onboarded (5 en 90d)</strong></td><td class="num">5.3%</td><td class="num">3.4%</td><td class="num">2.6%</td><td class="num">3.5%</td><td class="num" style="color:#aaa">1.7%*</td><td class="num" style="color:#aaa">0.7%*</td></tr>
+        </tbody>
+      </table>
+      <p class="note">* Feb-26 y Mar-26: ventana de 90 días incompleta — el % de onboarded va a subir a medida que se acumulen compras. Churn 90d: disponible solo hasta Dic-25 (necesita 90 días de margen post-mes para calcularse). Churn 90d = % de buyers activos en el mes que no vuelven a comprar en ninguno de los 90 días siguientes.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Clusters de actividad mensual — funnel de conversión</div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#444;margin-bottom:16px">Cada buyer recibe una etiqueta mensual según su actividad. Un mismo buyer puede estar en distintos clusters en distintos meses. El funnel muestra cuántos de los buyers que entraron como nuevos llegaron alguna vez a cada estadio.</p>
+      <div style="display:flex;gap:12px;margin-bottom:20px;align-items:stretch">
+        <div style="flex:1;background:#eef2ff;border-top:4px solid #4361ee;border-radius:6px;padding:14px 16px;text-align:center">
+          <div style="font-size:11px;font-weight:700;color:#4361ee;letter-spacing:.5px;margin-bottom:6px">NEW BUYER</div>
+          <div style="font-size:28px;font-weight:800;color:#1a1a2e">11.762</div>
+          <div style="font-size:11px;color:#666;margin-top:4px">100% — todos entran acá</div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #ccd0f0;font-size:11px;color:#444">1,1 órdenes en su mes de entrada</div>
+        </div>
+        <div style="display:flex;align-items:center;color:#aaa;font-size:18px">→</div>
+        <div style="flex:1;background:#fffbea;border-top:4px solid #f4a261;border-radius:6px;padding:14px 16px;text-align:center">
+          <div style="font-size:11px;font-weight:700;color:#c87941;letter-spacing:.5px;margin-bottom:6px">RECURRING</div>
+          <div style="font-size:28px;font-weight:800;color:#1a1a2e">1.335</div>
+          <div style="font-size:11px;color:#666;margin-top:4px">11% de los nuevos buyers</div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f0e0c0;font-size:11px;color:#444">Activos como RECURRING 1,2 meses en promedio antes de subir o churnearse</div>
+        </div>
+        <div style="display:flex;align-items:center;color:#aaa;font-size:18px">→</div>
+        <div style="flex:1;background:#eafaf1;border-top:4px solid #2ecc71;border-radius:6px;padding:14px 16px;text-align:center">
+          <div style="font-size:11px;font-weight:700;color:#1a8a4a;letter-spacing:.5px;margin-bottom:6px">FREQUENT</div>
+          <div style="font-size:28px;font-weight:800;color:#1a1a2e">518</div>
+          <div style="font-size:11px;color:#666;margin-top:4px">4,4% de los nuevos buyers</div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #b0e0c0;font-size:11px;color:#444">2,6 órdenes en sus meses FREQUENT</div>
+        </div>
+      </div>
+      <p class="note">El cluster se asigna mes a mes — no es permanente. Un buyer puede ser RECURRING en febrero y FREQUENT en marzo si aumenta su frecuencia. La diferencia clave: cuando alguien llega a FREQUENT, más que duplica sus órdenes mensuales respecto a RECURRING. <strong>Los tres números no se suman:</strong> el total de buyers únicos desde el inicio de la operación es 11.762 (= NEW BUYER), ya que todo buyer pasa por ese cluster en su primer mes. RECURRING y FREQUENT son subconjuntos de esos mismos buyers que en algún mes posterior compraron más seguido.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ── TAB: ONBOARDING ── -->
+<div class="tab-panel" id="tab-onboarding">
+<div class="content">
+
+  <div class="section">
+    <div class="section-title">Cómo leer esta solapa</div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#444;margin-bottom:14px">Analiza qué proporción de los nuevos buyers adopta el canal como hábito (onboarded) y compara su perfil transaccional con los que no lo logran.</p>
+      <div class="def-grid">
+        <div class="def-card"><h5>Onboarded</h5><p>Buyer que alcanza <strong>5 o más compras</strong> dentro de los primeros <strong>90 días</strong> desde su primera compra en el canal.</p></div>
+        <div class="def-card"><h5>Ventana completa</h5><p>Para que el dato sea comparable, solo se incluyen buyers cuya primera compra fue antes de enero 2026 — es decir, que ya tuvieron sus 90 días completos al cierre del análisis.</p></div>
+        <div class="def-card"><h5>Nota feb / mar</h5><p>Los buyers de feb-26 y mar-26 aún tienen su ventana de 90 días abierta. Sus tasas de onboarding van a subir cuando se acumulen más compras.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Tasa de onboarding mensual</div>
+    <div class="section-body">
+      <div class="kpi-row">
+        <div class="kpi-card green">
+          <div class="label">Buyers onboarded (total)</div>
+          <div class="value">209</div>
+          <div class="sub">sobre 5.646 con ventana completa</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Tasa promedio</div>
+          <div class="value">3.7%</div>
+          <div class="sub">oct-25 / ene-26</div>
+        </div>
+        <div class="kpi-card red">
+          <div class="label">Buyers no onboarded</div>
+          <div class="value">5.437</div>
+          <div class="sub">96.3% del total</div>
+        </div>
+      </div>
+
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Mes de primera compra</th>
+            <th class="num">Nuevos buyers</th>
+            <th class="num">Onboarded (5 en 90d)</th>
+            <th class="num">% Onboarded</th>
+            <th>Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Oct-25</td><td class="num">188</td><td class="num">10</td><td class="num highlight-green">5.3%</td><td style="font-size:11px;color:#888">Early adopters</td></tr>
+          <tr><td>Nov-25</td><td class="num">844</td><td class="num">29</td><td class="num">3.4%</td><td></td></tr>
+          <tr><td>Dic-25</td><td class="num">2.391</td><td class="num">63</td><td class="num">2.6%</td><td></td></tr>
+          <tr><td>Ene-26</td><td class="num">2.223</td><td class="num">77</td><td class="num">3.5%</td><td></td></tr>
+          <tr><td>Feb-26</td><td class="num">2.894</td><td class="num">48</td><td class="num" style="color:#aaa">1.7%*</td><td style="font-size:11px;color:#aaa">Ventana incompleta (cierra may-26)</td></tr>
+          <tr><td>Mar-26</td><td class="num">3.222</td><td class="num">22</td><td class="num" style="color:#aaa">0.7%*</td><td style="font-size:11px;color:#aaa">Ventana incompleta (cierra jun-26)</td></tr>
+        </tbody>
+      </table>
+      <p class="note">* Buyers de feb-26 tienen ventana hasta mayo-26 y los de mar-26 hasta jun-26. El % final será mayor.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Perfil transaccional — Onboarded vs No onboarded</div>
+    <div class="section-body">
+      <div class="compare-grid">
+        <div class="compare-card onboarded">
+          <h4>Onboarded (218 buyers)</h4>
+          <div class="compare-row"><span>Compras en 90 días</span><span class="val">7.5</span></div>
+          <div class="compare-row"><span>Ticket primera compra</span><span class="val">$62.7k</span></div>
+          <div class="compare-row"><span>SKUs primera compra</span><span class="val">8.5</span></div>
+          <div class="compare-row"><span>Categorías primera compra</span><span class="val">2.0</span></div>
+          <div class="compare-row"><span>SKUs distintos en 90d</span><span class="val">49.2</span></div>
+          <div class="compare-row"><span>Categorías distintas en 90d</span><span class="val">3.8</span></div>
+          <div class="compare-row"><span>NMV acumulado 90d (prom. por buyer)</span><span class="val">$497k</span></div>
+        </div>
+        <div class="compare-card no-onboarded">
+          <h4>No onboarded (5.428 buyers)</h4>
+          <div class="compare-row"><span>Compras en 90 días</span><span class="val">1.3</span></div>
+          <div class="compare-row"><span>Ticket primera compra</span><span class="val">$56.9k</span></div>
+          <div class="compare-row"><span>SKUs primera compra</span><span class="val">5.8</span></div>
+          <div class="compare-row"><span>Categorías primera compra</span><span class="val">1.8</span></div>
+          <div class="compare-row"><span>SKUs distintos en 90d</span><span class="val">7.7</span></div>
+          <div class="compare-row"><span>Categorías distintas en 90d</span><span class="val">2.0</span></div>
+          <div class="compare-row"><span>NMV acumulado 90d (prom. por buyer)</span><span class="val">$77.6k</span></div>
+        </div>
+      </div>
+      <p class="note">La primera compra diferencia levemente (10% más ticket, 2-3 SKUs más). La divergencia real ocurre en los 90 días: el onboarded acumula $497k de NMV vs $77.6k del no onboarded — 6.4x más valor generado por buyer.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ── TAB: MISIONES DE COMPRA ── -->
+<div class="tab-panel" id="tab-misiones">
+<div class="content">
+
+  <div class="section">
+    <div class="section-title">Cómo leer esta solapa</div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#444;margin-bottom:14px">Clasifica cada orden por tipo de misión de compra y muestra cómo se distribuyen según el cluster del buyer y su estado de onboarding. El canal es de agendamiento (no inmediato), por lo que el horario de la orden no se usa como criterio.</p>
+      <div class="def-grid">
+        <div class="def-card mission"><h5>Fill-in</h5><p>Hasta 7 SKUs y ticket &lt; $80k. Algo puntual que faltaba.</p></div>
+        <div class="def-card mission"><h5>Compra semanal</h5><p>Entre 8 y 19 SKUs y ticket entre $80k y $200k. Reposición de la semana.</p></div>
+        <div class="def-card mission"><h5>Estocada mensual</h5><p>20+ SKUs, ticket &gt; $200k y 3+ categorías distintas. Compra grande para el mes.</p></div>
+        <div class="def-card mission"><h5>Ocasión / juntada</h5><p>Hasta 7 SKUs, incluye DRINKS y se realiza en fin de semana (sáb o dom).</p></div>
+        <div class="def-card mission"><h5>Compra puntual</h5><p>No encaja en los anteriores. Ticket y SKUs medios sin patrón claro.</p></div>
+      </div>
+      <p class="note">Umbrales en ARS a valores oct-25 / feb-26. Primera aproximación — a ajustar con el equipo.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Distribución de misiones por cluster</div>
+    <div class="section-body">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Misión</th>
+            <th class="num">NEW BUYER</th>
+            <th class="num">RECURRING</th>
+            <th class="num">FREQUENT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Fill-in</td><td class="num">60%</td><td class="num">47%</td><td class="num">44%</td></tr>
+          <tr><td>Compra puntual</td><td class="num">25%</td><td class="num">35%</td><td class="num">36%</td></tr>
+          <tr><td>Compra semanal</td><td class="num">6%</td><td class="num">11%</td><td class="num highlight-green">13%</td></tr>
+          <tr><td>Ocasión / juntada</td><td class="num">8%</td><td class="num">7%</td><td class="num">6%</td></tr>
+          <tr><td>Estocada mensual</td><td class="num">1%</td><td class="num">1%</td><td class="num">1%</td></tr>
+        </tbody>
+      </table>
+      <p class="note">La compra semanal duplica su participación entre NEW BUYER y FREQUENT. El buyer que construye hábito diversifica misiones con el tiempo.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Misiones — Onboarded vs No onboarded</div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:11.5px;font-weight:700;margin-bottom:10px;color:#555">Primera compra</p>
+          <table class="tbl">
+            <thead>
+              <tr><th>Misión</th><th class="num">No onboarded</th><th class="num">Onboarded</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Fill-in</td><td class="num highlight-red">62.3%</td><td class="num">46.2%</td></tr>
+              <tr><td>Compra puntual</td><td class="num">25.9%</td><td class="num highlight-green">37.1%</td></tr>
+              <tr><td>Compra semanal</td><td class="num">6.3%</td><td class="num highlight-green">10.9%</td></tr>
+              <tr><td>Ocasión / juntada</td><td class="num">4.8%</td><td class="num">5.9%</td></tr>
+              <tr><td>Estocada mensual</td><td class="num">0.7%</td><td class="num">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p style="font-size:11.5px;font-weight:700;margin-bottom:10px;color:#555">Ventana 90 días</p>
+          <table class="tbl">
+            <thead>
+              <tr><th>Misión</th><th class="num">No onboarded</th><th class="num">Onboarded</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Fill-in</td><td class="num highlight-red">59.8%</td><td class="num">43.2%</td></tr>
+              <tr><td>Compra puntual</td><td class="num">27.4%</td><td class="num highlight-green">40.4%</td></tr>
+              <tr><td>Compra semanal</td><td class="num">7.3%</td><td class="num highlight-green">11.8%</td></tr>
+              <tr><td>Ocasión / juntada</td><td class="num">4.8%</td><td class="num">3.6%</td></tr>
+              <tr><td>Estocada mensual</td><td class="num">0.6%</td><td class="num">1.0%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="note">El no onboarded entra en fill-in y se queda ahí. El onboarded llega con una compra más estructurada desde el día 1 y evoluciona hacia misiones de mayor valor.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ── TAB: PERFIL DEL BUYER ── -->
+<div class="tab-panel" id="tab-perfil">
+<div class="content">
+
+  <div class="section">
+    <div class="section-title">Cómo leer esta solapa</div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#444;margin-bottom:14px">Compara el perfil sociodemográfico de los buyers que se onboardaron vs los que no. Incluye segmento socioeconómico, rango etario, género y perfiles combinados. <strong>Importante:</strong> los perfiles combinados (3 dimensiones) tienen bases pequeñas — son hipótesis orientativas, no patrones confirmados.</p>
+      <div class="def-grid">
+        <div class="def-card"><h5>Segmento socioeconómico</h5><p>Clasificación socioeconómica del usuario elaborada por el equipo de Mercado Pago: Platinum → Gold → Silver → Bronze. Fuente: LK_MP_MAUS_SEGMENTATION al mes de la primera compra instore.</p></div>
+        <div class="def-card"><h5>Género</h5><p>Fuente: LK_USER_GENDER. Se excluyen "unknown" y sin clasificación para los análisis de proporción.</p></div>
+        <div class="def-card" style="border-top-color:#e94560"><h5>Nota estadística</h5><p>Comparaciones agregadas (género total, segmento total) son robustas. Perfiles combinados con celdas de 3–7 buyers no son concluyentes — se confirmarán cuando crezca la base onboarded.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Segmento socioeconómico — Onboarded vs No onboarded</div>
+    <div class="section-body">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Segmento</th>
+            <th class="num">No onboarded</th>
+            <th class="num">%</th>
+            <th class="num">Onboarded</th>
+            <th class="num">%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Platinum</td><td class="num">2.206</td><td class="num highlight-red">40.6%</td><td class="num">61</td><td class="num">29.2%</td></tr>
+          <tr><td>Gold</td><td class="num">1.387</td><td class="num">25.5%</td><td class="num">54</td><td class="num">25.8%</td></tr>
+          <tr><td>Silver</td><td class="num">847</td><td class="num">15.6%</td><td class="num">41</td><td class="num highlight-green">19.6%</td></tr>
+          <tr><td>Bronze</td><td class="num">522</td><td class="num">9.6%</td><td class="num">27</td><td class="num highlight-green">12.9%</td></tr>
+          <tr><td>Seller</td><td class="num">461</td><td class="num">8.5%</td><td class="num">25</td><td class="num highlight-green">12.0%</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Los onboarded están menos concentrados en Platinum. El canal no es exclusivo de los segmentos socioeconómicos más altos — los segmentos medios convierten bien.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Rango etario — Onboarded vs No onboarded</div>
+    <div class="section-body">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Rango edad</th>
+            <th class="num">No onboarded</th>
+            <th class="num">%</th>
+            <th class="num">Onboarded</th>
+            <th class="num">%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>18 – 34</td><td class="num">1.123</td><td class="num highlight-red">20.7%</td><td class="num">31</td><td class="num">14.8%</td></tr>
+          <tr><td>35 – 49</td><td class="num">1.999</td><td class="num highlight-red">36.8%</td><td class="num">48</td><td class="num">23.0%</td></tr>
+          <tr><td>50 – 64</td><td class="num">1.319</td><td class="num">24.3%</td><td class="num">62</td><td class="num highlight-green">29.7%</td></tr>
+          <tr><td>65 y más</td><td class="num">657</td><td class="num">12.1%</td><td class="num">44</td><td class="num highlight-green">21.1%</td></tr>
+          <tr><td>Sin clasificación</td><td class="num">326</td><td class="num">6.0%</td><td class="num">24</td><td class="num">11.5%</td></tr>
+        </tbody>
+      </table>
+      <p class="note">El patrón es claro: los rangos menores de 50 años están sobrerrepresentados en no onboarded; los mayores de 50 en onboarded. El grupo 65+ representa el 21% de los onboarded vs el 12% de los no onboarded.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Género — Onboarded vs No onboarded</div>
+    <div class="section-body">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Género</th>
+            <th class="num">No onboarded</th>
+            <th class="num">%</th>
+            <th class="num">Onboarded</th>
+            <th class="num">%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Female</td><td class="num">3.299</td><td class="num">60.9%</td><td class="num">138</td><td class="num highlight-green">68.3%</td></tr>
+          <tr><td>Male</td><td class="num">2.117</td><td class="num">39.1%</td><td class="num">64</td><td class="num">31.7%</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Solo female y male clasificados. 7 puntos de diferencia en la proporción de mujeres entre onboarded y no onboarded.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Top perfiles combinados — Onboarded</div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:11.5px;font-weight:700;margin-bottom:10px;color:#1a8a3a">Onboarded — top 10 perfiles</p>
+          <table class="tbl">
+            <thead><tr><th>Género</th><th>Edad</th><th>Segmento</th><th class="num">Buyers</th><th class="num">%</th></tr></thead>
+            <tbody>
+              <tr><td>Female</td><td>50–54</td><td>Platinum</td><td class="num">7</td><td class="num">3.7%</td></tr>
+              <tr><td>Female</td><td>70+</td><td>Silver</td><td class="num">6</td><td class="num">3.1%</td></tr>
+              <tr><td>Female</td><td>55–59</td><td>Gold</td><td class="num">6</td><td class="num">3.1%</td></tr>
+              <tr><td>Female</td><td>60–64</td><td>Gold</td><td class="num">6</td><td class="num">3.1%</td></tr>
+              <tr><td>Female</td><td>70+</td><td>Gold</td><td class="num">6</td><td class="num">3.1%</td></tr>
+              <tr><td>Male</td><td>45–49</td><td>Platinum</td><td class="num">6</td><td class="num">3.1%</td></tr>
+              <tr><td>Female</td><td>70+</td><td>Bronze</td><td class="num">6</td><td class="num">3.1%</td></tr>
+              <tr><td>Female</td><td>40–44</td><td>Gold</td><td class="num">5</td><td class="num">2.6%</td></tr>
+              <tr><td>Female</td><td>45–49</td><td>Silver</td><td class="num">5</td><td class="num">2.6%</td></tr>
+              <tr><td>Female</td><td>55–59</td><td>Platinum</td><td class="num">5</td><td class="num">2.6%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p style="font-size:11.5px;font-weight:700;margin-bottom:10px;color:#c0392b">No onboarded — top 10 perfiles</p>
+          <table class="tbl">
+            <thead><tr><th>Género</th><th>Edad</th><th>Segmento</th><th class="num">Buyers</th><th class="num">%</th></tr></thead>
+            <tbody>
+              <tr><td>Male</td><td>40–44</td><td>Platinum</td><td class="num">187</td><td class="num">3.6%</td></tr>
+              <tr><td>Female</td><td>40–44</td><td>Platinum</td><td class="num">186</td><td class="num">3.6%</td></tr>
+              <tr><td>Female</td><td>45–49</td><td>Platinum</td><td class="num">175</td><td class="num">3.4%</td></tr>
+              <tr><td>Female</td><td>35–39</td><td>Platinum</td><td class="num">159</td><td class="num">3.1%</td></tr>
+              <tr><td>Male</td><td>45–49</td><td>Platinum</td><td class="num">154</td><td class="num">3.0%</td></tr>
+              <tr><td>Male</td><td>35–39</td><td>Platinum</td><td class="num">153</td><td class="num">3.0%</td></tr>
+              <tr><td>Female</td><td>50–54</td><td>Platinum</td><td class="num">150</td><td class="num">2.9%</td></tr>
+              <tr><td>Female</td><td>35–39</td><td>Gold</td><td class="num">129</td><td class="num">2.5%</td></tr>
+              <tr><td>Male</td><td>50–54</td><td>Platinum</td><td class="num">128</td><td class="num">2.5%</td></tr>
+              <tr><td>Female</td><td>55–59</td><td>Platinum</td><td class="num">127</td><td class="num">2.5%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Instore vs Marketplace core MLA — comparación de perfil</div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#888;margin-bottom:14px;font-style:italic">Nota metodológica: el perfil de marketplace core incluye todos los buyers MLA (sin filtro geográfico) por limitaciones de acceso a tablas de geo sin partición. El dato es orientativo — CABA concentra ~25% del volumen total de MLA, por lo que el patrón es representativo pero puede tener sesgo hacia el interior del país en marketplace.</p>
+      <div class="two-col">
+        <div>
+          <p style="font-size:11.5px;font-weight:700;margin-bottom:10px;color:#4361ee">Segmento socioeconómico</p>
+          <table class="tbl">
+            <thead><tr><th>Segmento</th><th class="num">Instore</th><th class="num">Marketplace MLA</th></tr></thead>
+            <tbody>
+              <tr><td>Platinum</td><td class="num highlight-red">39.2%</td><td class="num">15.1%</td></tr>
+              <tr><td>Gold</td><td class="num">25.6%</td><td class="num">24.5%</td></tr>
+              <tr><td>Silver</td><td class="num">16.3%</td><td class="num">23.1%</td></tr>
+              <tr><td>Bronze</td><td class="num">10.2%</td><td class="num highlight-green">26.7%</td></tr>
+              <tr><td>Seller</td><td class="num">8.6%</td><td class="num">7.5%</td></tr>
+            </tbody>
+          </table>
+          <p class="note" style="margin-top:8px">Instore sobrerepresenta fuertemente a Platinum (39% vs 15%). El canal está captando usuarios de segmento alto — muy distinto a la base masiva del marketplace.</p>
+        </div>
+        <div>
+          <p style="font-size:11.5px;font-weight:700;margin-bottom:10px;color:#4361ee">Rango etario</p>
+          <table class="tbl">
+            <thead><tr><th>Edad</th><th class="num">Instore</th><th class="num">Marketplace MLA</th></tr></thead>
+            <tbody>
+              <tr><td>18 – 34</td><td class="num highlight-green">19.6%</td><td class="num highlight-red">38.9%</td></tr>
+              <tr><td>35 – 49</td><td class="num">34.5%</td><td class="num">34.5%</td></tr>
+              <tr><td>50 – 64</td><td class="num highlight-red">25.6%</td><td class="num">17.1%</td></tr>
+              <tr><td>65 y más</td><td class="num highlight-red">14.0%</td><td class="num">5.0%</td></tr>
+            </tbody>
+          </table>
+          <p class="note" style="margin-top:8px">Instore es significativamente más adulto. El rango 18-34 representa solo el 20% en instore vs 39% en marketplace. Los mayores de 50 son el 40% en instore vs 22% en marketplace.</p>
+        </div>
+      </div>
+      <div style="margin-top:16px">
+        <p style="font-size:11.5px;font-weight:700;margin-bottom:10px;color:#4361ee">Género</p>
+        <table class="tbl" style="max-width:400px">
+          <thead><tr><th>Género</th><th class="num">Instore</th><th class="num">Marketplace MLA</th></tr></thead>
+          <tbody>
+            <tr><td>Female</td><td class="num highlight-red">62.9%</td><td class="num">50.4%</td></tr>
+            <tr><td>Male</td><td class="num">37.1%</td><td class="num">49.6%</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:8px">Instore es marcadamente más femenino (63% vs 50%). La compra de supermercado tiene un sesgo de género claro respecto al marketplace general.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ── TAB: POR TIENDA ── -->
+<div class="tab-panel" id="tab-tiendas">
+<div class="content">
+
+  <div class="section">
+    <div class="section-title">Cómo leer esta solapa</div>
+    <div class="section-body">
+      <p style="font-size:12px;color:#444;margin-bottom:14px">Compara las 4 tiendas en dos dimensiones: tasa de onboarding (% de nuevos buyers que alcanzan 5 pedidos en 90 días) y distribución de misiones de compra. Base: buyers con primera compra hasta ene-26 para onboarding (ventana completa); todos los pedidos oct-25 / mar-26 para misiones.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Onboarding por tienda</div>
+    <div class="section-body">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Tienda</th>
+            <th class="num">Buyers (ventana completa)</th>
+            <th class="num">Onboarded</th>
+            <th class="num">% Onboarded</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Villa Urquiza</td><td class="num">842</td><td class="num">50</td><td class="num highlight-green">5.9%</td></tr>
+          <tr><td>Scalabrini</td><td class="num">1.956</td><td class="num">72</td><td class="num">3.7%</td></tr>
+          <tr><td>Caballito</td><td class="num">1.235</td><td class="num">45</td><td class="num">3.6%</td></tr>
+          <tr><td>Vicente Lopez</td><td class="num">1.622</td><td class="num">54</td><td class="num highlight-red">3.3%</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Villa Urquiza tiene la tasa más alta de onboarding (5.9%), casi el doble que Vicente Lopez (3.3%). La diferencia es consistente con una base razonable de 842 buyers — no es un artefacto de muestra pequeña.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Misiones de compra por tienda</div>
+    <div class="section-body">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Misión</th>
+            <th class="num">Scalabrini</th>
+            <th class="num">Vicente Lopez</th>
+            <th class="num">Caballito</th>
+            <th class="num">Villa Urquiza</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Fill-in</td><td class="num">58.5%</td><td class="num">60.3%</td><td class="num">60.5%</td><td class="num highlight-green">56.0%</td></tr>
+          <tr><td>Compra puntual</td><td class="num">28.4%</td><td class="num">26.5%</td><td class="num">28.0%</td><td class="num highlight-red">31.5%</td></tr>
+          <tr><td>Compra semanal</td><td class="num">7.8%</td><td class="num highlight-green">8.6%</td><td class="num">6.1%</td><td class="num">7.8%</td></tr>
+          <tr><td>Ocasión / juntada</td><td class="num">4.6%</td><td class="num">3.8%</td><td class="num">4.8%</td><td class="num">4.1%</td></tr>
+          <tr><td>Estocada mensual</td><td class="num">0.7%</td><td class="num">0.8%</td><td class="num">0.6%</td><td class="num">0.6%</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Las misiones son homogéneas entre tiendas — el patrón dominante (fill-in + compra puntual) se repite en todas. La diferencia más notable es Villa Urquiza, que tiene menos fill-in y más compra puntual, lo que puede estar relacionado con su mayor tasa de onboarding. Vicente Lopez lidera en compra semanal (8.6%).</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ── TAB: DEFINICIONES ── -->
+<div class="tab-panel" id="tab-definiciones">
+<div class="content">
+
+  <div class="section">
+    <div class="section-title">Período y fuentes de datos</div>
+    <div class="section-body">
+      <div class="def-grid">
+        <div class="def-card">
+          <h5>Período de análisis</h5>
+          <p>Octubre 2025 – marzo 2026 (meses cerrados). Para onboarding se requiere ventana de 90 días completa: se excluyen buyers cuya primera compra fue posterior a enero 2026.</p>
+        </div>
+        <div class="def-card">
+          <h5>Fuentes</h5>
+          <p><strong>BT_ORD_ORDERS</strong> — órdenes con flags GMV, TGMV, SUPERMARKET_FLG y tag supermarket_partnership. Site MLA, excluyendo Proximity y MShops.<br><br><strong>DM_VENTAS_MLA_INSTORE</strong> — detalle de ventas instore (SKU, categoría, NMV, tienda).</p>
+        </div>
+        <div class="def-card">
+          <h5>Universo</h5>
+          <p>Buyers con al menos 1 orden instore en el período. Para el análisis de onboarding se considera solo la primera compra ever en el canal dentro de la ventana.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Nota metodológica — significancia estadística</div>
+    <div class="section-body">
+      <div class="def-grid">
+        <div class="def-card" style="border-top-color:#2ecc71">
+          <h5>Hallazgos sólidos</h5>
+          <p>Comparaciones agregadas con n suficiente: diferencias de NMV, SKUs y ticket en 90 días (209 vs 5.437 buyers, magnitud 40x); distribución de misiones de compra (miles de órdenes); proporción de género (n &gt; 2.000 en ambos grupos). Las diferencias son tan grandes que la significancia estadística no es el limitante.</p>
+        </div>
+        <div class="def-card" style="border-top-color:#f1c40f">
+          <h5>Hallazgos indicativos</h5>
+          <p>Distribución por edad y por segmento socioeconómico en onboarded (celdas de 10–29 buyers). Los patrones son consistentes y orientan hipótesis, pero los intervalos de confianza son amplios. Se confirmarán cuando crezca la base onboarded con las cohortes de feb-mar 2026.</p>
+        </div>
+        <div class="def-card" style="border-top-color:#e94560">
+          <h5>Hallazgos frágiles</h5>
+          <p>Perfiles combinados (género + edad + segmento) con celdas de 3–7 buyers. No son estadísticamente concluyentes. Se presentan como hipótesis para explorar, no como patrones confirmados. Regla práctica: se necesitan al menos ~30 casos por celda para resultados confiables.</p>
+        </div>
+        <div class="def-card" style="border-top-color:#4361ee">
+          <h5>Próximos pasos</h5>
+          <p>A medida que se complete la ventana de 90 días para los buyers de feb-26 y mar-26, el grupo onboarded crecerá de ~209 a estimado &gt;400 buyers. Eso permitirá confirmar o revisar los patrones de perfil con mayor solidez.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Segmentos de lifecycle</div>
+    <div class="section-body">
+      <div class="def-grid">
+        <div class="def-card lifecycle">
+          <h5>New</h5>
+          <p>Buyer que realiza su primera compra instore en el mes analizado. No tiene historial previo en el canal.</p>
+        </div>
+        <div class="def-card lifecycle">
+          <h5>Repeat</h5>
+          <p>Buyer que compró en el mes actual Y también compró en el mes inmediatamente anterior.</p>
+        </div>
+        <div class="def-card lifecycle">
+          <h5>Resurrected</h5>
+          <p>Buyer que compró en el mes actual, tiene historial previo en el canal, pero NO compró en el mes inmediatamente anterior.</p>
+        </div>
+        <div class="def-card lifecycle">
+          <h5>Churn</h5>
+          <p>Buyer que compró el mes anterior pero no realizó ninguna compra en el mes actual.</p>
+        </div>
+        <div class="def-card lifecycle">
+          <h5>NEW BUYER (cluster)</h5>
+          <p>Mes en que el buyer realizó su primera compra (coincide con New en lifecycle). Se usa para el análisis de clusters mensuales.</p>
+        </div>
+        <div class="def-card lifecycle">
+          <h5>RECURRING (cluster)</h5>
+          <p>Buyer con exactamente 1 compra en el mes analizado, no siendo su primera compra en el canal.</p>
+        </div>
+        <div class="def-card lifecycle">
+          <h5>FREQUENT (cluster)</h5>
+          <p>2 o más compras en el mes, sin ser su primera compra ever en el canal.</p>
+        </div>
+        <div class="def-card lifecycle">
+          <h5>Onboarded</h5>
+          <p>Buyer que alcanza 5 o más compras dentro de los primeros 90 días desde su primera compra en el canal. Proxy de adopción del canal como hábito.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Misiones de compra</div>
+    <div class="section-body">
+      <p class="note" style="margin-bottom:14px">Clasificación basada en ticket, cantidad de SKUs y categorías por orden. Umbrales en ARS a valores oct-25/feb-26. El canal es de agendamiento (no inmediato), por lo que el horario de la orden no se usa como criterio.</p>
+      <div class="def-grid">
+        <div class="def-card mission">
+          <h5>Fill-in</h5>
+          <p>Hasta 7 SKUs y ticket menor a $80k. Compra chica, algo puntual que faltaba.</p>
+        </div>
+        <div class="def-card mission">
+          <h5>Compra semanal</h5>
+          <p>Entre 8 y 19 SKUs y ticket entre $80k y $200k. Reposición de la semana.</p>
+        </div>
+        <div class="def-card mission">
+          <h5>Estocada mensual</h5>
+          <p>20+ SKUs, ticket mayor a $200k y 3+ categorías distintas. Compra grande y variada para el mes.</p>
+        </div>
+        <div class="def-card mission">
+          <h5>Ocasión / juntada</h5>
+          <p>Hasta 7 SKUs, incluye DRINKS y se realiza en fin de semana (sábado o domingo).</p>
+        </div>
+        <div class="def-card mission">
+          <h5>Compra puntual</h5>
+          <p>Todo lo que no encaja en los anteriores. Ticket y SKUs medios sin patrón claro de misión.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+function switchTab(name, e) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  e.target.classList.add('active');
+}
+</script>
+</body>
+</html>
