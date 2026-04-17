@@ -230,30 +230,32 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
   </div>
 
   <div class="section">
-    <div class="section-title">Churn instore vs Super Full (CPG) — comparación</div>
+    <div class="section-title">Churn instore vs Super Full — comparación por categoría</div>
     <div class="section-body">
       <div class="def-grid" style="margin-bottom:16px">
         <div class="def-card" style="border-top-color:#4361ee">
           <h5>Fuentes de datos</h5>
           <p><strong>Instore:</strong> <code>DM_VENTAS_MLA_INSTORE</code> — órdenes instore, granularidad ítem, ID de pedido = SHIPPING.<br>
-          <strong>Super Full (DRY):</strong> <code>DM_ORDERS_DATA_CROSS_SUPER</code> — filtro <code>VERTICAL = 'CPG'</code> y <code>BUSINESS_MODEL = 'DRY'</code>.</p>
+          <strong>Super Full (DRY):</strong> <code>DM_ORDERS_DATA_CROSS_SUPER</code>, <code>BUSINESS_MODEL = 'DRY'</code>. Incluye 3 verticales: CPG (supermercado), Beauty y Health.</p>
         </div>
         <div class="def-card" style="border-top-color:#4361ee">
           <h5>Parámetros del cálculo</h5>
           <p><strong>Churn 30d:</strong> % de buyers activos en el mes M que no compran en el mes M+1 (mismo canal).<br>
-          <strong>Churn 90d:</strong> % de buyers activos en el mes M que no compran en ningún día de los 90 días siguientes al mes M. Disponible solo hasta Dic-25 (necesita margen completo).<br>
-          <strong>Período:</strong> oct-25 / feb-26. Cada canal se mide sobre su propia base — no son buyers cruzados.</p>
+          <strong>Churn 90d:</strong> % de buyers activos en el mes M sin compra en los 90 días siguientes. Disponible hasta Ene-26 para DRY (ventana cerrada al momento del análisis, abr-26). Sin dato para Instore en Ene-26.<br>
+          Cada canal/vertical se mide sobre su propia base — no son buyers cruzados.</p>
         </div>
         <div class="def-card" style="border-top-color:#4361ee">
-          <h5>Por qué CPG DRY</h5>
-          <p>Se eligió solo el vertical CPG en ambos canales para comparar la misma categoría de producto (supermercado). DRY = Super Full (envío tradicional desde depósito). Excluye Beauty, Health y otros verticales presentes en la tabla pero ajenos al supermercado.</p>
+          <h5>Lectura por vertical</h5>
+          <p><strong>CPG DRY:</strong> mejor retención — compras de supermercado son frecuentes y habituales.<br>
+          <strong>Beauty DRY:</strong> churn similar a Instore — compras menos periódicas.<br>
+          <strong>Health DRY:</strong> peor retención — compras muy ocasionales o de única vez.</p>
         </div>
       </div>
 
       <table class="tbl">
         <thead>
           <tr>
-            <th>Canal</th>
+            <th>Canal / Vertical</th>
             <th>Métrica</th>
             <th class="num">Oct-25</th>
             <th class="num">Nov-25</th>
@@ -263,7 +265,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <!-- INSTORE -->
+          <tr style="background:#f0f4ff">
             <td rowspan="3"><strong>Instore</strong><br><span style="font-size:10px;color:#888">DM_VENTAS_MLA_INSTORE</span></td>
             <td>Buyers activos</td>
             <td class="num">181</td>
@@ -272,7 +275,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num">2.477</td>
             <td class="num">3.301</td>
           </tr>
-          <tr>
+          <tr style="background:#f0f4ff">
             <td>% Churn 30d</td>
             <td class="num highlight-red">81.8%</td>
             <td class="num highlight-red">84.8%</td>
@@ -280,16 +283,18 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num highlight-red">81.1%</td>
             <td class="num highlight-red">80.4%</td>
           </tr>
-          <tr>
+          <tr style="background:#f0f4ff">
             <td>% Churn 90d</td>
-            <td class="num highlight-red">72.4%</td>
-            <td class="num highlight-red">79.2%</td>
-            <td class="num highlight-red">80.9%</td>
+            <td class="num highlight-red">73.4%</td>
+            <td class="num highlight-red">79.6%</td>
+            <td class="num highlight-red">81.2%</td>
             <td class="num" style="color:#aaa">—*</td>
             <td class="num" style="color:#aaa">—*</td>
           </tr>
-          <tr style="border-top:2px solid #e0e0e0">
-            <td rowspan="3"><strong>Super Full (CPG DRY)</strong><br><span style="font-size:10px;color:#888">DM_ORDERS_DATA_CROSS_SUPER</span></td>
+
+          <!-- CPG DRY -->
+          <tr style="border-top:2px solid #d0d0d0">
+            <td rowspan="3"><strong>Super Full — CPG</strong><br><span style="font-size:10px;color:#888">DRY · supermercado</span></td>
             <td>Buyers activos</td>
             <td class="num">286.118</td>
             <td class="num">302.622</td>
@@ -299,22 +304,78 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
           </tr>
           <tr>
             <td>% Churn 30d</td>
-            <td class="num">67.8%</td>
-            <td class="num">70.0%</td>
-            <td class="num">71.3%</td>
-            <td class="num">71.1%</td>
-            <td class="num">67.5%</td>
+            <td class="num" style="color:#27ae60"><strong>67.8%</strong></td>
+            <td class="num" style="color:#27ae60"><strong>70.0%</strong></td>
+            <td class="num" style="color:#27ae60"><strong>71.3%</strong></td>
+            <td class="num" style="color:#27ae60"><strong>71.1%</strong></td>
+            <td class="num" style="color:#27ae60"><strong>67.5%</strong></td>
           </tr>
           <tr>
             <td>% Churn 90d</td>
-            <td class="num">54.6%</td>
-            <td class="num">57.4%</td>
-            <td class="num">58.3%</td>
-            <td class="num" style="color:#aaa">—*</td>
+            <td class="num" style="color:#27ae60"><strong>50.7%</strong></td>
+            <td class="num" style="color:#27ae60"><strong>52.9%</strong></td>
+            <td class="num" style="color:#27ae60"><strong>54.2%</strong></td>
+            <td class="num" style="color:#27ae60"><strong>55.7%</strong></td>
             <td class="num" style="color:#aaa">—*</td>
           </tr>
-          <tr style="border-top:2px solid #e0e0e0;background:#f8f8f8">
-            <td colspan="2"><strong>Brecha churn 30d (Instore − DRY)</strong></td>
+
+          <!-- BEAUTY DRY -->
+          <tr style="border-top:2px solid #d0d0d0">
+            <td rowspan="3"><strong>Super Full — Beauty</strong><br><span style="font-size:10px;color:#888">DRY · belleza y cuidado personal</span></td>
+            <td>Buyers activos</td>
+            <td class="num">85.224</td>
+            <td class="num">114.953</td>
+            <td class="num">97.333</td>
+            <td class="num">104.953</td>
+            <td class="num">90.289</td>
+          </tr>
+          <tr>
+            <td>% Churn 30d</td>
+            <td class="num highlight-red">84.5%</td>
+            <td class="num highlight-red">88.2%</td>
+            <td class="num highlight-red">86.6%</td>
+            <td class="num highlight-red">88.4%</td>
+            <td class="num highlight-red">87.0%</td>
+          </tr>
+          <tr>
+            <td>% Churn 90d</td>
+            <td class="num highlight-red">71.7%</td>
+            <td class="num highlight-red">76.2%</td>
+            <td class="num highlight-red">74.8%</td>
+            <td class="num highlight-red">79.2%</td>
+            <td class="num" style="color:#aaa">—*</td>
+          </tr>
+
+          <!-- HEALTH DRY -->
+          <tr style="border-top:2px solid #d0d0d0">
+            <td rowspan="3"><strong>Super Full — Health</strong><br><span style="font-size:10px;color:#888">DRY · salud y farmacia</span></td>
+            <td>Buyers activos</td>
+            <td class="num">4.713</td>
+            <td class="num">5.507</td>
+            <td class="num">5.413</td>
+            <td class="num">4.915</td>
+            <td class="num">4.379</td>
+          </tr>
+          <tr>
+            <td>% Churn 30d</td>
+            <td class="num" style="color:#7f0000"><strong>96.8%</strong></td>
+            <td class="num" style="color:#7f0000"><strong>97.2%</strong></td>
+            <td class="num" style="color:#7f0000"><strong>97.4%</strong></td>
+            <td class="num" style="color:#7f0000"><strong>97.3%</strong></td>
+            <td class="num" style="color:#7f0000"><strong>97.1%</strong></td>
+          </tr>
+          <tr>
+            <td>% Churn 90d</td>
+            <td class="num" style="color:#7f0000"><strong>93.4%</strong></td>
+            <td class="num" style="color:#7f0000"><strong>95.1%</strong></td>
+            <td class="num" style="color:#7f0000"><strong>94.8%</strong></td>
+            <td class="num" style="color:#7f0000"><strong>94.8%</strong></td>
+            <td class="num" style="color:#aaa">—*</td>
+          </tr>
+
+          <!-- BRECHA vs CPG -->
+          <tr style="border-top:2px solid #999;background:#f8f8f8">
+            <td colspan="2" style="font-size:11px;color:#555"><em>Brecha Instore vs CPG DRY (Instore − CPG)</em></td>
             <td class="num highlight-red">+14.0pp</td>
             <td class="num highlight-red">+14.8pp</td>
             <td class="num highlight-red">+16.2pp</td>
@@ -322,16 +383,16 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num highlight-red">+12.9pp</td>
           </tr>
           <tr style="background:#f8f8f8">
-            <td colspan="2"><strong>Brecha churn 90d (Instore − DRY)</strong></td>
-            <td class="num highlight-red">+17.8pp</td>
-            <td class="num highlight-red">+21.8pp</td>
-            <td class="num highlight-red">+22.6pp</td>
-            <td class="num" style="color:#aaa">—</td>
-            <td class="num" style="color:#aaa">—</td>
+            <td colspan="2" style="font-size:11px;color:#555"><em>Brecha Instore vs Beauty DRY (Instore − Beauty)</em></td>
+            <td class="num" style="color:#888">−2.7pp</td>
+            <td class="num" style="color:#888">−3.4pp</td>
+            <td class="num" style="color:#888">+0.9pp</td>
+            <td class="num" style="color:#888">−7.3pp</td>
+            <td class="num" style="color:#888">−6.6pp</td>
           </tr>
         </tbody>
       </table>
-      <p class="note">* Churn 90d no disponible para Ene-26 y Feb-26 — la ventana de 90 días post-mes aún no cerró al momento del análisis (abr-26). El churn 90d de instore es consistentemente ~18-23pp mayor que el de Super Full, lo que sugiere que el modelo de entrega agendada retiene menos que el envío tradicional.</p>
+      <p class="note">* Churn 90d no disponible para Feb-26 (ventana de 90d post-mes no cerrada al momento del análisis, abr-26). Para Instore, el churn 90d de Ene-26 tampoco está disponible en este análisis. | Los números de churn 90d de CPG pueden diferir levemente de versiones anteriores por ajuste en metodología (ventana calculada desde última orden del mes, no desde fin de mes calendario).</p>
     </div>
   </div>
 
