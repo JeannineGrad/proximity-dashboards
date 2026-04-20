@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proximity Food — Cobertura por Barrio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a2e; font-size: 13px; }
+header { background: #1a1a2e; color: #fff; padding: 14px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+header h1 { font-size: .95rem; font-weight: 600; }
+header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
+.content { padding: 20px 24px; }
+.tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
+.tab-btn { padding: 7px 18px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; background: #dde1f0; color: #555; transition: all .15s; }
+.tab-btn.active { background: #4361ee; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.section { background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.08); margin-bottom: 20px; overflow: hidden; }
+.section-title { background: #1a1a2e; color: #fff; padding: 10px 18px; font-size: 12px; font-weight: 600; letter-spacing: .4px; display: flex; align-items: center; gap: 12px; }
+.section-body { padding: 0; }
+.note { font-size: 10.5px; color: #888; padding: 10px 18px 14px; font-style: italic; line-height: 1.5; }
+
+/* Search & filters */
+.toolbar { display: flex; gap: 10px; padding: 14px 18px; align-items: center; flex-wrap: wrap; border-bottom: 1px solid #eef0f5; }
+.toolbar input { padding: 6px 12px; border: 1px solid #d0d4e8; border-radius: 6px; font-size: 12px; width: 200px; outline: none; }
+.toolbar input:focus { border-color: #4361ee; }
+.sort-info { font-size: 11px; color: #888; margin-left: auto; }
+
+/* Main table */
+.tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.tbl th { background: #1a1a2e; color: #fff; padding: 8px 12px; text-align: center; font-size: 10.5px; font-weight: 600; white-space: nowrap; cursor: pointer; user-select: none; }
+.tbl th:first-child { text-align: left; }
+.tbl th:hover { background: #2d3a7a; }
+.tbl th .sort-arrow { opacity: .4; font-size: 9px; margin-left: 3px; }
+.tbl th.sorted .sort-arrow { opacity: 1; }
+.tbl td { padding: 7px 12px; border-bottom: 1px solid #f0f2f8; text-align: center; white-space: nowrap; }
+.tbl td:first-child { text-align: left; font-weight: 600; }
+.tbl tr:hover td { background: #f5f7ff; }
+.tbl tr:nth-child(even) td { background: #fafbfc; }
+.tbl tr:nth-child(even):hover td { background: #f5f7ff; }
+
+/* Bar cells */
+.bar-cell { display: flex; align-items: center; gap: 6px; justify-content: flex-start; }
+.bar-bg { flex: 1; height: 6px; background: #e8eaf0; border-radius: 3px; min-width: 60px; }
+.bar-fill { height: 6px; border-radius: 3px; }
+.bar-val { font-size: 11px; font-weight: 700; min-width: 34px; text-align: right; }
+.bar-meli { background: #4361ee; }
+.bar-peya { background: #e74c3c; }
+
+/* Color coding for onboarding */
+.onb-high { color: #27ae60; font-weight: 700; }
+.onb-mid  { color: #e67e22; font-weight: 700; }
+.onb-low  { color: #e94560; font-weight: 700; }
+
+/* Benchmark row */
+.bench-row td { background: #fff8e1 !important; font-style: italic; color: #888; font-size: 11px; }
+
+/* SI section header */
+.group-header td { background: #e8eaf6 !important; font-weight: 700; font-size: 11px; color: #4361ee; letter-spacing: .3px; padding: 5px 12px !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Proximity Food — Cobertura de sellers por barrio</h1>
+  <div class="sub">CABA (48 barrios) + Partido San Isidro · Datos: ene-mar 2026 · Abril 2026</div>
+</header>
+<div class="content">
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('caba',event)">CABA — 48 barrios</button>
+    <button class="tab-btn" onclick="switchTab('si',event)">Partido San Isidro</button>
+  </div>
+
+  <!-- TAB CABA -->
+  <div class="tab-panel active" id="tab-caba">
+    <div class="section">
+      <div class="section-title">
+        Barrios CABA — oferta, penetracion y onboarding
+        <span style="font-size:10px;opacity:.6;font-weight:400">Click en columna para ordenar · Benchmark PedidosYa</span>
+      </div>
+      <div class="toolbar">
+        <input type="text" id="searchCaba" placeholder="Buscar barrio..." oninput="filterTable('caba')">
+        <span class="sort-info" id="sortInfoCaba">Ordenado por: % Onboarding ↓</span>
+      </div>
+      <div class="section-body">
+        <table class="tbl" id="tblCaba">
+          <thead>
+            <tr>
+              <th onclick="sortTable('caba',0)" data-col="0">Barrio <span class="sort-arrow">↕</span></th>
+              <th onclick="sortTable('caba',1)" data-col="1">Restaurantes<br>relevados <span class="sort-arrow">↕</span></th>
+              <th onclick="sortTable('caba',2)" data-col="2">% MeLi<br>activo <span class="sort-arrow">↕</span></th>
+              <th onclick="sortTable('caba',3)" data-col="3">% PeYa<br>(benchmark) <span class="sort-arrow">↕</span></th>
+              <th onclick="sortTable('caba',4)" data-col="4">Brecha<br>MeLi vs PeYa <span class="sort-arrow">↕</span></th>
+              <th onclick="sortTable('caba',5)" data-col="5">Buyers<br>activos Q1-26 <span class="sort-arrow">↕</span></th>
+              <th onclick="sortTable('caba',6)" data-col="6">Buyers /<br>1.000 hab <span class="sort-arrow">↕</span></th>
+              <th onclick="sortTable('caba',7)" data-col="7" class="sorted">% Onboarding<br>(sep-ene) <span class="sort-arrow">↓</span></th>
+            </tr>
+          </thead>
+          <tbody id="tbodyCaba"></tbody>
+        </table>
+      </div>
+      <p class="note">Fuentes: BT_PM_STORES_MASTER (oferta) · BT_PROXIMITY_SHIPMENTS_DETAILED (buyers y onboarding) · Poblacion: Censo INDEC 2022. Onboarding = % de nuevos usuarios de cohortes sep-25 a ene-26 que alcanzan 5+ ordenes en 90 dias. Brecha = % MeLi activo menos % PeYa — negativo significa que PeYa supera a MeLi en esa zona.</p>
+    </div>
+  </div>
+
+  <!-- TAB SAN ISIDRO -->
+  <div class="tab-panel" id="tab-si">
+    <div class="section">
+      <div class="section-title">Partido San Isidro — sub-barrios</div>
+      <div class="section-body">
+        <table class="tbl" id="tblSI">
+          <thead>
+            <tr>
+              <th>Barrio</th>
+              <th>Restaurantes<br>relevados</th>
+              <th>% MeLi<br>activo</th>
+              <th>% PeYa<br>(benchmark)</th>
+              <th>Brecha<br>MeLi vs PeYa</th>
+              <th>Buyers<br>activos Q1-26</th>
+              <th>% Onboarding<br>(sep-ene)</th>
+            </tr>
+          </thead>
+          <tbody id="tbodySI"></tbody>
+        </table>
+      </div>
+      <p class="note">San Isidro no tiene codigo de estado propio en BQ — se filtra por SHP_BUYER_CITY_NAME. Boulogne no aparece en BT_PM_STORES_MASTER con volumen suficiente. Onboarding = cohortes sep-25 a ene-26, 5+ ordenes en 90 dias.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── POBLACION CABA por barrio (Censo INDEC 2022, en miles aprox) ──
+const POB_CABA = {
+  'PALERMO': 233000, 'BELGRANO': 162000, 'CABALLITO': 185000, 'RECOLETA': 185000,
+  'SAN NICOLAS': 68000, 'BALVANERA': 168000, 'VILLA CRESPO': 103000, 'ALMAGRO': 141000,
+  'VILLA URQUIZA': 149000, 'FLORES': 191000, 'VILLA DEVOTO': 114000, 'MONSERRAT': 68000,
+  'COLEGIALES': 69000, 'RETIRO': 50000, 'NUÑEZ': 68000, 'VILLA DEL PARQUE': 84000,
+  'SAAVEDRA': 84000, 'LINIERS': 76000, 'MATADEROS': 108000, 'BOEDO': 77000,
+  'BARRACAS': 79000, 'SAN TELMO': 42000, 'CHACARITA': 55000, 'VILLA PUEYRREDON': 73000,
+  'SAN CRISTOBAL': 68000, 'PARQUE PATRICIOS': 55000, 'VILLA LURO': 55000,
+  'MONTE CASTRO': 57000, 'PARQUE CHACABUCO': 81000, 'VILLA GENERAL MITRE': 54000,
+  'VELEZ SARSFIELD': 52000, 'VILLA LUGANO': 85000, 'CONSTITUCION': 60000,
+  'FLORESTA': 55000, 'VILLA ORTUZAR': 45000, 'PARQUE AVELLANEDA': 64000,
+  'VILLA SANTA RITA': 51000, 'LA BOCA': 50000, 'COGHLAN': 34000,
+  'VILLA PUEYRREDON': 73000, 'NUEVA POMPEYA': 62000, 'PUERTO MADERO': 15000,
+  'LA PATERNAL': 34000, 'PARQUE CHAS': 28000, 'VERSALLES': 22000,
+  'VILLA REAL': 24000, 'VILLA SOLDATI': 55000, 'VILLA RIACHUELO': 20000, 'AGRONOMIA': 23000
+};
+
+// ── DATA CABA ──
+const dataCaba = [
+  {b:'PALERMO',      rel:2068, meli:22.8, peya:53.2, buyers:56745, onb:19.1},
+  {b:'BELGRANO',     rel:1067, meli:25.4, peya:54.5, buyers:28355, onb:19.3},
+  {b:'CABALLITO',    rel:973,  meli:25.9, peya:52.9, buyers:38050, onb:18.5},
+  {b:'RECOLETA',     rel:949,  meli:26.9, peya:54.0, buyers:39950, onb:18.7},
+  {b:'SAN NICOLAS',  rel:745,  meli:25.4, peya:54.5, buyers:18215, onb:20.9},
+  {b:'BALVANERA',    rel:685,  meli:31.4, peya:54.6, buyers:35019, onb:19.0},
+  {b:'VILLA CRESPO', rel:618,  meli:31.6, peya:56.6, buyers:21077, onb:20.5},
+  {b:'ALMAGRO',      rel:588,  meli:31.5, peya:54.4, buyers:30726, onb:19.6},
+  {b:'VILLA URQUIZA',rel:554,  meli:31.9, peya:58.5, buyers:23064, onb:19.1},
+  {b:'FLORES',       rel:518,  meli:33.8, peya:56.2, buyers:26724, onb:18.9},
+  {b:'VILLA DEVOTO', rel:427,  meli:28.6, peya:60.4, buyers:13375, onb:19.2},
+  {b:'MONSERRAT',    rel:338,  meli:29.9, peya:56.2, buyers:14989, onb:20.2},
+  {b:'COLEGIALES',   rel:319,  meli:24.8, peya:54.2, buyers:11337, onb:20.9},
+  {b:'RETIRO',       rel:284,  meli:16.5, peya:52.1, buyers:11453, onb:22.1},
+  {b:'NUÑEZ',        rel:283,  meli:26.5, peya:57.2, buyers:13227, onb:19.9},
+  {b:'VILLA DEL PARQUE',rel:282,meli:31.2,peya:53.2, buyers:11504, onb:18.9},
+  {b:'SAAVEDRA',     rel:269,  meli:27.5, peya:55.4, buyers:11975, onb:21.0},
+  {b:'LINIERS',      rel:252,  meli:29.4, peya:60.7, buyers:8328,  onb:16.2},
+  {b:'MATADEROS',    rel:205,  meli:27.3, peya:59.5, buyers:10902, onb:15.5},
+  {b:'BOEDO',        rel:193,  meli:33.2, peya:60.1, buyers:9988,  onb:18.7},
+  {b:'BARRACAS',     rel:187,  meli:24.1, peya:59.9, buyers:11566, onb:17.9},
+  {b:'SAN TELMO',    rel:186,  meli:28.0, peya:61.3, buyers:5721,  onb:19.8},
+  {b:'CHACARITA',    rel:175,  meli:26.9, peya:49.7, buyers:8074,  onb:23.8},
+  {b:'VILLA PUEYRREDON',rel:158,meli:26.6,peya:57.6, buyers:8692,  onb:19.0},
+  {b:'SAN CRISTOBAL',rel:156,  meli:28.8, peya:61.5, buyers:11392, onb:20.2},
+  {b:'PARQUE PATRICIOS',rel:147,meli:33.3,peya:67.3, buyers:8901,  onb:20.1},
+  {b:'VILLA LURO',   rel:145,  meli:31.0, peya:56.6, buyers:6675,  onb:19.3},
+  {b:'MONTE CASTRO', rel:144,  meli:37.5, peya:61.1, buyers:7111,  onb:19.5},
+  {b:'PARQUE CHACABUCO',rel:138,meli:21.7,peya:60.1, buyers:11370, onb:18.9},
+  {b:'VILLA GENERAL MITRE',rel:131,meli:26.7,peya:56.5,buyers:7589,onb:21.0},
+  {b:'VELEZ SARSFIELD',rel:130,meli:31.5, peya:54.6, buyers:6796,  onb:19.8},
+  {b:'VILLA LUGANO', rel:129,  meli:27.9, peya:76.0, buyers:8244,  onb:15.0},
+  {b:'CONSTITUCION', rel:126,  meli:23.8, peya:61.9, buyers:10043, onb:19.0},
+  {b:'FLORESTA',     rel:124,  meli:33.1, peya:55.6, buyers:8188,  onb:19.2},
+  {b:'VILLA ORTUZAR',rel:119,  meli:21.8, peya:53.8, buyers:5774,  onb:22.8},
+  {b:'PARQUE AVELLANEDA',rel:101,meli:28.7,peya:46.5,buyers:7569,  onb:17.0},
+  {b:'VILLA SANTA RITA',rel:100,meli:33.0,peya:58.0, buyers:7530,  onb:20.2},
+  {b:'LA BOCA',      rel:95,   meli:12.6, peya:42.1, buyers:7512,  onb:15.5},
+  {b:'COGHLAN',      rel:91,   meli:29.7, peya:60.4, buyers:4772,  onb:22.1},
+  {b:'NUEVA POMPEYA',rel:85,   meli:30.6, peya:55.3, buyers:7079,  onb:17.6},
+  {b:'PUERTO MADERO',rel:84,   meli:14.3, peya:71.4, buyers:3120,  onb:22.0},
+  {b:'LA PATERNAL',  rel:65,   meli:27.7, peya:44.6, buyers:4614,  onb:21.7},
+  {b:'PARQUE CHAS',  rel:48,   meli:31.3, peya:47.9, buyers:4364,  onb:23.0},
+  {b:'VERSALLES',    rel:37,   meli:21.6, peya:64.9, buyers:2600,  onb:20.2},
+  {b:'AGRONOMIA',    rel:52,   meli:36.5, peya:51.9, buyers:3024,  onb:21.5},
+  {b:'VILLA SOLDATI',rel:7,    meli:28.6, peya:85.7, buyers:3113,  onb:19.0},
+  {b:'VILLA REAL',   rel:55,   meli:21.8, peya:52.7, buyers:2554,  onb:19.0},
+  {b:'VILLA RIACHUELO',rel:51, meli:15.7, peya:62.7, buyers:1113,  onb:11.2},
+];
+
+// ── DATA SAN ISIDRO ──
+const dataSI = [
+  {b:'OLIVOS',       rel:null, meli:null, peya:null, buyers:11636, onb:17.7, si_rel:null},
+  {b:'MARTINEZ',     rel:379,  meli:29.3, peya:68.6, buyers:9217,  onb:15.5},
+  {b:'SAN ISIDRO',   rel:337,  meli:23.1, peya:65.6, buyers:6155,  onb:13.4},
+  {b:'VILLA ADELINA',rel:108,  meli:38.9, peya:62.0, buyers:5462,  onb:14.4},
+  {b:'BECCAR',       rel:140,  meli:20.0, peya:72.9, buyers:4759,  onb:11.0},
+  {b:'LA LUCILA',    rel:null, meli:null, peya:null, buyers:1619,  onb:17.7},
+  {b:'ACASSUSO',     rel:78,   meli:15.4, peya:78.2, buyers:1349,  onb:17.1},
+];
+
+// ── RENDER ──
+function onbClass(v) {
+  if (v === null || v === undefined) return '';
+  if (v >= 21) return 'onb-high';
+  if (v >= 18) return 'onb-mid';
+  return 'onb-low';
+}
+
+function barCell(val, max, color) {
+  const pct = Math.min(100, (val / max) * 100);
+  return `<div class="bar-cell"><div class="bar-bg"><div class="bar-fill ${color}" style="width:${pct}%"></div></div><span class="bar-val" style="color:var(--c,#333)">${val.toFixed(1)}%</span></div>`;
+}
+
+function fmtNum(n) {
+  if (n === null || n === undefined) return '—';
+  return n.toLocaleString('es-AR');
+}
+
+let cabaData = [...dataCaba].sort((a,b) => b.onb - a.onb);
+let cabaSortCol = 7, cabaSortAsc = false;
+
+function renderCaba(data) {
+  const tbody = document.getElementById('tbodyCaba');
+  const maxMeli = 50, maxPeya = 90;
+  tbody.innerHTML = data.map(r => {
+    const pop = POB_CABA[r.b] || null;
+    const bph = pop ? ((r.buyers / pop) * 1000).toFixed(1) : '—';
+    const brecha = (r.meli - r.peya).toFixed(1);
+    const brechaColor = parseFloat(brecha) >= 0 ? '#27ae60' : '#e94560';
+    return `<tr>
+      <td>${r.b.charAt(0)+r.b.slice(1).toLowerCase()}</td>
+      <td>${fmtNum(r.rel)}</td>
+      <td>${barCell(r.meli, maxMeli, 'bar-meli')}</td>
+      <td>${barCell(r.peya, maxPeya, 'bar-peya')}</td>
+      <td style="color:${brechaColor};font-weight:700">${parseFloat(brecha)>=0?'+':''}${brecha}pp</td>
+      <td>${fmtNum(r.buyers)}</td>
+      <td>${bph}</td>
+      <td class="${onbClass(r.onb)}">${r.onb}%</td>
+    </tr>`;
+  }).join('');
+}
+
+function sortTable(zone, col) {
+  if (zone === 'caba') {
+    if (cabaSortCol === col) cabaSortAsc = !cabaSortAsc;
+    else { cabaSortCol = col; cabaSortAsc = false; }
+    const keys = ['b','rel','meli','peya',null,'buyers',null,'onb'];
+    cabaData.sort((a,b) => {
+      let va, vb;
+      if (col === 4) { va = a.meli-a.peya; vb = b.meli-b.peya; }
+      else if (col === 6) { va = (POB_CABA[a.b]||0) > 0 ? a.buyers/POB_CABA[a.b] : 0; vb = (POB_CABA[b.b]||0) > 0 ? b.buyers/POB_CABA[b.b] : 0; }
+      else { const k = keys[col]; va = a[k]; vb = b[k]; }
+      if (typeof va === 'string') return cabaSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+      return cabaSortAsc ? va - vb : vb - va;
+    });
+    const colNames = ['Barrio','Restaurantes','% MeLi','% PeYa','Brecha','Buyers activos','Buyers/hab','% Onboarding'];
+    document.getElementById('sortInfoCaba').textContent = `Ordenado por: ${colNames[col]} ${cabaSortAsc?'↑':'↓'}`;
+    document.querySelectorAll('#tblCaba th').forEach((th,i) => {
+      th.classList.toggle('sorted', i===col);
+      const arr = th.querySelector('.sort-arrow');
+      if (arr) arr.textContent = i===col ? (cabaSortAsc?'↑':'↓') : '↕';
+    });
+    filterTable('caba');
+  }
+}
+
+function filterTable(zone) {
+  if (zone === 'caba') {
+    const q = document.getElementById('searchCaba').value.toLowerCase();
+    const filtered = cabaData.filter(r => r.b.toLowerCase().includes(q));
+    renderCaba(filtered);
+  }
+}
+
+function renderSI() {
+  const tbody = document.getElementById('tbodySI');
+  tbody.innerHTML = dataSI.map(r => {
+    const brecha = r.meli !== null ? (r.meli - r.peya).toFixed(1) : null;
+    const brechaColor = brecha !== null ? (parseFloat(brecha) >= 0 ? '#27ae60' : '#e94560') : '#aaa';
+    return `<tr>
+      <td>${r.b.charAt(0)+r.b.slice(1).toLowerCase()}</td>
+      <td>${r.rel !== null ? fmtNum(r.rel) : '—'}</td>
+      <td>${r.meli !== null ? barCell(r.meli, 50, 'bar-meli') : '—'}</td>
+      <td>${r.peya !== null ? barCell(r.peya, 90, 'bar-peya') : '—'}</td>
+      <td style="color:${brechaColor};font-weight:700">${brecha !== null ? (parseFloat(brecha)>=0?'+':'')+brecha+'pp' : '—'}</td>
+      <td>${fmtNum(r.buyers)}</td>
+      <td class="${onbClass(r.onb)}">${r.onb !== null ? r.onb+'%' : '—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function switchTab(name, e) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+// Init
+renderCaba(cabaData);
+renderSI();
+</script>
+</body>
+</html>
