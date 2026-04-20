@@ -253,12 +253,13 @@ const CABA = [
   {b:'VILLA RIACHUELO',  rel:51,  meli:15.7,peya:62.7,buyers:1113, onb:11.2,ep:16, pt:32,  lhf:11},
 ];
 
+// pob: estimación INDEC 2022 por localidad (aprox., pendiente dato oficial)
 const SI = [
-  {b:'MARTINEZ',     rel:379,meli:29.3,peya:68.6,buyers:9217,onb:15.5,ep:75,pt:260,lhf:55},
-  {b:'SAN ISIDRO',   rel:337,meli:23.1,peya:65.6,buyers:6155,onb:13.4,ep:64,pt:221,lhf:60},
-  {b:'VILLA ADELINA',rel:108,meli:38.9,peya:62.0,buyers:5462,onb:14.4,ep:26,pt:67, lhf:10},
-  {b:'BECCAR',       rel:140,meli:20.0,peya:72.9,buyers:4759,onb:11.0,ep:36,pt:102,lhf:20},
-  {b:'ACASSUSO',     rel:78, meli:15.4,peya:78.2,buyers:1349,onb:17.1,ep:20,pt:61, lhf:24},
+  {b:'MARTINEZ',     rel:379,meli:29.3,peya:68.6,buyers:9217,onb:15.5,ep:75,pt:260,lhf:55,pob:62000},
+  {b:'SAN ISIDRO',   rel:337,meli:23.1,peya:65.6,buyers:6155,onb:13.4,ep:64,pt:221,lhf:60,pob:55000},
+  {b:'VILLA ADELINA',rel:108,meli:38.9,peya:62.0,buyers:5462,onb:14.4,ep:26,pt:67, lhf:10,pob:35000},
+  {b:'BECCAR',       rel:140,meli:20.0,peya:72.9,buyers:4759,onb:11.0,ep:36,pt:102,lhf:20,pob:27000},
+  {b:'ACASSUSO',     rel:78, meli:15.4,peya:78.2,buyers:1349,onb:17.1,ep:20,pt:61, lhf:24,pob:21000},
 ];
 
 // ── HELPERS ──
@@ -330,6 +331,8 @@ function agg(rows) {
     onb:    rows.reduce((s,r)=>s+r.buyers*r.onb,0)/totalBuyers,
     epPct:  totalEp/totalRel*100,
     lhfPct: totalLhf/totalRel*100,
+    pob:    rows.reduce((s,r)=>s+(r.pob||0),0),
+    bph:    (()=>{ const p=rows.reduce((s,r)=>s+(r.pob||0),0); return p>0?totalBuyers/p*1000:null; })(),
   };
 }
 
@@ -432,8 +435,9 @@ function buildCard(z, caba, isTotal) {
         </div>
         <div class="metric-cell">
           <div class="mc-label">Buyers / 1.000 hab.</div>
-          <div class="mc-value sm">—</div>
-          <span class="mc-delta delta-info">sin pob. INDEC SI</span>
+          ${z.bph != null
+            ? `<div class="mc-value sm">${z.bph.toFixed(1)}</div>${delta(z.bph, caba.bph, true, '', 1)}`
+            : `<div class="mc-value sm" style="color:#bbb">—</div><span class="mc-delta delta-info">sin pob. INDEC SI</span>`}
         </div>
       </div>`
     : `<div class="metrics-grid">
@@ -445,7 +449,13 @@ function buildCard(z, caba, isTotal) {
         <div class="metric-cell">
           <div class="mc-label">Buyers activos Q1-26</div>
           <div class="mc-value">${fmt(z.buyers)}</div>
-          <span class="mc-delta delta-info">sin pob. INDEC SI</span>
+          ${z.pob ? `<span class="mc-delta delta-info">pob. est. ${fmt(z.pob)}</span>` : ''}
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Buyers / 1.000 hab.</div>
+          ${z.pob
+            ? `<div class="mc-value">${(z.buyers/z.pob*1000).toFixed(1)}</div>${delta(z.buyers/z.pob*1000, caba.bph, true, '', 1)}`
+            : `<div class="mc-value" style="color:#bbb">—</div><span class="mc-delta delta-info">sin pob.</span>`}
         </div>
       </div>`;
 
@@ -514,7 +524,8 @@ function renderCards() {
       mAdj: meliAdjPct(r), pAdj: peyaAdjPct(r), bAdj: adjBrecha(r),
       act: meliActivos(r), meli: r.meli, peya: r.peya,
       epPct: r.ep/r.rel*100, lhfPct: r.lhf/r.rel*100,
-      onb: r.onb, buyers: r.buyers
+      onb: r.onb, buyers: r.buyers, pob: r.pob||null,
+      bph: r.pob ? r.buyers/r.pob*1000 : null,
     };
     html += buildCard(z, caba, false);
   });
