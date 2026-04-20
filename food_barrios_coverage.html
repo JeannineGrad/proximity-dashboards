@@ -3,181 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proximity Food — Cobertura por Barrio</title>
+<title>Proximity Food — San Isidro Oferta</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a2e; font-size: 13px; }
-header { background: #1a1a2e; color: #fff; padding: 14px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+
+header { background: #1a1a2e; color: #fff; padding: 13px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
 header h1 { font-size: .95rem; font-weight: 600; }
 header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
-.content { padding: 20px 24px; }
-.tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
-.tab-btn { padding: 7px 18px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; background: #dde1f0; color: #555; transition: all .15s; }
-.tab-btn.active { background: #4361ee; color: #fff; }
+
+.tab-bar { background: #23233e; padding: 0 20px; display: flex; gap: 4px; border-bottom: 2px solid #1a1a2e; }
+.tab-btn { background: none; border: none; color: rgba(255,255,255,.5); padding: 10px 18px; font-size: .8rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+.tab-btn.active { color: #fff; border-bottom-color: #e94560; }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
+
+/* ── CARDS ── */
+.cards-page { padding: 20px 24px; }
+
+/* Reference bar */
+.ref-bar {
+  background: #fff; border-radius: 10px; padding: 12px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-bottom: 20px;
+  display: flex; gap: 32px; align-items: center; flex-wrap: wrap;
+}
+.ref-bar .ref-title { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #888; margin-right: 8px; }
+.ref-metric { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
+.ref-metric .rm-val { font-size: 17px; font-weight: 700; color: #1a1a2e; }
+.ref-metric .rm-lbl { font-size: 10px; color: #aaa; margin-top: 2px; text-align: center; }
+
+/* Cards grid */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.card-total { grid-column: 1 / -1; }
+
+.card {
+  background: #fff; border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.09);
+  overflow: hidden;
+}
+.card-header {
+  background: #1a1a2e; color: #fff;
+  padding: 12px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.card-header .ch-name { font-size: 14px; font-weight: 700; }
+.card-header .ch-sub  { font-size: 10.5px; opacity: .55; margin-top: 2px; }
+.card-header .ch-badge {
+  background: rgba(255,255,255,.12); border-radius: 6px;
+  padding: 4px 10px; font-size: 10.5px; font-weight: 600;
+  white-space: nowrap;
+}
+.card-total .card-header { background: #2c2c54; }
+
+.card-body { padding: 0; }
+
+.section-label {
+  font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  padding: 8px 16px 4px;
+  color: #fff; margin: 0;
+}
+.sl-oferta  { background: #4a4a6a; }
+.sl-demanda { background: #6a6a8a; }
+
+.metrics-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 8px 12px 12px;
+}
+.card-total .metrics-grid { grid-template-columns: repeat(3, 1fr); }
+
+.metric-cell {
+  padding: 8px; border-radius: 8px;
+}
+.metric-cell .mc-label {
+  font-size: 10px; color: #999; margin-bottom: 3px; line-height: 1.3;
+}
+.metric-cell .mc-value {
+  font-size: 18px; font-weight: 700; color: #1a1a2e; line-height: 1;
+}
+.metric-cell .mc-value.sm { font-size: 15px; }
+.metric-cell .mc-delta {
+  font-size: 10.5px; font-weight: 700; margin-top: 4px; display: inline-block;
+  padding: 1px 6px; border-radius: 10px;
+}
+.delta-pos  { background: #d4efdf; color: #1a6640; }
+.delta-neg  { background: #fde8e8; color: #8b0000; }
+.delta-neu  { background: #f0f0f0; color: #666; }
+.delta-info { background: #e8eaf6; color: #3949ab; }
+
+.divider { height: 1px; background: #f0f2f8; margin: 0 12px; }
+
+/* ── CABA TABLE (second tab) ── */
+.content { padding: 20px 24px; overflow-x: auto; }
 .section { background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.08); margin-bottom: 20px; overflow: hidden; }
 .section-title { background: #1a1a2e; color: #fff; padding: 10px 18px; font-size: 12px; font-weight: 600; letter-spacing: .4px; }
 .note { font-size: 10.5px; color: #888; padding: 10px 18px 14px; font-style: italic; line-height: 1.5; }
 .toolbar { display: flex; gap: 10px; padding: 12px 18px; align-items: center; flex-wrap: wrap; border-bottom: 1px solid #eef0f5; }
 .toolbar input { padding: 6px 12px; border: 1px solid #d0d4e8; border-radius: 6px; font-size: 12px; width: 200px; outline: none; }
-.toolbar input:focus { border-color: #4361ee; }
-
-/* Table */
 .tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
-.tbl th { background: #1a1a2e; color: #fff; padding: 8px 12px; text-align: center; font-size: 10.5px; font-weight: 600; white-space: nowrap; cursor: pointer; user-select: none; }
+.tbl th { background: #1a1a2e; color: #fff; padding: 8px 12px; text-align: center; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
 .tbl th:first-child { text-align: left; }
-.tbl th:hover { background: #2d3a7a; }
 .tbl td { padding: 7px 12px; border-bottom: 1px solid #f0f2f8; text-align: center; white-space: nowrap; }
 .tbl td:first-child { text-align: left; font-weight: 600; }
 .tbl tr:hover td { background: #f5f7ff; }
 .tbl tr.detail-row:nth-child(even) td { background: #fafbfc; }
-.tbl tr.detail-row:hover td { background: #f5f7ff; }
-
-/* Group header rows */
-.group-hdr td { cursor: pointer; user-select: none; }
-.group-hdr td:first-child { font-size: 12px; font-weight: 700; letter-spacing: .2px; }
+.group-hdr td { cursor: pointer; }
+.group-hdr td:first-child { font-size: 12px; font-weight: 700; }
 .group-hdr .toggle-icon { margin-right: 8px; display: inline-block; transition: transform .2s; }
 .group-hdr.collapsed .toggle-icon { transform: rotate(-90deg); }
-.group-low td { background: #e8f8f0 !important; color: #1a6640; }
-.group-low td:first-child { border-left: 4px solid #27ae60; }
-.group-mid td { background: #fef9e7 !important; color: #7d6000; }
-.group-mid td:first-child { border-left: 4px solid #f1c40f; }
+.group-low td  { background: #e8f8f0 !important; color: #1a6640; }
+.group-low td:first-child  { border-left: 4px solid #27ae60; }
+.group-mid td  { background: #fef9e7 !important; color: #7d6000; }
+.group-mid td:first-child  { border-left: 4px solid #f1c40f; }
 .group-high td { background: #fdecea !important; color: #8b0000; }
 .group-high td:first-child { border-left: 4px solid #e94560; }
-
-/* CABA reference rows */
-.ref-total td { background: #e8eaf6 !important; font-weight: 700; color: #3949ab; }
-.ref-total td:first-child { border-left: 4px solid #3949ab; }
-.ref-low td { background: #e8f8f0 !important; font-weight: 700; color: #1a6640; }
-.ref-low td:first-child { border-left: 4px solid #27ae60; }
-.ref-mid td { background: #fef9e7 !important; font-weight: 700; color: #7d6000; }
-.ref-mid td:first-child { border-left: 4px solid #f1c40f; }
-.ref-high td { background: #fdecea !important; font-weight: 700; color: #8b0000; }
-.ref-high td:first-child { border-left: 4px solid #e94560; }
-
-/* Bar cells */
 .bar-cell { display: flex; align-items: center; gap: 6px; }
-.bar-bg { flex: 1; height: 6px; background: #e8eaf0; border-radius: 3px; min-width: 50px; }
+.bar-bg   { flex: 1; height: 6px; background: #e8eaf0; border-radius: 3px; min-width: 50px; }
 .bar-fill { height: 6px; border-radius: 3px; }
 .bar-meli { background: #4361ee; }
 .bar-peya { background: #e74c3c; }
-.bar-val { font-size: 11px; font-weight: 700; min-width: 34px; text-align: right; }
-
+.bar-val  { font-size: 11px; font-weight: 700; min-width: 34px; text-align: right; }
 .onb-high { color: #27ae60; font-weight: 700; }
 .onb-mid  { color: #e67e22; font-weight: 700; }
 .onb-low  { color: #e94560; font-weight: 700; }
-
-/* Comparison tab */
-.cmp-si td { background: #fff8ee !important; }
-.cmp-si td:first-child { border-left: 3px solid #e07b30; }
 </style>
 </head>
 <body>
+
 <header>
-  <h1>Proximity Food — Cobertura de sellers por barrio</h1>
-  <div class="sub">CABA (48 barrios) + Partido San Isidro · Datos: ene–mar 2026 · Incl. ajuste por exclusividades PeYa · Abril 2026</div>
+  <h1>Proximity Food — San Isidro: análisis de oferta</h1>
+  <div class="sub">Datos: ene–mar 2026 · Referencia: CABA 48 barrios · Fuente: BT_PM_STORES_MASTER + BT_PROXIMITY_SHIPMENTS_DETAILED</div>
 </header>
-<div class="content">
 
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('caba',this)">CABA — 48 barrios</button>
-    <button class="tab-btn" onclick="switchTab('si',this)">Partido San Isidro</button>
-    <button class="tab-btn" onclick="switchTab('cmp',this)">Comparacion SI vs CABA</button>
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('si',this)">San Isidro</button>
+  <button class="tab-btn" onclick="switchTab('caba',this)">CABA — referencia detallada</button>
+</div>
+
+<!-- ── TAB SAN ISIDRO ── -->
+<div class="tab-panel active" id="tab-si">
+  <div class="cards-page">
+    <div id="ref-bar-container"></div>
+    <div class="cards-grid" id="cards-container"></div>
   </div>
+</div>
 
-  <!-- ── TAB CABA ── -->
-  <div class="tab-panel active" id="tab-caba">
+<!-- ── TAB CABA ── -->
+<div class="tab-panel" id="tab-caba">
+  <div class="content">
     <div class="section">
-      <div class="section-title">Barrios CABA agrupados por brecha MeLi vs PeYa</div>
+      <div class="section-title">CABA — 48 barrios agrupados por brecha MeLi vs PeYa</div>
       <div class="toolbar">
         <input type="text" id="searchCaba" placeholder="Buscar barrio..." oninput="renderCabaGroups()">
         <span style="font-size:11px;color:#888;margin-left:auto">
-          <span style="color:#27ae60;font-weight:700">Verde</span> = brecha &lt; 25pp &nbsp;·&nbsp;
-          <span style="color:#c8a200;font-weight:700">Amarillo</span> = 25–40pp &nbsp;·&nbsp;
-          <span style="color:#e94560;font-weight:700">Rojo</span> = &gt; 40pp
+          <span style="color:#27ae60;font-weight:700">Verde</span> &lt;25pp &nbsp;·&nbsp;
+          <span style="color:#c8a200;font-weight:700">Amarillo</span> 25–40pp &nbsp;·&nbsp;
+          <span style="color:#e94560;font-weight:700">Rojo</span> &gt;40pp
         </span>
       </div>
       <table class="tbl">
-        <thead>
-          <tr>
-            <th style="text-align:left">Barrio</th>
-            <th>Restaurantes</th>
-            <th>% MeLi activo</th>
-            <th>% PeYa (bench)</th>
-            <th>Brecha MeLi vs PeYa</th>
-            <th>Buyers activos Q1-26</th>
-            <th>Buyers / 1.000 hab</th>
-            <th>% Onboarding (sep-ene)</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th style="text-align:left">Barrio</th>
+          <th>Restaurantes</th>
+          <th>% MeLi activo</th>
+          <th>% PeYa</th>
+          <th>Brecha raw</th>
+          <th>Excl. PeYa (#)</th>
+          <th>% MeLi ajust.</th>
+          <th>Brecha ajust.</th>
+          <th>Buyers Q1-26</th>
+          <th>Buyers/1k hab</th>
+          <th>Onboarding</th>
+        </tr></thead>
         <tbody id="tbodyCaba"></tbody>
       </table>
-      <p class="note">Brecha = % MeLi activo menos % PeYa. Baja brecha (&lt;25pp): MeLi relativamente cerca de PeYa. Alta brecha (&gt;40pp): PeYa supera ampliamente a MeLi. Cada grupo es colapsable. Poblacion: Censo INDEC 2022. Onboarding: cohortes sep-25 a ene-26, 5+ ordenes en 90 dias.</p>
+      <p class="note">Ajuste: excluye exclusivos PeYa del denominador. Brecha ajust. = % MeLi ajust. − % PeYa ajust. Onboarding: cohortes sep-25 a ene-26, 5+ ordenes en 90 dias.</p>
     </div>
   </div>
-
-  <!-- ── TAB SAN ISIDRO ── -->
-  <div class="tab-panel" id="tab-si">
-    <div class="section">
-      <div class="section-title">Partido San Isidro — sub-barrios · foco oferta</div>
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th style="text-align:left">Barrio</th>
-            <th>Restaurantes totales</th>
-            <th>% MeLi activo</th>
-            <th>% PeYa (raw)</th>
-            <th>Brecha raw</th>
-            <th>Exclusivos PeYa (#)</th>
-            <th>% MeLi ajust.*</th>
-            <th>% PeYa ajust.*</th>
-            <th>Brecha ajust.</th>
-            <th>Buyers activos Q1-26</th>
-            <th>% Onboarding (sep-ene)</th>
-          </tr>
-        </thead>
-        <tbody id="tbodySI"></tbody>
-      </table>
-      <p class="note">* Ajuste: excluye del denominador los restaurantes con exclusividad PeYa (no capturable). % ajust. = MeLi activos / (total − excl. PeYa). Brecha ajust. = % MeLi ajust. − % PeYa ajust. Fuente: BT_PM_STORES_MASTER, campo OVERLAP_CATEGORY.</p>
-    </div>
-  </div>
-
-  <!-- ── TAB COMPARACION ── -->
-  <div class="tab-panel" id="tab-cmp">
-    <div class="section">
-      <div class="section-title">San Isidro vs barrios CABA — comparacion directa · con ajuste por exclusividades</div>
-      <div class="toolbar">
-        <input type="text" id="searchCmp" placeholder="Buscar barrio..." oninput="renderCmp()">
-        <span style="font-size:11px;color:#888;margin-left:auto">
-          <span style="background:#e07b30;color:#fff;padding:2px 8px;border-radius:4px;font-size:10px">Naranja</span> = barrios San Isidro &nbsp;·&nbsp;
-          <span style="background:#3949ab;color:#fff;padding:2px 8px;border-radius:4px;font-size:10px">Azul</span> = referencias CABA &nbsp;·&nbsp; Ordenable por columna
-        </span>
-      </div>
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th style="text-align:left" onclick="sortCmp(0)">Barrio / zona ↕</th>
-            <th onclick="sortCmp(1)">Rest. totales ↕</th>
-            <th onclick="sortCmp(2)">% MeLi activo ↕</th>
-            <th onclick="sortCmp(3)">% PeYa (raw) ↕</th>
-            <th onclick="sortCmp(4)">Brecha raw ↕</th>
-            <th onclick="sortCmp(5)">Excl. PeYa (#) ↕</th>
-            <th onclick="sortCmp(6)">% MeLi ajust. ↕</th>
-            <th onclick="sortCmp(7)">Brecha ajust. ↕</th>
-            <th onclick="sortCmp(8)">Buyers Q1-26 ↕</th>
-            <th onclick="sortCmp(9)">Onboarding ↕</th>
-          </tr>
-        </thead>
-        <tbody id="tbodyCmp"></tbody>
-      </table>
-      <p class="note">Referencias CABA (filas azules): Total CABA + subtotales por grupo de brecha raw. Barrios SI en naranja. Ajuste: excluye exclusivos PeYa del denominador para reflejar mercado capturable.</p>
-    </div>
-  </div>
-
 </div>
+
 <script>
-// ── POBLACION CABA (Censo INDEC 2022) ──
+// ── DATA ──
 const POB = {
   'PALERMO':230000,'BELGRANO':162000,'CABALLITO':185000,'RECOLETA':185000,
   'SAN NICOLAS':68000,'BALVANERA':168000,'VILLA CRESPO':103000,'ALMAGRO':141000,
@@ -195,316 +201,394 @@ const POB = {
   'VILLA SOLDATI':55000,'VILLA REAL':24000,'VILLA RIACHUELO':20000
 };
 
-// ── DATA CABA ── (ep=exclusivos PeYa, pt=total PeYa desde overlap BQ)
+// ep=exclusivos PeYa, pt=total PeYa, lhf=low-hanging fruit (PeYa+Rappi sin MeLi)
 const CABA = [
-  {b:'PALERMO',         rel:2068,meli:22.8,peya:53.2,buyers:56745,onb:19.1,ep:249,pt:1101},
-  {b:'BELGRANO',        rel:1067,meli:25.4,peya:54.5,buyers:28355,onb:19.3,ep:137,pt:582},
-  {b:'CABALLITO',       rel:973, meli:25.9,peya:52.9,buyers:38050,onb:18.5,ep:127,pt:515},
-  {b:'RECOLETA',        rel:949, meli:26.9,peya:54.0,buyers:39950,onb:18.7,ep:117,pt:512},
-  {b:'SAN NICOLAS',     rel:745, meli:25.4,peya:54.5,buyers:18215,onb:20.9,ep:94, pt:406},
-  {b:'BALVANERA',       rel:685, meli:31.4,peya:54.6,buyers:35019,onb:19.0,ep:85, pt:374},
-  {b:'VILLA CRESPO',    rel:618, meli:31.6,peya:56.6,buyers:21077,onb:20.5,ep:73, pt:350},
-  {b:'ALMAGRO',         rel:588, meli:31.5,peya:54.4,buyers:30726,onb:19.6,ep:73, pt:320},
-  {b:'VILLA URQUIZA',   rel:554, meli:31.9,peya:58.5,buyers:23064,onb:19.1,ep:75, pt:324},
-  {b:'FLORES',          rel:518, meli:33.8,peya:56.2,buyers:26724,onb:18.9,ep:72, pt:291},
-  {b:'VILLA DEVOTO',    rel:427, meli:28.6,peya:60.4,buyers:13375,onb:19.2,ep:62, pt:258},
-  {b:'MONSERRAT',       rel:338, meli:29.9,peya:56.2,buyers:14989,onb:20.2,ep:58, pt:190},
-  {b:'COLEGIALES',      rel:319, meli:24.8,peya:54.2,buyers:11337,onb:20.9,ep:58, pt:173},
-  {b:'RETIRO',          rel:284, meli:16.5,peya:52.1,buyers:11453,onb:22.1,ep:47, pt:148},
-  {b:'NUÑEZ',           rel:283, meli:26.5,peya:57.2,buyers:13227,onb:19.9,ep:28, pt:162},
-  {b:'VILLA DEL PARQUE',rel:282, meli:31.2,peya:53.2,buyers:11504,onb:18.9,ep:28, pt:150},
-  {b:'SAAVEDRA',        rel:269, meli:27.5,peya:55.4,buyers:11975,onb:21.0,ep:42, pt:149},
-  {b:'LINIERS',         rel:252, meli:29.4,peya:60.7,buyers:8328, onb:16.2,ep:39, pt:153},
-  {b:'MATADEROS',       rel:205, meli:27.3,peya:59.5,buyers:10902,onb:15.5,ep:41, pt:122},
-  {b:'BOEDO',           rel:193, meli:33.2,peya:60.1,buyers:9988, onb:18.7,ep:29, pt:116},
-  {b:'BARRACAS',        rel:187, meli:24.1,peya:59.9,buyers:11566,onb:17.9,ep:36, pt:112},
-  {b:'SAN TELMO',       rel:186, meli:28.0,peya:61.3,buyers:5721, onb:19.8,ep:28, pt:114},
-  {b:'CHACARITA',       rel:175, meli:26.9,peya:49.7,buyers:8074, onb:23.8,ep:22, pt:87},
-  {b:'VILLA PUEYRREDON',rel:158, meli:26.6,peya:57.6,buyers:8692, onb:19.0,ep:31, pt:91},
-  {b:'SAN CRISTOBAL',   rel:156, meli:28.8,peya:61.5,buyers:11392,onb:20.2,ep:24, pt:96},
-  {b:'PARQUE PATRICIOS', rel:147,meli:33.3,peya:67.3,buyers:8901, onb:20.1,ep:25, pt:99},
-  {b:'VILLA LURO',      rel:145, meli:31.0,peya:56.6,buyers:6675, onb:19.3,ep:18, pt:82},
-  {b:'MONTE CASTRO',    rel:144, meli:37.5,peya:61.1,buyers:7111, onb:19.5,ep:24, pt:88},
-  {b:'PARQUE CHACABUCO',rel:138, meli:21.7,peya:60.1,buyers:11370,onb:18.9,ep:20, pt:83},
-  {b:'VILLA GENERAL MITRE',rel:131,meli:26.7,peya:56.5,buyers:7589,onb:21.0,ep:18,pt:74},
-  {b:'VELEZ SARSFIELD', rel:130, meli:31.5,peya:54.6,buyers:6796, onb:19.8,ep:14, pt:71},
-  {b:'VILLA LUGANO',    rel:129, meli:27.9,peya:76.0,buyers:8244, onb:15.0,ep:48, pt:98},
-  {b:'CONSTITUCION',    rel:126, meli:23.8,peya:61.9,buyers:10043,onb:19.0,ep:30, pt:78},
-  {b:'FLORESTA',        rel:124, meli:33.1,peya:55.6,buyers:8188, onb:19.2,ep:13, pt:69},
-  {b:'VILLA ORTUZAR',   rel:119, meli:21.8,peya:53.8,buyers:5774, onb:22.8,ep:15, pt:64},
-  {b:'PARQUE AVELLANEDA',rel:101,meli:28.7,peya:46.5,buyers:7569, onb:17.0,ep:9,  pt:47},
-  {b:'VILLA SANTA RITA',rel:100, meli:33.0,peya:58.0,buyers:7530, onb:20.2,ep:13, pt:58},
-  {b:'LA BOCA',         rel:95,  meli:12.6,peya:42.1,buyers:7512, onb:15.5,ep:12, pt:40},
-  {b:'COGHLAN',         rel:91,  meli:29.7,peya:60.4,buyers:4772, onb:22.1,ep:9,  pt:55},
-  {b:'NUEVA POMPEYA',   rel:85,  meli:30.6,peya:55.3,buyers:7079, onb:17.6,ep:18, pt:47},
-  {b:'PUERTO MADERO',   rel:84,  meli:14.3,peya:71.4,buyers:3120, onb:22.0,ep:27, pt:60},
-  {b:'LA PATERNAL',     rel:65,  meli:27.7,peya:44.6,buyers:4614, onb:21.7,ep:7,  pt:29},
-  {b:'PARQUE CHAS',     rel:48,  meli:31.3,peya:47.9,buyers:4364, onb:23.0,ep:4,  pt:23},
-  {b:'VERSALLES',       rel:37,  meli:21.6,peya:64.9,buyers:2600, onb:20.2,ep:3,  pt:24},
-  {b:'AGRONOMIA',       rel:52,  meli:36.5,peya:51.9,buyers:3024, onb:21.5,ep:5,  pt:27},
-  {b:'VILLA SOLDATI',   rel:7,   meli:28.6,peya:85.7,buyers:3113, onb:19.0,ep:4,  pt:6},
-  {b:'VILLA REAL',      rel:55,  meli:21.8,peya:52.7,buyers:2554, onb:19.0,ep:6,  pt:29},
-  {b:'VILLA RIACHUELO', rel:51,  meli:15.7,peya:62.7,buyers:1113, onb:11.2,ep:16, pt:32},
+  {b:'PALERMO',          rel:2068,meli:22.8,peya:53.2,buyers:56745,onb:19.1,ep:249,pt:1101,lhf:235},
+  {b:'BELGRANO',         rel:1067,meli:25.4,peya:54.5,buyers:28355,onb:19.3,ep:137,pt:582, lhf:110},
+  {b:'CABALLITO',        rel:973, meli:25.9,peya:52.9,buyers:38050,onb:18.5,ep:127,pt:515, lhf:88},
+  {b:'RECOLETA',         rel:949, meli:26.9,peya:54.0,buyers:39950,onb:18.7,ep:117,pt:512, lhf:86},
+  {b:'SAN NICOLAS',      rel:745, meli:25.4,peya:54.5,buyers:18215,onb:20.9,ep:94, pt:406, lhf:62},
+  {b:'BALVANERA',        rel:685, meli:31.4,peya:54.6,buyers:35019,onb:19.0,ep:85, pt:374, lhf:55},
+  {b:'VILLA CRESPO',     rel:618, meli:31.6,peya:56.6,buyers:21077,onb:20.5,ep:73, pt:350, lhf:53},
+  {b:'ALMAGRO',          rel:588, meli:31.5,peya:54.4,buyers:30726,onb:19.6,ep:73, pt:320, lhf:40},
+  {b:'VILLA URQUIZA',    rel:554, meli:31.9,peya:58.5,buyers:23064,onb:19.1,ep:75, pt:324, lhf:66},
+  {b:'FLORES',           rel:518, meli:33.8,peya:56.2,buyers:26724,onb:18.9,ep:72, pt:291, lhf:41},
+  {b:'VILLA DEVOTO',     rel:427, meli:28.6,peya:60.4,buyers:13375,onb:19.2,ep:62, pt:258, lhf:51},
+  {b:'MONSERRAT',        rel:338, meli:29.9,peya:56.2,buyers:14989,onb:20.2,ep:58, pt:190, lhf:33},
+  {b:'COLEGIALES',       rel:319, meli:24.8,peya:54.2,buyers:11337,onb:20.9,ep:58, pt:173, lhf:32},
+  {b:'RETIRO',           rel:284, meli:16.5,peya:52.1,buyers:11453,onb:22.1,ep:47, pt:148, lhf:24},
+  {b:'NUÑEZ',            rel:283, meli:26.5,peya:57.2,buyers:13227,onb:19.9,ep:28, pt:162, lhf:33},
+  {b:'VILLA DEL PARQUE', rel:282, meli:31.2,peya:53.2,buyers:11504,onb:18.9,ep:28, pt:150, lhf:23},
+  {b:'SAAVEDRA',         rel:269, meli:27.5,peya:55.4,buyers:11975,onb:21.0,ep:42, pt:149, lhf:24},
+  {b:'LINIERS',          rel:252, meli:29.4,peya:60.7,buyers:8328, onb:16.2,ep:39, pt:153, lhf:28},
+  {b:'MATADEROS',        rel:205, meli:27.3,peya:59.5,buyers:10902,onb:15.5,ep:41, pt:122, lhf:15},
+  {b:'BOEDO',            rel:193, meli:33.2,peya:60.1,buyers:9988, onb:18.7,ep:29, pt:116, lhf:11},
+  {b:'BARRACAS',         rel:187, meli:24.1,peya:59.9,buyers:11566,onb:17.9,ep:36, pt:112, lhf:16},
+  {b:'SAN TELMO',        rel:186, meli:28.0,peya:61.3,buyers:5721, onb:19.8,ep:28, pt:114, lhf:23},
+  {b:'CHACARITA',        rel:175, meli:26.9,peya:49.7,buyers:8074, onb:23.8,ep:22, pt:87,  lhf:14},
+  {b:'VILLA PUEYRREDON', rel:158, meli:26.6,peya:57.6,buyers:8692, onb:19.0,ep:31, pt:91,  lhf:15},
+  {b:'SAN CRISTOBAL',    rel:156, meli:28.8,peya:61.5,buyers:11392,onb:20.2,ep:24, pt:96,  lhf:10},
+  {b:'PARQUE PATRICIOS',  rel:147,meli:33.3,peya:67.3,buyers:8901, onb:20.1,ep:25, pt:99,  lhf:16},
+  {b:'VILLA LURO',       rel:145, meli:31.0,peya:56.6,buyers:6675, onb:19.3,ep:18, pt:82,  lhf:16},
+  {b:'MONTE CASTRO',     rel:144, meli:37.5,peya:61.1,buyers:7111, onb:19.5,ep:24, pt:88,  lhf:9},
+  {b:'PARQUE CHACABUCO', rel:138, meli:21.7,peya:60.1,buyers:11370,onb:18.9,ep:20, pt:83,  lhf:23},
+  {b:'VILLA GENERAL MITRE',rel:131,meli:26.7,peya:56.5,buyers:7589,onb:21.0,ep:18,pt:74,  lhf:10},
+  {b:'VELEZ SARSFIELD',  rel:130, meli:31.5,peya:54.6,buyers:6796, onb:19.8,ep:14, pt:71,  lhf:11},
+  {b:'VILLA LUGANO',     rel:129, meli:27.9,peya:76.0,buyers:8244, onb:15.0,ep:48, pt:98,  lhf:15},
+  {b:'CONSTITUCION',     rel:126, meli:23.8,peya:61.9,buyers:10043,onb:19.0,ep:30, pt:78,  lhf:15},
+  {b:'FLORESTA',         rel:124, meli:33.1,peya:55.6,buyers:8188, onb:19.2,ep:13, pt:69,  lhf:11},
+  {b:'VILLA ORTUZAR',    rel:119, meli:21.8,peya:53.8,buyers:5774, onb:22.8,ep:15, pt:64,  lhf:19},
+  {b:'PARQUE AVELLANEDA',rel:101, meli:28.7,peya:46.5,buyers:7569, onb:17.0,ep:9,  pt:47,  lhf:9},
+  {b:'VILLA SANTA RITA', rel:100, meli:33.0,peya:58.0,buyers:7530, onb:20.2,ep:13, pt:58,  lhf:8},
+  {b:'LA BOCA',          rel:95,  meli:12.6,peya:42.1,buyers:7512, onb:15.5,ep:12, pt:40,  lhf:11},
+  {b:'COGHLAN',          rel:91,  meli:29.7,peya:60.4,buyers:4772, onb:22.1,ep:9,  pt:55,  lhf:14},
+  {b:'NUEVA POMPEYA',    rel:85,  meli:30.6,peya:55.3,buyers:7079, onb:17.6,ep:18, pt:47,  lhf:2},
+  {b:'PUERTO MADERO',    rel:84,  meli:14.3,peya:71.4,buyers:3120, onb:22.0,ep:27, pt:60,  lhf:14},
+  {b:'LA PATERNAL',      rel:65,  meli:27.7,peya:44.6,buyers:4614, onb:21.7,ep:7,  pt:29,  lhf:5},
+  {b:'PARQUE CHAS',      rel:48,  meli:31.3,peya:47.9,buyers:4364, onb:23.0,ep:4,  pt:23,  lhf:3},
+  {b:'VERSALLES',        rel:37,  meli:21.6,peya:64.9,buyers:2600, onb:20.2,ep:3,  pt:24,  lhf:9},
+  {b:'AGRONOMIA',        rel:52,  meli:36.5,peya:51.9,buyers:3024, onb:21.5,ep:5,  pt:27,  lhf:5},
+  {b:'VILLA SOLDATI',    rel:7,   meli:28.6,peya:85.7,buyers:3113, onb:19.0,ep:4,  pt:6,   lhf:0},
+  {b:'VILLA REAL',       rel:55,  meli:21.8,peya:52.7,buyers:2554, onb:19.0,ep:6,  pt:29,  lhf:10},
+  {b:'VILLA RIACHUELO',  rel:51,  meli:15.7,peya:62.7,buyers:1113, onb:11.2,ep:16, pt:32,  lhf:11},
 ];
 
-// ── DATA SAN ISIDRO (sin Olivos ni La Lucila) ──
 const SI = [
-  {b:'MARTINEZ',    rel:379,meli:29.3,peya:68.6,buyers:9217,onb:15.5,ep:75,pt:260},
-  {b:'SAN ISIDRO',  rel:337,meli:23.1,peya:65.6,buyers:6155,onb:13.4,ep:64,pt:221},
-  {b:'VILLA ADELINA',rel:108,meli:38.9,peya:62.0,buyers:5462,onb:14.4,ep:26,pt:67},
-  {b:'BECCAR',      rel:140,meli:20.0,peya:72.9,buyers:4759,onb:11.0,ep:36,pt:102},
-  {b:'ACASSUSO',    rel:78, meli:15.4,peya:78.2,buyers:1349,onb:17.1,ep:20,pt:61},
+  {b:'MARTINEZ',     rel:379,meli:29.3,peya:68.6,buyers:9217,onb:15.5,ep:75,pt:260,lhf:55},
+  {b:'SAN ISIDRO',   rel:337,meli:23.1,peya:65.6,buyers:6155,onb:13.4,ep:64,pt:221,lhf:60},
+  {b:'VILLA ADELINA',rel:108,meli:38.9,peya:62.0,buyers:5462,onb:14.4,ep:26,pt:67, lhf:10},
+  {b:'BECCAR',       rel:140,meli:20.0,peya:72.9,buyers:4759,onb:11.0,ep:36,pt:102,lhf:20},
+  {b:'ACASSUSO',     rel:78, meli:15.4,peya:78.2,buyers:1349,onb:17.1,ep:20,pt:61, lhf:24},
 ];
 
 // ── HELPERS ──
 function cap(s) { return s.charAt(0)+s.slice(1).toLowerCase(); }
-function fmt(n) { return n !== null && n !== undefined ? n.toLocaleString('es-AR') : '—'; }
-function brecha(r) { return r.meli !== null ? +(r.meli - r.peya).toFixed(1) : null; }
-function brechaClass(v) { return v >= -25 ? 'low' : v >= -40 ? 'mid' : 'high'; }
-function onbClass(v) { return v >= 21 ? 'onb-high' : v >= 18 ? 'onb-mid' : 'onb-low'; }
-function bph(r) {
-  const p = POB[r.b];
-  return p ? ((r.buyers / p) * 1000).toFixed(1) : '—';
-}
-function barMeli(v) {
-  return `<div class="bar-cell"><div class="bar-bg"><div class="bar-fill bar-meli" style="width:${Math.min(100,(v/50)*100)}%"></div></div><span class="bar-val" style="color:#4361ee">${v}%</span></div>`;
-}
-function barPeya(v) {
-  return `<div class="bar-cell"><div class="bar-bg"><div class="bar-fill bar-peya" style="width:${Math.min(100,(v/90)*100)}%"></div></div><span class="bar-val" style="color:#e74c3c">${v}%</span></div>`;
-}
-function brechaCell(v) {
-  if (v === null) return '—';
-  const col = v >= -25 ? '#27ae60' : v >= -40 ? '#c8a200' : '#e94560';
-  return `<span style="color:${col};font-weight:700">${v >= 0?'+':''}${v}pp</span>`;
-}
-
-// ── ADJUSTED METRICS ──
-function adjDenom(r)    { return r.rel - r.ep; }
+function fmt(n) { return n!=null ? n.toLocaleString('es-AR') : '—'; }
 function meliActivos(r) { return Math.round(r.rel * r.meli / 100); }
-function meliAdjPct(r)  { const d = adjDenom(r); return d > 0 ? (meliActivos(r) / d * 100) : 0; }
-function peyaAdjPct(r)  { const d = adjDenom(r); return d > 0 ? ((r.pt - r.ep) / d * 100) : 0; }
-function adjBrechaPct(r){ return meliAdjPct(r) - peyaAdjPct(r); }
+function adjDenom(r)    { return r.rel - r.ep; }
+function meliAdjPct(r)  { return meliActivos(r)/adjDenom(r)*100; }
+function peyaAdjPct(r)  { return (r.pt-r.ep)/adjDenom(r)*100; }
+function adjBrecha(r)   { return meliAdjPct(r)-peyaAdjPct(r); }
+function rawBrecha(r)   { return r.meli-r.peya; }
+function brechaClass(v) { return v>=-25?'low':v>=-40?'mid':'high'; }
+function onbClass(v)    { return v>=21?'onb-high':v>=18?'onb-mid':'onb-low'; }
+function bph(r)         { const p=POB[r.b]; return p?(r.buyers/p*1000):null; }
+function barMeli(v)     { return `<div class="bar-cell"><div class="bar-bg"><div class="bar-fill bar-meli" style="width:${Math.min(100,v/50*100)}%"></div></div><span class="bar-val" style="color:#4361ee">${v}%</span></div>`; }
+function barPeya(v)     { return `<div class="bar-cell"><div class="bar-bg"><div class="bar-fill bar-peya" style="width:${Math.min(100,v/90*100)}%"></div></div><span class="bar-val" style="color:#e74c3c">${v}%</span></div>`; }
+function brechaCell(v)  { const col=v>=-25?'#27ae60':v>=-40?'#c8a200':'#e94560'; return `<span style="color:${col};font-weight:700">${v>=0?'+':''}${v.toFixed(1)}pp</span>`; }
 
-function adjBrechaCell(v) {
-  const col = v >= -25 ? '#27ae60' : v >= -40 ? '#c8a200' : '#e94560';
-  const sign = v >= 0 ? '+' : '';
-  return `<span style="color:${col};font-weight:700">${sign}${v.toFixed(1)}pp</span>`;
+// ── CABA REFERENCE ──
+function buildCabaRef() {
+  const totalRel    = CABA.reduce((s,r)=>s+r.rel,0);
+  const totalEp     = CABA.reduce((s,r)=>s+r.ep,0);
+  const totalPt     = CABA.reduce((s,r)=>s+r.pt,0);
+  const totalLhf    = CABA.reduce((s,r)=>s+r.lhf,0);
+  const totalBuyers = CABA.reduce((s,r)=>s+r.buyers,0);
+  const totalAct    = CABA.reduce((s,r)=>s+meliActivos(r),0);
+  const adjD        = totalRel - totalEp;
+  const totalPob    = CABA.reduce((s,r)=>s+(POB[r.b]||0),0);
+  return {
+    rel:    totalRel,
+    ep:     totalEp,
+    pt:     totalPt,
+    lhf:    totalLhf,
+    buyers: totalBuyers,
+    act:    totalAct,
+    meli:   totalAct/totalRel*100,
+    peya:   totalPt/totalRel*100,
+    mAdj:   totalAct/adjD*100,
+    pAdj:   (totalPt-totalEp)/adjD*100,
+    bAdj:   totalAct/adjD*100-(totalPt-totalEp)/adjD*100,
+    onb:    CABA.reduce((s,r)=>s+r.buyers*r.onb,0)/totalBuyers,
+    bph:    totalBuyers/totalPob*1000,
+    epPct:  totalEp/totalRel*100,
+    lhfPct: totalLhf/totalRel*100,
+  };
 }
-function meliAdjCell(v) {
-  const col = v >= 35 ? '#0a4d2a' : v >= 29 ? '#1a6e3a' : v >= 23 ? '#7d5a00' : v >= 17 ? '#e67e22' : '#c0392b';
-  return `<span style="color:${col};font-weight:700">${v.toFixed(1)}%</span>`;
+
+// ── ZONE AGGREGATE ──
+function agg(rows) {
+  const totalRel    = rows.reduce((s,r)=>s+r.rel,0);
+  const totalEp     = rows.reduce((s,r)=>s+r.ep,0);
+  const totalPt     = rows.reduce((s,r)=>s+r.pt,0);
+  const totalLhf    = rows.reduce((s,r)=>s+r.lhf,0);
+  const totalBuyers = rows.reduce((s,r)=>s+r.buyers,0);
+  const totalAct    = rows.reduce((s,r)=>s+meliActivos(r),0);
+  const adjD        = totalRel - totalEp;
+  return {
+    rel:    totalRel,
+    ep:     totalEp,
+    pt:     totalPt,
+    lhf:    totalLhf,
+    buyers: totalBuyers,
+    act:    totalAct,
+    meli:   totalAct/totalRel*100,
+    peya:   totalPt/totalRel*100,
+    mAdj:   totalAct/adjD*100,
+    pAdj:   (totalPt-totalEp)/adjD*100,
+    bAdj:   totalAct/adjD*100-(totalPt-totalEp)/adjD*100,
+    onb:    rows.reduce((s,r)=>s+r.buyers*r.onb,0)/totalBuyers,
+    epPct:  totalEp/totalRel*100,
+    lhfPct: totalLhf/totalRel*100,
+  };
 }
 
-// ── CABA GROUPS ──
-const groupCollapsed = {low:false, mid:false, high:false};
-
-function groupLabel(g) {
-  return g === 'low' ? 'Brecha baja — MeLi dentro de 25pp de PeYa'
-       : g === 'mid' ? 'Brecha media — MeLi entre 25 y 40pp debajo de PeYa'
-       : 'Brecha alta — MeLi mas de 40pp debajo de PeYa';
+// ── DELTA BADGE ──
+function delta(val, ref, higherIsBetter, suffix='pp', decimals=1) {
+  const diff = val - ref;
+  const sign = diff >= 0 ? '+' : '';
+  const better = higherIsBetter ? diff > 0 : diff < 0;
+  const neutral = Math.abs(diff) < 0.3;
+  const cls = neutral ? 'delta-neu' : (better ? 'delta-pos' : 'delta-neg');
+  const label = `${sign}${diff.toFixed(decimals)}${suffix} vs CABA`;
+  return `<span class="mc-delta ${cls}">${label}</span>`;
+}
+function deltaInfo(label) {
+  return `<span class="mc-delta delta-info">${label}</span>`;
 }
 
-function renderCabaGroups() {
-  const q = (document.getElementById('searchCaba').value || '').toLowerCase();
-  const tbody = document.getElementById('tbodyCaba');
-  const groups = {low:[], mid:[], high:[]};
+// ── BUILD CARD ──
+function buildCard(z, caba, isTotal) {
+  const epPct   = (z.ep/z.rel*100).toFixed(1);
+  const lhfPct  = (z.lhf/z.rel*100).toFixed(1);
+  const bAdj    = z.bAdj.toFixed(1);
+  const bAdjSign= z.bAdj>=0?'+':'';
+  const bAdjCol = z.bAdj>=-25?'#1a6640':z.bAdj>=-40?'#c8a200':'#c0392b';
+  const onbDiffCol = z.onb >= caba.onb ? '#1a6640' : '#c0392b';
+  const name = isTotal ? 'San Isidro Total' : cap(z.b);
+  const subname = isTotal ? `${fmt(z.rel)} restaurantes relevados · ${SI.length} sub-barrios` : `${fmt(z.rel)} restaurantes relevados`;
 
-  CABA.forEach(r => {
-    if (q && !r.b.toLowerCase().includes(q)) return;
-    const b = brecha(r);
-    const g = brechaClass(b);
-    groups[g].push(r);
+  // Brecha color
+  const rawBrechaV = z.meli - z.peya;
+  const rawBrechaCol = rawBrechaV>=-25?'#1a6640':rawBrechaV>=-40?'#c8a200':'#c0392b';
+
+  const metricsOferta = isTotal
+    ? `<div class="metrics-grid">
+        <div class="metric-cell">
+          <div class="mc-label">% MeLi activo (raw)</div>
+          <div class="mc-value sm">${z.meli.toFixed(1)}%</div>
+          ${delta(z.meli, caba.meli, true, 'pp')}
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">% PeYa benchmark</div>
+          <div class="mc-value sm" style="color:#e74c3c">${z.peya.toFixed(1)}%</div>
+          <span class="mc-delta delta-info">brecha raw: <span style="color:${rawBrechaCol};font-weight:700">${rawBrechaV.toFixed(1)}pp</span></span>
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">% MeLi ajust. (excl. excl. PeYa)</div>
+          <div class="mc-value sm" style="color:#4361ee">${z.mAdj.toFixed(1)}%</div>
+          ${delta(z.mAdj, caba.mAdj, true, 'pp')}
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Excl. PeYa — no capturable</div>
+          <div class="mc-value sm">${fmt(z.ep)}</div>
+          <span class="mc-delta delta-info">${epPct}% del total</span>
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Por capturar (en PeYa, no en MeLi)</div>
+          <div class="mc-value sm" style="color:#e07b30">${fmt(z.lhf)}</div>
+          <span class="mc-delta delta-info">${lhfPct}% del total</span>
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Brecha ajustada</div>
+          <div class="mc-value sm" style="color:${bAdjCol}">${bAdjSign}${bAdj}pp</div>
+          ${delta(z.bAdj, caba.bAdj, true, 'pp')}
+        </div>
+      </div>`
+    : `<div class="metrics-grid">
+        <div class="metric-cell">
+          <div class="mc-label">% MeLi activo (raw)</div>
+          <div class="mc-value">${z.meli.toFixed(1)}%</div>
+          ${delta(z.meli, caba.meli, true, 'pp')}
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">% MeLi ajust.*</div>
+          <div class="mc-value" style="color:#4361ee">${z.mAdj.toFixed(1)}%</div>
+          ${delta(z.mAdj, caba.mAdj, true, 'pp')}
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Excl. PeYa (#)</div>
+          <div class="mc-value">${fmt(z.ep)}</div>
+          <span class="mc-delta delta-info">${epPct}% del total</span>
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Por capturar (LHF)</div>
+          <div class="mc-value" style="color:#e07b30">${fmt(z.lhf)}</div>
+          <span class="mc-delta delta-info">${lhfPct}% del total</span>
+        </div>
+      </div>`;
+
+  const metricsDemanda = isTotal
+    ? `<div class="metrics-grid">
+        <div class="metric-cell">
+          <div class="mc-label">% Onboarding (sep-ene, 5+ en 90d)</div>
+          <div class="mc-value sm">${z.onb.toFixed(1)}%</div>
+          ${delta(z.onb, caba.onb, true, 'pp')}
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Buyers activos Q1-26</div>
+          <div class="mc-value sm">${fmt(z.buyers)}</div>
+          <span class="mc-delta delta-info">sin dato por sub-barrio</span>
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Buyers / 1.000 hab.</div>
+          <div class="mc-value sm">—</div>
+          <span class="mc-delta delta-info">sin pob. INDEC SI</span>
+        </div>
+      </div>`
+    : `<div class="metrics-grid">
+        <div class="metric-cell">
+          <div class="mc-label">Onboarding (sep-ene)</div>
+          <div class="mc-value">${z.onb.toFixed(1)}%</div>
+          ${delta(z.onb, caba.onb, true, 'pp')}
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Buyers activos Q1-26</div>
+          <div class="mc-value">${fmt(z.buyers)}</div>
+          <span class="mc-delta delta-info">sin pob. INDEC SI</span>
+        </div>
+      </div>`;
+
+  return `<div class="card ${isTotal?'card-total':''}">
+    <div class="card-header">
+      <div>
+        <div class="ch-name">${name}</div>
+        <div class="ch-sub">${subname}</div>
+      </div>
+      <div class="ch-badge">Brecha ajust: <span style="color:${bAdjCol};font-weight:700">${bAdjSign}${bAdj}pp</span></div>
+    </div>
+    <div class="card-body">
+      <div class="section-label sl-oferta">Oferta</div>
+      ${metricsOferta}
+      <div class="divider"></div>
+      <div class="section-label sl-demanda">Demanda</div>
+      ${metricsDemanda}
+    </div>
+  </div>`;
+}
+
+// ── RENDER CARDS ──
+function renderCards() {
+  const caba    = buildCabaRef();
+  const siTotal = agg(SI);
+
+  // Reference bar
+  document.getElementById('ref-bar-container').innerHTML = `
+    <div class="ref-bar">
+      <span class="ref-title">Referencia CABA</span>
+      <div class="ref-metric">
+        <div class="rm-val">${caba.meli.toFixed(1)}%</div>
+        <div class="rm-lbl">% MeLi activo</div>
+      </div>
+      <div class="ref-metric">
+        <div class="rm-val">${caba.mAdj.toFixed(1)}%</div>
+        <div class="rm-lbl">% MeLi ajust.</div>
+      </div>
+      <div class="ref-metric">
+        <div class="rm-val">${caba.bAdj.toFixed(1)}pp</div>
+        <div class="rm-lbl">Brecha ajust.</div>
+      </div>
+      <div class="ref-metric">
+        <div class="rm-val">${caba.epPct.toFixed(1)}%</div>
+        <div class="rm-lbl">Excl. PeYa (%)</div>
+      </div>
+      <div class="ref-metric">
+        <div class="rm-val">${caba.lhfPct.toFixed(1)}%</div>
+        <div class="rm-lbl">Por capturar (%)</div>
+      </div>
+      <div class="ref-metric">
+        <div class="rm-val">${caba.onb.toFixed(1)}%</div>
+        <div class="rm-lbl">Onboarding</div>
+      </div>
+      <div class="ref-metric">
+        <div class="rm-val">${caba.bph.toFixed(1)}</div>
+        <div class="rm-lbl">Buyers/1k hab</div>
+      </div>
+    </div>`;
+
+  // Cards
+  let html = buildCard(siTotal, caba, true);
+  SI.forEach(r => {
+    const z = {
+      ...r,
+      mAdj: meliAdjPct(r), pAdj: peyaAdjPct(r), bAdj: adjBrecha(r),
+      act: meliActivos(r), meli: r.meli, peya: r.peya,
+      epPct: r.ep/r.rel*100, lhfPct: r.lhf/r.rel*100,
+      onb: r.onb, buyers: r.buyers
+    };
+    html += buildCard(z, caba, false);
   });
 
+  document.getElementById('cards-container').innerHTML = html;
+}
+
+// ── CABA TABLE ──
+const groupCollapsed = {low:false, mid:false, high:false};
+function renderCabaGroups() {
+  const q = (document.getElementById('searchCaba').value||'').toLowerCase();
+  const groups = {low:[],mid:[],high:[]};
+  CABA.forEach(r => {
+    if (q && !r.b.toLowerCase().includes(q)) return;
+    groups[brechaClass(rawBrecha(r))].push(r);
+  });
   let html = '';
   ['low','mid','high'].forEach(g => {
     const rows = groups[g];
     if (!rows.length) return;
-    const totalRel   = rows.reduce((s,r) => s + (r.rel||0), 0);
-    const totalBuyers= rows.reduce((s,r) => s + r.buyers, 0);
-    const avgMeli    = (rows.reduce((s,r) => s + r.meli, 0) / rows.length).toFixed(1);
-    const avgPeya    = (rows.reduce((s,r) => s + r.peya, 0) / rows.length).toFixed(1);
-    const avgBrecha  = (rows.reduce((s,r) => s + brecha(r), 0) / rows.length).toFixed(1);
-    const avgOnb     = (rows.reduce((s,r) => s + r.onb, 0) / rows.length).toFixed(1);
-    const cls        = groupCollapsed[g] ? 'collapsed' : '';
+    const avgMeli = (rows.reduce((s,r)=>s+r.meli,0)/rows.length).toFixed(1);
+    const avgPeya = (rows.reduce((s,r)=>s+r.peya,0)/rows.length).toFixed(1);
+    const totalRel = rows.reduce((s,r)=>s+r.rel,0);
+    const totalEp  = rows.reduce((s,r)=>s+r.ep,0);
+    const totalAct = rows.reduce((s,r)=>s+meliActivos(r),0);
+    const adjD     = totalRel-totalEp;
+    const avgMAdj  = (totalAct/adjD*100).toFixed(1);
+    const avgBAdj  = ((totalAct/adjD*100)-((rows.reduce((s,r)=>s+r.pt,0)-totalEp)/adjD*100)).toFixed(1);
+    const avgOnb   = (rows.reduce((s,r)=>s+r.onb,0)/rows.length).toFixed(1);
+    const totalB   = rows.reduce((s,r)=>s+r.buyers,0);
+    const gLabel   = g==='low'?'Brecha baja (<25pp)':g==='mid'?'Brecha media (25–40pp)':'Brecha alta (>40pp)';
+    const cls      = groupCollapsed[g]?'collapsed':'';
 
     html += `<tr class="group-hdr group-${g} ${cls}" onclick="toggleGroup('${g}')">
-      <td><span class="toggle-icon">▼</span><strong>${groupLabel(g)}</strong> <span style="font-weight:400;font-size:11px;opacity:.7">(${rows.length} barrios)</span></td>
-      <td>${fmt(totalRel)}</td>
-      <td>${avgMeli}% prom</td>
-      <td>${avgPeya}% prom</td>
-      <td>${brechaCell(parseFloat(avgBrecha))}</td>
-      <td>${fmt(totalBuyers)}</td>
-      <td>—</td>
-      <td class="${onbClass(parseFloat(avgOnb))}">${avgOnb}%</td>
+      <td><span class="toggle-icon">▼</span><strong>${gLabel}</strong> <span style="font-weight:400;font-size:11px;opacity:.7">(${rows.length} barrios)</span></td>
+      <td>${fmt(totalRel)}</td><td>${avgMeli}% prom</td><td>${avgPeya}% prom</td>
+      <td>${brechaCell(rawBrecha({meli:+avgMeli,peya:+avgPeya}))}</td>
+      <td style="font-weight:700;color:#8b0000">${fmt(totalEp)}</td>
+      <td style="font-weight:700;color:#4361ee">${avgMAdj}%</td>
+      <td>${brechaCell(+avgBAdj)}</td>
+      <td>${fmt(totalB)}</td><td>—</td>
+      <td class="${onbClass(+avgOnb)}">${avgOnb}%</td>
     </tr>`;
-
-    rows.sort((a,b) => brecha(b) - brecha(a)).forEach(r => {
-      const bv = brecha(r);
+    rows.sort((a,b)=>rawBrecha(b)-rawBrecha(a)).forEach(r => {
+      const bph_v = bph(r);
       html += `<tr class="detail-row" style="display:${groupCollapsed[g]?'none':''}">
         <td style="padding-left:28px">${cap(r.b)}</td>
         <td>${fmt(r.rel)}</td>
-        <td>${barMeli(r.meli)}</td>
-        <td>${barPeya(r.peya)}</td>
-        <td>${brechaCell(bv)}</td>
+        <td>${barMeli(r.meli)}</td><td>${barPeya(r.peya)}</td>
+        <td>${brechaCell(rawBrecha(r))}</td>
+        <td style="color:#8b0000;font-weight:700">${r.ep}</td>
+        <td style="color:#4361ee;font-weight:700">${meliAdjPct(r).toFixed(1)}%</td>
+        <td>${brechaCell(adjBrecha(r))}</td>
         <td>${fmt(r.buyers)}</td>
-        <td>${bph(r)}</td>
+        <td>${bph_v!==null?bph_v.toFixed(1):'—'}</td>
         <td class="${onbClass(r.onb)}">${r.onb}%</td>
       </tr>`;
     });
   });
-
-  tbody.innerHTML = html;
+  document.getElementById('tbodyCaba').innerHTML = html;
 }
-
-function toggleGroup(g) {
-  groupCollapsed[g] = !groupCollapsed[g];
-  renderCabaGroups();
-}
-
-// ── SAN ISIDRO ──
-function renderSI() {
-  document.getElementById('tbodySI').innerHTML = SI.map(r => {
-    const bv     = brecha(r);
-    const mAdj   = meliAdjPct(r);
-    const pAdj   = peyaAdjPct(r);
-    const bAdj   = adjBrechaPct(r);
-    return `<tr>
-      <td>${cap(r.b)}</td>
-      <td>${fmt(r.rel)}</td>
-      <td>${barMeli(r.meli)}</td>
-      <td>${barPeya(r.peya)}</td>
-      <td>${brechaCell(bv)}</td>
-      <td style="font-weight:700;color:#8b0000">${fmt(r.ep)}</td>
-      <td>${meliAdjCell(mAdj)}</td>
-      <td><span style="color:#e74c3c;font-weight:700">${pAdj.toFixed(1)}%</span></td>
-      <td>${adjBrechaCell(bAdj)}</td>
-      <td>${fmt(r.buyers)}</td>
-      <td class="${onbClass(r.onb)}">${r.onb}%</td>
-    </tr>`;
-  }).join('');
-}
-
-// ── CABA REFERENCE AGGREGATES ──
-function buildCabaRef() {
-  const groups = {low:[], mid:[], high:[], all:CABA};
-  CABA.forEach(r => { groups[brechaClass(brecha(r))].push(r); });
-
-  function aggRow(rows, label, cls) {
-    const totalRel    = rows.reduce((s,r)=>s+r.rel,0);
-    const totalEp     = rows.reduce((s,r)=>s+r.ep,0);
-    const totalPt     = rows.reduce((s,r)=>s+r.pt,0);
-    const totalBuyers = rows.reduce((s,r)=>s+r.buyers,0);
-    const totalAct    = rows.reduce((s,r)=>s+meliActivos(r),0);
-    const avgMeli     = (rows.reduce((s,r)=>s+r.meli,0)/rows.length);
-    const avgPeya     = (rows.reduce((s,r)=>s+r.peya,0)/rows.length);
-    const avgOnb      = (rows.reduce((s,r)=>s+r.onb,0)/rows.length);
-    const adjD        = totalRel - totalEp;
-    const mAdj        = adjD > 0 ? totalAct/adjD*100 : 0;
-    const pAdj        = adjD > 0 ? (totalPt-totalEp)/adjD*100 : 0;
-    const bAdj        = mAdj - pAdj;
-    const bRaw        = avgMeli - avgPeya;
-    return { label, cls, rel:totalRel, ep:totalEp, meli:avgMeli, peya:avgPeya,
-             bRaw, buyers:totalBuyers, onb:avgOnb, mAdj, pAdj, bAdj, isRef:true };
-  }
-
-  return [
-    aggRow(groups.all,  'CABA Total (48 barrios)',       'ref-total'),
-    aggRow(groups.low,  'CABA — Brecha baja (<25pp)',    'ref-low'),
-    aggRow(groups.mid,  'CABA — Brecha media (25–40pp)', 'ref-mid'),
-    aggRow(groups.high, 'CABA — Brecha alta (>40pp)',    'ref-high'),
-  ];
-}
-
-// ── COMPARACION ──
-let cmpSortCol = 7, cmpSortAsc = false;
-
-function sortCmp(col) {
-  if (cmpSortCol === col) cmpSortAsc = !cmpSortAsc;
-  else { cmpSortCol = col; cmpSortAsc = false; }
-  renderCmp();
-}
-
-function renderCmp() {
-  const q = (document.getElementById('searchCmp').value || '').toLowerCase();
-
-  const siRows   = SI.map(r => ({...r, zona:'SI',   cls:'cmp-si'}));
-  const cabaRows = CABA.filter(r => !q || r.b.toLowerCase().includes(q))
-                       .map(r => ({...r, zona:'CABA', cls:''}));
-  const refRows  = buildCabaRef();
-
-  // For refs, filter by search only if empty
-  const filteredRef = q ? [] : refRows;
-
-  let data = [...filteredRef, ...siRows.filter(r => !q || r.b.toLowerCase().includes(q)), ...cabaRows];
-
-  // Sort non-ref rows; refs always at top
-  const refs = data.filter(r => r.isRef);
-  let rest   = data.filter(r => !r.isRef);
-
-  rest.sort((a,b) => {
-    let va, vb;
-    if (cmpSortCol === 0) { va=a.b; vb=b.b; return cmpSortAsc?va.localeCompare(vb):vb.localeCompare(va); }
-    if (cmpSortCol === 1) { va=a.rel||0; vb=b.rel||0; }
-    if (cmpSortCol === 2) { va=a.meli||0; vb=b.meli||0; }
-    if (cmpSortCol === 3) { va=a.peya||0; vb=b.peya||0; }
-    if (cmpSortCol === 4) { va=brecha(a)||a.bRaw||0; vb=brecha(b)||b.bRaw||0; }
-    if (cmpSortCol === 5) { va=a.ep||0; vb=b.ep||0; }
-    if (cmpSortCol === 6) { va=a.mAdj!==undefined?a.mAdj:meliAdjPct(a); vb=b.mAdj!==undefined?b.mAdj:meliAdjPct(b); }
-    if (cmpSortCol === 7) { va=a.bAdj!==undefined?a.bAdj:adjBrechaPct(a); vb=b.bAdj!==undefined?b.bAdj:adjBrechaPct(b); }
-    if (cmpSortCol === 8) { va=a.buyers||0; vb=b.buyers||0; }
-    if (cmpSortCol === 9) { va=a.onb||0; vb=b.onb||0; }
-    return cmpSortAsc ? va-vb : vb-va;
-  });
-
-  const allRows = [...refs, ...rest];
-
-  document.getElementById('tbodyCmp').innerHTML = allRows.map(r => {
-    if (r.isRef) {
-      return `<tr class="${r.cls}">
-        <td>${r.label}</td>
-        <td>${fmt(r.rel)}</td>
-        <td style="font-weight:700">${r.meli.toFixed(1)}% prom</td>
-        <td style="font-weight:700">${r.peya.toFixed(1)}% prom</td>
-        <td>${brechaCell(+r.bRaw.toFixed(1))}</td>
-        <td style="font-weight:700;color:#8b0000">${fmt(r.ep)}</td>
-        <td>${meliAdjCell(r.mAdj)}</td>
-        <td>${adjBrechaCell(r.bAdj)}</td>
-        <td>${fmt(r.buyers)}</td>
-        <td class="${onbClass(r.onb)}">${r.onb.toFixed(1)}%</td>
-      </tr>`;
-    }
-    const bv   = r.bRaw !== undefined ? r.bRaw : brecha(r);
-    const mAdj = r.mAdj !== undefined ? r.mAdj : meliAdjPct(r);
-    const bAdj = r.bAdj !== undefined ? r.bAdj : adjBrechaPct(r);
-    const epV  = r.ep || 0;
-    const isSI = r.zona === 'SI';
-    return `<tr class="${r.cls}">
-      <td>${cap(r.b)} ${isSI ? '<span style="font-size:10px;background:#e07b30;color:#fff;padding:1px 6px;border-radius:3px;margin-left:4px">SI</span>' : ''}</td>
-      <td>${fmt(r.rel)}</td>
-      <td>${barMeli(r.meli)}</td>
-      <td>${barPeya(r.peya)}</td>
-      <td>${brechaCell(+bv.toFixed(1))}</td>
-      <td style="font-weight:700;color:#8b0000">${epV}</td>
-      <td>${meliAdjCell(mAdj)}</td>
-      <td>${adjBrechaCell(bAdj)}</td>
-      <td>${fmt(r.buyers)}</td>
-      <td class="${onbClass(r.onb)}">${r.onb}%</td>
-    </tr>`;
-  }).join('');
-}
+function toggleGroup(g) { groupCollapsed[g]=!groupCollapsed[g]; renderCabaGroups(); }
+function rawBrecha(r) { return r.meli-r.peya; }
 
 function switchTab(name, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('tab-'+name).classList.add('active');
-  if (name === 'cmp') renderCmp();
 }
 
 // Init
+renderCards();
 renderCabaGroups();
-renderSI();
 </script>
 </body>
 </html>
