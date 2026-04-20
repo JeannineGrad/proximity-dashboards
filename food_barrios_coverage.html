@@ -480,15 +480,13 @@ function buildCard(z, caba, isTotal) {
           ${delta(z.onb, caba.onb, true, 'pp')}
         </div>
         <div class="metric-cell">
-          <div class="mc-label">Buyers activos Q1-26</div>
-          <div class="mc-value">${fmt(z.buyers)}</div>
-          ${z.pob ? `<span class="mc-delta delta-info">pob. est. ${fmt(z.pob)}</span>` : ''}
-        </div>
-        <div class="metric-cell">
           <div class="mc-label">Buyers / 1.000 hab.</div>
           ${z.pob
-            ? `<div class="mc-value">${(z.buyers/z.pob*1000).toFixed(1)}</div>${delta(z.buyers/z.pob*1000, caba.bph, true, '', 1)}`
-            : `<div class="mc-value" style="color:#bbb">—</div><span class="mc-delta delta-info">sin pob.</span>`}
+            ? `<div class="mc-value">${(z.buyers/z.pob*1000).toFixed(1)}</div>
+               ${delta(z.buyers/z.pob*1000, caba.bph, true, '', 1)}
+               <span class="mc-delta delta-info" style="margin-top:3px">${fmt(z.buyers)} buyers · pob. est. ${fmt(z.pob)}</span>`
+            : `<div class="mc-value" style="color:#bbb">—</div>
+               <span class="mc-delta delta-info">${fmt(z.buyers)} buyers · sin pob.</span>`}
         </div>
       </div>`;
 
