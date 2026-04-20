@@ -38,13 +38,13 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 
 /* Cards grid */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-.card-total { grid-column: 1 / -1; }
 
 .card {
   background: #fff; border-radius: 12px;
   box-shadow: 0 1px 6px rgba(0,0,0,.09);
   overflow: hidden;
 }
+.card-total { background: #eef2ff; }
 .card-header {
   background: #1a1a2e; color: #fff;
   padding: 12px 16px;
@@ -57,7 +57,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
   padding: 4px 10px; font-size: 10.5px; font-weight: 600;
   white-space: nowrap;
 }
-.card-total .card-header { background: #2c2c54; }
+.card-total .card-header { background: #2c3e7a; }
 
 .card-body { padding: 0; }
 
@@ -74,7 +74,6 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
   gap: 0;
   padding: 8px 12px 12px;
 }
-.card-total .metrics-grid { grid-template-columns: repeat(3, 1fr); }
 
 .metric-cell {
   padding: 8px; border-radius: 8px;
@@ -406,97 +405,59 @@ function buildCard(z, caba, isTotal) {
   const rawBrechaV = z.meli - z.peya;
   const rawBrechaCol = rawBrechaV>=-25?'#1a6640':rawBrechaV>=-40?'#c8a200':'#c0392b';
 
-  const metricsOferta = isTotal
-    ? `<div class="metrics-grid">
-        <div class="metric-cell">
-          <div class="mc-label">% MeLi activo (raw)</div>
-          <div class="mc-value sm">${z.meli.toFixed(1)}%</div>
-          ${deltaRef(z.meli, caba.meli, true, '%', 'pp')}
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">% PeYa benchmark</div>
-          <div class="mc-value sm" style="color:#e74c3c">${z.peya.toFixed(1)}%</div>
-          <span class="mc-delta delta-info">brecha raw: <span style="color:${rawBrechaCol};font-weight:700">${rawBrechaV.toFixed(1)}pp</span></span>
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">% MeLi ajust. (excl. excl. PeYa)</div>
-          <div class="mc-value sm" style="color:#4361ee">${z.mAdj.toFixed(1)}%</div>
-          ${deltaRef(z.mAdj, caba.mAdj, true, '%', 'pp')}
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">Excl. PeYa — no capturable</div>
-          <div class="mc-value sm">${fmt(z.ep)}</div>
-          <span class="mc-delta delta-info">${epPct}% del total</span>
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">Por capturar (en PeYa, no en MeLi)</div>
-          <div class="mc-value sm" style="color:#e07b30">${fmt(z.lhf)}</div>
-          <span class="mc-delta delta-info">${lhfPct}% del total</span>
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">Brecha ajustada</div>
-          <div class="mc-value sm" style="color:${bAdjCol}">${bAdjSign}${bAdj}pp</div>
-          ${deltaRef(z.bAdj, caba.bAdj, true, 'pp', 'pp')}
-        </div>
-      </div>`
-    : `<div class="metrics-grid">
-        <div class="metric-cell">
-          <div class="mc-label">% MeLi activo (raw)</div>
-          <div class="mc-value">${z.meli.toFixed(1)}%</div>
-          ${deltaRef(z.meli, caba.meli, true, '%', 'pp')}
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">% MeLi ajust.*</div>
-          <div class="mc-value" style="color:#4361ee">${z.mAdj.toFixed(1)}%</div>
-          ${deltaRef(z.mAdj, caba.mAdj, true, '%', 'pp')}
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">Excl. PeYa (#)</div>
-          <div class="mc-value">${fmt(z.ep)}</div>
-          <span class="mc-delta delta-info">${epPct}% del total</span>
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">Por capturar (LHF)</div>
-          <div class="mc-value" style="color:#e07b30">${fmt(z.lhf)}</div>
-          <span class="mc-delta delta-info">${lhfPct}% del total</span>
-        </div>
-      </div>`;
+  const bph_val = z.bph != null ? z.bph : (z.pob ? z.buyers/z.pob*1000 : null);
+  const pob_val = z.pob || null;
 
-  const metricsDemanda = isTotal
-    ? `<div class="metrics-grid">
-        <div class="metric-cell">
-          <div class="mc-label">% Onboarding (sep-ene, 5+ en 90d)</div>
-          <div class="mc-value sm">${z.onb.toFixed(1)}%</div>
-          ${deltaRef(z.onb, caba.onb, true, '%', 'pp')}
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">Buyers activos Q1-26</div>
-          <div class="mc-value sm">${fmt(z.buyers)}</div>
-          <span class="mc-delta delta-info">sin dato por sub-barrio</span>
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">Buyers / 1.000 hab.</div>
-          ${z.bph != null
-            ? `<div class="mc-value sm">${z.bph.toFixed(1)}</div>${deltaRef(z.bph, caba.bph, true, '', '')}`
-            : `<div class="mc-value sm" style="color:#bbb">—</div><span class="mc-delta delta-info">sin pob. INDEC SI</span>`}
-        </div>
-      </div>`
-    : `<div class="metrics-grid">
-        <div class="metric-cell">
-          <div class="mc-label">Onboarding (sep-ene)</div>
-          <div class="mc-value">${z.onb.toFixed(1)}%</div>
-          ${deltaRef(z.onb, caba.onb, true, '%', 'pp')}
-        </div>
-        <div class="metric-cell">
-          <div class="mc-label">Buyers / 1.000 hab.</div>
-          ${z.pob
-            ? `<div class="mc-value">${(z.buyers/z.pob*1000).toFixed(1)}</div>
-               ${deltaRef(z.buyers/z.pob*1000, caba.bph, true, '', '')}
-               <span class="mc-delta delta-info" style="margin-top:3px">${fmt(z.buyers)} buyers · pob. est. ${fmt(z.pob)}</span>`
-            : `<div class="mc-value" style="color:#bbb">—</div>
-               <span class="mc-delta delta-info">${fmt(z.buyers)} buyers · sin pob.</span>`}
-        </div>
-      </div>`;
+  const metricsOferta = `<div class="metrics-grid">
+      <div class="metric-cell">
+        <div class="mc-label">% Cobertura MeLi (raw)</div>
+        <div class="mc-value">${z.meli.toFixed(1)}%</div>
+        ${deltaRef(z.meli, caba.meli, true, '%', 'pp')}
+      </div>
+      <div class="metric-cell">
+        <div class="mc-label">% Cobertura MeLi ajust. (excl. excl. PeYa)</div>
+        <div class="mc-value" style="color:#4361ee">${z.mAdj.toFixed(1)}%</div>
+        ${deltaRef(z.mAdj, caba.mAdj, true, '%', 'pp')}
+      </div>
+      <div class="metric-cell">
+        <div class="mc-label">% Cobertura PeYa</div>
+        <div class="mc-value" style="color:#e74c3c">${z.peya.toFixed(1)}%</div>
+        <span class="mc-delta delta-info">ajust.: ${z.pAdj.toFixed(1)}%</span>
+      </div>
+      <div class="metric-cell">
+        <div class="mc-label">Brecha MeLi vs PeYa</div>
+        <div class="mc-value" style="color:${bAdjCol}">${bAdjSign}${bAdj}pp <span style="font-size:10px;color:#aaa;font-weight:400">ajust.</span></div>
+        <span class="mc-delta delta-info">raw: <span style="color:${rawBrechaCol};font-weight:700">${rawBrechaV.toFixed(1)}pp</span></span>
+        ${deltaRef(z.bAdj, caba.bAdj, true, 'pp', 'pp')}
+      </div>
+      <div class="metric-cell">
+        <div class="mc-label">Excl. PeYa — no capturable</div>
+        <div class="mc-value">${fmt(z.ep)}</div>
+        <span class="mc-delta delta-info">${epPct}% del total</span>
+      </div>
+      <div class="metric-cell">
+        <div class="mc-label">Por capturar (LHF)</div>
+        <div class="mc-value" style="color:#e07b30">${fmt(z.lhf)}</div>
+        <span class="mc-delta delta-info">${lhfPct}% del total</span>
+      </div>
+    </div>`;
+
+  const metricsDemanda = `<div class="metrics-grid">
+      <div class="metric-cell">
+        <div class="mc-label">Onboarding (sep-ene, 5+ en 90d)</div>
+        <div class="mc-value">${z.onb.toFixed(1)}%</div>
+        ${deltaRef(z.onb, caba.onb, true, '%', 'pp')}
+      </div>
+      <div class="metric-cell">
+        <div class="mc-label">Buyers / 1.000 hab.</div>
+        ${bph_val != null
+          ? `<div class="mc-value">${bph_val.toFixed(1)}</div>
+             ${deltaRef(bph_val, caba.bph, true, '', '')}
+             <span class="mc-delta delta-info" style="margin-top:3px">${fmt(z.buyers)} buyers${pob_val ? ` · pob. est. ${fmt(pob_val)}` : ''}</span>`
+          : `<div class="mc-value" style="color:#bbb">—</div>
+             <span class="mc-delta delta-info">${fmt(z.buyers)} buyers · sin pob.</span>`}
+      </div>
+    </div>`;
 
   return `<div class="card ${isTotal?'card-total':''}">
     <div class="card-header">
