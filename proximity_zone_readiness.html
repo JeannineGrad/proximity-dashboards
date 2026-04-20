@@ -20,9 +20,19 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 .filters { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 .filter-group { display: flex; align-items: center; gap: 6px; }
 .filter-group label { font-size: .72rem; opacity: .65; }
-select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius: 5px; padding: 4px 10px; font-size: .78rem; cursor: pointer; outline: none; }
+select, input[type=text] { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius: 5px; padding: 4px 10px; font-size: .78rem; cursor: pointer; outline: none; }
+input[type=text]::placeholder { color: #aaa; }
 
 .content { padding: 16px 20px; overflow-x: auto; }
+
+/* Data coverage badge */
+.cov-badge {
+  font-size: 10px; border-radius: 10px; padding: 2px 7px; font-weight: 600;
+  display: inline-block; margin-left: 4px;
+}
+.cov-high { background: #d4edda; color: #155724; }
+.cov-mid  { background: #fff3cd; color: #856404; }
+.cov-low  { background: #f8d7da; color: #721c24; }
 
 /* Benchmark bar */
 .benchmark-bar {
@@ -37,9 +47,10 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
 .benchmark-card .val { font-size: 18px; font-weight: 700; color: #1a1a2e; }
 .benchmark-card.best { border-left: 3px solid #4361ee; }
 .benchmark-card.ideal { border-left: 3px solid #2ecc71; }
+.benchmark-card.info { border-left: 3px solid #f1c40f; }
 
 /* Main table */
-.scorecard { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.09); }
+.scorecard { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.09); font-size: 12px; }
 
 .scorecard th {
   background: #1a1a2e; color: #fff;
@@ -47,20 +58,20 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
   font-weight: 600; font-size: 10.5px; letter-spacing: .3px;
   white-space: nowrap; border-right: 1px solid #2d2d4e;
 }
-.th-zona { text-align: left !important; width: 140px; }
+.th-zona { text-align: left !important; min-width: 140px; }
 .th-region { text-align: left !important; width: 90px; }
-.th-oferta { background: #4a4a6a !important; }
+.th-oferta  { background: #4a4a6a !important; }
 .th-demanda { background: #6a6a8a !important; }
-.th-servicio { background: #8a8aaa !important; }
-.th-total { background: #2d2d4e !important; }
-.th-benchmark { background: #2d2d4e !important; font-size: 9.5px !important; }
+.th-servicio{ background: #8a8aaa !important; }
+.th-total   { background: #2d2d4e !important; }
+.th-cov     { background: #2d2d4e !important; font-size: 9.5px !important; }
 .psub { font-size: 9px; opacity: .7; font-weight: 400; display: block; margin-top: 2px; }
 
 .scorecard td {
   padding: 6px 10px; text-align: center;
   border-bottom: 1px solid #eef0f5;
   border-right: 1px solid #f0f2f8;
-  white-space: nowrap; font-size: 12px;
+  white-space: nowrap;
 }
 .td-zona {
   text-align: left !important; padding-left: 14px !important;
@@ -84,8 +95,9 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
 /* Score cells */
 .score-oferta  { background: #f0f0f4 !important; }
 .score-demanda { background: #f0f0f4 !important; }
-.score-servicio { background: #f0f0f4 !important; }
+.score-servicio{ background: #f0f0f4 !important; }
 .score-total   { background: #1a1a2e !important; color: #fff !important; font-weight: 700 !important; }
+.score-na      { background: #f8f9fc !important; color: #bbb !important; font-style: italic; font-size: 11px !important; }
 
 .score-1 { color: #c0392b; font-weight: 700; }
 .score-2 { color: #e67e22; font-weight: 700; }
@@ -102,10 +114,21 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
 .score-dot.filled-4 { background: #2ecc71; }
 .score-dot.filled-5 { background: #1a8a3a; }
 
-/* Benchmark comparison */
-.vs-best  { font-size: 10px; color: #4361ee; font-weight: 700; }
-.vs-ideal { font-size: 10px; color: #2ecc71; font-weight: 700; }
-.vs-neg   { color: #c0392b !important; }
+/* Tab bar */
+.tab-bar {
+  background: #23233e; padding: 0 20px;
+  display: flex; gap: 4px; border-bottom: 2px solid #1a1a2e;
+}
+.tab-btn {
+  background: none; border: none; color: rgba(255,255,255,.5);
+  padding: 10px 18px; font-size: .8rem; font-weight: 600; cursor: pointer;
+  border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color .15s;
+}
+.tab-btn:hover { color: rgba(255,255,255,.8); }
+.tab-btn.active { color: #fff; border-bottom-color: #e94560; }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 
 /* Detail panel */
 .detail-panel {
@@ -125,25 +148,9 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
 .kpi-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,.06); font-size: 11.5px; }
 .kpi-row:last-child { border-bottom: none; }
 .kpi-name { color: #444; }
-.kpi-score { font-weight: 700; font-size: 12px; }
+.kpi-pending { color: #bbb; font-style: italic; font-size: 10.5px; }
 
 .note { font-size: 11px; color: #aaa; font-style: italic; margin-top: 6px; }
-
-/* Tabs */
-.tab-bar {
-  background: #23233e; padding: 0 20px;
-  display: flex; gap: 4px; border-bottom: 2px solid #1a1a2e;
-}
-.tab-btn {
-  background: none; border: none; color: rgba(255,255,255,.5);
-  padding: 10px 18px; font-size: .8rem; font-weight: 600; cursor: pointer;
-  border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color .15s;
-}
-.tab-btn:hover { color: rgba(255,255,255,.8); }
-.tab-btn.active { color: #fff; border-bottom-color: #e94560; }
-
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
 
 /* Definitions tab */
 .def-content { padding: 20px; max-width: 900px; }
@@ -158,7 +165,17 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
 .def-table tr:last-child td { border-bottom: none; }
 .def-table .kpi-col { font-weight: 600; color: #1a1a2e; width: 200px; white-space: nowrap; }
 .def-table .pending { color: #bbb; font-style: italic; }
+.def-table .disponible { color: #1a6e3a; font-weight: 600; }
 .def-note { font-size: 11px; color: #aaa; font-style: italic; padding: 10px 14px; }
+.scoring-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; padding: 14px; }
+.score-tile { border-radius: 6px; padding: 8px 10px; text-align: center; }
+.score-tile .s-num { font-size: 16px; font-weight: 700; }
+.score-tile .s-lbl { font-size: 10px; margin-top: 3px; color: #555; }
+.tile-1 { background: #fdecea; }
+.tile-2 { background: #fef5e4; }
+.tile-3 { background: #fefbe6; }
+.tile-4 { background: #e8f8f0; }
+.tile-5 { background: #d4efdf; }
 </style>
 </head>
 <body>
@@ -166,7 +183,7 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
 <header>
   <div>
     <h1>Proximity Food — Zone Readiness Score</h1>
-    <div class="sub">Foto: marzo 2026 &nbsp;·&nbsp; Datos ilustrativos &nbsp;·&nbsp; Benchmark interno: Belgrano &nbsp;·&nbsp; Benchmark ideal: zona consolidada</div>
+    <div class="sub">Datos: ene–mar 2026 &nbsp;·&nbsp; Zonas: CABA 48 barrios + Partido San Isidro + Córdoba &nbsp;·&nbsp; KPIs disponibles: Oferta parcial + Demanda parcial &nbsp;·&nbsp; Servicio: pendiente</div>
   </div>
   <div class="filters">
     <div class="filter-group">
@@ -174,16 +191,31 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
       <select id="f-region" onchange="render()">
         <option value="ALL">Todas</option>
         <option value="CABA">CABA</option>
-        <option value="GBA">GBA</option>
+        <option value="GBA Norte">GBA Norte</option>
         <option value="Interior">Interior</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Buscar zona</label>
+      <input type="text" id="f-search" placeholder="barrio..." oninput="render()" style="width:130px">
+    </div>
+    <div class="filter-group">
+      <label>Ordenar</label>
+      <select id="f-sort" onchange="render()">
+        <option value="score">Score total ↓</option>
+        <option value="zona">Nombre A→Z</option>
+        <option value="oferta">Oferta ↓</option>
+        <option value="demanda">Demanda ↓</option>
+        <option value="onb">Onboarding ↓</option>
+        <option value="penetr">Penetración vs PeYa ↓</option>
       </select>
     </div>
   </div>
 </header>
 
 <div class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('scorecard')">Scorecard</button>
-  <button class="tab-btn" onclick="switchTab('definiciones')">Definiciones</button>
+  <button class="tab-btn active" onclick="switchTab('scorecard',this)">Scorecard</button>
+  <button class="tab-btn" onclick="switchTab('definiciones',this)">Definiciones & Scoring</button>
 </div>
 
 <div class="tab-panel active" id="tab-scorecard">
@@ -199,23 +231,23 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
         <tr><th>KPI</th><th>Definición</th><th>Fuente / Estado</th></tr>
         <tr>
           <td class="kpi-col">Restaurantes activos</td>
-          <td>Cantidad de restaurantes con al menos 1 orden en los últimos 30 días en la zona.</td>
-          <td class="pending">A definir / conseguir</td>
+          <td>Cantidad de restaurantes con STATUS_EN_MELI = activo en la zona.</td>
+          <td class="disponible">Disponible — BT_PM_STORES_MASTER</td>
         </tr>
         <tr>
-          <td class="kpi-col">Penetración vs competencia</td>
-          <td>% de los restaurantes de la zona que operan en Proximity sobre el total de restaurantes disponibles en la competencia (PedidosYa, Rappi).</td>
-          <td class="pending">A conseguir (externo)</td>
+          <td class="kpi-col">Penetración vs PeYa</td>
+          <td>% de restaurantes de la zona activos en MeLi, con PeYa como benchmark de mercado. Brecha = MeLi% – PeYa%. Mientras más cerca de PeYa, mayor penetración relativa.</td>
+          <td class="disponible">Disponible — BT_PM_STORES_MASTER (STORE_ID_PEYA)</td>
         </tr>
         <tr>
           <td class="kpi-col">Cobertura de cocinas</td>
-          <td>De las N cocinas más demandadas en la zona, cuántas están cubiertas con al menos 1 restaurante activo. Expresado como X/N.</td>
-          <td class="pending">A definir / conseguir</td>
+          <td>De las N cocinas más demandadas en la zona, cuántas están cubiertas con al menos 1 restaurante activo.</td>
+          <td class="pending">Pendiente — requiere clasificar categorías por demanda</td>
         </tr>
         <tr>
           <td class="kpi-col">Cobertura de top brands</td>
-          <td>De las N marcas/cadenas más relevantes de la zona (por volumen o reconocimiento), cuántas operan en Proximity. Expresado como X/N.</td>
-          <td class="pending">A definir / conseguir</td>
+          <td>De las N marcas/cadenas más relevantes de la zona, cuántas operan en Proximity.</td>
+          <td class="pending">Pendiente — requiere lista de marcas por zona</td>
         </tr>
       </table>
     </div>
@@ -225,24 +257,24 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
       <table class="def-table">
         <tr><th>KPI</th><th>Definición</th><th>Fuente / Estado</th></tr>
         <tr>
-          <td class="kpi-col">Buyers activos / hab.</td>
-          <td>Cantidad de compradores únicos con al menos 1 orden en los últimos 30 días en la zona, dividida por la población de la zona (por cada 1.000 habitantes o similar).</td>
-          <td class="pending">A definir / conseguir</td>
+          <td class="kpi-col">Buyers activos / 1.000 hab.</td>
+          <td>Compradores únicos con al menos 1 orden en Q1-2026, por cada 1.000 habitantes. Población: Censo INDEC 2022.</td>
+          <td class="disponible">Disponible para CABA — BT_PROXIMITY_SHIPMENTS_DETAILED + INDEC</td>
         </tr>
         <tr>
           <td class="kpi-col">Buyers recurrentes / hab.</td>
-          <td>Cantidad de compradores con 2+ órdenes en los últimos 30 días en la zona, normalizada por población. Proxy de penetración de hábito.</td>
-          <td class="pending">A definir / conseguir</td>
+          <td>Compradores con 2+ órdenes en los últimos 30 días, normalizado por población.</td>
+          <td class="pending">Pendiente</td>
         </tr>
         <tr>
-          <td class="kpi-col">Churn</td>
-          <td>% de buyers activos en el mes anterior que no tuvieron ninguna orden en el mes actual. Menor = mejor (score invertido).</td>
-          <td>Disponible en scorecard</td>
+          <td class="kpi-col">Churn 30d</td>
+          <td>% de buyers activos en el mes anterior sin actividad en el mes actual. Menor = mejor.</td>
+          <td class="pending">Pendiente a nivel barrio (disponible por zona agregada)</td>
         </tr>
         <tr>
           <td class="kpi-col">Tasa de onboarding</td>
-          <td>% de compradores nuevos (primera orden en los últimos 90 días) que alcanzan 5+ órdenes dentro de los 90 días siguientes a su primera compra.</td>
-          <td>Disponible en scorecard</td>
+          <td>% de compradores nuevos (cohortes sep-25 a ene-26) que alcanzan 5+ órdenes dentro de los 90 días de su primera compra.</td>
+          <td class="disponible">Disponible — BT_PROXIMITY_SHIPMENTS_DETAILED</td>
         </tr>
       </table>
     </div>
@@ -251,220 +283,404 @@ select { background: #2d2d4e; color: #fff; border: 1px solid #444; border-radius
       <div class="def-section-title servicio">Dimensión: Nivel de Servicio</div>
       <table class="def-table">
         <tr><th>KPI</th><th>Definición</th><th>Fuente / Estado</th></tr>
-        <tr>
-          <td class="kpi-col">Horas riders / orden</td>
-          <td>Total de horas trabajadas por riders en la zona divididas por la cantidad de órdenes entregadas. Mide eficiencia de cobertura. Menor = mejor.</td>
-          <td class="pending">A definir / conseguir</td>
-        </tr>
-        <tr>
-          <td class="kpi-col">Not delivered rate</td>
-          <td>% de órdenes que no llegaron al comprador (canceladas post-asignación o no entregadas) sobre el total de órdenes. Menor = mejor.</td>
-          <td class="pending">A definir / conseguir</td>
-        </tr>
-        <tr>
-          <td class="kpi-col">Order late</td>
-          <td>% de órdenes entregadas fuera del tiempo estimado prometido al comprador. Menor = mejor.</td>
-          <td class="pending">A definir / conseguir</td>
-        </tr>
-        <tr>
-          <td class="kpi-col">Seamless orders</td>
-          <td>% de órdenes completadas sin ninguna incidencia (sin cancelación, sin reclamo, en tiempo). Mayor = mejor.</td>
-          <td class="pending">A definir / conseguir</td>
-        </tr>
-        <tr>
-          <td class="kpi-col">PDD</td>
-          <td>Promised Delivery Date: % de órdenes entregadas dentro de la ventana de tiempo comprometida al momento de la compra. Mayor = mejor.</td>
-          <td class="pending">A definir / conseguir</td>
-        </tr>
+        <tr><td class="kpi-col">Horas riders / orden</td><td>Horas trabajadas por riders divididas por órdenes entregadas. Menor = mejor.</td><td class="pending">Pendiente</td></tr>
+        <tr><td class="kpi-col">Not delivered rate</td><td>% de órdenes no entregadas al comprador. Menor = mejor.</td><td class="pending">Pendiente</td></tr>
+        <tr><td class="kpi-col">Order late</td><td>% de órdenes fuera del tiempo estimado prometido. Menor = mejor.</td><td class="pending">Pendiente</td></tr>
+        <tr><td class="kpi-col">Seamless orders</td><td>% de órdenes completadas sin ninguna incidencia. Mayor = mejor.</td><td class="pending">Pendiente</td></tr>
+        <tr><td class="kpi-col">PDD</td><td>% de órdenes dentro de la ventana de tiempo comprometida. Mayor = mejor.</td><td class="pending">Pendiente</td></tr>
       </table>
     </div>
 
     <div class="def-section">
-      <div class="def-section-title">Criterios de scoring (1–5)</div>
-      <div class="def-note">Pendiente de definir. Para cada KPI se establecerán los rangos que corresponden a cada score, usando Belgrano como referencia de score 5 y los datos reales una vez disponibles.</div>
+      <div class="def-section-title">Criterios de scoring (1–5) — Preliminares</div>
+      <div style="padding:14px;font-size:12px;color:#444;line-height:1.7">
+        Los umbrales están definidos en base a la distribución actual de los datos disponibles (CABA 48 barrios + San Isidro). Pendiente alinear con el equipo.
+      </div>
+      <div style="padding:0 14px 14px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#4a4a6a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px">Restaurantes MeLi activos (#)</div>
+          <div class="scoring-grid" style="padding:0;margin:0;gap:4px;display:flex">
+            <div class="score-tile tile-1"><div class="s-num score-1">1</div><div class="s-lbl">&lt; 50</div></div>
+            <div class="score-tile tile-2"><div class="s-num score-2">2</div><div class="s-lbl">50–100</div></div>
+            <div class="score-tile tile-3"><div class="s-num score-3">3</div><div class="s-lbl">100–200</div></div>
+            <div class="score-tile tile-4"><div class="s-num score-4">4</div><div class="s-lbl">200–400</div></div>
+            <div class="score-tile tile-5"><div class="s-num score-5">5</div><div class="s-lbl">&gt; 400</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#4a4a6a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px">Penetración MeLi (%)</div>
+          <div style="display:flex;gap:4px">
+            <div class="score-tile tile-1"><div class="s-num score-1">1</div><div class="s-lbl">&lt; 17%</div></div>
+            <div class="score-tile tile-2"><div class="s-num score-2">2</div><div class="s-lbl">17–23%</div></div>
+            <div class="score-tile tile-3"><div class="s-num score-3">3</div><div class="s-lbl">23–29%</div></div>
+            <div class="score-tile tile-4"><div class="s-num score-4">4</div><div class="s-lbl">29–35%</div></div>
+            <div class="score-tile tile-5"><div class="s-num score-5">5</div><div class="s-lbl">&gt; 35%</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#6a6a8a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px">Buyers activos / 1.000 hab.</div>
+          <div style="display:flex;gap:4px">
+            <div class="score-tile tile-1"><div class="s-num score-1">1</div><div class="s-lbl">&lt; 80</div></div>
+            <div class="score-tile tile-2"><div class="s-num score-2">2</div><div class="s-lbl">80–130</div></div>
+            <div class="score-tile tile-3"><div class="s-num score-3">3</div><div class="s-lbl">130–180</div></div>
+            <div class="score-tile tile-4"><div class="s-num score-4">4</div><div class="s-lbl">180–230</div></div>
+            <div class="score-tile tile-5"><div class="s-num score-5">5</div><div class="s-lbl">&gt; 230</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#6a6a8a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px">Tasa de onboarding (%)</div>
+          <div style="display:flex;gap:4px">
+            <div class="score-tile tile-1"><div class="s-num score-1">1</div><div class="s-lbl">&lt; 15%</div></div>
+            <div class="score-tile tile-2"><div class="s-num score-2">2</div><div class="s-lbl">15–18%</div></div>
+            <div class="score-tile tile-3"><div class="s-num score-3">3</div><div class="s-lbl">18–20%</div></div>
+            <div class="score-tile tile-4"><div class="s-num score-4">4</div><div class="s-lbl">20–22%</div></div>
+            <div class="score-tile tile-5"><div class="s-num score-5">5</div><div class="s-lbl">&gt; 22%</div></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="def-note">* Scoring de Servicio (5 KPIs) pendiente de datos. Score total actual = promedio de Oferta y Demanda únicamente, con nota de cobertura parcial.</div>
     </div>
 
   </div>
 </div>
 
 <script>
+// ─────────────────────────────────────────────────
+// RAW DATA
+// ─────────────────────────────────────────────────
 
-// ── Data ──────────────────────────────────────────────────────
-// Scores 1-5 por indicador
-// oferta:   [restaurantes_activos, penetracion_vs_competencia, cobertura_cocinas, cobertura_top_brands]
-// demanda:  [buyers_activos_hab, buyers_recurrentes_hab, churn, tasa_onboarding]
-// servicio: [horas_riders_orden, not_delivered_rate, order_late, seamless_orders, pdd]
-
-const ZONAS = [
-  // CABA
-  { zona: 'Belgrano',     region: 'CABA', oferta: [5,4,4,5], demanda: [5,4,4,4], servicio: [5,4,4,4,4], prev: 4.2 },
-  { zona: 'Palermo',      region: 'CABA', oferta: [5,3,4,4], demanda: [4,4,3,4], servicio: [4,4,4,4,4], prev: 3.9 },
-  { zona: 'Almagro',      region: 'CABA', oferta: [3,2,3,3], demanda: [3,3,3,3], servicio: [3,3,3,4,3], prev: 3.1 },
-  { zona: 'Caballito',    region: 'CABA', oferta: [3,2,2,2], demanda: [3,2,3,2], servicio: [3,3,3,3,3], prev: 2.7 },
-  { zona: 'Villa Crespo', region: 'CABA', oferta: [2,2,2,2], demanda: [2,2,3,2], servicio: [3,3,2,3,3], prev: 2.5 },
-  { zona: 'Mataderos',    region: 'CABA', oferta: [2,1,1,1], demanda: [2,1,3,1], servicio: [2,2,2,3,2], prev: 1.9 },
-  // GBA
-  { zona: 'Zona Norte',   region: 'GBA',  oferta: [3,2,2,3], demanda: [3,2,3,2], servicio: [3,3,3,3,3], prev: 2.6 },
-  { zona: 'Zona Oeste',   region: 'GBA',  oferta: [2,1,2,2], demanda: [2,2,3,2], servicio: [2,2,2,3,2], prev: 2.2 },
-  { zona: 'Zona Sur',     region: 'GBA',  oferta: [2,1,1,2], demanda: [2,1,3,1], servicio: [2,2,2,2,2], prev: 2.0 },
-  // Interior
-  { zona: 'La Plata',     region: 'Interior', oferta: [2,1,2,2], demanda: [2,2,3,2], servicio: [2,2,2,3,2], prev: 2.1 },
-  { zona: 'Córdoba',      region: 'Interior', oferta: [4,3,3,3], demanda: [3,3,3,4], servicio: [3,3,3,3,3], prev: 2.9 },
-  { zona: 'Rosario',      region: 'Interior', oferta: [2,2,2,2], demanda: [2,2,3,2], servicio: [2,2,3,3,2], prev: 2.3 },
+const RAW_CABA = [
+  {b:'PALERMO',         region:'CABA', rel:2068, meli:22.8, peya:53.2, buyers:56745, pob:230000, onb:19.1},
+  {b:'BELGRANO',        region:'CABA', rel:1067, meli:25.4, peya:54.5, buyers:28355, pob:162000, onb:19.3},
+  {b:'CABALLITO',       region:'CABA', rel:973,  meli:25.9, peya:52.9, buyers:38050, pob:185000, onb:18.5},
+  {b:'RECOLETA',        region:'CABA', rel:949,  meli:26.9, peya:54.0, buyers:39950, pob:185000, onb:18.7},
+  {b:'SAN NICOLAS',     region:'CABA', rel:745,  meli:25.4, peya:54.5, buyers:18215, pob:68000,  onb:20.9},
+  {b:'BALVANERA',       region:'CABA', rel:685,  meli:31.4, peya:54.6, buyers:35019, pob:168000, onb:19.0},
+  {b:'VILLA CRESPO',    region:'CABA', rel:618,  meli:31.6, peya:56.6, buyers:21077, pob:103000, onb:20.5},
+  {b:'ALMAGRO',         region:'CABA', rel:588,  meli:31.5, peya:54.4, buyers:30726, pob:141000, onb:19.6},
+  {b:'VILLA URQUIZA',   region:'CABA', rel:554,  meli:31.9, peya:58.5, buyers:23064, pob:149000, onb:19.1},
+  {b:'FLORES',          region:'CABA', rel:518,  meli:33.8, peya:56.2, buyers:26724, pob:191000, onb:18.9},
+  {b:'VILLA DEVOTO',    region:'CABA', rel:427,  meli:28.6, peya:60.4, buyers:13375, pob:114000, onb:19.2},
+  {b:'MONSERRAT',       region:'CABA', rel:338,  meli:29.9, peya:56.2, buyers:14989, pob:68000,  onb:20.2},
+  {b:'COLEGIALES',      region:'CABA', rel:319,  meli:24.8, peya:54.2, buyers:11337, pob:69000,  onb:20.9},
+  {b:'RETIRO',          region:'CABA', rel:284,  meli:16.5, peya:52.1, buyers:11453, pob:50000,  onb:22.1},
+  {b:'NUÑEZ',           region:'CABA', rel:283,  meli:26.5, peya:57.2, buyers:13227, pob:68000,  onb:19.9},
+  {b:'VILLA DEL PARQUE',region:'CABA', rel:282,  meli:31.2, peya:53.2, buyers:11504, pob:84000,  onb:18.9},
+  {b:'SAAVEDRA',        region:'CABA', rel:269,  meli:27.5, peya:55.4, buyers:11975, pob:84000,  onb:21.0},
+  {b:'LINIERS',         region:'CABA', rel:252,  meli:29.4, peya:60.7, buyers:8328,  pob:76000,  onb:16.2},
+  {b:'MATADEROS',       region:'CABA', rel:205,  meli:27.3, peya:59.5, buyers:10902, pob:108000, onb:15.5},
+  {b:'BOEDO',           region:'CABA', rel:193,  meli:33.2, peya:60.1, buyers:9988,  pob:77000,  onb:18.7},
+  {b:'BARRACAS',        region:'CABA', rel:187,  meli:24.1, peya:59.9, buyers:11566, pob:79000,  onb:17.9},
+  {b:'SAN TELMO',       region:'CABA', rel:186,  meli:28.0, peya:61.3, buyers:5721,  pob:42000,  onb:19.8},
+  {b:'CHACARITA',       region:'CABA', rel:175,  meli:26.9, peya:49.7, buyers:8074,  pob:55000,  onb:23.8},
+  {b:'VILLA PUEYRREDON',region:'CABA', rel:158,  meli:26.6, peya:57.6, buyers:8692,  pob:73000,  onb:19.0},
+  {b:'SAN CRISTOBAL',   region:'CABA', rel:156,  meli:28.8, peya:61.5, buyers:11392, pob:68000,  onb:20.2},
+  {b:'PARQUE PATRICIOS', region:'CABA',rel:147,  meli:33.3, peya:67.3, buyers:8901,  pob:55000,  onb:20.1},
+  {b:'VILLA LURO',      region:'CABA', rel:145,  meli:31.0, peya:56.6, buyers:6675,  pob:55000,  onb:19.3},
+  {b:'MONTE CASTRO',    region:'CABA', rel:144,  meli:37.5, peya:61.1, buyers:7111,  pob:57000,  onb:19.5},
+  {b:'PARQUE CHACABUCO',region:'CABA', rel:138,  meli:21.7, peya:60.1, buyers:11370, pob:81000,  onb:18.9},
+  {b:'VILLA GENERAL MITRE',region:'CABA',rel:131,meli:26.7, peya:56.5, buyers:7589,  pob:54000,  onb:21.0},
+  {b:'VELEZ SARSFIELD', region:'CABA', rel:130,  meli:31.5, peya:54.6, buyers:6796,  pob:52000,  onb:19.8},
+  {b:'VILLA LUGANO',    region:'CABA', rel:129,  meli:27.9, peya:76.0, buyers:8244,  pob:85000,  onb:15.0},
+  {b:'CONSTITUCION',    region:'CABA', rel:126,  meli:23.8, peya:61.9, buyers:10043, pob:60000,  onb:19.0},
+  {b:'FLORESTA',        region:'CABA', rel:124,  meli:33.1, peya:55.6, buyers:8188,  pob:55000,  onb:19.2},
+  {b:'VILLA ORTUZAR',   region:'CABA', rel:119,  meli:21.8, peya:53.8, buyers:5774,  pob:45000,  onb:22.8},
+  {b:'PARQUE AVELLANEDA',region:'CABA',rel:101,  meli:28.7, peya:46.5, buyers:7569,  pob:64000,  onb:17.0},
+  {b:'VILLA SANTA RITA',region:'CABA', rel:100,  meli:33.0, peya:58.0, buyers:7530,  pob:51000,  onb:20.2},
+  {b:'LA BOCA',         region:'CABA', rel:95,   meli:12.6, peya:42.1, buyers:7512,  pob:50000,  onb:15.5},
+  {b:'COGHLAN',         region:'CABA', rel:91,   meli:29.7, peya:60.4, buyers:4772,  pob:34000,  onb:22.1},
+  {b:'NUEVA POMPEYA',   region:'CABA', rel:85,   meli:30.6, peya:55.3, buyers:7079,  pob:62000,  onb:17.6},
+  {b:'PUERTO MADERO',   region:'CABA', rel:84,   meli:14.3, peya:71.4, buyers:3120,  pob:15000,  onb:22.0},
+  {b:'LA PATERNAL',     region:'CABA', rel:65,   meli:27.7, peya:44.6, buyers:4614,  pob:34000,  onb:21.7},
+  {b:'PARQUE CHAS',     region:'CABA', rel:48,   meli:31.3, peya:47.9, buyers:4364,  pob:28000,  onb:23.0},
+  {b:'VERSALLES',       region:'CABA', rel:37,   meli:21.6, peya:64.9, buyers:2600,  pob:22000,  onb:20.2},
+  {b:'AGRONOMIA',       region:'CABA', rel:52,   meli:36.5, peya:51.9, buyers:3024,  pob:23000,  onb:21.5},
+  {b:'VILLA SOLDATI',   region:'CABA', rel:7,    meli:28.6, peya:85.7, buyers:3113,  pob:55000,  onb:19.0},
+  {b:'VILLA REAL',      region:'CABA', rel:55,   meli:21.8, peya:52.7, buyers:2554,  pob:24000,  onb:19.0},
+  {b:'VILLA RIACHUELO', region:'CABA', rel:51,   meli:15.7, peya:62.7, buyers:1113,  pob:20000,  onb:11.2},
 ];
 
-const BENCHMARK_BEST = { oferta: 4.5, demanda: 4.25, servicio: 4.2, total: 4.32 }; // Belgrano
-const BENCHMARK_IDEAL = { oferta: 5.0, demanda: 5.0, servicio: 5.0, total: 5.0 };
+const RAW_SI = [
+  {b:'MARTINEZ',     region:'GBA Norte', rel:379, meli:29.3, peya:68.6, buyers:9217, pob:null, onb:15.5},
+  {b:'SAN ISIDRO',   region:'GBA Norte', rel:337, meli:23.1, peya:65.6, buyers:6155, pob:null, onb:13.4},
+  {b:'VILLA ADELINA',region:'GBA Norte', rel:108, meli:38.9, peya:62.0, buyers:5462, pob:null, onb:14.4},
+  {b:'BECCAR',       region:'GBA Norte', rel:140, meli:20.0, peya:72.9, buyers:4759, pob:null, onb:11.0},
+  {b:'ACASSUSO',     region:'GBA Norte', rel:78,  meli:15.4, peya:78.2, buyers:1349, pob:null, onb:17.1},
+];
 
-const KPI_LABELS = {
-  oferta:   ['Restaurantes activos', 'Penetración vs competencia', 'Cobertura de cocinas', 'Cobertura de top brands'],
-  demanda:  ['Buyers activos / hab.', 'Buyers recurrentes / hab.', 'Churn', 'Tasa de onboarding'],
-  servicio: ['Horas riders / orden', 'Not delivered rate', 'Order late', 'Seamless orders', 'PDD'],
-};
+// Córdoba: datos agregados de zona (parcialmente reales)
+const RAW_INTERIOR = [
+  {b:'CÓRDOBA',    region:'Interior', rel:972, meli:41.0, peya:59.0, buyers:null, pob:null, onb:20.5},
+];
 
-// Valores dummy por zona — mismo orden que los scores
-// oferta:   [restaurantes, penetracion%, cobertura_cocinas, cobertura_top_brands]
-// demanda:  [buyers_activos/hab, buyers_recurrentes/hab, churn%, onboarding%]
-// servicio: [horas_riders/orden, not_delivered%, order_late%, seamless%, pdd%]
-const KPI_VALUES = {
-  'Belgrano':     { oferta: ['312', '68%', '8/9', '7/8'],    demanda: ['0.42', '0.28', '22%', '24%'],  servicio: ['2.1 hs', '1.2%', '8%', '91%', '88%'] },
-  'Palermo':      { oferta: ['287', '55%', '8/10', '6/8'],   demanda: ['0.38', '0.24', '26%', '22%'],  servicio: ['2.4 hs', '1.5%', '10%', '88%', '85%'] },
-  'Almagro':      { oferta: ['124', '38%', '5/6', '3/6'],    demanda: ['0.22', '0.14', '32%', '14%'],  servicio: ['3.2 hs', '2.8%', '15%', '78%', '74%'] },
-  'Caballito':    { oferta: ['98', '32%', '4/5', '3/6'],     demanda: ['0.18', '0.11', '34%', '11%'],  servicio: ['3.4 hs', '3.2%', '16%', '76%', '72%'] },
-  'Villa Crespo': { oferta: ['54', '24%', '3/4', '2/6'],     demanda: ['0.12', '0.07', '37%', '9%'],   servicio: ['3.8 hs', '3.8%', '18%', '73%', '70%'] },
-  'Mataderos':    { oferta: ['28', '14%', '2/3', '1/6'],     demanda: ['0.08', '0.04', '39%', '6%'],   servicio: ['4.6 hs', '5.1%', '22%', '65%', '61%'] },
-  'Zona Norte':   { oferta: ['112', '31%', '4/5', '3/6'],    demanda: ['0.19', '0.12', '33%', '12%'],  servicio: ['3.3 hs', '3.1%', '15%', '77%', '73%'] },
-  'Zona Oeste':   { oferta: ['48', '18%', '3/4', '2/6'],     demanda: ['0.10', '0.06', '38%', '8%'],   servicio: ['4.2 hs', '4.4%', '20%', '67%', '63%'] },
-  'Zona Sur':     { oferta: ['38', '14%', '2/3', '2/6'],     demanda: ['0.08', '0.05', '40%', '7%'],   servicio: ['4.8 hs', '5.6%', '24%', '62%', '58%'] },
-  'La Plata':     { oferta: ['42', '16%', '3/4', '2/6'],     demanda: ['0.09', '0.06', '37%', '9%'],   servicio: ['4.1 hs', '4.2%', '19%', '68%', '64%'] },
-  'Córdoba':      { oferta: ['972', '41%', '5/6', '4/6'],    demanda: ['0.26', '0.18', '30%', '21%'],  servicio: ['2.9 hs', '2.4%', '13%', '81%', '78%'] },
-  'Rosario':      { oferta: ['58', '22%', '3/4', '2/6'],     demanda: ['0.11', '0.07', '36%', '11%'],  servicio: ['4.0 hs', '4.0%', '18%', '70%', '67%'] },
-};
+// ─────────────────────────────────────────────────
+// SCORING FUNCTIONS
+// ─────────────────────────────────────────────────
 
-function avg(arr) { return arr.reduce((a,b) => a+b, 0) / arr.length; }
+function scoreActivos(n) {
+  return n >= 400 ? 5 : n >= 200 ? 4 : n >= 100 ? 3 : n >= 50 ? 2 : 1;
+}
+function scorePenetr(p) {
+  return p >= 35 ? 5 : p >= 29 ? 4 : p >= 23 ? 3 : p >= 17 ? 2 : 1;
+}
+function scoreBuyHab(v) {
+  if (v === null) return null;
+  return v >= 230 ? 5 : v >= 180 ? 4 : v >= 130 ? 3 : v >= 80 ? 2 : 1;
+}
+function scoreOnb(p) {
+  return p >= 22 ? 5 : p >= 20 ? 4 : p >= 18 ? 3 : p >= 15 ? 2 : 1;
+}
+
+function avgNonNull(arr) {
+  const valid = arr.filter(x => x !== null && x !== undefined);
+  if (!valid.length) return null;
+  return valid.reduce((a, b) => a + b, 0) / valid.length;
+}
+
+function buildZona(r) {
+  const activos   = Math.round(r.rel * r.meli / 100);
+  const buyHab    = r.pob ? (r.buyers / r.pob) * 1000 : null;
+  const sActivos  = scoreActivos(activos);
+  const sPenetr   = scorePenetr(r.meli);
+  const sBuyHab   = scoreBuyHab(buyHab);
+  const sOnb      = scoreOnb(r.onb);
+
+  // oferta: [activos, penetr, cocinas(null), topbrands(null)]
+  const oferta   = [sActivos, sPenetr, null, null];
+  // demanda: [buyHab, recurrentes(null), churn(null), onboarding]
+  const demanda  = [sBuyHab, null, null, sOnb];
+  // servicio: all null
+  const servicio = [null, null, null, null, null];
+
+  const sOf  = avgNonNull(oferta);
+  const sDem = avgNonNull(demanda);
+  const sSer = avgNonNull(servicio);
+  const sTotal = avgNonNull([sOf, sDem, sSer]);
+
+  // coverage: how many of 13 KPIs have data
+  const allScores = [...oferta, ...demanda, ...servicio];
+  const cov = allScores.filter(x => x !== null).length;
+
+  return {
+    zona: r.b,
+    region: r.region,
+    rel: r.rel,
+    meli: r.meli,
+    peya: r.peya,
+    buyers: r.buyers,
+    pob: r.pob,
+    onb: r.onb,
+    activos,
+    buyHab,
+    oferta, demanda, servicio,
+    sOf, sDem, sSer, sTotal,
+    cov,
+    // raw values for display
+    vals: {
+      oferta: [activos, r.meli.toFixed(1)+'%', '—', '—'],
+      demanda: [buyHab ? buyHab.toFixed(1) : '—', '—', '—', r.onb+'%'],
+      servicio: ['—','—','—','—','—'],
+    }
+  };
+}
+
+const ALL_ZONAS = [
+  ...RAW_CABA.map(buildZona),
+  ...RAW_SI.map(buildZona),
+  ...RAW_INTERIOR.map(buildZona),
+];
+
+// ─────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────
+
+function cap(s) { return s.charAt(0) + s.slice(1).toLowerCase(); }
+function fmt(n) { return n !== null && n !== undefined ? n.toLocaleString('es-AR') : '—'; }
 
 function scoreClass(s) {
+  if (s === null) return '';
   const r = Math.round(s);
   return `score-${Math.min(5, Math.max(1, r))}`;
 }
 
-function dots(score, type, max=5) {
+function dots(score) {
+  if (score === null) return '';
   const filled = Math.round(score);
   let html = `<span class="score-bar">`;
-  for (let i = 1; i <= max; i++) {
+  for (let i = 1; i <= 5; i++) {
     html += `<span class="score-dot${i <= filled ? ' filled-'+filled : ''}"></span>`;
   }
   html += `</span>`;
   return html;
 }
 
-function vsBadge(val, ref, type) {
-  const diff = val - ref;
-  const sign = diff >= 0 ? '+' : '';
-  let color;
-  if (diff >= 0)         color = '#1a8a3a';
-  else if (diff >= -0.5) color = '#f1c40f';
-  else if (diff >= -1.0) color = '#e67e22';
-  else                   color = '#c0392b';
-  return `<span style="font-size:11px;font-weight:700;color:${color}">${sign}${diff.toFixed(1)}</span>`;
+function scoreCell(s, cls) {
+  if (s === null) return `<td class="score-na ${cls}">—<br><span style="font-size:9px">sin datos</span></td>`;
+  return `<td class="${cls} ${scoreClass(s)}">${s.toFixed(1)} ${dots(s)}</td>`;
 }
 
-function vsPrevBadge(sTotal, prev) {
-  const diff = sTotal - prev;
-  let arrow, color;
-  if (diff > 0.05)       { arrow = '↑'; color = '#1a8a3a'; }
-  else if (diff < -0.05) { arrow = '↓'; color = '#c0392b'; }
-  else                   { arrow = '→'; color = '#888'; }
-  const sign = diff > 0.05 ? '+' : (diff < -0.05 ? '' : '');
-  const diffStr = Math.abs(diff) < 0.05 ? '' : ` ${sign}${diff.toFixed(1)}`;
-  return `<span style="font-size:13px;font-weight:700;color:${color}">${arrow}</span><span style="font-size:10.5px;font-weight:700;color:${color}">${diffStr}</span>`;
+function covBadge(cov) {
+  const pct = Math.round(cov / 13 * 100);
+  const cls = pct >= 40 ? 'cov-high' : pct >= 25 ? 'cov-mid' : 'cov-low';
+  return `<span class="cov-badge ${cls}">${cov}/13 KPIs</span>`;
 }
+
+function kpiRow(label, val, score) {
+  if (score === null) {
+    return `<div class="kpi-row"><span class="kpi-name">${label}</span><span class="kpi-pending">Pendiente</span></div>`;
+  }
+  return `<div class="kpi-row"><span class="kpi-name">${label}</span>
+    <span style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:10.5px;color:#888">${val}</span>
+      <span class="kpi-score ${scoreClass(score)}" style="font-weight:700;font-size:12px">${score}</span>
+    </span></div>`;
+}
+
+// ─────────────────────────────────────────────────
+// LABELS
+// ─────────────────────────────────────────────────
+
+const KPI_LABELS = {
+  oferta:   ['Restaurantes activos (#)', 'Penetración MeLi (%)', 'Cobertura cocinas', 'Cobertura top brands'],
+  demanda:  ['Buyers activos / 1.000 hab.', 'Buyers recurrentes / hab.', 'Churn 30d', 'Tasa de onboarding (%)'],
+  servicio: ['Horas riders / orden', 'Not delivered rate', 'Order late', 'Seamless orders', 'PDD'],
+};
+
+// ─────────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────────
 
 function render() {
   const region = document.getElementById('f-region').value;
-  const zonas = ZONAS.filter(z => region === 'ALL' || z.region === region);
+  const q      = (document.getElementById('f-search').value || '').toLowerCase();
+  const sort   = document.getElementById('f-sort').value;
 
-  // Benchmark cards
-  let html = `<div class="benchmark-bar">
-    <div class="benchmark-card best">
-      <div><div class="label">Benchmark interno (Belgrano)</div><div class="val">${BENCHMARK_BEST.total.toFixed(1)}</div></div>
-      <div style="font-size:11px;opacity:.6">Oferta ${BENCHMARK_BEST.oferta} · Demanda ${BENCHMARK_BEST.demanda} · Servicio ${BENCHMARK_BEST.servicio}</div>
-    </div>
-    <div class="benchmark-card ideal">
-      <div><div class="label">Benchmark ideal</div><div class="val">${BENCHMARK_IDEAL.total.toFixed(1)}</div></div>
-      <div style="font-size:11px;opacity:.6">Oferta ${BENCHMARK_IDEAL.oferta} · Demanda ${BENCHMARK_IDEAL.demanda} · Servicio ${BENCHMARK_IDEAL.servicio}</div>
-    </div>
-  </div>`;
+  let zonas = ALL_ZONAS.filter(z =>
+    (region === 'ALL' || z.region === region) &&
+    (!q || z.zona.toLowerCase().includes(q))
+  );
+
+  // Sort
+  if (sort === 'score')    zonas.sort((a,b) => (b.sTotal||0) - (a.sTotal||0));
+  else if (sort === 'zona') zonas.sort((a,b) => a.zona.localeCompare(b.zona));
+  else if (sort === 'oferta') zonas.sort((a,b) => (b.sOf||0) - (a.sOf||0));
+  else if (sort === 'demanda') zonas.sort((a,b) => (b.sDem||0) - (a.sDem||0));
+  else if (sort === 'onb') zonas.sort((a,b) => b.onb - a.onb);
+  else if (sort === 'penetr') zonas.sort((a,b) => b.meli - a.meli);
+
+  // Summary benchmark cards
+  const cabaZonas = zonas.filter(z => z.region === 'CABA');
+  const bestTotal = zonas.reduce((b, z) => z.sTotal && z.sTotal > (b?.sTotal||0) ? z : b, null);
+  const avgTotal = avgNonNull(zonas.map(z => z.sTotal));
+  const topOnb = zonas.reduce((b, z) => z.onb > (b?.onb||0) ? z : b, null);
+
+  let html = `<div class="benchmark-bar">`;
+  if (bestTotal) {
+    html += `<div class="benchmark-card best">
+      <div><div class="label">Mejor score — ${cap(bestTotal.zona)}</div><div class="val">${bestTotal.sTotal.toFixed(1)}</div></div>
+      <div style="font-size:11px;opacity:.6">Oferta ${bestTotal.sOf?.toFixed(1)||'—'} · Demanda ${bestTotal.sDem?.toFixed(1)||'—'} · Servicio sin datos</div>
+    </div>`;
+  }
+  if (avgTotal) {
+    html += `<div class="benchmark-card ideal">
+      <div><div class="label">Promedio zona filtrada</div><div class="val">${avgTotal.toFixed(1)}</div></div>
+      <div style="font-size:11px;opacity:.6">${zonas.length} zonas · 4 KPIs disponibles de 13</div>
+    </div>`;
+  }
+  if (topOnb) {
+    html += `<div class="benchmark-card info">
+      <div><div class="label">Mejor onboarding — ${cap(topOnb.zona)}</div><div class="val">${topOnb.onb}%</div></div>
+      <div style="font-size:11px;opacity:.6">Referencia para scoring cohorte sep-ene</div>
+    </div>`;
+  }
+  html += `</div>`;
 
   // Table
   html += `<table class="scorecard"><thead><tr>
-    <th class="th-zona">Zona</th>
+    <th class="th-zona">Zona / Barrio</th>
     <th class="th-region">Región</th>
-    <th class="th-oferta">Oferta<span class="psub">Score /5</span></th>
-    <th class="th-demanda">Demanda<span class="psub">Score /5</span></th>
-    <th class="th-servicio">Nivel de Servicio<span class="psub">Score /5</span></th>
-    <th class="th-total">Score Total<span class="psub">Promedio</span></th>
-    <th class="th-benchmark">vs Belgrano</th>
-    <th class="th-benchmark">vs Ideal</th>
-    <th class="th-benchmark">vs Feb<span class="psub">mes anterior</span></th>
+    <th class="th-oferta">Oferta<span class="psub">2 de 4 KPIs</span></th>
+    <th class="th-demanda">Demanda<span class="psub">2 de 4 KPIs</span></th>
+    <th class="th-servicio">Servicio<span class="psub">sin datos aún</span></th>
+    <th class="th-total">Score<span class="psub">Oferta+Dem.</span></th>
+    <th class="th-cov">Penetr. MeLi<span class="psub">vs PeYa bench</span></th>
+    <th class="th-cov">Onboarding<span class="psub">sep-ene cohorte</span></th>
+    <th class="th-cov">KPIs disp.</th>
   </tr></thead><tbody>`;
 
   let currentRegion = '';
   zonas.forEach(z => {
-    const sOf = avg(z.oferta);
-    const sDem = avg(z.demanda);
-    const sSer = avg(z.servicio);
-    const sTotal = avg([sOf, sDem, sSer]);
-
     if (z.region !== currentRegion) {
       currentRegion = z.region;
       html += `<tr class="row-region-header"><td colspan="9">${z.region}</td></tr>`;
     }
 
+    const brecha = (z.meli - z.peya).toFixed(1);
+    const brechaColor = parseFloat(brecha) >= -25 ? '#1a6e3a' : parseFloat(brecha) >= -40 ? '#c8a200' : '#e94560';
+    const brechaStr = parseFloat(brecha) >= 0 ? '+'+brecha : brecha;
+
+    const onbColor = z.onb >= 22 ? '#1a6e3a' : z.onb >= 18 ? '#7d5a00' : '#e67e22';
+
     html += `<tr>
-      <td class="td-zona">${z.zona}</td>
+      <td class="td-zona">${cap(z.zona)}</td>
       <td class="td-region">${z.region}</td>
-      <td class="score-oferta ${scoreClass(sOf)}">${sOf.toFixed(1)} ${dots(sOf,'oferta')}</td>
-      <td class="score-demanda ${scoreClass(sDem)}">${sDem.toFixed(1)} ${dots(sDem,'demanda')}</td>
-      <td class="score-servicio ${scoreClass(sSer)}">${sSer.toFixed(1)} ${dots(sSer,'servicio')}</td>
-      <td class="score-total ${scoreClass(sTotal)}">${sTotal.toFixed(1)} ${dots(sTotal,'total')}</td>
-      <td>${vsBadge(sTotal, BENCHMARK_BEST.total, 'vs-best')}</td>
-      <td>${vsBadge(sTotal, BENCHMARK_IDEAL.total, 'vs-ideal')}</td>
-      <td>${vsPrevBadge(sTotal, z.prev)}</td>
+      ${scoreCell(z.sOf, 'score-oferta')}
+      ${scoreCell(z.sDem, 'score-demanda')}
+      ${scoreCell(z.sSer, 'score-servicio')}
+      ${z.sTotal !== null
+        ? `<td class="score-total ${scoreClass(z.sTotal)}">${z.sTotal.toFixed(1)} ${dots(z.sTotal)}</td>`
+        : `<td class="score-na score-total" style="background:#2d2d4e!important;color:#888!important;font-style:italic;font-size:11px">—</td>`}
+      <td>
+        <span style="font-weight:700;font-size:12px;color:#4361ee">${z.meli.toFixed(1)}%</span>
+        <span style="font-size:10px;color:${brechaColor};font-weight:700;margin-left:4px">${brechaStr}pp</span>
+      </td>
+      <td style="font-weight:700;font-size:12px;color:${onbColor}">${z.onb}%</td>
+      <td style="text-align:center">${covBadge(z.cov)}</td>
     </tr>`;
   });
 
   html += `</tbody></table>`;
 
-  // Detail panel
+  // Detail cards
   html += `<div class="detail-panel">
     <div class="detail-title">Detalle de indicadores por zona</div>`;
 
   zonas.forEach(z => {
-    const sOf = avg(z.oferta);
-    const sDem = avg(z.demanda);
-    const sSer = avg(z.servicio);
-
     html += `<div style="margin-bottom:20px">
-      <div style="font-weight:700;font-size:13px;margin-bottom:10px;color:#1a1a2e">${z.zona} <span style="font-weight:400;font-size:11px;color:#aaa">${z.region}</span></div>
+      <div style="font-weight:700;font-size:13px;margin-bottom:10px;color:#1a1a2e">
+        ${cap(z.zona)}
+        <span style="font-weight:400;font-size:11px;color:#aaa;margin-left:6px">${z.region}</span>
+        ${covBadge(z.cov)}
+      </div>
       <div class="detail-grid">
         <div class="dim-card oferta">
-          <h4>Oferta — ${sOf.toFixed(1)}</h4>
-          ${KPI_LABELS.oferta.map((k,i) => `<div class="kpi-row"><span class="kpi-name">${k}</span><span style="display:flex;align-items:center;gap:6px"><span style="font-size:10.5px;color:#888">${KPI_VALUES[z.zona]?.oferta[i] || '—'}</span><span class="kpi-score ${scoreClass(z.oferta[i])}">${z.oferta[i]}</span></span></div>`).join('')}
+          <h4>Oferta${z.sOf !== null ? ' — '+z.sOf.toFixed(1) : ' — sin datos'}</h4>
+          ${kpiRow(KPI_LABELS.oferta[0], fmt(z.activos)+' restaurantes', z.oferta[0])}
+          ${kpiRow(KPI_LABELS.oferta[1], z.meli.toFixed(1)+'% MeLi vs '+z.peya.toFixed(1)+'% PeYa', z.oferta[1])}
+          ${kpiRow(KPI_LABELS.oferta[2], '—', null)}
+          ${kpiRow(KPI_LABELS.oferta[3], '—', null)}
         </div>
         <div class="dim-card demanda">
-          <h4>Demanda — ${sDem.toFixed(1)}</h4>
-          ${KPI_LABELS.demanda.map((k,i) => `<div class="kpi-row"><span class="kpi-name">${k}</span><span style="display:flex;align-items:center;gap:6px"><span style="font-size:10.5px;color:#888">${KPI_VALUES[z.zona]?.demanda[i] || '—'}</span><span class="kpi-score ${scoreClass(z.demanda[i])}">${z.demanda[i]}</span></span></div>`).join('')}
+          <h4>Demanda${z.sDem !== null ? ' — '+z.sDem.toFixed(1) : ' — sin datos'}</h4>
+          ${kpiRow(KPI_LABELS.demanda[0], z.buyHab !== null ? z.buyHab.toFixed(1)+' / 1.000 hab.' : '—', z.demanda[0])}
+          ${kpiRow(KPI_LABELS.demanda[1], '—', null)}
+          ${kpiRow(KPI_LABELS.demanda[2], '—', null)}
+          ${kpiRow(KPI_LABELS.demanda[3], z.onb+'% onboarding', z.demanda[3])}
         </div>
         <div class="dim-card servicio">
-          <h4>Nivel de Servicio — ${sSer.toFixed(1)}</h4>
-          ${KPI_LABELS.servicio.map((k,i) => `<div class="kpi-row"><span class="kpi-name">${k}</span><span style="display:flex;align-items:center;gap:6px"><span style="font-size:10.5px;color:#888">${KPI_VALUES[z.zona]?.servicio[i] || '—'}</span><span class="kpi-score ${scoreClass(z.servicio[i])}">${z.servicio[i]}</span></span></div>`).join('')}
+          <h4>Servicio — sin datos</h4>
+          ${KPI_LABELS.servicio.map(k => kpiRow(k, '—', null)).join('')}
         </div>
       </div>
     </div>`;
   });
 
-  html += `<p class="note">* Scores 1-5 por indicador. Score por dimensión = promedio de indicadores. Score total = promedio de las tres dimensiones. Datos ilustrativos.</p>
+  html += `<p class="note">* Score total = promedio de Oferta y Demanda (4 KPIs reales de 13 totales). Servicio excluido por falta de datos. Umbrales de scoring preliminares — pendiente validación con el equipo.</p>
   </div>`;
 
   document.getElementById('main-content').innerHTML = html;
@@ -472,11 +688,11 @@ function render() {
 
 render();
 
-function switchTab(name) {
+function switchTab(name, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  event.target.classList.add('active');
+  btn.classList.add('active');
 }
 </script>
 </body>
