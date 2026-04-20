@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proximity Food — San Isidro Oferta</title>
+<title>Proximity Food — San Isidro</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a2e; font-size: 13px; }
@@ -20,75 +20,28 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 
 /* ── CARDS ── */
 .cards-page { padding: 20px 24px; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 16px; }
 
-/* Reference bar */
-.ref-bar {
-  background: #fff; border-radius: 10px; padding: 12px 20px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-bottom: 20px;
-  display: flex; gap: 32px; align-items: center; flex-wrap: wrap;
-}
-.ref-bar .ref-title { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #888; margin-right: 8px; }
-.ref-metric { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
-.ref-metric .rm-val { font-size: 17px; font-weight: 700; color: #1a1a2e; }
-.ref-metric .rm-lbl { font-size: 10px; color: #aaa; margin-top: 2px; text-align: center; }
-.ref-metric .rm-best { font-size: 12px; font-weight: 700; color: #4361ee; margin-top: 3px; }
-.ref-metric .rm-best-lbl { font-size: 9px; color: #aaa; font-weight: 400; }
-.ref-metric .rm-sep { height: 1px; background: #eee; width: 100%; margin: 6px 0 4px; }
-.ref-section-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #bbb; margin-bottom: 2px; }
-
-/* Cards grid */
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-
-.card {
-  background: #fff; border-radius: 12px;
-  box-shadow: 0 1px 6px rgba(0,0,0,.09);
-  overflow: hidden;
-}
+.card { background: #fff; border-radius: 12px; box-shadow: 0 1px 6px rgba(0,0,0,.09); overflow: hidden; }
 .card-total { background: #eef2ff; }
-.card-header {
-  background: #1a1a2e; color: #fff;
-  padding: 12px 16px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.card-header .ch-name { font-size: 14px; font-weight: 700; }
-.card-header .ch-sub  { font-size: 10.5px; opacity: .55; margin-top: 2px; }
-.card-header .ch-badge {
-  background: rgba(255,255,255,.12); border-radius: 6px;
-  padding: 4px 10px; font-size: 10.5px; font-weight: 600;
-  white-space: nowrap;
-}
+.card-header { background: #1a1a2e; color: #fff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
 .card-total .card-header { background: #2c3e7a; }
+.ch-name { font-size: 14px; font-weight: 700; }
+.ch-sub  { font-size: 10.5px; opacity: .55; margin-top: 2px; }
+.ch-badge { background: rgba(255,255,255,.12); border-radius: 6px; padding: 4px 10px; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
 
 .card-body { padding: 0; }
-
-.section-label {
-  font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
-  padding: 8px 16px 4px;
-  color: #fff; margin: 0;
-}
+.section-label { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 8px 16px 4px; color: #fff; }
 .sl-oferta  { background: #4a4a6a; }
 .sl-demanda { background: #6a6a8a; }
 
-.metrics-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 0;
-  padding: 8px 12px 12px;
-}
+.metrics-grid   { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 8px 12px 12px; }
+.metrics-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; padding: 8px 12px 12px; }
 
-.metric-cell {
-  padding: 8px; border-radius: 8px;
-}
-.metric-cell .mc-label {
-  font-size: 10px; color: #999; margin-bottom: 3px; line-height: 1.3;
-}
-.metric-cell .mc-value {
-  font-size: 18px; font-weight: 700; color: #1a1a2e; line-height: 1;
-}
-.metric-cell .mc-value.sm { font-size: 15px; }
-.metric-cell .mc-delta {
-  font-size: 10.5px; font-weight: 700; margin-top: 4px; display: inline-block;
-  padding: 1px 6px; border-radius: 10px;
-}
+.metric-cell { padding: 8px; border-radius: 8px; }
+.mc-label { font-size: 10px; color: #999; margin-bottom: 3px; line-height: 1.3; }
+.mc-value { font-size: 18px; font-weight: 700; color: #1a1a2e; line-height: 1; }
+.mc-delta { font-size: 10.5px; font-weight: 700; margin-top: 4px; display: inline-block; padding: 1px 6px; border-radius: 10px; }
 .delta-pos  { background: #d4efdf; color: #1a6640; }
 .delta-neg  { background: #fde8e8; color: #8b0000; }
 .delta-neu  { background: #f0f0f0; color: #666; }
@@ -96,19 +49,40 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 
 .divider { height: 1px; background: #f0f2f8; margin: 0 12px; }
 
-/* ── CABA TABLE (second tab) ── */
+/* ── CATEGORÍAS ── */
 .content { padding: 20px 24px; overflow-x: auto; }
 .section { background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.08); margin-bottom: 20px; overflow: hidden; }
 .section-title { background: #1a1a2e; color: #fff; padding: 10px 18px; font-size: 12px; font-weight: 600; letter-spacing: .4px; }
+.section-note { font-size: 10.5px; color: #888; padding: 8px 18px 12px; font-style: italic; line-height: 1.5; border-bottom: 1px solid #f0f2f5; }
 .note { font-size: 10.5px; color: #888; padding: 10px 18px 14px; font-style: italic; line-height: 1.5; }
-.toolbar { display: flex; gap: 10px; padding: 12px 18px; align-items: center; flex-wrap: wrap; border-bottom: 1px solid #eef0f5; }
-.toolbar input { padding: 6px 12px; border: 1px solid #d0d4e8; border-radius: 6px; font-size: 12px; width: 200px; outline: none; }
+
 .tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
 .tbl th { background: #1a1a2e; color: #fff; padding: 8px 12px; text-align: center; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
 .tbl th:first-child { text-align: left; }
 .tbl td { padding: 7px 12px; border-bottom: 1px solid #f0f2f8; text-align: center; white-space: nowrap; }
 .tbl td:first-child { text-align: left; font-weight: 600; }
 .tbl tr:hover td { background: #f5f7ff; }
+
+.prio-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; }
+.prio-alta     { background: #fde8e8; color: #8b0000; }
+.prio-media    { background: #fef3e2; color: #7d4500; }
+.prio-fuerte   { background: #d4efdf; color: #1a6640; }
+.prio-limitada { background: #f0f0f0; color: #666; }
+
+.dem-bar { display: inline-flex; align-items: center; gap: 5px; }
+.dem-bar-bg { width: 80px; height: 6px; background: #e8eaf0; border-radius: 3px; }
+.dem-bar-fill { height: 6px; border-radius: 3px; background: #1a1a2e; }
+
+.cov-bars { display: flex; flex-direction: column; gap: 3px; }
+.cov-row  { display: flex; align-items: center; gap: 5px; font-size: 10px; }
+.cov-lbl  { width: 28px; text-align: right; font-weight: 600; }
+.cov-bg   { width: 80px; height: 5px; background: #e8eaf0; border-radius: 3px; }
+.cov-fill-meli { height: 5px; border-radius: 3px; background: #4361ee; }
+.cov-fill-peya { height: 5px; border-radius: 3px; background: #e74c3c; }
+
+/* ── CABA TABLE ── */
+.toolbar { display: flex; gap: 10px; padding: 12px 18px; align-items: center; flex-wrap: wrap; border-bottom: 1px solid #eef0f5; }
+.toolbar input { padding: 6px 12px; border: 1px solid #d0d4e8; border-radius: 6px; font-size: 12px; width: 200px; outline: none; }
 .tbl tr.detail-row:nth-child(even) td { background: #fafbfc; }
 .group-hdr td { cursor: pointer; }
 .group-hdr td:first-child { font-size: 12px; font-weight: 700; }
@@ -129,25 +103,116 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 .onb-high { color: #27ae60; font-weight: 700; }
 .onb-mid  { color: #e67e22; font-weight: 700; }
 .onb-low  { color: #e94560; font-weight: 700; }
+
+/* ── SUPUESTOS ── */
+.sup-page { padding: 24px; max-width: 820px; }
+.sup-block { background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.08); margin-bottom: 16px; overflow: hidden; }
+.sup-block h3 { background: #1a1a2e; color: #fff; padding: 10px 18px; font-size: 12px; font-weight: 600; letter-spacing: .4px; }
+.sup-block .sup-body { padding: 14px 18px; }
+.sup-row { display: grid; grid-template-columns: 180px 1fr; gap: 8px 16px; padding: 6px 0; border-bottom: 1px solid #f0f2f5; align-items: start; }
+.sup-row:last-child { border-bottom: none; }
+.sup-key { font-size: 11px; font-weight: 700; color: #1a1a2e; padding-top: 1px; }
+.sup-val { font-size: 11px; color: #555; line-height: 1.5; }
+.sup-note-block { font-size: 11px; color: #666; line-height: 1.6; padding: 8px 0; }
+.sup-note-block li { margin-left: 16px; margin-bottom: 4px; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Proximity Food — San Isidro: análisis de oferta</h1>
-  <div class="sub">Datos: ene–mar 2026 · Referencia: CABA 48 barrios · Fuente: BT_PM_STORES_MASTER + BT_PROXIMITY_SHIPMENTS_DETAILED</div>
+  <h1>Proximity Food — San Isidro: análisis de oferta y demanda</h1>
+  <div class="sub">Datos: Q1 2026 · Referencia: CABA 48 barrios · Fuente: BT_PM_STORES_MASTER + BT_PROXIMITY_SHIPMENTS_DETAILED</div>
 </header>
 
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('si',this)">San Isidro</button>
-  <button class="tab-btn" onclick="switchTab('caba',this)">CABA — referencia detallada</button>
+  <button class="tab-btn" onclick="switchTab('cat',this)">Análisis por categoría</button>
+  <button class="tab-btn" onclick="switchTab('sup',this)">Supuestos</button>
+  <button class="tab-btn" onclick="switchTab('caba',this)">CABA — referencia</button>
 </div>
 
 <!-- ── TAB SAN ISIDRO ── -->
 <div class="tab-panel active" id="tab-si">
   <div class="cards-page">
-    <div id="ref-bar-container"></div>
     <div class="cards-grid" id="cards-container"></div>
+  </div>
+</div>
+
+<!-- ── TAB CATEGORÍAS ── -->
+<div class="tab-panel" id="tab-cat">
+  <div class="content">
+    <div class="section">
+      <div class="section-title">Oferta en San Isidro vs demanda real — por tipo de cocina</div>
+      <div class="section-note">
+        Demanda: % de órdenes completadas en CABA Q1 2026 por categoría, usado como benchmark de demanda potencial no sesgada por la oferta disponible en SI.<br>
+        Oferta: cobertura MeLi y PeYa en los 5 sub-barrios de San Isidro (Martínez, SI centro, Villa Adelina, Beccar, Acassuso). LHF = restaurantes en PeYa+Rappi sin MeLi — target directo de hunters.
+      </div>
+      <table class="tbl">
+        <thead><tr>
+          <th style="text-align:left">Categoría</th>
+          <th>Demanda CABA</th>
+          <th>Cobertura MeLi SI</th>
+          <th>Cobertura PeYa SI</th>
+          <th>Brecha</th>
+          <th>LHF capturable</th>
+          <th>Excl. PeYa</th>
+          <th>Prioridad hunting</th>
+        </tr></thead>
+        <tbody id="tbodyCat"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── TAB SUPUESTOS ── -->
+<div class="tab-panel" id="tab-sup">
+  <div class="sup-page">
+
+    <div class="sup-block">
+      <h3>Fuentes de datos</h3>
+      <div class="sup-body">
+        <div class="sup-row"><div class="sup-key">Oferta</div><div class="sup-val"><code>BT_PM_STORES_MASTER</code> — relevamiento de restaurantes en CABA, San Isidro y Córdoba. Incluye status en MeLi, PeYa y Rappi, y categoría de cocina. Corte: ene–mar 2026.</div></div>
+        <div class="sup-row"><div class="sup-key">Demanda buyers</div><div class="sup-val"><code>BT_PROXIMITY_SHIPMENTS_DETAILED</code> — pedidos completados en MeLi Food (excl. cancelados, excl. IS_TEST). Período: Q1 2026.</div></div>
+        <div class="sup-row"><div class="sup-key">Demanda por categoría</div><div class="sup-val">Órdenes completadas en CABA Q1 2026 joineadas con <code>BT_PM_STORES_MASTER</code> por STORE_ID → STORE_ID_MELI. Se usa CABA como proxy de demanda potencial, dado que la distribución en SI puede estar sesgada por la oferta disponible.</div></div>
+        <div class="sup-row"><div class="sup-key">Población SI</div><div class="sup-val">Estimaciones INDEC 2022 por localidad. No existen datos oficiales a nivel de sub-barrio para San Isidro — se usaron estimaciones aproximadas por localidad.</div></div>
+      </div>
+    </div>
+
+    <div class="sup-block">
+      <h3>Definición de métricas — Oferta</h3>
+      <div class="sup-body">
+        <div class="sup-row"><div class="sup-key">% Cobertura MeLi (raw)</div><div class="sup-val">Restaurantes activos en MeLi / total relevados en la zona.</div></div>
+        <div class="sup-row"><div class="sup-key">% Cobertura MeLi ajust.</div><div class="sup-val">Activos MeLi / (total relevados − exclusivos PeYa). Excluye del denominador los restaurantes con exclusividad contractual con PeYa, ya que no son capturable por hunters. Es el indicador más representativo de la posición real de MeLi en el mercado capturable.</div></div>
+        <div class="sup-row"><div class="sup-key">Exclusivos PeYa</div><div class="sup-val">Restaurantes con <code>OVERLAP_CATEGORY = 'Exclusive Competitor'</code> y detalle PeYa. Tienen exclusividad contractual — hunters no pueden captarlos. Se excluyen del denominador en la métrica ajustada.</div></div>
+        <div class="sup-row"><div class="sup-key">LHF — Por capturar</div><div class="sup-val">Low-Hanging Fruit: restaurantes presentes en PeYa+Rappi pero ausentes en MeLi (<code>OVERLAP_CATEGORY = 'Low-Hanging fruit'</code>). Son el target directo de hunters: ya tienen operación de delivery, solo falta sumarlos a MeLi.</div></div>
+        <div class="sup-row"><div class="sup-key">Brecha MeLi vs PeYa (ajust.)</div><div class="sup-val">% Cobertura MeLi ajust. − % Cobertura PeYa ajust. Valor negativo indica que PeYa tiene mayor penetración en el mercado capturable. El mercado capturable = total relevados − exclusivos PeYa.</div></div>
+      </div>
+    </div>
+
+    <div class="sup-block">
+      <h3>Definición de métricas — Demanda</h3>
+      <div class="sup-body">
+        <div class="sup-row"><div class="sup-key">% Onboarding</div><div class="sup-val">% de compradores nuevos que completaron 5+ órdenes en los 90 días siguientes a su primera compra. Cohortes: sep-25 a ene-26. Mide si el buyer logra el comportamiento de uso habitual deseado.</div></div>
+        <div class="sup-row"><div class="sup-key">Buyers activos Q1-26</div><div class="sup-val">Compradores con al menos 1 pedido completado entre enero y marzo 2026. Para sub-barrios de SI, se filtra por <code>SHP_BUYER_CITY_NAME</code>.</div></div>
+        <div class="sup-row"><div class="sup-key">Buyers / 1.000 hab.</div><div class="sup-val">Buyers activos Q1-26 / población estimada × 1.000. Indica penetración de la plataforma en la zona vs CABA como referencia.</div></div>
+      </div>
+    </div>
+
+    <div class="sup-block">
+      <h3>Notas y limitaciones</h3>
+      <div class="sup-body">
+        <div class="sup-note-block">
+          <ul>
+            <li>La brecha vs PeYa incluye tanto el componente capturable (LHF) como el no capturable (exclusividades). La métrica ajustada intenta aislar el primero.</li>
+            <li>El onboarding bajo en SI vs CABA puede reflejar falta de variedad en categorías clave o menor intensidad de demanda — con la data disponible no es posible separar las dos causas. El análisis por categoría aporta evidencia indirecta.</li>
+            <li>Los datos de oferta de San Isidro corresponden a los 5 sub-barrios: Martínez, San Isidro centro, Villa Adelina, Beccar y Acassuso.</li>
+            <li>La demanda por categoría usa CABA como benchmark ya que SI tiene aún oferta limitada en varias categorías, lo que sesgaría la distribución local de pedidos.</li>
+            <li>Población por sub-barrio: estimaciones aproximadas INDEC 2022. No se dispone de datos oficiales a nivel de localidad para San Isidro.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -180,7 +245,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
         </tr></thead>
         <tbody id="tbodyCaba"></tbody>
       </table>
-      <p class="note">Ajuste: excluye exclusivos PeYa del denominador. Brecha ajust. = % MeLi ajust. − % PeYa ajust. Onboarding: cohortes sep-25 a ene-26, 5+ ordenes en 90 dias.</p>
+      <p class="note">Ajuste: excluye exclusivos PeYa del denominador. Brecha ajust. = % MeLi ajust. − % PeYa ajust. Onboarding: cohortes sep-25 a ene-26, 5+ órdenes en 90 días.</p>
     </div>
   </div>
 </div>
@@ -204,7 +269,7 @@ const POB = {
   'VILLA SOLDATI':55000,'VILLA REAL':24000,'VILLA RIACHUELO':20000
 };
 
-// ep=exclusivos PeYa, pt=total PeYa, lhf=low-hanging fruit (PeYa+Rappi sin MeLi)
+// ep=excl. PeYa, pt=total en PeYa, lhf=low-hanging fruit
 const CABA = [
   {b:'PALERMO',          rel:2068,meli:22.8,peya:53.2,buyers:56745,onb:19.1,ep:249,pt:1101,lhf:235},
   {b:'BELGRANO',         rel:1067,meli:25.4,peya:54.5,buyers:28355,onb:19.3,ep:137,pt:582, lhf:110},
@@ -256,7 +321,7 @@ const CABA = [
   {b:'VILLA RIACHUELO',  rel:51,  meli:15.7,peya:62.7,buyers:1113, onb:11.2,ep:16, pt:32,  lhf:11},
 ];
 
-// pob: estimación INDEC 2022 por localidad (aprox., pendiente dato oficial)
+// pob: estimación INDEC 2022 por localidad (aprox.)
 const SI = [
   {b:'MARTINEZ',     rel:379,meli:29.3,peya:68.6,buyers:9217,onb:15.5,ep:75,pt:260,lhf:55,pob:62000},
   {b:'SAN ISIDRO',   rel:337,meli:23.1,peya:65.6,buyers:6155,onb:13.4,ep:64,pt:221,lhf:60,pob:55000},
@@ -265,122 +330,85 @@ const SI = [
   {b:'ACASSUSO',     rel:78, meli:15.4,peya:78.2,buyers:1349,onb:17.1,ep:20,pt:61, lhf:24,pob:21000},
 ];
 
+// Demanda CABA Q1-26 × cobertura SI — 5 sub-barrios combinados
+// Fuente: BT_PROXIMITY_SHIPMENTS_DETAILED (dem) + BT_PM_STORES_MASTER (oferta)
+// dem=% órdenes CABA, meli/peya=% cobertura SI, lhf=capturable, ep=excl. PeYa, rel=total relevados
+const CATEGORIAS = [
+  {cat:'HAMBURGUESA',          dem:33.4, meli:31.1, peya:80.0, lhf:17, ep:31, rel:90,  prio:'alta'},
+  {cat:'HELADO',               dem:15.6, meli:32.6, peya:77.9, lhf:18, ep:36, rel:95,  prio:'alta'},
+  {cat:'SUSHI',                dem:9.3,  meli:23.5, peya:63.5, lhf:17, ep:43, rel:85,  prio:'alta'},
+  {cat:'POLLO',                dem:6.8,  meli:9.5,  peya:90.5, lhf:4,  ep:14, rel:21,  prio:'limitada'},
+  {cat:'EMPANADAS',            dem:6.1,  meli:56.1, peya:78.8, lhf:7,  ep:15, rel:66,  prio:'fuerte'},
+  {cat:'PIZZA',                dem:5.9,  meli:29.8, peya:76.9, lhf:18, ep:40, rel:104, prio:'alta'},
+  {cat:'MILANESAS',            dem:3.2,  meli:36.8, peya:73.7, lhf:5,  ep:13, rel:38,  prio:'media'},
+  {cat:'DESAYUNOS Y MERIENDAS',dem:2.4,  meli:18.1, peya:69.9, lhf:15, ep:40, rel:83,  prio:'alta'},
+  {cat:'SALUDABLE',            dem:2.1,  meli:57.1, peya:57.1, lhf:0,  ep:1,  rel:7,   prio:'fuerte'},
+  {cat:'SANDWICHES',           dem:2.0,  meli:33.3, peya:85.4, lhf:11, ep:13, rel:48,  prio:'alta'},
+  {cat:'CARNES',               dem:1.7,  meli:12.5, peya:87.5, lhf:6,  ep:14, rel:24,  prio:'media'},
+  {cat:'PANADERÍA',            dem:1.1,  meli:16.7, peya:78.3, lhf:13, ep:35, rel:60,  prio:'alta'},
+  {cat:'VENEZOLANA',           dem:1.1,  meli:8.3,  peya:66.7, lhf:2,  ep:4,  rel:12,  prio:'media'},
+  {cat:'PASTAS',               dem:0.6,  meli:45.8, peya:62.5, lhf:2,  ep:10, rel:24,  prio:'fuerte'},
+  {cat:'POSTRES',              dem:0.5,  meli:24.3, peya:94.6, lhf:4,  ep:13, rel:37,  prio:'limitada'},
+  {cat:'TARTAS',               dem:0.6,  meli:6.7,  peya:93.3, lhf:4,  ep:7,  rel:15,  prio:'media'},
+  {cat:'ENSALADAS',            dem:0.4,  meli:15.4, peya:92.3, lhf:2,  ep:7,  rel:13,  prio:'limitada'},
+  {cat:'MEXICANA',             dem:0.2,  meli:0,    peya:100,  lhf:4,  ep:1,  rel:6,   prio:'media'},
+];
+
 // ── HELPERS ──
-function cap(s) { return s.charAt(0)+s.slice(1).toLowerCase(); }
-function fmt(n) { return n!=null ? n.toLocaleString('es-AR') : '—'; }
+function cap(s) { return s.charAt(0) + s.slice(1).toLowerCase(); }
+function fmt(n) { return n != null ? n.toLocaleString('es-AR') : '—'; }
 function meliActivos(r) { return Math.round(r.rel * r.meli / 100); }
 function adjDenom(r)    { return r.rel - r.ep; }
-function meliAdjPct(r)  { return meliActivos(r)/adjDenom(r)*100; }
-function peyaAdjPct(r)  { return (r.pt-r.ep)/adjDenom(r)*100; }
-function adjBrecha(r)   { return meliAdjPct(r)-peyaAdjPct(r); }
-function rawBrecha(r)   { return r.meli-r.peya; }
-function brechaClass(v) { return v>=-25?'low':v>=-40?'mid':'high'; }
-function onbClass(v)    { return v>=21?'onb-high':v>=18?'onb-mid':'onb-low'; }
-function bph(r)         { const p=POB[r.b]; return p?(r.buyers/p*1000):null; }
+function meliAdjPct(r)  { return meliActivos(r) / adjDenom(r) * 100; }
+function peyaAdjPct(r)  { return (r.pt - r.ep) / adjDenom(r) * 100; }
+function adjBrecha(r)   { return meliAdjPct(r) - peyaAdjPct(r); }
+function rawBrecha(r)   { return r.meli - r.peya; }
+function brechaClass(v) { return v >= -25 ? 'low' : v >= -40 ? 'mid' : 'high'; }
+function onbClass(v)    { return v >= 21 ? 'onb-high' : v >= 18 ? 'onb-mid' : 'onb-low'; }
+function bph(r)         { const p = POB[r.b]; return p ? (r.buyers / p * 1000) : null; }
 function barMeli(v)     { return `<div class="bar-cell"><div class="bar-bg"><div class="bar-fill bar-meli" style="width:${Math.min(100,v/50*100)}%"></div></div><span class="bar-val" style="color:#4361ee">${v}%</span></div>`; }
 function barPeya(v)     { return `<div class="bar-cell"><div class="bar-bg"><div class="bar-fill bar-peya" style="width:${Math.min(100,v/90*100)}%"></div></div><span class="bar-val" style="color:#e74c3c">${v}%</span></div>`; }
-function brechaCell(v)  { const col=v>=-25?'#27ae60':v>=-40?'#c8a200':'#e94560'; return `<span style="color:${col};font-weight:700">${v>=0?'+':''}${v.toFixed(1)}pp</span>`; }
+function brechaCell(v)  { const col = v >= -25 ? '#27ae60' : v >= -40 ? '#c8a200' : '#e94560'; return `<span style="color:${col};font-weight:700">${v >= 0 ? '+' : ''}${v.toFixed(1)}pp</span>`; }
 
 // ── CABA REFERENCE ──
 function buildCabaRef() {
-  const totalRel    = CABA.reduce((s,r)=>s+r.rel,0);
-  const totalEp     = CABA.reduce((s,r)=>s+r.ep,0);
-  const totalPt     = CABA.reduce((s,r)=>s+r.pt,0);
-  const totalLhf    = CABA.reduce((s,r)=>s+r.lhf,0);
-  const totalBuyers = CABA.reduce((s,r)=>s+r.buyers,0);
-  const totalAct    = CABA.reduce((s,r)=>s+meliActivos(r),0);
+  const totalRel    = CABA.reduce((s,r) => s + r.rel, 0);
+  const totalEp     = CABA.reduce((s,r) => s + r.ep, 0);
+  const totalPt     = CABA.reduce((s,r) => s + r.pt, 0);
+  const totalBuyers = CABA.reduce((s,r) => s + r.buyers, 0);
+  const totalAct    = CABA.reduce((s,r) => s + meliActivos(r), 0);
   const adjD        = totalRel - totalEp;
-  const totalPob    = CABA.reduce((s,r)=>s+(POB[r.b]||0),0);
+  const totalPob    = CABA.reduce((s,r) => s + (POB[r.b] || 0), 0);
   return {
-    rel:    totalRel,
-    ep:     totalEp,
-    pt:     totalPt,
-    lhf:    totalLhf,
-    buyers: totalBuyers,
-    act:    totalAct,
-    meli:   totalAct/totalRel*100,
-    peya:   totalPt/totalRel*100,
-    mAdj:   totalAct/adjD*100,
-    pAdj:   (totalPt-totalEp)/adjD*100,
-    bAdj:   totalAct/adjD*100-(totalPt-totalEp)/adjD*100,
-    onb:    CABA.reduce((s,r)=>s+r.buyers*r.onb,0)/totalBuyers,
-    bph:    totalBuyers/totalPob*1000,
-    epPct:  totalEp/totalRel*100,
-    lhfPct: totalLhf/totalRel*100,
+    mAdj: totalAct / adjD * 100,
+    bAdj: totalAct / adjD * 100 - (totalPt - totalEp) / adjD * 100,
+    onb:  CABA.reduce((s,r) => s + r.buyers * r.onb, 0) / totalBuyers,
+    bph:  totalBuyers / totalPob * 1000,
   };
-}
-
-// ── CABA BEST ──
-function buildCabaBest() {
-  const best = {
-    meli:  {val:-Infinity, b:''},
-    mAdj:  {val:-Infinity, b:''},
-    bAdj:  {val:-Infinity, b:''},
-    epPct: {val:Infinity,  b:''},  // lower is better
-    lhfPct:{val:-Infinity, b:''},
-    onb:   {val:-Infinity, b:''},
-    bph:   {val:-Infinity, b:''},
-  };
-  for (const r of CABA) {
-    const p  = POB[r.b] || 0;
-    const ma = meliAdjPct(r);
-    const ba = adjBrecha(r);
-    const ep = r.ep / r.rel * 100;
-    const lf = r.lhf / r.rel * 100;
-    const bv = p > 0 ? r.buyers / p * 1000 : 0;
-    if (r.meli > best.meli.val)   { best.meli   = {val: r.meli, b: cap(r.b)}; }
-    if (ma     > best.mAdj.val)   { best.mAdj   = {val: ma,     b: cap(r.b)}; }
-    if (ba     > best.bAdj.val)   { best.bAdj   = {val: ba,     b: cap(r.b)}; }
-    if (ep     < best.epPct.val)  { best.epPct  = {val: ep,     b: cap(r.b)}; }
-    if (lf     > best.lhfPct.val) { best.lhfPct = {val: lf,     b: cap(r.b)}; }
-    if (r.onb  > best.onb.val)    { best.onb    = {val: r.onb,  b: cap(r.b)}; }
-    if (bv     > best.bph.val)    { best.bph    = {val: bv,     b: cap(r.b)}; }
-  }
-  return best;
 }
 
 // ── ZONE AGGREGATE ──
 function agg(rows) {
-  const totalRel    = rows.reduce((s,r)=>s+r.rel,0);
-  const totalEp     = rows.reduce((s,r)=>s+r.ep,0);
-  const totalPt     = rows.reduce((s,r)=>s+r.pt,0);
-  const totalLhf    = rows.reduce((s,r)=>s+r.lhf,0);
-  const totalBuyers = rows.reduce((s,r)=>s+r.buyers,0);
-  const totalAct    = rows.reduce((s,r)=>s+meliActivos(r),0);
+  const totalRel    = rows.reduce((s,r) => s + r.rel, 0);
+  const totalEp     = rows.reduce((s,r) => s + r.ep, 0);
+  const totalPt     = rows.reduce((s,r) => s + r.pt, 0);
+  const totalLhf    = rows.reduce((s,r) => s + r.lhf, 0);
+  const totalBuyers = rows.reduce((s,r) => s + r.buyers, 0);
+  const totalAct    = rows.reduce((s,r) => s + meliActivos(r), 0);
   const adjD        = totalRel - totalEp;
+  const totalPob    = rows.reduce((s,r) => s + (r.pob || 0), 0);
   return {
-    rel:    totalRel,
-    ep:     totalEp,
-    pt:     totalPt,
-    lhf:    totalLhf,
-    buyers: totalBuyers,
-    act:    totalAct,
-    meli:   totalAct/totalRel*100,
-    peya:   totalPt/totalRel*100,
-    mAdj:   totalAct/adjD*100,
-    pAdj:   (totalPt-totalEp)/adjD*100,
-    bAdj:   totalAct/adjD*100-(totalPt-totalEp)/adjD*100,
-    onb:    rows.reduce((s,r)=>s+r.buyers*r.onb,0)/totalBuyers,
-    epPct:  totalEp/totalRel*100,
-    lhfPct: totalLhf/totalRel*100,
-    pob:    rows.reduce((s,r)=>s+(r.pob||0),0),
-    bph:    (()=>{ const p=rows.reduce((s,r)=>s+(r.pob||0),0); return p>0?totalBuyers/p*1000:null; })(),
+    rel: totalRel, ep: totalEp, pt: totalPt, lhf: totalLhf,
+    buyers: totalBuyers, act: totalAct,
+    mAdj: totalAct / adjD * 100,
+    bAdj: totalAct / adjD * 100 - (totalPt - totalEp) / adjD * 100,
+    onb:  rows.reduce((s,r) => s + r.buyers * r.onb, 0) / totalBuyers,
+    pob:  totalPob,
+    bph:  totalPob > 0 ? totalBuyers / totalPob * 1000 : null,
   };
 }
 
-// ── DELTA BADGE ──
-function delta(val, ref, higherIsBetter, suffix='pp', decimals=1) {
-  const diff = val - ref;
-  const sign = diff >= 0 ? '+' : '';
-  const better = higherIsBetter ? diff > 0 : diff < 0;
-  const neutral = Math.abs(diff) < 0.3;
-  const cls = neutral ? 'delta-neu' : (better ? 'delta-pos' : 'delta-neg');
-  const label = `${sign}${diff.toFixed(decimals)}${suffix} vs CABA`;
-  return `<span class="mc-delta ${cls}">${label}</span>`;
-}
-function deltaInfo(label) {
-  return `<span class="mc-delta delta-info">${label}</span>`;
-}
+// ── DELTA HELPERS ──
 function deltaRef(val, ref, higherIsBetter, refSuffix='%', diffSuffix='pp', decimals=1) {
   const diff = val - ref;
   const sign = diff >= 0 ? '+' : '';
@@ -392,74 +420,18 @@ function deltaRef(val, ref, higherIsBetter, refSuffix='%', diffSuffix='pp', deci
 
 // ── BUILD CARD ──
 function buildCard(z, caba, isTotal) {
-  const epPct   = (z.ep/z.rel*100).toFixed(1);
-  const lhfPct  = (z.lhf/z.rel*100).toFixed(1);
-  const bAdj    = z.bAdj.toFixed(1);
-  const bAdjSign= z.bAdj>=0?'+':'';
-  const bAdjCol = z.bAdj>=-25?'#1a6640':z.bAdj>=-40?'#c8a200':'#c0392b';
-  const onbDiffCol = z.onb >= caba.onb ? '#1a6640' : '#c0392b';
-  const name = isTotal ? 'San Isidro Total' : cap(z.b);
-  const subname = isTotal ? `${fmt(z.rel)} restaurantes relevados · ${SI.length} sub-barrios` : `${fmt(z.rel)} restaurantes relevados`;
+  const bAdj     = z.bAdj.toFixed(1);
+  const bAdjSign = z.bAdj >= 0 ? '+' : '';
+  const bAdjCol  = z.bAdj >= -25 ? '#1a6640' : z.bAdj >= -40 ? '#c8a200' : '#c0392b';
+  const name     = isTotal ? 'San Isidro Total' : cap(z.b);
+  const subname  = isTotal
+    ? `${fmt(z.rel)} restaurantes · ${SI.length} sub-barrios · ${fmt(z.ep)} excl. PeYa`
+    : `${fmt(z.rel)} restaurantes relevados · ${z.ep} excl. PeYa`;
 
-  // Brecha color
-  const rawBrechaV = z.meli - z.peya;
-  const rawBrechaCol = rawBrechaV>=-25?'#1a6640':rawBrechaV>=-40?'#c8a200':'#c0392b';
-
-  const bph_val = z.bph != null ? z.bph : (z.pob ? z.buyers/z.pob*1000 : null);
+  const bph_val = z.bph != null ? z.bph : (z.pob ? z.buyers / z.pob * 1000 : null);
   const pob_val = z.pob || null;
 
-  const metricsOferta = `<div class="metrics-grid">
-      <div class="metric-cell">
-        <div class="mc-label">% Cobertura MeLi (raw)</div>
-        <div class="mc-value">${z.meli.toFixed(1)}%</div>
-        ${deltaRef(z.meli, caba.meli, true, '%', 'pp')}
-      </div>
-      <div class="metric-cell">
-        <div class="mc-label">% Cobertura MeLi ajust. (excl. excl. PeYa)</div>
-        <div class="mc-value" style="color:#4361ee">${z.mAdj.toFixed(1)}%</div>
-        ${deltaRef(z.mAdj, caba.mAdj, true, '%', 'pp')}
-      </div>
-      <div class="metric-cell">
-        <div class="mc-label">% Cobertura PeYa</div>
-        <div class="mc-value" style="color:#e74c3c">${z.peya.toFixed(1)}%</div>
-        <span class="mc-delta delta-info">ajust.: ${z.pAdj.toFixed(1)}%</span>
-      </div>
-      <div class="metric-cell">
-        <div class="mc-label">Brecha MeLi vs PeYa</div>
-        <div class="mc-value" style="color:${bAdjCol}">${bAdjSign}${bAdj}pp <span style="font-size:10px;color:#aaa;font-weight:400">ajust.</span></div>
-        <span class="mc-delta delta-info">raw: <span style="color:${rawBrechaCol};font-weight:700">${rawBrechaV.toFixed(1)}pp</span></span>
-        ${deltaRef(z.bAdj, caba.bAdj, true, 'pp', 'pp')}
-      </div>
-      <div class="metric-cell">
-        <div class="mc-label">Excl. PeYa — no capturable</div>
-        <div class="mc-value">${fmt(z.ep)}</div>
-        <span class="mc-delta delta-info">${epPct}% del total</span>
-      </div>
-      <div class="metric-cell">
-        <div class="mc-label">Por capturar (LHF)</div>
-        <div class="mc-value" style="color:#e07b30">${fmt(z.lhf)}</div>
-        <span class="mc-delta delta-info">${lhfPct}% del total</span>
-      </div>
-    </div>`;
-
-  const metricsDemanda = `<div class="metrics-grid">
-      <div class="metric-cell">
-        <div class="mc-label">Onboarding (sep-ene, 5+ en 90d)</div>
-        <div class="mc-value">${z.onb.toFixed(1)}%</div>
-        ${deltaRef(z.onb, caba.onb, true, '%', 'pp')}
-      </div>
-      <div class="metric-cell">
-        <div class="mc-label">Buyers / 1.000 hab.</div>
-        ${bph_val != null
-          ? `<div class="mc-value">${bph_val.toFixed(1)}</div>
-             ${deltaRef(bph_val, caba.bph, true, '', '')}
-             <span class="mc-delta delta-info" style="margin-top:3px">${fmt(z.buyers)} buyers${pob_val ? ` · pob. est. ${fmt(pob_val)}` : ''}</span>`
-          : `<div class="mc-value" style="color:#bbb">—</div>
-             <span class="mc-delta delta-info">${fmt(z.buyers)} buyers · sin pob.</span>`}
-      </div>
-    </div>`;
-
-  return `<div class="card ${isTotal?'card-total':''}">
+  return `<div class="card ${isTotal ? 'card-total' : ''}">
     <div class="card-header">
       <div>
         <div class="ch-name">${name}</div>
@@ -469,10 +441,41 @@ function buildCard(z, caba, isTotal) {
     </div>
     <div class="card-body">
       <div class="section-label sl-oferta">Oferta</div>
-      ${metricsOferta}
+      <div class="metrics-grid-3">
+        <div class="metric-cell">
+          <div class="mc-label">% Cobertura MeLi ajust.</div>
+          <div class="mc-value" style="color:#4361ee">${z.mAdj.toFixed(1)}%</div>
+          ${deltaRef(z.mAdj, caba.mAdj, true, '%', 'pp')}
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Brecha MeLi vs PeYa</div>
+          <div class="mc-value" style="color:${bAdjCol}">${bAdjSign}${bAdj}pp</div>
+          ${deltaRef(z.bAdj, caba.bAdj, true, 'pp', 'pp')}
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Por capturar (LHF)</div>
+          <div class="mc-value" style="color:#e07b30">${fmt(z.lhf)}</div>
+          <span class="mc-delta delta-info">${(z.lhf/z.rel*100).toFixed(1)}% del total</span>
+        </div>
+      </div>
       <div class="divider"></div>
       <div class="section-label sl-demanda">Demanda</div>
-      ${metricsDemanda}
+      <div class="metrics-grid">
+        <div class="metric-cell">
+          <div class="mc-label">% Onboarding (sep–ene, 5+ órd. en 90d)</div>
+          <div class="mc-value">${z.onb.toFixed(1)}%</div>
+          ${deltaRef(z.onb, caba.onb, true, '%', 'pp')}
+        </div>
+        <div class="metric-cell">
+          <div class="mc-label">Buyers / 1.000 hab.</div>
+          ${bph_val != null
+            ? `<div class="mc-value">${bph_val.toFixed(1)}</div>
+               ${deltaRef(bph_val, caba.bph, true, '', '')}
+               <span class="mc-delta delta-info" style="margin-top:3px">${fmt(z.buyers)} buyers${pob_val ? ' · pob. est. ' + fmt(pob_val) : ''}</span>`
+            : `<div class="mc-value" style="color:#bbb">—</div>
+               <span class="mc-delta delta-info">${fmt(z.buyers)} buyers</span>`}
+        </div>
+      </div>
     </div>
   </div>`;
 }
@@ -480,33 +483,62 @@ function buildCard(z, caba, isTotal) {
 // ── RENDER CARDS ──
 function renderCards() {
   const caba    = buildCabaRef();
-  const best    = buildCabaBest();
   const siTotal = agg(SI);
 
-  document.getElementById('ref-bar-container').innerHTML = '';
-
-  // Cards
   let html = buildCard(siTotal, caba, true);
   SI.forEach(r => {
     const z = {
       ...r,
-      mAdj: meliAdjPct(r), pAdj: peyaAdjPct(r), bAdj: adjBrecha(r),
-      act: meliActivos(r), meli: r.meli, peya: r.peya,
-      epPct: r.ep/r.rel*100, lhfPct: r.lhf/r.rel*100,
-      onb: r.onb, buyers: r.buyers, pob: r.pob||null,
-      bph: r.pob ? r.buyers/r.pob*1000 : null,
+      mAdj: meliAdjPct(r), bAdj: adjBrecha(r),
+      onb: r.onb, buyers: r.buyers, pob: r.pob || null,
+      bph: r.pob ? r.buyers / r.pob * 1000 : null,
     };
     html += buildCard(z, caba, false);
   });
-
   document.getElementById('cards-container').innerHTML = html;
+}
+
+// ── RENDER CATEGORÍAS ──
+function renderCategorias() {
+  const prioLabel = {alta:'Prioridad alta', media:'Prioridad media', fuerte:'Fuerte MeLi', limitada:'Limitada (excl. PeYa)'};
+  const maxDem = Math.max(...CATEGORIAS.map(c => c.dem));
+  let html = '';
+  CATEGORIAS.forEach(c => {
+    const brecha = c.meli - c.peya;
+    const bCol   = brecha >= -25 ? '#27ae60' : brecha >= -40 ? '#c8a200' : '#e74c3c';
+    const demW   = Math.round(c.dem / maxDem * 80);
+    html += `<tr>
+      <td style="font-weight:700">${c.cat}</td>
+      <td>
+        <div class="dem-bar">
+          <div class="dem-bar-bg"><div class="dem-bar-fill" style="width:${demW}px"></div></div>
+          <span style="font-size:11px;font-weight:700">${c.dem}%</span>
+        </div>
+      </td>
+      <td>
+        <div class="cov-bars">
+          <div class="cov-row"><span class="cov-lbl" style="color:#4361ee">${c.meli}%</span><div class="cov-bg"><div class="cov-fill-meli" style="width:${Math.round(c.meli/100*80)}px"></div></div></div>
+        </div>
+      </td>
+      <td>
+        <div class="cov-bars">
+          <div class="cov-row"><span class="cov-lbl" style="color:#e74c3c">${c.peya}%</span><div class="cov-bg"><div class="cov-fill-peya" style="width:${Math.round(c.peya/100*80)}px"></div></div></div>
+        </div>
+      </td>
+      <td><span style="color:${bCol};font-weight:700">${brecha >= 0 ? '+' : ''}${brecha.toFixed(1)}pp</span></td>
+      <td style="font-weight:700;color:#e07b30">${c.lhf > 0 ? c.lhf : '—'}</td>
+      <td style="color:#8b0000;font-weight:700">${c.ep > 0 ? c.ep : '—'}</td>
+      <td><span class="prio-badge prio-${c.prio}">${prioLabel[c.prio]}</span></td>
+    </tr>`;
+  });
+  document.getElementById('tbodyCat').innerHTML = html;
 }
 
 // ── CABA TABLE ──
 const groupCollapsed = {low:false, mid:false, high:false};
 function renderCabaGroups() {
-  const q = (document.getElementById('searchCaba').value||'').toLowerCase();
-  const groups = {low:[],mid:[],high:[]};
+  const q = (document.getElementById('searchCaba').value || '').toLowerCase();
+  const groups = {low:[], mid:[], high:[]};
   CABA.forEach(r => {
     if (q && !r.b.toLowerCase().includes(q)) return;
     groups[brechaClass(rawBrecha(r))].push(r);
@@ -515,19 +547,18 @@ function renderCabaGroups() {
   ['low','mid','high'].forEach(g => {
     const rows = groups[g];
     if (!rows.length) return;
-    const avgMeli = (rows.reduce((s,r)=>s+r.meli,0)/rows.length).toFixed(1);
-    const avgPeya = (rows.reduce((s,r)=>s+r.peya,0)/rows.length).toFixed(1);
-    const totalRel = rows.reduce((s,r)=>s+r.rel,0);
-    const totalEp  = rows.reduce((s,r)=>s+r.ep,0);
-    const totalAct = rows.reduce((s,r)=>s+meliActivos(r),0);
-    const adjD     = totalRel-totalEp;
-    const avgMAdj  = (totalAct/adjD*100).toFixed(1);
-    const avgBAdj  = ((totalAct/adjD*100)-((rows.reduce((s,r)=>s+r.pt,0)-totalEp)/adjD*100)).toFixed(1);
-    const avgOnb   = (rows.reduce((s,r)=>s+r.onb,0)/rows.length).toFixed(1);
-    const totalB   = rows.reduce((s,r)=>s+r.buyers,0);
-    const gLabel   = g==='low'?'Brecha baja (<25pp)':g==='mid'?'Brecha media (25–40pp)':'Brecha alta (>40pp)';
-    const cls      = groupCollapsed[g]?'collapsed':'';
-
+    const avgMeli = (rows.reduce((s,r) => s + r.meli, 0) / rows.length).toFixed(1);
+    const avgPeya = (rows.reduce((s,r) => s + r.peya, 0) / rows.length).toFixed(1);
+    const totalRel = rows.reduce((s,r) => s + r.rel, 0);
+    const totalEp  = rows.reduce((s,r) => s + r.ep, 0);
+    const totalAct = rows.reduce((s,r) => s + meliActivos(r), 0);
+    const adjD     = totalRel - totalEp;
+    const avgMAdj  = (totalAct / adjD * 100).toFixed(1);
+    const avgBAdj  = ((totalAct / adjD * 100) - ((rows.reduce((s,r) => s + r.pt, 0) - totalEp) / adjD * 100)).toFixed(1);
+    const avgOnb   = (rows.reduce((s,r) => s + r.onb, 0) / rows.length).toFixed(1);
+    const totalB   = rows.reduce((s,r) => s + r.buyers, 0);
+    const gLabel   = g === 'low' ? 'Brecha baja (<25pp)' : g === 'mid' ? 'Brecha media (25–40pp)' : 'Brecha alta (>40pp)';
+    const cls      = groupCollapsed[g] ? 'collapsed' : '';
     html += `<tr class="group-hdr group-${g} ${cls}" onclick="toggleGroup('${g}')">
       <td><span class="toggle-icon">▼</span><strong>${gLabel}</strong> <span style="font-weight:400;font-size:11px;opacity:.7">(${rows.length} barrios)</span></td>
       <td>${fmt(totalRel)}</td><td>${avgMeli}% prom</td><td>${avgPeya}% prom</td>
@@ -538,9 +569,9 @@ function renderCabaGroups() {
       <td>${fmt(totalB)}</td><td>—</td>
       <td class="${onbClass(+avgOnb)}">${avgOnb}%</td>
     </tr>`;
-    rows.sort((a,b)=>rawBrecha(b)-rawBrecha(a)).forEach(r => {
+    rows.sort((a,b) => rawBrecha(b) - rawBrecha(a)).forEach(r => {
       const bph_v = bph(r);
-      html += `<tr class="detail-row" style="display:${groupCollapsed[g]?'none':''}">
+      html += `<tr class="detail-row" style="display:${groupCollapsed[g] ? 'none' : ''}">
         <td style="padding-left:28px">${cap(r.b)}</td>
         <td>${fmt(r.rel)}</td>
         <td>${barMeli(r.meli)}</td><td>${barPeya(r.peya)}</td>
@@ -549,25 +580,25 @@ function renderCabaGroups() {
         <td style="color:#4361ee;font-weight:700">${meliAdjPct(r).toFixed(1)}%</td>
         <td>${brechaCell(adjBrecha(r))}</td>
         <td>${fmt(r.buyers)}</td>
-        <td>${bph_v!==null?bph_v.toFixed(1):'—'}</td>
+        <td>${bph_v !== null ? bph_v.toFixed(1) : '—'}</td>
         <td class="${onbClass(r.onb)}">${r.onb}%</td>
       </tr>`;
     });
   });
   document.getElementById('tbodyCaba').innerHTML = html;
 }
-function toggleGroup(g) { groupCollapsed[g]=!groupCollapsed[g]; renderCabaGroups(); }
-function rawBrecha(r) { return r.meli-r.peya; }
+function toggleGroup(g) { groupCollapsed[g] = !groupCollapsed[g]; renderCabaGroups(); }
 
 function switchTab(name, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
 }
 
 // Init
 renderCards();
+renderCategorias();
 renderCabaGroups();
 </script>
 </body>
