@@ -31,6 +31,10 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 .ref-metric { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
 .ref-metric .rm-val { font-size: 17px; font-weight: 700; color: #1a1a2e; }
 .ref-metric .rm-lbl { font-size: 10px; color: #aaa; margin-top: 2px; text-align: center; }
+.ref-metric .rm-best { font-size: 12px; font-weight: 700; color: #4361ee; margin-top: 3px; }
+.ref-metric .rm-best-lbl { font-size: 9px; color: #aaa; font-weight: 400; }
+.ref-metric .rm-sep { height: 1px; background: #eee; width: 100%; margin: 6px 0 4px; }
+.ref-section-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #bbb; margin-bottom: 2px; }
 
 /* Cards grid */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
@@ -307,6 +311,35 @@ function buildCabaRef() {
   };
 }
 
+// ── CABA BEST ──
+function buildCabaBest() {
+  const best = {
+    meli:  {val:-Infinity, b:''},
+    mAdj:  {val:-Infinity, b:''},
+    bAdj:  {val:-Infinity, b:''},
+    epPct: {val:Infinity,  b:''},  // lower is better
+    lhfPct:{val:-Infinity, b:''},
+    onb:   {val:-Infinity, b:''},
+    bph:   {val:-Infinity, b:''},
+  };
+  for (const r of CABA) {
+    const p  = POB[r.b] || 0;
+    const ma = meliAdjPct(r);
+    const ba = adjBrecha(r);
+    const ep = r.ep / r.rel * 100;
+    const lf = r.lhf / r.rel * 100;
+    const bv = p > 0 ? r.buyers / p * 1000 : 0;
+    if (r.meli > best.meli.val)   { best.meli   = {val: r.meli, b: cap(r.b)}; }
+    if (ma     > best.mAdj.val)   { best.mAdj   = {val: ma,     b: cap(r.b)}; }
+    if (ba     > best.bAdj.val)   { best.bAdj   = {val: ba,     b: cap(r.b)}; }
+    if (ep     < best.epPct.val)  { best.epPct  = {val: ep,     b: cap(r.b)}; }
+    if (lf     > best.lhfPct.val) { best.lhfPct = {val: lf,     b: cap(r.b)}; }
+    if (r.onb  > best.onb.val)    { best.onb    = {val: r.onb,  b: cap(r.b)}; }
+    if (bv     > best.bph.val)    { best.bph    = {val: bv,     b: cap(r.b)}; }
+  }
+  return best;
+}
+
 // ── ZONE AGGREGATE ──
 function agg(rows) {
   const totalRel    = rows.reduce((s,r)=>s+r.rel,0);
@@ -480,40 +513,39 @@ function buildCard(z, caba, isTotal) {
 // ── RENDER CARDS ──
 function renderCards() {
   const caba    = buildCabaRef();
+  const best    = buildCabaBest();
   const siTotal = agg(SI);
+
+  function refMetric(lbl, avgVal, avgSuffix, bestVal, bestSuffix, bestBarrio) {
+    return `<div class="ref-metric">
+      <div class="rm-lbl" style="margin-bottom:4px">${lbl}</div>
+      <div style="display:flex;gap:16px;align-items:flex-end">
+        <div style="text-align:center">
+          <div class="ref-section-title">Promedio</div>
+          <div class="rm-val">${avgVal}${avgSuffix}</div>
+        </div>
+        <div style="text-align:center">
+          <div class="ref-section-title">Mejor barrio</div>
+          <div class="rm-best">${bestVal}${bestSuffix} <span class="rm-best-lbl">${bestBarrio}</span></div>
+        </div>
+      </div>
+    </div>`;
+  }
 
   // Reference bar
   document.getElementById('ref-bar-container').innerHTML = `
-    <div class="ref-bar">
-      <span class="ref-title">Referencia CABA</span>
-      <div class="ref-metric">
-        <div class="rm-val">${caba.meli.toFixed(1)}%</div>
-        <div class="rm-lbl">% MeLi activo</div>
+    <div class="ref-bar" style="flex-wrap:wrap;gap:20px 28px">
+      <div style="display:flex;flex-direction:column;justify-content:center">
+        <span class="ref-title">Referencia CABA</span>
+        <span style="font-size:9px;color:#ccc;margin-top:3px">48 barrios</span>
       </div>
-      <div class="ref-metric">
-        <div class="rm-val">${caba.mAdj.toFixed(1)}%</div>
-        <div class="rm-lbl">% MeLi ajust.</div>
-      </div>
-      <div class="ref-metric">
-        <div class="rm-val">${caba.bAdj.toFixed(1)}pp</div>
-        <div class="rm-lbl">Brecha ajust.</div>
-      </div>
-      <div class="ref-metric">
-        <div class="rm-val">${caba.epPct.toFixed(1)}%</div>
-        <div class="rm-lbl">Excl. PeYa (%)</div>
-      </div>
-      <div class="ref-metric">
-        <div class="rm-val">${caba.lhfPct.toFixed(1)}%</div>
-        <div class="rm-lbl">Por capturar (%)</div>
-      </div>
-      <div class="ref-metric">
-        <div class="rm-val">${caba.onb.toFixed(1)}%</div>
-        <div class="rm-lbl">Onboarding</div>
-      </div>
-      <div class="ref-metric">
-        <div class="rm-val">${caba.bph.toFixed(1)}</div>
-        <div class="rm-lbl">Buyers/1k hab</div>
-      </div>
+      ${refMetric('% MeLi activo',      caba.meli.toFixed(1),  '%',  best.meli.val.toFixed(1),  '%',  best.meli.b)}
+      ${refMetric('% MeLi ajust.',      caba.mAdj.toFixed(1),  '%',  best.mAdj.val.toFixed(1),  '%',  best.mAdj.b)}
+      ${refMetric('Brecha ajust.',       caba.bAdj.toFixed(1),  'pp', best.bAdj.val.toFixed(1),  'pp', best.bAdj.b)}
+      ${refMetric('Excl. PeYa (%)',     caba.epPct.toFixed(1), '%',  best.epPct.val.toFixed(1), '%',  best.epPct.b)}
+      ${refMetric('Por capturar (%)',   caba.lhfPct.toFixed(1),'%',  best.lhfPct.val.toFixed(1),'%',  best.lhfPct.b)}
+      ${refMetric('Onboarding',         caba.onb.toFixed(1),   '%',  best.onb.val.toFixed(1),   '%',  best.onb.b)}
+      ${refMetric('Buyers / 1k hab',    caba.bph.toFixed(1),   '',   best.bph.val.toFixed(1),   '',   best.bph.b)}
     </div>`;
 
   // Cards
