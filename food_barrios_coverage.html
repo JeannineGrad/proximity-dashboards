@@ -382,6 +382,14 @@ function delta(val, ref, higherIsBetter, suffix='pp', decimals=1) {
 function deltaInfo(label) {
   return `<span class="mc-delta delta-info">${label}</span>`;
 }
+function deltaRef(val, ref, higherIsBetter, refSuffix='%', diffSuffix='pp', decimals=1) {
+  const diff = val - ref;
+  const sign = diff >= 0 ? '+' : '';
+  const better = higherIsBetter ? diff > 0 : diff < 0;
+  const neutral = Math.abs(diff) < 0.3;
+  const cls = neutral ? 'delta-neu' : (better ? 'delta-pos' : 'delta-neg');
+  return `<span class="mc-delta delta-info">CABA ${ref.toFixed(decimals)}${refSuffix}</span> <span class="mc-delta ${cls}">${sign}${diff.toFixed(decimals)}${diffSuffix}</span>`;
+}
 
 // ── BUILD CARD ──
 function buildCard(z, caba, isTotal) {
@@ -403,7 +411,7 @@ function buildCard(z, caba, isTotal) {
         <div class="metric-cell">
           <div class="mc-label">% MeLi activo (raw)</div>
           <div class="mc-value sm">${z.meli.toFixed(1)}%</div>
-          ${delta(z.meli, caba.meli, true, 'pp')}
+          ${deltaRef(z.meli, caba.meli, true, '%', 'pp')}
         </div>
         <div class="metric-cell">
           <div class="mc-label">% PeYa benchmark</div>
@@ -413,7 +421,7 @@ function buildCard(z, caba, isTotal) {
         <div class="metric-cell">
           <div class="mc-label">% MeLi ajust. (excl. excl. PeYa)</div>
           <div class="mc-value sm" style="color:#4361ee">${z.mAdj.toFixed(1)}%</div>
-          ${delta(z.mAdj, caba.mAdj, true, 'pp')}
+          ${deltaRef(z.mAdj, caba.mAdj, true, '%', 'pp')}
         </div>
         <div class="metric-cell">
           <div class="mc-label">Excl. PeYa — no capturable</div>
@@ -428,19 +436,19 @@ function buildCard(z, caba, isTotal) {
         <div class="metric-cell">
           <div class="mc-label">Brecha ajustada</div>
           <div class="mc-value sm" style="color:${bAdjCol}">${bAdjSign}${bAdj}pp</div>
-          ${delta(z.bAdj, caba.bAdj, true, 'pp')}
+          ${deltaRef(z.bAdj, caba.bAdj, true, 'pp', 'pp')}
         </div>
       </div>`
     : `<div class="metrics-grid">
         <div class="metric-cell">
           <div class="mc-label">% MeLi activo (raw)</div>
           <div class="mc-value">${z.meli.toFixed(1)}%</div>
-          ${delta(z.meli, caba.meli, true, 'pp')}
+          ${deltaRef(z.meli, caba.meli, true, '%', 'pp')}
         </div>
         <div class="metric-cell">
           <div class="mc-label">% MeLi ajust.*</div>
           <div class="mc-value" style="color:#4361ee">${z.mAdj.toFixed(1)}%</div>
-          ${delta(z.mAdj, caba.mAdj, true, 'pp')}
+          ${deltaRef(z.mAdj, caba.mAdj, true, '%', 'pp')}
         </div>
         <div class="metric-cell">
           <div class="mc-label">Excl. PeYa (#)</div>
@@ -459,7 +467,7 @@ function buildCard(z, caba, isTotal) {
         <div class="metric-cell">
           <div class="mc-label">% Onboarding (sep-ene, 5+ en 90d)</div>
           <div class="mc-value sm">${z.onb.toFixed(1)}%</div>
-          ${delta(z.onb, caba.onb, true, 'pp')}
+          ${deltaRef(z.onb, caba.onb, true, '%', 'pp')}
         </div>
         <div class="metric-cell">
           <div class="mc-label">Buyers activos Q1-26</div>
@@ -469,7 +477,7 @@ function buildCard(z, caba, isTotal) {
         <div class="metric-cell">
           <div class="mc-label">Buyers / 1.000 hab.</div>
           ${z.bph != null
-            ? `<div class="mc-value sm">${z.bph.toFixed(1)}</div>${delta(z.bph, caba.bph, true, '', 1)}`
+            ? `<div class="mc-value sm">${z.bph.toFixed(1)}</div>${deltaRef(z.bph, caba.bph, true, '', '')}`
             : `<div class="mc-value sm" style="color:#bbb">—</div><span class="mc-delta delta-info">sin pob. INDEC SI</span>`}
         </div>
       </div>`
@@ -477,13 +485,13 @@ function buildCard(z, caba, isTotal) {
         <div class="metric-cell">
           <div class="mc-label">Onboarding (sep-ene)</div>
           <div class="mc-value">${z.onb.toFixed(1)}%</div>
-          ${delta(z.onb, caba.onb, true, 'pp')}
+          ${deltaRef(z.onb, caba.onb, true, '%', 'pp')}
         </div>
         <div class="metric-cell">
           <div class="mc-label">Buyers / 1.000 hab.</div>
           ${z.pob
             ? `<div class="mc-value">${(z.buyers/z.pob*1000).toFixed(1)}</div>
-               ${delta(z.buyers/z.pob*1000, caba.bph, true, '', 1)}
+               ${deltaRef(z.buyers/z.pob*1000, caba.bph, true, '', '')}
                <span class="mc-delta delta-info" style="margin-top:3px">${fmt(z.buyers)} buyers · pob. est. ${fmt(z.pob)}</span>`
             : `<div class="mc-value" style="color:#bbb">—</div>
                <span class="mc-delta delta-info">${fmt(z.buyers)} buyers · sin pob.</span>`}
