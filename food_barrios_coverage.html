@@ -483,37 +483,7 @@ function renderCards() {
   const best    = buildCabaBest();
   const siTotal = agg(SI);
 
-  function refMetric(lbl, avgVal, avgSuffix, bestVal, bestSuffix, bestBarrio) {
-    return `<div class="ref-metric">
-      <div class="rm-lbl" style="margin-bottom:4px">${lbl}</div>
-      <div style="display:flex;gap:16px;align-items:flex-end">
-        <div style="text-align:center">
-          <div class="ref-section-title">Promedio</div>
-          <div class="rm-val">${avgVal}${avgSuffix}</div>
-        </div>
-        <div style="text-align:center">
-          <div class="ref-section-title">Mejor barrio</div>
-          <div class="rm-best">${bestVal}${bestSuffix} <span class="rm-best-lbl">${bestBarrio}</span></div>
-        </div>
-      </div>
-    </div>`;
-  }
-
-  // Reference bar
-  document.getElementById('ref-bar-container').innerHTML = `
-    <div class="ref-bar" style="flex-wrap:wrap;gap:20px 28px">
-      <div style="display:flex;flex-direction:column;justify-content:center">
-        <span class="ref-title">Referencia CABA</span>
-        <span style="font-size:9px;color:#ccc;margin-top:3px">48 barrios</span>
-      </div>
-      ${refMetric('% MeLi activo',      caba.meli.toFixed(1),  '%',  best.meli.val.toFixed(1),  '%',  best.meli.b)}
-      ${refMetric('% MeLi ajust.',      caba.mAdj.toFixed(1),  '%',  best.mAdj.val.toFixed(1),  '%',  best.mAdj.b)}
-      ${refMetric('Brecha ajust.',       caba.bAdj.toFixed(1),  'pp', best.bAdj.val.toFixed(1),  'pp', best.bAdj.b)}
-      ${refMetric('Excl. PeYa (%)',     caba.epPct.toFixed(1), '%',  best.epPct.val.toFixed(1), '%',  best.epPct.b)}
-      ${refMetric('Por capturar (%)',   caba.lhfPct.toFixed(1),'%',  best.lhfPct.val.toFixed(1),'%',  best.lhfPct.b)}
-      ${refMetric('Onboarding',         caba.onb.toFixed(1),   '%',  best.onb.val.toFixed(1),   '%',  best.onb.b)}
-      ${refMetric('Buyers / 1k hab',    caba.bph.toFixed(1),   '',   best.bph.val.toFixed(1),   '',   best.bph.b)}
-    </div>`;
+  document.getElementById('ref-bar-container').innerHTML = '';
 
   // Cards
   let html = buildCard(siTotal, caba, true);
