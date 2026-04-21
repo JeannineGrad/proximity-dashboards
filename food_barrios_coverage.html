@@ -506,24 +506,24 @@ const ONB_DEMAND = {
 // Fuente: BT_PROXIMITY_SHIPMENTS_DETAILED (dem) + BT_PM_STORES_MASTER (oferta)
 // dem=% órdenes CABA, meli/peya=% cobertura SI, lhf=capturable, ep=excl. PeYa, rel=total relevados
 const CATEGORIAS = [
-  {cat:'HAMBURGUESA',          dem:33.4, meli:31.1, peya:80.0, lhf:17, ep:31, rel:90,  prio:'alta'},
-  {cat:'HELADO',               dem:15.6, meli:32.6, peya:77.9, lhf:18, ep:36, rel:95,  prio:'alta'},
-  {cat:'SUSHI',                dem:9.3,  meli:23.5, peya:63.5, lhf:17, ep:43, rel:85,  prio:'alta'},
-  {cat:'POLLO',                dem:6.8,  meli:9.5,  peya:90.5, lhf:4,  ep:14, rel:21,  prio:'limitada'},
-  {cat:'EMPANADAS',            dem:6.1,  meli:56.1, peya:78.8, lhf:7,  ep:15, rel:66,  prio:'fuerte'},
-  {cat:'PIZZA',                dem:5.9,  meli:29.8, peya:76.9, lhf:18, ep:40, rel:104, prio:'alta'},
-  {cat:'MILANESAS',            dem:3.2,  meli:36.8, peya:73.7, lhf:5,  ep:13, rel:38,  prio:'media'},
-  {cat:'DESAYUNOS Y MERIENDAS',dem:2.4,  meli:18.1, peya:69.9, lhf:15, ep:40, rel:83,  prio:'alta'},
-  {cat:'SALUDABLE',            dem:2.1,  meli:57.1, peya:57.1, lhf:0,  ep:1,  rel:7,   prio:'fuerte'},
-  {cat:'SANDWICHES',           dem:2.0,  meli:33.3, peya:85.4, lhf:11, ep:13, rel:48,  prio:'alta'},
-  {cat:'CARNES',               dem:1.7,  meli:12.5, peya:87.5, lhf:6,  ep:14, rel:24,  prio:'media'},
-  {cat:'PANADERÍA',            dem:1.1,  meli:16.7, peya:78.3, lhf:13, ep:35, rel:60,  prio:'alta'},
-  {cat:'VENEZOLANA',           dem:1.1,  meli:8.3,  peya:66.7, lhf:2,  ep:4,  rel:12,  prio:'media'},
-  {cat:'PASTAS',               dem:0.6,  meli:45.8, peya:62.5, lhf:2,  ep:10, rel:24,  prio:'fuerte'},
-  {cat:'POSTRES',              dem:0.5,  meli:24.3, peya:94.6, lhf:4,  ep:13, rel:37,  prio:'limitada'},
-  {cat:'TARTAS',               dem:0.6,  meli:6.7,  peya:93.3, lhf:4,  ep:7,  rel:15,  prio:'media'},
-  {cat:'ENSALADAS',            dem:0.4,  meli:15.4, peya:92.3, lhf:2,  ep:7,  rel:13,  prio:'limitada'},
-  {cat:'MEXICANA',             dem:0.2,  meli:0,    peya:100,  lhf:4,  ep:1,  rel:6,   prio:'media'},
+  {cat:'HAMBURGUESA',          dem:17.6, meli:31.1, peya:80.0, lhf:17, ep:31, rel:90,  prio:'alta'},
+  {cat:'HELADO',               dem:11.5, meli:32.6, peya:77.9, lhf:18, ep:36, rel:95,  prio:'alta'},
+  {cat:'SUSHI',                dem:7.7,   meli:23.5, peya:63.5, lhf:17, ep:43, rel:85,  prio:'alta'},
+  {cat:'POLLO',                dem:7.5,   meli:9.5,  peya:90.5, lhf:4,  ep:14, rel:21,  prio:'limitada'},
+  {cat:'EMPANADAS',            dem:7.8,   meli:56.1, peya:78.8, lhf:7,  ep:15, rel:66,  prio:'fuerte'},
+  {cat:'PIZZA',                dem:8.3,   meli:29.8, peya:76.9, lhf:18, ep:40, rel:104, prio:'alta'},
+  {cat:'MILANESAS',            dem:4.7,   meli:36.8, peya:73.7, lhf:5,  ep:13, rel:38,  prio:'media'},
+  {cat:'DESAYUNOS Y MERIENDAS',dem:3.6,   meli:18.1, peya:69.9, lhf:15, ep:40, rel:83,  prio:'alta'},
+  {cat:'SALUDABLE',            dem:2.8,   meli:57.1, peya:57.1, lhf:0,  ep:1,  rel:7,   prio:'fuerte'},
+  {cat:'SANDWICHES',           dem:3.6,   meli:33.3, peya:85.4, lhf:11, ep:13, rel:48,  prio:'alta'},
+  {cat:'CARNES',               dem:2.8,   meli:12.5, peya:87.5, lhf:6,  ep:14, rel:24,  prio:'media'},
+  {cat:'PANADERÍA',            dem:2.3,   meli:16.7, peya:78.3, lhf:13, ep:35, rel:60,  prio:'alta'},
+  {cat:'VENEZOLANA',           dem:1.8,   meli:8.3,  peya:66.7, lhf:2,  ep:4,  rel:12,  prio:'media'},
+  {cat:'PASTAS',               dem:1.5,   meli:45.8, peya:62.5, lhf:2,  ep:10, rel:24,  prio:'fuerte'},
+  {cat:'POSTRES',              dem:1.2,   meli:24.3, peya:94.6, lhf:4,  ep:13, rel:37,  prio:'limitada'},
+  {cat:'TARTAS',               dem:1.2,   meli:6.7,  peya:93.3, lhf:4,  ep:7,  rel:15,  prio:'media'},
+  {cat:'ENSALADAS',            dem:0.7,   meli:15.4, peya:92.3, lhf:2,  ep:7,  rel:13,  prio:'limitada'},
+  {cat:'MEXICANA',             dem:0.3,   meli:0,    peya:100,  lhf:4,  ep:1,  rel:6,   prio:'media'},
 ];
 
 // ── HELPERS ──
@@ -1193,7 +1193,7 @@ function renderCobOnboarding() {
   // Explanation text
   const intro = '<div class="cob-intro">' +
     '<b>¿Cómo leer este cuadro?</b> Cada celda muestra la cobertura MeLi (% restaurantes activos sobre total relevado) en ese barrio × categoría. ' +
-    'El número azul debajo es el % de <em>usuarios onboardeados</em> que consumen esa categoría — es la demanda real de quienes ya se habituaron a la plataforma. ' +
+    '' +
     '<span style="color:#e74c3c;font-weight:700">Rojo</span> = cobertura baja (&lt;25%). ' +
     '<span style="color:#c8a200;font-weight:700">Amarillo</span> = cobertura media (25–40%). ' +
     '<span style="color:#27ae60;font-weight:700">Verde</span> = cobertura fuerte (&ge;40%). ' +
@@ -1233,10 +1233,7 @@ function renderCobOnboarding() {
       if (lhf > 0) cellHtml += ' <span style="font-size:9px;opacity:.75">+' + lhf + ' LHF</span>';
       cellHtml += '</span>';
 
-      if (onbd !== null) {
-        const onbCls = onbd >= 15 ? 'onb-sub-hi' : '';
-        cellHtml += '<span class="onb-sub ' + onbCls + '">' + onbd + '% onb.</span>';
-      }
+
 
       tbody += '<td>' + cellHtml + '</td>';
     });
@@ -1286,7 +1283,7 @@ function renderCobOnboarding() {
     '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fef9c3;border:1px solid #c8a200"></span>Cob. 25–40%</span>' +
     '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fde8e8;border:1px solid #e74c3c"></span>Cob. &lt;25%</span>' +
     '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fde8e8;border:2px solid #e74c3c"></span>Gap crítico (cob. baja + demanda alta)</span>' +
-    '<span style="color:#4361ee;font-weight:700">Número azul = % onboardeados que consumen esa cat.</span>' +
+    '<span style="color:#555">Última columna: % de onboardeados CABA que consumen esa categoría — benchmark sin sesgo de oferta disponible.</span>' +
     '</div></div>' +
     insightSection +
     '</div>';
