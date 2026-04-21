@@ -104,6 +104,22 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 .onb-mid  { color: #e67e22; font-weight: 700; }
 .onb-low  { color: #e94560; font-weight: 700; }
 
+/* ── HUNTING POR BARRIO ── */
+.hunt-page { padding: 20px 24px; }
+.barrio-tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+.barrio-btn { background: #e8eaf6; border: none; border-radius: 20px; padding: 5px 14px; font-size: 11px; font-weight: 600; cursor: pointer; color: #3949ab; transition: all .15s; }
+.barrio-btn.active { background: #1a1a2e; color: #fff; }
+.hunt-toggle { font-size: 11px; color: #888; background: none; border: 1px solid #d0d4e8; border-radius: 6px; padding: 4px 10px; cursor: pointer; margin-left: auto; }
+.hunt-toggle.active { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
+.funnel-badge { display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 10px; font-weight: 700; }
+.fb-lhf        { background: #d4efdf; color: #1a6640; }
+.fb-funnel     { background: #fef3e2; color: #7d4500; }
+.fb-excl       { background: #fde8e8; color: #8b0000; }
+.fb-sin        { background: #e8eaf6; color: #3949ab; }
+.hunt-tbl th.dem-col { width: 110px; }
+.row-lhf td   { border-left: 3px solid #27ae60; }
+.row-zero td  { color: #bbb; }
+
 /* ── SUPUESTOS ── */
 .sup-page { padding: 24px; max-width: 820px; }
 .sup-block { background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.08); margin-bottom: 16px; overflow: hidden; }
@@ -127,6 +143,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('si',this)">San Isidro</button>
   <button class="tab-btn" onclick="switchTab('cat',this)">Análisis por categoría</button>
+  <button class="tab-btn" onclick="switchTab('hunt',this)">Hunting por barrio</button>
   <button class="tab-btn" onclick="switchTab('sup',this)">Supuestos</button>
   <button class="tab-btn" onclick="switchTab('caba',this)">CABA — referencia</button>
 </div>
@@ -160,6 +177,39 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
         </tr></thead>
         <tbody id="tbodyCat"></tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── TAB HUNTING POR BARRIO ── -->
+<div class="tab-panel" id="tab-hunt">
+  <div class="hunt-page">
+    <div class="section">
+      <div class="section-title">Hunting por barrio — oportunidades por categoría</div>
+      <div class="section-note">Por cada barrio: categorías ordenadas por demanda CABA (proxy). LHF = capturable (en PeYa/Rappi, no en MeLi). En funnel = ya contactado o en negociación. Sin contactar = acción inmediata.</div>
+      <div class="toolbar" style="align-items:center">
+        <div class="barrio-tabs" id="barrio-tabs"></div>
+        <button class="hunt-toggle" id="hunt-toggle" onclick="toggleSoloLHF()">Solo con LHF</button>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="tbl hunt-tbl" id="hunt-table">
+          <thead>
+            <tr>
+              <th style="text-align:left;min-width:160px">Categoría</th>
+              <th class="dem-col">Demanda CABA</th>
+              <th>Total</th>
+              <th>MeLi activos</th>
+              <th>LHF ✓</th>
+              <th>Sin contactar</th>
+              <th>En funnel</th>
+              <th>Excl. PeYa</th>
+              <th>Prioridad</th>
+            </tr>
+          </thead>
+          <tbody id="hunt-tbody"></tbody>
+        </table>
+      </div>
+      <div class="note" id="hunt-total"></div>
     </div>
   </div>
 </div>
@@ -596,10 +646,185 @@ function switchTab(name, btn) {
   document.getElementById('tab-' + name).classList.add('active');
 }
 
+// ── HUNTING DATA (BQ: meli-bi-data.WHOWNER.BT_PM_STORES_MASTER + BT_PM_HUNTING_LEADS, abr-2026) ──
+const HUNTING_RAW = [
+  // ACASSUSO
+  {b:'ACASSUSO',cat:'HELADO',             total:12,act:2,lhf:2,excl:7,funnel:5,sin:2},
+  {b:'ACASSUSO',cat:'SUSHI',              total:7, act:0,lhf:3,excl:4,funnel:3,sin:2},
+  {b:'ACASSUSO',cat:'DESAYUNOS Y MERIENDAS',total:7,act:0,lhf:3,excl:3,funnel:3,sin:2},
+  {b:'ACASSUSO',cat:'PIZZA',              total:6, act:3,lhf:3,excl:0,funnel:3,sin:1},
+  {b:'ACASSUSO',cat:'EMPANADAS',          total:5, act:2,lhf:1,excl:1,funnel:0,sin:1},
+  {b:'ACASSUSO',cat:'MEXICANA',           total:4, act:0,lhf:3,excl:0,funnel:3,sin:0},
+  {b:'ACASSUSO',cat:'HAMBURGUESA',        total:4, act:1,lhf:2,excl:1,funnel:1,sin:0},
+  {b:'ACASSUSO',cat:'CARNES',             total:4, act:1,lhf:1,excl:2,funnel:2,sin:1},
+  {b:'ACASSUSO',cat:'PASTAS',             total:4, act:1,lhf:1,excl:2,funnel:2,sin:2},
+  {b:'ACASSUSO',cat:'MILANESAS',          total:3, act:0,lhf:0,excl:2,funnel:2,sin:0},
+  {b:'ACASSUSO',cat:'POLLO',              total:3, act:0,lhf:1,excl:2,funnel:2,sin:0},
+  {b:'ACASSUSO',cat:'BEBIDAS',            total:2, act:1,lhf:0,excl:1,funnel:0,sin:2},
+  {b:'ACASSUSO',cat:'POSTRES',            total:2, act:1,lhf:0,excl:0,funnel:0,sin:0},
+  {b:'ACASSUSO',cat:'PANADERÍA',          total:2, act:0,lhf:2,excl:0,funnel:2,sin:0},
+  {b:'ACASSUSO',cat:'TARTAS',             total:1, act:0,lhf:1,excl:0,funnel:1,sin:0},
+  {b:'ACASSUSO',cat:'ENSALADAS',          total:1, act:0,lhf:1,excl:0,funnel:1,sin:0},
+  // BECCAR
+  {b:'BECCAR',cat:'PIZZA',                total:18,act:2,lhf:4,excl:6,funnel:4,sin:6},
+  {b:'BECCAR',cat:'HAMBURGUESA',          total:17,act:2,lhf:1,excl:9,funnel:2,sin:6},
+  {b:'BECCAR',cat:'HELADO',               total:14,act:7,lhf:1,excl:5,funnel:5,sin:1},
+  {b:'BECCAR',cat:'SUSHI',                total:14,act:2,lhf:1,excl:9,funnel:1,sin:10},
+  {b:'BECCAR',cat:'EMPANADAS',            total:8, act:3,lhf:1,excl:2,funnel:3,sin:1},
+  {b:'BECCAR',cat:'PANADERÍA',            total:7, act:0,lhf:2,excl:5,funnel:3,sin:2},
+  {b:'BECCAR',cat:'SANDWICHES',           total:7, act:2,lhf:4,excl:1,funnel:2,sin:3},
+  {b:'BECCAR',cat:'DESAYUNOS Y MERIENDAS',total:6, act:2,lhf:0,excl:2,funnel:2,sin:3},
+  {b:'BECCAR',cat:'POSTRES',              total:4, act:2,lhf:0,excl:1,funnel:0,sin:1},
+  {b:'BECCAR',cat:'POLLO',                total:4, act:0,lhf:2,excl:2,funnel:3,sin:1},
+  {b:'BECCAR',cat:'MILANESAS',            total:4, act:0,lhf:1,excl:1,funnel:2,sin:1},
+  {b:'BECCAR',cat:'PASTAS',               total:4, act:2,lhf:0,excl:2,funnel:1,sin:1},
+  {b:'BECCAR',cat:'CARNES',               total:2, act:0,lhf:1,excl:0,funnel:1,sin:1},
+  {b:'BECCAR',cat:'TARTAS',               total:1, act:0,lhf:1,excl:0,funnel:1,sin:0},
+  // MARTINEZ
+  {b:'MARTINEZ',cat:'HELADO',             total:38,act:17,lhf:7,excl:13,funnel:9,sin:16},
+  {b:'MARTINEZ',cat:'DESAYUNOS Y MERIENDAS',total:36,act:6,lhf:6,excl:17,funnel:9,sin:17},
+  {b:'MARTINEZ',cat:'PIZZA',              total:33,act:10,lhf:5,excl:12,funnel:8,sin:8},
+  {b:'MARTINEZ',cat:'HAMBURGUESA',        total:28,act:11,lhf:8,excl:6,funnel:7,sin:5},
+  {b:'MARTINEZ',cat:'SUSHI',              total:24,act:8,lhf:4,excl:11,funnel:5,sin:15},
+  {b:'MARTINEZ',cat:'SANDWICHES',         total:23,act:11,lhf:3,excl:6,funnel:2,sin:9},
+  {b:'MARTINEZ',cat:'PANADERÍA',          total:22,act:2,lhf:3,excl:16,funnel:6,sin:11},
+  {b:'MARTINEZ',cat:'EMPANADAS',          total:16,act:9,lhf:1,excl:4,funnel:2,sin:5},
+  {b:'MARTINEZ',cat:'POSTRES',            total:15,act:3,lhf:3,excl:4,funnel:3,sin:8},
+  {b:'MARTINEZ',cat:'MILANESAS',          total:15,act:9,lhf:2,excl:3,funnel:1,sin:4},
+  {b:'MARTINEZ',cat:'CARNES',             total:11,act:0,lhf:3,excl:8,funnel:5,sin:2},
+  {b:'MARTINEZ',cat:'PASTAS',             total:8, act:4,lhf:1,excl:2,funnel:1,sin:3},
+  {b:'MARTINEZ',cat:'POLLO',              total:8, act:2,lhf:1,excl:5,funnel:2,sin:2},
+  {b:'MARTINEZ',cat:'TARTAS',             total:7, act:1,lhf:0,excl:3,funnel:1,sin:2},
+  {b:'MARTINEZ',cat:'VENEZOLANA',         total:6, act:1,lhf:1,excl:2,funnel:0,sin:3},
+  {b:'MARTINEZ',cat:'ITALIANA',           total:6, act:0,lhf:1,excl:5,funnel:0,sin:4},
+  {b:'MARTINEZ',cat:'ENSALADAS',          total:4, act:1,lhf:0,excl:2,funnel:0,sin:2},
+  {b:'MARTINEZ',cat:'WOKS',               total:4, act:1,lhf:2,excl:1,funnel:1,sin:2},
+  // SAN ISIDRO
+  {b:'SAN ISIDRO',cat:'PIZZA',            total:36,act:10,lhf:6,excl:17,funnel:5,sin:19},
+  {b:'SAN ISIDRO',cat:'HAMBURGUESA',      total:33,act:10,lhf:5,excl:14,funnel:7,sin:14},
+  {b:'SAN ISIDRO',cat:'SUSHI',            total:32,act:8,lhf:5,excl:17,funnel:4,sin:10},
+  {b:'SAN ISIDRO',cat:'DESAYUNOS Y MERIENDAS',total:31,act:6,lhf:6,excl:17,funnel:9,sin:14},
+  {b:'SAN ISIDRO',cat:'EMPANADAS',        total:24,act:13,lhf:4,excl:6,funnel:3,sin:6},
+  {b:'SAN ISIDRO',cat:'PANADERÍA',        total:22,act:5,lhf:5,excl:11,funnel:6,sin:11},
+  {b:'SAN ISIDRO',cat:'HELADO',           total:22,act:3,lhf:8,excl:6,funnel:9,sin:0},
+  {b:'SAN ISIDRO',cat:'POSTRES',          total:14,act:2,lhf:1,excl:7,funnel:4,sin:5},
+  {b:'SAN ISIDRO',cat:'SANDWICHES',       total:13,act:2,lhf:4,excl:4,funnel:5,sin:3},
+  {b:'SAN ISIDRO',cat:'MILANESAS',        total:9, act:1,lhf:2,excl:4,funnel:0,sin:4},
+  {b:'SAN ISIDRO',cat:'PASTAS',           total:8, act:4,lhf:0,excl:4,funnel:1,sin:4},
+  {b:'SAN ISIDRO',cat:'TARTAS',           total:5, act:0,lhf:2,excl:3,funnel:3,sin:1},
+  {b:'SAN ISIDRO',cat:'POLLO',            total:4, act:0,lhf:0,excl:3,funnel:1,sin:2},
+  {b:'SAN ISIDRO',cat:'CARNES',           total:4, act:1,lhf:1,excl:2,funnel:2,sin:1},
+  {b:'SAN ISIDRO',cat:'SANDWICHES',       total:13,act:2,lhf:4,excl:4,funnel:5,sin:3},
+  {b:'SAN ISIDRO',cat:'VENEZOLANA',       total:2, act:0,lhf:1,excl:0,funnel:0,sin:2},
+  {b:'SAN ISIDRO',cat:'MEXICANA',         total:1, act:0,lhf:1,excl:0,funnel:1,sin:0},
+  // VILLA ADELINA
+  {b:'VILLA ADELINA',cat:'EMPANADAS',     total:13,act:10,lhf:0,excl:2,funnel:1,sin:2},
+  {b:'VILLA ADELINA',cat:'PIZZA',         total:11,act:6,lhf:0,excl:5,funnel:4,sin:1},
+  {b:'VILLA ADELINA',cat:'SUSHI',         total:10,act:2,lhf:5,excl:3,funnel:4,sin:4},
+  {b:'VILLA ADELINA',cat:'HELADO',        total:9, act:2,lhf:0,excl:5,funnel:2,sin:2},
+  {b:'VILLA ADELINA',cat:'HAMBURGUESA',   total:8, act:4,lhf:1,excl:1,funnel:1,sin:4},
+  {b:'VILLA ADELINA',cat:'MILANESAS',     total:7, act:4,lhf:0,excl:3,funnel:2,sin:3},
+  {b:'VILLA ADELINA',cat:'PANADERÍA',     total:7, act:3,lhf:1,excl:3,funnel:0,sin:6},
+  {b:'VILLA ADELINA',cat:'SANDWICHES',    total:4, act:1,lhf:0,excl:1,funnel:0,sin:2},
+  {b:'VILLA ADELINA',cat:'DESAYUNOS Y MERIENDAS',total:3,act:1,lhf:0,excl:1,funnel:0,sin:2},
+  {b:'VILLA ADELINA',cat:'ENSALADAS',     total:2, act:1,lhf:1,excl:0,funnel:1,sin:0},
+];
+
+// Deduplicate (SAN ISIDRO SANDWICHES appeared twice in BQ result)
+const huntKey = r => r.b + '|' + r.cat;
+const HUNTING = Object.values(
+  HUNTING_RAW.reduce((m, r) => { if (!m[huntKey(r)]) m[huntKey(r)] = r; return m; }, {})
+);
+
+// Demand lookup from CATEGORIAS (CABA benchmark)
+const DEM_MAP = {};
+CATEGORIAS.forEach(c => { DEM_MAP[c.cat.toUpperCase()] = { dem: c.dem, prio: c.prio }; });
+
+const BARRIOS_LIST = ['MARTINEZ','SAN ISIDRO','VILLA ADELINA','BECCAR','ACASSUSO'];
+let activeBarrio = 'MARTINEZ';
+let soloLHF = false;
+
+function toggleSoloLHF() {
+  soloLHF = !soloLHF;
+  document.getElementById('hunt-toggle').classList.toggle('active', soloLHF);
+  renderHunting();
+}
+
+function setBarrio(b, btn) {
+  activeBarrio = b;
+  document.querySelectorAll('.barrio-btn').forEach(x => x.classList.remove('active'));
+  btn.classList.add('active');
+  renderHunting();
+}
+
+function renderHunting() {
+  const rows = HUNTING
+    .filter(r => r.b === activeBarrio)
+    .filter(r => !soloLHF || r.lhf > 0);
+
+  // Sort: first by demand desc (from CATEGORIAS), then by lhf desc
+  rows.sort((a, b) => {
+    const da = (DEM_MAP[a.cat] || {dem:0}).dem;
+    const db = (DEM_MAP[b.cat] || {dem:0}).dem;
+    return db - da || b.lhf - a.lhf;
+  });
+
+  const prioLabel = {alta:'Prioridad alta', media:'Prioridad media', fuerte:'Fuerte MeLi', limitada:'Limitada (excl. PeYa)'};
+  const maxDem = Math.max(...Object.values(DEM_MAP).map(d => d.dem));
+
+  let html = '';
+  rows.forEach(r => {
+    const dm = DEM_MAP[r.cat] || null;
+    const demVal = dm ? dm.dem : null;
+    const prio   = dm ? dm.prio : null;
+    const rowCls = r.lhf > 0 ? 'row-lhf' : (r.act === 0 && r.lhf === 0 ? 'row-zero' : '');
+
+    const demCell = demVal != null
+      ? `<div class="dem-bar"><div class="dem-bar-bg"><div class="dem-bar-fill" style="width:${Math.round(demVal/maxDem*80)}px"></div></div><span style="font-size:10px;font-weight:600;color:#1a1a2e">${demVal}%</span></div>`
+      : `<span style="color:#ccc;font-size:10px">—</span>`;
+
+    const prioCell = prio
+      ? `<span class="prio-badge prio-${prio}">${prioLabel[prio]}</span>`
+      : '';
+
+    html += `<tr class="${rowCls}">
+      <td>${cap(r.cat)}</td>
+      <td style="text-align:left">${demCell}</td>
+      <td>${r.total}</td>
+      <td style="color:${r.act>0?'#27ae60':'#bbb'};font-weight:700">${r.act}</td>
+      <td><span class="funnel-badge fb-lhf" style="opacity:${r.lhf>0?1:.3}">${r.lhf}</span></td>
+      <td><span class="funnel-badge fb-sin" style="opacity:${r.sin>0?1:.3}">${r.sin}</span></td>
+      <td><span class="funnel-badge fb-funnel" style="opacity:${r.funnel>0?1:.3}">${r.funnel}</span></td>
+      <td><span class="funnel-badge fb-excl" style="opacity:${r.excl>0?1:.3}">${r.excl}</span></td>
+      <td>${prioCell}</td>
+    </tr>`;
+  });
+
+  document.getElementById('hunt-tbody').innerHTML = html;
+
+  const totalLHF = rows.reduce((s,r) => s+r.lhf, 0);
+  const totalSin = rows.reduce((s,r) => s+r.sin, 0);
+  document.getElementById('hunt-total').textContent =
+    `${activeBarrio}: ${rows.length} categorías mostradas · ${totalLHF} LHF capturable · ${totalSin} sin contactar`;
+}
+
+function initHunting() {
+  const tabs = document.getElementById('barrio-tabs');
+  BARRIOS_LIST.forEach((b, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'barrio-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = cap(b);
+    btn.onclick = () => setBarrio(b, btn);
+    tabs.appendChild(btn);
+  });
+  renderHunting();
+}
+
 // Init
 renderCards();
 renderCategorias();
 renderCabaGroups();
+initHunting();
 </script>
 </body>
 </html>
