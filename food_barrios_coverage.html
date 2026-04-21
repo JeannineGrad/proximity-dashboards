@@ -554,7 +554,7 @@ function buildCabaRef() {
   return {
     mAdj: totalAct / adjD * 100,
     bAdj: totalAct / adjD * 100 - (totalPt - totalEp) / adjD * 100,
-    onb:  CABA.reduce((s,r) => s + r.buyers * r.onb, 0) / totalBuyers,
+    onb:  22.3, // BQ verificado: cohortes sep-25 a ene-26, 5+ órdenes en 90d, AR-C
     bph:  totalBuyers / totalPob * 1000,
   };
 }
