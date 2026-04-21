@@ -1131,6 +1131,21 @@ function renderResumen() {
       '</tr>';
   });
 
+  const conceptBox =
+    '<div style="background:#1a1a2e;color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:14px">' +
+    '<div style="font-size:12px;font-weight:700;letter-spacing:.3px;margin-bottom:10px;opacity:.7;text-transform:uppercase">¿Qué es un usuario onboardeado y por qué lo medimos?</div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">' +
+      '<div>' +
+        '<div style="font-size:11px;font-weight:700;color:#a5b4fc;margin-bottom:4px">Definición</div>' +
+        '<div style="font-size:12px;line-height:1.6;opacity:.9">Buyer nuevo que completó <b style="color:#fff">5 o más órdenes en los primeros 90 días</b> desde su primera compra. Mide si el usuario logra habituarse a la plataforma — pasar de prueba a uso regular.</div>' +
+      '</div>' +
+      '<div>' +
+        '<div style="font-size:11px;font-weight:700;color:#a5b4fc;margin-bottom:4px">Por qué importa</div>' +
+        '<div style="font-size:12px;line-height:1.6;opacity:.9">Los usuarios onboardeados tienen <b style="color:#fff">retención significativamente mayor a partir del mes 4</b>: la curva de churn se aplana y el LTV se dispara respecto a los que no lograron habituarse en los primeros 90 días. Onboarding es el predictor más fuerte de retención de largo plazo en Food.</div>' +
+      '</div>' +
+    '</div>' +
+    '</div>';
+
   const intro = '<div class="resumen-intro">' +
     '<b>Diagnóstico:</b> el onboarding en San Isidro (' + siT.onb.toFixed(1) + '% promedio) está ' + (siT.onb - caba.onb).toFixed(1) + 'pp por debajo de CABA (' + caba.onb.toFixed(1) + '%). ' +
     'La causa no es falta de cantidad de restaurantes — es falta de cobertura en las categorías que más consumen los usuarios que sí logran habituarse. ' +
@@ -1138,7 +1153,7 @@ function renderResumen() {
     '</div>';
 
   document.getElementById('resumen-container').innerHTML =
-    '<div class="resumen-wrap">' + intro +
+    '<div class="resumen-wrap">' + conceptBox + intro +
     '<div class="section"><table class="resumen-tbl"><thead><tr>' +
     '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. adj. MeLi</th><th>LHF capturable</th><th style="text-align:left">Categorías críticas (baja cob. + alta demanda real)</th>' +
     '</tr></thead><tbody>' + totalRow + rows.join('') + '</tbody></table></div>' +
