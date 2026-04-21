@@ -247,8 +247,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('si',this)">Resumen</button>
   <button class="tab-btn" onclick="switchTab('cob',this)">Cobertura &amp; Onboarding</button>
-  <button class="tab-btn" onclick="switchTab('lhf',this)">LHF &amp; Funnel</button>
-  <button class="tab-btn" onclick="switchTab('rec',this)">Recomendación</button>
+  <button class="tab-btn" onclick="switchTab('lhf',this)">Recomendación</button>
   <button class="tab-btn" onclick="switchTab('sup',this)">Supuestos</button>
 </div>
 
@@ -276,88 +275,9 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
       <div class="section-note">Categorías donde se recomienda ir a buscar restaurantes LHF: por falta de tiendas activas (cantidad bajo umbral CABA) o por bajo volumen de las tiendas existentes vs PeYa (calidad).</div>
       <div id="lhf-rec-container" style="padding:12px 18px"></div>
     </div>
-    <div class="section">
-      <div class="section-title">Listado LHF por barrio</div>
-      <div class="section-note">LHF (Low-Hanging Fruit): restaurantes presentes en PeYa o Rappi pero aún sin MeLi. Ya tienen operación de delivery activa — solo falta incorporarlos.</div>
-      <div class="toolbar">
-        <div class="barrio-tabs" id="lhf-barrio-tabs"></div>
-      </div>
-      <div id="lhf-funnel-summary" style="padding:12px 18px 0"></div>
-      <div class="univ-filter">
-        <select id="lhf-stage"><option value="">Todos los estados</option></select>
-        <input type="text" id="lhf-search" placeholder="Buscar restaurante...">
-        <span class="cnt" id="lhf-cnt"></span>
-      </div>
-      <div style="overflow-x:auto">
-        <table class="tbl">
-          <thead><tr>
-            <th style="text-align:left">Restaurante</th>
-            <th style="text-align:left">Categoría</th>
-            <th>Estado funnel</th>
-            <th>Presencia comp.</th>
-            <th>Hunter</th>
-            <th>Última gestión</th>
-            <th>Órd. est.</th>
-            <th>Priorizado</th>
-          </tr></thead>
-          <tbody id="lhf-tbody"></tbody>
-        </table>
-      </div>
-    </div>
   </div>
 </div>
 
-<!-- ── TAB RECOMENDACIÓN ── -->
-<div class="tab-panel" id="tab-rec">
-  <div id="rec-container"></div>
-  <div class="rec-page" style="display:none">
-
-    <div class="rec-block">
-      <h3>1. Diagnóstico — por qué el hunting en SI sigue siendo necesario</h3>
-      <div class="rec-body">
-        <p style="font-size:12px;color:#444;line-height:1.7;margin-bottom:12px">
-          El onboarding en San Isidro (11–17% según barrio) está por debajo de CABA (~19%) porque falta variedad en las categorías que más demandan los buyers.
-          El 64% de las órdenes en CABA se concentran en 7 categorías (hamburguesa, helado, sushi, pizza, desayunos, sandwiches, panadería) donde MeLi tiene solo 18–32% de cobertura en SI vs 70–80% de PeYa.
-          No es déficit de cantidad total de restaurantes — es déficit de categorías clave.
-        </p>
-        <div class="prog-wrap" id="rec-cob-bars"></div>
-      </div>
-    </div>
-
-    <div class="rec-block">
-      <h3>2. El universo capturable — LHF por barrio y estado</h3>
-      <div class="rec-body">
-        <p style="font-size:12px;color:#444;line-height:1.7;margin-bottom:12px">
-          De los 1.047 restaurantes relevados, <strong>169 son LHF</strong>: están en PeYa o Rappi pero no en MeLi, sin exclusividad contractual confirmada.
-          Son el target directo del hunter: ya tienen delivery funcionando, la barrera es solo comercial.
-        </p>
-        <table class="rec-tbl" id="rec-lhf-table"></table>
-      </div>
-    </div>
-
-    <div class="rec-block">
-      <h3>3. Estado actual del funnel</h3>
-      <div class="rec-body">
-        <p style="font-size:12px;color:#444;line-height:1.7;margin-bottom:12px">
-          De los 169 LHF: la mayoría ya fue contactada. El foco ahora es conversión (empujar de contactado a encendida) y contactar los que aún no tienen gestión.
-        </p>
-        <table class="rec-tbl" id="rec-funnel-table"></table>
-        <div class="milestone-box" style="margin-top:14px">
-          ⚠ <strong>Atención:</strong> <span id="rec-perdida-note"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="rec-block">
-      <h3>4. Milestone — condición para dar por completado el hunting en SI</h3>
-      <div class="rec-body">
-        <div class="rec-grid" id="rec-milestone-kpis"></div>
-        <div class="milestone-box" id="rec-milestone-text"></div>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 <!-- ── TAB SUPUESTOS ── -->
 <div class="tab-panel" id="tab-sup">
@@ -376,20 +296,18 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
     <div class="sup-block">
       <h3>Definición de métricas — Oferta</h3>
       <div class="sup-body">
-        <div class="sup-row"><div class="sup-key">% Cobertura MeLi (raw)</div><div class="sup-val">Restaurantes activos en MeLi / total relevados en la zona.</div></div>
-        <div class="sup-row"><div class="sup-key">% Cobertura MeLi ajust.</div><div class="sup-val">Activos MeLi / (total relevados − exclusivos PeYa). Excluye del denominador los restaurantes con exclusividad contractual con PeYa, ya que no son capturable por hunters. Es el indicador más representativo de la posición real de MeLi en el mercado capturable.</div></div>
-        <div class="sup-row"><div class="sup-key">Exclusivos PeYa</div><div class="sup-val">Restaurantes con <code>OVERLAP_CATEGORY = 'Exclusive Competitor'</code> y detalle PeYa. Tienen exclusividad contractual — hunters no pueden captarlos. Se excluyen del denominador en la métrica ajustada.</div></div>
-        <div class="sup-row"><div class="sup-key">LHF — Por capturar</div><div class="sup-val">Low-Hanging Fruit: restaurantes presentes en PeYa+Rappi pero ausentes en MeLi (<code>OVERLAP_CATEGORY = 'Low-Hanging fruit'</code>). Son el target directo de hunters: ya tienen operación de delivery, solo falta sumarlos a MeLi.</div></div>
-        <div class="sup-row"><div class="sup-key">Brecha MeLi vs PeYa (ajust.)</div><div class="sup-val">% Cobertura MeLi ajust. − % Cobertura PeYa ajust. Valor negativo indica que PeYa tiene mayor penetración en el mercado capturable. El mercado capturable = total relevados − exclusivos PeYa.</div></div>
+        <div class="sup-row"><div class="sup-key">% Cobertura MeLi (raw)</div><div class="sup-val">Restaurantes activos en MeLi / total relevados en la zona. Refleja lo que ve el usuario cuando abre la app. Fuente: <code>BT_PM_STORES_MASTER</code>, campo <code>STATUS_EN_MELI = 'ACTIVA'</code>.</div></div>
+        <div class="sup-row"><div class="sup-key">Masa crítica</div><div class="sup-val">Cantidad de tiendas activas en MeLi por categoría, comparada contra el umbral CABA: promedio de tiendas activas por barrio en zonas CABA con onboarding ≥22%. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos y meriendas. Mide si hay suficiente variedad dentro de cada categoría para que distintos tipos de buyer puedan habituarse.</div></div>
+        <div class="sup-row"><div class="sup-key">Calidad oferta</div><div class="sup-val">De las categorías con tiendas activas en MeLi (≥50 órdenes estimadas), cuántas tienen un volumen promedio de órdenes ≥75% del promedio PeYa. Fuente: campo <code>ORDENES_ESTIMADAS</code> de <code>BT_PM_STORES_MASTER</code>. Las categorías con &lt;50 órdenes estimadas se consideran "phantom" y se excluyen del denominador.</div></div>
+        <div class="sup-row"><div class="sup-key">LHF — Por capturar</div><div class="sup-val">Low-Hanging Fruit: restaurantes presentes en PeYa o Rappi pero ausentes en MeLi (<code>OVERLAP_CATEGORY = 'Low-Hanging fruit'</code>). Target directo para hunters: ya tienen operación de delivery activa.</div></div>
       </div>
     </div>
 
     <div class="sup-block">
       <h3>Definición de métricas — Demanda</h3>
       <div class="sup-body">
-        <div class="sup-row"><div class="sup-key">% Onboarding</div><div class="sup-val">% de compradores nuevos que completaron 5+ órdenes en los 90 días siguientes a su primera compra. Cohortes: sep-25 a ene-26. Mide si el buyer logra el comportamiento de uso habitual deseado.</div></div>
-        <div class="sup-row"><div class="sup-key">Buyers activos Q1-26</div><div class="sup-val">Compradores con al menos 1 pedido completado entre enero y marzo 2026. Para sub-barrios de SI, se filtra por <code>SHP_BUYER_CITY_NAME</code>.</div></div>
-        <div class="sup-row"><div class="sup-key">Buyers / 1.000 hab.</div><div class="sup-val">Buyers activos Q1-26 / población estimada × 1.000. Indica penetración de la plataforma en la zona vs CABA como referencia.</div></div>
+        <div class="sup-row"><div class="sup-key">% Onboarding</div><div class="sup-val">% de compradores nuevos que completaron 5+ órdenes en los 90 días siguientes a su primera compra. Cohortes: sep-25 a ene-26. Mide si el buyer logra el comportamiento de uso habitual deseado. Benchmark CABA: 22.3% (misma metodología y período).</div></div>
+        <div class="sup-row"><div class="sup-key">% consumo por categoría (CABA)</div><div class="sup-val">% de buyers onboardeados en CABA que compraron al menos una vez en tiendas de esa categoría. Se usa CABA como benchmark ya que la distribución de consumo en SI puede estar sesgada por la oferta disponible (baja cobertura → baja demanda observada). Fuente: <code>BT_PROXIMITY_SHIPMENTS_DETAILED</code> joineado con <code>BT_PM_STORES_MASTER</code>.</div></div>
       </div>
     </div>
 
@@ -398,11 +316,11 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
       <div class="sup-body">
         <div class="sup-note-block">
           <ul>
-            <li>La brecha vs PeYa incluye tanto el componente capturable (LHF) como el no capturable (exclusividades). La métrica ajustada intenta aislar el primero.</li>
-            <li>El onboarding bajo en SI vs CABA puede reflejar falta de variedad en categorías clave o menor intensidad de demanda — con la data disponible no es posible separar las dos causas. El análisis por categoría aporta evidencia indirecta.</li>
+            <li>El onboarding bajo en SI vs CABA puede reflejar falta de variedad en categorías clave o menor intensidad de demanda. El análisis de masa crítica y calidad de oferta aporta evidencia sobre el componente de oferta, pero no permite separar completamente las dos causas.</li>
+            <li>Martínez tiene buenos indicadores de oferta (masa crítica y calidad OK) pero onboarding bajo — sugiere que el problema no es de oferta capturable, sino de perfil de buyer o intensidad de demanda.</li>
             <li>Los datos de oferta de San Isidro corresponden a los 5 sub-barrios: Martínez, San Isidro centro, Villa Adelina, Beccar y Acassuso.</li>
-            <li>La demanda por categoría usa CABA como benchmark ya que SI tiene aún oferta limitada en varias categorías, lo que sesgaría la distribución local de pedidos.</li>
-            <li>Población por sub-barrio: estimaciones aproximadas INDEC 2022. No se dispone de datos oficiales a nivel de localidad para San Isidro.</li>
+            <li>La calidad de oferta usa <code>ORDENES_ESTIMADAS</code> como proxy del volumen real de tiendas. Pendiente: validar con datos reales de transacciones MeLi por tienda.</li>
+            <li>La demanda por categoría usa CABA como benchmark ya que SI tiene oferta limitada en varias categorías, lo que sesgaría la distribución local de pedidos observada.</li>
           </ul>
         </div>
       </div>
@@ -1403,132 +1321,10 @@ function renderCobOnboarding() {
 }
 
 // ── RENDER RECOMENDACION SIMPLIFICADA ──
-function renderRecomendacion() {
-  const caba = buildCabaRef();
-  const BARRIOS_LABEL = {'MARTINEZ':'Martínez','SAN ISIDRO':'SI centro','VILLA ADELINA':'Villa Adelina','BECCAR':'Beccar','ACASSUSO':'Acassuso'};
-  function c(s){ return s.charAt(0)+s.slice(1).toLowerCase(); }
-
-  // Para cada barrio, separar anclas (ya funciona → no huntar) vs palancas (gaps reales → huntar)
-  function classifyCategories(b) {
-    const od  = ONB_DEMAND[b] || {};
-    const hr  = HUNTING.filter(x => x.b === b);
-    const anchors  = [];
-    const levers   = [];
-
-    hr.forEach(h => {
-      if (!h.cat) return;
-      const cat = h.cat.toUpperCase();
-      const cov = h.total > 0 ? h.act / h.total * 100 : 0;
-      const onbDem  = od[h.cat] || od[cat] || null;
-      const cabaDem = (DEM_MAP[cat] || {}).dem || 0;
-
-      // Ancla: MeLi ya tiene buena cobertura Y los onboardeados la usan
-      if (cov >= 35 && onbDem !== null && onbDem >= 8) {
-        anchors.push({ cat: h.cat, cov, onbDem });
-      }
-      // Palanca: cobertura baja + demanda CABA alta (proxy de potencial real) + hay LHF
-      if (cov < 30 && cabaDem >= 4 && h.lhf > 0) {
-        levers.push({ cat: h.cat, cov, cabaDem, lhf: h.lhf });
-      }
-    });
-
-    anchors.sort((a,z) => z.onbDem - a.onbDem);
-    levers.sort((a,z) => (z.cabaDem * (1 - z.cov/100)) - (a.cabaDem * (1 - a.cov/100)));
-    return { anchors: anchors.slice(0,2), levers: levers.slice(0,3) };
-  }
-
-  const summaryRows = SI.map(r => {
-    const mAdj = meliAdjPct(r);
-    const fst  = FUNNEL_STATS[r.b];
-    const enFunnel = (fst.contactado||0) + (fst.negociacion||0);
-    const { anchors, levers } = classifyCategories(r.b);
-
-    const onbCol = r.onb >= 12 ? '#27ae60' : r.onb >= 10 ? '#e67e22' : '#e74c3c';
-    const covCol = mAdj >= 40 ? '#27ae60' : mAdj >= 28 ? '#e67e22' : '#e74c3c';
-
-    const anchorHtml = anchors.length
-      ? anchors.map(a =>
-          '<span style="display:inline-block;margin:2px 3px 0 0;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:700;background:#d4f5e9;color:#0a5c36">' +
-          c(a.cat) + ' (' + a.cov.toFixed(0) + '% cob.)</span>'
-        ).join('')
-      : '<span style="color:#aaa;font-size:11px">—</span>';
-
-    const leverHtml = levers.length
-      ? levers.map(l =>
-          '<span style="display:inline-block;margin:2px 3px 0 0;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:700;background:#fde8e8;color:#8b0000">' +
-          c(l.cat) + ' (' + l.cov.toFixed(0) + '% cob., ' + l.lhf + ' LHF)</span>'
-        ).join('')
-      : '<span style="color:#aaa;font-size:11px">Sin LHF capturable</span>';
-
-    return '<tr>' +
-      '<td style="font-weight:700">' + (BARRIOS_LABEL[r.b]||r.b) + '</td>' +
-      '<td style="font-weight:700;color:' + onbCol + '">' + r.onb.toFixed(1) + '%</td>' +
-      '<td style="font-weight:700;color:' + covCol + '">' + mAdj.toFixed(1) + '%</td>' +
-      '<td style="font-size:11px">' +
-        (fst.sin_contactar > 0 ? '<span style="color:#3b82f6;font-weight:700">' + fst.sin_contactar + ' sin contactar</span> · ' : '') +
-        '<span style="color:#f97316">' + enFunnel + ' en funnel</span> · ' +
-        '<span style="color:#22c55e;font-weight:700">' + (fst.encendida||0) + ' enc.</span>' +
-      '</td>' +
-      '<td style="text-align:left">' + anchorHtml + '</td>' +
-      '<td style="text-align:left">' + leverHtml + '</td>' +
-      '</tr>';
-  }).join('');
-
-  const tableNote = '<p style="font-size:10.5px;color:#777;font-style:italic;padding:8px 12px 4px">' +
-    '✅ <b>Ancla MeLi</b>: categoría con buena cobertura que ya habituó buyers — no es prioridad de hunting adicional. &nbsp;' +
-    '🎯 <b>Palanca de crecimiento</b>: baja cobertura + demanda CABA alta + LHF disponible — capturar estos restaurantes amplía el tipo de buyer que puede onboardearse.' +
-    '</p>';
-
-  const table = tableNote + '<div style="overflow-x:auto"><table class="rec2-tbl"><thead><tr>' +
-    '<th>Barrio</th><th>Onboarding</th><th>Cob. adj.</th><th>Funnel</th>' +
-    '<th style="text-align:left">✅ Ancla MeLi (no huntar más)</th>' +
-    '<th style="text-align:left">🎯 Palanca de crecimiento (huntar)</th>' +
-    '</tr></thead><tbody>' + summaryRows + '</tbody></table></div>';
-
-  // Beccar-specific callout
-  const beccarNote = '<div style="background:#fff8e1;border:1px solid #f59e0b;border-radius:8px;padding:12px 16px;margin:12px 0;font-size:11.5px;line-height:1.7">' +
-    '<b>💡 Ejemplo Beccar (onboarding 8.6% — el más bajo):</b><br>' +
-    'MeLi en Beccar hoy = básicamente helado (50% de cobertura, 52.8% del consumo de onboardeados). ' +
-    'Esto significa que los únicos buyers que logran habituarse son heavy consumers de helado que ya tienen oferta disponible. ' +
-    '<b>Agregar más heladerías no amplía el universo de buyers</b> — el techo de ese segmento está casi alcanzado.<br>' +
-    'La palanca es incorporar <b>hamburguesa y pizza</b>: son categorías con alta demanda potencial (CABA: 33% y 6%) pero muy baja cobertura en Beccar (12% y 11%), ' +
-    'con LHF disponibles. Al sumar esas tiendas, buyers que hoy no tienen razón para usar MeLi en Beccar empiezan a tener opciones.' +
-    '</div>';
-
-  // Totals
-  const sinContactar = BARRIOS_ALL.reduce((s,b) => s + (FUNNEL_STATS[b].sin_contactar||0), 0);
-  const encendidas   = BARRIOS_ALL.reduce((s,b) => s + (FUNNEL_STATS[b].encendida||0), 0);
-  const enFunnelTot  = BARRIOS_ALL.reduce((s,b) => s + (FUNNEL_STATS[b].contactado||0) + (FUNNEL_STATS[b].negociacion||0), 0);
-
-  const milestone = '<div class="milestone-box2">' +
-    '<b>Condición para completar hunting en SI y escalar a otra zona:</b><br><br>' +
-    '1. <strong>0 LHF sin contactar</strong> en las palancas de crecimiento de Beccar y SI centro ' +
-    '(hamburguesa, pizza, sushi donde hay LHF). Hoy: <strong>' + sinContactar + ' LHF sin contactar</strong> en total.<br>' +
-    '2. <strong>Cobertura MeLi ajustada ≥ 40%</strong> en Martínez (hoy 36.6%) y SI centro (hoy 28.7%). ' +
-    'Se necesitan ~' + Math.ceil(((40 - 36.6) * (379 - 75) / 100) + ((40 - 28.7) * (337 - 64) / 100)) + ' conversiones entre los dos barrios.<br>' +
-    '3. <strong>Villa Adelina ya cumple</strong> cobertura (51.2%). Acassuso y Beccar son mercados pequeños — foco en palancas, no en volumen.<br>' +
-    '4. <strong>Medición en 30 días</strong>: si las conversiones no suben el onboarding en Beccar, el problema es visibilidad o precio — no más oferta.<br><br>' +
-    'Hoy: <strong style="color:#22c55e">' + encendidas + ' encendidas</strong> · ' +
-    '<strong style="color:#f97316">' + enFunnelTot + ' en funnel</strong> · ' +
-    '<strong style="color:#3b82f6">' + sinContactar + ' sin contactar</strong>' +
-    '</div>';
-
-  const wrapper = document.getElementById('rec-container');
-  if (wrapper) {
-    wrapper.innerHTML = '<div class="rec2-wrap">' +
-      '<div class="rec2-block"><h3>Por barrio: qué ya funciona en MeLi y dónde está la palanca de crecimiento</h3>' +
-        '<div class="rec2-body">' + table + beccarNote + '</div></div>' +
-      '<div class="rec2-block"><h3>Milestone — condición para dar por completado el hunting en SI</h3>' +
-        '<div class="rec2-body">' + milestone + '</div></div>' +
-      '</div>';
-  }
-}
-
 // Init
 renderResumen();
 renderCobOnboarding();
 initLHF();
-renderRecomendacion();
 </script>
 </body>
 </html>
