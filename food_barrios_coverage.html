@@ -1107,24 +1107,12 @@ function renderResumen() {
   let totalRow = (() => {
     const t = siT;
     const mAdj = t.mAdj;
-    const gaps = [];
-    BARRIOS_LIST.forEach(b => {
-      const od = ONB_DEMAND[b] || {};
-      const hr = HUNTING.filter(r => r.b === b);
-      Object.entries(od).forEach(([cat, demPct]) => {
-        if (demPct < 8) return;
-        const h = hr.find(r => r.cat === cat);
-        const cov = h ? h.act / Math.max(h.total,1) * 100 : null;
-        if (cov !== null && cov < 30) gaps.push(cap(cat));
-      });
-    });
-    const uniqGaps = [...new Set(gaps)].slice(0,3);
     return '<tr class="total-row">' +
       '<td>San Isidro Total</td>' +
       '<td>' + onbPill(t.onb) + ' ' + diffStr(t.onb, caba.onb) + '<br><span style="font-size:10px;color:#888">CABA ' + caba.onb.toFixed(1) + '%</span></td>' +
       '<td>' + covPill(mAdj) + ' ' + diffStr(mAdj, caba.mAdj) + '<br><span style="font-size:10px;color:#888">CABA ' + caba.mAdj.toFixed(1) + '%</span></td>' +
       '<td style="font-weight:700;color:#4361ee">' + t.lhf + '</td>' +
-      '<td>' + uniqGaps.map(g => '<span class="gap-tag">' + g + '</span>').join('') + '</td>' +
+      '<td style="color:#aaa;font-size:11px;font-style:italic">Ver por sub-barrio →</td>' +
       '</tr>';
   })();
 
