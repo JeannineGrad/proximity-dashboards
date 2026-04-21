@@ -1220,7 +1220,7 @@ function renderCobOnboarding() {
   thead1 += '<th>% onb. CABA</th></tr>';
 
   let tbody1 = '';
-  TOP_CATS.forEach(cat => {
+  CATS_KEY.forEach(cat => {
     const demVal = (DEM_MAP[cat] || {}).dem || null;
     tbody1 += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
     BARRIOS_LIST.forEach(b => {
