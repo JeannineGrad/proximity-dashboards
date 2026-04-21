@@ -1189,8 +1189,6 @@ function renderResumen() {
 function renderCobOnboarding() {
   const BARRIOS_LABEL = {'MARTINEZ':'Martínez','SAN ISIDRO':'SI centro','VILLA ADELINA':'V. Adelina','BECCAR':'Beccar','ACASSUSO':'Acassuso'};
 
-  // Top categories to show (ordered by demand + relevance)
-  // Ordenado por % de onboardeados CABA que consumen esa categoría (dem), descendente
   const TOP_CATS = Object.keys(DEM_MAP)
     .filter(c => (DEM_MAP[c].dem || 0) >= 1)
     .sort((a, b) => (DEM_MAP[b].dem || 0) - (DEM_MAP[a].dem || 0));
@@ -1202,14 +1200,12 @@ function renderCobOnboarding() {
     return 'cell-low';
   }
 
-  // Build coverage map: barrio × cat → % activos
   const covMap = {};
   const lhfMap = {};
   BARRIOS_LIST.forEach(b => {
     covMap[b] = {};
     lhfMap[b] = {};
-    const rows = HUNTING.filter(r => r.b === b);
-    rows.forEach(r => {
+    HUNTING.filter(r => r.b === b).forEach(r => {
       const k = r.cat ? r.cat.toUpperCase() : '';
       if (k) {
         covMap[b][k] = r.total > 0 ? (r.act / r.total * 100) : 0;
@@ -1218,103 +1214,107 @@ function renderCobOnboarding() {
     });
   });
 
-  // Explanation text
-  const intro = '<div class="cob-intro">' +
-    '<b>¿Cómo leer este cuadro?</b> Cada celda muestra la cobertura MeLi (% restaurantes activos sobre total relevado) en ese barrio × categoría. ' +
-    '' +
-    '<span style="color:#e74c3c;font-weight:700">Rojo</span> = cobertura baja (&lt;25%). ' +
-    '<span style="color:#c8a200;font-weight:700">Amarillo</span> = cobertura media (25–40%). ' +
-    '<span style="color:#27ae60;font-weight:700">Verde</span> = cobertura fuerte (&ge;40%). ' +
-    'Las celdas con borde rojo son gaps críticos: baja cobertura + demanda alta de onboardeados.' +
-    '</div>';
+  // ── SECTION 1: Cobertura raw ──
+  let thead1 = '<tr><th>Categoría</th>';
+  BARRIOS_LIST.forEach(b => { thead1 += '<th>' + (BARRIOS_LABEL[b] || b) + '</th>'; });
+  thead1 += '<th>% onb. CABA</th></tr>';
 
-  // Header
-  let thead = '<tr><th>Categoría</th>';
-  BARRIOS_LIST.forEach(b => {
-    thead += '<th>' + (BARRIOS_LABEL[b] || b) + '</th>';
-  });
-  thead += '<th>Dem. CABA</th></tr>';
-
-  // Body
-  let tbody = '';
+  let tbody1 = '';
   TOP_CATS.forEach(cat => {
-    const demInfo = DEM_MAP[cat] || null;
-    const demVal  = demInfo ? demInfo.dem : null;
-
-    tbody += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
-
+    const demVal = (DEM_MAP[cat] || {}).dem || null;
+    tbody1 += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
     BARRIOS_LIST.forEach(b => {
-      const cov  = covMap[b][cat] !== undefined ? covMap[b][cat] : null;
-      const lhf  = lhfMap[b][cat] !== undefined ? lhfMap[b][cat] : 0;
-      const onbd = ONB_DEMAND[b] ? (ONB_DEMAND[b][cat] || null) : null;
-
-      if (cov === null) {
-        tbody += '<td><span class="cell-cov cell-none">—</span></td>';
-        return;
-      }
-
-      // Critical gap: low coverage AND high onboarding demand
+      const cov = covMap[b][cat] !== undefined ? covMap[b][cat] : null;
+      const lhf = lhfMap[b][cat] !== undefined ? lhfMap[b][cat] : 0;
+      if (cov === null) { tbody1 += '<td><span class="cell-cov cell-none">—</span></td>'; return; }
       const isCrit = cov < 30 && (demVal || 0) >= 5;
       const cls = isCrit ? 'cell-crit' : covClass(cov);
-
       let cellHtml = '<span class="cell-cov ' + cls + '">' + cov.toFixed(0) + '%';
       if (lhf > 0) cellHtml += ' <span style="font-size:9px;opacity:.75">+' + lhf + ' LHF</span>';
       cellHtml += '</span>';
-
-
-
-      tbody += '<td>' + cellHtml + '</td>';
+      tbody1 += '<td>' + cellHtml + '</td>';
     });
-
-    // CABA demand benchmark
     if (demVal !== null) {
-      const dCol = demVal >= 10 ? '#1a1a2e' : '#888';
-      tbody += '<td style="font-weight:700;color:' + dCol + '">' + demVal + '%</td>';
+      tbody1 += '<td style="font-weight:700;color:' + (demVal >= 10 ? '#1a1a2e' : '#888') + '">' + demVal + '%</td>';
     } else {
-      tbody += '<td style="color:#ccc">—</td>';
+      tbody1 += '<td style="color:#ccc">—</td>';
     }
-
-    tbody += '</tr>';
+    tbody1 += '</tr>';
   });
 
-  // Second section: onboarding concentration insight
-  const insightRows = BARRIOS_LIST.map(b => {
-    const od = ONB_DEMAND[b] || {};
-    const sorted = Object.entries(od).sort((a, z) => z[1] - a[1]);
-    const top = sorted.slice(0, 2);
-    const top1pct = top[0] ? top[0][1] : 0;
-    const concLabel = top1pct >= 40 ? 'Muy concentrado' : top1pct >= 20 ? 'Concentrado' : 'Diversificado';
-    const concCol = top1pct >= 40 ? '#e74c3c' : top1pct >= 20 ? '#e67e22' : '#27ae60';
-    const si = SI.find(r => r.b === b);
-    const onb = si ? si.onb : null;
-    return '<tr>' +
-      '<td style="font-weight:700">' + (BARRIOS_LABEL[b]||b) + '</td>' +
-      '<td style="font-weight:700;color:' + (onb>=12?'#27ae60':onb>=10?'#e67e22':'#e74c3c') + '">' + (onb !== null ? onb.toFixed(1)+'%' : '—') + '</td>' +
-      '<td>' + top.map(([c,p]) => '<span style="font-size:11px"><b>' + (c.charAt(0)+c.slice(1).toLowerCase()) + '</b> ' + p + '%</span>').join(' · ') + '</td>' +
-      '<td style="font-weight:700;color:' + concCol + '">' + concLabel + '</td>' +
-      '<td style="font-size:11px;color:#666">' + (top1pct >= 40 ? 'Pocos tipos de tienda capturan casi toda la demanda → onboarding limitado por oferta estrecha' : top1pct >= 20 ? 'Demanda moderadamente concentrada' : 'Ecosistema diversificado → más buyers encuentran lo que buscan') + '</td>' +
-      '</tr>';
-  }).join('');
+  const section1 = '<div class="cob-section">' +
+    '<div class="cob-section-title">① Cobertura raw — % restaurantes activos MeLi por barrio y categoría</div>' +
+    '<div class="cob-intro">Lo que ve el usuario cuando abre la app. Columna derecha: % de onboardeados CABA que consumen esa categoría — benchmark sin sesgo de oferta. <span style="color:#e74c3c;font-weight:700">Borde rojo</span> = gap crítico (cob. baja + alta demanda en CABA).</div>' +
+    '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead1 + '</thead><tbody>' + tbody1 + '</tbody></table></div>' +
+    '<div class="matrix-legend">' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d4f5e9;border:1px solid #27ae60"></span>≥40%</span>' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fef9c3;border:1px solid #c8a200"></span>25–40%</span>' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fde8e8;border:1px solid #e74c3c"></span>&lt;25%</span>' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fde8e8;border:2px solid #e74c3c"></span>Gap crítico</span>' +
+    '</div></div>';
 
-  const insightSection = '<div class="cob-section"><div class="cob-section-title">Concentración de consumo en usuarios onboardeados — por barrio</div>' +
-    '<div style="overflow-x:auto"><table class="tbl" style="font-size:12px"><thead><tr>' +
-    '<th style="text-align:left">Barrio</th><th>Onboarding</th><th>Top 2 categorías consumidas</th><th>Concentración</th><th style="text-align:left">Interpretación</th>' +
-    '</tr></thead><tbody>' + insightRows + '</tbody></table></div>' +
-    '<div class="matrix-legend"><span>Onboarding: % de nuevos buyers que completaron 5+ órdenes en 90 días (cohortes sep-ene)</span><span>· Consumo: % de buyers onboardeados que compraron en tiendas de esa categoría</span></div></div>';
+  // ── SECTION 2: Masa crítica ──
+  let thead2 = '<tr><th>Categoría</th>';
+  BARRIOS_LIST.forEach(b => { thead2 += '<th>' + (BARRIOS_LABEL[b] || b) + '</th>'; });
+  thead2 += '<th>Umbral CABA</th></tr>';
+
+  let tbody2 = '';
+  CATS_KEY.forEach(cat => {
+    tbody2 += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
+    BARRIOS_LIST.forEach(b => {
+      const n = (TIENDAS_SI[b] || {})[cat] || 0;
+      const umbral = CABA_UMBRAL[cat];
+      const ok = n >= umbral;
+      tbody2 += '<td style="background:' + (ok ? '#d4f5e9' : '#fde8e8') + ';text-align:center">' +
+        '<span style="font-weight:700;color:' + (ok ? '#27ae60' : '#e74c3c') + '">' + n + '</span>' +
+        '<span style="font-size:9px;color:#999;margin-left:3px">/' + umbral + '</span></td>';
+    });
+    tbody2 += '<td style="color:#888;font-size:12px;text-align:center">' + CABA_UMBRAL[cat] + '</td></tr>';
+  });
+
+  const section2 = '<div class="cob-section">' +
+    '<div class="cob-section-title">② Masa crítica — tiendas activas vs umbral CABA por categoría</div>' +
+    '<div class="cob-intro">¿Hay suficientes restaurantes activos para que el usuario tenga variedad real? Número = tiendas activas en MeLi. Umbral = promedio de tiendas activas en barrios CABA con onboarding ≥22%. <span style="color:#27ae60;font-weight:700">Verde</span> = sobre umbral · <span style="color:#e74c3c;font-weight:700">Rojo</span> = bajo umbral.</div>' +
+    '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead2 + '</thead><tbody>' + tbody2 + '</tbody></table></div>' +
+    '</div>';
+
+  // ── SECTION 3: Calidad oferta ──
+  let thead3 = '<tr><th>Categoría</th>';
+  BARRIOS_LIST.forEach(b => { thead3 += '<th>' + (BARRIOS_LABEL[b] || b) + '</th>'; });
+  thead3 += '</tr>';
+
+  let tbody3 = '';
+  CATS_KEY.forEach(cat => {
+    tbody3 += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
+    BARRIOS_LIST.forEach(b => {
+      const cal = (CALIDAD_DATA[b] || {})[cat];
+      if (!cal || cal.meli === null) {
+        tbody3 += '<td style="text-align:center;color:#aaa;font-size:11px">sin tiendas</td>';
+        return;
+      }
+      if (cal.meli < 50) {
+        tbody3 += '<td style="text-align:center;color:#aaa;font-size:11px">phantom<br><span style="font-size:9px">' + cal.meli + ' órd.</span></td>';
+        return;
+      }
+      const ratio = cal.meli / cal.peya;
+      const bg = ratio >= 0.7 ? '#d4f5e9' : ratio >= 0.5 ? '#fef3e2' : '#fde8e8';
+      const col = ratio >= 0.7 ? '#27ae60' : ratio >= 0.5 ? '#e67e22' : '#e74c3c';
+      tbody3 += '<td style="background:' + bg + ';text-align:center">' +
+        '<span style="font-weight:700;font-size:13px;color:' + col + '">' + Math.round(ratio * 100) + '%</span>' +
+        '<br><span style="font-size:9px;color:#999">' + cal.meli + ' vs ' + cal.peya + '</span></td>';
+    });
+    tbody3 += '</tr>';
+  });
+
+  const section3 = '<div class="cob-section">' +
+    '<div class="cob-section-title">③ Calidad oferta — volumen MeLi como % del benchmark PeYa</div>' +
+    '<div class="cob-intro">¿Las tiendas activas en MeLi tienen un nivel de actividad comparable a PeYa? Valor = avg órdenes estimadas MeLi ÷ avg PeYa. Excluye categorías con &lt;50 órdenes (phantom). <span style="color:#27ae60;font-weight:700">≥70%</span> comparable · <span style="color:#e67e22;font-weight:700">50–70%</span> parcial · <span style="color:#e74c3c;font-weight:700">&lt;50%</span> bajo.</div>' +
+    '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead3 + '</thead><tbody>' + tbody3 + '</tbody></table></div>' +
+    '<div class="matrix-legend"><span>Números debajo del %: órdenes estimadas MeLi activas / órdenes estimadas PeYa (avg por tienda × categoría).</span></div>' +
+    '</div>';
 
   document.getElementById('cob-container').innerHTML =
-    '<div class="cob-wrap">' + intro +
-    '<div class="cob-section"><div class="cob-section-title">Cobertura MeLi (%) × consumo de onboardeados (azul) — por barrio y categoría</div>' +
-    '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead + '</thead><tbody>' + tbody + '</tbody></table></div>' +
-    '<div class="matrix-legend">' +
-    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d4f5e9;border:1px solid #27ae60"></span>Cob. &ge;40% (fuerte)</span>' +
-    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fef9c3;border:1px solid #c8a200"></span>Cob. 25–40%</span>' +
-    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fde8e8;border:1px solid #e74c3c"></span>Cob. &lt;25%</span>' +
-    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fde8e8;border:2px solid #e74c3c"></span>Gap crítico (cob. baja + demanda alta)</span>' +
-    '<span style="color:#555">Última columna: % de onboardeados CABA que consumen esa categoría — benchmark sin sesgo de oferta disponible.</span>' +
-    '</div></div>' +
-    insightSection +
-    '</div>';
+    '<div class="cob-wrap">' + section1 + section2 + section3 + '</div>';
 }
 
 // ── RENDER RECOMENDACION SIMPLIFICADA ──
