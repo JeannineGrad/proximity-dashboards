@@ -952,6 +952,15 @@ function initLHF() {
   renderLHF();
 }
 
+function toggleRecDet(id) {
+  const el = document.getElementById(id);
+  const arrow = document.getElementById('arr_' + id);
+  if (!el) return;
+  const open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'table-row';
+  if (arrow) arrow.textContent = open ? '▶' : '▼';
+}
+
 function renderHuntingRec() {
   const BARRIOS_LABEL = {'MARTINEZ':'Martínez','SAN ISIDRO':'SI centro','VILLA ADELINA':'Villa Adelina','BECCAR':'Beccar','ACASSUSO':'Acassuso'};
   function cap(s) { return s.charAt(0) + s.slice(1).toLowerCase(); }
@@ -965,13 +974,9 @@ function renderHuntingRec() {
       const gapCant = tiendas < umbral;
       const ratio   = cal && cal.meli !== null && cal.meli >= 50 ? cal.meli / cal.peya : null;
       const gapCal  = ratio !== null && ratio < 0.75;
-      const noTiendas = !cal || cal.meli === null || cal.meli < 50;
 
       if (!gapCant && !gapCal) return;
 
-      const lhfCount = RESTAURANTS.filter(r => r.b === b && r.seg === 'lhf' && r.cat && r.cat.toUpperCase() === cat).length;
-
-      // Tipo de gap
       let tipo, tipoCol, tipoBg;
       if (gapCant && gapCal) {
         tipo = 'Cantidad + Calidad'; tipoCol = '#c0392b'; tipoBg = '#fde8e8';
@@ -981,14 +986,16 @@ function renderHuntingRec() {
         tipo = 'Calidad'; tipoCol = '#c8a200'; tipoBg = '#fef9c3';
       }
 
-      const cantDetalle = tiendas + ' activas / umbral ' + umbral;
-      const calDetalle  = ratio !== null ? Math.round(ratio * 100) + '% del vol. PeYa' : (noTiendas ? 'sin tiendas activas' : '—');
+      // Restaurants for this group
+      const rests = RESTAURANTS.filter(r => r.b === b && r.cat && r.cat.toUpperCase() === cat && r.seg !== 'activa');
+      const lhfRests   = rests.filter(r => r.seg === 'lhf').sort((a,z) => (z.ord||0)-(a.ord||0));
+      const otrosRests = rests.filter(r => r.seg === 'excl_mercado' || r.seg === 'shared' || r.seg === 'excl_meli').sort((a,z) => (z.ord||0)-(a.ord||0));
+      const exclRests  = rests.filter(r => r.seg === 'excl_contrato').sort((a,z) => (z.ord||0)-(a.ord||0));
 
-      rows.push({ b, cat, tipo, tipoCol, tipoBg, cantDetalle, calDetalle, lhfCount, gapCant, gapCal, tiendas, umbral, ratio });
+      rows.push({ b, cat, tipo, tipoCol, tipoBg, tiendas, umbral, ratio, gapCant, gapCal, lhfRests, otrosRests, exclRests });
     });
   });
 
-  // Sort: cantidad+calidad first, then cantidad, then calidad; within each: by barrio order
   const order = { 'Cantidad + Calidad': 0, 'Cantidad': 1, 'Calidad': 2 };
   rows.sort((a, z) => order[a.tipo] - order[z.tipo] || BARRIOS_LIST.indexOf(a.b) - BARRIOS_LIST.indexOf(z.b));
 
@@ -997,26 +1004,42 @@ function renderHuntingRec() {
     return;
   }
 
-  const thead = '<tr>' +
+  function restRow(r) {
+    const stageLabel = r.stage ? (STAGE_CONFIG[r.stage] ? STAGE_CONFIG[r.stage].label : r.stage) : '—';
+    const stageCls   = r.stage ? ' stage-' + r.stage : '';
+    return '<tr style="font-size:11px;border-bottom:1px solid #f0f0f0">' +
+      '<td style="padding:4px 8px">' + (r.name||'—') + (r.brand && r.brand !== r.name ? ' <span style="color:#aaa;font-size:10px">(' + r.brand + ')</span>' : '') + '</td>' +
+      '<td style="padding:4px 8px;color:#666">' + (r.comp||'—') + '</td>' +
+      '<td style="padding:4px 8px;text-align:center;color:#444">' + (r.ord > 3 ? r.ord.toLocaleString('es-AR') : '—') + '</td>' +
+      '<td style="padding:4px 8px">' + (r.stage ? '<span class="seg-badge' + stageCls + '">' + stageLabel + '</span>' : '<span style="color:#aaa;font-size:10px">—</span>') + '</td>' +
+      '<td style="padding:4px 8px;color:#888;font-size:10px">' + (r.hunter||'—') + '</td>' +
+      '</tr>';
+  }
+
+  function groupBlock(title, color, bg, rests) {
+    if (!rests.length) return '';
+    return '<tr><td colspan="5" style="background:' + bg + ';padding:3px 10px;font-size:10px;font-weight:700;color:' + color + ';letter-spacing:.3px">' + title.toUpperCase() + ' (' + rests.length + ')</td></tr>' +
+      rests.map(restRow).join('');
+  }
+
+  const thead = '<tr><th></th>' +
     '<th style="text-align:left">Barrio</th>' +
     '<th style="text-align:left">Categoría</th>' +
     '<th>Gap</th>' +
-    '<th>Tiendas activas vs umbral</th>' +
-    '<th>Volumen vs PeYa</th>' +
-    '<th>LHF disponibles</th>' +
+    '<th>Tiendas vs umbral</th>' +
+    '<th>Vol. vs PeYa</th>' +
+    '<th>LHF</th>' +
     '</tr>';
 
-  const tbody = rows.map(r => {
-    const lhfCell = r.lhfCount > 0
-      ? '<span style="font-weight:700;color:#4361ee">' + r.lhfCount + '</span> restaurantes'
-      : '<span style="color:#aaa">—</span>';
-    const cantCell = r.gapCant
-      ? '<span style="color:#e74c3c;font-weight:700">' + r.tiendas + '</span><span style="color:#888;font-size:10px"> / umbral ' + r.umbral + '</span>'
-      : '<span style="color:#27ae60;font-weight:700">' + r.tiendas + '</span><span style="color:#888;font-size:10px"> / umbral ' + r.umbral + '</span>';
-    const calCell = r.ratio !== null
-      ? '<span style="font-weight:700;color:' + (r.gapCal ? '#e74c3c' : '#27ae60') + '">' + Math.round(r.ratio * 100) + '%</span>'
-      : '<span style="color:#aaa;font-size:11px">sin tiendas</span>';
-    return '<tr>' +
+  let tbody = '';
+  rows.forEach((r, i) => {
+    const detId = 'det_' + i;
+    const cantCell = '<span style="font-weight:700;color:' + (r.gapCant ? '#e74c3c' : '#27ae60') + '">' + r.tiendas + '</span><span style="color:#888;font-size:10px"> / ' + r.umbral + '</span>';
+    const calCell  = r.ratio !== null ? '<span style="font-weight:700;color:' + (r.gapCal ? '#e74c3c' : '#27ae60') + '">' + Math.round(r.ratio * 100) + '%</span>' : '<span style="color:#aaa;font-size:11px">sin tiendas</span>';
+    const lhfCell  = r.lhfRests.length > 0 ? '<span style="font-weight:700;color:#4361ee">' + r.lhfRests.length + '</span>' : '<span style="color:#aaa">—</span>';
+
+    tbody += '<tr style="cursor:pointer" onclick="toggleRecDet(\'' + detId + '\')">' +
+      '<td style="color:#aaa;font-size:10px;width:16px"><span id="arr_' + detId + '">▶</span></td>' +
       '<td style="font-weight:700">' + (BARRIOS_LABEL[r.b] || r.b) + '</td>' +
       '<td>' + cap(r.cat) + '</td>' +
       '<td><span style="font-size:11px;font-weight:700;color:' + r.tipoCol + ';background:' + r.tipoBg + ';padding:2px 8px;border-radius:10px">' + r.tipo + '</span></td>' +
@@ -1024,14 +1047,32 @@ function renderHuntingRec() {
       '<td style="text-align:center">' + calCell + '</td>' +
       '<td style="text-align:center">' + lhfCell + '</td>' +
       '</tr>';
-  }).join('');
+
+    // Detail row
+    const detailInner = (r.lhfRests.length || r.otrosRests.length || r.exclRests.length)
+      ? '<table style="width:100%;border-collapse:collapse;font-size:11px">' +
+          '<thead><tr style="background:#f0f0f0">' +
+            '<th style="text-align:left;padding:3px 8px;font-weight:600">Restaurante</th>' +
+            '<th style="padding:3px 8px;font-weight:600">Presencia</th>' +
+            '<th style="padding:3px 8px;font-weight:600">Órd. est.</th>' +
+            '<th style="padding:3px 8px;font-weight:600">Estado funnel</th>' +
+            '<th style="padding:3px 8px;font-weight:600">Hunter</th>' +
+          '</tr></thead><tbody>' +
+          groupBlock('LHF — capturar', '#0a5c36', '#e8f8ef', r.lhfRests) +
+          groupBlock('Otros — en mercado', '#1a1a2e', '#f0f2ff', r.otrosRests) +
+          groupBlock('Exclusivos contractuales', '#8b0000', '#fde8e8', r.exclRests) +
+          '</tbody></table>'
+      : '<p style="font-size:11px;color:#aaa;padding:6px 12px;margin:0">Sin datos de restaurantes para este grupo.</p>';
+
+    tbody += '<tr id="' + detId + '" style="display:none"><td colspan="7" style="padding:0 0 8px 28px;background:#fafbff;border-bottom:2px solid #e8eaf0">' + detailInner + '</td></tr>';
+  });
 
   document.getElementById('lhf-rec-container').innerHTML =
     '<div style="overflow-x:auto"><table class="tbl" style="font-size:12px"><thead>' + thead + '</thead><tbody>' + tbody + '</tbody></table></div>' +
     '<div class="matrix-legend" style="margin-top:8px">' +
-    '<span style="color:#c0392b;font-weight:700">Cantidad + Calidad</span> = faltan tiendas Y las existentes tienen bajo volumen vs PeYa · ' +
+    '<span style="color:#c0392b;font-weight:700">Cantidad + Calidad</span> = faltan tiendas Y bajo volumen vs PeYa · ' +
     '<span style="color:#e67e22;font-weight:700">Cantidad</span> = tiendas bajo umbral CABA · ' +
-    '<span style="color:#c8a200;font-weight:700">Calidad</span> = volumen MeLi &lt;75% del avg PeYa' +
+    '<span style="color:#c8a200;font-weight:700">Calidad</span> = volumen MeLi &lt;75% del avg PeYa · Hacé clic en una fila para ver los restaurantes' +
     '</div>';
 }
 
