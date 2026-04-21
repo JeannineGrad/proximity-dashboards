@@ -1165,7 +1165,10 @@ function renderCobOnboarding() {
   const BARRIOS_LABEL = {'MARTINEZ':'Martínez','SAN ISIDRO':'SI centro','VILLA ADELINA':'V. Adelina','BECCAR':'Beccar','ACASSUSO':'Acassuso'};
 
   // Top categories to show (ordered by demand + relevance)
-  const TOP_CATS = ['HAMBURGUESA','HELADO','SUSHI','PIZZA','EMPANADAS','DESAYUNOS Y MERIENDAS','MILANESAS','SANDWICHES','PANADERÍA','POLLO'];
+  // Ordenado por % de onboardeados CABA que consumen esa categoría (dem), descendente
+  const TOP_CATS = Object.keys(DEM_MAP)
+    .filter(c => (DEM_MAP[c].dem || 0) >= 1)
+    .sort((a, b) => (DEM_MAP[b].dem || 0) - (DEM_MAP[a].dem || 0));
 
   function covClass(pct) {
     if (pct === null) return 'cell-none';
