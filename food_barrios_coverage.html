@@ -1229,7 +1229,7 @@ function renderCobOnboarding() {
       }
 
       // Critical gap: low coverage AND high onboarding demand
-      const isCrit = cov < 30 && cabaDem >= 5;
+      const isCrit = cov < 30 && (demVal || 0) >= 5;
       const cls = isCrit ? 'cell-crit' : covClass(cov);
 
       let cellHtml = '<span class="cell-cov ' + cls + '">' + cov.toFixed(0) + '%';
