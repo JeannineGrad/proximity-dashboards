@@ -502,6 +502,13 @@ const ONB_DEMAND = {
   'VILLA ADELINA': {'EMPANADAS':39.5,'PIZZA':19.8,'PANADERÍA':7.4,'SUSHI':7.4,'MILANESAS':7.4,'HAMBURGUESA':6.2},
 };
 
+
+// Umbral mínimo de tiendas activas por categoría (benchmark barrios CABA onb ≥22%)
+const CABA_UMBRAL = {"HAMBURGUESA":5.5,"HELADO":5.3,"PIZZA":4.9,"EMPANADAS":5.5,"SUSHI":3.8,"DESAYUNOS Y MERIENDAS":4.5};
+// Tiendas activas por barrio × categoría (BQ: BT_PM_STORES_MASTER, STATUS_EN_MELI='ACTIVA')
+const TIENDAS_SI = {"MARTINEZ":{"HAMBURGUESA":11,"HELADO":17,"PIZZA":10,"EMPANADAS":9,"SUSHI":8,"DESAYUNOS Y MERIENDAS":6},"SAN ISIDRO":{"HAMBURGUESA":10,"HELADO":3,"PIZZA":10,"EMPANADAS":13,"SUSHI":8,"DESAYUNOS Y MERIENDAS":6},"VILLA ADELINA":{"HAMBURGUESA":4,"HELADO":2,"PIZZA":6,"EMPANADAS":10,"SUSHI":2,"DESAYUNOS Y MERIENDAS":1},"BECCAR":{"HAMBURGUESA":2,"HELADO":7,"PIZZA":2,"EMPANADAS":3,"SUSHI":2,"DESAYUNOS Y MERIENDAS":2},"ACASSUSO":{"HAMBURGUESA":1,"HELADO":2,"PIZZA":3,"EMPANADAS":2,"SUSHI":0,"DESAYUNOS Y MERIENDAS":0}};
+const CATS_KEY = ["HAMBURGUESA","HELADO","PIZZA","EMPANADAS","SUSHI","DESAYUNOS Y MERIENDAS"];
+
 // Demanda CABA Q1-26 × cobertura SI — 5 sub-barrios combinados
 // Fuente: BT_PROXIMITY_SHIPMENTS_DETAILED (dem) + BT_PM_STORES_MASTER (oferta)
 // dem=% órdenes CABA, meli/peya=% cobertura SI, lhf=capturable, ep=excl. PeYa, rel=total relevados
@@ -1107,27 +1114,42 @@ function renderResumen() {
   let totalRow = (() => {
     const t = siT;
     const mAdj = t.mAdj;
+    const rawSI = t.act / t.rel * 100;
+    const cabaRaw = 27.3;
     return '<tr class="total-row">' +
       '<td>San Isidro Total</td>' +
       '<td>' + onbPill(t.onb) + ' ' + diffStr(t.onb, caba.onb) + '<br><span style="font-size:10px;color:#888">CABA ' + caba.onb.toFixed(1) + '%</span></td>' +
-      '<td>' + covPill(mAdj) + ' ' + diffStr(mAdj, caba.mAdj) + '<br><span style="font-size:10px;color:#888">CABA ' + caba.mAdj.toFixed(1) + '%</span></td>' +
+      '<td>' + covPill(rawSI) + ' ' + diffStr(rawSI, cabaRaw) + '<br><span style="font-size:10px;color:#888">CABA ' + cabaRaw.toFixed(1) + '%</span></td>' +
+      '<td style="color:#aaa;font-size:11px;font-style:italic" colspan="2">Ver por sub-barrio →</td>' +
       '<td style="font-weight:700;color:#4361ee">' + t.lhf + '</td>' +
-      '<td style="color:#aaa;font-size:11px;font-style:italic">Ver por sub-barrio →</td>' +
       '</tr>';
   })();
 
   let rows = SI.map(r => {
-    const mAdj = meliAdjPct(r);
-    const gaps = topGaps(r.b);
-    const gapHtml = gaps.length
-      ? gaps.map(g => '<span class="gap-tag">' + cap(g.cat) + ' (' + g.demPct + '% demanda, ' + g.covPct.toFixed(0) + '% cob.)</span>').join('')
-      : '<span class="gap-tag gap-ok">Sin brecha crítica</span>';
+    const rawCov = r.meli;
+    const cabaRaw = 27.3;
+    const tiendas = TIENDAS_SI[r.b] || {};
+    // Masa crítica: cuántas de las 6 categorías clave superan el umbral CABA
+    const masaOk = CATS_KEY.filter(c => (tiendas[c] || 0) >= CABA_UMBRAL[c]).length;
+    const masaTotal = CATS_KEY.length;
+    const masaCol = masaOk >= 5 ? '#27ae60' : masaOk >= 3 ? '#e67e22' : '#e74c3c';
+    // Categorías bajo umbral absoluto
+    const bajosUmbral = CATS_KEY.filter(c => (tiendas[c] || 0) < CABA_UMBRAL[c]);
+    const umbralHtml = bajosUmbral.length === 0
+      ? '<span class="gap-tag gap-ok">Todas OK</span>'
+      : bajosUmbral.map(c => {
+          const n = tiendas[c] || 0;
+          const u = CABA_UMBRAL[c];
+          return '<span class="gap-tag">' + cap(c) + ' (' + n + '/' + u + ')</span>';
+        }).join('');
     return '<tr>' +
       '<td style="font-weight:700">' + (BARRIOS_LABEL[r.b] || r.b) + '</td>' +
       '<td>' + onbPill(r.onb) + ' ' + diffStr(r.onb, caba.onb) + '</td>' +
-      '<td>' + covPill(mAdj) + '</td>' +
+      '<td>' + covPill(rawCov) + ' ' + diffStr(rawCov, cabaRaw) + '</td>' +
+      '<td><span style="font-weight:800;font-size:15px;color:' + masaCol + '">' + masaOk + '/' + masaTotal + '</span>' +
+        '<span style="font-size:10px;color:#888;margin-left:4px">categorías</span></td>' +
       '<td style="font-weight:700;color:#4361ee">' + r.lhf + '</td>' +
-      '<td style="text-align:left">' + gapHtml + '</td>' +
+      '<td style="text-align:left">' + umbralHtml + '</td>' +
       '</tr>';
   });
 
@@ -1149,14 +1171,16 @@ function renderResumen() {
 
   const intro = '<div class="resumen-intro">' +
     '<b>Diagnóstico:</b> el onboarding promedio en San Isidro es ' + siT.onb.toFixed(1) + '%, ' + Math.abs(siT.onb - caba.onb).toFixed(1) + 'pp por debajo de CABA (' + caba.onb.toFixed(1) + '%). ' +
-    'El detalle por sub-barrio y categoría muestra dónde están los gaps accionables.' +
+    'La cobertura raw refleja la oferta real que ve el usuario. La masa crítica mide si hay suficientes restaurantes activos en las categorías clave para que un usuario pueda hacer sus 5 pedidos con variedad — aunque el % de cobertura sea aceptable.' +
     '</div>';
 
   document.getElementById('resumen-container').innerHTML =
     '<div class="resumen-wrap">' + conceptBox + intro +
     '<div class="section"><table class="resumen-tbl"><thead><tr>' +
-    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. adj. MeLi</th><th>LHF capturable</th><th style="text-align:left">Categorías críticas (baja cob. + alta demanda real)</th>' +
-    '</tr></thead><tbody>' + totalRow + rows.join('') + '</tbody></table></div>' +
+    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi</th><th>Masa crítica (6 cat.)</th><th>LHF capturable</th><th style="text-align:left">Categorías bajo umbral mínimo (activas / umbral CABA)</th>' +
+    '</tr></thead><tbody>' + totalRow + rows.join('') + '</tbody></table>' +
+    '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Masa crítica: umbral = promedio de tiendas activas por barrio en zonas CABA con onboarding ≥22%. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos.</p>' +
+    '</div>' +
     '</div>';
 }
 
