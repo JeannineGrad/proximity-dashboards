@@ -168,6 +168,62 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 .row-lhf td   { border-left: 3px solid #27ae60; }
 .row-zero td  { color: #bbb; }
 
+
+/* ── RESUMEN TABLE ── */
+.resumen-wrap { padding: 20px 24px; }
+.resumen-intro { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 16px; padding: 12px 16px; background: #eef2ff; border-radius: 8px; border-left: 4px solid #4361ee; }
+.resumen-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.resumen-tbl th { background: #1a1a2e; color: #fff; padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .4px; }
+.resumen-tbl th:not(:first-child) { text-align: center; }
+.resumen-tbl td { padding: 12px 14px; border-bottom: 1px solid #f0f2f8; vertical-align: middle; }
+.resumen-tbl td:not(:first-child) { text-align: center; }
+.resumen-tbl tr:hover td { background: #f8f9ff; }
+.resumen-tbl tr.total-row td { background: #eef2ff; font-weight: 700; border-bottom: 2px solid #c7d2fe; }
+.onb-pill { display: inline-block; padding: 3px 10px; border-radius: 12px; font-weight: 700; font-size: 13px; }
+.onb-ok  { background: #d4f5e9; color: #0a5c36; }
+.onb-mid { background: #fef3e2; color: #7d4500; }
+.onb-low { background: #fde8e8; color: #8b0000; }
+.cov-pill { display: inline-block; padding: 3px 10px; border-radius: 12px; font-weight: 700; font-size: 12px; }
+.cov-ok  { background: #d4f5e9; color: #0a5c36; }
+.cov-mid { background: #fef3e2; color: #7d4500; }
+.cov-low { background: #fde8e8; color: #8b0000; }
+.gap-tag { display: inline-block; padding: 2px 7px; border-radius: 8px; font-size: 10px; font-weight: 700; background: #fde8e8; color: #8b0000; margin: 2px 2px 0; }
+.gap-ok  { background: #d4f5e9; color: #0a5c36; }
+
+/* ── COBERTURA & ONBOARDING MATRIX ── */
+.cob-wrap { padding: 20px 24px; }
+.cob-intro { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 16px; padding: 12px 16px; background: #eef2ff; border-radius: 8px; border-left: 4px solid #4361ee; }
+.cob-section { background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.08); margin-bottom: 20px; overflow: hidden; }
+.cob-section-title { background: #1a1a2e; color: #fff; padding: 10px 18px; font-size: 12px; font-weight: 600; letter-spacing: .4px; }
+.matrix-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.matrix-tbl th { background: #2c3e7a; color: #fff; padding: 9px 12px; text-align: center; font-size: 11px; font-weight: 600; }
+.matrix-tbl th:first-child { text-align: left; background: #1a1a2e; min-width: 170px; }
+.matrix-tbl td { padding: 10px 12px; border-bottom: 1px solid #f0f2f8; text-align: center; }
+.matrix-tbl td:first-child { text-align: left; font-weight: 700; font-size: 12px; border-right: 2px solid #e8eaf0; }
+.matrix-tbl tr:hover td { filter: brightness(0.97); }
+.cell-cov { border-radius: 6px; padding: 5px 8px; display: inline-block; min-width: 50px; }
+.cell-high { background: #d4f5e9; color: #0a5c36; }
+.cell-mid  { background: #fef9c3; color: #713f12; }
+.cell-low  { background: #fde8e8; color: #8b0000; }
+.cell-none { background: #f5f5f5; color: #aaa; }
+.cell-crit { background: #fde8e8; color: #8b0000; border: 2px solid #e74c3c; }
+.onb-sub { display: block; font-size: 9.5px; font-weight: 400; margin-top: 2px; color: #888; }
+.onb-sub-hi { color: #4361ee; font-weight: 700; }
+.matrix-legend { display: flex; gap: 12px; padding: 10px 18px; font-size: 11px; flex-wrap: wrap; border-top: 1px solid #f0f2f5; color: #666; }
+
+/* ── SIMPLIFIED REC ── */
+.rec2-wrap { padding: 24px; max-width: 900px; }
+.rec2-block { background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.08); margin-bottom: 16px; overflow: hidden; }
+.rec2-block h3 { background: #1a1a2e; color: #fff; padding: 10px 18px; font-size: 12px; font-weight: 600; letter-spacing: .4px; }
+.rec2-body { padding: 16px 18px; }
+.rec2-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.rec2-tbl th { background: #f5f7ff; font-weight: 700; padding: 7px 12px; text-align: left; border-bottom: 2px solid #e8eaf6; font-size: 11px; }
+.rec2-tbl th:not(:first-child) { text-align: center; }
+.rec2-tbl td { padding: 8px 12px; border-bottom: 1px solid #f0f2f5; vertical-align: middle; }
+.rec2-tbl td:not(:first-child) { text-align: center; }
+.milestone-box2 { background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px; padding: 16px 18px; margin-top: 12px; line-height: 1.8; font-size: 12px; }
+.milestone-box2 strong { color: #1e40af; }
+
 /* ── SUPUESTOS ── */
 .sup-page { padding: 24px; max-width: 820px; }
 .sup-block { background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.08); margin-bottom: 16px; overflow: hidden; }
@@ -190,115 +246,27 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('si',this)">Resumen</button>
-  <button class="tab-btn" onclick="switchTab('univ',this)">Universo</button>
+  <button class="tab-btn" onclick="switchTab('cob',this)">Cobertura &amp; Onboarding</button>
   <button class="tab-btn" onclick="switchTab('lhf',this)">LHF &amp; Funnel</button>
-  <button class="tab-btn" onclick="switchTab('cat',this)">Por categoría</button>
-  <button class="tab-btn" onclick="switchTab('hunt',this)">Por barrio</button>
   <button class="tab-btn" onclick="switchTab('rec',this)">Recomendación</button>
   <button class="tab-btn" onclick="switchTab('sup',this)">Supuestos</button>
-  <button class="tab-btn" onclick="switchTab('caba',this)">CABA ref.</button>
 </div>
 
-<!-- ── TAB SAN ISIDRO ── -->
+<!-- ── TAB RESUMEN ── -->
 <div class="tab-panel active" id="tab-si">
-  <div class="cards-page">
-    <div class="cards-grid" id="cards-container"></div>
-  </div>
-</div>
-
-<!-- ── TAB CATEGORÍAS ── -->
-<div class="tab-panel" id="tab-cat">
   <div class="content">
-    <div class="section">
-      <div class="section-title">Oferta en San Isidro vs demanda real — por tipo de cocina</div>
-      <div class="section-note">
-        Demanda: % de órdenes completadas en CABA Q1 2026 por categoría, usado como benchmark de demanda potencial no sesgada por la oferta disponible en SI.<br>
-        Oferta: cobertura MeLi y PeYa en los 5 sub-barrios de San Isidro (Martínez, SI centro, Villa Adelina, Beccar, Acassuso). LHF = restaurantes en PeYa+Rappi sin MeLi — target directo de hunters.
-      </div>
-      <table class="tbl">
-        <thead><tr>
-          <th style="text-align:left">Categoría</th>
-          <th>Demanda CABA</th>
-          <th>Cobertura MeLi SI</th>
-          <th>Cobertura PeYa SI</th>
-          <th>Brecha</th>
-          <th>LHF capturable</th>
-          <th>Excl. PeYa</th>
-          <th>Prioridad hunting</th>
-        </tr></thead>
-        <tbody id="tbodyCat"></tbody>
-      </table>
-    </div>
+    <div id="resumen-container"></div>
   </div>
 </div>
 
-<!-- ── TAB HUNTING POR BARRIO ── -->
-<div class="tab-panel" id="tab-hunt">
-  <div class="hunt-page">
-    <div class="section">
-      <div class="section-title">Hunting por barrio — oportunidades por categoría</div>
-      <div class="section-note">Por cada barrio: categorías ordenadas por demanda CABA (proxy). LHF = capturable (en PeYa/Rappi, no en MeLi). En funnel = ya contactado o en negociación. Sin contactar = acción inmediata.</div>
-      <div class="toolbar" style="align-items:center">
-        <div class="barrio-tabs" id="barrio-tabs"></div>
-        <button class="hunt-toggle" id="hunt-toggle" onclick="toggleSoloLHF()">Solo con LHF</button>
-      </div>
-      <div style="overflow-x:auto">
-        <table class="tbl hunt-tbl" id="hunt-table">
-          <thead>
-            <tr>
-              <th style="text-align:left;min-width:160px">Categoría</th>
-              <th class="dem-col">Demanda CABA</th>
-              <th>Total</th>
-              <th>MeLi activos</th>
-              <th>LHF ✓</th>
-              <th>Sin contactar</th>
-              <th>En funnel</th>
-              <th>Excl. PeYa</th>
-              <th>Prioridad</th>
-            </tr>
-          </thead>
-          <tbody id="hunt-tbody"></tbody>
-        </table>
-      </div>
-      <div class="note" id="hunt-total"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ── TAB UNIVERSO ── -->
-<div class="tab-panel" id="tab-univ">
+<!-- ── TAB COBERTURA & ONBOARDING ── -->
+<div class="tab-panel" id="tab-cob">
   <div class="content">
-    <div class="section">
-      <div class="section-title">Universo relevado — 1.047 restaurantes clasificados</div>
-      <div class="section-note">
-        Cada restaurante se clasifica según su presencia en MeLi, PeYa y Rappi, y si tiene exclusividad contractual confirmada.
-        <b>LHF</b> = en PeYa o Rappi, sin MeLi → target directo. <b>Excl. PeYa (contrato)</b> = exclusividad confirmada → no capturable. <b>Excl. mercado</b> = solo en competidor, sin contrato conocido → podría ser capturable con negociación.
-      </div>
-      <div class="seg-legend" id="seg-legend"></div>
-      <div class="stack-wrap" id="univ-stacks"></div>
-      <div class="univ-filter">
-        <select id="univ-barrio"><option value="">Todos los barrios</option></select>
-        <select id="univ-seg"><option value="">Todos los segmentos</option></select>
-        <input type="text" id="univ-search" placeholder="Buscar restaurante...">
-        <span class="cnt" id="univ-cnt"></span>
-      </div>
-      <div style="overflow-x:auto">
-        <table class="tbl">
-          <thead><tr>
-            <th style="text-align:left">Restaurante</th>
-            <th style="text-align:left">Barrio</th>
-            <th style="text-align:left">Categoría</th>
-            <th>Segmento</th>
-            <th>Presencia comp.</th>
-            <th>Estado MeLi</th>
-            <th>Órd. est.</th>
-          </tr></thead>
-          <tbody id="univ-tbody"></tbody>
-        </table>
-      </div>
-    </div>
+    <div id="cob-container"></div>
   </div>
 </div>
+
+
 
 <!-- ── TAB LHF & FUNNEL ── -->
 <div class="tab-panel" id="tab-lhf">
@@ -338,7 +306,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 
 <!-- ── TAB RECOMENDACIÓN ── -->
 <div class="tab-panel" id="tab-rec">
-  <div class="rec-page">
+  <div id="rec-container"></div>
+  <div class="rec-page" style="display:none">
 
     <div class="rec-block">
       <h3>1. Diagnóstico — por qué el hunting en SI sigue siendo necesario</h3>
@@ -439,38 +408,6 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
   </div>
 </div>
 
-<!-- ── TAB CABA ── -->
-<div class="tab-panel" id="tab-caba">
-  <div class="content">
-    <div class="section">
-      <div class="section-title">CABA — 48 barrios agrupados por brecha MeLi vs PeYa</div>
-      <div class="toolbar">
-        <input type="text" id="searchCaba" placeholder="Buscar barrio..." oninput="renderCabaGroups()">
-        <span style="font-size:11px;color:#888;margin-left:auto">
-          <span style="color:#27ae60;font-weight:700">Verde</span> &lt;25pp &nbsp;·&nbsp;
-          <span style="color:#c8a200;font-weight:700">Amarillo</span> 25–40pp &nbsp;·&nbsp;
-          <span style="color:#e94560;font-weight:700">Rojo</span> &gt;40pp
-        </span>
-      </div>
-      <table class="tbl">
-        <thead><tr>
-          <th style="text-align:left">Barrio</th>
-          <th>Restaurantes</th>
-          <th>% MeLi activo</th>
-          <th>% PeYa</th>
-          <th>Brecha raw</th>
-          <th>Excl. PeYa (#)</th>
-          <th>% MeLi ajust.</th>
-          <th>Brecha ajust.</th>
-          <th>Buyers Q1-26</th>
-          <th>Buyers/1k hab</th>
-          <th>Onboarding</th>
-        </tr></thead>
-        <tbody id="tbodyCaba"></tbody>
-      </table>
-      <p class="note">Ajuste: excluye exclusivos PeYa del denominador. Brecha ajust. = % MeLi ajust. − % PeYa ajust. Onboarding: cohortes sep-25 a ene-26, 5+ órdenes en 90 días.</p>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -546,12 +483,24 @@ const CABA = [
 
 // pob: estimación INDEC 2022 por localidad (aprox.)
 const SI = [
-  {b:'MARTINEZ',     rel:379,meli:29.3,peya:68.6,buyers:9217,onb:15.5,ep:75,pt:260,lhf:55,pob:62000},
-  {b:'SAN ISIDRO',   rel:337,meli:23.1,peya:65.6,buyers:6155,onb:13.4,ep:64,pt:221,lhf:60,pob:55000},
-  {b:'VILLA ADELINA',rel:108,meli:38.9,peya:62.0,buyers:5462,onb:14.4,ep:26,pt:67, lhf:10,pob:35000},
-  {b:'BECCAR',       rel:140,meli:20.0,peya:72.9,buyers:4759,onb:11.0,ep:36,pt:102,lhf:20,pob:27000},
-  {b:'ACASSUSO',     rel:78, meli:15.4,peya:78.2,buyers:1349,onb:17.1,ep:20,pt:61, lhf:24,pob:21000},
+  {b:'MARTINEZ',     rel:379,meli:29.3,peya:68.6,buyers:9217,onb:12.2,ep:75,pt:260,lhf:55,pob:62000},
+  {b:'SAN ISIDRO',   rel:337,meli:23.1,peya:65.6,buyers:6155,onb:9.5, ep:64,pt:221,lhf:60,pob:55000},
+  {b:'VILLA ADELINA',rel:108,meli:38.9,peya:62.0,buyers:5462,onb:11.5,ep:26,pt:67, lhf:10,pob:35000},
+  {b:'BECCAR',       rel:140,meli:20.0,peya:72.9,buyers:4759,onb:8.6, ep:36,pt:102,lhf:20,pob:27000},
+  {b:'ACASSUSO',     rel:78, meli:15.4,peya:78.2,buyers:1349,onb:10.7,ep:20,pt:61, lhf:24,pob:21000},
 ];
+
+
+// % de buyers onboardeados que ordenaron en tiendas de esa categoría × barrio
+// Fuente: BQ cruce BT_PROXIMITY_SHIPMENTS_DETAILED × BT_PM_STORES_MASTER, cohortes sep-25 a ene-26
+// Nota: mide dónde compran los onboardeados, no dónde vive el buyer. Proxy de demanda real por barrio.
+const ONB_DEMAND = {
+  'ACASSUSO':      {'HAMBURGUESA':38.2,'HELADO':27.1,'PIZZA':13.5,'EMPANADAS':9.4,'PASTAS':4.1,'VENEZOLANA':2.4,'CARNES':2.4},
+  'BECCAR':        {'HELADO':52.8,'HAMBURGUESA':12.1,'DESAYUNOS Y MERIENDAS':10.2,'EMPANADAS':7.2,'PIZZA':4.3,'CHINA':3.7,'SUSHI':3.5,'PASTAS':2.5},
+  'MARTINEZ':      {'HELADO':16.1,'SUSHI':14.0,'HAMBURGUESA':12.8,'MILANESAS':10.0,'PIZZA':9.5,'POLLO':8.4,'EMPANADAS':7.5,'SANDWICHES':4.6},
+  'SAN ISIDRO':    {'HAMBURGUESA':31.3,'SUSHI':18.8,'PIZZA':9.6,'EMPANADAS':6.5,'HELADO':5.6,'SALUDABLE':5.4,'POKE':4.2,'CARNES':3.6},
+  'VILLA ADELINA': {'EMPANADAS':39.5,'PIZZA':19.8,'PANADERÍA':7.4,'SUSHI':7.4,'MILANESAS':7.4,'HAMBURGUESA':6.2},
+};
 
 // Demanda CABA Q1-26 × cobertura SI — 5 sub-barrios combinados
 // Fuente: BT_PROXIMITY_SHIPMENTS_DETAILED (dem) + BT_PM_STORES_MASTER (oferta)
@@ -1114,103 +1063,306 @@ function renderLHF() {
   }).join('');
 }
 
-// ── RECOMENDACION ──
+
+// ── RENDER RESUMEN (Tab 1) ──
+function renderResumen() {
+  const caba = buildCabaRef();
+  const siT  = agg(SI);
+  const BARRIOS_LABEL = {'MARTINEZ':'Martínez','SAN ISIDRO':'SI centro','VILLA ADELINA':'Villa Adelina','BECCAR':'Beccar','ACASSUSO':'Acassuso'};
+
+  // Para cada barrio, detectar top 2 categorías críticas (alta demanda onboarding, baja cobertura)
+  function topGaps(b) {
+    const od = ONB_DEMAND[b] || {};
+    const hrows = HUNTING.filter(r => r.b === b);
+    const gaps = [];
+    Object.entries(od).forEach(([cat, demPct]) => {
+      if (demPct < 5) return;
+      const hr = hrows.find(r => r.cat === cat);
+      const covPct = hr ? (hr.act / Math.max(hr.total,1) * 100) : null;
+      if (covPct !== null && covPct < 35 && demPct > 5) {
+        gaps.push({cat, demPct, covPct, lhf: hr ? hr.lhf : 0});
+      }
+    });
+    gaps.sort((a,b) => b.demPct - a.demPct);
+    return gaps.slice(0, 2);
+  }
+
+  function onbPill(v) {
+    const cls = v >= 12 ? 'onb-ok' : v >= 10 ? 'onb-mid' : 'onb-low';
+    return '<span class="onb-pill ' + cls + '">' + v.toFixed(1) + '%</span>';
+  }
+  function covPill(v) {
+    const cls = v >= 40 ? 'cov-ok' : v >= 28 ? 'cov-mid' : 'cov-low';
+    return '<span class="cov-pill ' + cls + '">' + v.toFixed(1) + '%</span>';
+  }
+  function cap(s) { return s.charAt(0) + s.slice(1).toLowerCase(); }
+
+  const diffStr = (v, ref) => {
+    const d = v - ref;
+    const sign = d >= 0 ? '+' : '';
+    const col = d >= 0 ? '#27ae60' : '#e74c3c';
+    return '<span style="font-size:10.5px;font-weight:700;color:' + col + '">' + sign + d.toFixed(1) + 'pp</span>';
+  };
+
+  let totalRow = (() => {
+    const t = siT;
+    const mAdj = t.mAdj;
+    const gaps = [];
+    BARRIOS_LIST.forEach(b => {
+      const od = ONB_DEMAND[b] || {};
+      const hr = HUNTING.filter(r => r.b === b);
+      Object.entries(od).forEach(([cat, demPct]) => {
+        if (demPct < 8) return;
+        const h = hr.find(r => r.cat === cat);
+        const cov = h ? h.act / Math.max(h.total,1) * 100 : null;
+        if (cov !== null && cov < 30) gaps.push(cap(cat));
+      });
+    });
+    const uniqGaps = [...new Set(gaps)].slice(0,3);
+    return '<tr class="total-row">' +
+      '<td>San Isidro Total</td>' +
+      '<td>' + onbPill(t.onb) + ' ' + diffStr(t.onb, caba.onb) + '<br><span style="font-size:10px;color:#888">CABA ' + caba.onb.toFixed(1) + '%</span></td>' +
+      '<td>' + covPill(mAdj) + ' ' + diffStr(mAdj, caba.mAdj) + '<br><span style="font-size:10px;color:#888">CABA ' + caba.mAdj.toFixed(1) + '%</span></td>' +
+      '<td style="font-weight:700;color:#4361ee">' + t.lhf + '</td>' +
+      '<td>' + uniqGaps.map(g => '<span class="gap-tag">' + g + '</span>').join('') + '</td>' +
+      '</tr>';
+  })();
+
+  let rows = SI.map(r => {
+    const mAdj = meliAdjPct(r);
+    const gaps = topGaps(r.b);
+    const gapHtml = gaps.length
+      ? gaps.map(g => '<span class="gap-tag">' + cap(g.cat) + ' (' + g.demPct + '% demanda, ' + g.covPct.toFixed(0) + '% cob.)</span>').join('')
+      : '<span class="gap-tag gap-ok">Sin brecha crítica</span>';
+    return '<tr>' +
+      '<td style="font-weight:700">' + (BARRIOS_LABEL[r.b] || r.b) + '</td>' +
+      '<td>' + onbPill(r.onb) + ' ' + diffStr(r.onb, caba.onb) + '</td>' +
+      '<td>' + covPill(mAdj) + '</td>' +
+      '<td style="font-weight:700;color:#4361ee">' + r.lhf + '</td>' +
+      '<td style="text-align:left">' + gapHtml + '</td>' +
+      '</tr>';
+  });
+
+  const intro = '<div class="resumen-intro">' +
+    '<b>Diagnóstico:</b> el onboarding en San Isidro (' + siT.onb.toFixed(1) + '% promedio) está ' + (siT.onb - caba.onb).toFixed(1) + 'pp por debajo de CABA (' + caba.onb.toFixed(1) + '%). ' +
+    'La causa no es falta de cantidad de restaurantes — es falta de cobertura en las categorías que más consumen los usuarios que sí logran habituarse. ' +
+    'Beccar tiene el onboarding más bajo (' + Math.min(...SI.map(r=>r.onb)).toFixed(1) + '%) y el 52.8% de sus onboardeados concentrado en helado, donde la cobertura es baja.' +
+    '</div>';
+
+  document.getElementById('resumen-container').innerHTML =
+    '<div class="resumen-wrap">' + intro +
+    '<div class="section"><table class="resumen-tbl"><thead><tr>' +
+    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. adj. MeLi</th><th>LHF capturable</th><th style="text-align:left">Categorías críticas (baja cob. + alta demanda real)</th>' +
+    '</tr></thead><tbody>' + totalRow + rows.join('') + '</tbody></table></div>' +
+    '</div>';
+}
+
+// ── RENDER COBERTURA & ONBOARDING MATRIX (Tab 2) ──
+function renderCobOnboarding() {
+  const BARRIOS_LABEL = {'MARTINEZ':'Martínez','SAN ISIDRO':'SI centro','VILLA ADELINA':'V. Adelina','BECCAR':'Beccar','ACASSUSO':'Acassuso'};
+
+  // Top categories to show (ordered by demand + relevance)
+  const TOP_CATS = ['HAMBURGUESA','HELADO','SUSHI','PIZZA','EMPANADAS','DESAYUNOS Y MERIENDAS','MILANESAS','SANDWICHES','PANADERÍA','POLLO'];
+
+  function covClass(pct) {
+    if (pct === null) return 'cell-none';
+    if (pct >= 40) return 'cell-high';
+    if (pct >= 25) return 'cell-mid';
+    return 'cell-low';
+  }
+
+  // Build coverage map: barrio × cat → % activos
+  const covMap = {};
+  const lhfMap = {};
+  BARRIOS_LIST.forEach(b => {
+    covMap[b] = {};
+    lhfMap[b] = {};
+    const rows = HUNTING.filter(r => r.b === b);
+    rows.forEach(r => {
+      const k = r.cat ? r.cat.toUpperCase() : '';
+      if (k) {
+        covMap[b][k] = r.total > 0 ? (r.act / r.total * 100) : 0;
+        lhfMap[b][k] = r.lhf;
+      }
+    });
+  });
+
+  // Explanation text
+  const intro = '<div class="cob-intro">' +
+    '<b>¿Cómo leer este cuadro?</b> Cada celda muestra la cobertura MeLi (% restaurantes activos sobre total relevado) en ese barrio × categoría. ' +
+    'El número azul debajo es el % de <em>usuarios onboardeados</em> que consumen esa categoría — es la demanda real de quienes ya se habituaron a la plataforma. ' +
+    '<span style="color:#e74c3c;font-weight:700">Rojo</span> = cobertura baja (&lt;25%). ' +
+    '<span style="color:#c8a200;font-weight:700">Amarillo</span> = cobertura media (25–40%). ' +
+    '<span style="color:#27ae60;font-weight:700">Verde</span> = cobertura fuerte (&ge;40%). ' +
+    'Las celdas con borde rojo son gaps críticos: baja cobertura + demanda alta de onboardeados.' +
+    '</div>';
+
+  // Header
+  let thead = '<tr><th>Categoría</th>';
+  BARRIOS_LIST.forEach(b => {
+    thead += '<th>' + (BARRIOS_LABEL[b] || b) + '</th>';
+  });
+  thead += '<th>Dem. CABA</th></tr>';
+
+  // Body
+  let tbody = '';
+  TOP_CATS.forEach(cat => {
+    const demInfo = DEM_MAP[cat] || null;
+    const demVal  = demInfo ? demInfo.dem : null;
+
+    tbody += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
+
+    BARRIOS_LIST.forEach(b => {
+      const cov  = covMap[b][cat] !== undefined ? covMap[b][cat] : null;
+      const lhf  = lhfMap[b][cat] !== undefined ? lhfMap[b][cat] : 0;
+      const onbd = ONB_DEMAND[b] ? (ONB_DEMAND[b][cat] || null) : null;
+
+      if (cov === null) {
+        tbody += '<td><span class="cell-cov cell-none">—</span></td>';
+        return;
+      }
+
+      // Critical gap: low coverage AND high onboarding demand
+      const isCrit = cov < 30 && onbd !== null && onbd >= 8;
+      const cls = isCrit ? 'cell-crit' : covClass(cov);
+
+      let cellHtml = '<span class="cell-cov ' + cls + '">' + cov.toFixed(0) + '%';
+      if (lhf > 0) cellHtml += ' <span style="font-size:9px;opacity:.75">+' + lhf + ' LHF</span>';
+      cellHtml += '</span>';
+
+      if (onbd !== null) {
+        const onbCls = onbd >= 15 ? 'onb-sub-hi' : '';
+        cellHtml += '<span class="onb-sub ' + onbCls + '">' + onbd + '% onb.</span>';
+      }
+
+      tbody += '<td>' + cellHtml + '</td>';
+    });
+
+    // CABA demand benchmark
+    if (demVal !== null) {
+      const dCol = demVal >= 10 ? '#1a1a2e' : '#888';
+      tbody += '<td style="font-weight:700;color:' + dCol + '">' + demVal + '%</td>';
+    } else {
+      tbody += '<td style="color:#ccc">—</td>';
+    }
+
+    tbody += '</tr>';
+  });
+
+  // Second section: onboarding concentration insight
+  const insightRows = BARRIOS_LIST.map(b => {
+    const od = ONB_DEMAND[b] || {};
+    const sorted = Object.entries(od).sort((a, z) => z[1] - a[1]);
+    const top = sorted.slice(0, 2);
+    const top1pct = top[0] ? top[0][1] : 0;
+    const concLabel = top1pct >= 40 ? 'Muy concentrado' : top1pct >= 20 ? 'Concentrado' : 'Diversificado';
+    const concCol = top1pct >= 40 ? '#e74c3c' : top1pct >= 20 ? '#e67e22' : '#27ae60';
+    const si = SI.find(r => r.b === b);
+    const onb = si ? si.onb : null;
+    return '<tr>' +
+      '<td style="font-weight:700">' + (BARRIOS_LABEL[b]||b) + '</td>' +
+      '<td style="font-weight:700;color:' + (onb>=12?'#27ae60':onb>=10?'#e67e22':'#e74c3c') + '">' + (onb !== null ? onb.toFixed(1)+'%' : '—') + '</td>' +
+      '<td>' + top.map(([c,p]) => '<span style="font-size:11px"><b>' + (c.charAt(0)+c.slice(1).toLowerCase()) + '</b> ' + p + '%</span>').join(' · ') + '</td>' +
+      '<td style="font-weight:700;color:' + concCol + '">' + concLabel + '</td>' +
+      '<td style="font-size:11px;color:#666">' + (top1pct >= 40 ? 'Pocos tipos de tienda capturan casi toda la demanda → onboarding limitado por oferta estrecha' : top1pct >= 20 ? 'Demanda moderadamente concentrada' : 'Ecosistema diversificado → más buyers encuentran lo que buscan') + '</td>' +
+      '</tr>';
+  }).join('');
+
+  const insightSection = '<div class="cob-section"><div class="cob-section-title">Concentración de consumo en usuarios onboardeados — por barrio</div>' +
+    '<div style="overflow-x:auto"><table class="tbl" style="font-size:12px"><thead><tr>' +
+    '<th style="text-align:left">Barrio</th><th>Onboarding</th><th>Top 2 categorías consumidas</th><th>Concentración</th><th style="text-align:left">Interpretación</th>' +
+    '</tr></thead><tbody>' + insightRows + '</tbody></table></div>' +
+    '<div class="matrix-legend"><span>Onboarding: % de nuevos buyers que completaron 5+ órdenes en 90 días (cohortes sep-ene)</span><span>· Consumo: % de buyers onboardeados que compraron en tiendas de esa categoría</span></div></div>';
+
+  document.getElementById('cob-container').innerHTML =
+    '<div class="cob-wrap">' + intro +
+    '<div class="cob-section"><div class="cob-section-title">Cobertura MeLi (%) × consumo de onboardeados (azul) — por barrio y categoría</div>' +
+    '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead + '</thead><tbody>' + tbody + '</tbody></table></div>' +
+    '<div class="matrix-legend">' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d4f5e9;border:1px solid #27ae60"></span>Cob. &ge;40% (fuerte)</span>' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fef9c3;border:1px solid #c8a200"></span>Cob. 25–40%</span>' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fde8e8;border:1px solid #e74c3c"></span>Cob. &lt;25%</span>' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fde8e8;border:2px solid #e74c3c"></span>Gap crítico (cob. baja + demanda alta)</span>' +
+    '<span style="color:#4361ee;font-weight:700">Número azul = % onboardeados que consumen esa cat.</span>' +
+    '</div></div>' +
+    insightSection +
+    '</div>';
+}
+
+// ── RENDER RECOMENDACION SIMPLIFICADA ──
 function renderRecomendacion() {
-  const barHtml = BARRIOS_ALL.map(function(b){
-    const c = COB[b];
-    return '<div class="prog-row">'+
-      '<div class="prog-lbl">'+cap(b)+'</div>'+
-      '<div style="flex:1">'+
-        '<div style="display:flex;gap:4px;align-items:center">'+
-          '<div class="prog-bar" style="flex:1"><div class="prog-fill pf-actual" style="width:'+(c.adj_hoy/70*100)+'%"></div></div>'+
-          '<span class="prog-val" style="color:#4361ee">'+c.adj_hoy+'%</span>'+
-        '</div>'+
-        '<div style="display:flex;gap:4px;align-items:center;margin-top:3px">'+
-          '<div class="prog-bar" style="flex:1"><div class="prog-fill pf-ceiling" style="width:'+(c.adj_ceil/70*100)+'%"></div></div>'+
-          '<span class="prog-val" style="color:#27ae60">'+c.adj_ceil+'%</span>'+
-        '</div>'+
-      '</div></div>';
-  }).join('');
-  document.getElementById('rec-cob-bars').innerHTML =
-    '<div style="display:flex;gap:16px;margin-bottom:8px;font-size:11px">'+
-    '<span><span style="display:inline-block;width:12px;height:8px;background:#4361ee;border-radius:2px;margin-right:4px"></span>Cobertura MeLi adj. hoy</span>'+
-    '<span><span style="display:inline-block;width:12px;height:8px;background:#27ae60;opacity:.7;border-radius:2px;margin-right:4px"></span>Ceiling si capturamos todo el LHF</span>'+
-    '</div>'+barHtml+
-    '<p style="font-size:10.5px;color:#888;margin-top:8px;font-style:italic">Ref CABA: ~29% MeLi adj. promedio. El ceiling del LHF lleva SI entre 47-63%, por encima de CABA en todos los barrios salvo Beccar.</p>';
+  const caba = buildCabaRef();
+  const BARRIOS_LABEL = {'MARTINEZ':'Martínez','SAN ISIDRO':'SI centro','VILLA ADELINA':'Villa Adelina','BECCAR':'Beccar','ACASSUSO':'Acassuso'};
 
-  const PRIO_CATS = ['HAMBURGUESA','HELADO','SUSHI','PIZZA','DESAYUNOS Y MERIENDAS','SANDWICHES','PANADERIA'];
-  const lhfRows = BARRIOS_ALL.map(function(b){
-    const fst = FUNNEL_STATS[b];
-    const activas = RESTAURANTS.filter(function(r){ return r.b===b && r.seg==='activa'; }).length;
-    const total = RESTAURANTS.filter(function(r){ return r.b===b; }).length;
-    const lhf_prio = RESTAURANTS.filter(function(r){
-      return r.b===b && r.seg==='lhf' && r.cat && PRIO_CATS.includes(r.cat.toUpperCase().replace('PANADERIA','PANADERIA').replace('í','I'));
-    }).length;
-    return '<tr>'+
-      '<td style="font-weight:700">'+cap(b)+'</td>'+
-      '<td style="text-align:center">'+total+'</td>'+
-      '<td style="text-align:center;color:#27ae60;font-weight:700">'+activas+'</td>'+
-      '<td style="text-align:center;color:#4361ee;font-weight:700">'+fst.total+'</td>'+
-      '<td style="text-align:center;color:#1e40af;font-weight:700">'+lhf_prio+'</td>'+
-      '<td style="text-align:center;color:#3b82f6">'+(fst.sin_contactar||0)+'</td>'+
-      '<td style="text-align:center;color:#f97316">'+((fst.contactado||0)+(fst.negociacion||0))+'</td>'+
-      '<td style="text-align:center;color:#22c55e;font-weight:700">'+(fst.encendida||0)+'</td>'+
-      '<td style="text-align:center;color:#9ca3af">'+((fst.perdida||0)+(fst.excl_real||0))+'</td>'+
-    '</tr>';
-  }).join('');
-  document.getElementById('rec-lhf-table').innerHTML =
-    '<thead><tr><th>Barrio</th><th>Total relev.</th><th>MeLi activos</th><th>LHF total</th>'+
-    '<th>LHF cat. prio.</th><th>Sin contactar</th><th>En funnel</th><th>Encendida</th><th>Perdida/Excl.</th></tr></thead>'+
-    '<tbody>'+lhfRows+'</tbody>';
+  // Summary table: per barrio — onboarding, coverage, top gap, LHF, funnel state
+  const summaryRows = SI.map(r => {
+    const mAdj = meliAdjPct(r);
+    const fst  = FUNNEL_STATS[r.b];
+    const enFunnel = (fst.contactado||0) + (fst.negociacion||0);
+    const od = ONB_DEMAND[r.b] || {};
+    // Find top gap: highest onboarding demand with low coverage
+    const hr = HUNTING.filter(x => x.b === r.b);
+    let topGap = null;
+    let maxScore = 0;
+    Object.entries(od).forEach(([cat, demPct]) => {
+      const h = hr.find(x => x.cat === cat);
+      const cov = h ? h.act / Math.max(h.total,1) * 100 : null;
+      if (cov !== null && demPct >= 5) {
+        const score = demPct * (1 - cov/100);
+        if (score > maxScore) { maxScore = score; topGap = {cat, demPct, cov: cov.toFixed(0), lhf: h ? h.lhf : 0}; }
+      }
+    });
 
-  const totalLHF = BARRIOS_ALL.reduce(function(acc,b){ return acc+FUNNEL_STATS[b].total; }, 0);
-  const funnelRows = Object.keys(STAGE_CONFIG).map(function(k){
-    const v = STAGE_CONFIG[k];
-    const n = BARRIOS_ALL.reduce(function(acc,b){ return acc+(FUNNEL_STATS[b][k]||0); }, 0);
-    const pct = Math.round(n/totalLHF*100);
-    return '<tr><td>'+v.label+'</td>'+
-      '<td style="text-align:center;font-weight:700">'+n+'</td>'+
-      '<td style="text-align:center;color:#888">'+pct+'%</td>'+
-      '<td><div style="display:inline-block;width:'+Math.max(pct,1)+'%;max-width:200px;height:8px;background:'+v.color+';border-radius:3px"></div></td></tr>';
-  }).join('');
-  document.getElementById('rec-funnel-table').innerHTML =
-    '<thead><tr><th>Estado funnel</th><th>Restaurantes</th><th>% del LHF</th><th></th></tr></thead>'+
-    '<tbody>'+funnelRows+'</tbody>';
+    const onbCol = r.onb >= 12 ? '#27ae60' : r.onb >= 10 ? '#e67e22' : '#e74c3c';
+    const covCol = mAdj >= 40 ? '#27ae60' : mAdj >= 28 ? '#e67e22' : '#e74c3c';
 
-  const perdidaTotal = BARRIOS_ALL.reduce(function(acc,b){ return acc+(FUNNEL_STATS[b].perdida||0)+(FUNNEL_STATS[b].excl_real||0); }, 0);
-  document.getElementById('rec-perdida-note').textContent =
-    perdidaTotal+' LHF marcados como Perdida o Excl. real ('+Math.round(perdidaTotal/totalLHF*100)+'%). Pueden revisitarse en 6 meses si cambia la situacion comercial.';
-
-  const sinContactarTotal = BARRIOS_ALL.reduce(function(acc,b){ return acc+(FUNNEL_STATS[b].sin_contactar||0); }, 0);
-  const encendidaTotal    = BARRIOS_ALL.reduce(function(acc,b){ return acc+(FUNNEL_STATS[b].encendida||0); }, 0);
-  const enFunnelTotal     = BARRIOS_ALL.reduce(function(acc,b){ return acc+(FUNNEL_STATS[b].contactado||0)+(FUNNEL_STATS[b].negociacion||0); }, 0);
-  document.getElementById('rec-milestone-kpis').innerHTML = [
-    {label:'LHF sin contactar', num:sinContactarTotal, sub:'Accion inmediata: primer contacto pendiente', col:'#3b82f6'},
-    {label:'LHF en funnel activo', num:enFunnelTotal, sub:'Contactados o en negociacion - empujar a Encendida', col:'#f97316'},
-    {label:'Encendidas hoy', num:encendidaTotal, sub:'Ya en proceso de activacion en MeLi', col:'#22c55e'},
-  ].map(function(k){
-    return '<div class="rec-kpi"><div class="rk-label">'+k.label+'</div>'+
-    '<div class="rk-num" style="color:'+k.col+'">'+k.num+'</div>'+
-    '<div class="rk-sub">'+k.sub+'</div></div>';
+    return '<tr>' +
+      '<td style="font-weight:700">' + (BARRIOS_LABEL[r.b]||r.b) + '</td>' +
+      '<td style="font-weight:700;color:' + onbCol + '">' + r.onb.toFixed(1) + '%</td>' +
+      '<td style="font-weight:700;color:' + covCol + '">' + mAdj.toFixed(1) + '%</td>' +
+      '<td style="font-weight:700;color:#4361ee">' + r.lhf + '</td>' +
+      '<td style="font-size:11px">' +
+        (fst.sin_contactar > 0 ? '<span style="color:#3b82f6;font-weight:700">' + fst.sin_contactar + ' sin contactar</span> · ' : '') +
+        '<span style="color:#f97316">' + enFunnel + ' en funnel</span> · ' +
+        '<span style="color:#22c55e;font-weight:700">' + (fst.encendida||0) + ' encendidas</span>' +
+      '</td>' +
+      '<td style="font-size:11px">' + (topGap ? '<span style="color:#8b0000;font-weight:700">' + (topGap.cat.charAt(0)+topGap.cat.slice(1).toLowerCase()) + '</span> — onb. ' + topGap.demPct + '%, cob. ' + topGap.cov + '%, LHF: ' + topGap.lhf : '—') + '</td>' +
+      '</tr>';
   }).join('');
 
-  document.getElementById('rec-milestone-text').innerHTML =
-    '<b>Condicion para dar por completado el hunting en SI y escalar a otra zona:</b><br><br>'+
-    '1. <strong>0 LHF sin contactar</strong> en las 7 categorias prioritarias (hamburguesa, helado, sushi, pizza, desayunos, sandwiches, panaderia). Hoy: <strong>'+sinContactarTotal+' sin contactar</strong> en el LHF general.<br>'+
-    '2. <strong>Cobertura MeLi ajustada &ge; 40%</strong> en Martinez y San Isidro centro (hoy: 36.6% y 28.7%). Se necesitan ~20 conversiones entre los dos.<br>'+
-    '3. <strong>Villa Adelina ya cumple</strong> (51.2%). Acassuso y Beccar son mercados chicos, siguen en mantenimiento paralelo.<br><br>'+
-    'El techo natural con hunting es ~50% de cobertura ajustada. Para llegar a paridad con PeYa habria que atacar exclusividades contractuales, fuera del alcance del hunter.';
+  const table = '<table class="rec2-tbl"><thead><tr>' +
+    '<th>Barrio</th><th>Onboarding</th><th>Cob. adj.</th><th>LHF</th><th>Estado funnel</th><th style="text-align:left">Gap prioritario</th>' +
+    '</tr></thead><tbody>' + summaryRows + '</tbody></table>';
+
+  // Totals
+  const totalLHF = BARRIOS_ALL.reduce((s,b) => s + FUNNEL_STATS[b].total, 0);
+  const sinContactar = BARRIOS_ALL.reduce((s,b) => s + (FUNNEL_STATS[b].sin_contactar||0), 0);
+  const encendidas   = BARRIOS_ALL.reduce((s,b) => s + (FUNNEL_STATS[b].encendida||0), 0);
+  const enFunnelTot  = BARRIOS_ALL.reduce((s,b) => s + (FUNNEL_STATS[b].contactado||0) + (FUNNEL_STATS[b].negociacion||0), 0);
+
+  const milestone = '<div class="milestone-box2">' +
+    '<b>Condición para completar hunting en SI y escalar a otra zona:</b><br><br>' +
+    '1. <strong>0 LHF sin contactar</strong> en helado, sushi y hamburguesa en Beccar y SI centro (barrios con onboarding más bajo y mayores gaps de cobertura). ' +
+    'Hoy: <strong>' + sinContactar + ' LHF sin contactar</strong> en total.<br>' +
+    '2. <strong>Cobertura MeLi ajustada ≥ 40%</strong> en Martínez (hoy 36.6%) y SI centro (hoy 28.7%). ' +
+    'Se necesitan ~' + Math.ceil(((40 - 36.6) * (379 - 75) / 100) + ((40 - 28.7) * (337 - 64) / 100)) + ' conversiones entre los dos barrios.<br>' +
+    '3. <strong>Villa Adelina ya cumple</strong> cobertura (51.2%). Acassuso y Beccar: mercados chicos, mantener en paralelo.<br>' +
+    '4. <strong>Seguimiento en 30 días</strong>: medir onboarding barrio a barrio. Si Beccar no sube de 9% con helado sumado → revisar precio/visiblidad, no solo oferta.<br><br>' +
+    'Hoy: <strong style="color:#22c55e">' + encendidas + ' encendidas</strong> · <strong style="color:#f97316">' + enFunnelTot + ' en funnel</strong> · <strong style="color:#3b82f6">' + sinContactar + ' sin contactar</strong>' +
+    '</div>';
+
+  const wrapper = document.getElementById('rec-container');
+  if (wrapper) {
+    wrapper.innerHTML = '<div class="rec2-wrap">' +
+      '<div class="rec2-block"><h3>Estado por barrio — cobertura, onboarding y gaps</h3><div class="rec2-body">' + table + '</div></div>' +
+      '<div class="rec2-block"><h3>Milestone — condición para dar por completado el hunting en SI</h3><div class="rec2-body">' + milestone + '</div></div>' +
+      '</div>';
+  }
 }
 
 // Init
-renderCards();
-renderCategorias();
-renderCabaGroups();
-initHunting();
-renderUniverso();
-initLHF();
-renderRecomendacion();
-renderUniverso();
+renderResumen();
+renderCobOnboarding();
 initLHF();
 renderRecomendacion();
 </script>
