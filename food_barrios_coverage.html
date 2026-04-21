@@ -503,6 +503,8 @@ const ONB_DEMAND = {
 };
 
 
+const CALIDAD_DATA = {"MARTINEZ":{"HAMBURGUESA":{"meli":1275,"peya":808},"HELADO":{"meli":530,"peya":629},"PIZZA":{"meli":401,"peya":447},"EMPANADAS":{"meli":536,"peya":470},"SUSHI":{"meli":643,"peya":564},"DESAYUNOS Y MERIENDAS":{"meli":463,"peya":479}},"SAN ISIDRO":{"HAMBURGUESA":{"meli":1214,"peya":837},"HELADO":{"meli":785,"peya":642},"PIZZA":{"meli":414,"peya":415},"EMPANADAS":{"meli":397,"peya":521},"SUSHI":{"meli":563,"peya":514},"DESAYUNOS Y MERIENDAS":{"meli":483,"peya":508}},"VILLA ADELINA":{"HAMBURGUESA":{"meli":518,"peya":418},"HELADO":{"meli":320,"peya":445},"PIZZA":{"meli":394,"peya":530},"EMPANADAS":{"meli":308,"peya":477},"SUSHI":{"meli":438,"peya":364},"DESAYUNOS Y MERIENDAS":{"meli":3,"peya":426}},"BECCAR":{"HAMBURGUESA":{"meli":1220,"peya":574},"HELADO":{"meli":484,"peya":510},"PIZZA":{"meli":2,"peya":420},"EMPANADAS":{"meli":453,"peya":471},"SUSHI":{"meli":465,"peya":432},"DESAYUNOS Y MERIENDAS":{"meli":286,"peya":446}},"ACASSUSO":{"HAMBURGUESA":{"meli":1463,"peya":1065},"HELADO":{"meli":641,"peya":526},"PIZZA":{"meli":299,"peya":439},"EMPANADAS":{"meli":592,"peya":460},"SUSHI":{"meli":null,"peya":599},"DESAYUNOS Y MERIENDAS":{"meli":null,"peya":425}}};
+
 // Umbral mínimo de tiendas activas por categoría (benchmark barrios CABA onb ≥22%)
 const CABA_UMBRAL = {"HAMBURGUESA":5.5,"HELADO":5.3,"PIZZA":4.9,"EMPANADAS":5.5,"SUSHI":3.8,"DESAYUNOS Y MERIENDAS":4.5};
 // Tiendas activas por barrio × categoría (BQ: BT_PM_STORES_MASTER, STATUS_EN_MELI='ACTIVA')
@@ -1120,7 +1122,7 @@ function renderResumen() {
       '<td>San Isidro Total</td>' +
       '<td>' + onbPill(t.onb) + ' ' + diffStr(t.onb, caba.onb) + '<br><span style="font-size:10px;color:#888">CABA ' + caba.onb.toFixed(1) + '%</span></td>' +
       '<td>' + covPill(rawSI) + ' ' + diffStr(rawSI, cabaRaw) + '<br><span style="font-size:10px;color:#888">CABA ' + cabaRaw.toFixed(1) + '%</span></td>' +
-      '<td style="color:#aaa;font-size:11px;font-style:italic">Ver por sub-barrio →</td>' +
+      '<td style="color:#aaa;font-size:11px;font-style:italic" colspan="2">Ver por sub-barrio →</td>' +
       '</tr>';
   })();
 
@@ -1128,26 +1130,27 @@ function renderResumen() {
     const rawCov = r.meli;
     const cabaRaw = 27.3;
     const tiendas = TIENDAS_SI[r.b] || {};
-    // Masa crítica: cuántas de las 6 categorías clave superan el umbral CABA
+    const cal = CALIDAD_DATA[r.b] || {};
+
+    // Masa crítica: cuántas de las 6 categorías superan umbral absoluto CABA
     const masaOk = CATS_KEY.filter(c => (tiendas[c] || 0) >= CABA_UMBRAL[c]).length;
-    const masaTotal = CATS_KEY.length;
     const masaCol = masaOk >= 5 ? '#27ae60' : masaOk >= 3 ? '#e67e22' : '#e74c3c';
-    // Categorías bajo umbral absoluto
-    const bajosUmbral = CATS_KEY.filter(c => (tiendas[c] || 0) < CABA_UMBRAL[c]);
-    const umbralHtml = bajosUmbral.length === 0
-      ? '<span class="gap-tag gap-ok">Todas OK</span>'
-      : bajosUmbral.map(c => {
-          const n = tiendas[c] || 0;
-          const u = CABA_UMBRAL[c];
-          return '<span class="gap-tag">' + cap(c) + ' (' + n + '/' + u + ')</span>';
-        }).join('');
+
+    // Calidad: de las categorías que tienen tiendas activas (≥50 ord), cuántas son ≥70% del avg PeYa
+    const catsConTiendas = CATS_KEY.filter(c => cal[c] && cal[c].meli !== null && cal[c].meli >= 50);
+    const catsCalOk = catsConTiendas.filter(c => cal[c].meli >= cal[c].peya * 0.7);
+    const calDenom = catsConTiendas.length;
+    const calNum = catsCalOk.length;
+    const calCol = calDenom === 0 ? '#aaa' : (calNum === calDenom ? '#27ae60' : calNum >= calDenom * 0.6 ? '#e67e22' : '#e74c3c');
+
     return '<tr>' +
       '<td style="font-weight:700">' + (BARRIOS_LABEL[r.b] || r.b) + '</td>' +
       '<td>' + onbPill(r.onb) + ' ' + diffStr(r.onb, caba.onb) + '</td>' +
       '<td>' + covPill(rawCov) + ' ' + diffStr(rawCov, cabaRaw) + '</td>' +
-      '<td><span style="font-weight:800;font-size:15px;color:' + masaCol + '">' + masaOk + '/' + masaTotal + '</span>' +
-        '<span style="font-size:10px;color:#888;margin-left:4px">categorías</span></td>' +
-''
+      '<td><span style="font-weight:800;font-size:15px;color:' + masaCol + '">' + masaOk + '/' + CATS_KEY.length + '</span>' +
+        '<span style="font-size:10px;color:#888;margin-left:4px">cat.</span></td>' +
+      '<td><span style="font-weight:800;font-size:15px;color:' + calCol + '">' + calNum + '/' + calDenom + '</span>' +
+        '<span style="font-size:10px;color:#888;margin-left:4px">cat. con tiendas</span></td>' +
       '</tr>';
   });
 
@@ -1175,9 +1178,9 @@ function renderResumen() {
   document.getElementById('resumen-container').innerHTML =
     '<div class="resumen-wrap">' + conceptBox + intro +
     '<div class="section"><table class="resumen-tbl"><thead><tr>' +
-    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi</th><th>Masa crítica (6 cat.)</th>' +
+    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi</th><th>Masa crítica (cant. tiendas)</th><th>Calidad oferta (vol. vs PeYa)</th>' +
     '</tr></thead><tbody>' + totalRow + rows.join('') + '</tbody></table>' +
-    '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Masa crítica: umbral = promedio de tiendas activas por barrio en zonas CABA con onboarding ≥22%. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos.</p>' +
+    '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Masa crítica: umbral = promedio de tiendas activas por barrio en barrios CABA con onboarding ≥22%. Calidad: de las categorías con tiendas activas en MeLi (≥50 órd. estimadas), cuántas tienen volumen promedio ≥70% del benchmark PeYa. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos.</p>' +
     '</div>' +
     '</div>';
 }
