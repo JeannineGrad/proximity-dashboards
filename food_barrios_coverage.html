@@ -1141,15 +1141,15 @@ function renderResumen() {
       '</div>' +
       '<div>' +
         '<div style="font-size:11px;font-weight:700;color:#a5b4fc;margin-bottom:4px">Por qué importa</div>' +
-        '<div style="font-size:12px;line-height:1.6;opacity:.9">Los usuarios onboardeados tienen <b style="color:#fff">retención significativamente mayor a partir del mes 4</b>: la curva de churn se aplana y el LTV se dispara respecto a los que no lograron habituarse en los primeros 90 días. Onboarding es el predictor más fuerte de retención de largo plazo en Food.</div>' +
+        '<div style="font-size:12px;line-height:1.6;opacity:.9">Del análisis de churn: los usuarios onboardeados muestran <b style="color:#fff">retención significativamente mayor a partir del mes 4</b> respecto a los que no lograron habituarse en los primeros 90 días. La curva de abandono se aplana, lo que los convierte en la base de usuarios más estable de la plataforma. ' +
+        '<a href="https://jeanninegrad.github.io/proximity-dashboards/food_churn_analysis.html" target="_blank" style="color:#a5b4fc;text-decoration:underline;font-size:11px">Ver análisis completo →</a></div>' +
       '</div>' +
     '</div>' +
     '</div>';
 
   const intro = '<div class="resumen-intro">' +
-    '<b>Diagnóstico:</b> el onboarding en San Isidro (' + siT.onb.toFixed(1) + '% promedio) está ' + (siT.onb - caba.onb).toFixed(1) + 'pp por debajo de CABA (' + caba.onb.toFixed(1) + '%). ' +
-    'La causa no es falta de cantidad de restaurantes — es falta de cobertura en las categorías que más consumen los usuarios que sí logran habituarse. ' +
-    'Beccar tiene el onboarding más bajo (' + Math.min(...SI.map(r=>r.onb)).toFixed(1) + '%) y el 52.8% de sus onboardeados concentrado en helado, donde la cobertura es baja.' +
+    '<b>Diagnóstico:</b> el onboarding promedio en San Isidro es ' + siT.onb.toFixed(1) + '%, ' + Math.abs(siT.onb - caba.onb).toFixed(1) + 'pp por debajo de CABA (' + caba.onb.toFixed(1) + '%). ' +
+    'El detalle por sub-barrio y categoría muestra dónde están los gaps accionables.' +
     '</div>';
 
   document.getElementById('resumen-container').innerHTML =
