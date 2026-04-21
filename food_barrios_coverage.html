@@ -271,11 +271,14 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 <!-- ── TAB LHF & FUNNEL ── -->
 <div class="tab-panel" id="tab-lhf">
   <div class="content">
+    <div class="section" style="margin-bottom:16px">
+      <div class="section-title">Recomendación de hunting — gaps por cantidad o calidad de oferta</div>
+      <div class="section-note">Categorías donde se recomienda ir a buscar restaurantes LHF: por falta de tiendas activas (cantidad bajo umbral CABA) o por bajo volumen de las tiendas existentes vs PeYa (calidad).</div>
+      <div id="lhf-rec-container" style="padding:12px 18px"></div>
+    </div>
     <div class="section">
-      <div class="section-title">LHF & Funnel — 169 restaurantes capturables</div>
-      <div class="section-note">
-        LHF (Low-Hanging Fruit): restaurantes presentes en PeYa o Rappi pero aún sin MeLi. Ya tienen operación de delivery activa — solo falta incorporarlos. Se muestran por estado en el funnel de hunting.
-      </div>
+      <div class="section-title">Listado LHF por barrio</div>
+      <div class="section-note">LHF (Low-Hanging Fruit): restaurantes presentes en PeYa o Rappi pero aún sin MeLi. Ya tienen operación de delivery activa — solo falta incorporarlos.</div>
       <div class="toolbar">
         <div class="barrio-tabs" id="lhf-barrio-tabs"></div>
       </div>
@@ -1027,7 +1030,91 @@ function initLHF() {
   Object.keys(STAGE_CONFIG).forEach(function(k){ sSel.add(new Option(STAGE_CONFIG[k].label, k)); });
   sSel.onchange = renderLHF;
   document.getElementById('lhf-search').oninput = renderLHF;
+  renderHuntingRec();
   renderLHF();
+}
+
+function renderHuntingRec() {
+  const BARRIOS_LABEL = {'MARTINEZ':'Martínez','SAN ISIDRO':'SI centro','VILLA ADELINA':'Villa Adelina','BECCAR':'Beccar','ACASSUSO':'Acassuso'};
+  function cap(s) { return s.charAt(0) + s.slice(1).toLowerCase(); }
+
+  const rows = [];
+  BARRIOS_LIST.forEach(b => {
+    CATS_KEY.forEach(cat => {
+      const tiendas = (TIENDAS_SI[b] || {})[cat] || 0;
+      const umbral  = CABA_UMBRAL[cat];
+      const cal     = (CALIDAD_DATA[b] || {})[cat];
+      const gapCant = tiendas < umbral;
+      const ratio   = cal && cal.meli !== null && cal.meli >= 50 ? cal.meli / cal.peya : null;
+      const gapCal  = ratio !== null && ratio < 0.75;
+      const noTiendas = !cal || cal.meli === null || cal.meli < 50;
+
+      if (!gapCant && !gapCal) return;
+
+      const lhfCount = RESTAURANTS.filter(r => r.b === b && r.seg === 'lhf' && r.cat && r.cat.toUpperCase() === cat).length;
+
+      // Tipo de gap
+      let tipo, tipoCol, tipoBg;
+      if (gapCant && gapCal) {
+        tipo = 'Cantidad + Calidad'; tipoCol = '#c0392b'; tipoBg = '#fde8e8';
+      } else if (gapCant) {
+        tipo = 'Cantidad'; tipoCol = '#e67e22'; tipoBg = '#fef3e2';
+      } else {
+        tipo = 'Calidad'; tipoCol = '#c8a200'; tipoBg = '#fef9c3';
+      }
+
+      const cantDetalle = tiendas + ' activas / umbral ' + umbral;
+      const calDetalle  = ratio !== null ? Math.round(ratio * 100) + '% del vol. PeYa' : (noTiendas ? 'sin tiendas activas' : '—');
+
+      rows.push({ b, cat, tipo, tipoCol, tipoBg, cantDetalle, calDetalle, lhfCount, gapCant, gapCal, tiendas, umbral, ratio });
+    });
+  });
+
+  // Sort: cantidad+calidad first, then cantidad, then calidad; within each: by barrio order
+  const order = { 'Cantidad + Calidad': 0, 'Cantidad': 1, 'Calidad': 2 };
+  rows.sort((a, z) => order[a.tipo] - order[z.tipo] || BARRIOS_LIST.indexOf(a.b) - BARRIOS_LIST.indexOf(z.b));
+
+  if (rows.length === 0) {
+    document.getElementById('lhf-rec-container').innerHTML = '<p style="color:#27ae60;font-weight:600">Sin gaps detectados — oferta completa en todas las categorías.</p>';
+    return;
+  }
+
+  const thead = '<tr>' +
+    '<th style="text-align:left">Barrio</th>' +
+    '<th style="text-align:left">Categoría</th>' +
+    '<th>Gap</th>' +
+    '<th>Tiendas activas vs umbral</th>' +
+    '<th>Volumen vs PeYa</th>' +
+    '<th>LHF disponibles</th>' +
+    '</tr>';
+
+  const tbody = rows.map(r => {
+    const lhfCell = r.lhfCount > 0
+      ? '<span style="font-weight:700;color:#4361ee">' + r.lhfCount + '</span> restaurantes'
+      : '<span style="color:#aaa">—</span>';
+    const cantCell = r.gapCant
+      ? '<span style="color:#e74c3c;font-weight:700">' + r.tiendas + '</span><span style="color:#888;font-size:10px"> / umbral ' + r.umbral + '</span>'
+      : '<span style="color:#27ae60;font-weight:700">' + r.tiendas + '</span><span style="color:#888;font-size:10px"> / umbral ' + r.umbral + '</span>';
+    const calCell = r.ratio !== null
+      ? '<span style="font-weight:700;color:' + (r.gapCal ? '#e74c3c' : '#27ae60') + '">' + Math.round(r.ratio * 100) + '%</span>'
+      : '<span style="color:#aaa;font-size:11px">sin tiendas</span>';
+    return '<tr>' +
+      '<td style="font-weight:700">' + (BARRIOS_LABEL[r.b] || r.b) + '</td>' +
+      '<td>' + cap(r.cat) + '</td>' +
+      '<td><span style="font-size:11px;font-weight:700;color:' + r.tipoCol + ';background:' + r.tipoBg + ';padding:2px 8px;border-radius:10px">' + r.tipo + '</span></td>' +
+      '<td style="text-align:center">' + cantCell + '</td>' +
+      '<td style="text-align:center">' + calCell + '</td>' +
+      '<td style="text-align:center">' + lhfCell + '</td>' +
+      '</tr>';
+  }).join('');
+
+  document.getElementById('lhf-rec-container').innerHTML =
+    '<div style="overflow-x:auto"><table class="tbl" style="font-size:12px"><thead>' + thead + '</thead><tbody>' + tbody + '</tbody></table></div>' +
+    '<div class="matrix-legend" style="margin-top:8px">' +
+    '<span style="color:#c0392b;font-weight:700">Cantidad + Calidad</span> = faltan tiendas Y las existentes tienen bajo volumen vs PeYa · ' +
+    '<span style="color:#e67e22;font-weight:700">Cantidad</span> = tiendas bajo umbral CABA · ' +
+    '<span style="color:#c8a200;font-weight:700">Calidad</span> = volumen MeLi &lt;75% del avg PeYa' +
+    '</div>';
 }
 
 function renderLHF() {
