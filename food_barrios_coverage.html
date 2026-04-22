@@ -297,7 +297,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
       <h3>Definición de métricas — Oferta</h3>
       <div class="sup-body">
         <div class="sup-row"><div class="sup-key">% Cobertura MeLi (raw)</div><div class="sup-val">Restaurantes activos en MeLi / total relevados en la zona. Refleja lo que ve el usuario cuando abre la app. Fuente: <code>BT_PM_STORES_MASTER</code>, campo <code>STATUS_EN_MELI = 'ACTIVA'</code>.</div></div>
-        <div class="sup-row"><div class="sup-key">Masa crítica</div><div class="sup-val">Cantidad de tiendas activas en MeLi por categoría, comparada contra el umbral CABA: promedio de tiendas propias por barrio en barrios CABA con onboarding ≥22%, excluyendo Palermo (31 barrios, sep-ene 2026). Se muestra el conteo propio del sub-barrio y el conteo en radio 4km — ambos vs el mismo umbral. Categorías: hamburguesa (≥7.5), helado (≥8.0), pizza (≥7.0), empanadas (≥7.7), sushi (≥5.2), desayunos (≥6.2).</div></div>
+        <div class="sup-row"><div class="sup-key">Masa crítica</div><div class="sup-val">Cantidad de tiendas activas en MeLi por categoría, comparada contra el umbral CABA: promedio de tiendas propias por barrio en los 31 barrios CABA con mejor onboarding, excluyendo Palermo. Se muestra el conteo propio del sub-barrio y el conteo en radio 4km — ambos vs el mismo umbral. Categorías: hamburguesa (≥7.5), helado (≥8.0), pizza (≥7.0), empanadas (≥7.7), sushi (≥5.2), desayunos (≥6.2).</div></div>
         <div class="sup-row"><div class="sup-key">Calidad oferta</div><div class="sup-val">De las categorías con tiendas activas en MeLi (≥50 órdenes estimadas), cuántas tienen un volumen promedio de órdenes ≥75% del promedio PeYa. Fuente: campo <code>ORDENES_ESTIMADAS</code> de <code>BT_PM_STORES_MASTER</code>. Las categorías con &lt;50 órdenes estimadas se consideran "phantom" y se excluyen del denominador.</div></div>
         <div class="sup-row"><div class="sup-key">LHF — Por capturar</div><div class="sup-val">Low-Hanging Fruit: restaurantes presentes en PeYa o Rappi pero ausentes en MeLi (<code>OVERLAP_CATEGORY = 'Low-Hanging fruit'</code>). Target directo para hunters: ya tienen operación de delivery activa.</div></div>
       </div>
@@ -306,7 +306,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
     <div class="sup-block">
       <h3>Definición de métricas — Demanda</h3>
       <div class="sup-body">
-        <div class="sup-row"><div class="sup-key">% Onboarding</div><div class="sup-val">% de compradores nuevos que completaron 5+ órdenes en los 90 días siguientes a su primera compra. Cohortes: sep-25 a ene-26. Mide si el buyer logra el comportamiento de uso habitual deseado. Benchmark CABA: 22.3% (misma metodología y período).</div></div>
+        <div class="sup-row"><div class="sup-key">% Onboarding</div><div class="sup-val">% de compradores nuevos que completaron 5+ órdenes en los 90 días siguientes a su primera compra. Cohortes: sep-25 a nov-25. Mide si el buyer logra el comportamiento de uso habitual deseado. Benchmark CABA: 8.9% (ponderado por buyers, 48 barrios, misma metodología y período).</div></div>
         <div class="sup-row"><div class="sup-key">% consumo por categoría (CABA)</div><div class="sup-val">% de buyers onboardeados en CABA que compraron al menos una vez en tiendas de esa categoría. Se usa CABA como benchmark ya que la distribución de consumo en SI puede estar sesgada por la oferta disponible (baja cobertura → baja demanda observada). Fuente: <code>BT_PROXIMITY_SHIPMENTS_DETAILED</code> joineado con <code>BT_PM_STORES_MASTER</code>.</div></div>
       </div>
     </div>
@@ -404,11 +404,11 @@ const CABA = [
 
 // pob: estimación INDEC 2022 por localidad (aprox.)
 const SI = [
-  {b:'MARTINEZ',     rel:379,meli:29.3,peya:68.6,buyers:9217,onb:12.2,ep:75,pt:260,lhf:55,pob:62000},
-  {b:'SAN ISIDRO',   rel:337,meli:23.1,peya:65.6,buyers:6155,onb:9.5, ep:64,pt:221,lhf:60,pob:55000},
-  {b:'VILLA ADELINA',rel:108,meli:38.9,peya:62.0,buyers:5462,onb:11.5,ep:26,pt:67, lhf:10,pob:35000},
-  {b:'BECCAR',       rel:140,meli:20.0,peya:72.9,buyers:4759,onb:8.6, ep:36,pt:102,lhf:20,pob:27000},
-  {b:'ACASSUSO',     rel:78, meli:15.4,peya:78.2,buyers:1349,onb:10.7,ep:20,pt:61, lhf:24,pob:21000},
+  {b:'MARTINEZ',     rel:379,meli:29.3,peya:68.6,buyers:9217,onb:7.6, ep:75,pt:260,lhf:55,pob:62000},
+  {b:'SAN ISIDRO',   rel:337,meli:23.1,peya:65.6,buyers:6155,onb:7.1, ep:64,pt:221,lhf:60,pob:55000},
+  {b:'VILLA ADELINA',rel:108,meli:38.9,peya:62.0,buyers:5462,onb:8.3, ep:26,pt:67, lhf:10,pob:35000},
+  {b:'BECCAR',       rel:140,meli:20.0,peya:72.9,buyers:4759,onb:6.4, ep:36,pt:102,lhf:20,pob:27000},
+  {b:'ACASSUSO',     rel:78, meli:15.4,peya:78.2,buyers:1349,onb:8.0, ep:20,pt:61, lhf:24,pob:21000},
 ];
 
 
@@ -432,7 +432,7 @@ const CALIDAD_DATA = {
   'ACASSUSO':      {'HAMBURGUESA':{meli:1463,peya:1065,med_meli:1463,med_peya:412},'HELADO':{meli:641,peya:526,med_meli:594,med_peya:482},'PIZZA':{meli:299,peya:439,med_meli:445,med_peya:445},'EMPANADAS':{meli:592,peya:460,med_meli:540,med_peya:540},'SUSHI':{meli:null,peya:599,med_meli:null,med_peya:513},'DESAYUNOS Y MERIENDAS':{meli:null,peya:425,med_meli:null,med_peya:462}},
 };
 
-// Umbral mínimo de tiendas activas por categoría (benchmark barrios CABA onb ≥22%, sin Palermo, propio)
+// Umbral mínimo de tiendas activas por categoría (benchmark barrios CABA top onboarding, sin Palermo, propio, 31 barrios)
 // BQ: LK_PM_SHIPMENTS_BUYERS + BT_PM_STORES_MASTER — 31 barrios CABA, sep-ene 2026
 const CABA_UMBRAL = {"HAMBURGUESA":7.5,"HELADO":8.0,"PIZZA":7.0,"EMPANADAS":7.7,"SUSHI":5.2,"DESAYUNOS Y MERIENDAS":6.2};
 // Tiendas activas por barrio × categoría (BQ: BT_PM_STORES_MASTER, STATUS_EN_MELI='ACTIVA')
@@ -507,7 +507,7 @@ function buildCabaRef() {
   return {
     mAdj: totalAct / adjD * 100,
     bAdj: totalAct / adjD * 100 - (totalPt - totalEp) / adjD * 100,
-    onb:  22.3, // BQ verificado: cohortes sep-25 a ene-26, 5+ órdenes en 90d, AR-C
+    onb:  8.9, // BQ verificado: cohortes sep-25 a nov-25, definición correcta: nuevos buyers ≥5 órd en 90d desde 1ra transacción, AR-C (48 barrios, ponderado por buyers)
     bph:  totalBuyers / totalPob * 1000,
   };
 }
@@ -1170,7 +1170,7 @@ function renderResumen() {
   }
 
   function onbPill(v) {
-    const cls = v >= 12 ? 'onb-ok' : v >= 10 ? 'onb-mid' : 'onb-low';
+    const cls = v >= 9 ? 'onb-ok' : v >= 7 ? 'onb-mid' : 'onb-low';
     return '<span class="onb-pill ' + cls + '">' + v.toFixed(1) + '%</span>';
   }
   function covPill(v) {
@@ -1269,7 +1269,7 @@ function renderResumen() {
     '<div class="section"><table class="resumen-tbl"><thead><tr>' +
     '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi</th><th>Masa crítica (propio / 4km)</th><th>Calidad oferta (propio / 4km)</th>' +
     '</tr></thead><tbody>' + totalRow + rows.join('') + '</tbody></table>' +
-    '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Masa crítica: un solo umbral CABA (propio, sin Palermo, 31 barrios onb ≥22%): hamb 7.5 · helado 8.0 · pizza 7.0 · emp 7.7 · sushi 5.2 · desayunos 6.2. Propio = tiendas del sub-barrio solo · 4km = tiendas accesibles en radio 4km. Ambas se comparan contra el mismo umbral. Calidad: de las categorías con tiendas activas en MeLi (≥50 órd. estimadas), cuántas tienen volumen promedio ≥75% del benchmark PeYa. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos.</p>' +
+    '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Masa crítica: umbral CABA = promedio de tiendas activas por barrio en 31 barrios CABA con mejor onboarding (sin Palermo, propio): hamb 7.5 · helado 8.0 · pizza 7.0 · emp 7.7 · sushi 5.2 · desayunos 6.2. Propio = tiendas del sub-barrio solo · 4km = tiendas accesibles en radio 4km. Ambas se comparan contra el mismo umbral. Calidad: de las categorías con tiendas activas en MeLi (≥50 órd. estimadas), cuántas tienen volumen promedio ≥75% del benchmark PeYa. Onboarding: % de buyers nuevos que alcanzan ≥5 órdenes en los 90 días desde su 1ra transacción. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos.</p>' +
     '</div>' +
     '</div>';
 }
@@ -1367,7 +1367,7 @@ function renderCobOnboarding() {
 
   const section2 = '<div class="cob-section">' +
     '<div class="cob-section-title">② Masa crítica — tiendas activas vs umbral CABA (propio vs radio 4km)</div>' +
-    '<div class="cob-intro">Tiendas activas MeLi del barrio propio vs en radio 4km desde el centroide del barrio. Ambas comparadas contra el mismo umbral CABA: promedio de tiendas propias en barrios CABA con onboarding ≥22% (sin Palermo, 31 barrios). <b>Propio</b> = solo del sub-barrio · <span style="color:#4361ee;font-weight:700">4km ★</span> = incluye barrios vecinos accesibles al buyer.</div>' +
+    '<div class="cob-intro">Tiendas activas MeLi del barrio propio vs en radio 4km desde el centroide del barrio. Ambas comparadas contra el mismo umbral CABA: promedio de tiendas propias en 31 barrios CABA con mejor onboarding (sin Palermo). <b>Propio</b> = solo del sub-barrio · <span style="color:#4361ee;font-weight:700">4km ★</span> = incluye barrios vecinos accesibles al buyer.</div>' +
     '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead2 + '</thead><tbody>' + tbody2 + '</tbody></table></div>' +
     '</div>';
 
