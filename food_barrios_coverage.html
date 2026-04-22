@@ -1356,9 +1356,9 @@ function renderCobOnboarding() {
       const n4km = (TIENDAS_4KM[b] || {})[cat] || 0;
       const okN    = n    >= umbral;
       const okN4km = n4km >= umbral;
-      tbody2 += '<td style="background:' + (okN ? '#d4f5e9' : '#fde8e8') + ';text-align:center;border-right:none">' +
+      tbody2 += '<td style="background:' + (okN ? '#d4f5e9' : '#fde8e8') + ';text-align:center">' +
         '<span style="font-weight:700;color:' + (okN ? '#27ae60' : '#e74c3c') + '">' + n + '</span></td>';
-      tbody2 += '<td style="background:' + (okN4km ? '#eaf3ff' : '#fde8e8') + ';text-align:center;border-left:1px dashed #ddd">' +
+      tbody2 += '<td style="background:' + (okN4km ? '#eaf3ff' : '#fde8e8') + ';text-align:center">' +
         '<span style="font-weight:700;color:' + (okN4km ? '#4361ee' : '#e74c3c') + '">' + n4km + '</span></td>';
     });
     tbody2 += '<td style="color:#888;font-size:12px;text-align:center">' + umbral + '</td></tr>';
