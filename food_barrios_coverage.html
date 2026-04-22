@@ -424,7 +424,13 @@ const ONB_DEMAND = {
 };
 
 
-const CALIDAD_DATA = {"MARTINEZ":{"HAMBURGUESA":{"meli":1275,"peya":808},"HELADO":{"meli":530,"peya":629},"PIZZA":{"meli":401,"peya":447},"EMPANADAS":{"meli":536,"peya":470},"SUSHI":{"meli":643,"peya":564},"DESAYUNOS Y MERIENDAS":{"meli":463,"peya":479}},"SAN ISIDRO":{"HAMBURGUESA":{"meli":1214,"peya":837},"HELADO":{"meli":785,"peya":642},"PIZZA":{"meli":414,"peya":415},"EMPANADAS":{"meli":397,"peya":521},"SUSHI":{"meli":563,"peya":514},"DESAYUNOS Y MERIENDAS":{"meli":483,"peya":508}},"VILLA ADELINA":{"HAMBURGUESA":{"meli":518,"peya":418},"HELADO":{"meli":320,"peya":445},"PIZZA":{"meli":394,"peya":530},"EMPANADAS":{"meli":308,"peya":477},"SUSHI":{"meli":438,"peya":364},"DESAYUNOS Y MERIENDAS":{"meli":3,"peya":426}},"BECCAR":{"HAMBURGUESA":{"meli":1220,"peya":574},"HELADO":{"meli":484,"peya":510},"PIZZA":{"meli":2,"peya":420},"EMPANADAS":{"meli":453,"peya":471},"SUSHI":{"meli":465,"peya":432},"DESAYUNOS Y MERIENDAS":{"meli":286,"peya":446}},"ACASSUSO":{"HAMBURGUESA":{"meli":1463,"peya":1065},"HELADO":{"meli":641,"peya":526},"PIZZA":{"meli":299,"peya":439},"EMPANADAS":{"meli":592,"peya":460},"SUSHI":{"meli":null,"peya":599},"DESAYUNOS Y MERIENDAS":{"meli":null,"peya":425}}};
+const CALIDAD_DATA = {
+  'MARTINEZ':      {'HAMBURGUESA':{meli:1275,peya:808,med_meli:1010,med_peya:496},'HELADO':{meli:530,peya:629,med_meli:414,med_peya:452},'PIZZA':{meli:401,peya:447,med_meli:417,med_peya:436},'EMPANADAS':{meli:536,peya:470,med_meli:454,med_peya:446},'SUSHI':{meli:643,peya:564,med_meli:509,med_peya:480},'DESAYUNOS Y MERIENDAS':{meli:463,peya:479,med_meli:393,med_peya:474}},
+  'SAN ISIDRO':    {'HAMBURGUESA':{meli:1214,peya:837,med_meli:517,med_peya:448},'HELADO':{meli:785,peya:642,med_meli:685,med_peya:549},'PIZZA':{meli:414,peya:415,med_meli:424,med_peya:424},'EMPANADAS':{meli:397,peya:521,med_meli:443,med_peya:449},'SUSHI':{meli:563,peya:514,med_meli:477,med_peya:464},'DESAYUNOS Y MERIENDAS':{meli:483,peya:508,med_meli:650,med_peya:509}},
+  'VILLA ADELINA': {'HAMBURGUESA':{meli:518,peya:418,med_meli:465,med_peya:465},'HELADO':{meli:320,peya:445,med_meli:null,med_peya:514},'PIZZA':{meli:394,peya:530,med_meli:421,med_peya:494},'EMPANADAS':{meli:308,peya:477,med_meli:null,med_peya:509},'SUSHI':{meli:438,peya:364,med_meli:402,med_peya:387},'DESAYUNOS Y MERIENDAS':{meli:3,peya:426,med_meli:null,med_peya:null}},
+  'BECCAR':        {'HAMBURGUESA':{meli:1220,peya:574,med_meli:397,med_peya:415},'HELADO':{meli:484,peya:510,med_meli:685,med_peya:492},'PIZZA':{meli:2,peya:420,med_meli:null,med_peya:416},'EMPANADAS':{meli:453,peya:471,med_meli:426,med_peya:442},'SUSHI':{meli:465,peya:432,med_meli:392,med_peya:422},'DESAYUNOS Y MERIENDAS':{meli:286,peya:446,med_meli:null,med_peya:418}},
+  'ACASSUSO':      {'HAMBURGUESA':{meli:1463,peya:1065,med_meli:1463,med_peya:412},'HELADO':{meli:641,peya:526,med_meli:594,med_peya:482},'PIZZA':{meli:299,peya:439,med_meli:445,med_peya:445},'EMPANADAS':{meli:592,peya:460,med_meli:540,med_peya:540},'SUSHI':{meli:null,peya:599,med_meli:null,med_peya:513},'DESAYUNOS Y MERIENDAS':{meli:null,peya:425,med_meli:null,med_peya:462}},
+};
 
 // Umbral mínimo de tiendas activas por categoría (benchmark barrios CABA onb ≥22%)
 const CABA_UMBRAL = {"HAMBURGUESA":5.5,"HELADO":5.3,"PIZZA":4.9,"EMPANADAS":5.5,"SUSHI":3.8,"DESAYUNOS Y MERIENDAS":4.5};
@@ -433,11 +439,11 @@ const TIENDAS_SI = {"MARTINEZ":{"HAMBURGUESA":11,"HELADO":17,"PIZZA":10,"EMPANAD
 const CATS_KEY = ["HAMBURGUESA","HELADO","PIZZA","EMPANADAS","SUSHI","DESAYUNOS Y MERIENDAS"];
 // Calidad oferta radio 4km: avg ord MeLi activas vs avg ord PeYa (BQ: ST_DISTANCE, mismo radio)
 const CALIDAD_4KM = {
-  'ACASSUSO':      {'HAMBURGUESA':{meli:887,peya:648},'HELADO':{meli:650,peya:609},'PIZZA':{meli:375,peya:433},'EMPANADAS':{meli:479,peya:503},'SUSHI':{meli:596,peya:521},'DESAYUNOS Y MERIENDAS':{meli:393,peya:454}},
-  'BECCAR':        {'HAMBURGUESA':{meli:1103,peya:690},'HELADO':{meli:532,peya:567},'PIZZA':{meli:341,peya:428},'EMPANADAS':{meli:471,peya:532},'SUSHI':{meli:543,peya:491},'DESAYUNOS Y MERIENDAS':{meli:404,peya:487}},
-  'MARTINEZ':      {'HAMBURGUESA':{meli:1160,peya:811},'HELADO':{meli:671,peya:595},'PIZZA':{meli:407,peya:443},'EMPANADAS':{meli:498,peya:500},'SUSHI':{meli:603,peya:512},'DESAYUNOS Y MERIENDAS':{meli:470,peya:481}},
-  'SAN ISIDRO':    {'HAMBURGUESA':{meli:1142,peya:730},'HELADO':{meli:615,peya:597},'PIZZA':{meli:360,peya:429},'EMPANADAS':{meli:482,peya:505},'SUSHI':{meli:590,peya:518},'DESAYUNOS Y MERIENDAS':{meli:386,peya:472}},
-  'VILLA ADELINA': {'HAMBURGUESA':{meli:1258,peya:866},'HELADO':{meli:437,peya:532},'PIZZA':{meli:407,peya:484},'EMPANADAS':{meli:361,peya:496},'SUSHI':{meli:440,peya:412},'DESAYUNOS Y MERIENDAS':{meli:466,peya:584}},
+  'ACASSUSO':      {'HAMBURGUESA':{meli:887,peya:648,med_meli:499,med_peya:438},'HELADO':{meli:650,peya:609,med_meli:594,med_peya:492},'PIZZA':{meli:375,peya:433,med_meli:424,med_peya:432},'EMPANADAS':{meli:479,peya:503,med_meli:456,med_peya:449},'SUSHI':{meli:596,peya:521,med_meli:503,med_peya:453},'DESAYUNOS Y MERIENDAS':{meli:393,peya:454,med_meli:393,med_peya:416}},
+  'BECCAR':        {'HAMBURGUESA':{meli:1103,peya:690,med_meli:517,med_peya:438},'HELADO':{meli:532,peya:567,med_meli:554,med_peya:509},'PIZZA':{meli:341,peya:428,med_meli:407,med_peya:424},'EMPANADAS':{meli:471,peya:532,med_meli:456,med_peya:449},'SUSHI':{meli:543,peya:491,med_meli:477,med_peya:430},'DESAYUNOS Y MERIENDAS':{meli:404,peya:487,med_meli:572,med_peya:474}},
+  'MARTINEZ':      {'HAMBURGUESA':{meli:1160,peya:811,med_meli:528,med_peya:471},'HELADO':{meli:671,peya:595,med_meli:554,med_peya:482},'PIZZA':{meli:407,peya:443,med_meli:425,med_peya:436},'EMPANADAS':{meli:498,peya:500,med_meli:460,med_peya:454},'SUSHI':{meli:603,peya:512,med_meli:505,med_peya:453},'DESAYUNOS Y MERIENDAS':{meli:470,peya:481,med_meli:526,med_peya:481}},
+  'SAN ISIDRO':    {'HAMBURGUESA':{meli:1142,peya:730,med_meli:528,med_peya:448},'HELADO':{meli:615,peya:597,med_meli:554,med_peya:492},'PIZZA':{meli:360,peya:429,med_meli:417,med_peya:427},'EMPANADAS':{meli:482,peya:505,med_meli:456,med_peya:454},'SUSHI':{meli:590,peya:518,med_meli:505,med_peya:453},'DESAYUNOS Y MERIENDAS':{meli:386,peya:472,med_meli:393,med_peya:467}},
+  'VILLA ADELINA': {'HAMBURGUESA':{meli:1258,peya:866,med_meli:636,med_peya:481},'HELADO':{meli:437,peya:532,med_meli:420,med_peya:481},'PIZZA':{meli:407,peya:484,med_meli:421,med_peya:454},'EMPANADAS':{meli:361,peya:496,med_meli:509,med_peya:470},'SUSHI':{meli:440,peya:412,med_meli:411,med_peya:407},'DESAYUNOS Y MERIENDAS':{meli:466,peya:584,med_meli:526,med_peya:532}},
 };
 // Tiendas activas dentro de radio 4km desde centroide de cada barrio (BQ: ST_DISTANCE)
 const TIENDAS_4KM = {
@@ -1374,13 +1380,21 @@ function renderCobOnboarding() {
   function calCell3(cal, blue) {
     if (!cal || cal.meli === null) return '<td style="text-align:center;color:#aaa;font-size:11px">sin tiendas</td>';
     if (cal.meli < 50) return '<td style="text-align:center;color:#aaa;font-size:11px">phantom<br><span style="font-size:9px">' + cal.meli + '</span></td>';
-    const ratio = cal.meli / cal.peya;
+    const ratioAvg = cal.meli / cal.peya;
+    const hasMed = cal.med_meli != null && cal.med_meli >= 50 && cal.med_peya != null && cal.med_peya >= 50;
+    const ratioMed = hasMed ? cal.med_meli / cal.med_peya : null;
+    // Color based on median if available, else avg
+    const ratio = ratioMed !== null ? ratioMed : ratioAvg;
     const bg  = ratio >= 1.0 ? (blue ? '#eaf3ff' : '#d4f5e9') : ratio >= 0.75 ? '#fef9c3' : '#fde8e8';
     const col = ratio >= 1.0 ? (blue ? '#4361ee' : '#27ae60') : ratio >= 0.75 ? '#c8a200' : '#e74c3c';
     const borderL = blue ? 'border-left:1px dashed #ddd;' : '';
+    const medLine = ratioMed !== null
+      ? '<br><span style="font-size:9px;color:#888">med: ' + Math.round(ratioMed * 100) + '% (' + cal.med_meli + '/' + cal.med_peya + ')</span>'
+      : '';
     return '<td style="background:' + bg + ';text-align:center;' + borderL + '">' +
-      '<span style="font-weight:700;font-size:13px;color:' + col + '">' + Math.round(ratio * 100) + '%</span>' +
-      '<br><span style="font-size:9px;color:#999">' + cal.meli + ' / ' + cal.peya + '</span></td>';
+      '<span style="font-weight:700;font-size:13px;color:' + col + '">' + Math.round(ratioAvg * 100) + '%</span>' +
+      '<br><span style="font-size:9px;color:#999">avg: ' + cal.meli + '/' + cal.peya + '</span>' +
+      medLine + '</td>';
   }
 
   let tbody3 = '';
