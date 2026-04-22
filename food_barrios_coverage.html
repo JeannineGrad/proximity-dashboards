@@ -431,6 +431,14 @@ const CABA_UMBRAL = {"HAMBURGUESA":5.5,"HELADO":5.3,"PIZZA":4.9,"EMPANADAS":5.5,
 // Tiendas activas por barrio × categoría (BQ: BT_PM_STORES_MASTER, STATUS_EN_MELI='ACTIVA')
 const TIENDAS_SI = {"MARTINEZ":{"HAMBURGUESA":11,"HELADO":17,"PIZZA":10,"EMPANADAS":9,"SUSHI":8,"DESAYUNOS Y MERIENDAS":6},"SAN ISIDRO":{"HAMBURGUESA":10,"HELADO":3,"PIZZA":10,"EMPANADAS":13,"SUSHI":8,"DESAYUNOS Y MERIENDAS":6},"VILLA ADELINA":{"HAMBURGUESA":4,"HELADO":2,"PIZZA":6,"EMPANADAS":10,"SUSHI":2,"DESAYUNOS Y MERIENDAS":1},"BECCAR":{"HAMBURGUESA":2,"HELADO":7,"PIZZA":2,"EMPANADAS":3,"SUSHI":2,"DESAYUNOS Y MERIENDAS":2},"ACASSUSO":{"HAMBURGUESA":1,"HELADO":2,"PIZZA":3,"EMPANADAS":2,"SUSHI":0,"DESAYUNOS Y MERIENDAS":0}};
 const CATS_KEY = ["HAMBURGUESA","HELADO","PIZZA","EMPANADAS","SUSHI","DESAYUNOS Y MERIENDAS"];
+// Calidad oferta radio 4km: avg ord MeLi activas vs avg ord PeYa (BQ: ST_DISTANCE, mismo radio)
+const CALIDAD_4KM = {
+  'ACASSUSO':      {'HAMBURGUESA':{meli:887,peya:648},'HELADO':{meli:650,peya:609},'PIZZA':{meli:375,peya:433},'EMPANADAS':{meli:479,peya:503},'SUSHI':{meli:596,peya:521},'DESAYUNOS Y MERIENDAS':{meli:393,peya:454}},
+  'BECCAR':        {'HAMBURGUESA':{meli:1103,peya:690},'HELADO':{meli:532,peya:567},'PIZZA':{meli:341,peya:428},'EMPANADAS':{meli:471,peya:532},'SUSHI':{meli:543,peya:491},'DESAYUNOS Y MERIENDAS':{meli:404,peya:487}},
+  'MARTINEZ':      {'HAMBURGUESA':{meli:1160,peya:811},'HELADO':{meli:671,peya:595},'PIZZA':{meli:407,peya:443},'EMPANADAS':{meli:498,peya:500},'SUSHI':{meli:603,peya:512},'DESAYUNOS Y MERIENDAS':{meli:470,peya:481}},
+  'SAN ISIDRO':    {'HAMBURGUESA':{meli:1142,peya:730},'HELADO':{meli:615,peya:597},'PIZZA':{meli:360,peya:429},'EMPANADAS':{meli:482,peya:505},'SUSHI':{meli:590,peya:518},'DESAYUNOS Y MERIENDAS':{meli:386,peya:472}},
+  'VILLA ADELINA': {'HAMBURGUESA':{meli:1258,peya:866},'HELADO':{meli:437,peya:532},'PIZZA':{meli:407,peya:484},'EMPANADAS':{meli:361,peya:496},'SUSHI':{meli:440,peya:412},'DESAYUNOS Y MERIENDAS':{meli:466,peya:584}},
+};
 // Tiendas activas dentro de radio 4km desde centroide de cada barrio (BQ: ST_DISTANCE)
 const TIENDAS_4KM = {
   'ACASSUSO':      {'HAMBURGUESA':15,'HELADO':22,'PIZZA':24,'EMPANADAS':24,'SUSHI':16,'DESAYUNOS Y MERIENDAS':8},
@@ -1197,12 +1205,17 @@ function renderResumen() {
     const masaOk4km = CATS_KEY.filter(c => (tiendas4km[c] || 0) >= CABA_UMBRAL[c]).length;
     const masaCol4km = masaOk4km >= 5 ? '#27ae60' : masaOk4km >= 3 ? '#e67e22' : '#e74c3c';
 
-    // Calidad: de las categorías que tienen tiendas activas (≥50 ord), cuántas son ≥70% del avg PeYa
+    // Calidad propio
     const catsConTiendas = CATS_KEY.filter(c => cal[c] && cal[c].meli !== null && cal[c].meli >= 50);
-    const catsCalOk = catsConTiendas.filter(c => cal[c].meli >= cal[c].peya * 0.7);
+    const calNum = catsConTiendas.filter(c => cal[c].meli >= cal[c].peya * 0.75).length;
     const calDenom = catsConTiendas.length;
-    const calNum = catsCalOk.length;
     const calCol = calDenom === 0 ? '#aaa' : (calNum === calDenom ? '#27ae60' : calNum >= calDenom * 0.6 ? '#e67e22' : '#e74c3c');
+    // Calidad 4km
+    const cal4km = CALIDAD_4KM[r.b] || {};
+    const cats4kmConTiendas = CATS_KEY.filter(c => cal4km[c] && cal4km[c].meli !== null && cal4km[c].meli >= 50);
+    const calNum4km = cats4kmConTiendas.filter(c => cal4km[c].meli >= cal4km[c].peya * 0.75).length;
+    const calDenom4km = cats4kmConTiendas.length;
+    const calCol4km = calDenom4km === 0 ? '#aaa' : (calNum4km === calDenom4km ? '#4361ee' : calNum4km >= calDenom4km * 0.6 ? '#c8a200' : '#e74c3c');
 
     return '<tr>' +
       '<td style="font-weight:700">' + (BARRIOS_LABEL[r.b] || r.b) + '</td>' +
@@ -1214,8 +1227,12 @@ function renderResumen() {
         '<br><span style="font-weight:800;font-size:13px;color:' + masaCol4km + '">' + masaOk4km + '/' + CATS_KEY.length + '</span>' +
         '<span style="font-size:10px;color:#aaa;margin-left:4px">4km</span>' +
         '</td>' +
-      '<td><span style="font-weight:800;font-size:15px;color:' + calCol + '">' + calNum + '/' + calDenom + '</span>' +
-        '<span style="font-size:10px;color:#888;margin-left:4px">cat. con tiendas</span></td>' +
+      '<td>' +
+        '<span style="font-weight:800;font-size:15px;color:' + calCol + '">' + calNum + '/' + calDenom + '</span>' +
+        '<span style="font-size:10px;color:#888;margin-left:4px">propio</span>' +
+        '<br><span style="font-weight:800;font-size:13px;color:' + calCol4km + '">' + calNum4km + '/' + calDenom4km + '</span>' +
+        '<span style="font-size:10px;color:#aaa;margin-left:4px">4km</span>' +
+        '</td>' +
       '</tr>';
   });
 
@@ -1243,7 +1260,7 @@ function renderResumen() {
   document.getElementById('resumen-container').innerHTML =
     '<div class="resumen-wrap">' + conceptBox + intro +
     '<div class="section"><table class="resumen-tbl"><thead><tr>' +
-    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi</th><th>Masa crítica (propio / 4km)</th><th>Calidad oferta (vol. vs PeYa)</th>' +
+    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi</th><th>Masa crítica (propio / 4km)</th><th>Calidad oferta (propio / 4km)</th>' +
     '</tr></thead><tbody>' + totalRow + rows.join('') + '</tbody></table>' +
     '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Masa crítica: umbral = promedio de tiendas activas por barrio en barrios CABA con onboarding ≥22%. Calidad: de las categorías con tiendas activas en MeLi (≥50 órd. estimadas), cuántas tienen volumen promedio ≥70% del benchmark PeYa. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos.</p>' +
     '</div>' +
@@ -1348,38 +1365,39 @@ function renderCobOnboarding() {
     '</div>';
 
   // ── SECTION 3: Calidad oferta ──
-  let thead3 = '<tr><th>Categoría</th>';
-  BARRIOS_LIST.forEach(b => { thead3 += '<th>' + (BARRIOS_LABEL[b] || b) + '</th>'; });
+  let thead3 = '<tr><th rowspan="2">Categoría</th>';
+  BARRIOS_LIST.forEach(b => { thead3 += '<th colspan="2" style="text-align:center">' + (BARRIOS_LABEL[b] || b) + '</th>'; });
+  thead3 += '</tr><tr>';
+  BARRIOS_LIST.forEach(() => { thead3 += '<th style="font-size:10px;font-weight:500;color:#888">propio</th><th style="font-size:10px;font-weight:500;color:#4361ee">4km</th>'; });
   thead3 += '</tr>';
+
+  function calCell3(cal, blue) {
+    if (!cal || cal.meli === null) return '<td style="text-align:center;color:#aaa;font-size:11px">sin tiendas</td>';
+    if (cal.meli < 50) return '<td style="text-align:center;color:#aaa;font-size:11px">phantom<br><span style="font-size:9px">' + cal.meli + '</span></td>';
+    const ratio = cal.meli / cal.peya;
+    const bg  = ratio >= 1.0 ? (blue ? '#eaf3ff' : '#d4f5e9') : ratio >= 0.75 ? '#fef9c3' : '#fde8e8';
+    const col = ratio >= 1.0 ? (blue ? '#4361ee' : '#27ae60') : ratio >= 0.75 ? '#c8a200' : '#e74c3c';
+    const borderL = blue ? 'border-left:1px dashed #ddd;' : '';
+    return '<td style="background:' + bg + ';text-align:center;' + borderL + '">' +
+      '<span style="font-weight:700;font-size:13px;color:' + col + '">' + Math.round(ratio * 100) + '%</span>' +
+      '<br><span style="font-size:9px;color:#999">' + cal.meli + ' / ' + cal.peya + '</span></td>';
+  }
 
   let tbody3 = '';
   CATS_KEY.forEach(cat => {
     tbody3 += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
     BARRIOS_LIST.forEach(b => {
-      const cal = (CALIDAD_DATA[b] || {})[cat];
-      if (!cal || cal.meli === null) {
-        tbody3 += '<td style="text-align:center;color:#aaa;font-size:11px">sin tiendas</td>';
-        return;
-      }
-      if (cal.meli < 50) {
-        tbody3 += '<td style="text-align:center;color:#aaa;font-size:11px">phantom<br><span style="font-size:9px">' + cal.meli + ' órd.</span></td>';
-        return;
-      }
-      const ratio = cal.meli / cal.peya;
-      const bg = ratio >= 1.0 ? '#d4f5e9' : ratio >= 0.75 ? '#fef9c3' : '#fde8e8';
-      const col = ratio >= 1.0 ? '#27ae60' : ratio >= 0.75 ? '#c8a200' : '#e74c3c';
-      tbody3 += '<td style="background:' + bg + ';text-align:center">' +
-        '<span style="font-weight:700;font-size:13px;color:' + col + '">' + Math.round(ratio * 100) + '%</span>' +
-        '<br><span style="font-size:9px;color:#999">' + cal.meli + ' vs ' + cal.peya + '</span></td>';
+      tbody3 += calCell3((CALIDAD_DATA[b] || {})[cat], false);
+      tbody3 += calCell3((CALIDAD_4KM[b]   || {})[cat], true);
     });
     tbody3 += '</tr>';
   });
 
   const section3 = '<div class="cob-section">' +
-    '<div class="cob-section-title">③ Calidad oferta — volumen MeLi como % del benchmark PeYa</div>' +
-    '<div class="cob-intro">¿Las tiendas activas en MeLi tienen un nivel de actividad comparable a PeYa? Valor = avg órdenes estimadas MeLi ÷ avg PeYa. Excluye categorías con &lt;50 órdenes (phantom). <span style="color:#27ae60;font-weight:700">≥100%</span> igual o mayor · <span style="color:#c8a200;font-weight:700">75–100%</span> comparable · <span style="color:#e74c3c;font-weight:700">&lt;75%</span> bajo.</div>' +
+    '<div class="cob-section-title">③ Calidad oferta — volumen MeLi vs PeYa (propio vs radio 4km)</div>' +
+    '<div class="cob-intro">Avg órdenes estimadas MeLi activas ÷ avg PeYa — tiendas del barrio propio vs todas las tiendas dentro de 4km. Excluye categorías con &lt;50 órdenes (phantom). <span style="color:#27ae60;font-weight:700">≥100%</span> igual o mayor · <span style="color:#c8a200;font-weight:700">75–100%</span> comparable · <span style="color:#e74c3c;font-weight:700">&lt;75%</span> bajo.</div>' +
     '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead3 + '</thead><tbody>' + tbody3 + '</tbody></table></div>' +
-    '<div class="matrix-legend"><span>Números debajo del %: órdenes estimadas MeLi activas / órdenes estimadas PeYa (avg por tienda × categoría).</span></div>' +
+    '<div class="matrix-legend"><span>Números: avg órdenes estimadas MeLi activas / avg PeYa por tienda × categoría. <b>Propio</b> = solo barrio · <b>4km</b> = radio incluyendo vecinos.</span></div>' +
     '</div>';
 
   document.getElementById('cob-container').innerHTML =
