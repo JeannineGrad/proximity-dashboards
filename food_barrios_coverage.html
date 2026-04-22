@@ -197,7 +197,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 .cob-section-title { background: #1a1a2e; color: #fff; padding: 10px 18px; font-size: 12px; font-weight: 600; letter-spacing: .4px; }
 .matrix-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
 .matrix-tbl th { background: #2c3e7a; color: #fff; padding: 9px 12px; text-align: center; font-size: 11px; font-weight: 600; }
-.matrix-tbl th:first-child { text-align: left; background: #1a1a2e; min-width: 170px; }
+.matrix-tbl th.cat-col { text-align: left; background: #1a1a2e; min-width: 170px; }
 .matrix-tbl td { padding: 10px 12px; border-bottom: 1px solid #f0f2f8; text-align: center; }
 .matrix-tbl td:first-child { text-align: left; font-weight: 700; font-size: 12px; border-right: 2px solid #e8eaf0; }
 .matrix-tbl tr:hover td { filter: brightness(0.97); }
@@ -1305,7 +1305,7 @@ function renderCobOnboarding() {
   });
 
   // ── SECTION 1: Cobertura raw ──
-  let thead1 = '<tr><th>Categoría</th>';
+  let thead1 = '<tr><th class="cat-col">Categoría</th>';
   BARRIOS_LIST.forEach(b => { thead1 += '<th>' + (BARRIOS_LABEL[b] || b) + '</th>'; });
   thead1 += '<th>% onb. CABA</th></tr>';
 
@@ -1343,10 +1343,10 @@ function renderCobOnboarding() {
 
   // ── SECTION 2: Masa crítica ──
   // Header: barrio × (propio | 4km)
-  let thead2 = '<tr><th rowspan="2">Categoría</th>';
+  let thead2 = '<tr><th class="cat-col" rowspan="2">Categoría</th>';
   BARRIOS_LIST.forEach(b => { thead2 += '<th colspan="2" style="text-align:center">' + (BARRIOS_LABEL[b] || b) + '</th>'; });
   thead2 += '<th rowspan="2">Umbral</th></tr><tr>';
-  BARRIOS_LIST.forEach(() => { thead2 += '<th style="font-size:10px;font-weight:500;color:#888">propio</th><th style="font-size:10px;font-weight:500;color:#4361ee">4km</th>'; });
+  BARRIOS_LIST.forEach(() => { thead2 += '<th style="font-size:10px;font-weight:400;color:#aaa;background:#3a4a8a">propio</th><th style="font-size:10px;font-weight:600;color:#a8c4ff">4km ★</th>'; });
   thead2 += '</tr>';
 
   let tbody2 = '';
@@ -1359,8 +1359,8 @@ function renderCobOnboarding() {
       const n4km = (TIENDAS_4KM[b] || {})[cat] || 0;
       const okN    = n    >= umbral;
       const okN4km = n4km >= umbral4km;
-      tbody2 += '<td style="background:' + (okN ? '#d4f5e9' : '#fde8e8') + ';text-align:center">' +
-        '<span style="font-weight:700;color:' + (okN ? '#27ae60' : '#e74c3c') + '">' + n + '</span></td>';
+      tbody2 += '<td style="background:#f5f5f5;text-align:center">' +
+        '<span style="font-weight:600;color:' + (okN ? '#aaa' : '#ccc') + ';font-size:12px">' + n + '</span></td>';
       tbody2 += '<td style="background:' + (okN4km ? '#eaf3ff' : '#fde8e8') + ';text-align:center">' +
         '<span style="font-weight:700;color:' + (okN4km ? '#4361ee' : '#e74c3c') + '">' + n4km + '</span></td>';
     });
@@ -1374,10 +1374,10 @@ function renderCobOnboarding() {
     '</div>';
 
   // ── SECTION 3: Calidad oferta ──
-  let thead3 = '<tr><th rowspan="2">Categoría</th>';
+  let thead3 = '<tr><th class="cat-col" rowspan="2">Categoría</th>';
   BARRIOS_LIST.forEach(b => { thead3 += '<th colspan="2" style="text-align:center">' + (BARRIOS_LABEL[b] || b) + '</th>'; });
   thead3 += '</tr><tr>';
-  BARRIOS_LIST.forEach(() => { thead3 += '<th style="font-size:10px;font-weight:500;color:#888">propio</th><th style="font-size:10px;font-weight:500;color:#4361ee">4km</th>'; });
+  BARRIOS_LIST.forEach(() => { thead3 += '<th style="font-size:10px;font-weight:400;color:#aaa;background:#3a4a8a">propio</th><th style="font-size:10px;font-weight:600;color:#a8c4ff">4km ★</th>'; });
   thead3 += '</tr>';
 
   function calCell3(cal, blue) {
@@ -1388,15 +1388,14 @@ function renderCobOnboarding() {
     const ratioMed = hasMed ? cal.med_meli / cal.med_peya : null;
     // Color based on median if available, else avg
     const ratio = ratioMed !== null ? ratioMed : ratioAvg;
-    const bg  = ratio >= 1.0 ? (blue ? '#eaf3ff' : '#d4f5e9') : ratio >= 0.75 ? '#fef9c3' : '#fde8e8';
-    const col = ratio >= 1.0 ? (blue ? '#4361ee' : '#27ae60') : ratio >= 0.75 ? '#c8a200' : '#e74c3c';
-    const borderL = blue ? 'border-left:1px dashed #ddd;' : '';
+    const bg  = blue ? (ratio >= 1.0 ? '#eaf3ff' : ratio >= 0.75 ? '#fef9c3' : '#fde8e8') : '#f5f5f5';
+    const col = blue ? (ratio >= 1.0 ? '#4361ee' : ratio >= 0.75 ? '#c8a200' : '#e74c3c') : '#aaa';
     const medLine = ratioMed !== null
-      ? '<br><span style="font-size:9px;color:#888">med: ' + Math.round(ratioMed * 100) + '% (' + cal.med_meli + '/' + cal.med_peya + ')</span>'
+      ? '<br><span style="font-size:9px;color:' + (blue ? '#888' : '#bbb') + '">med: ' + Math.round(ratioMed * 100) + '% (' + cal.med_meli + '/' + cal.med_peya + ')</span>'
       : '';
-    return '<td style="background:' + bg + ';text-align:center;' + borderL + '">' +
-      '<span style="font-weight:700;font-size:13px;color:' + col + '">' + Math.round(ratioAvg * 100) + '%</span>' +
-      '<br><span style="font-size:9px;color:#999">avg: ' + cal.meli + '/' + cal.peya + '</span>' +
+    return '<td style="background:' + bg + ';text-align:center">' +
+      '<span style="font-weight:' + (blue ? '700' : '500') + ';font-size:13px;color:' + col + '">' + Math.round(ratioAvg * 100) + '%</span>' +
+      '<br><span style="font-size:9px;color:' + (blue ? '#999' : '#bbb') + '">avg: ' + cal.meli + '/' + cal.peya + '</span>' +
       medLine + '</td>';
   }
 
