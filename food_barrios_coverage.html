@@ -431,6 +431,14 @@ const CABA_UMBRAL = {"HAMBURGUESA":5.5,"HELADO":5.3,"PIZZA":4.9,"EMPANADAS":5.5,
 // Tiendas activas por barrio × categoría (BQ: BT_PM_STORES_MASTER, STATUS_EN_MELI='ACTIVA')
 const TIENDAS_SI = {"MARTINEZ":{"HAMBURGUESA":11,"HELADO":17,"PIZZA":10,"EMPANADAS":9,"SUSHI":8,"DESAYUNOS Y MERIENDAS":6},"SAN ISIDRO":{"HAMBURGUESA":10,"HELADO":3,"PIZZA":10,"EMPANADAS":13,"SUSHI":8,"DESAYUNOS Y MERIENDAS":6},"VILLA ADELINA":{"HAMBURGUESA":4,"HELADO":2,"PIZZA":6,"EMPANADAS":10,"SUSHI":2,"DESAYUNOS Y MERIENDAS":1},"BECCAR":{"HAMBURGUESA":2,"HELADO":7,"PIZZA":2,"EMPANADAS":3,"SUSHI":2,"DESAYUNOS Y MERIENDAS":2},"ACASSUSO":{"HAMBURGUESA":1,"HELADO":2,"PIZZA":3,"EMPANADAS":2,"SUSHI":0,"DESAYUNOS Y MERIENDAS":0}};
 const CATS_KEY = ["HAMBURGUESA","HELADO","PIZZA","EMPANADAS","SUSHI","DESAYUNOS Y MERIENDAS"];
+// Tiendas activas dentro de radio 4km desde centroide de cada barrio (BQ: ST_DISTANCE)
+const TIENDAS_4KM = {
+  'ACASSUSO':      {'HAMBURGUESA':15,'HELADO':22,'PIZZA':24,'EMPANADAS':24,'SUSHI':16,'DESAYUNOS Y MERIENDAS':8},
+  'BECCAR':        {'HAMBURGUESA':15,'HELADO':20,'PIZZA':17,'EMPANADAS':18,'SUSHI':10,'DESAYUNOS Y MERIENDAS':8},
+  'MARTINEZ':      {'HAMBURGUESA':25,'HELADO':19,'PIZZA':26,'EMPANADAS':26,'SUSHI':16,'DESAYUNOS Y MERIENDAS':12},
+  'SAN ISIDRO':    {'HAMBURGUESA':23,'HELADO':25,'PIZZA':25,'EMPANADAS':25,'SUSHI':17,'DESAYUNOS Y MERIENDAS':13},
+  'VILLA ADELINA': {'HAMBURGUESA':17,'HELADO':13,'PIZZA':10,'EMPANADAS':11,'SUSHI':5,'DESAYUNOS Y MERIENDAS':6},
+};
 
 // Demanda CABA Q1-26 × cobertura SI — 5 sub-barrios combinados
 // Fuente: BT_PROXIMITY_SHIPMENTS_DETAILED (dem) + BT_PM_STORES_MASTER (oferta)
@@ -1074,7 +1082,7 @@ function renderHuntingRec() {
   document.getElementById('lhf-rec-container').innerHTML =
     '<div style="overflow-x:auto"><table class="tbl" style="font-size:12px"><thead>' + thead + '</thead><tbody>' + tbody + '</tbody></table></div>' +
     '<div class="matrix-legend" style="margin-top:8px">' +
-    '<span style="color:#c0392b;font-weight:700">Cantidad + Calidad</span> = faltan tiendas Y bajo volumen vs PeYa · ' +
+    '<span>Masa crítica — <b>propio</b>: solo tiendas del barrio · <b>4km</b>: incluye tiendas vecinas accesibles al buyer.</span> &nbsp;·&nbsp; <span style="color:#c0392b;font-weight:700">Cantidad + Calidad</span> = faltan tiendas Y bajo volumen vs PeYa · ' +
     '<span style="color:#e67e22;font-weight:700">Cantidad</span> = tiendas bajo umbral CABA · ' +
     '<span style="color:#c8a200;font-weight:700">Calidad</span> = volumen MeLi &lt;75% del avg PeYa · Hacé clic en una fila para ver los restaurantes' +
     '</div>';
@@ -1185,6 +1193,9 @@ function renderResumen() {
     // Masa crítica: cuántas de las 6 categorías superan umbral absoluto CABA
     const masaOk = CATS_KEY.filter(c => (tiendas[c] || 0) >= CABA_UMBRAL[c]).length;
     const masaCol = masaOk >= 5 ? '#27ae60' : masaOk >= 3 ? '#e67e22' : '#e74c3c';
+    const tiendas4km = TIENDAS_4KM[r.b] || {};
+    const masaOk4km = CATS_KEY.filter(c => (tiendas4km[c] || 0) >= CABA_UMBRAL[c]).length;
+    const masaCol4km = masaOk4km >= 5 ? '#27ae60' : masaOk4km >= 3 ? '#e67e22' : '#e74c3c';
 
     // Calidad: de las categorías que tienen tiendas activas (≥50 ord), cuántas son ≥70% del avg PeYa
     const catsConTiendas = CATS_KEY.filter(c => cal[c] && cal[c].meli !== null && cal[c].meli >= 50);
@@ -1197,8 +1208,12 @@ function renderResumen() {
       '<td style="font-weight:700">' + (BARRIOS_LABEL[r.b] || r.b) + '</td>' +
       '<td>' + onbPill(r.onb) + ' ' + diffStr(r.onb, caba.onb) + '</td>' +
       '<td>' + covPill(rawCov) + ' ' + diffStr(rawCov, cabaRaw) + '</td>' +
-      '<td><span style="font-weight:800;font-size:15px;color:' + masaCol + '">' + masaOk + '/' + CATS_KEY.length + '</span>' +
-        '<span style="font-size:10px;color:#888;margin-left:4px">cat.</span></td>' +
+      '<td>' +
+        '<span style="font-weight:800;font-size:15px;color:' + masaCol + '">' + masaOk + '/' + CATS_KEY.length + '</span>' +
+        '<span style="font-size:10px;color:#888;margin-left:4px">propio</span>' +
+        '<br><span style="font-weight:800;font-size:13px;color:' + masaCol4km + '">' + masaOk4km + '/' + CATS_KEY.length + '</span>' +
+        '<span style="font-size:10px;color:#aaa;margin-left:4px">4km</span>' +
+        '</td>' +
       '<td><span style="font-weight:800;font-size:15px;color:' + calCol + '">' + calNum + '/' + calDenom + '</span>' +
         '<span style="font-size:10px;color:#888;margin-left:4px">cat. con tiendas</span></td>' +
       '</tr>';
@@ -1228,7 +1243,7 @@ function renderResumen() {
   document.getElementById('resumen-container').innerHTML =
     '<div class="resumen-wrap">' + conceptBox + intro +
     '<div class="section"><table class="resumen-tbl"><thead><tr>' +
-    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi</th><th>Masa crítica (cant. tiendas)</th><th>Calidad oferta (vol. vs PeYa)</th>' +
+    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi</th><th>Masa crítica (propio / 4km)</th><th>Calidad oferta (vol. vs PeYa)</th>' +
     '</tr></thead><tbody>' + totalRow + rows.join('') + '</tbody></table>' +
     '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Masa crítica: umbral = promedio de tiendas activas por barrio en barrios CABA con onboarding ≥22%. Calidad: de las categorías con tiendas activas en MeLi (≥50 órd. estimadas), cuántas tienen volumen promedio ≥70% del benchmark PeYa. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos.</p>' +
     '</div>' +
@@ -1302,27 +1317,33 @@ function renderCobOnboarding() {
     '</div></div>';
 
   // ── SECTION 2: Masa crítica ──
-  let thead2 = '<tr><th>Categoría</th>';
-  BARRIOS_LIST.forEach(b => { thead2 += '<th>' + (BARRIOS_LABEL[b] || b) + '</th>'; });
-  thead2 += '<th>Umbral CABA</th></tr>';
+  // Header: barrio × (propio | 4km)
+  let thead2 = '<tr><th rowspan="2">Categoría</th>';
+  BARRIOS_LIST.forEach(b => { thead2 += '<th colspan="2" style="text-align:center">' + (BARRIOS_LABEL[b] || b) + '</th>'; });
+  thead2 += '<th rowspan="2">Umbral</th></tr><tr>';
+  BARRIOS_LIST.forEach(() => { thead2 += '<th style="font-size:10px;font-weight:500;color:#888">propio</th><th style="font-size:10px;font-weight:500;color:#4361ee">4km</th>'; });
+  thead2 += '</tr>';
 
   let tbody2 = '';
   CATS_KEY.forEach(cat => {
     tbody2 += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
+    const umbral = CABA_UMBRAL[cat];
     BARRIOS_LIST.forEach(b => {
-      const n = (TIENDAS_SI[b] || {})[cat] || 0;
-      const umbral = CABA_UMBRAL[cat];
-      const ok = n >= umbral;
-      tbody2 += '<td style="background:' + (ok ? '#d4f5e9' : '#fde8e8') + ';text-align:center">' +
-        '<span style="font-weight:700;color:' + (ok ? '#27ae60' : '#e74c3c') + '">' + n + '</span>' +
-        '<span style="font-size:9px;color:#999;margin-left:3px">/' + umbral + '</span></td>';
+      const n    = (TIENDAS_SI[b] || {})[cat] || 0;
+      const n4km = (TIENDAS_4KM[b] || {})[cat] || 0;
+      const okN    = n    >= umbral;
+      const okN4km = n4km >= umbral;
+      tbody2 += '<td style="background:' + (okN ? '#d4f5e9' : '#fde8e8') + ';text-align:center;border-right:none">' +
+        '<span style="font-weight:700;color:' + (okN ? '#27ae60' : '#e74c3c') + '">' + n + '</span></td>';
+      tbody2 += '<td style="background:' + (okN4km ? '#eaf3ff' : '#fde8e8') + ';text-align:center;border-left:1px dashed #ddd">' +
+        '<span style="font-weight:700;color:' + (okN4km ? '#4361ee' : '#e74c3c') + '">' + n4km + '</span></td>';
     });
-    tbody2 += '<td style="color:#888;font-size:12px;text-align:center">' + CABA_UMBRAL[cat] + '</td></tr>';
+    tbody2 += '<td style="color:#888;font-size:12px;text-align:center">' + umbral + '</td></tr>';
   });
 
   const section2 = '<div class="cob-section">' +
-    '<div class="cob-section-title">② Masa crítica — tiendas activas vs umbral CABA por categoría</div>' +
-    '<div class="cob-intro">¿Hay suficientes restaurantes activos para que el usuario tenga variedad real? Número = tiendas activas en MeLi. Umbral = promedio de tiendas activas en barrios CABA con onboarding ≥22%. <span style="color:#27ae60;font-weight:700">Verde</span> = sobre umbral · <span style="color:#e74c3c;font-weight:700">Rojo</span> = bajo umbral.</div>' +
+    '<div class="cob-section-title">② Masa crítica — tiendas activas vs umbral CABA (propio vs radio 4km)</div>' +
+    '<div class="cob-intro">Tiendas activas en MeLi del barrio propio vs dentro de un radio de 4km desde el centroide del barrio (incluye tiendas de barrios vecinos accesibles al buyer). Umbral = promedio en barrios CABA con onboarding ≥22%. <span style="color:#27ae60;font-weight:700">Verde</span> = sobre umbral · <span style="color:#e74c3c;font-weight:700">Rojo</span> = bajo umbral · <span style="color:#4361ee;font-weight:700">Azul</span> = sobre umbral en radio 4km.</div>' +
     '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead2 + '</thead><tbody>' + tbody2 + '</tbody></table></div>' +
     '</div>';
 
