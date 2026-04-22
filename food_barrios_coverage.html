@@ -432,8 +432,10 @@ const CALIDAD_DATA = {
   'ACASSUSO':      {'HAMBURGUESA':{meli:1463,peya:1065,med_meli:1463,med_peya:412},'HELADO':{meli:641,peya:526,med_meli:594,med_peya:482},'PIZZA':{meli:299,peya:439,med_meli:445,med_peya:445},'EMPANADAS':{meli:592,peya:460,med_meli:540,med_peya:540},'SUSHI':{meli:null,peya:599,med_meli:null,med_peya:513},'DESAYUNOS Y MERIENDAS':{meli:null,peya:425,med_meli:null,med_peya:462}},
 };
 
-// Umbral mínimo de tiendas activas por categoría (benchmark barrios CABA onb ≥22%)
-const CABA_UMBRAL = {"HAMBURGUESA":5.5,"HELADO":5.3,"PIZZA":4.9,"EMPANADAS":5.5,"SUSHI":3.8,"DESAYUNOS Y MERIENDAS":4.5};
+// Umbral mínimo de tiendas activas por categoría (benchmark barrios CABA onb ≥22%, tiendas del barrio propio)
+const CABA_UMBRAL = {"HAMBURGUESA":8.6,"HELADO":9.5,"PIZZA":8.6,"EMPANADAS":8.7,"SUSHI":6.8,"DESAYUNOS Y MERIENDAS":7.4};
+// Umbral 4km: mismo benchmark CABA pero contando tiendas en radio 4km (avg de 8 barrios CABA onb ≥22%)
+const CABA_UMBRAL_4KM = {"HAMBURGUESA":30.0,"HELADO":25.9,"PIZZA":24.8,"EMPANADAS":29.5,"SUSHI":13.9,"DESAYUNOS Y MERIENDAS":22.4};
 // Tiendas activas por barrio × categoría (BQ: BT_PM_STORES_MASTER, STATUS_EN_MELI='ACTIVA')
 const TIENDAS_SI = {"MARTINEZ":{"HAMBURGUESA":11,"HELADO":17,"PIZZA":10,"EMPANADAS":9,"SUSHI":8,"DESAYUNOS Y MERIENDAS":6},"SAN ISIDRO":{"HAMBURGUESA":10,"HELADO":3,"PIZZA":10,"EMPANADAS":13,"SUSHI":8,"DESAYUNOS Y MERIENDAS":6},"VILLA ADELINA":{"HAMBURGUESA":4,"HELADO":2,"PIZZA":6,"EMPANADAS":10,"SUSHI":2,"DESAYUNOS Y MERIENDAS":1},"BECCAR":{"HAMBURGUESA":2,"HELADO":7,"PIZZA":2,"EMPANADAS":3,"SUSHI":2,"DESAYUNOS Y MERIENDAS":2},"ACASSUSO":{"HAMBURGUESA":1,"HELADO":2,"PIZZA":3,"EMPANADAS":2,"SUSHI":0,"DESAYUNOS Y MERIENDAS":0}};
 const CATS_KEY = ["HAMBURGUESA","HELADO","PIZZA","EMPANADAS","SUSHI","DESAYUNOS Y MERIENDAS"];
@@ -1208,7 +1210,7 @@ function renderResumen() {
     const masaOk = CATS_KEY.filter(c => (tiendas[c] || 0) >= CABA_UMBRAL[c]).length;
     const masaCol = masaOk >= 5 ? '#27ae60' : masaOk >= 3 ? '#e67e22' : '#e74c3c';
     const tiendas4km = TIENDAS_4KM[r.b] || {};
-    const masaOk4km = CATS_KEY.filter(c => (tiendas4km[c] || 0) >= CABA_UMBRAL[c]).length;
+    const masaOk4km = CATS_KEY.filter(c => (tiendas4km[c] || 0) >= CABA_UMBRAL_4KM[c]).length;
     const masaCol4km = masaOk4km >= 5 ? '#27ae60' : masaOk4km >= 3 ? '#e67e22' : '#e74c3c';
 
     // Calidad propio
@@ -1268,7 +1270,7 @@ function renderResumen() {
     '<div class="section"><table class="resumen-tbl"><thead><tr>' +
     '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi</th><th>Masa crítica (propio / 4km)</th><th>Calidad oferta (propio / 4km)</th>' +
     '</tr></thead><tbody>' + totalRow + rows.join('') + '</tbody></table>' +
-    '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Masa crítica: umbral = promedio de tiendas activas por barrio en barrios CABA con onboarding ≥22%. Calidad: de las categorías con tiendas activas en MeLi (≥50 órd. estimadas), cuántas tienen volumen promedio ≥70% del benchmark PeYa. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos.</p>' +
+    '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Masa crítica propio: umbral = promedio de tiendas del barrio propio en barrios CABA con onboarding ≥22% (hamb 8.6, helado 9.5, pizza 8.6, emp 8.7, sushi 6.8, des 7.4). Masa crítica 4km: umbral calculado con el mismo benchmark CABA pero contando tiendas en radio 4km (hamb 30, helado 26, pizza 25, emp 30, sushi 14, des 22). Calidad: de las categorías con tiendas activas en MeLi (≥50 órd. estimadas), cuántas tienen volumen promedio ≥75% del benchmark PeYa. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos.</p>' +
     '</div>' +
     '</div>';
 }
@@ -1350,23 +1352,24 @@ function renderCobOnboarding() {
   let tbody2 = '';
   CATS_KEY.forEach(cat => {
     tbody2 += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
-    const umbral = CABA_UMBRAL[cat];
+    const umbral    = CABA_UMBRAL[cat];
+    const umbral4km = CABA_UMBRAL_4KM[cat];
     BARRIOS_LIST.forEach(b => {
       const n    = (TIENDAS_SI[b] || {})[cat] || 0;
       const n4km = (TIENDAS_4KM[b] || {})[cat] || 0;
       const okN    = n    >= umbral;
-      const okN4km = n4km >= umbral;
+      const okN4km = n4km >= umbral4km;
       tbody2 += '<td style="background:' + (okN ? '#d4f5e9' : '#fde8e8') + ';text-align:center">' +
         '<span style="font-weight:700;color:' + (okN ? '#27ae60' : '#e74c3c') + '">' + n + '</span></td>';
       tbody2 += '<td style="background:' + (okN4km ? '#eaf3ff' : '#fde8e8') + ';text-align:center">' +
         '<span style="font-weight:700;color:' + (okN4km ? '#4361ee' : '#e74c3c') + '">' + n4km + '</span></td>';
     });
-    tbody2 += '<td style="color:#888;font-size:12px;text-align:center">' + umbral + '</td></tr>';
+    tbody2 += '<td style="color:#888;font-size:12px;text-align:center">' + umbral + '<br><span style="color:#4361ee;font-size:11px">' + umbral4km + '</span></td></tr>';
   });
 
   const section2 = '<div class="cob-section">' +
     '<div class="cob-section-title">② Masa crítica — tiendas activas vs umbral CABA (propio vs radio 4km)</div>' +
-    '<div class="cob-intro">Tiendas activas en MeLi del barrio propio vs dentro de un radio de 4km desde el centroide del barrio (incluye tiendas de barrios vecinos accesibles al buyer). Umbral = promedio en barrios CABA con onboarding ≥22%. <span style="color:#27ae60;font-weight:700">Verde</span> = sobre umbral · <span style="color:#e74c3c;font-weight:700">Rojo</span> = bajo umbral · <span style="color:#4361ee;font-weight:700">Azul</span> = sobre umbral en radio 4km.</div>' +
+    '<div class="cob-intro">Tiendas activas en MeLi del barrio propio vs dentro de un radio de 4km desde el centroide del barrio. Umbral <b>propio</b> (negro) = promedio de tiendas del barrio propio en barrios CABA con onboarding ≥22%. Umbral <b>4km</b> (<span style="color:#4361ee">azul</span>) = mismo benchmark pero contando tiendas en radio 4km en esos mismos barrios CABA. <span style="color:#27ae60;font-weight:700">Verde</span> = sobre umbral · <span style="color:#e74c3c;font-weight:700">Rojo</span> = bajo umbral.</div>' +
     '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead2 + '</thead><tbody>' + tbody2 + '</tbody></table></div>' +
     '</div>';
 
