@@ -1325,13 +1325,18 @@ function renderCobOnboarding() {
     tbody1 += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
     BARRIOS_LIST.forEach(b => {
       const cov = covMap[b][cat] !== undefined ? covMap[b][cat] : null;
+      const n4km = (TIENDAS_4KM[b] || {})[cat];
       if (cov === null) { tbody1 += '<td style="text-align:center;color:#aaa">—</td>'; return; }
       const bg = cov >= 40 ? '#d4f5e9' : cov >= 25 ? '#fef9c3' : '#fde8e8';
       const col = cov >= 40 ? '#27ae60' : cov >= 25 ? '#c8a200' : '#e74c3c';
       const isCrit = cov < 30 && (demVal || 0) >= 5;
       const border = isCrit ? ';outline:2px solid #e74c3c;outline-offset:-2px' : '';
+      const n4kmHtml = n4km !== undefined
+        ? '<div style="font-size:10px;color:#4361ee;margin-top:2px;font-weight:600">' + n4km + ' <span style="font-weight:400;color:#aaa">act. 4km</span></div>'
+        : '';
       tbody1 += '<td style="background:' + bg + border + ';text-align:center">' +
-        '<span style="font-weight:700;color:' + col + '">' + cov.toFixed(0) + '%</span></td>';
+        '<span style="font-weight:700;color:' + col + '">' + cov.toFixed(0) + '%</span>' +
+        n4kmHtml + '</td>';
     });
     if (demVal !== null) {
       tbody1 += '<td style="font-weight:700;color:' + (demVal >= 10 ? '#1a1a2e' : '#888') + '">' + demVal + '%</td>';
@@ -1342,8 +1347,8 @@ function renderCobOnboarding() {
   });
 
   const section1 = '<div class="cob-section">' +
-    '<div class="cob-section-title">① Cobertura raw — % restaurantes activos MeLi por barrio y categoría</div>' +
-    '<div class="cob-intro">Lo que ve el usuario cuando abre la app. Columna derecha: % de onboardeados CABA que consumen esa categoría — benchmark sin sesgo de oferta. Borde rojo = gap crítico (cob. baja + alta demanda en CABA).</div>' +
+    '<div class="cob-section-title">① Cobertura raw — % activos MeLi (propio) · tiendas activas en 4km</div>' +
+    '<div class="cob-intro">Lo que ve el usuario cuando abre la app. <b>%</b> = cobertura propia del sub-barrio; <span style="color:#4361ee;font-weight:600">N act. 4km</span> = tiendas MeLi activas accesibles en radio 4km. Columna derecha: % onboardeados CABA que consumen esa categoría. Borde rojo = gap crítico (cob. baja + alta demanda en CABA).</div>' +
     '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead1 + '</thead><tbody>' + tbody1 + '</tbody></table></div>' +
     '<div class="matrix-legend">' +
     '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d4f5e9"></span>≥40%</span>' +
