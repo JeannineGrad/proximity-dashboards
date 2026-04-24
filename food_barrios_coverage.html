@@ -1502,20 +1502,7 @@ function initExpansionMap() {
     attribution: '© OpenStreetMap, © CARTO', maxZoom: 18
   }).addTo(map);
 
-  // ── Ref ON zones ──
-  EXP_DATA.ref_features.forEach(f => {
-    L.geoJSON(f.geometry, {
-      style: { color:'#e65100', weight:1.5, dashArray:'6,4', fillColor:'#ff8f00', fillOpacity:0.10 }
-    }).addTo(map)
-     .bindPopup('<div class="map-popup-title" style="color:#e65100">Zona ON referencia</div>' +
-                '<div class="map-popup-sub">' + f.properties.nombres + '</div>' +
-                '<div class="map-popup-row">Referencia para: <b>' + f.properties.zonas_q2.join(', ') + '</b></div>');
-  });
 
-  // ── Connector lines ──
-  EXP_DATA.connector_lines.forEach(l => {
-    L.polyline([l.from, l.to], { color:'#90a4ae', weight:1.5, dashArray:'4,5', opacity:0.6 }).addTo(map);
-  });
 
   // ── Q2 expansion zones ──
   EXP_DATA.q2_features.forEach(f => {
