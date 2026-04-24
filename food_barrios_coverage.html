@@ -447,6 +447,14 @@ const TIENDAS_SI = {"MARTINEZ":{"HAMBURGUESA":11,"HELADO":17,"PIZZA / EMPANADAS"
 const CATS_KEY = ["HAMBURGUESA","HELADO","PIZZA / EMPANADAS","SUSHI","DESAYUNOS Y MERIENDAS"];
 // Cobertura raw MeLi en radio 4km: activas MeLi / total relevadas en 4km. BQ verificado 2026-04-24.
 const COB_4KM = {'MARTINEZ':23.8,'SAN ISIDRO':18.2,'VILLA ADELINA':27.6,'BECCAR':21.0,'ACASSUSO':17.2};
+// Cobertura 4km por categoría: activas MeLi / total relevadas en 4km, por barrio × categoría. BQ verificado 2026-04-24.
+const COB_4KM_CAT = {
+  'ACASSUSO':      {'HAMBURGUESA':13.9,'HELADO':18.3,'PIZZA / EMPANADAS':26.1,'SUSHI':18.3,'DESAYUNOS Y MERIENDAS':6.2},
+  'BECCAR':        {'HAMBURGUESA':20.4,'HELADO':19.7,'PIZZA / EMPANADAS':37.1,'SUSHI':23.2,'DESAYUNOS Y MERIENDAS':7.1},
+  'MARTINEZ':      {'HAMBURGUESA':30.6,'HELADO':29.8,'PIZZA / EMPANADAS':35.6,'SUSHI':25.7,'DESAYUNOS Y MERIENDAS':11.0},
+  'SAN ISIDRO':    {'HAMBURGUESA':21.1,'HELADO':21.9,'PIZZA / EMPANADAS':23.0,'SUSHI':20.4,'DESAYUNOS Y MERIENDAS':10.2},
+  'VILLA ADELINA': {'HAMBURGUESA':35.6,'HELADO':30.6,'PIZZA / EMPANADAS':33.8,'SUSHI':17.5,'DESAYUNOS Y MERIENDAS':27.5},
+};
 // CALIDAD_4KM: avg ORDENES_ESTIMADAS tiendas en radio 4km vs PeYa (BQ: ST_DISTANCE, ≥50 ords). Verificado 2026-04-24.
 const CALIDAD_4KM = {
   'ACASSUSO':      {'HAMBURGUESA':{meli:1117,peya:744},'HELADO':{meli:879,peya:650},'PIZZA / EMPANADAS':{meli:492,peya:495},'SUSHI':{meli:629,peya:503},'DESAYUNOS Y MERIENDAS':{meli:522,peya:494}},
@@ -1329,9 +1337,9 @@ function renderCobOnboarding() {
     const demVal = (DEM_MAP[cat] || {}).dem || null;
     tbody1 += '<tr><td>' + (cat.charAt(0) + cat.slice(1).toLowerCase()) + '</td>';
     BARRIOS_LIST.forEach(b => {
-      const cov  = covMap[b][cat] !== undefined ? covMap[b][cat] : null;
-      const n4km = (TIENDAS_4KM[b] || {})[cat];
-      // propio column — grey background, colored text (same pattern as ② propio)
+      const cov   = covMap[b][cat] !== undefined ? covMap[b][cat] : null;
+      const cov4km = (COB_4KM_CAT[b] || {})[cat];
+      // propio column
       if (cov === null) {
         tbody1 += '<td style="background:#f5f5f5;text-align:center;color:#ccc">—</td>';
       } else {
@@ -1339,14 +1347,12 @@ function renderCobOnboarding() {
         tbody1 += '<td style="background:#f5f5f5;text-align:center">' +
           '<span style="font-weight:600;font-size:12px;color:' + col + '">' + cov.toFixed(0) + '%</span></td>';
       }
-      // 4km column — highlighted (same pattern as ② 4km ★)
-      if (n4km !== undefined) {
-        const umbral = CABA_UMBRAL[cat];
-        const ok4km = umbral ? n4km >= umbral : null;
-        const bg4km = ok4km === null ? '#eaf3ff' : ok4km ? '#eaf3ff' : '#fde8e8';
-        const col4km = ok4km === null ? '#4361ee' : ok4km ? '#4361ee' : '#e74c3c';
-        tbody1 += '<td style="background:' + bg4km + ';text-align:center">' +
-          '<span style="font-weight:700;color:' + col4km + '">' + n4km + '</span></td>';
+      // 4km column — same color scale as propio
+      if (cov4km !== undefined) {
+        const col4 = cov4km >= 40 ? '#27ae60' : cov4km >= 25 ? '#c8a200' : '#e74c3c';
+        const bg4  = cov4km >= 40 ? '#eaf3ff' : cov4km >= 25 ? '#fef9c3' : '#fde8e8';
+        tbody1 += '<td style="background:' + bg4 + ';text-align:center">' +
+          '<span style="font-weight:700;color:' + col4 + '">' + cov4km.toFixed(0) + '%</span></td>';
       } else {
         tbody1 += '<td style="background:#f5f5f5;text-align:center;color:#ccc">—</td>';
       }
@@ -1361,12 +1367,13 @@ function renderCobOnboarding() {
 
   const section1 = '<div class="cob-section">' +
     '<div class="cob-section-title">① Cobertura raw — % activos MeLi (propio) · tiendas activas en 4km</div>' +
-    '<div class="cob-intro">Lo que ve el usuario cuando abre la app. <b>Propio</b> = % restaurantes activos MeLi sobre total relevados en el sub-barrio · <span style="color:#4361ee;font-weight:700">4km ★</span> = conteo de activos MeLi en radio 4km (vs umbral CABA). Columna derecha: % onboardeados CABA que consumen esa categoría. Borde rojo = gap crítico (cob. baja + alta demanda CABA).</div>' +
+    '<div class="cob-intro">% activos MeLi sobre total relevados — lo que el usuario ve cuando abre la app. <b>Propio</b> = solo el sub-barrio · <span style="color:#4361ee;font-weight:700">4km ★</span> = todos los relevados en radio 4km. Misma escala de color: <span style="color:#27ae60;font-weight:700">≥40%</span> · <span style="color:#c8a200;font-weight:700">25–40%</span> · <span style="color:#e74c3c;font-weight:700">&lt;25%</span>. Columna derecha: % onboardeados CABA que consumen esa categoría.</div>' +
     '<div style="overflow-x:auto"><table class="matrix-tbl"><thead>' + thead1 + '</thead><tbody>' + tbody1 + '</tbody></table></div>' +
     '<div class="matrix-legend">' +
-    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#f5f5f5;border:1px solid #ddd"></span>Propio: <span style="color:#27ae60;font-weight:700;margin-left:2px">verde</span> ≥40% · <span style="color:#c8a200;font-weight:700;margin-left:4px">amarillo</span> 25–40% · <span style="color:#e74c3c;font-weight:700;margin-left:4px">rojo</span> &lt;25%</span>' +
-    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#eaf3ff"></span>4km ≥ umbral CABA</span>' +
-    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fde8e8"></span>4km &lt; umbral</span>' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#d4f5e9"></span>≥40%</span>' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fef9c3"></span>25–40%</span>' +
+    '<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#fde8e8"></span>&lt;25%</span>' +
+    '<span style="display:flex;align-items:center;gap:5px;color:#888;font-size:11px">Propio = barrio propio · 4km = radio 4km desde centroide</span>' +
     '</div></div>';
 
   // ── SECTION 2: Masa crítica ──
