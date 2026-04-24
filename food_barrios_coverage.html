@@ -1541,14 +1541,7 @@ function initExpansionMap() {
       { maxWidth: 290 }
     );
 
-    // Zone label
-    const center = L.geoJSON(f.geometry).getBounds().getCenter();
-    L.marker([center.lat, center.lng], { icon: L.divIcon({
-      className: '',
-      html: '<div style="background:' + p.color + ';color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.3)">' +
-            p.nombre.replace(' Q2','') + '</div>',
-      iconAnchor: [0, 8]
-    })}).addTo(map);
+
   });
 
   // ── SI sub-barrios (análisis actual) — polígonos ──
@@ -1568,13 +1561,7 @@ function initExpansionMap() {
       '<div class="map-popup-row"><b>LHF / EP:</b> ' + b.lhf + ' / ' + b.ep + '</div>',
       { maxWidth: 240 }
     );
-    // Label at centroid
-    const center = layer.getBounds().getCenter();
-    L.marker([center.lat, center.lng], { icon: L.divIcon({
-      className: '',
-      html: '<div style="font-size:11px;font-weight:700;color:#fff;background:#4361ee;padding:2px 6px;border-radius:3px;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.3)">' + b.nombre + '</div>',
-      iconAnchor: [40, 8]
-    })}).addTo(map);
+
   });
 
   // ── Legend ──
