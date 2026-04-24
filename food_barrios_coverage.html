@@ -246,7 +246,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
 
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('si',this)">Resumen</button>
-  <button class="tab-btn" onclick="switchTab('cob',this)">Cobertura &amp; Onboarding</button>
+  <button class="tab-btn" onclick="switchTab('cob',this)">Oferta por sub-barrio</button>
   <button class="tab-btn" onclick="switchTab('lhf',this)">Recomendación</button>
   <button class="tab-btn" onclick="switchTab('sup',this)">Supuestos</button>
 </div>
@@ -445,6 +445,8 @@ const CABA_UMBRAL = {"HAMBURGUESA":7.0,"HELADO":7.1,"PIZZA / EMPANADAS":15.3,"SU
 // PIZZA / EMPANADAS es una categoría combinada en BT_PM_STORES_MASTER.
 const TIENDAS_SI = {"MARTINEZ":{"HAMBURGUESA":11,"HELADO":17,"PIZZA / EMPANADAS":19,"SUSHI":9,"DESAYUNOS Y MERIENDAS":6},"SAN ISIDRO":{"HAMBURGUESA":9,"HELADO":3,"PIZZA / EMPANADAS":23,"SUSHI":10,"DESAYUNOS Y MERIENDAS":6},"VILLA ADELINA":{"HAMBURGUESA":4,"HELADO":2,"PIZZA / EMPANADAS":16,"SUSHI":2,"DESAYUNOS Y MERIENDAS":1},"BECCAR":{"HAMBURGUESA":2,"HELADO":7,"PIZZA / EMPANADAS":5,"SUSHI":2,"DESAYUNOS Y MERIENDAS":2},"ACASSUSO":{"HAMBURGUESA":2,"HELADO":2,"PIZZA / EMPANADAS":5,"SUSHI":0,"DESAYUNOS Y MERIENDAS":0}};
 const CATS_KEY = ["HAMBURGUESA","HELADO","PIZZA / EMPANADAS","SUSHI","DESAYUNOS Y MERIENDAS"];
+// Cobertura raw MeLi en radio 4km: activas MeLi / total relevadas en 4km. BQ verificado 2026-04-24.
+const COB_4KM = {'MARTINEZ':23.8,'SAN ISIDRO':18.2,'VILLA ADELINA':27.6,'BECCAR':21.0,'ACASSUSO':17.2};
 // CALIDAD_4KM: avg ORDENES_ESTIMADAS tiendas en radio 4km vs PeYa (BQ: ST_DISTANCE, ≥50 ords). Verificado 2026-04-24.
 const CALIDAD_4KM = {
   'ACASSUSO':      {'HAMBURGUESA':{meli:1117,peya:744},'HELADO':{meli:879,peya:650},'PIZZA / EMPANADAS':{meli:492,peya:495},'SUSHI':{meli:629,peya:503},'DESAYUNOS Y MERIENDAS':{meli:522,peya:494}},
@@ -1199,13 +1201,14 @@ function renderResumen() {
     return '<tr class="total-row">' +
       '<td>San Isidro Total</td>' +
       '<td>' + onbPill(t.onb) + ' ' + diffStr(t.onb, caba.onb) + '<br><span style="font-size:10px;color:#888">CABA ' + caba.onb.toFixed(1) + '%</span></td>' +
-      '<td>' + covPill(rawSI) + ' ' + diffStr(rawSI, cabaRaw) + '<br><span style="font-size:10px;color:#888">CABA ' + cabaRaw.toFixed(1) + '%</span></td>' +
+      '<td>' + covPill(rawSI) + ' ' + diffStr(rawSI, cabaRaw) + '<br><span style="font-size:10px;color:#888">CABA ' + cabaRaw.toFixed(1) + '% · 4km: por barrio ↓</span></td>' +
       '<td style="color:#aaa;font-size:11px;font-style:italic" colspan="2">Ver por sub-barrio →</td>' +
       '</tr>';
   })();
 
   let rows = SI.map(r => {
     const rawCov = r.meli;
+    const cob4km = COB_4KM[r.b] || 0;
     const cabaRaw = 27.3;
     const tiendas = TIENDAS_SI[r.b] || {};
     const cal = CALIDAD_DATA[r.b] || {};
@@ -1232,7 +1235,10 @@ function renderResumen() {
     return '<tr>' +
       '<td style="font-weight:700">' + (BARRIOS_LABEL[r.b] || r.b) + '</td>' +
       '<td>' + onbPill(r.onb) + ' ' + diffStr(r.onb, caba.onb) + '</td>' +
-      '<td>' + covPill(rawCov) + ' ' + diffStr(rawCov, cabaRaw) + '</td>' +
+      '<td>' + covPill(rawCov) + ' ' + diffStr(rawCov, cabaRaw) +
+        '<br><span style="font-weight:700;font-size:13px;color:#4361ee">' + cob4km.toFixed(1) + '%</span>' +
+        '<span style="font-size:10px;color:#aaa;margin-left:4px">4km</span>' +
+        '</td>' +
       '<td>' +
         '<span style="font-weight:800;font-size:15px;color:' + masaCol + '">' + masaOk + '/' + CATS_KEY.length + '</span>' +
         '<span style="font-size:10px;color:#888;margin-left:4px">propio</span>' +
@@ -1272,9 +1278,9 @@ function renderResumen() {
   document.getElementById('resumen-container').innerHTML =
     '<div class="resumen-wrap">' + conceptBox + intro +
     '<div class="section"><table class="resumen-tbl"><thead><tr>' +
-    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi</th><th>Masa crítica (propio / 4km)</th><th>Calidad oferta (propio / 4km)</th>' +
+    '<th>Barrio</th><th>Onboarding (vs CABA)</th><th>Cob. raw MeLi<br><span style="font-size:9.5px;font-weight:400;opacity:.7">propio / 4km</span></th><th>Masa crítica (propio / 4km)</th><th>Calidad oferta (propio / 4km)</th>' +
     '</tr></thead><tbody>' + totalRow + rows.join('') + '</tbody></table>' +
-    '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Masa crítica: umbral CABA = promedio de tiendas activas por barrio en 31 barrios CABA con mejor onboarding (sin Palermo, propio): hamb 7.5 · helado 8.0 · pizza 7.0 · emp 7.7 · sushi 5.2 · desayunos 6.2. Propio = tiendas del sub-barrio solo · 4km = tiendas accesibles en radio 4km. Ambas se comparan contra el mismo umbral. Calidad: de las categorías con tiendas activas en MeLi (≥50 órd. estimadas), cuántas tienen volumen promedio ≥75% del benchmark PeYa. Onboarding: % de buyers nuevos que alcanzan ≥5 órdenes en los 90 días desde su 1ra transacción. Categorías evaluadas: hamburguesa, helado, pizza, empanadas, sushi, desayunos.</p>' +
+    '<p style="font-size:10.5px;color:#888;padding:8px 14px 12px;font-style:italic">Cob. raw: tiendas activas MeLi / total relevadas. Propio = sub-barrio solo · 4km = radio desde centroide. Masa crítica: umbral CABA = promedio de tiendas activas por barrio en 31 barrios CABA con mejor onboarding (sin Palermo): hamb ≥7.0 · helado ≥7.1 · pizza/emp ≥15.3 · sushi ≥4.3 · desayunos ≥5.4 (verificados BQ 2026-04-24). Calidad: de las categorías con tiendas activas en MeLi (≥50 órd. estimadas), cuántas tienen volumen promedio ≥75% del benchmark PeYa. Onboarding: % de buyers nuevos que alcanzan ≥5 órdenes en los 90 días desde su 1ra transacción.</p>' +
     '</div>' +
     '</div>';
 }
