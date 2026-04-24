@@ -297,7 +297,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
       <h3>Definición de métricas — Oferta</h3>
       <div class="sup-body">
         <div class="sup-row"><div class="sup-key">% Cobertura MeLi (raw)</div><div class="sup-val">Restaurantes activos en MeLi / total relevados en la zona. Refleja lo que ve el usuario cuando abre la app. Fuente: <code>BT_PM_STORES_MASTER</code>, campo <code>STATUS_EN_MELI = 'ACTIVA'</code>.</div></div>
-        <div class="sup-row"><div class="sup-key">Masa crítica</div><div class="sup-val">Cantidad de tiendas activas en MeLi por categoría, comparada contra el umbral CABA: promedio de tiendas propias por barrio en los 31 barrios CABA con mejor onboarding, excluyendo Palermo. Se muestra el conteo propio del sub-barrio y el conteo en radio 4km — ambos vs el mismo umbral. Categorías: hamburguesa (≥7.5), helado (≥8.0), pizza (≥7.0), empanadas (≥7.7), sushi (≥5.2), desayunos (≥6.2).</div></div>
+        <div class="sup-row"><div class="sup-key">Masa crítica</div><div class="sup-val">Cantidad de tiendas activas en MeLi por categoría, comparada contra el umbral CABA: promedio de tiendas propias por barrio en los 31 barrios CABA con mejor onboarding, excluyendo Palermo. Se muestra el conteo propio del sub-barrio y el conteo en radio 4km — ambos vs el mismo umbral. Umbrales (verificados BQ 2026-04-24): hamburguesa (≥7.0), helado (≥7.1), pizza/empanadas (≥15.3), sushi (≥4.3), desayunos (≥5.4). Nota: en <code>BT_PM_STORES_MASTER</code> PIZZA y EMPANADAS son una única categoría combinada ("PIZZA / EMPANADAS").</div></div>
         <div class="sup-row"><div class="sup-key">Calidad oferta</div><div class="sup-val">De las categorías con tiendas activas en MeLi (≥50 órdenes estimadas), cuántas tienen un volumen promedio de órdenes ≥75% del promedio PeYa. Fuente: campo <code>ORDENES_ESTIMADAS</code> de <code>BT_PM_STORES_MASTER</code>. Las categorías con &lt;50 órdenes estimadas se consideran "phantom" y se excluyen del denominador.</div></div>
         <div class="sup-row"><div class="sup-key">LHF — Por capturar</div><div class="sup-val">Low-Hanging Fruit: restaurantes presentes en PeYa o Rappi pero ausentes en MeLi (<code>OVERLAP_CATEGORY = 'Low-Hanging fruit'</code>). Target directo para hunters: ya tienen operación de delivery activa.</div></div>
       </div>
@@ -306,8 +306,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
     <div class="sup-block">
       <h3>Definición de métricas — Demanda</h3>
       <div class="sup-body">
-        <div class="sup-row"><div class="sup-key">% Onboarding</div><div class="sup-val">% de compradores nuevos que completaron 5+ órdenes en los 90 días siguientes a su primera compra. Cohortes: sep-25 a nov-25. Mide si el buyer logra el comportamiento de uso habitual deseado. Benchmark CABA: 8.9% (ponderado por buyers, 48 barrios, misma metodología y período).</div></div>
-        <div class="sup-row"><div class="sup-key">% consumo por categoría (CABA)</div><div class="sup-val">% de buyers onboardeados en CABA que compraron al menos una vez en tiendas de esa categoría. Se usa CABA como benchmark ya que la distribución de consumo en SI puede estar sesgada por la oferta disponible (baja cobertura → baja demanda observada). Fuente: <code>BT_PROXIMITY_SHIPMENTS_DETAILED</code> joineado con <code>BT_PM_STORES_MASTER</code>.</div></div>
+        <div class="sup-row"><div class="sup-key">% Onboarding</div><div class="sup-val">% de compradores nuevos que completaron 5+ órdenes en los 90 días siguientes a su primera compra. Cohortes: sep-25 a nov-25. Mide si el buyer logra el comportamiento de uso habitual deseado. Benchmark CABA: 10.6% (primera ever, ≥5 órd en 90d, sep–nov 2025, AR-C, verificado BQ 2026-04-24).</div></div>
+        <div class="sup-row"><div class="sup-key">% consumo por categoría (sub-barrio)</div><div class="sup-val">% de buyers onboardeados en ese sub-barrio (sep-nov 2025, primera ever, ≥5 órd 90d) que compraron al menos una vez en tiendas de esa categoría, a tiendas del mismo sub-barrio. Refleja la demanda local observada (condicionada por la oferta disponible). Verificado BQ 2026-04-24. Fuente: <code>BT_PROXIMITY_SHIPMENTS_DETAILED</code> joineado con <code>BT_PM_STORES_MASTER</code>.</div></div>
       </div>
     </div>
 
@@ -403,80 +403,85 @@ const CABA = [
 ];
 
 // pob: estimación INDEC 2022 por localidad (aprox.)
+// onb: primera compra ever, ≥5 órd en 90d, cohortes sep–nov 2025. BQ verificado 2026-04-24.
+// buyers: activos Q1 2026 (ene–mar). BQ verificado 2026-04-24.
+// ep: Exclusive Competitor con STORE_ID_PEYA (no capturables por MeLi). BQ verificado 2026-04-24.
 const SI = [
-  {b:'MARTINEZ',     rel:379,meli:29.3,peya:68.6,buyers:9217,onb:7.6, ep:75,pt:260,lhf:55,pob:62000},
-  {b:'SAN ISIDRO',   rel:337,meli:23.1,peya:65.6,buyers:6155,onb:7.1, ep:64,pt:221,lhf:60,pob:55000},
-  {b:'VILLA ADELINA',rel:108,meli:38.9,peya:62.0,buyers:5462,onb:8.3, ep:26,pt:67, lhf:10,pob:35000},
-  {b:'BECCAR',       rel:140,meli:20.0,peya:72.9,buyers:4759,onb:6.4, ep:36,pt:102,lhf:20,pob:27000},
-  {b:'ACASSUSO',     rel:78, meli:15.4,peya:78.2,buyers:1349,onb:8.0, ep:20,pt:61, lhf:24,pob:21000},
+  {b:'MARTINEZ',     rel:381,meli:29.4,peya:68.5,buyers:9057,onb:8.7, ep:75,pt:261,lhf:55,pob:62000},
+  {b:'SAN ISIDRO',   rel:339,meli:23.3,peya:65.5,buyers:6046,onb:8.2, ep:64,pt:222,lhf:60,pob:55000},
+  {b:'VILLA ADELINA',rel:108,meli:38.9,peya:62.0,buyers:5372,onb:10.0,ep:26,pt:67, lhf:10,pob:35000},
+  {b:'BECCAR',       rel:141,meli:20.6,peya:72.3,buyers:4651,onb:7.5, ep:36,pt:102,lhf:20,pob:27000},
+  {b:'ACASSUSO',     rel:78, meli:15.4,peya:78.2,buyers:1324,onb:10.5,ep:20,pt:61, lhf:24,pob:21000},
 ];
 
 
 // % de buyers onboardeados que ordenaron en tiendas de esa categoría × barrio
 // Fuente: BQ cruce BT_PROXIMITY_SHIPMENTS_DETAILED × BT_PM_STORES_MASTER, cohortes sep-25 a ene-26
 // Nota: mide dónde compran los onboardeados, no dónde vive el buyer. Proxy de demanda real por barrio.
+// ONB_DEMAND: % buyers onboardeados sep-nov 2025 (primera ever, ≥5 órd 90d) que compraron en cada cat
+// Compras locales: SHP_BUYER_CITY_NAME = barrio del buyer. BQ verificado 2026-04-24.
 const ONB_DEMAND = {
-  'ACASSUSO':      {'HAMBURGUESA':38.2,'HELADO':27.1,'PIZZA':13.5,'EMPANADAS':9.4,'PASTAS':4.1,'VENEZOLANA':2.4,'CARNES':2.4},
-  'BECCAR':        {'HELADO':52.8,'HAMBURGUESA':12.1,'DESAYUNOS Y MERIENDAS':10.2,'EMPANADAS':7.2,'PIZZA':4.3,'CHINA':3.7,'SUSHI':3.5,'PASTAS':2.5},
-  'MARTINEZ':      {'HELADO':16.1,'SUSHI':14.0,'HAMBURGUESA':12.8,'MILANESAS':10.0,'PIZZA':9.5,'POLLO':8.4,'EMPANADAS':7.5,'SANDWICHES':4.6},
-  'SAN ISIDRO':    {'HAMBURGUESA':31.3,'SUSHI':18.8,'PIZZA':9.6,'EMPANADAS':6.5,'HELADO':5.6,'SALUDABLE':5.4,'POKE':4.2,'CARNES':3.6},
-  'VILLA ADELINA': {'EMPANADAS':39.5,'PIZZA':19.8,'PANADERÍA':7.4,'SUSHI':7.4,'MILANESAS':7.4,'HAMBURGUESA':6.2},
+  'ACASSUSO':      {'HAMBURGUESA':78.7,'PIZZA / EMPANADAS':44.7,'HELADO':40.4,'SUSHI':29.8,'MILANESAS':23.4,'POLLO':23.4},
+  'BECCAR':        {'HAMBURGUESA':74.9,'HELADO':56.9,'PIZZA / EMPANADAS':50.9,'SUSHI':38.9,'POLLO':13.8,'DESAYUNOS Y MERIENDAS':10.8},
+  'MARTINEZ':      {'HAMBURGUESA':77.2,'HELADO':50.4,'PIZZA / EMPANADAS':43.3,'SUSHI':40.2,'MILANESAS':21.7,'POLLO':18.1},
+  'SAN ISIDRO':    {'HAMBURGUESA':70.4,'PIZZA / EMPANADAS':48.1,'HELADO':45.1,'SUSHI':44.2,'POLLO':16.5,'MILANESAS':13.6},
+  'VILLA ADELINA': {'HAMBURGUESA':79.0,'PIZZA / EMPANADAS':54.8,'HELADO':49.8,'SUSHI':35.6,'POLLO':21.5,'MILANESAS':15.5},
 };
 
 
+// CALIDAD_DATA: avg ORDENES_ESTIMADAS tiendas activas MeLi vs PeYa (propio, ≥50 ords). BQ 2026-04-24.
 const CALIDAD_DATA = {
-  'MARTINEZ':      {'HAMBURGUESA':{meli:1275,peya:808,med_meli:1010,med_peya:496},'HELADO':{meli:530,peya:629,med_meli:414,med_peya:452},'PIZZA':{meli:401,peya:447,med_meli:417,med_peya:436},'EMPANADAS':{meli:536,peya:470,med_meli:454,med_peya:446},'SUSHI':{meli:643,peya:564,med_meli:509,med_peya:480},'DESAYUNOS Y MERIENDAS':{meli:463,peya:479,med_meli:393,med_peya:474}},
-  'SAN ISIDRO':    {'HAMBURGUESA':{meli:1214,peya:837,med_meli:517,med_peya:448},'HELADO':{meli:785,peya:642,med_meli:685,med_peya:549},'PIZZA':{meli:414,peya:415,med_meli:424,med_peya:424},'EMPANADAS':{meli:397,peya:521,med_meli:443,med_peya:449},'SUSHI':{meli:563,peya:514,med_meli:477,med_peya:464},'DESAYUNOS Y MERIENDAS':{meli:483,peya:508,med_meli:650,med_peya:509}},
-  'VILLA ADELINA': {'HAMBURGUESA':{meli:518,peya:418,med_meli:465,med_peya:465},'HELADO':{meli:320,peya:445,med_meli:null,med_peya:514},'PIZZA':{meli:394,peya:530,med_meli:421,med_peya:494},'EMPANADAS':{meli:308,peya:477,med_meli:null,med_peya:509},'SUSHI':{meli:438,peya:364,med_meli:402,med_peya:387},'DESAYUNOS Y MERIENDAS':{meli:3,peya:426,med_meli:null,med_peya:null}},
-  'BECCAR':        {'HAMBURGUESA':{meli:1220,peya:574,med_meli:397,med_peya:415},'HELADO':{meli:484,peya:510,med_meli:685,med_peya:492},'PIZZA':{meli:2,peya:420,med_meli:null,med_peya:416},'EMPANADAS':{meli:453,peya:471,med_meli:426,med_peya:442},'SUSHI':{meli:465,peya:432,med_meli:392,med_peya:422},'DESAYUNOS Y MERIENDAS':{meli:286,peya:446,med_meli:null,med_peya:418}},
-  'ACASSUSO':      {'HAMBURGUESA':{meli:1463,peya:1065,med_meli:1463,med_peya:412},'HELADO':{meli:641,peya:526,med_meli:594,med_peya:482},'PIZZA':{meli:299,peya:439,med_meli:445,med_peya:445},'EMPANADAS':{meli:592,peya:460,med_meli:540,med_peya:540},'SUSHI':{meli:null,peya:599,med_meli:null,med_peya:513},'DESAYUNOS Y MERIENDAS':{meli:null,peya:425,med_meli:null,med_peya:462}},
+  'MARTINEZ':      {'HAMBURGUESA':{meli:1536,peya:858},'HELADO':{meli:770,peya:707},'PIZZA / EMPANADAS':{meli:488,peya:491},'SUSHI':{meli:643,peya:564},'DESAYUNOS Y MERIENDAS':{meli:556,peya:517}},
+  'SAN ISIDRO':    {'HAMBURGUESA':{meli:1586,peya:944},'HELADO':{meli:785,peya:642},'PIZZA / EMPANADAS':{meli:493,peya:522},'SUSHI':{meli:613,peya:505},'DESAYUNOS Y MERIENDAS':{meli:724,peya:538}},
+  'VILLA ADELINA': {'HAMBURGUESA':{meli:518,peya:499},'HELADO':{meli:640,peya:519},'PIZZA / EMPANADAS':{meli:554,peya:542},'SUSHI':{meli:438,peya:416},'DESAYUNOS Y MERIENDAS':{meli:null,peya:848}},
+  'BECCAR':        {'HAMBURGUESA':{meli:1220,peya:693},'HELADO':{meli:676,peya:561},'PIZZA / EMPANADAS':{meli:453,peya:454},'SUSHI':{meli:465,peya:488},'DESAYUNOS Y MERIENDAS':{meli:572,peya:446}},
+  'ACASSUSO':      {'HAMBURGUESA':{meli:1463,peya:1065},'HELADO':{meli:641,peya:526},'PIZZA / EMPANADAS':{meli:520,peya:499},'SUSHI':{meli:null,peya:599},'DESAYUNOS Y MERIENDAS':{meli:null,peya:509}},
 };
 
 // Umbral mínimo de tiendas activas por categoría (benchmark barrios CABA top onboarding, sin Palermo, propio, 31 barrios)
-// BQ: LK_PM_SHIPMENTS_BUYERS + BT_PM_STORES_MASTER — 31 barrios CABA, sep-ene 2026
-const CABA_UMBRAL = {"HAMBURGUESA":7.5,"HELADO":8.0,"PIZZA":7.0,"EMPANADAS":7.7,"SUSHI":5.2,"DESAYUNOS Y MERIENDAS":6.2};
-// Tiendas activas por barrio × categoría (BQ: BT_PM_STORES_MASTER, STATUS_EN_MELI='ACTIVA')
-const TIENDAS_SI = {"MARTINEZ":{"HAMBURGUESA":11,"HELADO":17,"PIZZA":10,"EMPANADAS":9,"SUSHI":8,"DESAYUNOS Y MERIENDAS":6},"SAN ISIDRO":{"HAMBURGUESA":10,"HELADO":3,"PIZZA":10,"EMPANADAS":13,"SUSHI":8,"DESAYUNOS Y MERIENDAS":6},"VILLA ADELINA":{"HAMBURGUESA":4,"HELADO":2,"PIZZA":6,"EMPANADAS":10,"SUSHI":2,"DESAYUNOS Y MERIENDAS":1},"BECCAR":{"HAMBURGUESA":2,"HELADO":7,"PIZZA":2,"EMPANADAS":3,"SUSHI":2,"DESAYUNOS Y MERIENDAS":2},"ACASSUSO":{"HAMBURGUESA":1,"HELADO":2,"PIZZA":3,"EMPANADAS":2,"SUSHI":0,"DESAYUNOS Y MERIENDAS":0}};
-const CATS_KEY = ["HAMBURGUESA","HELADO","PIZZA","EMPANADAS","SUSHI","DESAYUNOS Y MERIENDAS"];
-// Calidad oferta radio 4km: avg ord MeLi activas vs avg ord PeYa (BQ: ST_DISTANCE, mismo radio)
+// BQ: BT_PM_STORES_MASTER — 31 barrios CABA, verificado 2026-04-24.
+const CABA_UMBRAL = {"HAMBURGUESA":7.0,"HELADO":7.1,"PIZZA / EMPANADAS":15.3,"SUSHI":4.3,"DESAYUNOS Y MERIENDAS":5.4};
+// Tiendas activas por barrio × categoría (BQ: BT_PM_STORES_MASTER, STATUS_EN_MELI='ACTIVA'). Verificado 2026-04-24.
+// PIZZA / EMPANADAS es una categoría combinada en BT_PM_STORES_MASTER.
+const TIENDAS_SI = {"MARTINEZ":{"HAMBURGUESA":11,"HELADO":17,"PIZZA / EMPANADAS":19,"SUSHI":9,"DESAYUNOS Y MERIENDAS":6},"SAN ISIDRO":{"HAMBURGUESA":9,"HELADO":3,"PIZZA / EMPANADAS":23,"SUSHI":10,"DESAYUNOS Y MERIENDAS":6},"VILLA ADELINA":{"HAMBURGUESA":4,"HELADO":2,"PIZZA / EMPANADAS":16,"SUSHI":2,"DESAYUNOS Y MERIENDAS":1},"BECCAR":{"HAMBURGUESA":2,"HELADO":7,"PIZZA / EMPANADAS":5,"SUSHI":2,"DESAYUNOS Y MERIENDAS":2},"ACASSUSO":{"HAMBURGUESA":2,"HELADO":2,"PIZZA / EMPANADAS":5,"SUSHI":0,"DESAYUNOS Y MERIENDAS":0}};
+const CATS_KEY = ["HAMBURGUESA","HELADO","PIZZA / EMPANADAS","SUSHI","DESAYUNOS Y MERIENDAS"];
+// CALIDAD_4KM: avg ORDENES_ESTIMADAS tiendas en radio 4km vs PeYa (BQ: ST_DISTANCE, ≥50 ords). Verificado 2026-04-24.
 const CALIDAD_4KM = {
-  'ACASSUSO':      {'HAMBURGUESA':{meli:887,peya:648,med_meli:499,med_peya:438},'HELADO':{meli:650,peya:609,med_meli:594,med_peya:492},'PIZZA':{meli:375,peya:433,med_meli:424,med_peya:432},'EMPANADAS':{meli:479,peya:503,med_meli:456,med_peya:449},'SUSHI':{meli:596,peya:521,med_meli:503,med_peya:453},'DESAYUNOS Y MERIENDAS':{meli:393,peya:454,med_meli:393,med_peya:416}},
-  'BECCAR':        {'HAMBURGUESA':{meli:1103,peya:690,med_meli:517,med_peya:438},'HELADO':{meli:532,peya:567,med_meli:554,med_peya:509},'PIZZA':{meli:341,peya:428,med_meli:407,med_peya:424},'EMPANADAS':{meli:471,peya:532,med_meli:456,med_peya:449},'SUSHI':{meli:543,peya:491,med_meli:477,med_peya:430},'DESAYUNOS Y MERIENDAS':{meli:404,peya:487,med_meli:572,med_peya:474}},
-  'MARTINEZ':      {'HAMBURGUESA':{meli:1160,peya:811,med_meli:528,med_peya:471},'HELADO':{meli:671,peya:595,med_meli:554,med_peya:482},'PIZZA':{meli:407,peya:443,med_meli:425,med_peya:436},'EMPANADAS':{meli:498,peya:500,med_meli:460,med_peya:454},'SUSHI':{meli:603,peya:512,med_meli:505,med_peya:453},'DESAYUNOS Y MERIENDAS':{meli:470,peya:481,med_meli:526,med_peya:481}},
-  'SAN ISIDRO':    {'HAMBURGUESA':{meli:1142,peya:730,med_meli:528,med_peya:448},'HELADO':{meli:615,peya:597,med_meli:554,med_peya:492},'PIZZA':{meli:360,peya:429,med_meli:417,med_peya:427},'EMPANADAS':{meli:482,peya:505,med_meli:456,med_peya:454},'SUSHI':{meli:590,peya:518,med_meli:505,med_peya:453},'DESAYUNOS Y MERIENDAS':{meli:386,peya:472,med_meli:393,med_peya:467}},
-  'VILLA ADELINA': {'HAMBURGUESA':{meli:1258,peya:866,med_meli:636,med_peya:481},'HELADO':{meli:437,peya:532,med_meli:420,med_peya:481},'PIZZA':{meli:407,peya:484,med_meli:421,med_peya:454},'EMPANADAS':{meli:361,peya:496,med_meli:509,med_peya:470},'SUSHI':{meli:440,peya:412,med_meli:411,med_peya:407},'DESAYUNOS Y MERIENDAS':{meli:466,peya:584,med_meli:526,med_peya:532}},
+  'ACASSUSO':      {'HAMBURGUESA':{meli:1117,peya:744},'HELADO':{meli:879,peya:650},'PIZZA / EMPANADAS':{meli:492,peya:495},'SUSHI':{meli:629,peya:503},'DESAYUNOS Y MERIENDAS':{meli:522,peya:494}},
+  'BECCAR':        {'HAMBURGUESA':{meli:1117,peya:744},'HELADO':{meli:882,peya:691},'PIZZA / EMPANADAS':{meli:490,peya:505},'SUSHI':{meli:651,peya:533},'DESAYUNOS Y MERIENDAS':{meli:477,peya:489}},
+  'MARTINEZ':      {'HAMBURGUESA':{meli:1344,peya:919},'HELADO':{meli:839,peya:685},'PIZZA / EMPANADAS':{meli:483,peya:509},'SUSHI':{meli:630,peya:519},'DESAYUNOS Y MERIENDAS':{meli:566,peya:513}},
+  'SAN ISIDRO':    {'HAMBURGUESA':{meli:1406,peya:810},'HELADO':{meli:754,peya:635},'PIZZA / EMPANADAS':{meli:492,peya:492},'SUSHI':{meli:610,peya:500},'DESAYUNOS Y MERIENDAS':{meli:553,peya:506}},
+  'VILLA ADELINA': {'HAMBURGUESA':{meli:1520,peya:983},'HELADO':{meli:659,peya:601},'PIZZA / EMPANADAS':{meli:499,peya:519},'SUSHI':{meli:515,peya:502},'DESAYUNOS Y MERIENDAS':{meli:554,peya:542}},
 };
-// Tiendas activas dentro de radio 4km desde centroide de cada barrio (BQ: ST_DISTANCE)
+// Tiendas activas dentro de radio 4km desde centroide de cada barrio (BQ: ST_DISTANCE). Verificado 2026-04-24.
 const TIENDAS_4KM = {
-  'ACASSUSO':      {'HAMBURGUESA':15,'HELADO':22,'PIZZA':24,'EMPANADAS':24,'SUSHI':16,'DESAYUNOS Y MERIENDAS':8},
-  'BECCAR':        {'HAMBURGUESA':15,'HELADO':20,'PIZZA':17,'EMPANADAS':18,'SUSHI':10,'DESAYUNOS Y MERIENDAS':8},
-  'MARTINEZ':      {'HAMBURGUESA':25,'HELADO':19,'PIZZA':26,'EMPANADAS':26,'SUSHI':16,'DESAYUNOS Y MERIENDAS':12},
-  'SAN ISIDRO':    {'HAMBURGUESA':23,'HELADO':25,'PIZZA':25,'EMPANADAS':25,'SUSHI':17,'DESAYUNOS Y MERIENDAS':13},
-  'VILLA ADELINA': {'HAMBURGUESA':17,'HELADO':13,'PIZZA':10,'EMPANADAS':11,'SUSHI':5,'DESAYUNOS Y MERIENDAS':6},
+  'ACASSUSO':      {'PIZZA / EMPANADAS':41,'HELADO':15,'SUSHI':13,'HAMBURGUESA':10,'DESAYUNOS Y MERIENDAS':4},
+  'BECCAR':        {'PIZZA / EMPANADAS':39,'SUSHI':16,'HELADO':12,'HAMBURGUESA':10,'DESAYUNOS Y MERIENDAS':4},
+  'MARTINEZ':      {'PIZZA / EMPANADAS':78,'HAMBURGUESA':38,'HELADO':34,'SUSHI':27,'DESAYUNOS Y MERIENDAS':14},
+  'SAN ISIDRO':    {'PIZZA / EMPANADAS':48,'HAMBURGUESA':23,'HELADO':23,'SUSHI':20,'DESAYUNOS Y MERIENDAS':9},
+  'VILLA ADELINA': {'PIZZA / EMPANADAS':49,'HAMBURGUESA':31,'HELADO':19,'DESAYUNOS Y MERIENDAS':14,'SUSHI':7},
 };
 
 // Demanda CABA Q1-26 × cobertura SI — 5 sub-barrios combinados
-// Fuente: BT_PROXIMITY_SHIPMENTS_DETAILED (dem) + BT_PM_STORES_MASTER (oferta)
-// dem=% órdenes CABA, meli/peya=% cobertura SI, lhf=capturable, ep=excl. PeYa, rel=total relevados
+// Fuente: BT_PROXIMITY_SHIPMENTS_DETAILED (dem) + BT_PM_STORES_MASTER (oferta). Verificado BQ 2026-04-24.
+// dem=% órdenes CABA Q1-26, meli/peya=% cobertura SI (activas vs relevadas), lhf=capturable, ep=excl. PeYa, rel=total relevados
 const CATEGORIAS = [
-  {cat:'HAMBURGUESA',          dem:17.6, meli:31.1, peya:80.0, lhf:17, ep:31, rel:90,  prio:'alta'},
-  {cat:'HELADO',               dem:11.5, meli:32.6, peya:77.9, lhf:18, ep:36, rel:95,  prio:'alta'},
-  {cat:'SUSHI',                dem:7.7,   meli:23.5, peya:63.5, lhf:17, ep:43, rel:85,  prio:'alta'},
-  {cat:'POLLO',                dem:7.5,   meli:9.5,  peya:90.5, lhf:4,  ep:14, rel:21,  prio:'limitada'},
-  {cat:'EMPANADAS',            dem:7.8,   meli:56.1, peya:78.8, lhf:7,  ep:15, rel:66,  prio:'fuerte'},
-  {cat:'PIZZA',                dem:8.3,   meli:29.8, peya:76.9, lhf:18, ep:40, rel:104, prio:'alta'},
-  {cat:'MILANESAS',            dem:4.7,   meli:36.8, peya:73.7, lhf:5,  ep:13, rel:38,  prio:'media'},
-  {cat:'DESAYUNOS Y MERIENDAS',dem:3.6,   meli:18.1, peya:69.9, lhf:15, ep:40, rel:83,  prio:'alta'},
-  {cat:'SALUDABLE',            dem:2.8,   meli:57.1, peya:57.1, lhf:0,  ep:1,  rel:7,   prio:'fuerte'},
-  {cat:'SANDWICHES',           dem:3.6,   meli:33.3, peya:85.4, lhf:11, ep:13, rel:48,  prio:'alta'},
-  {cat:'CARNES',               dem:2.8,   meli:12.5, peya:87.5, lhf:6,  ep:14, rel:24,  prio:'media'},
-  {cat:'PANADERÍA',            dem:2.3,   meli:16.7, peya:78.3, lhf:13, ep:35, rel:60,  prio:'alta'},
-  {cat:'VENEZOLANA',           dem:1.8,   meli:8.3,  peya:66.7, lhf:2,  ep:4,  rel:12,  prio:'media'},
-  {cat:'PASTAS',               dem:1.5,   meli:45.8, peya:62.5, lhf:2,  ep:10, rel:24,  prio:'fuerte'},
-  {cat:'POSTRES',              dem:1.2,   meli:24.3, peya:94.6, lhf:4,  ep:13, rel:37,  prio:'limitada'},
-  {cat:'TARTAS',               dem:1.2,   meli:6.7,  peya:93.3, lhf:4,  ep:7,  rel:15,  prio:'media'},
-  {cat:'ENSALADAS',            dem:0.7,   meli:15.4, peya:92.3, lhf:2,  ep:7,  rel:13,  prio:'limitada'},
-  {cat:'MEXICANA',             dem:0.3,   meli:0,    peya:100,  lhf:4,  ep:1,  rel:6,   prio:'media'},
+  {cat:'HAMBURGUESA',           dem:33.4, meli:28.0, peya:74.0, lhf:20, ep:16, rel:100, prio:'alta'},
+  {cat:'HELADO',                dem:15.6, meli:32.6, peya:77.9, lhf:18, ep:23, rel:95,  prio:'alta'},
+  {cat:'PIZZA / EMPANADAS',     dem:12.1, meli:39.3, peya:76.9, lhf:25, ep:33, rel:173, prio:'fuerte'},
+  {cat:'SUSHI',                 dem:9.2,  meli:25.6, peya:65.6, lhf:17, ep:16, rel:90,  prio:'alta'},
+  {cat:'POLLO',                 dem:6.9,  meli:20.8, peya:91.7, lhf:4,  ep:12, rel:24,  prio:'limitada'},
+  {cat:'SALUDABLE',             dem:3.6,  meli:16.7, peya:81.5, lhf:8,  ep:16, rel:54,  prio:'media'},
+  {cat:'MILANESAS',             dem:3.4,  meli:32.0, peya:60.0, lhf:5,  ep:7,  rel:50,  prio:'media'},
+  {cat:'DESAYUNOS Y MERIENDAS', dem:2.4,  meli:17.6, peya:68.2, lhf:15, ep:23, rel:85,  prio:'alta'},
+  {cat:'SANDWICHES',            dem:2.0,  meli:33.3, peya:85.4, lhf:11, ep:10, rel:48,  prio:'media'},
+  {cat:'PARRILLA / CARNES',     dem:1.9,  meli:11.1, peya:81.5, lhf:7,  ep:11, rel:27,  prio:'media'},
+  {cat:'POKE',                  dem:1.4,  meli:25.0, peya:62.5, lhf:0,  ep:1,  rel:8,   prio:'media'},
+  {cat:'PANADERÍA',             dem:1.1,  meli:16.7, peya:78.3, lhf:13, ep:22, rel:60,  prio:'alta'},
+  {cat:'VENEZOLANA',            dem:1.1,  meli:15.4, peya:69.2, lhf:2,  ep:0,  rel:13,  prio:'media'},
+  {cat:'ASIÁTICA',              dem:0.9,  meli:27.8, peya:88.9, lhf:3,  ep:7,  rel:18,  prio:'limitada'},
+  {cat:'PASTAS',                dem:0.6,  meli:45.8, peya:62.5, lhf:2,  ep:6,  rel:24,  prio:'fuerte'},
+  {cat:'POSTRES',               dem:0.5,  meli:21.4, peya:83.3, lhf:4,  ep:11, rel:42,  prio:'limitada'},
 ];
 
 // ── HELPERS ──
@@ -507,7 +512,7 @@ function buildCabaRef() {
   return {
     mAdj: totalAct / adjD * 100,
     bAdj: totalAct / adjD * 100 - (totalPt - totalEp) / adjD * 100,
-    onb:  8.9, // BQ verificado: cohortes sep-25 a nov-25, definición correcta: nuevos buyers ≥5 órd en 90d desde 1ra transacción, AR-C (48 barrios, ponderado por buyers)
+    onb:  10.6, // BQ verificado 2026-04-24: primera ever, ≥5 órd en 90d, sep–nov 2025, AR-C. Anterior valor (8.9%) no reconciliado.
     bph:  totalBuyers / totalPob * 1000,
   };
 }
