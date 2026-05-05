@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instore Monthly Update — may-26</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+/* viewer */
+#viewer{width:100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:12px}
+.slide-wrap{
+  width: min(1280px, calc(100vw - 32px), calc((100vh - 80px) * 1.7778));
+  aspect-ratio:16/9;
+  position:relative;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.slide{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0;background:#fff;box-shadow:0 8px 48px rgba(0,0,0,.5);display:none}
+.slide.active{display:block}
+.slide::before,.slide::after{content:'';position:absolute;left:0;right:0;height:7px;background:#FFB700;z-index:10}
+.slide::before{top:0}.slide::after{bottom:0}
+.slide-cover{background:#1a2454}
+.si{padding:32px 52px 28px;height:100%;display:flex;flex-direction:column}
+.snum{position:absolute;top:14px;right:20px;font-size:11px;color:#bbb;font-weight:700}
+.stitle{font-size:25px;font-weight:800;color:#1a2454;line-height:1.1}
+.ssub{font-size:12.5px;color:#555;margin-top:3px}
+.sdiv{height:2px;background:#e8eaf2;margin:10px 0 12px}
+.ssrc{position:absolute;bottom:12px;left:52px;font-size:9.5px;color:#aaa}
+.krow{display:flex;gap:12px;margin-bottom:14px}
+.kcard{flex:1;background:#f5f7fa;border-left:4px solid #4da6ff;padding:10px 14px;border-radius:3px}
+.kcard.y{border-left-color:#FFB700}.kcard.g{border-left-color:#00c896}
+.kval{font-size:26px;font-weight:900;color:#1a2454;line-height:1}
+.kval.b{color:#4da6ff}.kval.y{color:#e6a800}.kval.g{color:#00a878}
+.klbl{font-size:10.5px;color:#666;margin-top:3px;line-height:1.3}
+.carea{flex:1;display:flex;gap:20px;min-height:0}
+.cbox{flex:1;position:relative;min-height:0}
+.ibox{background:#f5f7fa;border-left:3px solid #4da6ff;padding:8px 11px;font-size:11.5px;color:#333;margin-bottom:8px;border-radius:0 3px 3px 0;line-height:1.4}
+.ibox.g{border-left-color:#00c896;background:#f0faf6}.ibox.y{border-left-color:#FFB700;background:#fdf8e8}
+.hgrid{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;min-height:0}
+.hcol{border-radius:5px;padding:14px 16px;display:flex;flex-direction:column}
+.hcol.hi{background:#edfaf5;border-top:4px solid #00c896}
+.hcol.lo{background:#fef0f0;border-top:4px solid #ff6b6b}
+.hcol.nx{background:#eef2ff;border-top:4px solid #4da6ff}
+.htitle{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.hcol.hi .htitle{color:#00a878}.hcol.lo .htitle{color:#d44}.hcol.nx .htitle{color:#4361ee}
+.hitem{font-size:11.5px;color:#333;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06);line-height:1.4}
+.hitem:last-child{border-bottom:none}
+.pgrid{flex:1;display:grid;grid-template-columns:2fr 2fr 1.1fr;gap:18px;min-height:0}
+.pcol{display:flex;flex-direction:column;min-height:0}
+.pctitle{font-size:11px;font-weight:700;color:#1a2454;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.ccover{display:flex;flex-direction:column;justify-content:space-between;height:100%;padding:56px 72px 44px}
+.ctitle{font-size:76px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px}
+.cline{width:110px;height:6px;background:#FFB700;margin:14px 0 20px}
+.csub{font-size:30px;color:#FFB700;font-weight:700}
+.cdate{font-size:15px;color:rgba(255,255,255,.45);margin-top:6px}
+.ckpis{display:flex;gap:14px}
+.ckpi{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:5px;padding:16px 18px;text-align:center}
+.ckval{font-size:34px;font-weight:900}
+.ckval.b{color:#4da6ff}.ckval.y{color:#FFB700}.ckval.g{color:#00c896}
+.cklbl{font-size:11px;color:rgba(255,255,255,.55);margin-top:4px;line-height:1.3}
+/* nav */
+#nav{display:flex;align-items:center;gap:20px;user-select:none}
+.nav-btn{background:rgba(26,36,84,.12);border:none;color:#1a2454;width:44px;height:44px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.nav-btn:hover{background:rgba(26,36,84,.22)}
+.nav-btn:disabled{opacity:.25;cursor:default}
+#nav-dots{display:flex;gap:8px}
+.ndot{width:8px;height:8px;border-radius:50%;background:rgba(26,36,84,.2);cursor:pointer;transition:background .15s}
+.ndot.active{background:#FFB700}
+#nav-label{color:#888;font-size:12px;min-width:48px;text-align:center}
+.srow{background:#f5f7fa;border-radius:3px;padding:9px 13px;display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.srow.hl{background:#e8f8f2}
+.slabel{font-size:11.5px;color:#555;flex:1}
+.slabel.bold{font-weight:700;color:#1a2454}
+.svals{display:flex;gap:18px}
+.sv{font-size:13px;font-weight:700;min-width:52px;text-align:right}
+.sv.onb{color:#00a878}.sv.no{color:#aaa}
+.slegend{display:flex;gap:14px;justify-content:flex-end;margin-bottom:5px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px}
+</style>
+</head>
+<body>
+
+<div id="viewer">
+<div class="slide-wrap">
+
+<!-- SLIDE 1: COVER -->
+<div class="slide slide-cover">
+  <div class="ccover">
+    <div>
+      <div class="ctitle">Monthly Update</div>
+      <div class="cline"></div>
+      <div class="csub">Proximity Instore</div>
+      <div class="cdate">may-26</div>
+    </div>
+    <div class="ckpis">
+      <div class="ckpi"><div class="ckval b">3.487</div><div class="cklbl">buyers activos<br>abr-26</div></div>
+      <div class="ckpi"><div class="ckval y">20.0%</div><div class="cklbl">Repeat<br>era 3.9% en nov-25</div></div>
+      <div class="ckpi"><div class="ckval g">6.4x</div><div class="cklbl">NMV onboarded<br>vs no onboarded</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: CRECIMIENTO DE LA BASE -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">2</span>
+    <div class="stitle">Crecimiento de la base</div>
+    <div class="ssub">La retención se consolida: 20% Repeat y 13% Resurrected en abril</div>
+    <div class="sdiv"></div>
+    <div class="krow">
+      <div class="kcard r"><div class="kval" style="color:#e74c3c">3.487</div><div class="klbl">buyers activos abr-26<br><span style="color:#e74c3c;font-weight:700">▼ -18.8% vs mar-26 (-806 buyers)</span></div></div>
+      <div class="kcard g"><div class="kval g">20.0%</div><div class="klbl">% Repeat abr-26</div></div>
+      <div class="kcard g"><div class="kval g">13.3%</div><div class="klbl">% Resurrected abr-26</div></div>
+    </div>
+    <div class="carea">
+      <div class="cbox"><canvas id="c-lifecycle"></canvas></div>
+    </div>
+    <p class="ssrc">Fuente: DM_VENTAS_MLA_INSTORE · Barras negativas = buyers que no retornaron el mes siguiente · Abr-26 churn no disponible (may-26 no cerrado)</p>
+  </div>
+</div>
+
+<!-- SLIDE 3: CHURN vs SUPER FULL DRY -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">3</span>
+    <div class="stitle">Churn instore vs Super Full DRY</div>
+    <div class="ssub">Brecha estabilizada — convergencia con Super Full DRY es el objetivo a mediano plazo</div>
+    <div class="sdiv"></div>
+    <div class="carea">
+      <div class="cbox" style="flex:1.5"><canvas id="c-churn"></canvas></div>
+      <div style="flex:.85;display:flex;flex-direction:column;justify-content:center;gap:9px;padding-left:6px">
+        <div class="ibox g">Mar-26: Instore 83.5% vs Super Full DRY 75.8% — brecha de 7.7pp</div>
+        <div class="ibox g">Brecha oct-25 → mar-26: de 12pp a 8pp — tendencia de convergencia</div>
+        <div class="ibox y">Super Full DRY = CPG + Beauty + Health — medidos como base única, sobre sus propios buyers</div>
+        <div class="ibox">CPG DRY ronda ~70% de churn — es el benchmark de retención a alcanzar con madurez del canal</div>
+      </div>
+    </div>
+    <p class="ssrc">Fuente: DM_VENTAS_MLA_INSTORE · DM_ORDERS_DATA_CROSS_SUPER (BUSINESS_MODEL='DRY') · Bases independientes por canal — no son buyers cruzados</p>
+  </div>
+</div>
+
+<!-- SLIDE 4: ONBOARDING -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">4</span>
+    <div class="stitle">Onboarding: el buyer de alto valor</div>
+    <div class="ssub">El buyer que adopta el canal genera 6.4x más NMV en 90 días — la diferencia no está en la primera compra, sino en la recurrencia</div>
+    <div class="sdiv"></div>
+    <div class="krow">
+      <div class="kcard"><div class="kval b">3.7%</div><div class="klbl">tasa promedio onboarding · oct-25 a feb-26</div></div>
+      <div class="kcard y"><div class="kval y">289</div><div class="klbl">buyers onboarded sobre 8.540 con ventana completa</div></div>
+      <div class="kcard g"><div class="kval g">6.4x</div><div class="klbl">NMV en 90d: $497k vs $77.6k</div></div>
+    </div>
+    <div class="carea" style="gap:28px">
+      <div class="cbox"><canvas id="c-onb"></canvas></div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div class="slegend">
+          <span style="font-size:11px;color:#555"><span class="dot" style="background:#00c896"></span>Onboarded</span>
+          <span style="font-size:11px;color:#999"><span class="dot" style="background:#ccc"></span>No onboarded</span>
+        </div>
+        <div class="srow"><span class="slabel">Órdenes en 90 días</span><div class="svals"><span class="sv onb">7.5</span><span class="sv no">1.3</span></div></div>
+        <div class="srow"><span class="slabel">NMV acumulado 90d</span><div class="svals"><span class="sv onb">$497k</span><span class="sv no">$78k</span></div></div>
+        <div class="srow"><span class="slabel">Ticket primera compra</span><div class="svals"><span class="sv onb">$62.7k</span><span class="sv no">$56.9k</span></div></div>
+        <div class="srow"><span class="slabel">SKUs primera compra</span><div class="svals"><span class="sv onb">8.5</span><span class="sv no">5.8</span></div></div>
+        <div class="srow"><span class="slabel">SKUs distintos en 90d</span><div class="svals"><span class="sv onb">49.2</span><span class="sv no">7.7</span></div></div>
+        <div class="srow hl"><span class="slabel bold">La brecha real aparece en los 90 días — no en la primera compra</span></div>
+      </div>
+    </div>
+    <p class="ssrc">Onboarded = 5+ compras en primeros 90d · Oct-25 a Feb-26 cerrados · Mar-26 / Abr-26: ventana aún abierta</p>
+  </div>
+</div>
+
+<!-- SLIDE 5: PERFIL DEL BUYER -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">5</span>
+    <div class="stitle">¿Quién onboarda?</div>
+    <div class="ssub">Perfil sociodemográfico — onboarded vs no onboarded · Base: oct-25 a feb-26 · 289 onboarded / 8.251 no onboarded · valores en %</div>
+    <div class="sdiv"></div>
+    <div class="pgrid">
+      <div class="pcol">
+        <div class="pctitle">Segmento NSE</div>
+        <div class="cbox" style="flex:1"><canvas id="c-nse"></canvas></div>
+        <div class="ibox g" style="margin-top:8px;font-size:11px">Gold lidera en onboarded (28.4%) · Platinum dominante en no onboarded (37.7%) — entra pero no repite</div>
+      </div>
+      <div class="pcol">
+        <div class="pctitle">Rango etario</div>
+        <div class="cbox" style="flex:1"><canvas id="c-edad"></canvas></div>
+        <div class="ibox g" style="margin-top:8px;font-size:11px">65+ = 21.5% en onboarded vs 11.6% en no onboarded — casi el doble</div>
+      </div>
+      <div class="pcol">
+        <div class="pctitle">Género</div>
+        <div class="cbox" style="flex:1"><canvas id="c-genero"></canvas></div>
+        <div class="ibox g" style="margin-top:8px;font-size:11px">68.1% mujeres entre onboarded · +9.4pp vs no onboarded</div>
+      </div>
+    </div>
+    <p class="ssrc">Fuente: LK_MP_MAUS_SEGMENTATION (snapshot ene-26) · LK_USER_GENDER · Solo female y male clasificados en género</p>
+  </div>
+</div>
+
+<!-- SLIDE 6: HIGHS, LOWS Y NEXT STEPS -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">6</span>
+    <div class="stitle">Highs, Lows y Next Steps</div>
+    <div class="ssub">Balance oct-25 a abr-26 · datos cerrados a abril 2026</div>
+    <div class="sdiv"></div>
+    <div class="hgrid">
+      <div class="hcol hi">
+        <div class="htitle">✓ Highs</div>
+        <div class="hitem"><strong>+19x en 7 meses</strong> — de 188 a 3.487 buyers activos; crecimiento sostenido</div>
+        <div class="hitem"><strong>Retención construyéndose</strong> — Repeat 20.0% y Resurrected 13.3% en abr-26</div>
+        <div class="hitem"><strong>Brecha churn vs Super Full ~8pp</strong> (mar-26) — convergencia en curso</div>
+        <div class="hitem"><strong>Onboarded genera 6.4x más NMV</strong> — palanca de valor clara e identificada</div>
+        <div class="hitem"><strong>Villa Urquiza lidera</strong> onboarding (3.0%) con mejor mix de misiones de compra</div>
+      </div>
+      <div class="hcol lo">
+        <div class="htitle">✗ Lows</div>
+        <div class="hitem"><strong>Churn ~81% promedio</strong> — 4 de cada 5 nuevos buyers no vuelven al mes siguiente</div>
+        <div class="hitem"><strong>Onboarding 3.7%</strong> — 1 de cada 27 nuevos buyers adopta el canal como hábito</div>
+        <div class="hitem"><strong>Abr-26 baja vs mar-26</strong> — 3.487 vs 4.293 activos; efecto estacional a monitorear</div>
+        <div class="hitem"><strong>Vicente López</strong> menor onboarding (1.9%) y mayor concentración en fill-in</div>
+      </div>
+      <div class="hcol nx">
+        <div class="htitle">→ Next Steps</div>
+        <div class="hitem"><strong>Análisis Villa Urquiza</strong> — perfil local, catchment area y misiones vs otras tiendas</div>
+        <div class="hitem"><strong>Churn vs marketplace general MLA</strong> — pendiente identificar campo geo en BT_ORD_ORDERS</div>
+        <div class="hitem"><strong>Confirmar onboarding mar-26 / abr-26</strong> cuando cierren ventanas 90d (jun / jul)</div>
+        <div class="hitem"><strong>Análisis MeLi+</strong> — impacto en onboarding y retención instore</div>
+        <div class="hitem"><strong>Deep dive por tienda</strong> — análisis detallado como follow-up offline</div>
+      </div>
+    </div>
+    <p class="ssrc">Fuente: DM_VENTAS_MLA_INSTORE · DM_ORDERS_DATA_CROSS_SUPER · LK_MP_MAUS_SEGMENTATION · LK_USER_GENDER</p>
+  </div>
+</div>
+
+</div><!-- /slide-wrap -->
+
+<div id="nav">
+  <button class="nav-btn" id="btn-prev" onclick="go(-1)">&#8592;</button>
+  <div id="nav-dots"></div>
+  <button class="nav-btn" id="btn-next" onclick="go(1)">&#8594;</button>
+  <span id="nav-label">1 / 6</span>
+</div>
+
+</div><!-- /viewer -->
+
+<script>
+Chart.register(ChartDataLabels);
+if(window['chartjs-plugin-annotation'])Chart.register(window['chartjs-plugin-annotation']);
+
+// Slide 2: Lifecycle stacked + churn negative
+(function(){
+  const labels=['Oct-25','Nov-25','Dic-25','Ene-26','Feb-26','Mar-26','Abr-26'];
+  const totals=[188,878,2537,2597,3598,4293,3487];
+  const newD=[188,844,2391,2223,2893,3223,2327];
+  const repD=[0,34,130,311,490,669,697];
+  const resD=[0,0,16,63,215,401,463];
+  const churPct=[null,81.9,85.2,87.7,81.1,81.4,null];
+  const maxAct=Math.max(...totals);
+  // Churn bars scaled by rate so height reflects %, not absolute count
+  const churD=churPct.map(p=>p!==null?-(p/100*maxAct):null);
+  const newPct=newD.map((v,i)=>totals[i]?Math.round(v/totals[i]*100):0);
+  const repPct=repD.map((v,i)=>totals[i]?Math.round(v/totals[i]*100):0);
+  const resPct=resD.map((v,i)=>totals[i]?Math.round(v/totals[i]*100):0);
+  // MoM % change (index i = change from month i-1 to i)
+  const mom=[null,'+367%','+189%','+2%','+39%','+19%','-19%'];
+  const momClr=[null,'#27ae60','#27ae60','#27ae60','#27ae60','#27ae60','#e74c3c'];
+
+  const momPlugin={
+    id:'momPlugin',
+    afterDraw(chart){
+      const ctx=chart.ctx;
+      const meta=chart.getDatasetMeta(0);
+      if(!meta||!meta.data.length) return;
+      ctx.save();
+      // Totals above each positive bar
+      ctx.font='bold 11px "Segoe UI",Arial,sans-serif';
+      ctx.textAlign='center';
+      ctx.fillStyle='#1a2454';
+      totals.forEach((t,i)=>{
+        const b=meta.data[i];
+        const y=chart.scales.y.getPixelForValue(t);
+        ctx.fillText(t.toLocaleString('es-AR'),b.x,y-5);
+      });
+      // MoM arrows between bars
+      ctx.font='bold 9px "Segoe UI",Arial,sans-serif';
+      for(let i=1;i<meta.data.length;i++){
+        if(!mom[i]) continue;
+        const pb=meta.data[i-1], cb=meta.data[i];
+        const mx=(pb.x+cb.x)/2;
+        const py=chart.scales.y.getPixelForValue(totals[i-1]);
+        const cy=chart.scales.y.getPixelForValue(totals[i]);
+        const ty=Math.min(py,cy)-18;
+        ctx.fillStyle=momClr[i];
+        const sign=mom[i].startsWith('-')?'▼ ':'▲ ';
+        ctx.fillText(sign+mom[i].replace(/[+\-]/,''),mx,ty);
+        // dashed connector
+        ctx.strokeStyle=momClr[i];
+        ctx.lineWidth=0.7;
+        ctx.setLineDash([2,3]);
+        ctx.beginPath();
+        ctx.moveTo(pb.x+pb.width/2*0.5,py-3);
+        ctx.lineTo(mx,ty+4);
+        ctx.lineTo(cb.x-cb.width/2*0.5,cy-3);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      ctx.restore();
+    }
+  };
+
+  new Chart(document.getElementById('c-lifecycle'),{
+    type:'bar',
+    plugins:[momPlugin],
+    data:{labels,datasets:[
+      {label:'New',data:newD,backgroundColor:'#4da6ff',stack:'act',
+        datalabels:{display:(c)=>newPct[c.dataIndex]>=12,
+          anchor:'center',align:'center',font:{size:9,weight:'bold'},color:'#fff',
+          formatter:(_,c)=>newPct[c.dataIndex]+'%'}},
+      {label:'Repeat',data:repD,backgroundColor:'#00c896',stack:'act',
+        datalabels:{display:(c)=>repPct[c.dataIndex]>=8,
+          anchor:'center',align:'center',font:{size:9,weight:'bold'},color:'#fff',
+          formatter:(_,c)=>repPct[c.dataIndex]+'%'}},
+      {label:'Resurrected',data:resD,backgroundColor:'#FFB700',stack:'act',
+        datalabels:{display:(c)=>resPct[c.dataIndex]>=6,
+          anchor:'center',align:'center',font:{size:9,weight:'bold'},color:'#1a2454',
+          formatter:(_,c)=>resPct[c.dataIndex]+'%'}},
+      {label:'No retornaron (churn)',data:churD,
+        backgroundColor:'rgba(220,80,80,0.5)',stack:'chu',
+        datalabels:{display:(c)=>c.raw!==null,
+          anchor:'center',align:'center',font:{size:9,weight:'bold'},color:'#fff',
+          formatter:(_,c)=>churPct[c.dataIndex]?churPct[c.dataIndex]+'%':''}}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      layout:{padding:{top:42}},
+      plugins:{
+        legend:{position:'bottom',labels:{font:{size:11},boxWidth:13,padding:10}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${Math.abs(c.raw||0).toLocaleString('es-AR')}`}}
+      },
+      scales:{
+        x:{stacked:true,grid:{display:false},ticks:{font:{size:11}}},
+        y:{stacked:true,grid:{color:'#f0f2f8'},
+          ticks:{font:{size:10},callback:v=>Math.abs(v).toLocaleString('es-AR')}}
+      }}
+  });
+})();
+
+// Slide 3: Churn 2 lines
+(function(){
+  new Chart(document.getElementById('c-churn'),{
+    type:'line',
+    data:{
+      labels:['Oct-25','Nov-25','Dic-25','Ene-26','Feb-26','Mar-26'],
+      datasets:[
+        {label:'Instore',data:[81.9,85.2,87.7,81.1,81.4,83.5],
+          borderColor:'#1a2454',backgroundColor:'rgba(26,36,84,.06)',
+          borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#1a2454',tension:.3,fill:false,
+          datalabels:{display:true,anchor:'top',align:'top',offset:5,font:{size:11,weight:'bold'},color:'#1a2454',formatter:v=>v+'%'}},
+        {label:'Super Full DRY (CPG + Beauty + Health)',data:[69.8,72.8,73.4,73.7,70.1,75.8],
+          borderColor:'#00c896',backgroundColor:'rgba(0,200,150,.06)',
+          borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#00c896',tension:.3,fill:false,
+          datalabels:{display:true,anchor:'bottom',align:'bottom',offset:5,font:{size:11,weight:'bold'},color:'#00a878',formatter:v=>v+'%'}}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{position:'bottom',labels:{font:{size:11},boxWidth:13,padding:10}},
+        annotation:{annotations:{
+          ref:{type:'line',yMin:70,yMax:70,borderColor:'rgba(0,180,130,.35)',borderWidth:1.5,borderDash:[5,4]}
+        }}
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:11}}},
+        y:{min:60,max:95,grid:{color:'#f0f2f8'},ticks:{font:{size:11},callback:v=>v+'%'}}
+      }}
+  });
+})();
+
+// Slide 4: Multiplier chart
+(function(){
+  new Chart(document.getElementById('c-onb'),{
+    type:'bar',
+    data:{
+      labels:['NMV en 90d','SKUs distintos\nen 90d','Órdenes\nen 90d','SKUs\n1ª compra','Ticket\n1ª compra'],
+      datasets:[{
+        label:'Onboarded es X× mayor que no onboarded',
+        data:[6.4,6.4,5.8,1.5,1.1],
+        backgroundColor:['#00c896','#00c896','#2ecc71','#FFB700','#f0d060'],
+        borderRadius:4,
+        datalabels:{display:true,anchor:'end',align:'end',offset:4,font:{size:12,weight:'bold'},color:'#1a2454',formatter:v=>v.toFixed(1)+'×'}
+      }]
+    },
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        annotation:{annotations:{
+          base:{type:'line',xMin:1,xMax:1,borderColor:'rgba(100,100,100,.4)',borderWidth:1.5,borderDash:[4,4]}
+        }}
+      },
+      scales:{
+        x:{min:0,max:8,grid:{color:'#f0f2f8'},ticks:{font:{size:10}},
+          title:{display:true,text:'× veces más que no onboarded (1× = igual)',font:{size:10},color:'#888'}},
+        y:{grid:{display:false},ticks:{font:{size:11}}}
+      }}
+  });
+})();
+
+// Slide 5: NSE
+(function(){
+  new Chart(document.getElementById('c-nse'),{
+    type:'bar',
+    data:{
+      labels:['Gold','Platinum','Silver','Bronze','Seller'],
+      datasets:[
+        {label:'Onboarded %',data:[28.4,24.9,18.3,14.0,13.8],backgroundColor:'#00c896',borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'end',font:{size:10,weight:'bold'},color:'#00a878',formatter:v=>v+'%'}},
+        {label:'No onboarded %',data:[26.4,37.7,14.7,12.1,8.4],backgroundColor:'#dde3ed',borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'end',font:{size:10},color:'#888',formatter:v=>v+'%'}}
+      ]
+    },
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:11,padding:7}},tooltip:{enabled:false}},
+      scales:{
+        x:{max:45,grid:{color:'#f0f2f8'},ticks:{font:{size:9},callback:v=>v+'%'}},
+        y:{grid:{display:false},ticks:{font:{size:11}}}
+      }}
+  });
+})();
+
+// Slide 5: Edad
+(function(){
+  new Chart(document.getElementById('c-edad'),{
+    type:'bar',
+    data:{
+      labels:['50 – 64','35 – 49','65 y más','18 – 34'],
+      datasets:[
+        {label:'Onboarded %',data:[28.0,25.3,21.5,13.5],backgroundColor:'#00c896',borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'end',font:{size:10,weight:'bold'},color:'#00a878',formatter:v=>v+'%'}},
+        {label:'No onboarded %',data:[23.6,37.4,11.6,21.4],backgroundColor:'#dde3ed',borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'end',font:{size:10},color:'#888',formatter:v=>v+'%'}}
+      ]
+    },
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:11,padding:7}},tooltip:{enabled:false}},
+      scales:{
+        x:{max:45,grid:{color:'#f0f2f8'},ticks:{font:{size:9},callback:v=>v+'%'}},
+        y:{grid:{display:false},ticks:{font:{size:11}}}
+      }}
+  });
+})();
+
+// Slide 5: Género
+(function(){
+  new Chart(document.getElementById('c-genero'),{
+    type:'bar',
+    data:{
+      labels:['Female','Male'],
+      datasets:[
+        {label:'Onboarded %',data:[68.1,31.9],backgroundColor:'#00c896',borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'end',font:{size:11,weight:'bold'},color:'#00a878',formatter:v=>v+'%'}},
+        {label:'No onboarded %',data:[58.7,41.3],backgroundColor:'#dde3ed',borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'end',font:{size:11},color:'#888',formatter:v=>v+'%'}}
+      ]
+    },
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:11,padding:7}},tooltip:{enabled:false}},
+      scales:{
+        x:{max:80,grid:{color:'#f0f2f8'},ticks:{font:{size:9},callback:v=>v+'%'}},
+        y:{grid:{display:false},ticks:{font:{size:12}}}
+      }}
+  });
+})();
+
+// ── Slide navigation ─────────────────────────────────────────
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const wrap   = document.querySelector('.slide-wrap');
+  const dotsEl = document.getElementById('nav-dots');
+  const lbl    = document.getElementById('nav-label');
+  const prev   = document.getElementById('btn-prev');
+  const next   = document.getElementById('btn-next');
+  let cur = 0;
+
+  // build dots
+  slides.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='ndot'+(i===0?' active':'');
+    d.onclick=()=>show(i);
+    dotsEl.appendChild(d);
+  });
+
+  function show(n){
+    slides[cur].classList.remove('active');
+    cur=n;
+    slides[cur].classList.add('active');
+    dotsEl.querySelectorAll('.ndot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+    lbl.textContent=(cur+1)+' / '+slides.length;
+    prev.disabled=cur===0;
+    next.disabled=cur===slides.length-1;
+    window.dispatchEvent(new Event('resize'));
+  }
+
+  // show first slide
+  slides[0].classList.add('active');
+  prev.disabled=true;
+
+  window.go=d=>show(Math.max(0,Math.min(slides.length-1,cur+d)));
+
+  // keyboard arrows
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowDown') go(1);
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp') go(-1);
+  });
+})();
+</script>
+</body>
+</html>
