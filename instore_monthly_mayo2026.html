@@ -195,7 +195,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
         <div style="flex:.58;display:flex;flex-direction:column;min-height:0">
           <div class="pctitle">Tasa de onboarding por cohorte</div>
           <div class="cbox" style="flex:1"><canvas id="c-onb-evol"></canvas></div>
-          <div style="font-size:9px;color:#aaa">Barras translúcidas: ventana de 90d parcialmente abierta o base pequeña (Oct-25 lanzamiento · Feb-26 cierra ~may-26 · Mar-26 cierra ~jun-26 · Abr-26 ~jul-26)</div>
+          <div style="font-size:9px;color:#aaa">Oct-25: mes de lanzamiento, base pequeña · * ventana de 90d parcialmente abierta: Feb-26 cierra ~may-26 · Mar-26 cierra ~jun-26 · Abr-26 cierra ~jul-26</div>
         </div>
       </div>
 
@@ -463,7 +463,7 @@ if(window['chartjs-plugin-annotation'])Chart.register(window['chartjs-plugin-ann
   new Chart(document.getElementById('c-onb-evol'),{
     type:'bar',
     data:{
-      labels:['Oct-25','Nov-25','Dic-25','Ene-26','Feb-26','Mar-26*','Abr-26*'],
+      labels:['Oct-25','Nov-25','Dic-25','Ene-26','Feb-26*','Mar-26*','Abr-26*'],
       datasets:[{
         label:'% onboarded',
         data:[7.6,3.9,3.4,4.1,2.3,1.1,0.4],
