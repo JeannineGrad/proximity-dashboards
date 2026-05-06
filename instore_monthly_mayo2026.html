@@ -179,27 +179,55 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
 <div class="slide">
   <div class="si">
     <span class="snum">5</span>
-    <div class="stitle">¿Quién onboarda?</div>
-    <div class="ssub">Perfil sociodemográfico — onboarded vs no onboarded · Base: oct-25 a feb-26 · 289 onboarded / 8.251 no onboarded · valores en %</div>
+    <div class="stitle">Perfil del buyer instore</div>
+    <div class="ssub">Comparación vs Marketplace MLA · base total oct-25 a abr-26</div>
     <div class="sdiv"></div>
-    <div class="pgrid">
-      <div class="pcol">
-        <div class="pctitle">Segmento NSE</div>
-        <div class="cbox" style="flex:1"><canvas id="c-nse"></canvas></div>
-        <div class="ibox g" style="margin-top:8px;font-size:11px">Gold lidera en onboarded (28.4%) · Platinum dominante en no onboarded (37.7%) — entra pero no repite</div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;min-height:0">
+
+      <!-- NSE -->
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div class="pctitle" style="align-self:flex-start">Segmento NSE</div>
+        <div style="flex:1;width:100%;position:relative;max-height:300px">
+          <canvas id="c-nse"></canvas>
+        </div>
+        <div style="margin-top:10px;text-align:center;width:100%">
+          <div style="font-size:32px;font-weight:900;color:#1a2454">39%</div>
+          <div style="font-size:12px;color:#555;margin-top:2px">Platinum en Instore</div>
+          <div style="font-size:11px;color:#aaa;margin-top:1px">vs 15% en Marketplace MLA</div>
+          <div class="ibox" style="margin-top:8px;font-size:11px;text-align:left">Canal de segmento alto — Platinum es 2.6× más frecuente que en marketplace</div>
+        </div>
       </div>
-      <div class="pcol">
-        <div class="pctitle">Rango etario</div>
-        <div class="cbox" style="flex:1"><canvas id="c-edad"></canvas></div>
-        <div class="ibox g" style="margin-top:8px;font-size:11px">65+ = 21.5% en onboarded vs 11.6% en no onboarded — casi el doble</div>
+
+      <!-- Edad -->
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div class="pctitle" style="align-self:flex-start">Rango etario</div>
+        <div style="flex:1;width:100%;position:relative;max-height:300px">
+          <canvas id="c-edad"></canvas>
+        </div>
+        <div style="margin-top:10px;text-align:center;width:100%">
+          <div style="font-size:32px;font-weight:900;color:#1a2454">40%</div>
+          <div style="font-size:12px;color:#555;margin-top:2px">tiene 50+ años en Instore</div>
+          <div style="font-size:11px;color:#aaa;margin-top:1px">vs 22% en Marketplace MLA</div>
+          <div class="ibox" style="margin-top:8px;font-size:11px;text-align:left">Comprador significativamente más adulto que el marketplace general</div>
+        </div>
       </div>
-      <div class="pcol">
-        <div class="pctitle">Género</div>
-        <div class="cbox" style="flex:1"><canvas id="c-genero"></canvas></div>
-        <div class="ibox g" style="margin-top:8px;font-size:11px">68.1% mujeres entre onboarded · +9.4pp vs no onboarded</div>
+
+      <!-- Género -->
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div class="pctitle" style="align-self:flex-start">Género</div>
+        <div style="flex:1;width:100%;position:relative;max-height:300px">
+          <canvas id="c-genero"></canvas>
+        </div>
+        <div style="margin-top:10px;text-align:center;width:100%">
+          <div style="font-size:32px;font-weight:900;color:#1a2454">63%</div>
+          <div style="font-size:12px;color:#555;margin-top:2px">mujeres en Instore</div>
+          <div style="font-size:11px;color:#aaa;margin-top:1px">vs 50% en Marketplace MLA</div>
+          <div class="ibox" style="margin-top:8px;font-size:11px;text-align:left">Sesgo de género claro — la compra de supermercado es marcadamente femenina</div>
+        </div>
       </div>
+
     </div>
-    <p class="ssrc">Fuente: LK_MP_MAUS_SEGMENTATION (snapshot ene-26) · LK_USER_GENDER · Solo female y male clasificados en género</p>
+    <p class="ssrc">Fuente: LK_MP_MAUS_SEGMENTATION (snapshot ene-26) · LK_USER_GENDER · Marketplace MLA sin filtro geográfico (orientativo)</p>
   </div>
 </div>
 
@@ -411,70 +439,32 @@ if(window['chartjs-plugin-annotation'])Chart.register(window['chartjs-plugin-ann
   });
 })();
 
-// Slide 5: NSE
+// Slide 5: NSE donut — Instore vs Marketplace
 (function(){
-  new Chart(document.getElementById('c-nse'),{
-    type:'bar',
-    data:{
-      labels:['Gold','Platinum','Silver','Bronze','Seller'],
-      datasets:[
-        {label:'Onboarded %',data:[28.4,24.9,18.3,14.0,13.8],backgroundColor:'#00c896',borderRadius:2,
-          datalabels:{display:true,anchor:'end',align:'end',font:{size:10,weight:'bold'},color:'#00a878',formatter:v=>v+'%'}},
-        {label:'No onboarded %',data:[26.4,37.7,14.7,12.1,8.4],backgroundColor:'#dde3ed',borderRadius:2,
-          datalabels:{display:true,anchor:'end',align:'end',font:{size:10},color:'#888',formatter:v=>v+'%'}}
-      ]
-    },
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:11,padding:7}},tooltip:{enabled:false}},
-      scales:{
-        x:{max:45,grid:{color:'#f0f2f8'},ticks:{font:{size:9},callback:v=>v+'%'}},
-        y:{grid:{display:false},ticks:{font:{size:11}}}
-      }}
+  const donutOpts=(labels,data,colors)=>({
+    type:'doughnut',
+    data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:2,borderColor:'#fff',
+      datalabels:{display:true,font:{size:11,weight:'bold'},color:'#fff',
+        formatter:(v,c)=>v>=8?v+'%':''}}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',
+      plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:12,padding:8}},
+        tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw}%`}}}}
   });
-})();
-
-// Slide 5: Edad
-(function(){
-  new Chart(document.getElementById('c-edad'),{
-    type:'bar',
-    data:{
-      labels:['50 – 64','35 – 49','65 y más','18 – 34'],
-      datasets:[
-        {label:'Onboarded %',data:[28.0,25.3,21.5,13.5],backgroundColor:'#00c896',borderRadius:2,
-          datalabels:{display:true,anchor:'end',align:'end',font:{size:10,weight:'bold'},color:'#00a878',formatter:v=>v+'%'}},
-        {label:'No onboarded %',data:[23.6,37.4,11.6,21.4],backgroundColor:'#dde3ed',borderRadius:2,
-          datalabels:{display:true,anchor:'end',align:'end',font:{size:10},color:'#888',formatter:v=>v+'%'}}
-      ]
-    },
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:11,padding:7}},tooltip:{enabled:false}},
-      scales:{
-        x:{max:45,grid:{color:'#f0f2f8'},ticks:{font:{size:9},callback:v=>v+'%'}},
-        y:{grid:{display:false},ticks:{font:{size:11}}}
-      }}
-  });
-})();
-
-// Slide 5: Género
-(function(){
-  new Chart(document.getElementById('c-genero'),{
-    type:'bar',
-    data:{
-      labels:['Female','Male'],
-      datasets:[
-        {label:'Onboarded %',data:[68.1,31.9],backgroundColor:'#00c896',borderRadius:2,
-          datalabels:{display:true,anchor:'end',align:'end',font:{size:11,weight:'bold'},color:'#00a878',formatter:v=>v+'%'}},
-        {label:'No onboarded %',data:[58.7,41.3],backgroundColor:'#dde3ed',borderRadius:2,
-          datalabels:{display:true,anchor:'end',align:'end',font:{size:11},color:'#888',formatter:v=>v+'%'}}
-      ]
-    },
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:11,padding:7}},tooltip:{enabled:false}},
-      scales:{
-        x:{max:80,grid:{color:'#f0f2f8'},ticks:{font:{size:9},callback:v=>v+'%'}},
-        y:{grid:{display:false},ticks:{font:{size:12}}}
-      }}
-  });
+  new Chart(document.getElementById('c-nse'), donutOpts(
+    ['Platinum','Gold','Silver','Bronze','Seller'],
+    [39.2, 25.6, 16.3, 10.2, 8.6],
+    ['#1a2454','#FFB700','#a0a8c0','#b87333','#4da6ff']
+  ));
+  new Chart(document.getElementById('c-edad'), donutOpts(
+    ['18 – 34','35 – 49','50 – 64','65 y más'],
+    [19.6, 34.5, 25.6, 14.0],
+    ['#4da6ff','#00c896','#FFB700','#1a2454']
+  ));
+  new Chart(document.getElementById('c-genero'), donutOpts(
+    ['Female','Male'],
+    [62.9, 37.1],
+    ['#e84393','#4da6ff']
+  ));
 })();
 
 // ── Slide navigation ─────────────────────────────────────────
