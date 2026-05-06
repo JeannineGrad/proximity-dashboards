@@ -186,7 +186,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
           <div style="background:#eef2ff;border-left:4px solid #4da6ff;border-radius:0 6px 6px 0;padding:12px 16px;flex:1;display:flex;flex-direction:column;justify-content:center">
           <div style="font-size:12px;color:#333;line-height:1.5">Buyer que alcanza <strong>5 o más compras</strong> dentro de los primeros <strong>90 días</strong> desde su primera compra en el canal.</div>
           <div style="margin-top:12px;display:flex;gap:16px">
-            <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:#4da6ff">3.4%</div><div style="font-size:10px;color:#888">tasa promedio</div></div>
+            <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:#4da6ff">3.9%</div><div style="font-size:10px;color:#888">oct-25 a ene-26 cerrados</div></div>
             <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:#FFB700">290</div><div style="font-size:10px;color:#888">buyers onboarded</div></div>
             <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:#00a878">6.5×</div><div style="font-size:10px;color:#888">más NMV 90d</div></div>
           </div>
@@ -199,57 +199,56 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
         </div>
       </div>
 
-      <!-- Fila inferior: grid unificado de 3 columnas para alineación exacta -->
-      <div style="display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:0 16px;flex:1;min-height:0;align-content:start">
+      <!-- Fila inferior: 3 columnas flex, alineación por flex:1 en cada fila -->
+      <div style="display:flex;gap:16px;flex:1;min-height:0">
 
-        <!-- Fila 1: Títulos -->
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-          <span class="pctitle" style="margin:0">Primera compra</span>
-          <span style="font-size:9px;color:#aaa"><span class="dot" style="background:#00c896;width:6px;height:6px"></span>Onb&nbsp;<span class="dot" style="background:#ccc;width:6px;height:6px"></span>No onb</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-          <span class="pctitle" style="margin:0">90 días (incl. 1ª compra)</span>
-          <span style="font-size:9px;color:#aaa"><span class="dot" style="background:#00c896;width:6px;height:6px"></span>Onb&nbsp;<span class="dot" style="background:#ccc;width:6px;height:6px"></span>No onb</span>
-        </div>
-        <div class="pctitle" style="margin-bottom:4px">Cadencia entre compras</div>
-
-        <!-- Fila 2: Header cadencia + primera fila datos -->
-        <div class="srow"><span class="slabel">Órdenes</span><div class="svals"><span class="sv onb">1</span><span class="sv no">1</span></div></div>
-        <div class="srow"><span class="slabel">Órdenes</span><div class="svals"><span class="sv onb">7.6</span><span class="sv no">1.3</span></div></div>
-        <div style="background:#f0f2f8;border-bottom:2px solid #e0e4f0;display:grid;grid-template-columns:1fr 34px 28px 28px 28px 28px;align-items:center;padding:0 8px;font-size:9.5px;font-weight:700;color:#555;height:100%">
-          <span>Grupo</span><span style="text-align:right">%</span><span style="text-align:right">1→2</span><span style="text-align:right">2→3</span><span style="text-align:right">3→4</span><span style="text-align:right">4→5</span>
-        </div>
-
-        <!-- Fila 3 -->
-        <div class="srow"><span class="slabel">Ticket</span><div class="svals"><span class="sv onb">$59.6k</span><span class="sv no">$54.0k</span></div></div>
-        <div class="srow"><span class="slabel">NMV acumulado</span><div class="svals"><span class="sv onb">$492k</span><span class="sv no">$75.5k</span></div></div>
-        <div style="background:#fef0f0;color:#c0392b;display:grid;grid-template-columns:1fr 34px 28px 28px 28px 28px;align-items:center;padding:8px 8px;font-size:11px;border-bottom:1px solid #f5d0d0">
-          <span>1 compra</span><span style="text-align:right;font-size:10px">75.1%</span><span style="text-align:right">—</span><span style="text-align:right">—</span><span style="text-align:right">—</span><span style="text-align:right">—</span>
-        </div>
-
-        <!-- Fila 4 -->
-        <div class="srow"><span class="slabel">SKUs</span><div class="svals"><span class="sv onb">8.3</span><span class="sv no">5.4</span></div></div>
-        <div class="srow"><span class="slabel">SKUs distintos</span><div class="svals"><span class="sv onb">47.7</span><span class="sv no">7.4</span></div></div>
-        <div style="background:#fff;display:grid;grid-template-columns:1fr 34px 28px 28px 28px 28px;align-items:center;padding:8px 8px;font-size:11px;border-bottom:1px solid #f0f2f5">
-          <span>2 compras</span><span style="text-align:right;font-size:10px">14.4%</span><span style="text-align:right">36d</span><span style="text-align:right">—</span><span style="text-align:right">—</span><span style="text-align:right">—</span>
-        </div>
-
-        <!-- Fila 5 -->
-        <div class="srow"><span class="slabel">Categorías</span><div class="svals"><span class="sv onb">2.0</span><span class="sv no">1.7</span></div></div>
-        <div class="srow"><span class="slabel">Categorías distintas</span><div class="svals"><span class="sv onb">3.9</span><span class="sv no">2.0</span></div></div>
-        <div style="background:#fff;display:grid;grid-template-columns:1fr 34px 28px 28px 28px 28px;align-items:center;padding:8px 8px;font-size:11px;border-bottom:1px solid #f0f2f5">
-          <span>3 a 4 compras</span><span style="text-align:right;font-size:10px">7.1%</span><span style="text-align:right">24d</span><span style="text-align:right">25d</span><span style="text-align:right">20d</span><span style="text-align:right">—</span>
-        </div>
-
-        <!-- Fila 6: última fila datos (cadencia incluye 5+ + callout) -->
-        <div></div>
-        <div></div>
-        <div style="display:flex;flex-direction:column">
-          <div style="background:#e8f8f2;color:#1a8a3a;font-weight:700;display:grid;grid-template-columns:1fr 34px 28px 28px 28px 28px;align-items:center;padding:8px 8px;font-size:11px">
-            <span>5+ compras</span><span style="text-align:right;font-size:10px">3.4%</span><span style="text-align:right">15d</span><span style="text-align:right">12d</span><span style="text-align:right">12d</span><span style="text-align:right">12d</span>
+        <!-- Primera compra -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="pctitle" style="margin:0">Primera compra</span>
+            <span style="font-size:9px;color:#aaa"><span class="dot" style="background:#00c896;width:6px;height:6px;vertical-align:middle"></span> Onb &nbsp;<span class="dot" style="background:#ccc;width:6px;height:6px;vertical-align:middle"></span> No onb</span>
           </div>
-          <div style="font-size:10px;color:#555;margin-top:5px;background:#fffbe6;border-left:3px solid #FFB700;padding:5px 8px;border-radius:0 3px 3px 0">
-            La cadencia se define desde la 2ª compra: onboarded vuelve en <strong>15d</strong> — el que solo llega a 2 tarda <strong>36d</strong>. El onboarded genera <strong style="color:#00a878">6.5× más NMV</strong>.
+          <div class="srow" style="flex:1"><span class="slabel">Órdenes</span><div class="svals"><span class="sv onb">1</span><span class="sv no">1</span></div></div>
+          <div class="srow" style="flex:1"><span class="slabel">Ticket</span><div class="svals"><span class="sv onb">$59.6k</span><span class="sv no">$54.0k</span></div></div>
+          <div class="srow" style="flex:1"><span class="slabel">SKUs</span><div class="svals"><span class="sv onb">8.3</span><span class="sv no">5.4</span></div></div>
+          <div class="srow" style="flex:1"><span class="slabel">Categorías</span><div class="svals"><span class="sv onb">2.0</span><span class="sv no">1.7</span></div></div>
+        </div>
+
+        <!-- 90 días -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="pctitle" style="margin:0">90 días (incl. 1ª compra)</span>
+            <span style="font-size:9px;color:#aaa"><span class="dot" style="background:#00c896;width:6px;height:6px;vertical-align:middle"></span> Onb &nbsp;<span class="dot" style="background:#ccc;width:6px;height:6px;vertical-align:middle"></span> No onb</span>
+          </div>
+          <div class="srow" style="flex:1"><span class="slabel">Órdenes</span><div class="svals"><span class="sv onb">7.6</span><span class="sv no">1.3</span></div></div>
+          <div class="srow" style="flex:1"><span class="slabel">NMV acumulado</span><div class="svals"><span class="sv onb">$492k</span><span class="sv no">$75.5k</span></div></div>
+          <div class="srow" style="flex:1"><span class="slabel">SKUs distintos</span><div class="svals"><span class="sv onb">47.7</span><span class="sv no">7.4</span></div></div>
+          <div class="srow" style="flex:1"><span class="slabel">Categorías distintas</span><div class="svals"><span class="sv onb">3.9</span><span class="sv no">2.0</span></div></div>
+        </div>
+
+        <!-- Cadencia -->
+        <div style="flex:1.5;display:flex;flex-direction:column;gap:5px">
+          <div class="pctitle" style="margin:0">Cadencia entre compras — días promedio</div>
+          <!-- Header cadencia: misma altura que título de arriba -->
+          <div style="background:#f0f2f8;border-bottom:2px solid #e0e4f0;display:grid;grid-template-columns:1fr 32px 26px 26px 26px 26px;align-items:center;padding:6px 8px;font-size:9.5px;font-weight:700;color:#555;flex:1">
+            <span>Grupo</span><span style="text-align:right">%</span><span style="text-align:right">1→2</span><span style="text-align:right">2→3</span><span style="text-align:right">3→4</span><span style="text-align:right">4→5</span>
+          </div>
+          <div style="background:#fef0f0;color:#c0392b;display:grid;grid-template-columns:1fr 32px 26px 26px 26px 26px;align-items:center;padding:6px 8px;font-size:11px;flex:1">
+            <span>1 compra</span><span style="text-align:right;font-size:10px">75%</span><span style="text-align:right">—</span><span style="text-align:right">—</span><span style="text-align:right">—</span><span style="text-align:right">—</span>
+          </div>
+          <div style="background:#f9f9f9;display:grid;grid-template-columns:1fr 32px 26px 26px 26px 26px;align-items:center;padding:6px 8px;font-size:11px;flex:1;border-bottom:1px solid #f0f2f5">
+            <span>2 compras</span><span style="text-align:right;font-size:10px">14%</span><span style="text-align:right">36d</span><span style="text-align:right">—</span><span style="text-align:right">—</span><span style="text-align:right">—</span>
+          </div>
+          <div style="background:#f9f9f9;display:grid;grid-template-columns:1fr 32px 26px 26px 26px 26px;align-items:center;padding:6px 8px;font-size:11px;flex:1;border-bottom:1px solid #f0f2f5">
+            <span>3 a 4 compras</span><span style="text-align:right;font-size:10px">7%</span><span style="text-align:right">24d</span><span style="text-align:right">25d</span><span style="text-align:right">20d</span><span style="text-align:right">—</span>
+          </div>
+          <div style="background:#e8f8f2;color:#1a8a3a;font-weight:700;display:flex;flex-direction:column;flex:1">
+            <div style="display:grid;grid-template-columns:1fr 32px 26px 26px 26px 26px;align-items:center;padding:6px 8px;font-size:11px;flex:1">
+              <span>5+ compras</span><span style="text-align:right;font-size:10px">3.9%</span><span style="text-align:right">15d</span><span style="text-align:right">12d</span><span style="text-align:right">12d</span><span style="text-align:right">12d</span>
+            </div>
+            <div style="font-size:9.5px;color:#555;font-weight:400;padding:4px 8px 6px;border-top:1px solid #c8eedd">
+              Onboarded vuelve en <strong>15d</strong> — el que llega a 2 tarda <strong>36d</strong>. Onboarded genera <strong style="color:#00a878">6.5× más NMV</strong>.
+            </div>
           </div>
         </div>
 
