@@ -433,27 +433,6 @@ if(window['chartjs-plugin-annotation'])Chart.register(window['chartjs-plugin-ann
   });
 })();
 
-// Slide 5: Misión 1ª compra (onboarded vs no onboarded)
-(function(){
-  new Chart(document.getElementById('c-onb-mision'),{
-    type:'bar',
-    data:{
-      labels:['Fill-in','Compra puntual','Semanal'],
-      datasets:[
-        {label:'Onboarded',data:[46.2,37.1,10.9],backgroundColor:'#00c896',borderRadius:2,
-          datalabels:{display:true,anchor:'end',align:'end',font:{size:9,weight:'bold'},color:'#00a878',formatter:v=>v+'%'}},
-        {label:'No onboarded',data:[62.3,25.9,6.3],backgroundColor:'#dde3ed',borderRadius:2,
-          datalabels:{display:true,anchor:'end',align:'end',font:{size:9},color:'#888',formatter:v=>v+'%'}}
-      ]
-    },
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10,padding:6}},tooltip:{enabled:false}},
-      scales:{
-        x:{max:75,grid:{color:'#f0f2f8'},ticks:{font:{size:8},callback:v=>v+'%'}},
-        y:{grid:{display:false},ticks:{font:{size:10}}}
-      }}
-  });
-})();
 
 // Slide 4 (old 5): barras comparativas Instore vs Marketplace
 (function(){
