@@ -195,7 +195,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
         <div style="flex:.58;display:flex;flex-direction:column;min-height:0">
           <div class="pctitle">Tasa de onboarding por cohorte</div>
           <div class="cbox" style="flex:1"><canvas id="c-onb-evol"></canvas></div>
-          <div style="font-size:9px;color:#aaa">* Mar-26 y Abr-26 ventana abierta — tasas provisorias · Oct-25 mes de lanzamiento, base pequeña</div>
+          <div style="font-size:9px;color:#aaa">Barras translúcidas: ventana de 90d parcialmente abierta o base pequeña (Oct-25 lanzamiento · Feb-26 cierra ~may-26 · Mar-26 cierra ~jun-26 · Abr-26 ~jul-26)</div>
         </div>
       </div>
 
@@ -228,9 +228,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
           <div class="srow"><span class="slabel">NMV acumulado</span><div class="svals"><span class="sv onb">$492k</span><span class="sv no">$75.5k</span></div></div>
           <div class="srow"><span class="slabel">SKUs distintos</span><div class="svals"><span class="sv onb">47.7</span><span class="sv no">7.4</span></div></div>
           <div class="srow"><span class="slabel">Categorías distintas</span><div class="svals"><span class="sv onb">3.9</span><span class="sv no">2.0</span></div></div>
-          <div class="srow hl" style="margin-top:6px">
-            <span class="slabel bold">El onboarded genera <span style="color:#00a878;font-size:15px">6.5×</span> más NMV</span>
-          </div>
         </div>
 
         <!-- Cadencia -->
@@ -271,7 +268,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
             </tbody>
           </table>
           <div style="font-size:10px;color:#555;margin-top:6px;background:#fffbe6;border-left:3px solid #FFB700;padding:5px 8px;border-radius:0 3px 3px 0">
-            La cadencia se define desde la 2ª compra: onboarded vuelve en <strong>15d</strong> — el que solo llega a 2 tarda <strong>36d</strong>.
+            La cadencia se define desde la 2ª compra: onboarded vuelve en <strong>15d</strong> — el que solo llega a 2 tarda <strong>36d</strong>. El onboarded genera <strong style="color:#00a878">6.5× más NMV</strong> en sus primeros 90 días.
           </div>
         </div>
 
@@ -470,7 +467,7 @@ if(window['chartjs-plugin-annotation'])Chart.register(window['chartjs-plugin-ann
       datasets:[{
         label:'% onboarded',
         data:[7.6,3.9,3.4,4.1,2.3,1.1,0.4],
-        backgroundColor:['rgba(0,200,150,.35)','#00c896','#00c896','#00c896','#00c896','rgba(0,200,150,.35)','rgba(0,200,150,.2)'],
+        backgroundColor:['rgba(0,200,150,.35)','#00c896','#00c896','#00c896','rgba(0,200,150,.35)','rgba(0,200,150,.35)','rgba(0,200,150,.2)'],
         borderRadius:3,
         datalabels:{display:true,anchor:'end',align:'end',offset:2,font:{size:10,weight:'bold'},color:'#1a2454',formatter:v=>v+'%'}
       }]
