@@ -202,32 +202,35 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
       <!-- Fila inferior: primera compra + 90d + cadencia -->
       <div style="display:flex;gap:16px;flex:1;min-height:0">
 
-        <!-- Primera compra -->
-        <div style="flex:1;display:flex;flex-direction:column">
-          <div class="pctitle">Primera compra</div>
-          <div style="font-size:10px;color:#aaa;margin-bottom:6px">Diferencia leve — la brecha aparece después</div>
-          <div class="slegend" style="justify-content:flex-start;margin-bottom:5px">
-            <span style="font-size:10px;color:#555"><span class="dot" style="background:#00c896"></span>Onboarded</span>
-            <span style="font-size:10px;color:#999;margin-left:8px"><span class="dot" style="background:#ccc"></span>No onboarded</span>
-          </div>
-          <div class="srow"><span class="slabel">Órdenes</span><div class="svals"><span class="sv onb">1</span><span class="sv no">1</span></div></div>
-          <div class="srow"><span class="slabel">Ticket</span><div class="svals"><span class="sv onb">$59.6k</span><span class="sv no">$54.0k</span></div></div>
-          <div class="srow"><span class="slabel">SKUs</span><div class="svals"><span class="sv onb">8.3</span><span class="sv no">5.4</span></div></div>
-          <div class="srow"><span class="slabel">Categorías</span><div class="svals"><span class="sv onb">2.0</span><span class="sv no">1.7</span></div></div>
-        </div>
+        <!-- Primera compra + 90 días en grid compartido -->
+        <div style="flex:2;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto auto auto auto;gap:0 16px">
 
-        <!-- 90 días -->
-        <div style="flex:1;display:flex;flex-direction:column">
-          <div class="pctitle">Primeros 90 días <span style="font-weight:400;text-transform:none;letter-spacing:0">(incl. 1ª compra)</span></div>
-          <div style="font-size:10px;color:#aaa;margin-bottom:6px">Acá aparece la brecha real</div>
-          <div class="slegend" style="justify-content:flex-start;margin-bottom:5px">
+          <!-- Títulos -->
+          <div class="pctitle">Primera compra</div>
+          <div class="pctitle">Primeros 90 días (incl. 1ª compra)</div>
+
+          <!-- Leyenda -->
+          <div class="slegend" style="justify-content:flex-start;margin-bottom:4px;grid-column:1 / -1">
             <span style="font-size:10px;color:#555"><span class="dot" style="background:#00c896"></span>Onboarded</span>
-            <span style="font-size:10px;color:#999;margin-left:8px"><span class="dot" style="background:#ccc"></span>No onboarded</span>
+            <span style="font-size:10px;color:#999;margin-left:12px"><span class="dot" style="background:#ccc"></span>No onboarded</span>
           </div>
+
+          <!-- Fila: Órdenes -->
+          <div class="srow"><span class="slabel">Órdenes</span><div class="svals"><span class="sv onb">1</span><span class="sv no">1</span></div></div>
           <div class="srow"><span class="slabel">Órdenes</span><div class="svals"><span class="sv onb">7.6</span><span class="sv no">1.3</span></div></div>
+
+          <!-- Fila: Ticket / NMV -->
+          <div class="srow"><span class="slabel">Ticket</span><div class="svals"><span class="sv onb">$59.6k</span><span class="sv no">$54.0k</span></div></div>
           <div class="srow"><span class="slabel">NMV acumulado</span><div class="svals"><span class="sv onb">$492k</span><span class="sv no">$75.5k</span></div></div>
+
+          <!-- Fila: SKUs -->
+          <div class="srow"><span class="slabel">SKUs</span><div class="svals"><span class="sv onb">8.3</span><span class="sv no">5.4</span></div></div>
           <div class="srow"><span class="slabel">SKUs distintos</span><div class="svals"><span class="sv onb">47.7</span><span class="sv no">7.4</span></div></div>
+
+          <!-- Fila: Categorías -->
+          <div class="srow"><span class="slabel">Categorías</span><div class="svals"><span class="sv onb">2.0</span><span class="sv no">1.7</span></div></div>
           <div class="srow"><span class="slabel">Categorías distintas</span><div class="svals"><span class="sv onb">3.9</span><span class="sv no">2.0</span></div></div>
+
         </div>
 
         <!-- Cadencia -->
