@@ -409,34 +409,6 @@ if(window['chartjs-plugin-annotation'])Chart.register(window['chartjs-plugin-ann
   });
 })();
 
-// Slide 4: Multiplier chart
-(function(){
-  new Chart(document.getElementById('c-onb'),{
-    type:'bar',
-    data:{
-      labels:['NMV en 90d','SKUs distintos\nen 90d','Órdenes\nen 90d','SKUs\n1ª compra','Ticket\n1ª compra'],
-      datasets:[{
-        label:'Onboarded es X× mayor que no onboarded',
-        data:[6.4,6.4,5.8,1.5,1.1],
-        backgroundColor:['#00c896','#00c896','#2ecc71','#FFB700','#f0d060'],
-        borderRadius:4,
-        datalabels:{display:true,anchor:'end',align:'end',offset:4,font:{size:12,weight:'bold'},color:'#1a2454',formatter:v=>v.toFixed(1)+'×'}
-      }]
-    },
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      plugins:{
-        legend:{display:false},
-        annotation:{annotations:{
-          base:{type:'line',xMin:1,xMax:1,borderColor:'rgba(100,100,100,.4)',borderWidth:1.5,borderDash:[4,4]}
-        }}
-      },
-      scales:{
-        x:{min:0,max:8,grid:{color:'#f0f2f8'},ticks:{font:{size:10}},
-          title:{display:true,text:'× veces más que no onboarded (1× = igual)',font:{size:10},color:'#888'}},
-        y:{grid:{display:false},ticks:{font:{size:11}}}
-      }}
-  });
-})();
 
 // Slide 5: Evolución onboarding por cohorte
 (function(){
