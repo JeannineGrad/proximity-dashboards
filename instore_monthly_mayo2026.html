@@ -176,29 +176,58 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
   <div class="si">
     <span class="snum">5</span>
     <div class="stitle">Onboarding: el buyer de alto valor</div>
-    <div class="ssub">El buyer que adopta el canal genera 6.4x más NMV en 90 días — la diferencia no está en la primera compra, sino en la recurrencia</div>
     <div class="sdiv"></div>
-    <div class="krow">
-      <div class="kcard"><div class="kval b">3.7%</div><div class="klbl">tasa promedio onboarding · oct-25 a feb-26</div></div>
-      <div class="kcard y"><div class="kval y">289</div><div class="klbl">buyers onboarded sobre 8.540 con ventana completa</div></div>
-      <div class="kcard g"><div class="kval g">6.4x</div><div class="klbl">NMV en 90d: $497k vs $77.6k</div></div>
-    </div>
-    <div class="carea" style="gap:28px">
-      <div class="cbox"><canvas id="c-onb"></canvas></div>
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
-        <div class="slegend">
-          <span style="font-size:11px;color:#555"><span class="dot" style="background:#00c896"></span>Onboarded</span>
-          <span style="font-size:11px;color:#999"><span class="dot" style="background:#ccc"></span>No onboarded</span>
+    <div style="flex:1;display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:20px;min-height:0">
+
+      <!-- Col 1: Definición + evolución -->
+      <div style="display:flex;flex-direction:column;min-height:0;gap:10px">
+        <div style="background:#eef2ff;border-left:4px solid #4da6ff;border-radius:0 6px 6px 0;padding:12px 14px">
+          <div style="font-size:11px;font-weight:700;color:#4361ee;text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px">¿Qué es onboarded?</div>
+          <div style="font-size:12px;color:#333;line-height:1.5">Buyer que alcanza <strong>5 o más compras</strong> dentro de los primeros <strong>90 días</strong> desde su primera compra en el canal.</div>
+          <div style="margin-top:8px;display:flex;gap:12px">
+            <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:#4da6ff">3.7%</div><div style="font-size:10px;color:#888">tasa promedio</div></div>
+            <div style="text-align:center"><div style="font-size:22px;font-weight:900;color:#FFB700">289</div><div style="font-size:10px;color:#888">buyers</div></div>
+          </div>
         </div>
-        <div class="srow"><span class="slabel">Órdenes en 90 días</span><div class="svals"><span class="sv onb">7.5</span><span class="sv no">1.3</span></div></div>
-        <div class="srow"><span class="slabel">NMV acumulado 90d</span><div class="svals"><span class="sv onb">$497k</span><span class="sv no">$78k</span></div></div>
-        <div class="srow"><span class="slabel">Ticket primera compra</span><div class="svals"><span class="sv onb">$62.7k</span><span class="sv no">$56.9k</span></div></div>
-        <div class="srow"><span class="slabel">SKUs primera compra</span><div class="svals"><span class="sv onb">8.5</span><span class="sv no">5.8</span></div></div>
-        <div class="srow"><span class="slabel">SKUs distintos en 90d</span><div class="svals"><span class="sv onb">49.2</span><span class="sv no">7.7</span></div></div>
-        <div class="srow hl"><span class="slabel bold">La brecha real aparece en los 90 días — no en la primera compra</span></div>
+        <div class="pctitle">Tasa mensual por cohorte</div>
+        <div class="cbox" style="flex:1"><canvas id="c-onb-evol"></canvas></div>
+        <div style="font-size:9.5px;color:#aaa">* Mar-26 y Abr-26: ventana de 90d aún abierta — tasas provisorias</div>
       </div>
+
+      <!-- Col 2: Primera compra -->
+      <div style="display:flex;flex-direction:column;min-height:0">
+        <div class="pctitle">Primera compra</div>
+        <div style="font-size:10px;color:#aaa;margin-bottom:8px">La primera compra diferencia poco — la señal está en la selección de misión</div>
+        <div class="slegend" style="justify-content:flex-start;margin-bottom:6px">
+          <span style="font-size:10px;color:#555"><span class="dot" style="background:#00c896"></span>Onboarded</span>
+          <span style="font-size:10px;color:#999;margin-left:8px"><span class="dot" style="background:#ccc"></span>No onboarded</span>
+        </div>
+        <div class="srow"><span class="slabel">Ticket</span><div class="svals"><span class="sv onb">$62.7k</span><span class="sv no">$56.9k</span></div></div>
+        <div class="srow"><span class="slabel">SKUs</span><div class="svals"><span class="sv onb">8.5</span><span class="sv no">5.8</span></div></div>
+        <div class="srow"><span class="slabel">Categorías</span><div class="svals"><span class="sv onb">2.0</span><span class="sv no">1.8</span></div></div>
+        <div style="margin-top:12px" class="pctitle">Misión en 1ª compra</div>
+        <div class="cbox" style="flex:1"><canvas id="c-onb-mision"></canvas></div>
+      </div>
+
+      <!-- Col 3: 90 días -->
+      <div style="display:flex;flex-direction:column;min-height:0">
+        <div class="pctitle">Siguientes 90 días</div>
+        <div style="font-size:10px;color:#aaa;margin-bottom:8px">Acá aparece la brecha real — el onboarded multiplica su actividad</div>
+        <div class="slegend" style="justify-content:flex-start;margin-bottom:6px">
+          <span style="font-size:10px;color:#555"><span class="dot" style="background:#00c896"></span>Onboarded</span>
+          <span style="font-size:10px;color:#999;margin-left:8px"><span class="dot" style="background:#ccc"></span>No onboarded</span>
+        </div>
+        <div class="srow"><span class="slabel">Órdenes</span><div class="svals"><span class="sv onb">7.5</span><span class="sv no">1.3</span></div></div>
+        <div class="srow"><span class="slabel">NMV acumulado</span><div class="svals"><span class="sv onb">$497k</span><span class="sv no">$78k</span></div></div>
+        <div class="srow"><span class="slabel">SKUs distintos</span><div class="svals"><span class="sv onb">49.2</span><span class="sv no">7.7</span></div></div>
+        <div class="srow"><span class="slabel">Categorías distintas</span><div class="svals"><span class="sv onb">3.8</span><span class="sv no">2.0</span></div></div>
+        <div class="srow hl" style="margin-top:8px">
+          <span class="slabel bold">El onboarded genera <span style="color:#00a878;font-size:16px">6.4×</span> más NMV en 90 días</span>
+        </div>
+      </div>
+
     </div>
-    <p class="ssrc">Onboarded = 5+ compras en primeros 90d · Oct-25 a Feb-26 cerrados · Mar-26 / Abr-26: ventana aún abierta</p>
+    <p class="ssrc">Onboarded = 5+ compras en primeros 90d · Cohortes oct-25 a feb-26 cerradas · LK_MP_MAUS_SEGMENTATION · LK_USER_GENDER</p>
   </div>
 </div>
 
@@ -410,7 +439,52 @@ if(window['chartjs-plugin-annotation'])Chart.register(window['chartjs-plugin-ann
   });
 })();
 
-// Slide 5: barras comparativas Instore vs Marketplace
+// Slide 5: Evolución onboarding por cohorte
+(function(){
+  new Chart(document.getElementById('c-onb-evol'),{
+    type:'bar',
+    data:{
+      labels:['Oct-25','Nov-25','Dic-25','Ene-26','Feb-26','Mar-26*','Abr-26*'],
+      datasets:[{
+        label:'% onboarded',
+        data:[7.6,3.9,3.4,4.1,2.3,1.1,0.4],
+        backgroundColor:['#00c896','#00c896','#00c896','#00c896','#00c896','rgba(0,200,150,.35)','rgba(0,200,150,.2)'],
+        borderRadius:3,
+        datalabels:{display:true,anchor:'end',align:'end',offset:2,font:{size:10,weight:'bold'},color:'#1a2454',formatter:v=>v+'%'}
+      }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{enabled:false}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:9}}},
+        y:{max:10,grid:{color:'#f0f2f8'},ticks:{font:{size:9},callback:v=>v+'%'}}
+      }}
+  });
+})();
+
+// Slide 5: Misión 1ª compra (onboarded vs no onboarded)
+(function(){
+  new Chart(document.getElementById('c-onb-mision'),{
+    type:'bar',
+    data:{
+      labels:['Fill-in','Compra puntual','Semanal'],
+      datasets:[
+        {label:'Onboarded',data:[46.2,37.1,10.9],backgroundColor:'#00c896',borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'end',font:{size:9,weight:'bold'},color:'#00a878',formatter:v=>v+'%'}},
+        {label:'No onboarded',data:[62.3,25.9,6.3],backgroundColor:'#dde3ed',borderRadius:2,
+          datalabels:{display:true,anchor:'end',align:'end',font:{size:9},color:'#888',formatter:v=>v+'%'}}
+      ]
+    },
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10,padding:6}},tooltip:{enabled:false}},
+      scales:{
+        x:{max:75,grid:{color:'#f0f2f8'},ticks:{font:{size:8},callback:v=>v+'%'}},
+        y:{grid:{display:false},ticks:{font:{size:10}}}
+      }}
+  });
+})();
+
+// Slide 4 (old 5): barras comparativas Instore vs Marketplace
 (function(){
   const barOpts=(labels,instore,mktplace,maxX)=>({
     type:'bar',
