@@ -338,7 +338,7 @@ if(window['chartjs-plugin-annotation'])Chart.register(window['chartjs-plugin-ann
   const newD=[188,844,2391,2223,2893,3223,2327];
   const repD=[0,34,130,311,490,669,697];
   const resD=[0,0,16,63,215,401,463];
-  const churPct=[null,81.9,85.2,87.7,81.1,81.4,null];
+  const churPct=[81.9,85.2,87.7,81.1,81.4,83.5,null];
   const maxAct=Math.max(...totals);
   // Churn bars scaled by rate so height reflects %, not absolute count
   const churD=churPct.map(p=>p!==null?-(p/100*maxAct):null);
