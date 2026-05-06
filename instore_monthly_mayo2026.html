@@ -234,43 +234,45 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
         </div>
 
         <!-- Cadencia -->
-        <div style="flex:1.5;display:flex;flex-direction:column">
+        <div style="flex:1.5;display:flex;flex-direction:column;min-height:0">
           <div class="pctitle">Cadencia entre compras — días promedio</div>
-          <table style="width:100%;border-collapse:collapse;font-size:11px;margin-top:6px">
-            <thead>
-              <tr style="background:#f0f2f8">
-                <th style="padding:6px 8px;text-align:left;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">Grupo (compras en 90d)</th>
-                <th style="padding:6px 8px;text-align:right;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">%</th>
-                <th style="padding:6px 8px;text-align:right;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">1→2</th>
-                <th style="padding:6px 8px;text-align:right;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">2→3</th>
-                <th style="padding:6px 8px;text-align:right;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">3→4</th>
-                <th style="padding:6px 8px;text-align:right;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">4→5</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="background:#fef0f0;color:#c0392b">
-                <td style="padding:6px 8px">1 compra</td>
-                <td style="padding:6px 8px;text-align:right">75.1%</td>
-                <td style="padding:6px 8px;text-align:right">—</td><td style="padding:6px 8px;text-align:right">—</td><td style="padding:6px 8px;text-align:right">—</td><td style="padding:6px 8px;text-align:right">—</td>
-              </tr>
-              <tr style="border-bottom:1px solid #f0f2f5">
-                <td style="padding:6px 8px">2 compras</td>
-                <td style="padding:6px 8px;text-align:right">14.4%</td>
-                <td style="padding:6px 8px;text-align:right">36d</td><td style="padding:6px 8px;text-align:right">—</td><td style="padding:6px 8px;text-align:right">—</td><td style="padding:6px 8px;text-align:right">—</td>
-              </tr>
-              <tr style="border-bottom:1px solid #f0f2f5">
-                <td style="padding:6px 8px">3 a 4 compras</td>
-                <td style="padding:6px 8px;text-align:right">7.1%</td>
-                <td style="padding:6px 8px;text-align:right">24d</td><td style="padding:6px 8px;text-align:right">25d</td><td style="padding:6px 8px;text-align:right">20d</td><td style="padding:6px 8px;text-align:right">—</td>
-              </tr>
-              <tr style="background:#e8f8f2;font-weight:700;color:#1a8a3a">
-                <td style="padding:6px 8px">5+ compras (onboarded)</td>
-                <td style="padding:6px 8px;text-align:right">3.4%</td>
-                <td style="padding:6px 8px;text-align:right">15d</td><td style="padding:6px 8px;text-align:right">12d</td><td style="padding:6px 8px;text-align:right">12d</td><td style="padding:6px 8px;text-align:right">12d</td>
-              </tr>
-            </tbody>
-          </table>
-          <div style="font-size:10px;color:#555;margin-top:6px;background:#fffbe6;border-left:3px solid #FFB700;padding:5px 8px;border-radius:0 3px 3px 0">
+          <div style="flex:1;display:flex;flex-direction:column;min-height:0;margin-top:6px">
+            <table style="width:100%;border-collapse:collapse;font-size:11px;flex:1;height:100%">
+              <thead>
+                <tr style="background:#f0f2f8">
+                  <th style="padding:6px 8px;text-align:left;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">Grupo (compras en 90d)</th>
+                  <th style="padding:6px 8px;text-align:right;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">%</th>
+                  <th style="padding:6px 8px;text-align:right;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">1→2</th>
+                  <th style="padding:6px 8px;text-align:right;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">2→3</th>
+                  <th style="padding:6px 8px;text-align:right;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">3→4</th>
+                  <th style="padding:6px 8px;text-align:right;font-size:10px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">4→5</th>
+                </tr>
+              </thead>
+              <tbody style="height:100%">
+                <tr style="background:#fef0f0;color:#c0392b">
+                  <td style="padding:10px 8px">1 compra</td>
+                  <td style="padding:10px 8px;text-align:right">75.1%</td>
+                  <td style="padding:10px 8px;text-align:right">—</td><td style="padding:10px 8px;text-align:right">—</td><td style="padding:10px 8px;text-align:right">—</td><td style="padding:10px 8px;text-align:right">—</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f0f2f5">
+                  <td style="padding:10px 8px">2 compras</td>
+                  <td style="padding:10px 8px;text-align:right">14.4%</td>
+                  <td style="padding:10px 8px;text-align:right">36d</td><td style="padding:10px 8px;text-align:right">—</td><td style="padding:10px 8px;text-align:right">—</td><td style="padding:10px 8px;text-align:right">—</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f0f2f5">
+                  <td style="padding:10px 8px">3 a 4 compras</td>
+                  <td style="padding:10px 8px;text-align:right">7.1%</td>
+                  <td style="padding:10px 8px;text-align:right">24d</td><td style="padding:10px 8px;text-align:right">25d</td><td style="padding:10px 8px;text-align:right">20d</td><td style="padding:10px 8px;text-align:right">—</td>
+                </tr>
+                <tr style="background:#e8f8f2;font-weight:700;color:#1a8a3a">
+                  <td style="padding:10px 8px">5+ compras (onboarded)</td>
+                  <td style="padding:10px 8px;text-align:right">3.4%</td>
+                  <td style="padding:10px 8px;text-align:right">15d</td><td style="padding:10px 8px;text-align:right">12d</td><td style="padding:10px 8px;text-align:right">12d</td><td style="padding:10px 8px;text-align:right">12d</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="font-size:10px;color:#555;margin-top:6px;background:#fffbe6;border-left:3px solid #FFB700;padding:5px 8px;border-radius:0 3px 3px 0;flex-shrink:0">
             La cadencia se define desde la 2ª compra: onboarded vuelve en <strong>15d</strong> — el que solo llega a 2 tarda <strong>36d</strong>. El onboarded genera <strong style="color:#00a878">6.5× más NMV</strong> en sus primeros 90 días.
           </div>
         </div>
