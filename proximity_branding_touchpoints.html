@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Proximity — Relevamiento Touchpoints</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a2e;font-size:13px}
+.page{max-width:940px;margin:28px auto;padding:32px;background:#fff;box-shadow:0 2px 16px rgba(0,0,0,.1);border-radius:8px}
+
+h1{font-size:19px;font-weight:800;color:#1a2454;margin-bottom:4px}
+.sub{font-size:11.5px;color:#888;margin-bottom:22px}
+
+/* Bloque priority */
+.bloque{margin-bottom:6px}
+.bloque-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;padding:3px 10px;border-radius:10px;display:inline-block;margin-bottom:10px}
+.bloque-label.critico{background:#1a2454;color:#fff}
+.bloque-label.fase2{background:#9e9e9e;color:#fff}
+.bloque-divider{border:none;border-top:2px dashed #c5cae9;margin:28px 0 20px}
+
+/* Collapsible section */
+details{margin-bottom:6px;border-radius:6px;overflow:hidden;border:1px solid #e8eaf0}
+details[open]{border-color:#c5cae9}
+summary{
+  cursor:pointer;
+  user-select:none;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  font-size:12px;
+  font-weight:800;
+  color:#fff;
+  list-style:none;
+  position:relative;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:'▸';
+  position:absolute;
+  right:14px;
+  font-size:11px;
+  opacity:.7;
+  transition:transform .2s;
+}
+details[open] summary::after{transform:rotate(90deg)}
+
+/* Section colors */
+summary.s-app{background:#1565c0}
+summary.s-store{background:#2e7d32}
+summary.s-riders{background:#e65100}
+summary.s-pickers{background:#6a1b9a}
+summary.s-pack{background:#00695c}
+summary.s-ooh{background:#283593}
+summary.s-hunt{background:#b71c1c}
+summary.s-digital{background:#1a237e}
+summary.s-seller{background:#00695c}
+summary.s-int{background:#1b5e20}
+summary.s-ops{background:#37474f}
+summary.s-sellerapp{background:#2c3e6e}
+.fase2 summary{opacity:.8}
+
+/* Table */
+table{width:100%;border-collapse:collapse}
+thead tr{background:#f5f6fb}
+thead th{padding:6px 10px;text-align:left;font-size:10.5px;font-weight:700;color:#666;border-bottom:2px solid #e0e4f0;white-space:nowrap}
+thead th.tc{text-align:center;width:48px}
+tbody tr{border-bottom:1px solid #f0f2f5}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#fafbff}
+td{padding:7px 10px;vertical-align:middle}
+td.tp{font-weight:600;color:#1a2454;font-size:12.5px;width:27%}
+td.desc{font-size:11.5px;color:#666}
+/* Editable cells */
+[contenteditable]{outline:none;border-radius:3px;padding:2px 4px;margin:-2px -4px;transition:background .15s}
+[contenteditable]:hover{background:#f0f4ff;cursor:text}
+[contenteditable]:focus{background:#e8f0ff;box-shadow:0 0 0 2px #4da6ff44}
+/* Delete row button */
+.del-btn{background:none;border:none;color:#ddd;font-size:14px;cursor:pointer;padding:0 4px;line-height:1;transition:color .15s}
+.del-btn:hover{color:#e94560}
+td.del-col{width:28px;text-align:center}
+/* Add row button */
+.add-row{display:block;width:100%;padding:5px;background:#f8f9fc;border:1.5px dashed #c5cae9;color:#888;font-size:11px;cursor:pointer;text-align:center;border-radius:0 0 4px 4px;transition:background .15s}
+.add-row:hover{background:#eef2ff;color:#4361ee;border-color:#9fa8da}
+/* Links cell */
+td.links-cell{font-size:11px;vertical-align:middle;min-width:140px}
+td.links-cell .link-list{display:flex;flex-direction:column;gap:3px}
+td.links-cell a{color:#4361ee;text-decoration:none;font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px;display:block}
+td.links-cell a:hover{text-decoration:underline}
+.add-link-btn{background:none;border:1px dashed #c5cae9;color:#aaa;font-size:10px;padding:2px 6px;border-radius:4px;cursor:pointer;width:100%;text-align:left;margin-top:2px;transition:all .15s}
+.add-link-btn:hover{border-color:#9fa8da;color:#4361ee;background:#f0f4ff}
+td.tc{text-align:center}
+
+/* Audience badges */
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.buyer{background:#e3f0ff;color:#1565c0}
+.seller{background:#fff8e1;color:#e65100}
+.ambos{background:#e8f5e9;color:#2e7d32}
+.ops-badge{background:#f3e5f5;color:#6a1b9a}
+
+/* Vertical checkboxes */
+.vert-cb{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+.vert-cb input[type=checkbox]{display:none}
+.vert-tile{
+  width:28px;height:22px;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;color:#fff;
+  cursor:pointer;
+  transition:opacity .15s, transform .1s;
+  opacity:.25;
+  user-select:none;
+}
+.vert-tile:hover{opacity:.6}
+.vert-cb input:checked ~ .vert-tile{opacity:1;transform:scale(1.05)}
+.tile-food{background:#00a878}
+.tile-instore{background:#1a2454}
+.tile-gm{background:#e6a800}
+.tile-ds{background:#7b1fa2}
+
+.verts-head{display:flex;gap:4px;justify-content:center}
+.verts-head span{font-size:8px;font-weight:800;color:#999;text-align:center;width:28px}
+
+/* Legend */
+.legend{display:flex;gap:14px;margin-bottom:20px;flex-wrap:wrap;padding:10px 14px;background:#f8f9fc;border-radius:6px;align-items:center}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:#555}
+.leg-tile{width:22px;height:18px;border-radius:3px;font-size:8px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center}
+
+.sec-note{font-size:11px;color:#888;font-style:italic;padding:10px 14px 4px;background:#fafbff}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Proximity — Relevamiento Touchpoints</h1>
+  <div class="sub">Mapa de aplicaciones donde se necesita definición de nombre · Tildar verticales que aplican a cada touchpoint</div>
+
+  <div class="legend">
+    <div class="leg"><div class="leg-tile tile-food">F</div> Food</div>
+    <div class="leg"><div class="leg-tile tile-instore">I</div> Instore</div>
+    <div class="leg"><div class="leg-tile tile-gm">G</div> GM</div>
+    <div class="leg"><div class="leg-tile tile-ds">D</div> Dark Stores</div>
+    <div style="width:1px;background:#ddd;height:18px;margin:0 4px"></div>
+    <div class="leg"><span class="badge buyer">Buyer</span> Comprador</div>
+    <div class="leg"><span class="badge seller">Seller</span> Vendedor / local</div>
+    <div class="leg"><span class="badge ambos">Ambos</span> Los dos</div>
+    <div class="leg"><span class="badge ops-badge">Ops</span> Operativo interno</div>
+  </div>
+
+  <!-- Helper: vertical headers macro -->
+  <!-- Each table has: Touchpoint | Descripción | Audiencia | F | I | G | D -->
+
+  <div class="bloque">
+    <span class="bloque-label critico">● Prioridad — definición de nombre antes del lanzamiento</span>
+
+    <!-- IN-APP BUYER -->
+    <details open>
+      <summary class="s-app">📱 In-App — Experiencia del comprador</summary>
+      <table>
+        <thead><tr>
+          <th>Touchpoint</th><th>Descripción</th>
+          <th style="width:76px">Audiencia</th>
+          <th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th><th style="width:160px;font-size:10px">Referencias / Links</th><th class="del-col"></th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="tp" contenteditable="true">Splash / loading screen</td><td class="desc" contenteditable="true">Pantalla de carga al abrir el canal en la app</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Banner en home (real estate)</td><td class="desc" contenteditable="true">Módulo de entrada al canal desde la home de MeLi</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Botón de acceso rápido / ícono</td><td class="desc" contenteditable="true">Shortcut en la home para entrar directo al canal</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Logo en resultados de búsqueda</td><td class="desc" contenteditable="true">Identificación del canal en los listados de ítems</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Logo en VIP (ficha de producto)</td><td class="desc" contenteditable="true">Badge del canal en la página del ítem</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Carrito y checkout</td><td class="desc" contenteditable="true">Nombre y logo durante el proceso de compra</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Confirmación de pedido + tracking</td><td class="desc" contenteditable="true">Pantalla post-compra y seguimiento del pedido</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Notificaciones push</td><td class="desc" contenteditable="true">"Tu pedido de [canal] está en camino"</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        </tbody>
+      </table>
+    </details>
+
+    <!-- IN-STORE -->
+    <details open>
+      <summary class="s-store">🏪 In-Store / Punto de venta</summary>
+      <table>
+        <thead><tr><th>Touchpoint</th><th>Descripción</th><th style="width:76px">Audiencia</th><th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th></tr></thead>
+        <tbody>
+          <tr><td class="tp" contenteditable="true">Cartelería exterior (fachada)</td><td class="desc" contenteditable="true">Logo / sticker en vidriera o puerta del local</td><td><span class="badge ambos">Ambos</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Cartelería interior</td><td class="desc" contenteditable="true">Señalética dentro del local identificando el canal</td><td><span class="badge ambos">Ambos</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Señalética de sección / góndola</td><td class="desc" contenteditable="true">Identificación de productos del canal en la góndola</td><td><span class="badge ambos">Ambos</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Display / material POP</td><td class="desc" contenteditable="true">Material en mostrador o punto de venta para awareness</td><td><span class="badge ambos">Ambos</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        </tbody>
+      </table>
+    </details>
+
+    <!-- RIDERS -->
+    <details open>
+      <summary class="s-riders">🛵 Riders (delivery)</summary>
+      <table>
+        <thead><tr><th>Touchpoint</th><th>Descripción</th><th style="width:76px">Audiencia</th><th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th></tr></thead>
+        <tbody>
+          <tr><td class="tp" contenteditable="true">Mochila de delivery</td><td class="desc" contenteditable="true">Bolso visible en recorrido y en la entrega al comprador</td><td><span class="badge ambos">Ambos</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Remera / campera</td><td class="desc" contenteditable="true">Uniforme del rider con nombre del canal</td><td><span class="badge ambos">Ambos</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Casco</td><td class="desc" contenteditable="true">Nombre / logo en casco de moto o bicicleta</td><td><span class="badge ambos">Ambos</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Vehículo (moto / bici)</td><td class="desc" contenteditable="true">Sticker o vinilo en el vehículo del rider</td><td><span class="badge ambos">Ambos</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        </tbody>
+      </table>
+    </details>
+
+    <!-- PACKAGING -->
+    <details open>
+      <summary class="s-pack">🛍️ Packaging / Material de entrega</summary>
+      <table>
+        <thead><tr><th>Touchpoint</th><th>Descripción</th><th style="width:76px">Audiencia</th><th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th></tr></thead>
+        <tbody>
+          <tr><td class="tp" contenteditable="true">Bolsa de entrega al comprador</td><td class="desc" contenteditable="true">Bolsa que recibe el buyer con el pedido</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Caja de packaging</td><td class="desc" contenteditable="true">Caja para ítems que lo requieran</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Sticker de sellado</td><td class="desc" contenteditable="true">Sticker con nombre para cerrar la bolsa</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Etiqueta de envío</td><td class="desc" contenteditable="true">Label con datos de envío e identidad del canal</td><td><span class="badge ambos">Ambos</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        </tbody>
+      </table>
+    </details>
+
+    <!-- VÍA PÚBLICA -->
+    <details open>
+      <summary class="s-ooh">🏙️ Vía pública / OOH</summary>
+      <table>
+        <thead><tr><th>Touchpoint</th><th>Descripción</th><th style="width:76px">Audiencia</th><th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th></tr></thead>
+        <tbody>
+          <tr><td class="tp" contenteditable="true">Cartel en vía pública</td><td class="desc" contenteditable="true">Publicidad exterior en calles y avenidas</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Fachada exterior del local</td><td class="desc" contenteditable="true">Cartelería visible desde la calle en el local partner</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Mural / gigantografía</td><td class="desc" contenteditable="true">Comunicación de gran formato en zonas de lanzamiento</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        </tbody>
+      </table>
+    </details>
+
+    <!-- MATERIAL DE HUNTING -->
+    <details open>
+      <summary class="s-hunt">🎯 Material de hunting (captación de sellers)</summary>
+      <table>
+        <thead><tr><th>Touchpoint</th><th>Descripción</th><th style="width:76px">Audiencia</th><th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th></tr></thead>
+        <tbody>
+          <tr><td class="tp" contenteditable="true">One-pager de valor para el seller</td><td class="desc" contenteditable="true">Documento de 1 hoja con la propuesta de valor del canal</td><td><span class="badge seller">Seller</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Deck de presentación</td><td class="desc" contenteditable="true">Presentación para reuniones de captación de sellers</td><td><span class="badge seller">Seller</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Kit impreso de hunting</td><td class="desc" contenteditable="true">Material físico que deja el equipo comercial en la visita</td><td><span class="badge seller">Seller</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Landing page para sellers</td><td class="desc" contenteditable="true">Página de captación online para nuevos sellers</td><td><span class="badge seller">Seller</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Manual de operaciones del seller</td><td class="desc" contenteditable="true">Guía de cómo funciona el canal — qué hace el seller al recibir un pedido</td><td><span class="badge seller">Seller</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        </tbody>
+      </table>
+    </details>
+
+    <!-- COMUNICACIÓN DIGITAL -->
+    <details open>
+      <summary class="s-digital">📧 Comunicación digital al comprador</summary>
+      <table>
+        <thead><tr><th>Touchpoint</th><th>Descripción</th><th style="width:76px">Audiencia</th><th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th></tr></thead>
+        <tbody>
+          <tr><td class="tp" contenteditable="true">Email de confirmación y tracking</td><td class="desc" contenteditable="true">Mails transaccionales con nombre del canal</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+          <tr><td class="tp" contenteditable="true">Campañas de marketing y paid media</td><td class="desc" contenteditable="true">Creatividades para redes sociales, email marketing, banners</td><td><span class="badge buyer">Buyer</span></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+            <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        </tbody>
+      </table>
+    </details>
+  </div>
+
+  <!-- ═══ BLOQUE 2: SEGUNDO PLANO ══════════════════════════ -->
+  <hr class="bloque-divider">
+  <span class="bloque-label fase2">○ Fase 2 — producto, tech y ops</span>
+
+  <details>
+    <summary class="s-pickers">📦 Pickers (solo Instore)</summary>
+    <table>
+      <thead><tr><th>Touchpoint</th><th>Descripción</th><th style="width:76px">Audiencia</th><th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th></tr></thead>
+      <tbody>
+        <tr><td class="tp" contenteditable="true">Remera / uniforme</td><td class="desc" contenteditable="true">Ropa de trabajo del picker en el local</td><td><span class="badge seller">Seller</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-ds">D</div></label></td></tr>
+        <tr><td class="tp" contenteditable="true">Credencial / badge</td><td class="desc" contenteditable="true">Identificación personal del picker</td><td><span class="badge ops-badge">Ops</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-ds">D</div></label></td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details>
+    <summary class="s-seller">🖥️ Central del Vendedor</summary>
+    <div class="sec-note">Relevante pero puede resolverse con lineamientos generales en una primera instancia.</div>
+    <table>
+      <thead><tr><th>Touchpoint</th><th>Descripción</th><th style="width:76px">Audiencia</th><th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th></tr></thead>
+      <tbody>
+        <tr><td class="tp" contenteditable="true">Seller Center — sección Proximity</td><td class="desc" contenteditable="true">Tab o módulo del canal dentro del panel de administración</td><td><span class="badge seller">Seller</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        <tr><td class="tp" contenteditable="true">Tablero de métricas y ventas</td><td class="desc" contenteditable="true">Dashboard de performance del seller en el canal</td><td><span class="badge seller">Seller</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        <tr><td class="tp" contenteditable="true">Gestión de catálogo, inventario y órdenes</td><td class="desc" contenteditable="true">Pantallas de operación diaria del seller</td><td><span class="badge seller">Seller</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        <tr><td class="tp" contenteditable="true">Facturación, campañas y anuncios</td><td class="desc" contenteditable="true">Módulos financieros y de marketing del seller</td><td><span class="badge seller">Seller</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details>
+    <summary class="s-int">🔌 Integradores y canales técnicos</summary>
+    <table>
+      <thead><tr><th>Touchpoint</th><th>Descripción</th><th style="width:76px">Audiencia</th><th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th></tr></thead>
+      <tbody>
+        <tr><td class="tp" contenteditable="true">Plugin VTEX / Shopify / WooCommerce</td><td class="desc" contenteditable="true">Conector oficial del canal para plataformas de terceros</td><td><span class="badge seller">Seller</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        <tr><td class="tp" contenteditable="true">ERPs certificados</td><td class="desc" contenteditable="true">Identidad del canal en sistemas de gestión empresarial</td><td><span class="badge seller">Seller</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details>
+    <summary class="s-ops">⚙️ Apps operativas internas</summary>
+    <table>
+      <thead><tr><th>Touchpoint</th><th>Descripción</th><th style="width:76px">Audiencia</th><th class="tc">F</th><th class="tc">I</th><th class="tc">G</th><th class="tc">DS</th></tr></thead>
+      <tbody>
+        <tr><td class="tp" contenteditable="true">App del rider</td><td class="desc" contenteditable="true">Interfaz del repartidor para gestionar entregas</td><td><span class="badge ops-badge">Ops</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+        <tr><td class="tp" contenteditable="true">App del picker</td><td class="desc" contenteditable="true">Interfaz para preparación de pedidos en el local</td><td><span class="badge ops-badge">Ops</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-ds">D</div></label></td></tr>
+        <tr><td class="tp" contenteditable="true">Dashboards operativos internos</td><td class="desc" contenteditable="true">Herramientas internas de gestión de operaciones</td><td><span class="badge ops-badge">Ops</span></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-food">F</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-instore">I</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-gm">G</div></label></td>
+          <td class="tc"><label class="vert-cb"><input type="checkbox" checked><div class="vert-tile tile-ds">D</div></label></td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <div style="margin-top:24px;font-size:10.5px;color:#aaa;border-top:1px solid #f0f2f5;padding-top:12px">
+    Proximity — Relevamiento Touchpoints · Jeannine Gradlmuller · Growth MercadoLibre Argentina · mayo 2026
+  </div>
+</div>
+
+<script>
+function makeLinkCell() {
+  var td = document.createElement('td');
+  td.className = 'links-cell';
+  var list = document.createElement('div');
+  list.className = 'link-list';
+  td.appendChild(list);
+  var btn = document.createElement('button');
+  btn.className = 'add-link-btn';
+  btn.textContent = '+ agregar link';
+  btn.addEventListener('click', function() {
+    var url = prompt('Pegá el link (Figma, PPT, Drive, etc.):');
+    if (!url) return;
+    if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+    var label = prompt('Nombre del link (ej: "Figma v1", "Deck Brasil"):', 'Link');
+    if (!label) label = url.replace(/^https?:\/\/(www\.)?/,'').split('/')[0];
+    var a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.title = url;
+    a.textContent = label;
+    list.appendChild(a);
+  });
+  td.appendChild(btn);
+  return td;
+}
+
+// Add links cell + delete button to every existing data row
+document.querySelectorAll('tbody tr').forEach(function(tr) {
+  tr.appendChild(makeLinkCell());
+  var td = document.createElement('td');
+  td.className = 'del-col';
+  td.innerHTML = '<button class="del-btn" title="Eliminar fila">×</button>';
+  td.querySelector('button').addEventListener('click', function() { tr.remove(); });
+  tr.appendChild(td);
+});
+
+document.querySelectorAll('details table').forEach(function(table) {
+  var btn = document.createElement('button');
+  btn.className = 'add-row';
+  btn.textContent = '+ Agregar touchpoint';
+  btn.addEventListener('click', function() {
+    var tbody = table.querySelector('tbody');
+    var firstRow = tbody.querySelector('tr');
+    // Count columns
+    var cols = firstRow ? firstRow.querySelectorAll('td').length : 7;
+    var tr = document.createElement('tr');
+    // tp cell
+    var tdTp = document.createElement('td');
+    tdTp.className = 'tp';
+    tdTp.contentEditable = true;
+    tdTp.textContent = 'Nuevo touchpoint';
+    tdTp.style.color = '#aaa';
+    tdTp.addEventListener('focus', function() { if (this.textContent === 'Nuevo touchpoint') { this.textContent = ''; this.style.color = ''; } });
+    tr.appendChild(tdTp);
+    // desc cell
+    var tdDesc = document.createElement('td');
+    tdDesc.className = 'desc';
+    tdDesc.contentEditable = true;
+    tdDesc.textContent = 'Descripción';
+    tdDesc.style.color = '#aaa';
+    tdDesc.addEventListener('focus', function() { if (this.textContent === 'Descripción') { this.textContent = ''; this.style.color = ''; } });
+    tr.appendChild(tdDesc);
+    // audience cell
+    var tdAud = document.createElement('td');
+    tdAud.innerHTML = '<span class="badge buyer">Buyer</span>';
+    tdAud.contentEditable = false;
+    tr.appendChild(tdAud);
+    // 4 vertical checkboxes
+    ['food','instore','gm','ds'].forEach(function(v) {
+      var labels = {food:'F',instore:'I',gm:'G',ds:'D'};
+      var tdV = document.createElement('td');
+      tdV.className = 'tc';
+      tdV.innerHTML = '<label class="vert-cb"><input type="checkbox"><div class="vert-tile tile-'+v+'">'+labels[v]+'</div></label>';
+      tr.appendChild(tdV);
+    });
+    // links cell
+    tr.appendChild(makeLinkCell());
+    // delete button
+    var tdDel = document.createElement('td');
+    tdDel.className = 'del-col';
+    tdDel.innerHTML = '<button class="del-btn" title="Eliminar fila">×</button>';
+    tdDel.querySelector('button').addEventListener('click', function() { tr.remove(); });
+    tr.appendChild(tdDel);
+    tbody.appendChild(tr);
+    tdTp.focus();
+    // select all text
+    var range = document.createRange();
+    range.selectNodeContents(tdTp);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  });
+  table.parentElement.insertBefore(btn, table.nextSibling);
+});
+</script>
+</body>
+</html>
