@@ -43,8 +43,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a2e;fo
 .cat-meta{font-size:10.5px;color:#888;width:100px;text-align:right;flex-shrink:0}
 
 /* Price dist */
-.price-bars{display:flex;gap:8px;align-items:flex-end;height:80px;margin-bottom:4px}.p-col{flex:1;display:flex;flex-direction:column;align-items:center}
-.p-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.price-bars{display:flex;gap:8px;align-items:flex-end;height:70px}.p-col{flex:1;display:flex;flex-direction:column;align-items:center}
 .p-bar{width:100%;background:#4da6ff;border-radius:3px 3px 0 0;min-height:4px}
 .p-lbl{font-size:9px;color:#888;text-align:center}
 .p-n{font-size:10px;font-weight:700;color:#1a2454}
@@ -308,12 +307,19 @@ function renderPrices(p, total, note) {
   var max = Math.max.apply(null, p);
   var html = '';
   p.forEach(function(n,i) {
-    var h = Math.round(n/max*100);
-    html += '<div class="p-col"><div class="p-n">'+n.toLocaleString('es-AR')+'</div><div class="p-bar" style="height:'+h+'px"></div><div class="p-lbl">'+labels[i]+'</div><div class="p-lbl">'+Math.round(n*100/total,1)+'%</div></div>';
+    var h = Math.max(Math.round(n/max*66),3);
+    var pct = (Math.round(n*100/total*10)/10) + '%';
+    html += '<div class="p-col">';
+    html += '<div class="p-bar" style="height:' + h + 'px"></div>';
+    html += '<div style="font-size:9px;color:#888;margin-top:4px;text-align:center">' + labels[i] + '</div>';
+    html += '<div style="font-size:10.5px;font-weight:700;color:#1a2454;text-align:center">' + n.toLocaleString('es-AR') + '</div>';
+    html += '<div style="font-size:9px;color:#aaa;text-align:center">' + pct + '</div>';
+    html += '</div>';
   });
   document.getElementById('price-bars').innerHTML = html;
   document.getElementById('price-note').textContent = note;
 }
+
 
 function renderItems() {
   var d = DATA[currentList];
@@ -609,6 +615,7 @@ function switchTab(id, btn) {
 </script>
 </body>
 </html>
+
 
 
 
