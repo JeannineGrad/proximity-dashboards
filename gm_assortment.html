@@ -305,20 +305,25 @@ function renderCats(cats, total) {
 function renderPrices(p, total, note) {
   var labels = ['< R$50','R$50-100','R$100-200','R$200-500','> R$500'];
   var max = Math.max.apply(null, p);
-  var html = '';
+  // Two separate rows: bars row + labels row
+  var bars = '<div style="display:flex;gap:6px;align-items:flex-end;height:72px;margin-bottom:6px">';
+  var lbls = '<div style="display:flex;gap:6px">';
   p.forEach(function(n,i) {
-    var h = Math.max(Math.round(n/max*66),3);
+    var h = Math.max(Math.round(n/max*70), 3);
     var pct = (Math.round(n*100/total*10)/10) + '%';
-    html += '<div class="p-col">';
-    html += '<div class="p-bar" style="height:' + h + 'px"></div>';
-    html += '<div style="font-size:9px;color:#888;margin-top:4px;text-align:center">' + labels[i] + '</div>';
-    html += '<div style="font-size:10.5px;font-weight:700;color:#1a2454;text-align:center">' + n.toLocaleString('es-AR') + '</div>';
-    html += '<div style="font-size:9px;color:#aaa;text-align:center">' + pct + '</div>';
-    html += '</div>';
+    bars += '<div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:' + h + 'px"></div>';
+    lbls += '<div style="flex:1;text-align:center">';
+    lbls += '<div style="font-size:9px;color:#888;line-height:1.3">' + labels[i] + '</div>';
+    lbls += '<div style="font-size:10.5px;font-weight:700;color:#1a2454">' + n.toLocaleString('es-AR') + '</div>';
+    lbls += '<div style="font-size:9px;color:#aaa">' + pct + '</div>';
+    lbls += '</div>';
   });
-  document.getElementById('price-bars').innerHTML = html;
+  bars += '</div>';
+  lbls += '</div>';
+  document.getElementById('price-bars').innerHTML = bars + lbls;
   document.getElementById('price-note').textContent = note;
 }
+
 
 
 function renderItems() {
@@ -615,6 +620,7 @@ function switchTab(id, btn) {
 </script>
 </body>
 </html>
+
 
 
 
