@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GM Proximity Brasil — Assortment</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a2e;font-size:13px;line-height:1.5}
+.page{max-width:960px;margin:28px auto;padding:0 20px 40px}
+
+/* Header */
+.header{background:#1a2454;color:#fff;border-radius:10px;padding:28px 36px;margin-bottom:24px}
+.header h1{font-size:22px;font-weight:900;margin-bottom:4px}
+.header .sub{font-size:13px;opacity:.6;margin-bottom:16px}
+.header .kpis{display:flex;gap:24px;flex-wrap:wrap}
+.kpi{text-align:center}
+.kpi .n{font-size:28px;font-weight:900;color:#FFB700}
+.kpi .l{font-size:10.5px;opacity:.65;margin-top:2px}
+
+/* Sections */
+.section{background:#fff;border-radius:8px;padding:24px 28px;margin-bottom:20px;box-shadow:0 1px 8px rgba(0,0,0,.07)}
+.section h2{font-size:14px;font-weight:800;color:#1a2454;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #f0f2f8}
+
+/* Category bars */
+.cat-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.cat-name{font-size:12px;color:#333;width:200px;flex-shrink:0;text-align:right}
+.bar-wrap{flex:1;background:#f0f2f8;border-radius:4px;height:18px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;background:#1a2454;display:flex;align-items:center;padding-left:6px}
+.bar-fill span{font-size:10px;color:#fff;font-weight:700;white-space:nowrap}
+.cat-meta{font-size:10.5px;color:#888;width:100px;text-align:right;flex-shrink:0}
+
+/* Price dist */
+.price-bars{display:flex;gap:8px;align-items:flex-end;height:100px;margin-bottom:8px}
+.p-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.p-bar{width:100%;background:#4da6ff;border-radius:3px 3px 0 0;min-height:4px}
+.p-lbl{font-size:9px;color:#888;text-align:center}
+.p-n{font-size:10px;font-weight:700;color:#1a2454}
+
+/* Table */
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead tr{background:#f5f6fb}
+thead th{padding:7px 10px;text-align:left;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0;white-space:nowrap}
+thead th.r{text-align:right}
+tbody tr{border-bottom:1px solid #f0f2f5}
+tbody tr:hover{background:#fafbff}
+td{padding:6px 10px;color:#444}
+td.r{text-align:right;font-variant-numeric:tabular-nums}
+td.cat{font-size:10.5px;color:#888}
+td.bold{font-weight:700;color:#1a2454}
+
+/* Download buttons */
+.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dl-card{border:1px solid #e0e4f0;border-radius:6px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.dl-card.main{border-color:#1a2454;background:#f5f7ff}
+.dl-card.excl{border-color:#e57373;background:#fff8f8}
+.dl-icon{font-size:22px;flex-shrink:0}
+.dl-info{flex:1}
+.dl-title{font-weight:700;font-size:12.5px;color:#1a2454;margin-bottom:2px}
+.dl-card.excl .dl-title{color:#c62828}
+.dl-desc{font-size:11px;color:#888}
+.dl-btn{display:inline-block;margin-top:6px;background:#1a2454;color:#fff;font-size:10.5px;font-weight:700;padding:4px 12px;border-radius:4px;text-decoration:none;cursor:pointer}
+.dl-card.excl .dl-btn{background:#c62828}
+.dl-btn:hover{opacity:.85}
+
+/* Seller coverage */
+.coverage-bar{background:#f0f2f8;border-radius:6px;height:22px;margin-bottom:4px;position:relative;overflow:hidden}
+.coverage-fill{height:100%;background:#00c896;border-radius:6px;display:flex;align-items:center;padding-left:8px}
+.coverage-fill span{font-size:10px;font-weight:700;color:#fff;white-space:nowrap}
+.coverage-lbl{font-size:10.5px;color:#888;margin-bottom:10px}
+
+.note{font-size:11px;color:#aaa;font-style:italic;margin-top:10px}
+.badge-green{background:#e8f5e9;color:#2e7d32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;display:inline-block}
+.badge-yellow{background:#fff8e1;color:#e65100;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;display:inline-block}
+.badge-red{background:#fce4ec;color:#b71c1c;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;display:inline-block}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="header">
+  <h1>GM Proximity Brasil — Assortment</h1>
+  <div class="sub">São Paulo · Lanzamiento 2026-06-06 · Análisis de ítems elegibles para entrega rápida</div>
+  <div class="kpis">
+    <div class="kpi"><div class="n">10.000</div><div class="l">ítems Lista GM</div></div>
+    <div class="kpi"><div class="n">25</div><div class="l">categorías</div></div>
+    <div class="kpi"><div class="n">≥1.100</div><div class="l">u/30d umbral</div></div>
+    <div class="kpi"><div class="n">≤40cm</div><div class="l">dimensión máx.</div></div>
+    <div class="kpi"><div class="n">≤15kg</div><div class="l">peso máx.</div></div>
+  </div>
+</div>
+
+<!-- CATEGORÍAS -->
+<div class="section">
+  <h2>Distribución por categoría — Lista GM (sin groceries)</h2>
+  <div class="two-col">
+    <div>
+      <div class="cat-bar"><div class="cat-name">Calçados, Roupas e Bolsas</div><div class="bar-wrap"><div class="bar-fill" style="width:19.6%"><span>19.6%</span></div></div><div class="cat-meta">1.958 items · 4.9M u</div></div>
+      <div class="cat-bar"><div class="cat-name">Casa, Móveis e Decoração</div><div class="bar-wrap"><div class="bar-fill" style="width:15.3%"><span>15.3%</span></div></div><div class="cat-meta">1.532 items · 3.3M u</div></div>
+      <div class="cat-bar"><div class="cat-name">Beleza e Cuidado Pessoal</div><div class="bar-wrap"><div class="bar-fill" style="width:11%;background:#e94560"><span>11%</span></div></div><div class="cat-meta">1.098 items · 2.7M u</div></div>
+      <div class="cat-bar"><div class="cat-name">Saúde</div><div class="bar-wrap"><div class="bar-fill" style="width:8.8%;background:#e94560"><span>8.8%</span></div></div><div class="cat-meta">878 items · 2.4M u</div></div>
+      <div class="cat-bar"><div class="cat-name">Esportes e Fitness</div><div class="bar-wrap"><div class="bar-fill" style="width:6.7%;background:#00c896"><span>6.7%</span></div></div><div class="cat-meta">666 items · 1.8M u</div></div>
+      <div class="cat-bar"><div class="cat-name">Celulares e Telefones</div><div class="bar-wrap"><div class="bar-fill" style="width:5.4%;background:#4da6ff"><span>5.4%</span></div></div><div class="cat-meta">535 items · 1.5M u</div></div>
+    </div>
+    <div>
+      <div class="cat-bar"><div class="cat-name">Acessórios para Veículos</div><div class="bar-wrap"><div class="bar-fill" style="width:4.5%;background:#9c27b0"><span>4.5%</span></div></div><div class="cat-meta">449 items · 839k u</div></div>
+      <div class="cat-bar"><div class="cat-name">Eletrodomésticos</div><div class="bar-wrap"><div class="bar-fill" style="width:4.3%;background:#ff9800"><span>4.3%</span></div></div><div class="cat-meta">433 items · 1.0M u</div></div>
+      <div class="cat-bar"><div class="cat-name">Ferramentas</div><div class="bar-wrap"><div class="bar-fill" style="width:3.8%;background:#607d8b"><span>3.8%</span></div></div><div class="cat-meta">379 items · 807k u</div></div>
+      <div class="cat-bar"><div class="cat-name">Informática</div><div class="bar-wrap"><div class="bar-fill" style="width:3.7%;background:#4da6ff"><span>3.7%</span></div></div><div class="cat-meta">370 items · 894k u</div></div>
+      <div class="cat-bar"><div class="cat-name">Construção</div><div class="bar-wrap"><div class="bar-fill" style="width:3.4%;background:#795548"><span>3.4%</span></div></div><div class="cat-meta">342 items · 662k u</div></div>
+      <div class="cat-bar"><div class="cat-name">Eletrônicos, Áudio e Vídeo</div><div class="bar-wrap"><div class="bar-fill" style="width:2.9%;background:#4da6ff"><span>2.9%</span></div></div><div class="cat-meta">288 items · 646k u</div></div>
+    </div>
+  </div>
+  <p class="note">Groceries excluidos de esta lista (Alimentos e Bebidas + Cuidado da Casa e Lavanderia) → cubiertos por Dark Store en ~3 meses</p>
+</div>
+
+<!-- PRECIO Y TOP ÍTEMS -->
+<div class="two-col">
+  <div class="section">
+    <h2>Distribución de precio</h2>
+    <div class="price-bars">
+      <div class="p-col"><div class="p-n">5.128</div><div class="p-bar" style="height:100px"></div><div class="p-lbl">&lt; R$50</div><div class="p-lbl">51.3%</div></div>
+      <div class="p-col"><div class="p-n">3.075</div><div class="p-bar" style="height:60px"></div><div class="p-lbl">R$50-100</div><div class="p-lbl">30.8%</div></div>
+      <div class="p-col"><div class="p-n">1.209</div><div class="p-bar" style="height:24px"></div><div class="p-lbl">R$100-200</div><div class="p-lbl">12.1%</div></div>
+      <div class="p-col"><div class="p-n">421</div><div class="p-bar" style="height:8px"></div><div class="p-lbl">R$200-500</div><div class="p-lbl">4.2%</div></div>
+      <div class="p-col"><div class="p-n">167</div><div class="p-bar" style="height:4px"></div><div class="p-lbl">&gt; R$500</div><div class="p-lbl">1.7%</div></div>
+    </div>
+    <p class="note">82% de los ítems cuesta menos de R$100 (~U$D 20) — assortment de consumo masivo y ticket accesible</p>
+  </div>
+
+  <div class="section">
+    <h2>Criterio de elegibilidad</h2>
+    <table>
+      <tbody>
+        <tr><td>Fuente de datos</td><td class="r bold">BT_ORD_ORDERS · MLB</td></tr>
+        <tr><td>Período de ventas</td><td class="r bold">Últimos 30 días</td></tr>
+        <tr><td>Umbral de demanda</td><td class="r bold">≥ 1.100 u/30d (~37/día)</td></tr>
+        <tr><td>Dimensión máxima</td><td class="r bold">40 × 40 × 40 cm</td></tr>
+        <tr><td>Peso máximo</td><td class="r bold">15 kg</td></tr>
+        <tr><td>Excluidos</td><td class="r bold">Digitales · Groceries</td></tr>
+        <tr><td>Universo elegible total</td><td class="r bold">208.497 ítems</td></tr>
+        <tr><td>Lista GM final</td><td class="r bold" style="color:#1a2454">10.000 ítems</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TOP ÍTEMS -->
+<div class="section">
+  <h2>Top 15 ítems por volumen de ventas (30 días)</h2>
+  <table>
+    <thead><tr><th>#</th><th>Ítem</th><th>Categoría</th><th class="r">Unidades/30d</th><th class="r">Precio prom. (R$)</th></tr></thead>
+    <tbody>
+      <tr><td class="bold">1</td><td>Creatina Monohidratada 250g Growth Supplements</td><td class="cat">Esportes e Fitness</td><td class="r bold">193.611</td><td class="r">38</td></tr>
+      <tr><td class="bold">2</td><td>Creatina Monohidratada Pura 1kg Dark Lab</td><td class="cat">Saúde</td><td class="r bold">69.753</td><td class="r">70</td></tr>
+      <tr><td class="bold">3</td><td>Creatina Monohidratada Em Pote 300g Dark Lab</td><td class="cat">Saúde</td><td class="r bold">64.051</td><td class="r">35</td></tr>
+      <tr><td class="bold">4</td><td>Camiseta Tech Light Insider Masculino</td><td class="cat">Calçados, Roupas e Bolsas</td><td class="r bold">63.077</td><td class="r">69</td></tr>
+      <tr><td class="bold">5</td><td>Creatina Monohidratada Pura 500g Dark Lab</td><td class="cat">Saúde</td><td class="r bold">60.896</td><td class="r">45</td></tr>
+      <tr><td class="bold">6</td><td>Creme Cicaplast Baume B5+ La Roche Posay 40ml</td><td class="cat">Beleza e Cuidado Pessoal</td><td class="r bold">46.665</td><td class="r">64</td></tr>
+      <tr><td class="bold">7</td><td>Kit Body Splash Masculino Barbarius E Midtown 200ml</td><td class="cat">Beleza e Cuidado Pessoal</td><td class="r bold">40.644</td><td class="r">75</td></tr>
+      <tr><td class="bold">8</td><td>Multivitamínico 120 Cáps. Growth Supplements</td><td class="cat">Saúde</td><td class="r bold">36.431</td><td class="r">48</td></tr>
+      <tr><td class="bold">9</td><td>Creatina Monohidratada 1kg Soldiers Nutrition</td><td class="cat">Esportes e Fitness</td><td class="r bold">36.115</td><td class="r">68</td></tr>
+      <tr><td class="bold">10</td><td>Creatina Monohidratada 500g Soldiers Nutrition</td><td class="cat">Esportes e Fitness</td><td class="r bold">34.684</td><td class="r">39</td></tr>
+      <tr><td class="bold">11</td><td>Balança Digital De Precisão 10kg Davely Cook</td><td class="cat">Eletrodomésticos</td><td class="r bold">32.137</td><td class="r">20</td></tr>
+      <tr><td class="bold">12</td><td>Capa Protetora Colchão Box Casal Matelado Impermeável</td><td class="cat">Casa, Móveis e Decoração</td><td class="r bold">31.137</td><td class="r">29</td></tr>
+      <tr><td class="bold">13</td><td>Conjunto Fitness Virginia Top Shorts Cintura Alta</td><td class="cat">Calçados, Roupas e Bolsas</td><td class="r bold">30.406</td><td class="r">35</td></tr>
+      <tr><td class="bold">14</td><td>Celular Samsung Galaxy A07 128gb</td><td class="cat">Celulares e Telefones</td><td class="r bold">30.194</td><td class="r">675</td></tr>
+      <tr><td class="bold">15</td><td>Kit 3 Shorts 2 Em 1 Duplo Bolso Para Academia</td><td class="cat">Calçados, Roupas e Bolsas</td><td class="r bold">30.175</td><td class="r">79</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- COBERTURA SELLERS -->
+<div class="section">
+  <h2>Cobertura de sellers actuales sobre la Lista GM</h2>
+  <div class="two-col" style="margin-bottom:16px">
+    <div>
+      <div style="font-size:28px;font-weight:900;color:#e94560">2.4%</div>
+      <div style="font-size:12px;color:#555;margin-top:2px">cobertura total — 235 de 10.000 ítems</div>
+      <div style="font-size:11px;color:#aaa;margin-top:4px">250 sellers actuales (lista MKTPL cartera)</div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#1a2454;margin-bottom:8px">Top sellers por ítems cubiertos</div>
+      <table>
+        <thead><tr><th>Seller ID</th><th class="r">Ítems GM</th><th class="r">Cobertura</th></tr></thead>
+        <tbody>
+          <tr><td>310319690</td><td class="r bold">29</td><td class="r">0.29%</td></tr>
+          <tr><td>1198288648</td><td class="r bold">20</td><td class="r">0.20%</td></tr>
+          <tr><td>1228982095</td><td class="r bold">16</td><td class="r">0.16%</td></tr>
+          <tr><td>1649936927</td><td class="r bold">15</td><td class="r">0.15%</td></tr>
+          <tr><td>1279393053</td><td class="r bold">14</td><td class="r">0.14%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div style="background:#fff8e1;border-left:4px solid #FFB700;padding:10px 14px;border-radius:0 6px 6px 0;font-size:12px;color:#555">
+    <strong style="color:#1a2454">Nota:</strong> La lista de 250 sellers fue armada para otro propósito (cartera MKTPL — fashion, electrónica, autos). El análisis se actualizará con la lista de 450 sellers relevantes para GM Proximity. Se espera una cobertura significativamente mayor con sellers de Saúde, Beleza y Esportes.
+  </div>
+</div>
+
+<!-- QUÉ QUEDÓ AFUERA -->
+<div class="section">
+  <h2>¿Qué quedó afuera y por qué?</h2>
+  <table>
+    <thead><tr><th>Criterio de exclusión</th><th class="r">Ítems excluidos</th><th>Archivo de revisión</th></tr></thead>
+    <tbody>
+      <tr><td>Tamaño/peso fuera del rango logístico (>40cm o >15kg)</td><td class="r">6.678</td><td class="cat">— (sin registro de dimensiones o supera límite)</td></tr>
+      <tr><td>Servicios y productos no físicos de MeLi (Garex, MeLi+)</td><td class="r">576</td><td class="cat">assortment_gm_excluidos.csv</td></tr>
+      <tr><td>Productos digitales (Gift Cards, Softwares, Ebooks, etc.)</td><td class="r">1.076</td><td class="cat">assortment_gm_excluidos.csv</td></tr>
+      <tr><td>Baja rotación (&lt;1.100 u/30d) — universo de largo plazo</td><td class="r">198.546</td><td class="cat">assortment_gm_excluidos_umbral.csv</td></tr>
+      <tr style="background:#fff8e1"><td>Groceries → reservados para Dark Store (~3 meses)</td><td class="r">1.483</td><td class="cat">incluidos en lista General (assortment_gm_10k.csv)</td></tr>
+    </tbody>
+  </table>
+  <p class="note" style="margin-top:10px">Los archivos de revisión permiten recuperar cualquier ítem excluido si el criterio cambia.</p>
+</div>
+
+<!-- DESCARGAS -->
+<div class="section">
+  <h2>Descargar listas</h2>
+  <div class="dl-grid">
+    <div class="dl-card main">
+      <div class="dl-icon">📦</div>
+      <div class="dl-info">
+        <div class="dl-title">Lista GM — 10.000 ítems</div>
+        <div class="dl-desc">Sin groceries · umbral ≥1.100 u/30d · listo para lanzamiento</div>
+        <a class="dl-btn" href="assortment_gm_list.csv" download>Descargar CSV</a>
+      </div>
+    </div>
+    <div class="dl-card main">
+      <div class="dl-icon">📋</div>
+      <div class="dl-info">
+        <div class="dl-title">Lista General — 9.951 ítems</div>
+        <div class="dl-desc">Incluye groceries · universo completo eligible</div>
+        <a class="dl-btn" href="assortment_gm_10k.csv" download>Descargar CSV</a>
+      </div>
+    </div>
+    <div class="dl-card main" style="border-color:#00c896;background:#f0faf6">
+      <div class="dl-icon">📈</div>
+      <div class="dl-info">
+        <div class="dl-title">Expansión Tier 2 — +5.063 ítems (→15k)</div>
+        <div class="dl-desc">Ítems siguientes en volumen para cuando crecer</div>
+        <a class="dl-btn" style="background:#00a878" href="assortment_expansion_15k.csv" download>Descargar CSV</a>
+      </div>
+    </div>
+    <div class="dl-card main" style="border-color:#00c896;background:#f0faf6">
+      <div class="dl-icon">📈</div>
+      <div class="dl-info">
+        <div class="dl-title">Expansión Tier 3 — +5.019 ítems (→20k)</div>
+        <div class="dl-desc">Siguiente expansión disponible</div>
+        <a class="dl-btn" style="background:#00a878" href="assortment_expansion_20k.csv" download>Descargar CSV</a>
+      </div>
+    </div>
+    <div class="dl-card excl">
+      <div class="dl-icon">🚫</div>
+      <div class="dl-info">
+        <div class="dl-title">Excluidos por digitales/servicios</div>
+        <div class="dl-desc">1.652 ítems para revisión del equipo</div>
+        <a class="dl-btn" href="assortment_gm_excluidos.csv" download>Descargar CSV</a>
+      </div>
+    </div>
+    <div class="dl-card excl">
+      <div class="dl-icon">📉</div>
+      <div class="dl-info">
+        <div class="dl-title">Excluidos por baja rotación</div>
+        <div class="dl-desc">198.546 ítems bajo el umbral de 1.100 u/30d</div>
+        <a class="dl-btn" href="assortment_gm_excluidos_umbral.csv" download>Descargar CSV</a>
+      </div>
+    </div>
+  </div>
+  <p class="note" style="margin-top:14px">Los botones de descarga funcionan cuando los archivos CSV están en la misma carpeta que este documento.</p>
+</div>
+
+<!-- METODOLOGÍA -->
+<div class="section">
+  <h2>Metodología aplicada (resumen)</h2>
+  <table>
+    <thead><tr><th>#</th><th>Paso</th><th>Criterio</th><th class="r">Resultado</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Universo base</td><td>Top 100 ítems por subcategoría · BT_ORD_ORDERS · MLB · 30d</td><td class="r">37.132</td></tr>
+      <tr><td>2</td><td>Filtro logístico</td><td>Dimensiones ≤40×40×40cm · Peso ≤15kg · INNER JOIN LK_SHP_ITEM_DIMENSIONS</td><td class="r">30.454</td></tr>
+      <tr><td>3</td><td>Exclusión servicios MeLi</td><td>Garex, MeLi Plus y similares (Mais Categorias)</td><td class="r">29.878</td></tr>
+      <tr><td>4</td><td>Exclusión digitales</td><td>Softwares, Gift Cards, Ebooks, streaming, tickets</td><td class="r">29.264</td></tr>
+      <tr><td>5</td><td>Umbral global de volumen</td><td>Requery sin límite por categoría · HAVING ≥100 u/30d</td><td class="r">208.497</td></tr>
+      <tr><td>6</td><td>Calibración al objetivo</td><td>Umbral ≥1.100 u/30d (~37 u/día) → ~10.000 ítems</td><td class="r">9.951</td></tr>
+      <tr><td>7</td><td>Separación GM vs Groceries</td><td>Quita Alimentos e Bebidas + Cuidado da Casa · rellena con Tier 2</td><td class="r bold">10.000</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:10px"><a href="gm_assortment_metodologia.html" style="color:#4da6ff;font-size:12px">→ Ver documento completo de metodología con el razonamiento detallado de cada paso</a></p>
+</div>
+
+<div style="text-align:center;font-size:10.5px;color:#aaa;margin-top:20px">
+  GM Proximity Brasil · Jeannine Gradlmuller · Growth MercadoLibre · mayo 2026
+</div>
+
+</div>
+</body>
+</html>
