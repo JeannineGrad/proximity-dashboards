@@ -152,8 +152,42 @@ td.bold{font-weight:700;color:#1a2454}
 <div class="two-col">
   <div class="section">
     <h2>Distribución de precio</h2>
-    <div class="price-bars" id="price-bars"></div>
-    <p class="note" id="price-note"></p>
+    <!-- GM prices (static) -->
+<div id="prices-gm">
+<div style="display:flex;gap:6px;align-items:flex-end;height:70px;margin-bottom:6px">
+  <div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:70px"></div>
+  <div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:42px"></div>
+  <div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:17px"></div>
+  <div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:6px"></div>
+  <div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:3px"></div>
+</div>
+<div style="display:flex;gap:6px">
+  <div style="flex:1;text-align:center"><div style="font-size:9px;color:#888">< R$50</div><div style="font-size:10.5px;font-weight:700;color:#1a2454">5.128</div><div style="font-size:9px;color:#aaa">51.3%</div></div>
+  <div style="flex:1;text-align:center"><div style="font-size:9px;color:#888">R$50-100</div><div style="font-size:10.5px;font-weight:700;color:#1a2454">3.075</div><div style="font-size:9px;color:#aaa">30.8%</div></div>
+  <div style="flex:1;text-align:center"><div style="font-size:9px;color:#888">R$100-200</div><div style="font-size:10.5px;font-weight:700;color:#1a2454">1.209</div><div style="font-size:9px;color:#aaa">12.1%</div></div>
+  <div style="flex:1;text-align:center"><div style="font-size:9px;color:#888">R$200-500</div><div style="font-size:10.5px;font-weight:700;color:#1a2454">421</div><div style="font-size:9px;color:#aaa">4.2%</div></div>
+  <div style="flex:1;text-align:center"><div style="font-size:9px;color:#888">> R$500</div><div style="font-size:10.5px;font-weight:700;color:#1a2454">167</div><div style="font-size:9px;color:#aaa">1.7%</div></div>
+</div>
+<p class="note" style="margin-top:8px">82% de los ítems cuesta menos de R$100 — assortment de consumo masivo y ticket accesible</p>
+</div>
+<!-- General prices (static, hidden by default) -->
+<div id="prices-gen" style="display:none">
+<div style="display:flex;gap:6px;align-items:flex-end;height:70px;margin-bottom:6px">
+  <div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:70px"></div>
+  <div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:34px"></div>
+  <div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:13px"></div>
+  <div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:5px"></div>
+  <div style="flex:1;background:#4da6ff;border-radius:3px 3px 0 0;height:3px"></div>
+</div>
+<div style="display:flex;gap:6px">
+  <div style="flex:1;text-align:center"><div style="font-size:9px;color:#888">< R$50</div><div style="font-size:10.5px;font-weight:700;color:#1a2454">5.661</div><div style="font-size:9px;color:#aaa">56.9%</div></div>
+  <div style="flex:1;text-align:center"><div style="font-size:9px;color:#888">R$50-100</div><div style="font-size:10.5px;font-weight:700;color:#1a2454">2.727</div><div style="font-size:9px;color:#aaa">27.4%</div></div>
+  <div style="flex:1;text-align:center"><div style="font-size:9px;color:#888">R$100-200</div><div style="font-size:10.5px;font-weight:700;color:#1a2454">1.047</div><div style="font-size:9px;color:#aaa">10.5%</div></div>
+  <div style="flex:1;text-align:center"><div style="font-size:9px;color:#888">R$200-500</div><div style="font-size:10.5px;font-weight:700;color:#1a2454">360</div><div style="font-size:9px;color:#aaa">3.6%</div></div>
+  <div style="flex:1;text-align:center"><div style="font-size:9px;color:#888">> R$500</div><div style="font-size:10.5px;font-weight:700;color:#1a2454">156</div><div style="font-size:9px;color:#aaa">1.6%</div></div>
+</div>
+<p class="note" style="margin-top:8px">85% de los ítems cuesta menos de R$100 — incluye alimentos y productos de limpieza</p>
+</div>
   </div>
   <div class="section">
     <h2>Criterio de elegibilidad</h2>
@@ -287,7 +321,7 @@ function renderAll() {
   document.getElementById('excl-cell').textContent = currentList === 'gm' ? 'Digitales · Groceries' : 'Solo digitales';
   document.getElementById('grocery-row').style.display = currentList === 'gm' ? '' : 'none';
   renderCats(d.cats, d.total);
-  renderPrices(d.prices, d.total, d.note);
+  document.getElementById("prices-gm").style.display = currentList === "gm" ? "" : "none"; document.getElementById("prices-gen").style.display = currentList === "gen" ? "" : "none";
   renderItems();
 }
 
@@ -621,6 +655,7 @@ function switchTab(id, btn) {
 </script>
 </body>
 </html>
+
 
 
 
