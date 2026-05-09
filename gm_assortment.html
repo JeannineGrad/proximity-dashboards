@@ -221,7 +221,7 @@ td.bold{font-weight:700;color:#1a2454}
       <tr><td>Servicios y productos no físicos de MeLi (Garex, MeLi+)</td><td class="r">576</td><td class="cat">assortment_gm_excluidos.csv</td></tr>
       <tr><td>Productos digitales (Gift Cards, Softwares, Ebooks, etc.)</td><td class="r">1.076</td><td class="cat">assortment_gm_excluidos.csv</td></tr>
       <tr><td>Baja rotación (&lt;1.100 u/30d)</td><td class="r">198.546</td><td class="cat">assortment_gm_excluidos_umbral.csv</td></tr>
-      <tr style="background:#fff8e1"><td>Groceries (Alimentos e Bebidas + Cuidado da Casa)</td><td class="r">1.483</td><td class="cat">incluidos en Lista General (assortment_gm_10k.csv)</td></tr>
+      <tr id="grocery-row" style="background:#fff8e1"><td>Groceries (Alimentos e Bebidas + Cuidado da Casa)</td><td class="r">1.483</td><td class="cat">incluidos en Lista General (assortment_gm_10k.csv)</td></tr>
     </tbody>
   </table>
 </div>
@@ -285,6 +285,7 @@ function renderAll() {
   document.getElementById('lista-label').textContent = d.listLabel;
   document.getElementById('lista-total').textContent = d.total.toLocaleString('es-AR') + ' ítems';
   document.getElementById('excl-cell').textContent = currentList === 'gm' ? 'Digitales · Groceries' : 'Solo digitales';
+  document.getElementById('grocery-row').style.display = currentList === 'gm' ? '' : 'none';
   renderCats(d.cats, d.total);
   renderPrices(d.prices, d.total, d.note);
   renderItems();
@@ -620,6 +621,7 @@ function switchTab(id, btn) {
 </script>
 </body>
 </html>
+
 
 
 
