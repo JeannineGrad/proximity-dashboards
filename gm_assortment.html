@@ -117,6 +117,7 @@ td.bold{font-weight:700;color:#1a2454}
 <div class="tab-nav">
   <button class="tab-btn active" onclick="switchTab('presentacion',this)">📊 Assortment</button>
   <button class="tab-btn" onclick="switchTab('metodologia',this)">📋 Metodología</button>
+  <button class="tab-btn" onclick="switchTab('cobertura',this)">🎯 Cobertura Sellers</button>
 </div>
 
 <div class="tab-panel active" id="tab-presentacion">
@@ -644,17 +645,351 @@ renderAll();
   </div>
 </div>
 
+<div class="tab-panel" id="tab-cobertura">
+<div class="page">
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Cobertura de Sellers — Análisis por Familia de Producto</h1>
+  <div class="sub">250 sellers actuales · 121 familias en el assortment GM · pendiente actualizar con lista de 450 sellers</div>
+  <div class="kpis">
+    <div class="kpi"><div class="n">121</div><div class="l">familias de producto</div></div>
+    <div class="kpi"><div class="n" style="color:#00c896">52</div><div class="l">cubiertas (43%)</div></div>
+    <div class="kpi"><div class="n" style="color:#e94560">69</div><div class="l">sin cobertura (57%)</div></div>
+    <div class="kpi"><div class="n">250</div><div class="l">sellers analizados</div></div>
+    <div class="kpi"><div class="n">8</div><div class="l">familias del top seller</div></div>
+  </div>
+</div>
+
+<!-- MAPA DE FAMILIAS -->
+<div class="section">
+  <h2>Mapa de familias — cobertura con los 250 sellers actuales</h2>
+  <div style="font-size:11.5px;color:#555;margin-bottom:12px">Cada bloque es una familia de producto del assortment GM. <span style="background:#e8f5e9;border:1px solid #2e7d32;border-radius:3px;padding:1px 6px;color:#2e7d32;font-weight:700;font-size:10px">✓ Verde</span> = al menos un seller la cubre. <span style="background:#fce4ec;border:1px solid #c62828;border-radius:3px;padding:1px 6px;color:#c62828;font-weight:700;font-size:10px">✗ Rojo</span> = ningún seller en la lista la cubre.</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Aberturas</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Acessórios Automotivos</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Acessórios Celular</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Acessórios de Banheiro</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Acessórios de Cabelo</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Acessórios de Construção</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Acessórios de Moda</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Acessórios Fotografia</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Acessórios Moto</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Acessórios TV</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Agasalhos</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Alimentação Bebê</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Alimentos Bebê</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Armazenamento Digital</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Artes Marciais</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Áudio</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Banho Bebê</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Blusas</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Bolsas e Malas</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Brinquedos Bebê</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Cabos</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Cabos USB</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Calçados</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Calças</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Cameras Automotivas</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Câmeras de Segurança</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Camisetas</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Camping e Outdoor</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Carrinho e Passeio</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Cases e Capas Celular</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Chupetas</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Ciclismo</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Componentes PC</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Conjuntos</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Controles Remotos</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Creatina</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Cuidado Cabelo</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Cuidado da Saúde</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Cuidado Pele</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Decoração</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Depilação e Barbearia</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Descartáveis</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Embalagem</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Encanamento</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> EPI e Segurança</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Equipamento Comercial</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Equipamentos Fitness</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Equipamentos Médicos</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Escritório</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Esportes</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Fantasias</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Farmácia</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Ferramentas Automotivas</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Ferramentas Elétricas</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Ferramentas Manuais</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Festas e Decoração</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Games e Consoles</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Gaming</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Gastronomia</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Higiene Bebê</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Higiene Pessoal</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Iluminação</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Impressão</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Jardim e Plantas</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Joias e Bijuterias</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Leggings</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Limpeza Automotiva</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Limpeza de PCs</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Linha Pesada</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Livros</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Lubrificantes Automotivos</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Macacão</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Manicure e Pedicure</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Maquiagem</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Materiais de Obra</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Materiais Escolares</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Material Elétrico</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Maternidade</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Medição</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Moda Íntima</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Moda Praia</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Monitores</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Móveis de Cozinha</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Natação</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Organização</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Ortopedia</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Papelaria e Armarinho</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Peças Automotivas</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Peças Celular</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Peças Moto</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Pequenos Eletrodomésticos</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Periféricos PC</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Pilhas e Carregadores</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Pisos</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Protetor Solar</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Publicidade</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Quarto Bebê</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Redes e Conectividade</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Relógios</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Roupas Bebê</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Roupas de Trabalho</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Roupas Fitness</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Roupas Sociais</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Saias</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Segurança Bebê</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Segurança Veicular</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Shorts e Bermudas</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Smartphones</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Smartwatches</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Som Automotivo</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Streaming</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Suplementos Alimentares</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Tablets</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Tag de Pedagio</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Têxteis de Cama</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Têxteis de Casa</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Tintas</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Tuning</div>
+<div style='background:#e8f5e9;border:1px solid #2e7d32;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#2e7d32;font-weight:700'><span>✓</span> Utensílios de Cozinha</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Vestidos</div>
+<div style='background:#fce4ec;border:1px solid #c62828;border-radius:4px;padding:4px 8px;font-size:10.5px;color:#c62828;font-weight:700'><span>✗</span> Whey Protein</div>
+
+
+  </div>
+</div>
+
+<!-- COBERTURA ACUMULADA -->
+<div class="section">
+  <h2>Cobertura acumulada — agregando sellers de mayor a menor aporte (greedy)</h2>
+  <p style="font-size:12px;color:#555;margin-bottom:14px">¿Cuántas familias de producto cubrís si sumás los sellers de mayor aporte primero? Con los 250 sellers actuales, 20 sellers ya cuentan el 100% de lo que se puede cubrir con esta lista.</p>
+  <table style="width:100%;border-collapse:collapse;font-size:11.5px">
+    <thead>
+      <tr style="background:#f0f2f8">
+        <th style="padding:7px 10px;text-align:center;font-size:10.5px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0;width:40px">#</th>
+        <th style="padding:7px 10px;text-align:left;font-size:10.5px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">Seller ID</th>
+        <th style="padding:7px 10px;text-align:center;font-size:10.5px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">Familias nuevas</th>
+        <th style="padding:7px 10px;text-align:center;font-size:10.5px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">Total acum.</th>
+        <th style="padding:7px 10px;text-align:center;font-size:10.5px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">Cobertura</th>
+        <th style="padding:7px 10px;text-align:left;font-size:10.5px;font-weight:700;color:#555;border-bottom:2px solid #e0e4f0">Familias que agrega</th>
+      </tr>
+    </thead>
+    <tbody style="font-size:11px">
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>1</td><td style='font-family:monospace;font-size:11px'>1649936927</td><td style='text-align:center;font-weight:700;color:#00a878'>+8</td><td style='text-align:center;font-weight:700;color:#1a2454'>8</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>6,6%</div></td><td style='font-size:10px;color:#555'>Acessórios Celular · Camping e Outdoor · Decoração · Ferramentas Elétricas · Iluminação · Pequenos Eletrodomésticos · Têxteis de Casa · Utensílios de Cozinha</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>2</td><td style='font-family:monospace;font-size:11px'>1383082988</td><td style='text-align:center;font-weight:700;color:#00a878'>+4</td><td style='text-align:center;font-weight:700;color:#1a2454'>12</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>9,9%</div></td><td style='font-size:10px;color:#555'>Blusas · Calças · Leggings · Saias</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>3</td><td style='font-family:monospace;font-size:11px'>416497489</td><td style='text-align:center;font-weight:700;color:#00a878'>+4</td><td style='text-align:center;font-weight:700;color:#1a2454'>16</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>13,2%</div></td><td style='font-size:10px;color:#555'>Cuidado Pele · Depilação e Barbearia · Games e Consoles · Maquiagem</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>4</td><td style='font-family:monospace;font-size:11px'>1285605609</td><td style='text-align:center;font-weight:700;color:#00a878'>+3</td><td style='text-align:center;font-weight:700;color:#1a2454'>19</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>15,7%</div></td><td style='font-size:10px;color:#555'>Ferramentas Automotivas · Material Elétrico · Som Automotivo</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>5</td><td style='font-family:monospace;font-size:11px'>430780332</td><td style='text-align:center;font-weight:700;color:#00a878'>+3</td><td style='text-align:center;font-weight:700;color:#1a2454'>22</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>18,2%</div></td><td style='font-size:10px;color:#555'>Camisetas · Roupas Fitness · Shorts e Bermudas</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>6</td><td style='font-family:monospace;font-size:11px'>628354227</td><td style='text-align:center;font-weight:700;color:#00a878'>+2</td><td style='text-align:center;font-weight:700;color:#1a2454'>24</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>19,8%</div></td><td style='font-size:10px;color:#555'>Joias e Bijuterias · Ortopedia</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>7</td><td style='font-family:monospace;font-size:11px'>104424222</td><td style='text-align:center;font-weight:700;color:#00a878'>+2</td><td style='text-align:center;font-weight:700;color:#1a2454'>26</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>21,5%</div></td><td style='font-size:10px;color:#555'>Acessórios TV · Monitores</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>8</td><td style='font-family:monospace;font-size:11px'>1531058829</td><td style='text-align:center;font-weight:700;color:#00a878'>+2</td><td style='text-align:center;font-weight:700;color:#1a2454'>28</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>23,1%</div></td><td style='font-size:10px;color:#555'>Acessórios Celular · Câmeras de Segurança · Depilação e Barbearia · Medição</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>9</td><td style='font-family:monospace;font-size:11px'>471957797</td><td style='text-align:center;font-weight:700;color:#00a878'>+2</td><td style='text-align:center;font-weight:700;color:#1a2454'>30</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>24,8%</div></td><td style='font-size:10px;color:#555'>Acessórios de Moda · Decoração · Equipamentos Fitness · Iluminação</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>10</td><td style='font-family:monospace;font-size:11px'>522101670</td><td style='text-align:center;font-weight:700;color:#00a878'>+2</td><td style='text-align:center;font-weight:700;color:#1a2454'>32</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>26,4%</div></td><td style='font-size:10px;color:#555'>Higiene Pessoal · Materiais Escolares</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>11</td><td style='font-family:monospace;font-size:11px'>1305787983</td><td style='text-align:center;font-weight:700;color:#00a878'>+2</td><td style='text-align:center;font-weight:700;color:#1a2454'>34</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>28,1%</div></td><td style='font-size:10px;color:#555'>EPI e Segurança · Tuning</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>12</td><td style='font-family:monospace;font-size:11px'>569525087</td><td style='text-align:center;font-weight:700;color:#00a878'>+2</td><td style='text-align:center;font-weight:700;color:#1a2454'>36</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>29,8%</div></td><td style='font-size:10px;color:#555'>Acessórios Celular · Acessórios de Cabelo · Moda Íntima · Utensílios de Cozinha</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>13</td><td style='font-family:monospace;font-size:11px'>614720250</td><td style='text-align:center;font-weight:700;color:#00a878'>+1</td><td style='text-align:center;font-weight:700;color:#1a2454'>37</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>30,6%</div></td><td style='font-size:10px;color:#555'>Suplementos Alimentares</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>14</td><td style='font-family:monospace;font-size:11px'>330849568</td><td style='text-align:center;font-weight:700;color:#00a878'>+1</td><td style='text-align:center;font-weight:700;color:#1a2454'>38</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>31,4%</div></td><td style='font-size:10px;color:#555'>Higiene Bebê</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>15</td><td style='font-family:monospace;font-size:11px'>1062977261</td><td style='text-align:center;font-weight:700;color:#00a878'>+1</td><td style='text-align:center;font-weight:700;color:#1a2454'>39</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>32,2%</div></td><td style='font-size:10px;color:#555'>Acessórios de Banheiro</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>16</td><td style='font-family:monospace;font-size:11px'>514108745</td><td style='text-align:center;font-weight:700;color:#00a878'>+1</td><td style='text-align:center;font-weight:700;color:#1a2454'>40</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>33,1%</div></td><td style='font-size:10px;color:#555'>Festas e Decoração</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>17</td><td style='font-family:monospace;font-size:11px'>1135214401</td><td style='text-align:center;font-weight:700;color:#00a878'>+1</td><td style='text-align:center;font-weight:700;color:#1a2454'>41</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>33,9%</div></td><td style='font-size:10px;color:#555'>Acessórios de Moda · Impressão</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>18</td><td style='font-family:monospace;font-size:11px'>531018819</td><td style='text-align:center;font-weight:700;color:#00a878'>+1</td><td style='text-align:center;font-weight:700;color:#1a2454'>42</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>34,7%</div></td><td style='font-size:10px;color:#555'>Câmeras de Segurança · Segurança Bebê</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>19</td><td style='font-family:monospace;font-size:11px'>471662561</td><td style='text-align:center;font-weight:700;color:#00a878'>+1</td><td style='text-align:center;font-weight:700;color:#1a2454'>43</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>35,5%</div></td><td style='font-size:10px;color:#555'>Organização</td></tr>
+<tr><td style='font-weight:700;color:#1a2454;text-align:center'>20</td><td style='font-family:monospace;font-size:11px'>209471703</td><td style='text-align:center;font-weight:700;color:#00a878'>+1</td><td style='text-align:center;font-weight:700;color:#1a2454'>44</td><td style='text-align:center'><div style='background:#1a2454;border-radius:3px;display:inline-block;padding:2px 8px;color:#fff;font-size:10px;font-weight:700'>36,4%</div></td><td style='font-size:10px;color:#555'>Creatina</td></tr>
+
+
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:#aaa;margin-top:10px;font-style:italic">A partir del seller #13 cada seller nuevo solo agrega 1 familia. Con la lista de 450 sellers relevantes para GM se espera cubrir significativamente más familias.</p>
+</div>
+
+<!-- GAP: FAMILIAS SIN COBERTURA -->
+<div class="section">
+  <h2>Familias sin cobertura en la lista actual</h2>
+  <p style="font-size:12px;color:#555;margin-bottom:12px">Estas 69 familias no tienen ningún seller en la lista que las cubra. Son las áreas donde hay que buscar sellers específicos para el assortment GM.</p>
+  <div style="margin-bottom:8px">
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Aberturas</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Acessórios Automotivos</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Acessórios de Construção</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Acessórios Fotografia</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Acessórios Moto</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Agasalhos</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Alimentação Bebê</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Alimentos Bebê</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Armazenamento Digital</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Artes Marciais</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Áudio</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Banho Bebê</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Bolsas e Malas</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Brinquedos Bebê</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Cabos</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Cabos USB</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Carrinho e Passeio</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Cases e Capas Celular</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Chupetas</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Ciclismo</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Componentes PC</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Conjuntos</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Controles Remotos</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Cuidado Cabelo</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Descartáveis</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Embalagem</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Encanamento</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Equipamento Comercial</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Equipamentos Médicos</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Esportes</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Fantasias</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Farmácia</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Gaming</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Gastronomia</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Jardim e Plantas</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Limpeza de PCs</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Linha Pesada</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Livros</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Lubrificantes Automotivos</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Macacão</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Manicure e Pedicure</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Materiais de Obra</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Maternidade</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Moda Praia</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Móveis de Cozinha</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Natação</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Papelaria e Armarinho</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Peças Automotivas</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Peças Celular</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Peças Moto</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Periféricos PC</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Pisos</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Protetor Solar</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Publicidade</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Quarto Bebê</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Relógios</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Roupas Bebê</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Roupas de Trabalho</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Roupas Sociais</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Segurança Veicular</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Smartphones</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Smartwatches</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Streaming</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Tablets</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Tag de Pedagio</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Têxteis de Cama</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Tintas</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Vestidos</span>
+<span style='background:#fce4ec;border:1px solid #ef9a9a;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#c62828;font-weight:600;display:inline-block;margin:3px'>✗ Whey Protein</span>
+
+  </div>
+</div>
+
+<!-- FAMILIAS CUBIERTAS -->
+<div class="section">
+  <h2>Familias con cobertura</h2>
+  <p style="font-size:12px;color:#555;margin-bottom:12px">Estas 52 familias tienen al menos un seller en la lista actual que las cubre.</p>
+  <div>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Acessórios Celular</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Acessórios de Banheiro</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Acessórios de Cabelo</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Acessórios de Moda</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Acessórios TV</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Blusas</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Calçados</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Calças</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Cameras Automotivas</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Câmeras de Segurança</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Camisetas</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Camping e Outdoor</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Creatina</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Cuidado da Saúde</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Cuidado Pele</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Decoração</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Depilação e Barbearia</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ EPI e Segurança</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Equipamentos Fitness</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Escritório</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Ferramentas Automotivas</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Ferramentas Elétricas</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Ferramentas Manuais</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Festas e Decoração</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Games e Consoles</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Higiene Bebê</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Higiene Pessoal</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Iluminação</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Impressão</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Joias e Bijuterias</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Leggings</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Limpeza Automotiva</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Maquiagem</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Materiais Escolares</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Material Elétrico</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Medição</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Moda Íntima</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Monitores</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Organização</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Ortopedia</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Pequenos Eletrodomésticos</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Pilhas e Carregadores</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Redes e Conectividade</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Roupas Fitness</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Saias</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Segurança Bebê</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Shorts e Bermudas</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Som Automotivo</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Suplementos Alimentares</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Têxteis de Casa</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Tuning</span>
+<span style='background:#e8f5e9;border:1px solid #a5d6a7;border-radius:4px;padding:3px 8px;font-size:10.5px;color:#2e7d32;font-weight:600;display:inline-block;margin:3px'>✓ Utensílios de Cozinha</span>
+
+  </div>
+</div>
+
+<div style="text-align:center;font-size:10.5px;color:#aaa;margin-top:20px">GM Proximity Brasil · Jeannine Gradlmuller · Growth MercadoLibre · mayo 2026</div>
+</div>
+</div>
 <script>
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
+  window.scrollTo(0,0);
   btn.classList.add('active');
   window.scrollTo(0,0);
 }
 </script>
 </body>
 </html>
+
 
 
 
