@@ -265,9 +265,9 @@ td.bold{font-weight:700;color:#1a2454}
     <thead><tr><th>Criterio de exclusión</th><th class="r">Ítems excluidos</th><th>Archivo de revisión</th></tr></thead>
     <tbody>
       <tr><td>Tamaño/peso fuera del rango logístico (&gt;40cm o &gt;15kg)</td><td class="r">6.678</td><td class="cat">— (sin dimensiones o supera límite)</td></tr>
-      <tr><td>Servicios y productos no físicos de MeLi (Garex, MeLi+)</td><td class="r">576</td><td class="cat">assortment_gm_excluidos.csv</td></tr>
-      <tr><td>Productos digitales (Gift Cards, Softwares, Ebooks, etc.)</td><td class="r">1.076</td><td class="cat">assortment_gm_excluidos.csv</td></tr>
-      <tr><td>Baja rotación (&lt;1.100 u/30d)</td><td class="r">198.546</td><td class="cat">assortment_gm_excluidos_umbral.csv</td></tr>
+      <tr><td>Servicios y productos no físicos de MeLi (Garex, MeLi+)</td><td class="r">383</td><td class="cat">—</td></tr>
+      <tr><td>Productos digitales + sin AGG1 (Gift Cards, Softwares, servicios ML)</td><td class="r">24</td><td class="cat">—</td></tr>
+      <tr><td>Baja rotación (&lt;20 u/30d en SP ciudad)</td><td class="r">~88.000</td><td class="cat">sp_items_aggregated.csv</td></tr>
       <tr id="grocery-row" style="background:#fff8e1"><td>Groceries (Alimentos e Bebidas + Cuidado da Casa)</td><td class="r">1.483</td><td class="cat">incluidos en Lista General (assortment_gm_10k.csv)</td></tr>
     </tbody>
   </table>
@@ -277,13 +277,12 @@ td.bold{font-weight:700;color:#1a2454}
 <div class="section">
   <h2>Descargar listas</h2>
   <div class="dl-grid">
-    <div class="dl-card main"><div class="dl-icon">📦</div><div class="dl-info"><div class="dl-title">Lista GM — 10.000 ítems</div><div class="dl-desc">Sin groceries · umbral ≥1.100 u/30d</div><a class="dl-btn" href="assortment_gm_list.csv" download>Descargar CSV</a></div></div>
-    <div class="dl-card main"><div class="dl-icon">📋</div><div class="dl-info"><div class="dl-title">Lista General — 9.951 ítems</div><div class="dl-desc">Con groceries · universo completo</div><a class="dl-btn" href="assortment_gm_10k.csv" download>Descargar CSV</a></div></div>
-    <div class="dl-card main" style="border-color:#00c896;background:#f0faf6"><div class="dl-icon">📈</div><div class="dl-info"><div class="dl-title">Expansión Tier 2 — +5.063 ítems (→15k)</div><div class="dl-desc">Ítems siguientes para cuando crecer</div><a class="dl-btn" style="background:#00a878" href="assortment_expansion_15k.csv" download>Descargar CSV</a></div></div>
-    <div class="dl-card main" style="border-color:#00c896;background:#f0faf6"><div class="dl-icon">📈</div><div class="dl-info"><div class="dl-title">Expansión Tier 3 — +5.019 ítems (→20k)</div><div class="dl-desc">Siguiente expansión disponible</div><a class="dl-btn" style="background:#00a878" href="assortment_expansion_20k.csv" download>Descargar CSV</a></div></div>
-    <div class="dl-card excl"><div class="dl-icon">🚫</div><div class="dl-info"><div class="dl-title">Excluidos digitales/servicios</div><div class="dl-desc">1.652 ítems para revisión</div><a class="dl-btn" href="assortment_gm_excluidos.csv" download>Descargar CSV</a></div></div>
-    <div class="dl-card excl"><div class="dl-icon">📉</div><div class="dl-info"><div class="dl-title">Excluidos por baja rotación</div><div class="dl-desc">198.546 ítems bajo 1.100 u/30d</div><a class="dl-btn" href="assortment_gm_excluidos_umbral.csv" download>Descargar CSV</a></div></div>
+    <div class="dl-card main"><div class="dl-icon">📦</div><div class="dl-info"><div class="dl-title">Lista GM SP — 9.995 ítems</div><div class="dl-desc">Sin groceries · umbral ≥20 u/30d · con Vertical/AGG1/AGG2/AGG3</div><a class="dl-btn" href="assortment_sp_domains.csv" download>Descargar CSV</a></div></div>
+    <div class="dl-card main"><div class="dl-icon">🔍</div><div class="dl-info"><div class="dl-title">SP universo completo — 115.315 ítems</div><div class="dl-desc">Todos los ítems con ≥5 u/30d en SP · con category_id</div><a class="dl-btn" href="sp_items_aggregated.csv" download>Descargar CSV</a></div></div>
+    <div class="dl-card main" style="border-color:#9c27b0;background:#f8f0ff"><div class="dl-icon">🏢</div><div class="dl-info"><div class="dl-title">Taxonomía ML — 9.766 categorías</div><div class="dl-desc">Mapeo category_id → AGG1/AGG2 para MLB</div><a class="dl-btn" style="background:#7b1fa2" href="sp_category_mapping.csv" download>Descargar CSV</a></div></div>
+    <div class="dl-card main" style="border-color:#00c896;background:#f0faf6"><div class="dl-icon">👥</div><div class="dl-info"><div class="dl-title">Sellers iGM SP — 456 sellers</div><div class="dl-desc">Lista completa con nombre, segmento, cobertura</div><a class="dl-btn" style="background:#00a878" href="sellers_igm_sp_2026-05-12.csv" download>Descargar CSV</a></div></div>
   </div>
+  <p class="note" style="margin-top:8px">Los archivos CSV se descargan directamente desde el repositorio. Ventana de análisis: 9 abr – 9 may 2026.</p>
 </div>
 
 <!-- METODOLOGÍA RESUMEN -->
@@ -297,7 +296,7 @@ td.bold{font-weight:700;color:#1a2454}
       <tr><td>3</td><td>Exclusión servicios MeLi</td><td>Garex, MeLi Plus (Mais Categorias)</td><td class="r">29.878</td></tr>
       <tr><td>4</td><td>Exclusión digitales</td><td>Softwares, Gift Cards, Ebooks, streaming</td><td class="r">29.264</td></tr>
       <tr><td>5</td><td>Umbral global</td><td>HAVING ≥100 u/30d · sin límite por categoría</td><td class="r">208.497</td></tr>
-      <tr><td>6</td><td>Calibración al objetivo</td><td>≥1.100 u/30d → ~10.000 ítems</td><td class="r">9.951</td></tr>
+      <tr><td>6</td><td>Calibración al objetivo</td><td>≥20 u/30d → 9.995 ítems SP</td><td class="r">9.951</td></tr>
       <tr><td>7</td><td>GM vs Groceries</td><td>Quita Alimentos + Cuidado da Casa · rellena con Tier 2</td><td class="r bold">10.000</td></tr>
     </tbody>
   </table>
