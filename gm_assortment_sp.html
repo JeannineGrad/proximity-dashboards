@@ -416,87 +416,171 @@ renderAll();
 
 <div class="tab-panel" id="tab-metodologia">
 <div class="meto-wrap">
-  <h1>Metodología — Assortment GM São Paulo</h1>
+  <h1>Metodología completa — Assortment GM São Paulo</h1>
   <div class="meta">GM Proximity Brasil · Jeannine Gradlmuller · Growth MercadoLibre Argentina · mayo 2026</div>
 
-  <h2>Construcción del assortment SP ciudad</h2>
+  <h2>1. Extracción de ventas — São Paulo ciudad</h2>
+  <p>Query en <strong>BigQuery Console</strong> (540 GB escaneados). Fuente: <code>BT_SHP_SHIPPING_ITEMS</code> JOIN <code>BT_SHP_SHIPMENTS</code> filtrando por ciudad de entrega. Ventana fija 9 abr – 9 may 2026 (misma que assortment Brasil). Filtros físicos aplicados en query.</p>
 
   <div class="step">
-    <div class="step-num">Paso 1</div>
-    <div class="step-title">Extracción de ventas — São Paulo ciudad</div>
-    <div class="step-rationale">Query en BigQuery Console sobre <code>BT_SHP_SHIPPING_ITEMS</code> JOIN <code>BT_SHP_SHIPMENTS</code> filtrando <code>SHP_RECEIVER_CITY_NAME = 'São Paulo'</code>. Misma ventana que el assortment Brasil: 9 abr – 9 may 2026. Filtros físicos aplicados en query: dimensiones ≤40×40×40cm y peso ≤15.000g. HAVING ≥5 u/30d por CEP para controlar tamaño del resultado (~540 GB escaneados).</div>
-    <div class="step-result"><strong>→ 195.554 filas</strong> (item × CEP de entrega)</div>
+    <div class="step-num">Query 1 — Ítems vendidos en SP ciudad</div>
+    <pre style="background:#f5f7ff;padding:14px;border-radius:6px;font-size:11px;overflow-x:auto;line-height:1.6;margin-top:8px">SELECT
+  si.ITE_ITEM_ID                         AS item_id,
+  si.SHP_ITEM_DESC                       AS item,
+  si.CAT_CATEG_ID_L7                     AS category_id,
+  sh.SHP_RECEIVER_ZIPCODE_RSD            AS cep,
+  SUM(si.SHP_QUANTITY)                   AS unidades_30d
+FROM `meli-bi-data.WHOWNER.BT_SHP_SHIPPING_ITEMS` si
+JOIN `meli-bi-data.WHOWNER.BT_SHP_SHIPMENTS` sh
+  ON si.SHP_SHIPMENT_ID = sh.SHP_SHIPMENT_ID
+WHERE si.SIT_SITE_ID = 'MLB'
+  AND si.SHP_DATE_CREATED_ID >= DATE_SUB(DATE '2026-05-09', INTERVAL 30 DAY)
+  AND si.SHP_DATE_CREATED_ID &lt;  DATE '2026-05-10'
+  AND sh.SIT_SITE_ID = 'MLB'
+  AND sh.SHP_DATE_CREATED_ID >= DATE_SUB(DATE '2026-05-09', INTERVAL 30 DAY)
+  AND sh.SHP_DATE_CREATED_ID &lt;  DATE '2026-05-10'
+  AND sh.SHP_RECEIVER_CITY_NAME = 'São Paulo'
+  AND si.SHP_ITE_DIMENSION_MAX &lt;= 40
+  AND si.SHP_ITE_DIMENSION_MID &lt;= 40
+  AND si.SHP_ITE_DIMENSION_MIN &lt;= 40
+  AND si.SHP_ITE_WEIGHT &lt;= 15000
+GROUP BY 1, 2, 3, 4
+HAVING SUM(si.SHP_QUANTITY) >= 5
+ORDER BY item_id, unidades_30d DESC</pre>
+    <div class="step-result"><strong>→ 195.554 filas</strong> (item × CEP) · 115.315 ítems únicos al agregar por item_id</div>
+  </div>
+
+  <h2>2. Mapeo de categorías AGG1/AGG2</h2>
+  <p>Query complementaria para mapear <code>CAT_CATEG_ID_L7</code> → AGG1 / AGG2 de todos los ítems MLB en el período.</p>
+
+  <div class="step">
+    <div class="step-num">Query 2 — Jerarquía AGG1/AGG2</div>
+    <pre style="background:#f5f7ff;padding:14px;border-radius:6px;font-size:11px;overflow-x:auto;line-height:1.6;margin-top:8px">SELECT DISTINCT
+  CAST(ORD_CATEGORY.ID AS STRING)  AS category_id,
+  ORD_CATEGORY.NAME_L1             AS agg1,
+  ORD_CATEGORY.NAME_L2             AS agg2
+FROM `meli-bi-data.WHOWNER.BT_ORD_ORDERS`
+WHERE SIT_SITE_ID = 'MLB'
+  AND ORD_LAST_UPDATED_DT >= DATE_SUB(DATE '2026-05-09', INTERVAL 30 DAY)
+  AND ORD_LAST_UPDATED_DT &lt;  DATE '2026-05-10'</pre>
+    <div class="step-result"><strong>→ 9.766 categorías</strong> con AGG1/AGG2 mapeadas</div>
+  </div>
+
+  <h2>3. Taxonomía oficial ML — Verticales</h2>
+  <p>Query para obtener la jerarquía oficial de ML (Vertical → AGG1 → AGG2 → AGG3) por item_id, usando <code>LK_ITE_ITEM_DOMAINS</code>. Corrida en BQ Console sobre los 9.995 ítems del assortment final.</p>
+
+  <div class="step">
+    <div class="step-num">Query 3 — Dominio y vertical ML</div>
+    <pre style="background:#f5f7ff;padding:14px;border-radius:6px;font-size:11px;overflow-x:auto;line-height:1.6;margin-top:8px">SELECT
+  d.ITE_ITEM_ID        AS item_id,
+  d.VERTICAL           AS vertical,
+  d.DOM_DOMAIN_AGG1    AS agg1,
+  d.DOM_DOMAIN_AGG2    AS agg2,
+  d.DOM_DOMAIN_AGG3    AS agg3,
+  d.ITE_ITEM_DOM_DOMAIN_ID AS domain_id
+FROM `meli-bi-data.WHOWNER.LK_ITE_ITEM_DOMAINS` d
+WHERE d.SIT_SITE_ID = 'MLB'
+  AND d.ITE_ITEM_ID IN (-- 9.995 item_ids del assortment final)</pre>
+    <div class="step-result"><strong>→ 9.995 ítems</strong> con vertical + AGG1 + AGG2 + AGG3 · 13 verticales oficiales · 100% cobertura</div>
+  </div>
+
+  <h2>4. Ítems vendidos por los 456 sellers iGM</h2>
+  <p>Query para cruzar qué venden los sellers del polígono contra el assortment. Ventana fija 9 abr – 9 may 2026.</p>
+
+  <div class="step">
+    <div class="step-num">Query 4 — Ventas de sellers iGM SP</div>
+    <pre style="background:#f5f7ff;padding:14px;border-radius:6px;font-size:11px;overflow-x:auto;line-height:1.6;margin-top:8px">SELECT
+  ORD_SELLER.ID    AS seller_id,
+  ORD_ITEM.ID      AS item_id,
+  ORD_ITEM.TITLE   AS item,
+  SUM(ORD_ITEM.QTY) AS unidades_30d
+FROM `meli-bi-data.WHOWNER.BT_ORD_ORDERS`
+WHERE SIT_SITE_ID = 'MLB'
+  AND ORD_LAST_UPDATED_DT >= DATE_SUB(DATE '2026-05-09', INTERVAL 30 DAY)
+  AND ORD_LAST_UPDATED_DT &lt;  DATE '2026-05-10'
+  AND ORD_GMV_FLG = TRUE
+  AND ORD_SELLER.ID IN (1135214401, 471957797, 1834181089, ... -- 456 seller IDs)
+GROUP BY 1, 2, 3
+ORDER BY seller_id, unidades_30d DESC</pre>
+    <div class="step-result"><strong>→ 194.695 filas</strong> · 456 sellers con ventas en el período</div>
+  </div>
+
+  <h2>5. Precios de ítems SP-exclusivos</h2>
+  <p>Query para obtener precio promedio de los 7.840 ítems SP-exclusivos (no presentes en el assortment Brasil, donde ya teníamos precio).</p>
+
+  <div class="step">
+    <div class="step-num">Query 5 — Precios SP-exclusivos</div>
+    <pre style="background:#f5f7ff;padding:14px;border-radius:6px;font-size:11px;overflow-x:auto;line-height:1.6;margin-top:8px">SELECT
+  ORD_ITEM.ID                          AS item_id,
+  ROUND(AVG(ORD_ITEM.UNIT_PRICE), 0)   AS precio_prom_brl
+FROM `meli-bi-data.WHOWNER.BT_ORD_ORDERS`
+WHERE SIT_SITE_ID = 'MLB'
+  AND ORD_LAST_UPDATED_DT >= DATE_SUB(DATE '2026-05-09', INTERVAL 30 DAY)
+  AND ORD_LAST_UPDATED_DT &lt;  DATE '2026-05-10'
+  AND ORD_GMV_FLG = TRUE
+  AND ORD_ITEM.ID IN (-- 7.840 item_ids SP-exclusivos)
+GROUP BY 1</pre>
+    <div class="step-result"><strong>→ 7.812 ítems</strong> con precio · combinado con Brasil = 9.967/9.995 con precio (99.7%)</div>
+  </div>
+
+  <hr class="divider">
+  <h2>Procesamiento local (PowerShell)</h2>
+
+  <div class="step">
+    <div class="step-num">Paso 1 — Agregación por ítem</div>
+    <p>Suma de unidades por <code>item_id</code> a través de todos los CEPs del resultado de Query 1. Se descartaron 284 filas sin item_id (servicios del sistema de shipping).</p>
+    <div class="step-result"><strong>→ 115.315 ítems únicos</strong> con volumen total en SP ciudad</div>
   </div>
 
   <div class="step">
-    <div class="step-num">Paso 2</div>
-    <div class="step-title">Agregación por ítem</div>
-    <div class="step-rationale">Suma de unidades por <code>item_id</code> a través de todos los CEPs. Se descartaron 284 filas sin item_id (servicios del sistema de shipping).</div>
-    <div class="step-result"><strong>→ 115.315 ítems únicos</strong> con ≥5 u/30d en SP ciudad</div>
-  </div>
-
-  <div class="step">
-    <div class="step-num">Paso 3</div>
-    <div class="step-title">Mapeo de categorías (AGG1/AGG2)</div>
-    <div class="step-rationale">Query complementaria sobre <code>BT_ORD_ORDERS</code> para obtener <code>ORD_CATEGORY.NAME_L1 (AGG1)</code> y <code>NAME_L2 (AGG2)</code> de todos los <code>CAT_CATEG_ID_L7</code> de MLB en el mismo período. Resultado: 9.766 categorías mapeadas, 29 AGG1 distintos.</div>
-    <div class="step-result"><strong>→ 9.766 categorías</strong> con jerarquía AGG1/AGG2</div>
-  </div>
-
-  <div class="step">
-    <div class="step-num">Paso 4</div>
-    <div class="step-title">Exclusiones — mismos criterios que Brasil</div>
-    <div class="step-rationale">En orden: (1) Sin AGG1 asignado — 5 ítems (Cartão Mercado Pago, chip Tim, etc.). (2) AGG1 = "Mais Categorias" — 383 ítems (Garex, MeLi+). (3) Digitales — AGG1 = "Música, Filmes e Seriados" o "Ingressos", AGG2 = Ebooks/Softwares/Gift Cards — 19 ítems. (4) Groceries para lista GM — AGG1 = "Alimentos e Bebidas" + AGG2 = "Cuidado da Casa e Lavanderia" — 16.812 ítems.</div>
+    <div class="step-num">Paso 2 — Exclusiones (mismos criterios que Brasil)</div>
+    <p>En orden: (1) Sin AGG1 asignado — 5 ítems. (2) <strong>Mais Categorias</strong> — 383 ítems. (3) <strong>Digitales</strong> (Música, Ingressos, Ebooks, Softwares, Gift Cards) — 19 ítems. (4) <strong>Groceries para lista GM</strong> (AGG1 = Alimentos e Bebidas + AGG2 = Cuidado da Casa e Lavanderia) — 16.812 ítems.</p>
     <div class="step-result"><strong>→ Pool GM limpio SP: 98.101 ítems</strong></div>
   </div>
 
   <div class="step">
-    <div class="step-num">Paso 5</div>
-    <div class="step-title">Calibración al objetivo — 10.000 ítems SP</div>
-    <div class="step-rationale">El umbral de Brasil (≥1.100 u/30d) solo daría 54 ítems en SP ciudad. Se calculó el umbral necesario para llegar a 10.000 ítems: el ítem #10.000 tiene <strong>20 u/30d</strong> (~1 venta/día). Esto es ~55x menos que el umbral nacional, consistente con el peso de SP ciudad vs todo Brasil.</div>
-    <div class="step-result"><strong>→ 9.995 ítems GM São Paulo</strong> · umbral efectivo ≥20 u/30d</div>
+    <div class="step-num">Paso 3 — Calibración del umbral para 10.000 ítems</div>
+    <p>El umbral de Brasil (≥1.100 u/30d) solo daría 54 ítems en SP ciudad. Se calculó el umbral necesario para llegar exactamente a 10.000 ítems: el ítem #10.000 del pool GM limpio tiene <strong>20 u/30d</strong> (~1 venta/día en SP ciudad). Equivale a ~55x menos volumen que el umbral nacional — consistente con el peso de SP ciudad vs Brasil entero.</p>
+    <div class="step-result"><strong>→ 9.995 ítems GM SP</strong> · umbral efectivo ≥20 u/30d</div>
   </div>
 
   <div class="step">
-    <div class="step-num">Paso 6</div>
-    <div class="step-title">Clasificación por familias de producto</div>
-    <div class="step-rationale">Mismas reglas de keywords aplicadas al título (primera coincidencia). Para ítems que ya estaban en el assortment Brasil se reutilizó la familia. Para ítems SP-exclusivos se aplicó keyword → fallback AGG2 → "Outros".</div>
-    <div class="step-result"><strong>→ 295 familias únicas en SP</strong> (vs 122 en Brasil — más granular por la diversidad de AGG2)</div>
+    <div class="step-num">Paso 4 — Taxonomía oficial ML</div>
+    <p>Cruce de los 9.995 ítems con <code>LK_ITE_ITEM_DOMAINS</code> (Query 3). Resultado: 13 verticales, jerarquía completa Vertical → AGG1 → AGG2 → AGG3 para el 100% de los ítems. Reemplaza la clasificación por keywords usada en el análisis preliminar.</p>
+    <div class="step-result"><strong>→ Top vertical: CONSTRUCTION & INDUSTRY</strong> (30.8% de ítems) · HOME ELECTRONICS mejor cobertura (15%)</div>
   </div>
 
   <hr class="divider">
   <h2>Comparación SP vs Brasil</h2>
 
   <div class="step">
-    <div class="step-num">Metodología</div>
-    <div class="step-title">Cruce por item_id</div>
-    <div class="step-rationale">Intersección directa entre la lista SP GM (9.995 ítems) y la lista Brasil GM (10.000 ítems) por <code>item_id</code>. No se normalizaron volúmenes — la comparación es presencia/ausencia en cada lista top-10k.</div>
-    <div class="step-result"><strong>21.6% de overlap</strong> — 2.155 ítems en ambas listas · 7.840 exclusivos SP · 7.755 exclusivos Brasil</div>
-  </div>
-
-  <div class="counts">
-    <div class="count-box"><div class="n">9.995</div><div class="lbl">ítems GM SP</div></div>
-    <div class="count-box green"><div class="n">2.155</div><div class="lbl">en ambas listas</div></div>
-    <div class="count-box blue"><div class="n">7.840</div><div class="lbl">exclusivos SP</div></div>
-    <div class="count-box"><div class="n">7.755</div><div class="lbl">exclusivos Brasil</div></div>
+    <div class="step-num">Metodología de cruce</div>
+    <p>Intersección directa por <code>item_id</code> entre la lista SP GM (9.995 ítems) y la lista Brasil GM (10.000 ítems). No se normalizaron volúmenes — la comparación es presencia/ausencia en cada top-10k.</p>
+    <div class="step-result"><strong>21.6% overlap</strong> — 2.155 ítems en ambas · 7.840 exclusivos SP · 7.755 exclusivos Brasil</div>
   </div>
 
   <hr class="divider">
   <h2>Archivos generados</h2>
   <table><thead><tr><th>Archivo</th><th>Contenido</th><th class="r">Filas</th></tr></thead>
   <tbody>
-    <tr><td><code>bq-results-20260512-005001-*.csv</code></td><td>Query SP raw: item × CEP con volumen</td><td class="r">195.554</td></tr>
+    <tr><td><code>bq-results-20260512-005001-*.csv</code></td><td>Query 1 — SP raw: item × CEP con volumen</td><td class="r">195.554</td></tr>
+    <tr><td><code>bquxjob_2cafcaa0_*.csv</code></td><td>Query 2 — Mapeo AGG1/AGG2 por category_id</td><td class="r">9.766</td></tr>
+    <tr><td><code>bquxjob_235319ce_*.csv</code></td><td>Query 3 — Vertical + AGG1/2/3 por item_id</td><td class="r">9.995</td></tr>
+    <tr><td><code>bq-results-20260511-171139-*.csv</code></td><td>Query 4 — Ventas de 456 sellers iGM SP</td><td class="r">194.695</td></tr>
+    <tr><td><code>bquxjob_93e52c0_*.csv</code></td><td>Query 5 — Precios ítems SP-exclusivos</td><td class="r">7.812</td></tr>
     <tr><td><code>sp_items_aggregated.csv</code></td><td>Agregado por item_id (suma todos los CEPs)</td><td class="r">115.315</td></tr>
     <tr><td><code>assortment_sp_gm_10k.csv</code></td><td>Lista GM SP — top 10k sin Groceries</td><td class="r">9.995</td></tr>
-    <tr><td><code>assortment_sp_familias.csv</code></td><td>Lista SP con familia clasificada</td><td class="r">9.995</td></tr>
+    <tr><td><code>assortment_sp_domains.csv</code></td><td>Lista SP con taxonomía ML completa (Vertical/AGG1/2/3)</td><td class="r">9.995</td></tr>
     <tr><td><code>sellers_456_greedy_sp.csv</code></td><td>Cobertura greedy sellers sobre SP</td><td class="r">50</td></tr>
   </tbody></table>
 
   <div class="pending">
     <h3>Pendientes</h3>
     <ul>
-      <li>Filtrar por zona exacta de activación cuando estén disponibles los CEPs/coordenadas</li>
-      <li>Comparar con assortment nacional ítem a ítem para priorización de hunting</li>
-      <li>Validación editorial de categorías (Construção 6.4% y Arte/Papelaria 5% son altas para GM)</li>
+      <li>Filtrar por zona exacta de activación cuando estén disponibles los CEPs del polígono piloto (Bom Retiro / Brás / Santa Cecília)</li>
+      <li>Query para top 3 sellers SP de los 9.316 ítems sin cobertura (<code>query_uncovered_top_sellers.sql</code> guardado en Downloads)</li>
+      <li>Validación editorial: CONSTRUCTION & INDUSTRY (30.8%) y FASHION (17.2%) son los dominantes — revisar si es el mix correcto para el lanzamiento</li>
+      <li>Incorporar vertical al explorador de sellers una vez confirmado el pipeline de datos</li>
     </ul>
   </div>
 </div>
