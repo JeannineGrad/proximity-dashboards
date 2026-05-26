@@ -381,7 +381,7 @@ td.ch{text-align:left;font-weight:600}
     </div>
     <div style="background:#f8f8f8;border-radius:8px;padding:10px 12px">
       <div style="font-size:9px;font-weight:700;margin-bottom:6px">Resultado</div>
-      <div style="font-size:9px;color:#555;line-height:1.6"><div>• <strong>13 perfiles</strong> de seller identificados</div><div>• <strong>8 perfiles P1</strong> para activar primero (Tier 1)</div><div>• <strong>5 perfiles P2</strong> para segunda ola (Tier 2)</div><div>• Zona piloto: Bras / Bom Retiro / Santa Cecilia</div></div>
+      <div style="font-size:9px;color:#555;line-height:1.6"><div>• <strong>13 perfiles</strong> de seller identificados</div><div>• <strong>8 perfiles P1</strong> para activar primero (Tier 1)</div><div>• <strong>5 perfiles P2</strong> para segunda ola (Tier 2)</div><div>• Zona piloto: a definir</div></div>
     </div>
   </div>
 </div>
@@ -732,7 +732,7 @@ td.ch{text-align:left;font-weight:600}
     <div style="font-size:13px;font-weight:800">Hunting Roadmap — Perfiles de Seller GM Agora SP</div>
     <div style="font-size:9px;color:#888;margin-top:2px">Un mismo seller puede cubrir multiples categorias · ordenado por prioridad de activacion</div>
   </div>
-  <div style="font-size:9px;color:#888;text-align:right">Zona piloto: Bras / Bom Retiro / Santa Cecilia<br>456 sellers iGM identificados</div>
+  <div style="font-size:9px;color:#888;text-align:right">Zona piloto: a definir<br></div>
 </div>
 <div id="hr-grid"></div>
 </div>
@@ -1139,7 +1139,7 @@ var FW = [
   {key:"beb",foco:["Non Alcoholics","Alcoholics","Cookies & Snacks","Chocolate & Sweets"],name:"Bebidas y Snacks",tier:1,bench:5,sellers_zone:3,
    color:"#fb8c00",light:"#fff3e0",
    seller_types:["Bar / Boteco","Loja de Conveniencia","Adega / Emporio","Distribuidora bebidas"],
-   chains:["bares e botecos locales","Shell Select / BR Mania","adegas locales","distribuidoras AB InBev"],
+   chains:["bares e botecos","Shell Select / BR Mania","adegas locales","distribuidoras AB InBev"],
    agg2s:["Bar, Wine & Accessories"],
    note:"Bebidas alcoholicas lideran NMV. Snacks alta frecuencia. Sellers tipo adega son ideales."},
 
@@ -1167,14 +1167,14 @@ var FW = [
   {key:"ilum",foco:["Bulbs & LED Strips","Emergency & Flood Lights","Electrical","Manual Tools","Power Tools"],name:"Iluminacion y Electrica",tier:1,bench:2,sellers_zone:3,
    color:"#f9a825",light:"#fffde7",
    seller_types:["Loja material eletrico / iluminacao","Importadora LED (Bras/Sta Efigenia)","Ferragem de bairro"],
-   chains:["lojas material eletrico locales","importadoras LED (Sta Efigenia)","ferragens de bairro SP"],
+   chains:["lojas material eletrico locales","importadoras LED (Sta Efigenia)","ferragens de bairro"],
    agg2s:["Bulbs & LED Strips","Wall & Ceiling Lights","Emergency & Flood Lights","Table & Desk Lamps","Floor Lamps","Other Home Lighting"],
    note:"Fuerte demanda en SP — especialmente LEDs. Perfil de seller similar a Electrica/Herr."},
 
   {key:"elec",foco:["Electrical","Manual Tools","Tool Accessories"],name:"Electrica y Herramientas",tier:99,bench:2,sellers_zone:3,
    color:"#e53935",light:"#ffebee",
    seller_types:["Ferragem de bairro","Loja material eletrico","Distribuidora ferramentas / EPI"],
-   chains:["ferragens de bairro SP","lojas ferramentas locales","distribuidoras material eletrico","Eletrica Sao Paulo"],
+   chains:["ferragens de bairro","lojas ferramentas locales","distribuidoras material eletrico","Eletrica Sao Paulo"],
    agg2s:["Electrical","Power Tools","Manual Tools","Tool Accessories","Particular Tools","Measuring Tools"],
    note:"SKUs tecnicos. Sellers de ferragem y materiales electricos son los mas aptos."},
 
@@ -1188,7 +1188,7 @@ var FW = [
   {key:"life",name:"[Fusionado] Lifestyle",tier:99,bench:2,sellers_zone:3,
    color:"#d81b60",light:"#fce4ec",
    seller_types:["Loja utilidades / bazar","Loja artigos de festa","Importadora lifestyle"],
-   chains:["MINISO","Etna","Flying Tiger","bazares e importadoras 25 de Marco / Bras"],
+   chains:["MINISO","Etna","Flying Tiger","bazares e importadoras la zona / Bras"],
    agg2s:["Party Decoration","Candles & Accessories","Ornaments","Artificial Flowers","Board & Card Games","Art & Craft","Antiques & Hobbies"],
    note:"Oportunidad de diferenciacion. Sellers de bazares e importadoras son ideales."},
 
@@ -1202,8 +1202,8 @@ var FW = [
   // ── Alta demanda SP — A evaluar ──────────────────────────────────────────
   {key:"moda",foco:["Jewelry","Bags & Backpacks","Watches","Hats"],name:"Accesorios de Moda",tier:1,bench:0,sellers_zone:3,
    color:"#78909c",light:"#eceff1",
-   seller_types:["Bijouteria / Loja accesorios moda","Loja multimarca moda (Isadora style)","Importadora 25 de Marco / Bras"],
-   chains:["Isadora Brasil","Vivara","Puket","lojas bijou Bras/25 de Marco"],
+   seller_types:["Bijouteria / Loja accesorios moda","Loja multimarca moda (Isadora style)","Importadora la zona / Bras"],
+   chains:["Isadora Brasil","Vivara","Puket","lojas bijou la zona"],
    agg2s:["Bags & Backpacks","Jewelry","Watches","Hats","Other Apparel Accessories"],
    note:"Accesorios de impulso: joyeria, relojes, bolsos, sombreros. Compra sin necesidad de talla. Seller tipo loja multimarca o importadora."},
   {key:"libros",name:"Libros",tier:3,bench:0,sellers_zone:2,
@@ -1246,7 +1246,7 @@ var FW = [
   {key:"indum",foco:["Basics (underwear/socks)","Other Apparel Accessories"],name:"Indumentaria",tier:2,bench:0,sellers_zone:3,
    color:"#616161",light:"#f5f5f5",
    seller_types:["Loja de roupas multimarca","Importadora moda","Loja basics"],
-   chains:["lojas multimarca locales","Riachuelo (basicos)","Hering","importadoras Bras"],
+   chains:["lojas multimarca locales","Riachuelo (basicos)","Hering","importadoras locales"],
    agg2s:["Clothing","Basics (underwear/socks)","Sneakers","Sandals"],
    note:"Alta demanda SP (~650k u) pero compra requiere talla/fitting. Scope: basics y calzado accesible. Menos urgente para QC que accesorios."}];
 
@@ -1356,21 +1356,21 @@ var PROFILES = [
    cats:["Bebidas y Snacks"],
    por_zona:2,
    just:"Evitar fragmentar demanda de Bebidas y Snacks entre demasiados sellers",
-   ejemplos:["bares e botecos locales","Shell Select","BR Mania","adegas locales"],
+   ejemplos:["bares e botecos","Shell Select","BR Mania","adegas locales"],
    color:"#fb8c00"},
   {prioridad:1,tipo:"Loja de celular / accesorios tech",
-   desc:"Cubre cables, headphones, perifericos, memorias. Alta densidad en Santa Efigenia y Bras.",
+   desc:"Cubre cables, headphones, perifericos, memorias. Alta densidad en la zona y Bras.",
    cats:["Accesorios Tech"],
    por_zona:2,
    just:"Lista compleja de SKUs — 2 sellers especializados con buen stock",
-   ejemplos:["lojas celular locales","Fast Shop","importadoras Bras","lojas Santa Efigenia"],
+   ejemplos:["lojas celular locales","Fast Shop","importadoras locales","lojas la zona"],
    color:"#7b1fa2"},
   {prioridad:1,tipo:"Bijouteria / Accesorios de moda",
-   desc:"Joyeria, bolsos, relojes, accesorios. Muy presentes en Bras y 25 de Marco.",
+   desc:"Joyeria, bolsos, relojes, accesorios. Muy presentes en la zona.",
    cats:["Accesorios de Moda"],
    por_zona:3,
    just:"Alta variedad — 3 sellers cubren distintos nichos (bijou, relojes, bolsos)",
-   ejemplos:["Isadora Brasil","Vivara","Puket","lojas bijou Bras/25 de Marco"],
+   ejemplos:["Isadora Brasil","Vivara","Puket","lojas bijou la zona"],
    color:"#78909c"},
   
   {prioridad:1,tipo:"Papelaria / Loja de festas",
@@ -1385,7 +1385,7 @@ var PROFILES = [
    cats:["Iluminacion","Electrica y Herramientas","Hogar (pilas y energia)"],
    por_zona:3,
    just:"SKUs complejos entre iluminacion y electrico — distintos especialistas",
-   ejemplos:["ferragens de bairro SP","lojas material eletrico locales","importadoras LED Santa Efigenia","Eletrica Sao Paulo"],
+   ejemplos:["ferragens de bairro","lojas material eletrico locales","importadoras LED la zona","Eletrica Sao Paulo"],
    color:"#f9a825"},
   {prioridad:2,tipo:"Emporio / Mini-mercado / Mercearia",
    desc:"Cubre alimentos no perecederos, bebidas y limpieza basica. Perfil mas amplio de todos.",
@@ -1420,7 +1420,7 @@ var PROFILES = [
    desc:"Indumentaria basica: meias, cuecas, camisetas. Alta demanda SP aunque menos tipico de QC.",
    cats:["Indumentaria"],
    por_zona:0,
-   ejemplos:["lojas multimarca Bras","Riachuelo (basicos)","Hering","importadoras 25 de Marco"],
+   ejemplos:["lojas multimarca Bras","Riachuelo (basicos)","Hering","importadoras la zona"],
    color:"#616161"},];
 
 var _hrInited = false;
