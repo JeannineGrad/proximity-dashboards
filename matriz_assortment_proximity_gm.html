@@ -655,7 +655,7 @@ function getCatBadge(n,u){
   var c=CAT_MAP[n],b="";
   var bs="display:inline-block;margin-left:5px;padding:1px 5px;border-radius:8px;font-size:7px;font-weight:700;color:#fff;vertical-align:middle;line-height:14px;background:";
   if(c) b+="<span style='"+bs+CAT_CLR[c]+"'>"+CAT_LBL[c]+"</span>";
-  if(u>=50000) b+="<span style='"+bs+"#ff5722'>Alta demanda SP</span>";
+
   return b;
 }
 function cobColor(c){return c>=20?"#2e7d32":c>=10?"#e65100":"#c62828";}
