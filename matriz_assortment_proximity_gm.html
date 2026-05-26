@@ -575,8 +575,8 @@ var DATA=[
 
 function fmt(n){if(n>=1000000)return(n/1000000).toFixed(1)+"M";if(n>=1000)return Math.round(n/1000)+"k";return""+n;}
 function fmtNMV(p){if(p>=1000)return"R$"+(p/1000).toFixed(1)+"M";return"R$"+p+"K";}
-var tb=document.getElementById("tb");
-DATA.forEach(function(cat,idx){
+var DATA_SORTED=DATA.slice().sort(function(a,b){var ca=a.bench.split("").reduce(function(s,v){return s+parseInt(v);},0);var cb=b.bench.split("").reduce(function(s,v){return s+parseInt(v);},0);return cb-ca;});var tb=document.getElementById("tb");
+DATA_SORTED.forEach(function(cat,idx){
   var b=cat.bench.split("").map(Number);
   var cnt=b.reduce(function(s,v){return s+v;},0);
   var labels=["iFood","Rappi","Meituan","Blinkit","Amazon"];
