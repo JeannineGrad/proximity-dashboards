@@ -72,6 +72,14 @@ td.ch{text-align:left;font-weight:600}
 .cat-bar{display:inline-block;height:8px;border-radius:2px;vertical-align:middle;margin-right:1px}
 .greedy-row{padding:8px 12px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:10px}
 .greedy-row:last-child{border-bottom:none}
+</style><style>
+@media print {
+  .tabs, button, #cat-filter, .cf-btn, .dl-btn, select { display:none!important; }
+  .tab-pane { display:block!important; }
+  .wrap { padding:8px; }
+  body { background:#fff; }
+  @page { margin:1.5cm; }
+}
 </style>
 </head>
 <body>
@@ -80,26 +88,15 @@ td.ch{text-align:left;font-weight:600}
   <div>
     <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:4px">Documento Interno · Confidencial</div>
     <div style="font-size:22px;font-weight:900;color:#111;line-height:1.1">Assortment GM Agora</div>
-    <div style="font-size:14px;font-weight:700;color:#1565c0;margin-top:2px">Sao Paulo · Lanzamiento jun-06 2026</div>
+    <div style="font-size:14px;font-weight:700;color:#1565c0;margin-top:2px">Sao Paulo · Lanzamiento jun-06 2026 <button onclick="window.print()" style="font-size:9px;padding:5px 12px;background:#111;color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:700">&#11015; Exportar PDF</button></div>
   </div>
   <div style="text-align:right">
-    <div style="font-size:9px;color:#aaa;margin-bottom:6px">456 sellers iGM SP · ABR-MAY 2026</div>
-    <div style="display:flex;gap:8px;justify-content:flex-end">
-      <div style="background:#e3f2fd;border-radius:6px;padding:5px 10px;text-align:center">
-        <div style="font-size:16px;font-weight:800;color:#1565c0">53.605</div>
-        <div style="font-size:8px;color:#555">product_ids</div>
-      </div>
-      <div style="background:#e8f5e9;border-radius:6px;padding:5px 10px;text-align:center">
-        <div style="font-size:16px;font-weight:800;color:#2e7d32">5,3M</div>
-        <div style="font-size:8px;color:#555">u/30d</div>
-      </div>
-      <div style="background:#fff3e0;border-radius:6px;padding:5px 10px;text-align:center">
-        <div style="font-size:16px;font-weight:800;color:#e65100">R$397M</div>
-        <div style="font-size:8px;color:#555">NMV/30d</div>
+    
+    
       </div>
     </div>
   </div>
-</div><div class="sub">Benchmark + cobertura sellers iGM SP (456 sellers) · mayo 2026</div>
+</div>
 </div>
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('t3',this)">Metodologia</button>
@@ -158,6 +155,261 @@ td.ch{text-align:left;font-weight:600}
 <tbody id="txb"></tbody>
 </table>
 <div style="margin-top:6px;font-size:8px;color:#bbb">click para expandir · cobertura = product_ids cubiertos por listings activos sellers iGM · 53.605 product_ids únicos · ABR-MAY 2026</div>
+</div>
+<div id="t1" class="tab-pane">
+<div style="margin-bottom:12px">
+  <div style="font-size:13px;font-weight:800;margin-bottom:4px">Quick Commerce Global — Benchmark Players</div>
+  <div style="font-size:9px;color:#888;margin-bottom:12px">Modelos operativos, métricas clave y categorías top · fuentes públicas 2024–2025</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px">
+
+    <!-- iFood Turbo -->
+    <div style="background:#1a237e;color:#fff;border-radius:10px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:800">iFood Turbo</div>
+          <div style="font-size:9px;opacity:.7;margin-top:2px">Brasil · operaciones en SP, RJ, BH y otras</div>
+        </div>
+        <span style="background:#ffeb3b;color:#1a237e;font-size:8px;font-weight:800;padding:2px 7px;border-radius:4px">Q-COM BR</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9px;margin-bottom:10px">
+        <div><span style="opacity:.6">Modelo</span><div style="font-weight:700;margin-top:1px">Dark store propio + partners</div></div>
+        <div><span style="opacity:.6">SKUs / dark store</span><div style="font-weight:700;margin-top:1px">~2.000–4.000</div></div>
+        <div><span style="opacity:.6">Entrega</span><div style="font-weight:700;margin-top:1px;color:#ffeb3b">15–30 min</div></div>
+        <div><span style="opacity:.6">Ticket promedio</span><div style="font-weight:700;margin-top:1px">R$80–120</div></div>
+        <div><span style="opacity:.6">Ciudades activas</span><div style="font-weight:700;margin-top:1px">6+ ciudades BR</div></div>
+        <div><span style="opacity:.6">Fresh % GMV</span><div style="font-weight:700;margin-top:1px">~15–20%</div></div>
+      </div>
+      <div style="font-size:8px;opacity:.6;margin-bottom:4px">TOP CATEGORÍAS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Bebidas</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Snacks</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Higiene</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Limpieza</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Farmacia OTC</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Alimentos básicos</span>
+      </div>
+    </div>
+
+    <!-- Rappi Turbo -->
+    <div style="background:#1a237e;color:#fff;border-radius:10px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:800">Rappi Turbo</div>
+          <div style="font-size:9px;opacity:.7;margin-top:2px">9 países LatAm + España</div>
+        </div>
+        <span style="background:#ff6b35;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:4px">Q-COM LATAM</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9px;margin-bottom:10px">
+        <div><span style="opacity:.6">Modelo</span><div style="font-weight:700;margin-top:1px">Dark store 1P propio</div></div>
+        <div><span style="opacity:.6">SKUs / dark store</span><div style="font-weight:700;margin-top:1px">~1.500–2.500</div></div>
+        <div><span style="opacity:.6">Entrega (Turbo)</span><div style="font-weight:700;margin-top:1px;color:#ffeb3b">10–15 min</div></div>
+        <div><span style="opacity:.6">Ticket promedio</span><div style="font-weight:700;margin-top:1px">USD 12–18</div></div>
+        <div><span style="opacity:.6">Dark stores</span><div style="font-weight:700;margin-top:1px">~150–300 LatAm</div></div>
+        <div><span style="opacity:.6">GMV grocery</span><div style="font-weight:700;margin-top:1px">~25–30% total</div></div>
+      </div>
+      <div style="font-size:8px;opacity:.6;margin-bottom:4px">TOP CATEGORÍAS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Bebidas</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Alcohol</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Snacks</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Lácteos</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Higiene / OTC</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Mascotas / Bebé</span>
+      </div>
+    </div>
+
+    <!-- Meituan Flash -->
+    <div style="background:#1a237e;color:#fff;border-radius:10px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:800">Meituan 闪购</div>
+          <div style="font-size:9px;opacity:.7;margin-top:2px">China · 2.800+ ciudades</div>
+        </div>
+        <span style="background:#e53935;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:4px">Q-COM CN</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9px;margin-bottom:10px">
+        <div><span style="opacity:.6">Modelo</span><div style="font-weight:700;margin-top:1px">Plataforma + lightning stores</div></div>
+        <div><span style="opacity:.6">SKUs / dark store</span><div style="font-weight:700;margin-top:1px">3.000–10.000</div></div>
+        <div><span style="opacity:.6">Entrega</span><div style="font-weight:700;margin-top:1px;color:#ffeb3b">30 min (15–20 express)</div></div>
+        <div><span style="opacity:.6">AOV</span><div style="font-weight:700;margin-top:1px">RMB 60–80 (~USD 9)</div></div>
+        <div><span style="opacity:.6">Dark stores</span><div style="font-weight:700;margin-top:1px">30.000–50.000</div></div>
+        <div><span style="opacity:.6">GMV 2024 est.</span><div style="font-weight:700;margin-top:1px">~USD 18–22B</div></div>
+      </div>
+      <div style="font-size:8px;opacity:.6;margin-bottom:4px">TOP CATEGORÍAS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Snacks / Bebidas (35%)</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Farmacia OTC</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Belleza</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Electrónica acc.</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Bebé / Mascotas</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+
+    <!-- Blinkit / Zepto -->
+    <div style="background:#1a237e;color:#fff;border-radius:10px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:800">Blinkit / Zepto</div>
+          <div style="font-size:9px;opacity:.7;margin-top:2px">India · Blinkit (Zomato) + Zepto (independiente)</div>
+        </div>
+        <span style="background:#43a047;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:4px">Q-COM IN</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:9px;margin-bottom:10px">
+        <div></div>
+        <div style="text-align:center;font-size:8px;font-weight:700;opacity:.7;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:3px">Blinkit</div>
+        <div style="text-align:center;font-size:8px;font-weight:700;opacity:.7;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:3px">Zepto</div>
+        <div style="opacity:.6">SKUs/store</div><div style="text-align:center;font-weight:700">8.000–12.000</div><div style="text-align:center;font-weight:700">8.000–9.000</div>
+        <div style="opacity:.6">Entrega</div><div style="text-align:center;font-weight:700;color:#ffeb3b">10 min</div><div style="text-align:center;font-weight:700;color:#ffeb3b">10 min</div>
+        <div style="opacity:.6">AOV</div><div style="text-align:center;font-weight:700">INR 620–650</div><div style="text-align:center;font-weight:700">INR 500–550</div>
+        <div style="opacity:.6">Dark stores</div><div style="text-align:center;font-weight:700">~1.000</div><div style="text-align:center;font-weight:700">~700–750</div>
+        <div style="opacity:.6">GMV anual</div><div style="text-align:center;font-weight:700">~USD 3B</div><div style="text-align:center;font-weight:700">~USD 3–4B</div>
+      </div>
+      <div style="font-size:8px;opacity:.6;margin-bottom:4px">TOP CATEGORÍAS (ambos)</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Grocery / Frescos</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Lácteos / Huevos</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Snacks / Bebidas</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Higiene / OTC</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Electrónica acc.</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Bebé / Mascotas</span>
+      </div>
+    </div>
+
+    <!-- Amazon Now -->
+    <div style="background:#1a237e;color:#fff;border-radius:10px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:800">Amazon Now</div>
+          <div style="font-size:9px;opacity:.7;margin-top:2px">India (relaunch 2024) + Same-Day global</div>
+        </div>
+        <span style="background:#ff9800;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:4px">TECH-RETAIL</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9px;margin-bottom:10px">
+        <div><span style="opacity:.6">Modelo</span><div style="font-weight:700;margin-top:1px">Marketplace + dark stores (Flex)</div></div>
+        <div><span style="opacity:.6">SKUs</span><div style="font-weight:700;margin-top:1px">~15.000–20.000</div></div>
+        <div><span style="opacity:.6">Entrega (India)</span><div style="font-weight:700;margin-top:1px;color:#ffeb3b">15–20 min</div></div>
+        <div><span style="opacity:.6">Same-Day (US)</span><div style="font-weight:700;margin-top:1px">&lt;5 hs · 90 metros</div></div>
+        <div><span style="opacity:.6">Ciudades (India)</span><div style="font-weight:700;margin-top:1px">4–6 (piloto 2024–25)</div></div>
+        <div><span style="opacity:.6">Integración</span><div style="font-weight:700;margin-top:1px">Prime ecosystem</div></div>
+      </div>
+      <div style="font-size:8px;opacity:.6;margin-bottom:4px">TOP CATEGORÍAS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Grocery / Frescos</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Alimentos envasados</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Higiene / OTC</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Hogar / Limpieza</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Electrónica acc.</span>
+      </div>
+      <div style="margin-top:8px;font-size:8px;background:rgba(255,255,255,.1);border-radius:4px;padding:5px 8px;opacity:.85">Amazon Fresh US: ~USD 5–6B GMV anual · 2h promise para Prime</div>
+    </div>
+
+  </div>
+  <div style="font-size:8px;color:#bbb;margin-top:6px">Fuentes públicas 2024–2025: earnings disclosures, Redseer, Euromonitor, prensa especializada · datos son estimados donde no hay divulgación oficial</div>
+</div><table>
+<thead>
+<tr>
+  <th class="ch" style="text-align:left">Categoria</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:8px">iFood Turbo</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:8px">Rappi Now</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:8px">Meituan Flash</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:8px">Blinkit / Zepto</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:8px">Amazon Now</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:9px;font-weight:800">#</th>
+</tr>
+</thead>
+
+<tbody id="tb"></tbody>
+</table>
+
+</div>
+<div id="t3" class="tab-pane active">
+<div style="max-width:860px">
+
+<!-- SECCIÓN 1: Definición de categorías -->
+<div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:12px">
+  <div style="font-size:13px;font-weight:800;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #FFE600">1. Como definimos las categorias</div>
+
+  <div style="font-size:11px;font-weight:700;color:#1565c0;margin-bottom:8px">1.1 Benchmark de competidores globales</div>
+  <div style="font-size:10px;color:#444;line-height:1.7;margin-bottom:10px">Relevamos los 5 principales operadores de quick commerce globales para identificar que categorias son comunes al modelo: <strong>iFood Turbo, Rappi Now, Meituan Flash, Blinkit/Zepto y Amazon Now</strong>. Una categoria entra si aparece en al menos 1 de los 5 benchmarks.</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px;font-size:9px">
+    <div style="background:#e8f5e9;border-radius:6px;padding:6px 10px"><strong style="color:#2e7d32">5/5 benchmarks</strong><br>Alimentos, Farmacia/Salud/Belleza, Bebe y Ninos, Mascotas, Hogar, Bebidas y Snacks</div>
+    <div style="background:#e3f2fd;border-radius:6px;padding:6px 10px"><strong style="color:#1565c0">2-3/5 benchmarks</strong><br>Accesorios Tech, Iluminacion y Electrica</div>
+    <div style="background:#fff8e1;border-radius:6px;padding:6px 10px"><strong style="color:#e65100">1/5 benchmark</strong><br>Papeleria, Fiestas y Manualidades</div>
+  </div>
+
+  <div style="font-size:11px;font-weight:700;color:#1565c0;margin-bottom:8px">1.2 Categorias relevantes para MeLi SP</div>
+  <div style="font-size:10px;color:#444;line-height:1.7;margin-bottom:8px">Analizamos la demanda real de MeLi en Sao Paulo (ABR-MAY 2026, ≥30u/30d) y clasificamos los AGG2s de alta demanda que <em>no</em> estaban cubiertos por el benchmark. Se sumaron 8 categorias adicionales con fuerte presencia en MeLi SP aunque no sean tipicas del QC global.</div>
+  <div style="font-size:9px;color:#555;background:#f8f8f8;border-radius:6px;padding:8px 12px">
+    <strong>Categorias sumadas por demanda SP:</strong> Tecnologia · Indumentaria · Moda / Accesorios · Libros · Deportes · Automotor · Materiales de Construccion · (parte de Hogar y Farmacia ampliada)
+  </div>
+</div>
+
+<!-- SECCIÓN 2: Los 3 tiers -->
+<div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:12px">
+  <div style="font-size:13px;font-weight:800;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #FFE600">2. Como llegamos a los 3 tiers</div>
+  <div style="font-size:10px;color:#444;line-height:1.7;margin-bottom:12px">Con las 17 categorias definidas, las clasificamos en 3 niveles de prioridad combinando presencia en benchmarks, volumen de demanda en SP y fit con el modelo de conveniencia rapida.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+    <div style="background:#e8f5e9;border-radius:8px;padding:10px 12px;border-left:4px solid #2e7d32">
+      <div style="font-size:10px;font-weight:800;color:#2e7d32;margin-bottom:5px">Tier 1 — QC Core</div>
+      <div style="font-size:9px;color:#333;line-height:1.6"><div>• Compra de impulso o urgencia</div><div>• Ticket accesible</div><div>• Presencia en benchmarks globales</div></div>
+      <div style="font-size:8px;color:#888;margin-top:5px">Farmacia · Mascotas · Bebidas · Bebe · Acc. Tech · Acc. Moda · Papeleria · Ilum/Elec</div>
+    </div>
+    <div style="background:#e3f2fd;border-radius:8px;padding:10px 12px;border-left:4px solid #1565c0">
+      <div style="font-size:10px;font-weight:800;color:#1565c0;margin-bottom:5px">Tier 2 — Relevante MeLi</div>
+      <div style="font-size:9px;color:#333;line-height:1.6"><div>• Alta demanda en MeLi SP</div><div>• Sera atacado parcialmente por darkstores</div><div>• Estrategico para MeLi</div></div>
+      <div style="font-size:8px;color:#888;margin-top:5px">Alimentos · Hogar · Tecnologia · Indumentaria</div>
+    </div>
+    <div style="background:#fff8e1;border-radius:8px;padding:10px 12px;border-left:4px solid #e65100">
+      <div style="font-size:10px;font-weight:800;color:#e65100;margin-bottom:5px">Tier 3 — Oportunidad</div>
+      <div style="font-size:9px;color:#333;line-height:1.6"><div>• Menor presencia en benchmarks</div><div>• Menor volumen de demanda relativo</div></div>
+      <div style="font-size:8px;color:#888;margin-top:5px">Libros · Automotor · Deportes · Construccion</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECCIÓN 3: Hunting de sellers -->
+<div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:12px">
+  <div style="font-size:13px;font-weight:800;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #FFE600">3. Como armamos el hunting de sellers</div>
+  <div style="font-size:10px;color:#444;line-height:1.7;margin-bottom:10px">A partir de las categorias y tiers, definimos <strong>perfiles de seller</strong> — un mismo seller puede cubrir multiples categorias. Esto reduce la cantidad de sellers que necesitamos activar y maximiza la cobertura por zona.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+    <div style="background:#f8f8f8;border-radius:8px;padding:10px 12px">
+      <div style="font-size:9px;font-weight:700;margin-bottom:6px">Criterio de cantidad por zona</div>
+      <div style="font-size:9px;color:#555;line-height:1.6"><div>• <strong>No fragmentar</strong> la demanda entre demasiados sellers</div><div>• Catálogos complejos (mucho SKU) → 3 sellers</div><div>• Catálogos concentrados → 1-2 sellers</div><div>• Mas sellers = menor GMV por seller = menor engagement</div></div>
+    </div>
+    <div style="background:#f8f8f8;border-radius:8px;padding:10px 12px">
+      <div style="font-size:9px;font-weight:700;margin-bottom:6px">Resultado</div>
+      <div style="font-size:9px;color:#555;line-height:1.6"><div>• <strong>13 perfiles</strong> de seller identificados</div><div>• <strong>8 perfiles P1</strong> para activar primero (Tier 1)</div><div>• <strong>5 perfiles P2</strong> para segunda ola (Tier 2)</div><div>• Zona piloto: Bras / Bom Retiro / Santa Cecilia</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECCIÓN 4: Detalle análisis demanda SP -->
+<div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:12px">
+  <div style="font-size:13px;font-weight:800;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #FFE600">4. Detalle tecnico — Analisis de demanda SP</div>
+
+  <div style="display:flex;gap:12px;margin-bottom:14px"><div style="min-width:28px;height:28px;background:#1565c0;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0">1</div><div><div style="font-size:12px;font-weight:700;margin-bottom:3px">Fuente de demanda</div><div style="font-size:10px;color:#444;line-height:1.6">BT_SHP_SHIPPING_ITEMS x BT_SHP_SHIPMENTS — destino Sao Paulo — 21 ABR al 20 MAY 2026 (30 dias). Restricciones logisticas GM Agora: max 50cm, suma 3 lados 100cm, peso 15kg. Resultado: 526.694 items unicos con al menos 1 unidad vendida.</div></div></div>
+
+  <div style="display:flex;gap:12px;margin-bottom:14px"><div style="min-width:28px;height:28px;background:#1565c0;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0">2</div><div><div style="font-size:12px;font-weight:700;margin-bottom:3px">Filtro de relevancia: ≥30u/30d</div><div style="font-size:10px;color:#444;line-height:1.6">Umbral minimo de 30 unidades en 30 dias para enfocarnos en productos con demanda real. Resultado: 59.651 items. Los ~467k items (5-29u) se guardan para curvas Pareto.</div></div></div>
+
+  <div style="display:flex;gap:12px;margin-bottom:14px"><div style="min-width:28px;height:28px;background:#1565c0;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0">3</div><div><div style="font-size:12px;font-weight:700;margin-bottom:3px">Mapeo a product_id</div><div style="font-size:10px;color:#444;line-height:1.6">Cruzamos con LK_ITE_ITEMS_LITE: si tiene catalog_product_id → MLB{catalog_id}, sino → MLB{item_id}. 59.651 item_ids → 53.617 product_ids unicos (deduplicacion de listings del mismo producto).</div></div></div>
+
+  <div style="display:flex;gap:12px;margin-bottom:14px"><div style="min-width:28px;height:28px;background:#1565c0;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0">4</div><div><div style="font-size:12px;font-weight:700;margin-bottom:3px">Taxonomia MeLi + limpieza</div><div style="font-size:10px;color:#444;line-height:1.6">LK_ITE_ITEMS_LITE + LK_ITE_ITEM_DOMAINS → jerarquia Vertical / AGG1 / AGG2 / Dominio. Se excluyeron: 7 items MP interno (Debit Card, Points) y 2 dominios digitales (software, music/TV).</div></div></div>
+
+  <div style="background:#1565c0;border-radius:8px;padding:12px 16px;color:#fff">
+    <div style="font-size:9px;font-weight:700;margin-bottom:8px;opacity:.8;text-transform:uppercase">Universo final — Assortment GM Agora SP</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+      <div><div style="font-size:18px;font-weight:800">53.605</div><div style="font-size:8px;opacity:.8">product_ids unicos</div></div>
+      <div><div style="font-size:18px;font-weight:800">5,3M</div><div style="font-size:8px;opacity:.8">unidades / 30 dias</div></div>
+      <div><div style="font-size:18px;font-weight:800">R$397M</div><div style="font-size:8px;opacity:.8">NMV / 30 dias</div></div>
+      <div><div style="font-size:18px;font-weight:800">ABR-MAY 26</div><div style="font-size:8px;opacity:.8">periodo de analisis</div></div>
+    </div>
+  </div>
+</div>
+
+</div>
 </div>
 <div id="t1" class="tab-pane">
 <div style="margin-bottom:12px">
@@ -593,17 +845,9 @@ var DATA=[
   {name:"Mascotas",key:"masc",bench:"11111",prods:[]},
   {name:"Hogar",key:"limp",bench:"11111",prods:[]},
   {name:"Bebidas y Snacks",key:"beb",bench:"11111",prods:[]},
-  ,
-  {name:"Accesorios Tech",key:"tech",bench:"00111",prods:[]},{name:"Tecnologia",key:"tecno",bench:"00000",prods:[]},
-  
+  {name:"Accesorios Tech",key:"tech",bench:"00111",prods:[]},
   {name:"Iluminacion y Electrica",key:"ilum",bench:"00101",prods:[]},
-  ,
-  {name:"Accesorios de Moda",key:"moda",bench:"00000",prods:[]},{name:"Indumentaria",key:"indum",bench:"00000",prods:[]},
-  {name:"Papeleria, Fiestas y Manualidades",key:"pape",bench:"00001",prods:[]},
-  {name:"Libros",key:"libr",bench:"00000",prods:[]},
-  {name:"Deportes y Fitness",key:"depo",bench:"00000",prods:[]},
-  {name:"Automotor",key:"auto",bench:"00000",prods:[]},
-  {name:"Materiales de Construccion",key:"cons",bench:"00000",prods:[]}
+  {name:"Papeleria, Fiestas y Manualidades",key:"pape",bench:"00001",prods:[]}
 ];
 
 function fmt(n){if(n>=1000000)return(n/1000000).toFixed(1)+"M";if(n>=1000)return Math.round(n/1000)+"k";return""+n;}
