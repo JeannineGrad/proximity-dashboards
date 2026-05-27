@@ -1331,35 +1331,20 @@ var _origST8=switchTab;
 switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 </script>
 <div id="t9" class="tab-pane">
-<div class="wrap">
-<table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)">
-<thead>
-<tr style="background:#f8f8f8;border-bottom:2px solid #e8e8e8">
-<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;color:#777;width:28px">#</th><th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:180px">Categoria</th>
-<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:80px">Benchmark QC</th>
-
-<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">% Volumen<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">units/30d SP</div></th>
-<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">% NMV<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">universe SP</div></th>
-<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Pareto 50%<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">% prods → 50% vol</div></th><th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Pareto 50% NMV<div style=""font-size:7px;font-weight:400;color:#aaa;text-transform:none"">% prods → 50% NMV</div></th>
-
-</tr>
-</thead>
-<tbody id="t9-body"></tbody>
-</table>
 <div style="margin-top:20px">
 <div style="font-size:11px;font-weight:800;color:#555;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Detalle de KPIs — datos que construyen el score</div>
 <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)">
 <thead>
 <tr style="background:#f8f8f8;border-bottom:2px solid #e8e8e8">
 <th style="padding:6px 8px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:160px">Categoria</th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#1565c0;min-width:70px">QC<br><span style="font-weight:400;text-transform:none;font-size:7px">bench/5</span></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:70px">Top10%<br><span style="font-weight:400;text-transform:none;font-size:7px">units</span></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:70px">Top10%<br><span style="font-weight:400;text-transform:none;font-size:7px">NMV</span></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:70px">Vol core<br><span style="font-weight:400;text-transform:none;font-size:7px">% universe</span></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:70px">NMV core<br><span style="font-weight:400;text-transform:none;font-size:7px">% universe</span></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:70px">SKUs core<br><span style="font-weight:400;text-transform:none;font-size:7px">p80 count</span></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:70px">u/SKU core<br><span style="font-weight:400;text-transform:none;font-size:7px">demand density</span></th>
-</tr>
+<th style="padding:6px 8px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:160px">Categoria</th>
+<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#1565c0;min-width:90px">QC Signal<br><span style="font-weight:600;text-transform:none;font-size:7px">bench / 5</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Players QC globales que llevan la categor&iacute;a</div></th>
+<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Top 10% Units<br><span style="font-weight:600;text-transform:none;font-size:7px">% SKUs cat.</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">% de los SKUs de la cat. que est&aacute;n en el top 10% del universo SP por &oacute;rdenes</div></th>
+<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Top 10% NMV<br><span style="font-weight:600;text-transform:none;font-size:7px">% SKUs cat.</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">% de los SKUs de la cat. que est&aacute;n en el top 10% del universo SP por valor</div></th>
+<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Vol% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en unidades del core (SKUs que hacen el 80% del vol. de la cat.) sobre el universo SP</div></th>
+<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">NMV% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en NMV del core de la cat. sobre el universo SP</div></th>
+<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:90px">SKUs Core<br><span style="font-weight:600;text-transform:none;font-size:7px">cant. productos</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">SKUs necesarios para cubrir el 80% del vol. de la cat. (assortment m&iacute;nimo relevante)</div></th>
+<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:90px">u/SKU Core<br><span style="font-weight:600;text-transform:none;font-size:7px">und. / producto</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Velocidad de venta prom. de los SKUs del core. M&aacute;s alto = cada producto vende m&aacute;s = menor riesgo de surtido</div></th>
 </thead>
 <tbody id="t9-kpi-body"></tbody>
 </table>
