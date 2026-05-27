@@ -95,7 +95,7 @@ td.ch{text-align:left;font-weight:600}
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('t3',this)">Metodologia</button>
   <button class="tab-btn" onclick="switchTab('t1',this)">Benchmark categorias</button>
-  <button class="tab-btn" onclick="switchTab('t6',this)">Categorias Priorizadas</button><button class="tab-btn" onclick="switchTab('t7',this)">Hunting Roadmap</button><button class="tab-btn" onclick="switchTab('t8',this)">Tops por Categoria</button>
+  <button class="tab-btn" onclick="switchTab('t6',this)">Categorias Priorizadas</button><button class="tab-btn" onclick="switchTab('t9',this)">Priorizacion v2</button><button class="tab-btn" onclick="switchTab('t7',this)">Hunting Roadmap</button><button class="tab-btn" onclick="switchTab('t8',this)">Tops por Categoria</button>
   <button class="tab-btn" onclick="switchTab('t2',this)">Demanda SP</button>
   <button class="tab-btn" onclick="switchTab('t5',this)">Pareto demanda SP <span style="font-size:7px;background:#ff9800;color:#fff;padding:1px 4px;border-radius:3px;font-weight:700;vertical-align:middle">WIP</span></button>
 </div>
@@ -1330,5 +1330,70 @@ function downloadCatCSV(){
 var _origST8=switchTab;
 switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 </script>
-</body>
+<div id="t9" class="tab-pane">
+<div class="wrap">
+<table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)">
+<thead>
+<tr style="background:#f8f8f8;border-bottom:2px solid #e8e8e8">
+<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:180px">Categoria</th>
+<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:80px">Benchmark QC</th>
+<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">% Catalogo<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">universe SP</div></th>
+<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">% NMV<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">universe SP</div></th>
+<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Pareto 50%<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">% prods → 50% vol</div></th>
+<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Productiz.<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">compresion items→pids</div></th>
+</tr>
+</thead>
+<tbody id="t9-body"></tbody>
+</table>
+</div>
+</div>
+<script>
+var T9 = [
+  {key:"farma",  name:"Farmacia y Salud",         bench:5},
+  {key:"beauty", name:"Beauty e Higiene",          bench:5},
+  {key:"suple",  name:"Suplementos y Vitaminas",   bench:5},
+  {key:"bebe",   name:"Bebe y Ninos",              bench:5},
+  {key:"pet",    name:"Mascotas",                  bench:5},
+  {key:"limp",   name:"Hogar",                     bench:5},
+  {key:"beb",    name:"Bebidas",                   bench:5},
+  {key:"snack",  name:"Snacks y Golosinas",        bench:5},
+  {key:"food",   name:"Alimentos",                 bench:5},
+  {key:"tech",   name:"Accesorios Tech",           bench:3},
+  {key:"ilum",   name:"Iluminacion y Electrica",   bench:2},
+  {key:"pape",   name:"Papeleria y Fiestas",       bench:1},
+  {key:"indum",  name:"Indumentaria",              bench:0},
+  {key:"moda",   name:"Accesorios de Moda",        bench:0},
+  {key:"const",  name:"Construccion",              bench:0},
+  {key:"tecno",  name:"Tecnologia",                bench:0},
+  {key:"libr",   name:"Libros",                    bench:0},
+  {key:"auto",   name:"Automotor",                 bench:0},
+  {key:"depo",   name:"Deportes",                  bench:0}
+];
+function initT9(){
+  var tbody=document.getElementById('t9-body');
+  if(tbody.children.length>0) return;
+  T9.forEach(function(f){
+    var clr=f.bench>=4?'#2e7d32':f.bench>=2?'#1565c0':f.bench>=1?'#e65100':'#9e9e9e';
+    var benchBar='<div style="display:flex;align-items:center;flex-wrap:nowrap">';
+    for(var b=0;b<5;b++){benchBar+='<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:'+(b<f.bench?clr:'#e0e0e0')+';margin-right:4px;flex-shrink:0"></span>';}
+    benchBar+='</div>';
+    var empty='<span style="color:#ccc;font-size:11px">—</span>';
+    var tr=document.createElement('tr');
+    tr.style.borderBottom='1px solid #f0f0f0';
+    tr.style.borderLeft='4px solid '+clr;
+    tr.onmouseover=function(){this.style.background='#fafafa';};
+    tr.onmouseout=function(){this.style.background='';};
+    tr.innerHTML=
+      '<td style="padding:8px 10px;font-size:11px;font-weight:700">'+f.name+'</td>'+
+      '<td style="padding:8px 10px">'+benchBar+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+empty+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+empty+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+empty+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+empty+'</td>';
+    tbody.appendChild(tr);
+  });
+}
+var _origST9=switchTab;
+switchTab=function(id,btn){_origST9(id,btn);if(id==='t9')initT9();};
+</script></body>
 </html>
