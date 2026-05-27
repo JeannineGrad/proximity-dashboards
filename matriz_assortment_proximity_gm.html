@@ -1338,6 +1338,7 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 <th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:180px">Categoria</th>
 <th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:80px">Benchmark QC</th>
 <th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">% Catalogo<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">universe SP</div></th>
+<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">% Volumen<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">units/30d SP</div></th>
 <th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">% NMV<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">universe SP</div></th>
 <th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Pareto 50%<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">% prods → 50% vol</div></th>
 <th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Productiz.<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">compresion items→pids</div></th>
@@ -1349,25 +1350,25 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 </div>
 <script>
 var T9 = [
-  {key:"farma",  name:"Farmacia y Salud",         bench:5, pi:3.5,  pn:2.8},
-  {key:"beauty", name:"Beauty e Higiene",          bench:5, pi:7.4,  pn:6.8},
-  {key:"suple",  name:"Suplementos y Vitaminas",   bench:5, pi:3.0,  pn:4.1},
-  {key:"bebe",   name:"Bebe y Ninos",              bench:5, pi:1.8,  pn:1.3},
-  {key:"pet",    name:"Mascotas",                  bench:5, pi:2.3,  pn:1.5},
-  {key:"limp",   name:"Hogar",                     bench:5, pi:16.2, pn:13.1},
-  {key:"beb",    name:"Bebidas",                   bench:5, pi:2.4,  pn:2.1},
-  {key:"snack",  name:"Snacks y Golosinas",        bench:5, pi:1.9,  pn:0.7},
-  {key:"food",   name:"Alimentos",                 bench:5, pi:4.7,  pn:3.0},
-  {key:"tech",   name:"Accesorios Tech",           bench:3, pi:7.2,  pn:6.9},
-  {key:"ilum",   name:"Iluminacion y Electrica",   bench:2, pi:6.2,  pn:3.8},
-  {key:"pape",   name:"Papeleria y Fiestas",       bench:1, pi:5.3,  pn:2.2},
-  {key:"indum",  name:"Indumentaria",              bench:0, pi:12.2, pn:10.7},
-  {key:"moda",   name:"Accesorios de Moda",        bench:0, pi:2.6,  pn:1.5},
-  {key:"const",  name:"Construccion",              bench:0, pi:4.8,  pn:3.1},
-  {key:"tecno",  name:"Tecnologia",                bench:0, pi:1.6,  pn:18.8},
-  {key:"libr",   name:"Libros",                    bench:0, pi:1.2,  pn:2.2},
-  {key:"auto",   name:"Automotor",                 bench:0, pi:2.1,  pn:1.0},
-  {key:"depo",   name:"Deportes",                  bench:0, pi:1.6,  pn:0.8}
+  {key:"farma",  name:"Farmacia y Salud",         bench:5, pi:3.5,  pv:3.3,  pn:2.8,  p50:21.3},
+  {key:"beauty", name:"Beauty e Higiene",          bench:5, pi:7.4,  pv:7.3,  pn:6.8,  p50:18.9},
+  {key:"suple",  name:"Suplementos y Vitaminas",   bench:5, pi:3.0,  pv:3.8,  pn:4.1,  p50:15.5},
+  {key:"bebe",   name:"Bebe y Ninos",              bench:5, pi:1.8,  pv:1.7,  pn:1.3,  p50:16.4},
+  {key:"pet",    name:"Mascotas",                  bench:5, pi:2.3,  pv:1.8,  pn:1.5,  p50:30.0},
+  {key:"limp",   name:"Hogar",                     bench:5, pi:16.2, pv:19.5, pn:13.1, p50:15.7},
+  {key:"beb",    name:"Bebidas",                   bench:5, pi:2.4,  pv:4.6,  pn:2.1,  p50:17.1},
+  {key:"snack",  name:"Snacks y Golosinas",        bench:5, pi:1.9,  pv:2.2,  pn:0.7,  p50:18.5},
+  {key:"food",   name:"Alimentos",                 bench:5, pi:4.7,  pv:9.8,  pn:3.0,  p50:11.3},
+  {key:"tech",   name:"Accesorios Tech",           bench:3, pi:7.2,  pv:6.7,  pn:6.9,  p50:19.3},
+  {key:"ilum",   name:"Iluminacion y Electrica",   bench:2, pi:6.2,  pv:4.5,  pn:3.8,  p50:24.0},
+  {key:"pape",   name:"Papeleria y Fiestas",       bench:1, pi:5.3,  pv:3.8,  pn:2.2,  p50:26.7},
+  {key:"indum",  name:"Indumentaria",              bench:0, pi:12.2, pv:11.0, pn:10.7, p50:16.3},
+  {key:"moda",   name:"Accesorios de Moda",        bench:0, pi:2.6,  pv:1.8,  pn:1.5,  p50:24.9},
+  {key:"const",  name:"Construccion",              bench:0, pi:4.8,  pv:3.6,  pn:3.1,  p50:24.9},
+  {key:"tecno",  name:"Tecnologia",                bench:0, pi:1.6,  pv:1.5,  pn:18.8, p50:23.0},
+  {key:"libr",   name:"Libros",                    bench:0, pi:1.2,  pv:1.6,  pn:2.2,  p50:12.3},
+  {key:"auto",   name:"Automotor",                 bench:0, pi:2.1,  pv:1.4,  pn:1.0,  p50:25.0},
+  {key:"depo",   name:"Deportes",                  bench:0, pi:1.6,  pv:1.2,  pn:0.8,  p50:23.8}
 ];
 function initT9(){
   var tbody=document.getElementById('t9-body');
@@ -1388,8 +1389,9 @@ function initT9(){
       '<td style="padding:8px 10px;font-size:11px;font-weight:700">'+f.name+'</td>'+
       '<td style="padding:8px 10px">'+benchBar+'</td>'+
       '<td style="padding:8px 10px;text-align:center">'+fmtPct(f.pi)+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+fmtPct(f.pv)+'</td>'+
       '<td style="padding:8px 10px;text-align:center">'+fmtPct(f.pn)+'</td>'+
-      '<td style="padding:8px 10px;text-align:center">'+empty+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+(function(v){var bg=v<15?'#e8f5e9':v<=22?'#fff8e1':'#ffebee';var clr=v<15?'#2e7d32':v<=22?'#e65100':'#c62828';return'<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:'+bg+';color:'+clr+';font-size:11px;font-weight:700">'+v.toFixed(1)+'%</span>';})(f.p50)+'</td>'+
       '<td style="padding:8px 10px;text-align:center">'+empty+'</td>';
     tbody.appendChild(tr);
   });
