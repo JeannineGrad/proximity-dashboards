@@ -95,7 +95,7 @@ td.ch{text-align:left;font-weight:600}
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('t3',this)">Metodologia</button>
   <button class="tab-btn" onclick="switchTab('t1',this)">Benchmark categorias</button>
-  <button class="tab-btn" onclick="switchTab('t6',this)">Categorias Priorizadas</button><button class="tab-btn" onclick="switchTab('t9',this)">Priorizacion v2</button><button class="tab-btn" onclick="switchTab('t7',this)">Hunting Roadmap</button><button class="tab-btn" onclick="switchTab('t8',this)">Tops por Categoria</button>
+  <button class="tab-btn" onclick="switchTab('t6',this)">Categorias Priorizadas</button><button class="tab-btn" onclick="switchTab('t9',this)">Priorizacion v2</button><button class="tab-btn" onclick="switchTab('t10',this)">Racional Score</button><button class="tab-btn" onclick="switchTab('t7',this)">Hunting Roadmap</button><button class="tab-btn" onclick="switchTab('t8',this)">Tops por Categoria</button>
   <button class="tab-btn" onclick="switchTab('t2',this)">Demanda SP</button>
   <button class="tab-btn" onclick="switchTab('t5',this)">Pareto demanda SP <span style="font-size:7px;background:#ff9800;color:#fff;padding:1px 4px;border-radius:3px;font-weight:700;vertical-align:middle">WIP</span></button>
 </div>
@@ -1448,5 +1448,166 @@ function initT9(){
 }
 var _origST9=switchTab;
 switchTab=function(id,btn){_origST9(id,btn);if(id==='t9')initT9();};
-</script></body>
+</script><div id="t10" class="tab-pane">
+<div class="wrap" style="max-width:900px">
+
+<div style="margin-bottom:20px">
+  <div style="font-size:15px;font-weight:900;margin-bottom:3px">Metodolog&iacute;a — Priorizaci&oacute;n de Categor&iacute;as GM Agora SP</div>
+  <div style="font-size:10px;color:#888">Quick Commerce · San Pablo · Lanzamiento jun-08 2026 · Universo: 53.605 products, R$397M NMV</div>
+</div>
+
+<!-- STEP 1 -->
+<div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
+  <div style="min-width:32px;height:32px;border-radius:50%;background:#1565c0;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+  <div>
+    <div style="font-size:12px;font-weight:800;margin-bottom:4px">Objetivo</div>
+    <div style="font-size:11px;color:#444;line-height:1.6">Definir qu&eacute; categor&iacute;as priorizar en el lanzamiento, balanceando dos objetivos: <strong>defender las categor&iacute;as m&aacute;s importantes para MeLi</strong> (para que QC no erosione el marketplace) y <strong>atacar donde el mercado QC ya valid&oacute; demanda</strong> (competir con iFood Turbo, Rappi y similares). El resultado es un score 0&ndash;100 por categor&iacute;a.</div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
+  <div style="min-width:32px;height:32px;border-radius:50%;background:#1565c0;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+  <div>
+    <div style="font-size:12px;font-weight:800;margin-bottom:4px">Universo de an&aacute;lisis</div>
+    <div style="font-size:11px;color:#444;line-height:1.6">Productos vendidos en MeLi SP (abr-may 2026) con restricciones log&iacute;sticas QC (&le;50cm, &le;100cm suma, &le;15kg) y m&iacute;nimo 30 u/30d. Resultado: <strong>53.605 product_ids</strong> en <strong>19 categor&iacute;as</strong> que cubren 88% del cat&aacute;logo, 89.5% del volumen y 78.7% del NMV.</div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
+  <div style="min-width:32px;height:32px;border-radius:50%;background:#1565c0;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+  <div style="width:100%">
+    <div style="font-size:12px;font-weight:800;margin-bottom:10px">Las tres dimensiones</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+      <div style="background:#e3f2fd;border-left:4px solid #1565c0;border-radius:0 8px 8px 0;padding:12px 14px">
+        <div style="font-size:11px;font-weight:800;margin-bottom:6px;color:#1565c0">&#127919; QC Signal — 30%</div>
+        <div style="font-size:10px;color:#444;line-height:1.7">Cu&aacute;ntos de los 5 players QC globales llevan la categor&iacute;a<br><span style="color:#888">iFood · Rappi · Meituan · Blinkit · Amazon Now</span><br><strong>Score = players / 5</strong></div>
+      </div>
+      <div style="background:#e8f5e9;border-left:4px solid #2e7d32;border-radius:0 8px 8px 0;padding:12px 14px">
+        <div style="font-size:11px;font-weight:800;margin-bottom:6px;color:#2e7d32">&#128230; Relevancia MeLi — 50%</div>
+        <div style="font-size:10px;color:#444;line-height:1.7">
+          &bull; % SKUs en top 10% universe por <strong>unidades</strong><br>
+          &bull; % vol del core (pareto 80%)<br>
+          &bull; % SKUs en top 10% universe por <strong>NMV</strong><br>
+          &bull; % NMV del core<br>
+          <strong>Score = promedio de 4 sub-m&eacute;tricas normalizadas</strong>
+        </div>
+      </div>
+      <div style="background:#fff8e1;border-left:4px solid #e65100;border-radius:0 8px 8px 0;padding:12px 14px">
+        <div style="font-size:11px;font-weight:800;margin-bottom:6px;color:#e65100">&#9889; Simplicidad — 20%</div>
+        <div style="font-size:10px;color:#444;line-height:1.7">SKUs necesarios para cubrir el 80% del volumen de la categor&iacute;a. Menos SKUs = m&aacute;s simple = m&aacute;s r&aacute;pido de lanzar.<br><strong>Score = 1 &minus; (p80_pids norm.)</strong></div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:#fff3e0;border-left:4px solid #ff9800;padding:9px 13px;border-radius:0 6px 6px 0;font-size:10px;color:#555;line-height:1.6">
+      <strong>¿Por qu&eacute; el core (pareto 80%) y no el total?</strong> El total incluye el tail de productos sin demanda real. Una categor&iacute;a como Hogar tiene 8.668 SKUs pero la mayor&iacute;a no son relevantes para QC. El pareto 80% a&iacute;sla el assortment que realmente mueve el negocio.
+    </div>
+    <div style="margin-top:8px;background:#e3f2fd;border-left:4px solid #1565c0;padding:9px 13px;border-radius:0 6px 6px 0;font-size:10px;color:#555;line-height:1.6">
+      <strong>¿Por qu&eacute; "% SKUs en top 10%" y no "% de volumen total"?</strong> El % de volumen est&aacute; sesgado por tama&ntilde;o. Hogar acumula m&aacute;s unidades simplemente porque tiene m&aacute;s SKUs. El "% en top 10%" mide la <em>densidad de calidad</em> &mdash; qu&eacute; proporci&oacute;n de sus productos son top performers globales. Bebidas lidera con 22.6%: casi 1 de cada 4 SKUs es top performer del universo.
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div style="display:flex;gap:16px;margin-bottom:24px;align-items:flex-start">
+  <div style="min-width:32px;height:32px;border-radius:50%;background:#1565c0;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
+  <div>
+    <div style="font-size:12px;font-weight:800;margin-bottom:8px">F&oacute;rmula</div>
+    <div style="background:#f8f8f8;border-radius:8px;padding:12px 16px;font-family:monospace;font-size:11px;line-height:1.8">
+      <span style="color:#1565c0;font-weight:700">Score</span> = 0.50 &times; MeLi_score + 0.30 &times; QC_score + 0.20 &times; Simplicidad<br>
+      MeLi_score = 0.25&times;T10U + 0.25&times;T10N + 0.25&times;VOL + 0.25&times;NMV &nbsp;<span style="color:#888;font-size:9px">(cada uno norm. 0&rarr;1)</span><br>
+      QC_score &nbsp;&nbsp;&nbsp;= bench / 5<br>
+      Simplicidad = 1 &minus; (p80_pids &minus; min) / (max &minus; min)
+    </div>
+  </div>
+</div>
+
+<!-- RANKING TABLE -->
+<div style="font-size:13px;font-weight:800;margin-bottom:10px">Ranking — 19 categor&iacute;as</div>
+<table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)">
+<thead>
+<tr style="background:#f8f8f8;border-bottom:2px solid #e8e8e8">
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center;width:28px">#</th>
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:left">Categor&iacute;a</th>
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center">Score</th>
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center">QC<br><span style="font-weight:400;text-transform:none">5 players</span></th>
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center">MeLi<br><span style="font-weight:400;text-transform:none">0&ndash;100</span></th>
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center">Simpl.<br><span style="font-weight:400;text-transform:none">0&ndash;100</span></th>
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center">Top10%<br><span style="font-weight:400;text-transform:none">units</span></th>
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center">Top10%<br><span style="font-weight:400;text-transform:none">NMV</span></th>
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center">Vol<br><span style="font-weight:400;text-transform:none">core</span></th>
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center">NMV<br><span style="font-weight:400;text-transform:none">core</span></th>
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center">SKUs<br><span style="font-weight:400;text-transform:none">core p80</span></th>
+</tr>
+</thead>
+<tbody id="t10-body"></tbody>
+</table>
+
+<!-- NOTES -->
+<div style="margin-top:16px;background:#f8f8f8;border-radius:8px;padding:12px 16px">
+  <div style="font-size:11px;font-weight:700;margin-bottom:8px">Notas y limitaciones</div>
+  <div style="font-size:10px;color:#555;line-height:1.8">
+    &bull; <strong>Tecno (posici&oacute;n 10):</strong> a pesar de representar 17.6% del NMV core, el bajo volumen de &oacute;rdenes lo ubica fuera del top 9. Refleja correctamente su naturaleza: defensa por valor, no por frecuencia.<br>
+    &bull; <strong>Cobertura:</strong> las 19 categor&iacute;as cubren 78.7% del NMV. El 21.3% restante incluye electr&oacute;nica mayor y equipamiento comercial, fuera del scope QC por dimensiones o modelo de negocio.<br>
+    &bull; <strong>Los tiers</strong> se definir&aacute;n sobre este ranking considerando tambi&eacute;n capacidad operativa y roadmap de sellers.
+  </div>
+</div>
+
+</div><!-- end wrap -->
+</div><!-- end t10 pane -->
+<script>
+var T10_CATS=[
+  {rank:1, name:"Bebidas",                bench:5, sc:66,sm:38,sq:100,ss:85,t10u:22.6,t10n:13.2,vol:3.7, nmv:2.0, p80:1228},
+  {rank:2, name:"Alimentos",              bench:5, sc:64,sm:39,sq:100,ss:71,t10u:19.9,t10n:7.4, vol:7.8, nmv:2.8, p80:1998},
+  {rank:3, name:"Suplementos y Vitaminas",bench:5, sc:63,sm:31,sq:100,ss:88,t10u:13.2,t10n:22.0,vol:3.0, nmv:3.6, p80:1079},
+  {rank:4, name:"Hogar",                  bench:5, sc:58,sm:57,sq:100,ss:0, t10u:12.7,t10n:10.2,vol:15.6,nmv:11.5,p80:5730},
+  {rank:5, name:"Beauty e Higiene",       bench:5, sc:57,sm:31,sq:100,ss:59,t10u:10.8,t10n:13.0,vol:5.9, nmv:5.9, p80:2606},
+  {rank:6, name:"Farmacia y Salud",       bench:5, sc:57,sm:20,sq:100,ss:84,t10u:11.3,t10n:11.3,vol:2.7, nmv:2.5, p80:1293},
+  {rank:7, name:"Snacks y Golosinas",     bench:5, sc:57,sm:15,sq:100,ss:95,t10u:14.3,t10n:3.5, vol:1.8, nmv:0.6, p80:699},
+  {rank:8, name:"Bebe y Ninos",           bench:5, sc:55,sm:12,sq:100,ss:97,t10u:9.3, t10n:9.7, vol:1.3, nmv:1.1, p80:610},
+  {rank:9, name:"Mascotas",               bench:5, sc:51,sm:6, sq:100,ss:90,t10u:5.8, t10n:7.7, vol:1.4, nmv:1.4, p80:986},
+  {rank:10,name:"Tecnologia",             bench:0, sc:48,sm:58,sq:0,  ss:96,t10u:9.9, t10n:44.7,vol:1.2, nmv:17.6,p80:660},
+  {rank:11,name:"Accesorios Tech",        bench:3, sc:45,sm:29,sq:60, ss:62,t10u:10.5,t10n:13.0,vol:5.4, nmv:5.8, p80:2438},
+  {rank:12,name:"Iluminacion y Electrica",bench:2, sc:32,sm:13,sq:40, ss:67,t10u:6.2, t10n:8.0, vol:3.6, nmv:3.1, p80:2179},
+  {rank:13,name:"Libros",                 bench:0, sc:29,sm:19,sq:0,  ss:100,t10u:10.5,t10n:15.5,vol:1.3,nmv:2.1, p80:455},
+  {rank:14,name:"Indumentaria",           bench:0, sc:27,sm:37,sq:0,  ss:41,t10u:10.1,t10n:10.2,vol:8.8, nmv:8.5, p80:3562},
+  {rank:15,name:"Papeleria y Fiestas",    bench:1, sc:24,sm:7, sq:20, ss:70,t10u:5.9, t10n:3.3, vol:3.0, nmv:1.9, p80:2019},
+  {rank:16,name:"Deportes",               bench:0, sc:22,sm:4, sq:0,  ss:98,t10u:6.7, t10n:4.6, vol:1.0, nmv:0.7, p80:545},
+  {rank:17,name:"Construccion",           bench:0, sc:21,sm:11,sq:0,  ss:75,t10u:6.3, t10n:7.1, vol:2.9, nmv:2.7, p80:1766},
+  {rank:18,name:"Accesorios de Moda",     bench:0, sc:20,sm:4, sq:0,  ss:91,t10u:5.2, t10n:6.0, vol:1.4, nmv:1.2, p80:906},
+  {rank:19,name:"Automotor",              bench:0, sc:19,sm:1, sq:0,  ss:95,t10u:4.4, t10n:4.0, vol:1.1, nmv:0.8, p80:743}
+];
+function initT10(){
+  var tbody=document.getElementById('t10-body');
+  if(tbody.children.length>0) return;
+  T10_CATS.forEach(function(c){
+    var clr=c.bench>=4?'#2e7d32':c.bench>=2?'#1565c0':c.bench>=1?'#e65100':'#9e9e9e';
+    var benchDots='';
+    for(var i=0;i<5;i++) benchDots+='<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:'+(i<c.bench?clr:'#e0e0e0')+';margin:0 1px"></span>';
+    var bg=c.sc>=55?'#e8f5e9':c.sc>=35?'#fff8e1':'#ffebee';
+    var tx=c.sc>=55?'#2e7d32':c.sc>=35?'#e65100':'#c62828';
+    var tr=document.createElement('tr');
+    tr.style.borderBottom='1px solid #f0f0f0';
+    tr.style.borderLeft='4px solid '+clr;
+    tr.onmouseover=function(){this.style.background='#fafafa';};
+    tr.onmouseout=function(){this.style.background='';};
+    tr.innerHTML=
+      '<td style="padding:7px 8px;text-align:center;font-size:11px;font-weight:800;color:#bbb">'+c.rank+'</td>'+
+      '<td style="padding:7px 8px;font-size:12px;font-weight:700">'+c.name+'</td>'+
+      '<td style="padding:7px 8px;text-align:center"><span style="display:inline-block;padding:2px 10px;border-radius:10px;background:'+bg+';color:'+tx+';font-size:13px;font-weight:800">'+c.sc+'</span><div style="font-size:8px;color:#aaa;margin-top:1px">M:'+c.sm+' Q:'+c.sq+' S:'+c.ss+'</div></td>'+
+      '<td style="padding:7px 8px;text-align:center">'+benchDots+'</td>'+
+      '<td style="padding:7px 8px;text-align:center;font-size:11px;font-weight:700">'+c.sm+'</td>'+
+      '<td style="padding:7px 8px;text-align:center;font-size:11px;font-weight:700">'+c.ss+'</td>'+
+      '<td style="padding:7px 8px;text-align:center;font-size:11px">'+c.t10u+'%</td>'+
+      '<td style="padding:7px 8px;text-align:center;font-size:11px">'+c.t10n+'%</td>'+
+      '<td style="padding:7px 8px;text-align:center;font-size:11px">'+c.vol+'%</td>'+
+      '<td style="padding:7px 8px;text-align:center;font-size:11px">'+c.nmv+'%</td>'+
+      '<td style="padding:7px 8px;text-align:center;font-size:11px">'+c.p80+'</td>';
+    tbody.appendChild(tr);
+  });
+}
+var _origST10=switchTab;
+switchTab=function(id,btn){_origST10(id,btn);if(id==='t10')initT10();};
+</script>
+</body>
 </html>
