@@ -41,17 +41,13 @@ td.key{text-align:left;font-size:9px;color:#ccc;padding-left:4px;width:40px}
     <thead>
       <tr>
         <th class="th-group left" colspan="2">Categoría</th>
-        <th class="th-group" colspan="5">Benchmark QC</th>
+        <th class="th-group">Benchmark QC</th>
         <th class="th-group" colspan="2">Relevancia MeLi</th>
         <th class="th-group" colspan="2">Facilidad de entrada</th>
       </tr>
       <tr>
         <th class="th-sub left" colspan="2"></th>
-        <th class="th-sub">iFood</th>
-        <th class="th-sub">Rappi</th>
-        <th class="th-sub">Meituan</th>
-        <th class="th-sub">Blinkit</th>
-        <th class="th-sub">Amazon</th>
+        <th class="th-sub">5 players</th>
         <th class="th-sub">% catálogo</th>
         <th class="th-sub">% NMV</th>
         <th class="th-sub">Pareto 50%</th>
@@ -62,13 +58,9 @@ td.key{text-align:left;font-size:9px;color:#ccc;padding-left:4px;width:40px}
   </table>
 
   <div class="legend">
-    <div class="leg-item"><span class="leg-dot" style="background:#ea1d2c"></span>iFood Turbo</div>
-    <div class="leg-item"><span class="leg-dot" style="background:#ff6b35"></span>Rappi</div>
-    <div class="leg-item"><span class="leg-dot" style="background:#009966"></span>Meituan</div>
-    <div class="leg-item"><span class="leg-dot" style="background:#f4c430"></span>Blinkit</div>
-    <div class="leg-item"><span class="leg-dot" style="background:#ff9900"></span>Amazon Now</div>
-    <div class="leg-item" style="margin-left:16px"><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Relevancia (quintil en universo SP)</div>
-    <div class="leg-item"><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Facilidad (más dots = más simple)</div>
+    <div class="leg-item"><span class="leg-dot" style="background:#f57c00"></span><span class="leg-dot" style="background:#f57c00"></span><span class="leg-dot" style="background:#f57c00"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Benchmark QC (iFood · Rappi · Meituan · Blinkit · Amazon Now)</div>
+    <div class="leg-item" style="margin-left:16px"><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Relevancia MeLi (quintil en universo SP)</div>
+    <div class="leg-item"><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Facilidad de entrada (más dots = más simple)</div>
   </div>
 </div>
 
@@ -103,8 +95,7 @@ var CATS = [
   ["depo",   "Deportes",                   "00000", 1,1,4,1],
 ];
 
-var COMP_CLR  = ["#ea1d2c","#ff6b35","#009966","#f4c430","#ff9900"];
-var COMP_OFF  = "#ededed";
+var BENCH_CLR = "#f57c00";
 var MELI_CLR  = "#1565c0";
 var EASY_CLR  = "#2e7d32";
 var DOT_OFF   = "#e8e8e8";
@@ -131,14 +122,10 @@ CATS.forEach(function(c) {
   if (tier !== lastTier) {
     var th = document.createElement("tr");
     th.className = "tier-hdr";
-    th.innerHTML = '<td colspan="11">' + TIER_LBL[tier] + '</td>';
+    th.innerHTML = '<td colspan="7">' + TIER_LBL[tier] + '</td>';
     tbody.appendChild(th);
     lastTier = tier;
   }
-
-  var benchCells = b.map(function(x,i){
-    return '<td><span class="dot" style="background:' + (x ? COMP_CLR[i] : COMP_OFF) + '" title="'+(x?"presente":"ausente")+'"></span></td>';
-  }).join("");
 
   var tr = document.createElement("tr");
   tr.className = "row";
@@ -146,7 +133,7 @@ CATS.forEach(function(c) {
   tr.innerHTML =
     '<td class="name">' + lbl + '</td>' +
     '<td class="key">' + key + '</td>' +
-    benchCells +
+    '<td>' + makeDots(bcnt, 5, BENCH_CLR, DOT_OFF) + '</td>' +
     '<td>' + makeDots(iq, 5, MELI_CLR, DOT_OFF) + '</td>' +
     '<td>' + makeDots(nq, 5, MELI_CLR, DOT_OFF) + '</td>' +
     '<td>' + makeDots(pq, 5, EASY_CLR, DOT_OFF) + '</td>' +
