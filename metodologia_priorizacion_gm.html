@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Metodologia Priorizacion Categorias GM Agora SP</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;color:#111;padding:28px}
+.card{background:#fff;border-radius:12px;padding:24px 28px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:20px}
+h1{font-size:18px;font-weight:900;margin-bottom:4px}
+h2{font-size:13px;font-weight:800;margin-bottom:12px;color:#111}
+.sub{font-size:10px;color:#888;margin-bottom:20px}
+.step{display:flex;gap:16px;margin-bottom:20px;align-items:flex-start}
+.step-num{min-width:32px;height:32px;border-radius:50%;background:#1565c0;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-body h3{font-size:12px;font-weight:800;margin-bottom:4px}
+.step-body p{font-size:11px;color:#444;line-height:1.6;margin-bottom:6px}
+.step-body .note{font-size:10px;color:#888;font-style:italic}
+.dim-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:8px}
+.dim{border-radius:10px;padding:14px 16px}
+.dim h4{font-size:11px;font-weight:800;margin-bottom:6px}
+.dim ul{font-size:10px;color:#444;line-height:1.7;padding-left:14px}
+.dim .w{font-size:10px;font-weight:700;margin-top:8px}
+.d1{background:#e3f2fd;border-left:4px solid #1565c0}
+.d2{background:#e8f5e9;border-left:4px solid #2e7d32}
+.d3{background:#fff8e1;border-left:4px solid #e65100}
+.formula{background:#f8f8f8;border-radius:10px;padding:14px 18px;font-family:monospace;font-size:12px;margin:12px 0}
+.formula span{color:#1565c0;font-weight:700}
+.ranking-table{width:100%;border-collapse:collapse;margin-top:8px}
+.ranking-table th{font-size:8px;font-weight:700;text-transform:uppercase;color:#888;padding:6px 10px;border-bottom:2px solid #ececec;text-align:left}
+.ranking-table td{font-size:11px;padding:7px 10px;border-bottom:1px solid #f5f5f5;vertical-align:middle}
+.ranking-table tr:hover td{background:#f8f9ff}
+.score-badge{display:inline-block;padding:2px 10px;border-radius:10px;font-size:12px;font-weight:800}
+.s-a{background:#e8f5e9;color:#2e7d32}
+.s-b{background:#fff8e1;color:#e65100}
+.s-c{background:#ffebee;color:#c62828}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin:0 1px;vertical-align:middle}
+.subscore{font-size:8px;color:#aaa;display:block;margin-top:1px}
+.caveat{background:#fff3e0;border-left:4px solid #ff9800;padding:10px 14px;border-radius:0 8px 8px 0;font-size:10px;line-height:1.6;color:#555;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Metodología — Priorización de Categorías GM Agora SP</h1>
+  <div class="sub">Quick Commerce · San Pablo · Lanzamiento jun-08 2026 · Universo: 53.605 products, R$397M NMV, may-2026</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h3>Objetivo</h3>
+      <p>Definir qué categorías priorizar en el lanzamiento de GM Agora SP, balanceando dos objetivos: <strong>defender las categorías más importantes para MeLi</strong> (para que QC no erosione el marketplace) y <strong>atacar donde el mercado QC ya validó demanda</strong> (para competir con iFood Turbo, Rappi y similares).</p>
+      <p>El resultado es un score 0–100 por categoría que combina señal de mercado QC, relevancia estratégica para MeLi y simplicidad del surtido.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h3>Universo de análisis</h3>
+      <p>Todos los productos vendidos en MeLi SP entre abr-21 y may-20 2026 con restricciones logísticas QC (≤50cm, ≤100cm suma, ≤15kg) y demanda mínima de 30 unidades/30 días. Resultado: <strong>53.605 product_ids únicos</strong> agrupados en <strong>19 categorías</strong> que cubren el 88% del universo (89.5% del volumen, 78.7% del NMV).</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h3>Las tres dimensiones del score</h3>
+      <div class="dim-grid">
+        <div class="dim d1">
+          <h4>🎯 QC Signal (30%)</h4>
+          <ul>
+            <li>Cuántos de los 5 players QC globales llevan la categoría</li>
+            <li>Players: iFood Turbo · Rappi · Meituan · Blinkit · Amazon Now</li>
+          </ul>
+          <div class="w">Score = players presentes / 5</div>
+        </div>
+        <div class="dim d2">
+          <h4>📦 Relevancia MeLi (50%)</h4>
+          <ul>
+            <li><strong>Top 10% units:</strong> % SKUs de la cat. en top 10% del universo SP por volumen</li>
+            <li><strong>% Vol core:</strong> peso en volumen del assortment core (pareto 80%)</li>
+            <li><strong>Top 10% NMV:</strong> % SKUs de la cat. en top 10% del universo SP por valor</li>
+            <li><strong>% NMV core:</strong> peso en valor del assortment core</li>
+          </ul>
+          <div class="w">Score = promedio aritmético de los 4 sub-scores normalizados</div>
+        </div>
+        <div class="dim d3">
+          <h4>⚡ Simplicidad (20%)</h4>
+          <ul>
+            <li>Cuántos SKUs necesitás para cubrir el 80% del volumen de la categoría</li>
+            <li>Menos SKUs = más simple = más fácil de lanzar rápido</li>
+          </ul>
+          <div class="w">Score = 1 − (p80_pids normalizado)</div>
+        </div>
+      </div>
+
+      <div class="caveat">
+        <strong>¿Por qué usar el core (pareto 80%) y no el total de la categoría?</strong><br>
+        El total incluye el tail largo de productos con poca demanda. Una categoría grande como Hogar tiene 8.668 SKUs pero la mayoría no son relevantes para QC. El core (pareto 80%) aísla el assortment que realmente mueve el negocio y elimina el sesgo de tamaño.
+      </div>
+      <div class="caveat" style="margin-top:8px;border-color:#1565c0;background:#e3f2fd">
+        <strong>¿Por qué usar % SKUs en top 10% y no % de volumen total?</strong><br>
+        El % de volumen total está sesgado por el tamaño: Hogar acumula más unidades simplemente porque tiene más SKUs. El "% de SKUs en top 10%" mide la <em>densidad de calidad</em> de la categoría — qué proporción de sus productos son top performers en el universo completo. Bebidas lidera con 22.6% (casi 1 de cada 4 SKUs es top performer global).
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h3>Fórmula</h3>
+      <div class="formula">
+        <span>Score</span> = 0.50 × MeLi_score + 0.30 × QC_score + 0.20 × Simplicity_score<br><br>
+        MeLi_score = 0.25×T10U + 0.25×T10N + 0.25×VOL + 0.25×NMV  <em style="color:#888;font-size:10px">(cada uno norm. 0→1)</em><br>
+        QC_score   = bench / 5<br>
+        Simpl.     = 1 − (p80_pids − min) / (max − min)
+      </div>
+      <p class="note">Todos los sub-scores se normalizan min-max dentro de las 19 categorías antes de combinar. El score final se expresa en escala 0–100.</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Ranking — 19 Categorías ordenadas por score</h2>
+  <table class="ranking-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Categoría</th>
+        <th>Score</th>
+        <th>Benchmark QC</th>
+        <th>MeLi</th>
+        <th>Simplicidad</th>
+        <th>Top 10% U</th>
+        <th>Top 10% NMV</th>
+        <th>Vol core</th>
+        <th>NMV core</th>
+        <th>Core SKUs</th>
+      </tr>
+    </thead>
+    <tbody id="rank-body"></tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Notas y limitaciones</h2>
+  <div style="font-size:11px;color:#444;line-height:1.8">
+    <p>• <strong>Cobertura:</strong> las 19 categorías cubren 88% de los productos del universo SP pero solo el 78.7% del NMV. El 21.3% restante incluye electrónica de alto ticket (smartphones, notebooks) y equipamiento comercial, fuera del scope de QC por dimensiones o modelo de negocio.</p>
+    <p>• <strong>Tecno (Tecnología):</strong> aparece en posición 10 a pesar de representar el 17.6% del NMV del core, porque el volumen de órdenes es muy bajo. Esto refleja correctamente su naturaleza: es una categoría de defensa por valor, no por frecuencia de compra.</p>
+    <p>• <strong>Período de datos:</strong> abr-21 a may-20 2026. El ranking puede variar con períodos estacionales distintos.</p>
+    <p>• <strong>Los tiers de priorización</strong> (Tier 1 / Tier 2 / Tier 3) se definirán con el equipo sobre este ranking, considerando también capacidad operativa y roadmap de sellers.</p>
+  </div>
+</div>
+
+<script>
+var CATS = [
+  {rank:1,  cat:"beb",   name:"Bebidas",                bench:5, sc:66, sm:38, sq:100, ss:85, t10u:22.6, t10n:13.2, vol:3.7,  nmv:2.0,  p80:1228},
+  {rank:2,  cat:"food",  name:"Alimentos",              bench:5, sc:64, sm:39, sq:100, ss:71, t10u:19.9, t10n:7.4,  vol:7.8,  nmv:2.8,  p80:1998},
+  {rank:3,  cat:"suple", name:"Suplementos y Vitaminas",bench:5, sc:63, sm:31, sq:100, ss:88, t10u:13.2, t10n:22.0, vol:3.0,  nmv:3.6,  p80:1079},
+  {rank:4,  cat:"limp",  name:"Hogar",                  bench:5, sc:58, sm:57, sq:100, ss:0,  t10u:12.7, t10n:10.2, vol:15.6, nmv:11.5, p80:5730},
+  {rank:5,  cat:"beauty",name:"Beauty e Higiene",       bench:5, sc:57, sm:31, sq:100, ss:59, t10u:10.8, t10n:13.0, vol:5.9,  nmv:5.9,  p80:2606},
+  {rank:6,  cat:"farma", name:"Farmacia y Salud",       bench:5, sc:57, sm:20, sq:100, ss:84, t10u:11.3, t10n:11.3, vol:2.7,  nmv:2.5,  p80:1293},
+  {rank:7,  cat:"snack", name:"Snacks y Golosinas",     bench:5, sc:57, sm:15, sq:100, ss:95, t10u:14.3, t10n:3.5,  vol:1.8,  nmv:0.6,  p80:699},
+  {rank:8,  cat:"bebe",  name:"Bebe y Ninos",           bench:5, sc:55, sm:12, sq:100, ss:97, t10u:9.3,  t10n:9.7,  vol:1.3,  nmv:1.1,  p80:610},
+  {rank:9,  cat:"pet",   name:"Mascotas",               bench:5, sc:51, sm:6,  sq:100, ss:90, t10u:5.8,  t10n:7.7,  vol:1.4,  nmv:1.4,  p80:986},
+  {rank:10, cat:"tecno", name:"Tecnologia",             bench:0, sc:48, sm:58, sq:0,   ss:96, t10u:9.9,  t10n:44.7, vol:1.2,  nmv:17.6, p80:660},
+  {rank:11, cat:"tech",  name:"Accesorios Tech",        bench:3, sc:45, sm:29, sq:60,  ss:62, t10u:10.5, t10n:13.0, vol:5.4,  nmv:5.8,  p80:2438},
+  {rank:12, cat:"ilum",  name:"Iluminacion y Electrica",bench:2, sc:32, sm:13, sq:40,  ss:67, t10u:6.2,  t10n:8.0,  vol:3.6,  nmv:3.1,  p80:2179},
+  {rank:13, cat:"libr",  name:"Libros",                 bench:0, sc:29, sm:19, sq:0,   ss:100,t10u:10.5, t10n:15.5, vol:1.3,  nmv:2.1,  p80:455},
+  {rank:14, cat:"indum", name:"Indumentaria",           bench:0, sc:27, sm:37, sq:0,   ss:41, t10u:10.1, t10n:10.2, vol:8.8,  nmv:8.5,  p80:3562},
+  {rank:15, cat:"pape",  name:"Papeleria y Fiestas",    bench:1, sc:24, sm:7,  sq:20,  ss:70, t10u:5.9,  t10n:3.3,  vol:3.0,  nmv:1.9,  p80:2019},
+  {rank:16, cat:"depo",  name:"Deportes",               bench:0, sc:22, sm:4,  sq:0,   ss:98, t10u:6.7,  t10n:4.6,  vol:1.0,  nmv:0.7,  p80:545},
+  {rank:17, cat:"const", name:"Construccion",           bench:0, sc:21, sm:11, sq:0,   ss:75, t10u:6.3,  t10n:7.1,  vol:2.9,  nmv:2.7,  p80:1766},
+  {rank:18, cat:"moda",  name:"Accesorios de Moda",     bench:0, sc:20, sm:4,  sq:0,   ss:91, t10u:5.2,  t10n:6.0,  vol:1.4,  nmv:1.2,  p80:906},
+  {rank:19, cat:"auto",  name:"Automotor",              bench:0, sc:19, sm:1,  sq:0,   ss:95, t10u:4.4,  t10n:4.0,  vol:1.1,  nmv:0.8,  p80:743}
+];
+
+var COMP_CLR=["#ea1d2c","#ff6b35","#009966","#f4c430","#ff9900"];
+function benchDots(n){
+  var clr=n>=4?'#2e7d32':n>=2?'#1565c0':n>=1?'#e65100':'#9e9e9e';
+  var s='';
+  for(var i=0;i<5;i++) s+='<span class="dot" style="background:'+(i<n?clr:'#e0e0e0')+'"></span>';
+  return s;
+}
+function scBadge(sc){
+  var cls=sc>=55?'s-a':sc>=35?'s-b':'s-c';
+  return '<span class="score-badge '+cls+'">'+sc+'</span>';
+}
+function subBar(v,clr){
+  return '<span style="display:inline-block;width:'+Math.round(v*0.4)+'px;height:5px;background:'+clr+';border-radius:2px;vertical-align:middle"></span> '+v;
+}
+
+var tbody=document.getElementById('rank-body');
+CATS.forEach(function(c){
+  var tr=document.createElement('tr');
+  tr.innerHTML=
+    '<td style="font-size:11px;font-weight:800;color:#bbb">'+c.rank+'</td>'+
+    '<td style="font-size:12px;font-weight:700">'+c.name+'</td>'+
+    '<td>'+scBadge(c.sc)+'<span class="subscore">M:'+c.sm+' Q:'+c.sq+' S:'+c.ss+'</span></td>'+
+    '<td>'+benchDots(c.bench)+'</td>'+
+    '<td><span style="font-size:11px;font-weight:700">'+c.sm+'</span></td>'+
+    '<td><span style="font-size:11px;font-weight:700">'+c.ss+'</span></td>'+
+    '<td style="font-size:11px">'+c.t10u+'%</td>'+
+    '<td style="font-size:11px">'+c.t10n+'%</td>'+
+    '<td style="font-size:11px">'+c.vol+'%</td>'+
+    '<td style="font-size:11px">'+c.nmv+'%</td>'+
+    '<td style="font-size:11px">'+c.p80+'</td>';
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
