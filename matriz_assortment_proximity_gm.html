@@ -1340,20 +1340,22 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
   <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #e0e0e0">
     <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#e65100;margin-bottom:4px">Misiones de Compra</div>
     <div style="font-size:24px;font-weight:900;color:#e65100;margin-bottom:8px" id="t9-v-mis">50%</div>
-    <input type="range" id="t9-s-mis" min="0" max="100" value="50" oninput="t9Update()" style="width:100%;accent-color:#e65100">
+    <input type="range" id="t9-s-mis" min="0" max="100" value="50" oninput="t9ShowVals()" style="width:100%;accent-color:#e65100">
   </div>
   <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #e0e0e0">
     <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#1565c0;margin-bottom:4px">QC Signal</div>
     <div style="font-size:24px;font-weight:900;color:#1565c0;margin-bottom:8px" id="t9-v-qc">0%</div>
-    <input type="range" id="t9-s-qc" min="0" max="100" value="0" oninput="t9Update()" style="width:100%;accent-color:#1565c0">
+    <input type="range" id="t9-s-qc" min="0" max="100" value="0" oninput="t9ShowVals()" style="width:100%;accent-color:#1565c0">
   </div>
   <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #e0e0e0">
     <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#7b1fa2;margin-bottom:4px">Relevancia MeLi</div>
     <div style="font-size:24px;font-weight:900;color:#7b1fa2;margin-bottom:8px" id="t9-v-meli">50%</div>
-    <input type="range" id="t9-s-meli" min="0" max="100" value="50" oninput="t9Update()" style="width:100%;accent-color:#7b1fa2">
+    <input type="range" id="t9-s-meli" min="0" max="100" value="50" oninput="t9ShowVals()" style="width:100%;accent-color:#7b1fa2">
   </div>
 </div>
   <button onclick="t9Normalize()" style="font-size:10px;padding:4px 12px;background:#f0f0f0;border:1px solid #ddd;border-radius:20px;cursor:pointer;font-family:inherit;color:#666">Normalizar</button>
+  <button onclick="t9Update()" style="font-size:11px;padding:6px 18px;background:#333;color:#fff;border:none;border-radius:20px;cursor:pointer;font-family:inherit;font-weight:700;margin-left:6px">&#9654; Recalcular</button>
+  <span id="t9-pending" style="font-size:9px;color:#ff9800;display:none;margin-left:8px">&#9679; cambios sin recalcular</span>
 </div>
 
 
@@ -1423,7 +1425,20 @@ function initT9(){
   var _tb=document.getElementById('t9-sim-body'); if(!_tb||_tb.children.length>0) return;
   t9Update();
 }
+function t9ShowVals(){
+  var wm=+(document.getElementById('t9-s-meli')||{value:50}).value;
+  var wms=+(document.getElementById('t9-s-mis')||{value:50}).value;
+  var wq=+(document.getElementById('t9-s-qc')||{value:0}).value;
+  var vm=document.getElementById('t9-v-meli'); if(vm)vm.textContent=wm+'%';
+  var vms=document.getElementById('t9-v-mis'); if(vms)vms.textContent=wms+'%';
+  var vq=document.getElementById('t9-v-qc'); if(vq)vq.textContent=wq+'%';
+  var sum=wm+wms+wq; var sb=document.getElementById('t9-sum-badge');
+  if(sb){sb.textContent='Suma: '+sum+'%';sb.style.background=sum===100?'#e8f5e9':'#ffebee';sb.style.color=sum===100?'#2e7d32':'#c62828';}
+  var p=document.getElementById('t9-pending'); if(p)p.style.display='inline';
+}
+
 function t9Update(){
+  var p=document.getElementById('t9-pending'); if(p)p.style.display='none';
   var wm=+(document.getElementById('t9-s-meli')||{value:50}).value;
   var wms=+(document.getElementById('t9-s-mis')||{value:30}).value;
   var wq=+(document.getElementById('t9-s-qc')||{value:0}).value;
@@ -1476,9 +1491,10 @@ function t9Update(){
 function t9Mis(key,field){
   var cat=T9.find(function(c){return c.key===key;}); if(!cat)return;
   cat[field]=(cat[field]+1)%3;
-  t9Update();
+  var MIS_CLR={0:'#e0e0e0',1:'#ffcc80',2:'#ff7043'};
+  if(event&&event.target){event.target.textContent=cat[field];event.target.style.background=MIS_CLR[cat[field]];}
+  var p=document.getElementById('t9-pending'); if(p)p.style.display='inline';
 }
-function t9Normalize(){
   var wm=+(document.getElementById('t9-s-meli')||{value:50}).value;
   var wms=+(document.getElementById('t9-s-mis')||{value:30}).value;
   var wq=+(document.getElementById('t9-s-qc')||{value:20}).value;
