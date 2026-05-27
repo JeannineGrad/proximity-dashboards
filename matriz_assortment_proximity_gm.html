@@ -23,7 +23,7 @@
 
 
 <!-- WEIGHT SLIDERS -->
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
   <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #eee">
     <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#2e7d32;margin-bottom:4px">Relevancia MeLi</div>
     <div style="font-size:24px;font-weight:900;color:#2e7d32;margin-bottom:8px" id="t9-v-meli">50%</div>
@@ -33,6 +33,11 @@
     <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#e65100;margin-bottom:4px">Misiones de Compra</div>
     <div style="font-size:24px;font-weight:900;color:#e65100;margin-bottom:8px" id="t9-v-mis">30%</div>
     <input type="range" id="t9-s-mis" min="0" max="100" value="30" oninput="t9Update()" style="width:100%;accent-color:#e65100">
+  </div>
+  <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #eee">
+    <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#1565c0;margin-bottom:4px">QC Signal</div>
+    <div style="font-size:24px;font-weight:900;color:#1565c0;margin-bottom:8px" id="t9-v-qc">0%</div>
+    <input type="range" id="t9-s-qc" min="0" max="100" value="0" oninput="t9Update()" style="width:100%;accent-color:#1565c0">
   </div>
 
 
@@ -56,7 +61,7 @@
   <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;text-align:center">Score</th>
   <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;text-align:center">MeLi</th>
   <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;text-align:center;min-width:80px">Misiones<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">U · I · C (click)</div></th>
-
+  <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#1565c0;text-align:center">QC<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">0-5 players</div></th>
   <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;text-align:center">Vol%<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">core</div></th>
   <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;text-align:center">NMV%<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">core</div></th>
   <th style="padding:7px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;text-align:center">T10%<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">units</div></th>
@@ -1474,10 +1479,11 @@ function initT9(){
 function t9Update(){
   var wm=+(document.getElementById('t9-s-meli')||{value:50}).value;
   var wms=+(document.getElementById('t9-s-mis')||{value:30}).value;
-  var wq=0;
+  var wq=+(document.getElementById('t9-s-qc')||{value:0}).value;
   var total=wm+wms+wq; if(total===0)total=1;
   var vm=document.getElementById('t9-v-meli'); if(vm)vm.textContent=wm+'%';
   var vms=document.getElementById('t9-v-mis'); if(vms)vms.textContent=wms+'%';
+  var vq=document.getElementById('t9-v-qc'); if(vq)vq.textContent=wq+'%';
 
   var sb=document.getElementById('t9-sum-badge');
   if(sb){var s=wm+wms+wq;sb.textContent='Suma: '+s+'%';sb.style.background=s===100?'#e8f5e9':'#ffebee';sb.style.color=s===100?'#2e7d32':'#c62828';}
@@ -1508,7 +1514,7 @@ function t9Update(){
       '<td style="padding:7px 8px;text-align:center"><span style="display:inline-block;padding:2px 10px;border-radius:10px;background:'+scBg+';color:'+scTx+';font-size:13px;font-weight:900">'+sc100+'</span></td>'+
       '<td style="padding:7px 8px;text-align:center;font-size:11px;font-weight:700;color:#2e7d32">'+Math.round(c.meli*100)+'</td>'+
       '<td style="padding:7px 8px;text-align:center">'+misCells+'</td>'+
-
+      '<td style="padding:7px 8px;text-align:center">'+ benchDots +'</td>'+
       '<td style="padding:7px 8px;text-align:center;font-size:11px;color:#555">'+c.vol+'%</td>'+
       '<td style="padding:7px 8px;text-align:center;font-size:11px;color:#555">'+c.nmv+'%</td>'+
       '<td style="padding:7px 8px;text-align:center;font-size:11px;color:#555">'+c.t10u+'%</td>'+
