@@ -3,8 +3,27 @@
 <div id="t9" class="tab-pane">
 <div class="wrap">
 
+<div style="margin-bottom:20px">
+  <div style="font-size:15px;font-weight:900;margin-bottom:4px">Priorizaci&oacute;n de Categor&iacute;as — GM Agora SP</div>
+  <div style="font-size:10px;color:#888;margin-bottom:12px">Ajust&aacute; los pesos de cada dimensi&oacute;n · el ranking recalcula en tiempo real · 24 categor&iacute;as</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:8px 14px;flex:1;min-width:180px">
+      <div style="font-size:10px;font-weight:800;color:#e65100;margin-bottom:3px">&#128293; Urgencia (U)</div>
+      <div style="font-size:10px;color:#666;line-height:1.4">Lo necesito ya — medicamentos, pa&ntilde;ales, pilas, cargador roto, regalo de &uacute;ltimo momento</div>
+    </div>
+    <div style="background:#fff3e0;border:1px solid #ffcc80;border-radius:8px;padding:8px 14px;flex:1;min-width:180px">
+      <div style="font-size:10px;font-weight:800;color:#ff6f00;margin-bottom:3px">&#9889; Impulso (I)</div>
+      <div style="font-size:10px;color:#666;line-height:1.4">Lo vi, lo quiero ahora — trend de redes sociales, promo flash, antojo, bundle tentador</div>
+    </div>
+    <div style="background:#e3f2fd;border:1px solid #90caf9;border-radius:8px;padding:8px 14px;flex:1;min-width:180px">
+      <div style="font-size:10px;font-weight:800;color:#1565c0;margin-bottom:3px">&#128205; Conveniencia (C)</div>
+      <div style="font-size:10px;color:#666;line-height:1.4">Prefiero recibirlo hoy — compra rutinaria, no tengo tiempo, est&aacute; lloviendo, lo necesito para esta noche</div>
+    </div>
+  </div>
+  <div style="margin-top:8px;font-size:9px;color:#aaa">Click en U·I·C por categor&iacute;a para cambiar el score: 0 = no aplica · 1 = aplica · 2 = misi&oacute;n principal</div>
+</div>
 <!-- WEIGHT SLIDERS -->
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
   <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #eee">
     <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#2e7d32;margin-bottom:4px">Relevancia MeLi</div>
     <div style="font-size:24px;font-weight:900;color:#2e7d32;margin-bottom:8px" id="t9-v-meli">50%</div>
@@ -15,11 +34,11 @@
     <div style="font-size:24px;font-weight:900;color:#e65100;margin-bottom:8px" id="t9-v-mis">30%</div>
     <input type="range" id="t9-s-mis" min="0" max="100" value="30" oninput="t9Update()" style="width:100%;accent-color:#e65100">
   </div>
-  <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #eee">
-    <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#1565c0;margin-bottom:4px">QC Signal</div>
-    <div style="font-size:24px;font-weight:900;color:#1565c0;margin-bottom:8px" id="t9-v-qc">20%</div>
-    <input type="range" id="t9-s-qc" min="0" max="100" value="20" oninput="t9Update()" style="width:100%;accent-color:#1565c0">
-  </div>
+
+
+
+
+
 </div>
 
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
@@ -1390,7 +1409,7 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 <tr style="background:#f8f8f8;border-bottom:2px solid #e8e8e8">
 <th style="padding:6px 8px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:160px">Categoria</th>
 
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#1565c0;min-width:90px">QC Signal<br><span style="font-weight:600;text-transform:none;font-size:7px">bench / 5</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Players QC globales que llevan la categor&iacute;a</div></th>
+
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Vol% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en unidades del core (SKUs que hacen el 80% del vol. de la cat.) sobre el universo SP</div></th>
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">NMV% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en NMV del core de la cat. sobre el universo SP</div></th>
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Top 10% Units<br><span style="font-weight:600;text-transform:none;font-size:7px">% SKUs cat.</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">% de los SKUs de la cat. que est&aacute;n en el top 10% del universo SP por &oacute;rdenes</div></th>
@@ -1439,11 +1458,11 @@ function initT9(){
 function t9Update(){
   var wm=+(document.getElementById('t9-s-meli')||{value:50}).value;
   var wms=+(document.getElementById('t9-s-mis')||{value:30}).value;
-  var wq=+(document.getElementById('t9-s-qc')||{value:20}).value;
+  var wq=0;
   var total=wm+wms+wq; if(total===0)total=1;
   var vm=document.getElementById('t9-v-meli'); if(vm)vm.textContent=wm+'%';
   var vms=document.getElementById('t9-v-mis'); if(vms)vms.textContent=wms+'%';
-  var vq=document.getElementById('t9-v-qc'); if(vq)vq.textContent=wq+'%';
+
   var sb=document.getElementById('t9-sum-badge');
   if(sb){var s=wm+wms+wq;sb.textContent='Suma: '+s+'%';sb.style.background=s===100?'#e8f5e9':'#ffebee';sb.style.color=s===100?'#2e7d32':'#c62828';}
   var scored=T9.map(function(c){
@@ -1473,7 +1492,7 @@ function t9Update(){
       '<td style="padding:7px 8px;text-align:center"><span style="display:inline-block;padding:2px 10px;border-radius:10px;background:'+scBg+';color:'+scTx+';font-size:13px;font-weight:900">'+sc100+'</span></td>'+
       '<td style="padding:7px 8px;text-align:center;font-size:11px;font-weight:700;color:#2e7d32">'+Math.round(c.meli*100)+'</td>'+
       '<td style="padding:7px 8px;text-align:center">'+misCells+'</td>'+
-      '<td style="padding:7px 8px;text-align:center">'+benchDots+'</td>'+
+
       '<td style="padding:7px 8px;text-align:center;font-size:11px;color:#555">'+c.vol+'%</td>'+
       '<td style="padding:7px 8px;text-align:center;font-size:11px;color:#555">'+c.nmv+'%</td>'+
       '<td style="padding:7px 8px;text-align:center;font-size:11px;color:#555">'+c.t10u+'%</td>'+
