@@ -1397,7 +1397,7 @@ var T9 = [
   {key:"const", name:"Materiales Construccion",   bench:0,meli:0.113,qc:0.00,urg:0,imp:0,con:1,t10u:5.6, t10n:6.0, vol:2.4, nmv:2.0}
 ];
 function initT9(){
-  if(document.getElementById('t9-sim-body').children.length>0) return;
+  var _tb=document.getElementById('t9-sim-body'); if(!_tb||_tb.children.length>0) return;
   t9Update();
 }
 function t9Update(){
