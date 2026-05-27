@@ -1345,6 +1345,7 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">NMV% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en NMV del core de la cat. sobre el universo SP</div></th>
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:90px">SKUs Core<br><span style="font-weight:600;text-transform:none;font-size:7px">cant. productos</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">SKUs necesarios para cubrir el 80% del vol. de la cat. (assortment m&iacute;nimo relevante)</div></th>
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:90px">u/SKU Core<br><span style="font-weight:600;text-transform:none;font-size:7px">und. / producto</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Velocidad de venta prom. de los SKUs del core. M&aacute;s alto = cada producto vende m&aacute;s = menor riesgo de surtido</div></th>
+<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#111;min-width:90px;border-left:2px solid #e0e0e0">Score<br><span style="font-weight:600;text-transform:none;font-size:7px">0 &ndash; 100</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Score final + sub-scores M (MeLi 50%) · Q (QC 30%) · S (Simplicidad 20%)</div></th>
 </thead>
 <tbody id="t9-kpi-body"></tbody>
 </table>
@@ -1375,8 +1376,8 @@ var T9 = [
   {key:"auto",  name:"Automotor",                  bench:0, pi:2.1,  pv:1.4,  pn:1.0,  p50:25.0, it:1112, p50n:14.8, sc:0.194, sm:0.009, sq:0.00, ss:0.95}
 ];
 function initT9(){
-  var tbody=document.getElementById('t9-body');
-  if(tbody.children.length>0) return;
+  var tbody=document.getElementById('t9-kpi-body');
+  
   function abcTiers(data,field){
     var sorted=data.slice().sort(function(a,b){return b[field]-a[field];});
     var total=sorted.reduce(function(s,d){return s+d[field];},0);
@@ -1447,6 +1448,7 @@ function initT9(){
     ];
     var clrQC='#e3f2fd'; var clrML='#e8f5e9'; var clrSM='#fff8e1';
     function kpiFmt(v,clr){return'<td style="padding:6px 8px;text-align:center;font-size:11px;font-weight:700;background:'+clr+'20">'+v+'</td>';}
+    var T9map={}; T9.forEach(function(x){T9map[x.key]=x;});
     KPI.forEach(function(d){
       var clr=d.bench>=4?'#2e7d32':d.bench>=2?'#1565c0':d.bench>=1?'#e65100':'#9e9e9e';
       var tr=document.createElement('tr');
@@ -1460,7 +1462,8 @@ function initT9(){
         kpiFmt(d.vol+'%','#2e7d32')+
         kpiFmt(d.nmv+'%','#2e7d32')+
         kpiFmt(d.p80,'#e65100')+
-        kpiFmt(d.usku,'#e65100');
+        kpiFmt(d.usku,'#e65100')+
+        (function(t){if(!t)return '<td></td>';var bg=t.sc>=0.55?'#e8f5e9':t.sc>=0.35?'#fff8e1':'#ffebee';var tx=t.sc>=0.55?'#2e7d32':t.sc>=0.35?'#e65100':'#c62828';return '<td style="padding:6px 8px;text-align:center;border-left:2px solid #e0e0e0"><span style="display:inline-block;padding:2px 10px;border-radius:10px;background:'+bg+';color:'+tx+';font-size:13px;font-weight:800">'+Math.round(t.sc*100)+'</span><div style="font-size:8px;color:#aaa;margin-top:2px">M:'+Math.round(t.sm*100)+' Q:'+Math.round(t.sq*100)+' S:'+Math.round(t.ss*100)+'</div></td>';})(T9map[d.k]);
       kpiBody.appendChild(tr);
     });
   }
