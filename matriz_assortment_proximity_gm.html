@@ -1348,9 +1348,9 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
     <input type="range" id="t9-s-qc" min="0" max="100" value="0" oninput="t9Update()" style="width:100%;accent-color:#1565c0">
   </div>
   <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #e0e0e0">
-    <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#c8a500;margin-bottom:4px">Relevancia MeLi</div>
-    <div style="font-size:24px;font-weight:900;color:#c8a500;margin-bottom:8px" id="t9-v-meli">50%</div>
-    <input type="range" id="t9-s-meli" min="0" max="100" value="50" oninput="t9Update()" style="width:100%;accent-color:#c8a500">
+    <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#7b1fa2;margin-bottom:4px">Relevancia MeLi</div>
+    <div style="font-size:24px;font-weight:900;color:#7b1fa2;margin-bottom:8px" id="t9-v-meli">50%</div>
+    <input type="range" id="t9-s-meli" min="0" max="100" value="50" oninput="t9Update()" style="width:100%;accent-color:#7b1fa2">
   </div>
 </div>
   <button onclick="t9Normalize()" style="font-size:10px;padding:4px 12px;background:#f0f0f0;border:1px solid #ddd;border-radius:20px;cursor:pointer;font-family:inherit;color:#666">Normalizar</button>
@@ -1365,16 +1365,17 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 <thead><tr style="background:#f8f8f8;border-bottom:2px solid #e8e8e8">
   <th style="padding:6px 6px;width:24px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777">#</th>
   <th style="padding:6px 8px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:150px">Categor&iacute;a</th>
-  <th style="padding:6px 5px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e94560;width:60px;border-left:2px solid #fce4ec">U &middot; Urgencia<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa;margin-top:2px;line-height:1.3">Lo necesito ya. Sin eso no funciona</div><div style="font-size:7px;color:#ddd">0·1·2</div></th>
-  <th style="padding:6px 5px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#ff6f00;width:60px">I &middot; Impulso<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa;margin-top:2px;line-height:1.3">Lo vi, lo quiero ahora</div><div style="font-size:7px;color:#ddd">0·1·2</div></th>
-  <th style="padding:6px 5px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#1565c0;width:60px;border-right:2px solid #e3f2fd">C &middot; Conveniencia<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa;margin-top:2px;line-height:1.3">Prefiero recibirlo hoy</div><div style="font-size:7px;color:#ddd">0·1·2</div></th>
-  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#1565c0">QC<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">0-5 players</div></th>
-  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32">Vol%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">core</div></th>
-  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32">NMV%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">core</div></th>
-  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32">T10%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">units</div></th>
-  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32">T10%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">NMV</div></th>
-  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#c8a500">Score MeLi<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">sub-score relevancia SP</div></th>
-  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;border-left:2px solid #e0e0e0">Score Final<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">ponderado</div></th>
+  <th style="padding:6px 5px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e94560;width:55px">U<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa;line-height:1.3">Urgencia<br>0·1·2</div></th>
+  <th style="padding:6px 5px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#ff6f00;width:55px">I<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa;line-height:1.3">Impulso<br>0·1·2</div></th>
+  <th style="padding:6px 5px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#1565c0;width:55px">C<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa;line-height:1.3">Conveniencia<br>0·1·2</div></th>
+  <th style="padding:6px 6px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;width:50px;border-left:2px solid #fde0cc">Score<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa;line-height:1.3">Misiones<br>0-100</div></th>
+  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#1565c0;border-left:2px solid #e8e8e8">QC Signal<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">players + score</div></th>
+  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:$PURPLE;border-left:2px solid #f3e5f5">Vol%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">core</div></th>
+  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:$PURPLE">NMV%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">core</div></th>
+  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:$PURPLE">T10%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">units</div></th>
+  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:$PURPLE">T10%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">NMV</div></th>
+  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:$PURPLE">Score MeLi<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">sub-score</div></th>
+  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#333;border-left:2px solid #e8e8e8">Score Final<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">ponderado</div></th>
 </tr></thead>
 
 
@@ -1458,16 +1459,17 @@ function t9Update(){
     tr.innerHTML=
       '<td style="padding:6px 6px;text-align:center;font-size:11px;font-weight:800;color:#bbb">'+(idx+1)+'</td>'+
       '<td style="padding:6px 8px;font-size:12px;font-weight:700">'+c.name+'</td>'+
-      '<td style="padding:6px 5px;text-align:center;border-left:2px solid #fce4ec"><span onclick="t9Mis(\''+c.key+'\',\'urg\')" style="display:inline-block;width:22px;padding:3px 0;border-radius:6px;font-size:12px;font-weight:800;background:'+uBg+';color:#333;cursor:pointer;user-select:none;text-align:center">'+c.urg+'</span></td>'+
-      '<td style="padding:6px 5px;text-align:center"><span onclick="t9Mis(\''+c.key+'\',\'imp\')" style="display:inline-block;width:22px;padding:3px 0;border-radius:6px;font-size:12px;font-weight:800;background:'+iBg+';color:#333;cursor:pointer;user-select:none;text-align:center">'+c.imp+'</span></td>'+
-      '<td style="padding:6px 5px;text-align:center;border-right:2px solid #e3f2fd"><span onclick="t9Mis(\''+c.key+'\',\'con\')" style="display:inline-block;width:22px;padding:3px 0;border-radius:6px;font-size:12px;font-weight:800;background:'+cBg+';color:#333;cursor:pointer;user-select:none;text-align:center">'+c.con+'</span></td>'+
-      '<td style="padding:6px 8px;text-align:center">'+benchDots+'</td>'+
-      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#555">'+c.vol+'%</td>'+
-      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#555">'+c.nmv+'%</td>'+
-      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#555">'+c.t10u+'%</td>'+
-      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#555">'+c.t10n+'%</td>'+
-      '<td style="padding:6px 8px;text-align:center;font-size:11px;font-weight:700;color:#c8a500">'+Math.round(c.meli*100)+'</td>'+
-      '<td style="padding:6px 8px;text-align:center;border-left:2px solid #e0e0e0"><span style="display:inline-block;padding:2px 10px;border-radius:10px;background:'+scBg+';color:'+scTx+';font-size:13px;font-weight:900">'+sc100+'</span></td>';
+      '<td style="padding:6px 5px;text-align:center"><span onclick="t9Mis(\''+c.key+'\',\'urg\')" style="display:inline-block;width:24px;padding:3px 0;border-radius:6px;font-size:12px;font-weight:800;background:'+uBg+';color:#333;cursor:pointer;user-select:none;text-align:center">'+c.urg+'</span></td>'+
+      '<td style="padding:6px 5px;text-align:center"><span onclick="t9Mis(\''+c.key+'\',\'imp\')" style="display:inline-block;width:24px;padding:3px 0;border-radius:6px;font-size:12px;font-weight:800;background:'+iBg+';color:#333;cursor:pointer;user-select:none;text-align:center">'+c.imp+'</span></td>'+
+      '<td style="padding:6px 5px;text-align:center"><span onclick="t9Mis(\''+c.key+'\',\'con\')" style="display:inline-block;width:24px;padding:3px 0;border-radius:6px;font-size:12px;font-weight:800;background:'+cBg+';color:#333;cursor:pointer;user-select:none;text-align:center">'+c.con+'</span></td>'+
+      '<td style="padding:6px 6px;text-align:center;border-left:2px solid #fde0cc"><span style="font-size:11px;font-weight:800;color:#e65100">'+Math.round(c.ms*100)+'</span></td>'+
+      '<td style="padding:6px 8px;text-align:center;border-left:2px solid #e8e8e8">'+benchDots+'<div style="font-size:10px;font-weight:700;color:#1565c0;margin-top:2px">'+Math.round(c.qc*100)+'</div></td>'+
+      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#7b1fa2;border-left:2px solid #f3e5f5">'+c.vol+'%</td>'+
+      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#7b1fa2">'+c.nmv+'%</td>'+
+      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#7b1fa2">'+c.t10u+'%</td>'+
+      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#7b1fa2">'+c.t10n+'%</td>'+
+      '<td style="padding:6px 8px;text-align:center;font-size:11px;font-weight:700;color:#7b1fa2">'+Math.round(c.meli*100)+'</td>'+
+      '<td style="padding:6px 8px;text-align:center;border-left:2px solid #e8e8e8"><span style="display:inline-block;padding:2px 10px;border-radius:10px;background:'+scBg+';color:'+scTx+';font-size:13px;font-weight:900">'+sc100+'</span></td>';
     tbody.appendChild(tr);
   });
 }
