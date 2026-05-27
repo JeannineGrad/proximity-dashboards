@@ -2,55 +2,53 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Score Simulator — GM Agora SP</title>
+<title>Score Simulator — GM Agora SP v2</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#0f0f0f;color:#fff;padding:32px;min-height:100vh}
 h1{font-size:18px;font-weight:900;margin-bottom:4px}
 .sub{font-size:11px;color:#666;margin-bottom:28px}
-.controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:28px}
+.controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
 .ctrl{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:18px 20px}
 .ctrl-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
 .ctrl-val{font-size:32px;font-weight:900;line-height:1;margin-bottom:12px}
 .ctrl-sub{font-size:10px;color:#555;margin-bottom:12px;line-height:1.4}
 input[type=range]{width:100%;appearance:none;height:4px;border-radius:2px;background:#333;outline:none;cursor:pointer}
 input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;cursor:pointer}
-.c1 .ctrl-val{color:#2e7d32} .c1 input::-webkit-slider-thumb{background:#2e7d32}
-.c2 .ctrl-val{color:#1565c0} .c2 input::-webkit-slider-thumb{background:#1565c0}
-.c3 .ctrl-val{color:#e65100} .c3 input::-webkit-slider-thumb{background:#e65100}
-.warn{background:#1a0a00;border:1px solid #e65100;border-radius:8px;padding:8px 14px;font-size:11px;color:#ff9800;margin-bottom:16px;display:none}
+.c1 .ctrl-val{color:#2e7d32}.c1 input::-webkit-slider-thumb{background:#2e7d32}
+.c2 .ctrl-val{color:#e65100}.c2 input::-webkit-slider-thumb{background:#e65100}
+.c3 .ctrl-val{color:#1565c0}.c3 input::-webkit-slider-thumb{background:#1565c0}
 .sum-row{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .sum-badge{font-size:13px;font-weight:800;padding:4px 12px;border-radius:20px}
-.sum-ok{background:#1a2e1a;color:#4caf50}
-.sum-err{background:#2e1a1a;color:#f44336}
+.sum-ok{background:#1a2e1a;color:#4caf50}.sum-err{background:#2e1a1a;color:#f44336}
 .btn-norm{font-size:11px;padding:5px 14px;background:#222;border:1px solid #444;border-radius:20px;color:#aaa;cursor:pointer;font-family:inherit}
 .btn-norm:hover{border-color:#FFE600;color:#FFE600}
 table{width:100%;border-collapse:collapse;background:#111;border-radius:10px;overflow:hidden}
 thead th{font-size:9px;font-weight:700;text-transform:uppercase;color:#555;padding:10px 12px;text-align:center;border-bottom:1px solid #222}
 thead th.left{text-align:left}
-tbody tr{border-bottom:1px solid #1a1a1a;transition:background .1s}
+tbody tr{border-bottom:1px solid #1a1a1a}
 tbody tr:hover td{background:#1a1a1a}
 td{padding:9px 12px;font-size:12px;text-align:center;vertical-align:middle}
 td.name{text-align:left;font-weight:700;font-size:13px}
 td.rank{font-weight:900;color:#555;font-size:13px;width:32px}
 .score-badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:14px;font-weight:900}
-.s-a{background:#1a2e1a;color:#4caf50}
-.s-b{background:#2e2000;color:#FFE600}
-.s-c{background:#1e1e1e;color:#666}
+.s-a{background:#1a2e1a;color:#4caf50}.s-b{background:#2e2000;color:#FFE600}.s-c{background:#1e1e1e;color:#666}
 .dim-bar{display:inline-block;height:4px;border-radius:2px;vertical-align:middle;margin:0 1px}
 .bench-dots{display:flex;justify-content:center;gap:3px}
 .bdot{width:8px;height:8px;border-radius:50%}
+.mis-dots{display:flex;justify-content:center;gap:2px}
+.mdot{width:7px;height:7px;border-radius:50%}
 .chg{font-size:9px;margin-left:4px;font-weight:700}
-.chg-up{color:#4caf50}
-.chg-dn{color:#f44336}
-.chg-eq{color:#555}
+.chg-up{color:#4caf50}.chg-dn{color:#f44336}.chg-eq{color:#555}
 .footer{margin-top:16px;font-size:10px;color:#444;text-align:right}
+.mis-legend{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.mis-item{display:flex;align-items:center;gap:6px;font-size:10px;color:#666}
+.mis-dot{width:9px;height:9px;border-radius:50%}
 </style>
 </head>
 <body>
-
-<h1>Score Simulator — GM Agora SP</h1>
-<div class="sub">Ajustá los pesos de cada dimensión y el ranking se recalcula en tiempo real · Baseline: 50% MeLi · 30% QC · 20% Simp</div>
+<h1>Score Simulator — GM Agora SP · 24 categorías</h1>
+<div class="sub">Ajustá los pesos · el ranking se recalcula en tiempo real · Sin variable de Simplicidad</div>
 
 <div class="controls">
   <div class="ctrl c1">
@@ -60,23 +58,30 @@ td.rank{font-weight:900;color:#555;font-size:13px;width:32px}
     <input type="range" id="s-meli" min="0" max="100" value="50" oninput="update()">
   </div>
   <div class="ctrl c2">
-    <div class="ctrl-label" style="color:#1565c0">QC Signal</div>
-    <div class="ctrl-val" id="v-qc">30%</div>
-    <div class="ctrl-sub">Players QC globales que llevan la categoría (0-5)</div>
-    <input type="range" id="s-qc" min="0" max="100" value="30" oninput="update()">
+    <div class="ctrl-label" style="color:#e65100">Misiones de Compra</div>
+    <div class="ctrl-val" id="v-mis">30%</div>
+    <div class="ctrl-sub">Urgencia · Impulso · Conveniencia</div>
+    <input type="range" id="s-mis" min="0" max="100" value="30" oninput="update()">
   </div>
   <div class="ctrl c3">
-    <div class="ctrl-label" style="color:#e65100">Simplicidad</div>
-    <div class="ctrl-val" id="v-simp">20%</div>
-    <div class="ctrl-sub">Inversión del nº de SKUs core (pareto 80%)</div>
-    <input type="range" id="s-simp" min="0" max="100" value="20" oninput="update()">
+    <div class="ctrl-label" style="color:#1565c0">QC Signal</div>
+    <div class="ctrl-val" id="v-qc">20%</div>
+    <div class="ctrl-sub">Players globales que llevan la categoría (0-5)</div>
+    <input type="range" id="s-qc" min="0" max="100" value="20" oninput="update()">
   </div>
 </div>
 
 <div class="sum-row">
   <span class="sum-badge sum-ok" id="sum-badge">Suma: 100%</span>
   <button class="btn-norm" onclick="normalize()">Normalizar a 100%</button>
-  <span style="font-size:10px;color:#555">Los scores se calculan con los pesos actuales aunque no sumen 100%</span>
+</div>
+
+<div class="mis-legend">
+  <span style="font-size:10px;color:#888;font-weight:700;margin-right:4px">MISIONES:</span>
+  <div class="mis-item"><div class="mis-dot" style="background:#e94560"></div>Urgencia (U)</div>
+  <div class="mis-item"><div class="mis-dot" style="background:#FFE600"></div>Impulso (I)</div>
+  <div class="mis-item"><div class="mis-dot" style="background:#4da6ff"></div>Conveniencia (C)</div>
+  <div class="mis-item" style="margin-left:8px;color:#555">0=no aplica · 1=aplica · 2=misión principal</div>
 </div>
 
 <table>
@@ -86,125 +91,108 @@ td.rank{font-weight:900;color:#555;font-size:13px;width:32px}
       <th class="left">Categoría</th>
       <th>Score</th>
       <th style="color:#2e7d32">MeLi</th>
+      <th style="color:#e65100">Misiones</th>
       <th style="color:#1565c0">QC</th>
-      <th style="color:#e65100">Simp</th>
-      <th>Benchmark</th>
+      <th>U·I·C</th>
       <th style="width:50px;font-size:8px">vs base</th>
     </tr>
   </thead>
   <tbody id="tbody"></tbody>
 </table>
-
-<div class="footer">Baseline: 50/30/20 · Score = w_meli×MeLi + w_qc×QC + w_simp×Simp (normalizado sobre total de pesos)</div>
+<div class="footer">Base: 50% MeLi · 30% Misiones · 20% QC · sin Simplicidad · 24 categorías</div>
 
 <script>
-var CATS = [
-  {k:"beb",   n:"Bebidas",                 bench:5, meli:0.377, qc:1.00, simp:0.85},
-  {k:"food",  n:"Alimentos",               bench:5, meli:0.386, qc:1.00, simp:0.71},
-  {k:"suple", n:"Suplementos y Vitaminas", bench:5, meli:0.312, qc:1.00, simp:0.88},
-  {k:"limp",  n:"Hogar",                   bench:5, meli:0.566, qc:1.00, simp:0.00},
-  {k:"beauty",n:"Beauty e Higiene",        bench:5, meli:0.308, qc:1.00, simp:0.59},
-  {k:"farma", n:"Farmacia y Salud",        bench:5, meli:0.200, qc:1.00, simp:0.84},
-  {k:"snack", n:"Snacks y Golosinas",      bench:5, meli:0.151, qc:1.00, simp:0.95},
-  {k:"bebe",  n:"Bebe y Ninos",            bench:5, meli:0.118, qc:1.00, simp:0.97},
-  {k:"pet",   n:"Mascotas",               bench:5, meli:0.064, qc:1.00, simp:0.90},
-  {k:"tecno", n:"Tecnologia",              bench:0, meli:0.579, qc:0.00, simp:0.96},
-  {k:"tech",  n:"Accesorios Tech",         bench:3, meli:0.294, qc:0.60, simp:0.62},
-  {k:"ilum",  n:"Iluminacion y Electrica", bench:2, meli:0.134, qc:0.40, simp:0.67},
-  {k:"libr",  n:"Libros",                  bench:0, meli:0.185, qc:0.00, simp:1.00},
-  {k:"indum", n:"Indumentaria",            bench:0, meli:0.370, qc:0.00, simp:0.41},
-  {k:"pape",  n:"Papeleria y Fiestas",     bench:1, meli:0.074, qc:0.20, simp:0.70},
-  {k:"depo",  n:"Deportes",               bench:0, meli:0.041, qc:0.00, simp:0.98},
-  {k:"const", n:"Construccion",            bench:0, meli:0.112, qc:0.00, simp:0.75},
-  {k:"moda",  n:"Accesorios de Moda",      bench:0, meli:0.043, qc:0.00, simp:0.91},
-  {k:"auto",  n:"Automotor",               bench:0, meli:0.009, qc:0.00, simp:0.95}
+var CATS=[
+  {k:"food",  n:"Alimentos",                 bench:5, meli:0.496,mis:0.67,qc:1.00, urg:2,imp:1,con:1},
+  {k:"limp",  n:"Limpieza",                  bench:5, meli:0.519,mis:0.50,qc:1.00, urg:1,imp:1,con:1},
+  {k:"beauty",n:"Beauty e Higiene",          bench:5, meli:0.386,mis:0.67,qc:1.00, urg:1,imp:2,con:1},
+  {k:"beb",   n:"Bebidas",                   bench:5, meli:0.427,mis:0.50,qc:1.00, urg:1,imp:1,con:1},
+  {k:"suple", n:"Suplementos y Vitaminas",   bench:5, meli:0.354,mis:0.50,qc:1.00, urg:1,imp:1,con:1},
+  {k:"snack", n:"Snacks y Golosinas",        bench:5, meli:0.178,mis:0.67,qc:1.00, urg:1,imp:2,con:1},
+  {k:"tech",  n:"Accesorios Tech",           bench:3, meli:0.337,mis:0.67,qc:0.60, urg:2,imp:1,con:1},
+  {k:"farma", n:"Farmacia y Salud",          bench:5, meli:0.235,mis:0.50,qc:1.00, urg:2,imp:0,con:1},
+  {k:"bebe",  n:"Bebe y Ninos",              bench:5, meli:0.130,mis:0.67,qc:1.00, urg:2,imp:1,con:1},
+  {k:"pet",   n:"Mascotas",                  bench:5, meli:0.101,mis:0.67,qc:1.00, urg:2,imp:1,con:1},
+  {k:"eldom", n:"Pequenos Electrodomesticos",bench:2, meli:0.442,mis:0.50,qc:0.40, urg:2,imp:0,con:1},
+  {k:"tecno", n:"Tecnologia",                bench:0, meli:0.598,mis:0.50,qc:0.00, urg:1,imp:1,con:1},
+  {k:"indum", n:"Indumentaria",              bench:0, meli:0.467,mis:0.50,qc:0.00, urg:0,imp:2,con:1},
+  {k:"ilum",  n:"Iluminacion y Electrica",   bench:2, meli:0.177,mis:0.50,qc:0.40, urg:1,imp:1,con:1},
+  {k:"cocina",n:"Cocina y Utensilios",       bench:1, meli:0.192,mis:0.50,qc:0.20, urg:1,imp:1,con:1},
+  {k:"pape",  n:"Papeleria y Fiestas",       bench:1, meli:0.115,mis:0.50,qc:0.20, urg:1,imp:1,con:1},
+  {k:"libr",  n:"Libros",                    bench:0, meli:0.204,mis:0.33,qc:0.00, urg:0,imp:1,con:1},
+  {k:"moda",  n:"Accesorios de Moda",        bench:0, meli:0.055,mis:0.50,qc:0.00, urg:0,imp:2,con:1},
+  {k:"seghogar",n:"Seguridad del Hogar",     bench:0, meli:0.123,mis:0.33,qc:0.00, urg:1,imp:0,con:1},
+  {k:"depo",  n:"Deportes",                  bench:0, meli:0.047,mis:0.33,qc:0.00, urg:0,imp:1,con:1},
+  {k:"deco",  n:"Organizacion y Decoracion", bench:0, meli:0.043,mis:0.33,qc:0.00, urg:0,imp:1,con:1},
+  {k:"text",  n:"Textiles Hogar",            bench:0, meli:0.134,mis:0.17,qc:0.00, urg:0,imp:0,con:1},
+  {k:"auto",  n:"Automotor",                 bench:0, meli:0.025,mis:0.33,qc:0.00, urg:1,imp:0,con:1},
+  {k:"const", n:"Materiales Construccion",   bench:0, meli:0.113,mis:0.17,qc:0.00, urg:0,imp:0,con:1}
 ];
 
-// Baseline ranks (50/30/20)
-var BASE_RANK = {};
-var baseScored = CATS.map(function(c){ return {k:c.k, sc:0.5*c.meli+0.3*c.qc+0.2*c.simp}; });
-baseScored.sort(function(a,b){return b.sc-a.sc;});
-baseScored.forEach(function(c,i){ BASE_RANK[c.k]=i+1; });
+var BASE_RANK={};
+var bs=CATS.map(function(c){return{k:c.k,sc:0.5*c.meli+0.3*c.mis+0.2*c.qc};});
+bs.sort(function(a,b){return b.sc-a.sc;});
+bs.forEach(function(c,i){BASE_RANK[c.k]=i+1;});
 
-var BENCH_CLR = ["#9e9e9e","#e65100","#1565c0","#1565c0","#2e7d32","#2e7d32"];
+function update(){
+  var wm=+document.getElementById('s-meli').value;
+  var wms=+document.getElementById('s-mis').value;
+  var wq=+document.getElementById('s-qc').value;
+  var total=wm+wms+wq; if(total===0)total=1;
+  document.getElementById('v-meli').textContent=wm+'%';
+  document.getElementById('v-mis').textContent=wms+'%';
+  document.getElementById('v-qc').textContent=wq+'%';
+  var sum=wm+wms+wq;
+  var badge=document.getElementById('sum-badge');
+  badge.textContent='Suma: '+sum+'%';
+  badge.className='sum-badge '+(sum===100?'sum-ok':'sum-err');
 
-function calcScore(c, wm, wq, ws, total) {
-  return (wm*c.meli + wq*c.qc + ws*c.simp) / total;
-}
-
-function update() {
-  var wm = +document.getElementById('s-meli').value;
-  var wq = +document.getElementById('s-qc').value;
-  var ws = +document.getElementById('s-simp').value;
-  var total = wm + wq + ws;
-  if(total === 0) total = 1;
-
-  document.getElementById('v-meli').textContent = wm + '%';
-  document.getElementById('v-qc').textContent   = wq + '%';
-  document.getElementById('v-simp').textContent  = ws + '%';
-
-  var sum = wm + wq + ws;
-  var badge = document.getElementById('sum-badge');
-  badge.textContent = 'Suma: ' + sum + '%';
-  badge.className = 'sum-badge ' + (sum === 100 ? 'sum-ok' : 'sum-err');
-
-  var scored = CATS.map(function(c) {
-    return {k:c.k, n:c.n, bench:c.bench, meli:c.meli, qc:c.qc, simp:c.simp,
-            sc: calcScore(c, wm, wq, ws, total)};
+  var scored=CATS.map(function(c){
+    return{k:c.k,n:c.n,bench:c.bench,meli:c.meli,mis:c.mis,qc:c.qc,urg:c.urg,imp:c.imp,con:c.con,
+           sc:(wm*c.meli+wms*c.mis+wq*c.qc)/total};
   });
-  scored.sort(function(a,b){ return b.sc - a.sc; });
+  scored.sort(function(a,b){return b.sc-a.sc;});
 
-  var tbody = document.getElementById('tbody');
-  tbody.innerHTML = '';
-  scored.forEach(function(c, i) {
-    var rank = i + 1;
-    var base = BASE_RANK[c.k];
-    var diff = base - rank;
-    var chgHtml = diff > 0
-      ? '<span class="chg chg-up">▲' + diff + '</span>'
-      : diff < 0
-        ? '<span class="chg chg-dn">▼' + Math.abs(diff) + '</span>'
-        : '<span class="chg chg-eq">—</span>';
-
-    var sc100 = Math.round(c.sc * 100);
-    var scClass = sc100 >= 55 ? 's-a' : sc100 >= 35 ? 's-b' : 's-c';
-
-    var benchDots = '';
-    for(var b=0;b<5;b++){
-      var clr = b < c.bench ? (c.bench>=4?'#2e7d32':c.bench>=2?'#1565c0':'#e65100') : '#2a2a2a';
-      benchDots += '<div class="bdot" style="background:'+clr+'"></div>';
-    }
-
-    var mBar = '<div class="dim-bar" style="width:'+Math.round(c.meli*40)+'px;background:#2e7d32"></div>';
-    var qBar = '<div class="dim-bar" style="width:'+Math.round(c.qc*40)+'px;background:#1565c0"></div>';
-    var sBar = '<div class="dim-bar" style="width:'+Math.round(c.simp*40)+'px;background:#e65100"></div>';
-
-    var tr = document.createElement('tr');
-    tr.innerHTML =
-      '<td class="rank">' + rank + '</td>' +
-      '<td class="name">' + c.n + '</td>' +
-      '<td><span class="score-badge '+scClass+'">' + sc100 + '</span></td>' +
-      '<td>' + mBar + '<span style="font-size:10px;color:#555;margin-left:4px">' + Math.round(c.meli*100) + '</span></td>' +
-      '<td>' + qBar + '<span style="font-size:10px;color:#555;margin-left:4px">' + Math.round(c.qc*100) + '</span></td>' +
-      '<td>' + sBar + '<span style="font-size:10px;color:#555;margin-left:4px">' + Math.round(c.simp*100) + '</span></td>' +
-      '<td><div class="bench-dots">' + benchDots + '</div></td>' +
-      '<td style="font-size:11px;color:#555">' + base + chgHtml + '</td>';
+  var tbody=document.getElementById('tbody');
+  tbody.innerHTML='';
+  scored.forEach(function(c,i){
+    var rank=i+1; var base=BASE_RANK[c.k];
+    var diff=base-rank;
+    var chg=diff>0?'<span class="chg chg-up">▲'+diff+'</span>':diff<0?'<span class="chg chg-dn">▼'+Math.abs(diff)+'</span>':'<span class="chg chg-eq">—</span>';
+    var sc100=Math.round(c.sc*100);
+    var scCls=sc100>=45?'s-a':sc100>=25?'s-b':'s-c';
+    var bclr=c.bench>=4?'#2e7d32':c.bench>=2?'#1565c0':c.bench>=1?'#e65100':'#2a2a2a';
+    var bdots=''; for(var b=0;b<5;b++) bdots+='<div class="bdot" style="background:'+(b<c.bench?bclr:'#2a2a2a')+'"></div>';
+    var mBar='<div class="dim-bar" style="width:'+Math.round(c.meli*40)+'px;background:#2e7d32"></div>';
+    var msBar='<div class="dim-bar" style="width:'+Math.round(c.mis*40)+'px;background:#e65100"></div>';
+    var qBar='<div class="dim-bar" style="width:'+Math.round(c.qc*40)+'px;background:#1565c0"></div>';
+    var urgClr=c.urg===2?'#e94560':c.urg===1?'#e9456088':'#2a2a2a';
+    var impClr=c.imp===2?'#FFE600':c.imp===1?'#FFE60088':'#2a2a2a';
+    var conClr=c.con===2?'#4da6ff':c.con===1?'#4da6ff88':'#2a2a2a';
+    var misDotsHtml='<div class="mis-dots"><div class="mdot" style="background:'+urgClr+'" title="U:'+c.urg+'"></div><div class="mdot" style="background:'+impClr+'" title="I:'+c.imp+'"></div><div class="mdot" style="background:'+conClr+'" title="C:'+c.con+'"></div></div>';
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td class="rank">'+rank+'</td>'+
+      '<td class="name">'+c.n+'</td>'+
+      '<td><span class="score-badge '+scCls+'">'+sc100+'</span></td>'+
+      '<td>'+mBar+'<span style="font-size:10px;color:#555;margin-left:4px">'+Math.round(c.meli*100)+'</span></td>'+
+      '<td>'+msBar+'<span style="font-size:10px;color:#555;margin-left:4px">'+Math.round(c.mis*100)+'</span></td>'+
+      '<td>'+qBar+'<span style="font-size:10px;color:#555;margin-left:4px">'+Math.round(c.qc*100)+'</span></td>'+
+      '<td>'+misDotsHtml+'</td>'+
+      '<td style="font-size:11px;color:#555">'+base+chg+'</td>';
     tbody.appendChild(tr);
   });
 }
 
-function normalize() {
-  var wm = +document.getElementById('s-meli').value;
-  var wq = +document.getElementById('s-qc').value;
-  var ws = +document.getElementById('s-simp').value;
-  var total = wm + wq + ws;
-  if(total === 0) { document.getElementById('s-meli').value=34; document.getElementById('s-qc').value=33; document.getElementById('s-simp').value=33; update(); return; }
-  document.getElementById('s-meli').value = Math.round(wm*100/total);
-  document.getElementById('s-qc').value   = Math.round(wq*100/total);
-  document.getElementById('s-simp').value = Math.round(ws*100/total);
+function normalize(){
+  var wm=+document.getElementById('s-meli').value;
+  var wms=+document.getElementById('s-mis').value;
+  var wq=+document.getElementById('s-qc').value;
+  var t=wm+wms+wq; if(t===0){document.getElementById('s-meli').value=34;document.getElementById('s-mis').value=33;document.getElementById('s-qc').value=33;update();return;}
+  document.getElementById('s-meli').value=Math.round(wm*100/t);
+  document.getElementById('s-mis').value=Math.round(wms*100/t);
+  document.getElementById('s-qc').value=Math.round(wq*100/t);
   update();
 }
-
 update();
 </script>
 </body>
