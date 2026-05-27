@@ -1066,9 +1066,9 @@ function renderFw(t){
     +'<th style="padding:7px 10px;width:20px"></th>'
     +'<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:150px">Categoria / Foco QC</th>'
     +'<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Benchmarks</th>'
-    +'<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777">Seller y cadenas tipo</th>'
-    ''
-    +'</tr></thead><tbody>';
+    +'<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777">Seller y cadenas tipo</th>'+'</tr></thead><tbody>';
+
+
   var lastTier=-1;
   data.forEach(function(f,i){
     if(f.tier!==lastTier){
@@ -1396,7 +1396,7 @@ function initT9(){
   T9.forEach(function(f,idx){
     var clr=f.bench>=4?'#2e7d32':f.bench>=2?'#1565c0':f.bench>=1?'#e65100':'#9e9e9e';
     var benchBar='<div style="display:flex;align-items:center;flex-wrap:nowrap">';
-    for(var b=0;b<5;b++){benchBar+='<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:'+(b<f.bench?clr:'#e0e0e0')+'margin-right:4px;flex-shrink:0"></span>';}
+    for(var b=0;b<5;b++){benchBar+='<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:'+(b<f.bench?clr:'#e0e0e0')+';margin-right:4px;flex-shrink:0"></span>';}
     benchBar+='</div>';
     var empty='<span style="color:#ccc;font-size:11px">—</span>';
     var fmtPct=function(v){return'<span style="font-size:12px;font-weight:700;color:#111">'+v.toFixed(1)+'%</span>';};
