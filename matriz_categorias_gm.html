@@ -58,7 +58,7 @@ td.key{text-align:left;font-size:9px;color:#ccc;padding-left:4px;width:40px}
   </table>
 
   <div class="legend">
-    <div class="leg-item"><span class="leg-dot" style="background:#f57c00"></span><span class="leg-dot" style="background:#f57c00"></span><span class="leg-dot" style="background:#f57c00"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Benchmark QC (iFood · Rappi · Meituan · Blinkit · Amazon Now)</div>
+    <div class="leg-item"><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Benchmark QC — cantidad de players presentes (iFood · Rappi · Meituan · Blinkit · Amazon Now)</div>
     <div class="leg-item" style="margin-left:16px"><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Relevancia MeLi (quintil en universo SP)</div>
     <div class="leg-item"><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Facilidad de entrada (más dots = más simple)</div>
   </div>
@@ -95,7 +95,7 @@ var CATS = [
   ["depo",   "Deportes",                   "00000", 1,1,4,1],
 ];
 
-var BENCH_CLR = "#f57c00";
+var TIER_CLR  = {1:"#2e7d32", 2:"#1565c0", 3:"#e65100"};
 var MELI_CLR  = "#1565c0";
 var EASY_CLR  = "#2e7d32";
 var DOT_OFF   = "#e8e8e8";
@@ -133,7 +133,7 @@ CATS.forEach(function(c) {
   tr.innerHTML =
     '<td class="name">' + lbl + '</td>' +
     '<td class="key">' + key + '</td>' +
-    '<td>' + makeDots(bcnt, 5, BENCH_CLR, DOT_OFF) + '</td>' +
+    '<td style="white-space:nowrap">' + (function(n,clr){var s='<div style="display:flex;align-items:center;flex-wrap:nowrap">';for(var i=0;i<5;i++){s+='<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:'+(i<n?clr:'#e0e0e0')+';margin-right:4px;flex-shrink:0"></span>';}return s+'</div>';})(bcnt, TIER_CLR[tier]) + '</td>' +
     '<td>' + makeDots(iq, 5, MELI_CLR, DOT_OFF) + '</td>' +
     '<td>' + makeDots(nq, 5, MELI_CLR, DOT_OFF) + '</td>' +
     '<td>' + makeDots(pq, 5, EASY_CLR, DOT_OFF) + '</td>' +
