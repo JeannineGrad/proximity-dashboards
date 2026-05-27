@@ -1377,7 +1377,7 @@ function initT9(){
     var sorted=data.slice().sort(function(a,b){return b[field]-a[field];});
     var total=sorted.reduce(function(s,d){return s+d[field];},0);
     var cum=0; var tiers={};
-    sorted.forEach(function(d){cum+=d[field];var pct=cum/total*100;tiers[d.key]=pct<=50?'green':pct<=75?'yellow':'red';});
+    sorted.forEach(function(d){cum+=d[field];var pct=cum/total*100;tiers[d.key]=pct<=80?'green':pct<=90?'yellow':'red';});
     return tiers;
   }
   var pvTiers=abcTiers(T9,'pv'); var pnTiers=abcTiers(T9,'pn');
