@@ -1064,7 +1064,7 @@ function renderFw(t){
   var html='<table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)">'
     +'<thead><tr style="background:#f8f8f8;border-bottom:2px solid #e8e8e8">'
     +'<th style="padding:7px 10px;width:20px"></th>'
-    +'<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:150px">Categoria / Foco QC</th>'
+<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;color:#777;width:28px">#</th>    +'<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:150px">Categoria / Foco QC</th>'
     +'<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Benchmarks</th>'
     +'<th style="padding:7px 10px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777">Seller y cadenas tipo</th>'
     ''
@@ -1341,7 +1341,7 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 <th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">% Volumen<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">units/30d SP</div></th>
 <th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">% NMV<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">universe SP</div></th>
 <th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Pareto 50%<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">% prods → 50% vol</div></th><th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Pareto 50% NMV<div style=""font-size:7px;font-weight:400;color:#aaa;text-transform:none"">% prods → 50% NMV</div></th>
-<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Productiz.<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">compresion items→pids</div></th>
+<th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:90px">Productiz.<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">compresion items→pids</div></th><th style="padding:7px 10px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:100px">Score<div style="font-size:7px;font-weight:400;color:#aaa;text-transform:none">50% MeLi · 30% QC · 20% Simp</div></th>
 </tr>
 </thead>
 <tbody id="t9-body"></tbody>
@@ -1350,25 +1350,25 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 </div>
 <script>
 var T9 = [
-  {key:"farma",  name:"Farmacia y Salud",         bench:5, pi:3.5,  pv:3.3,  pn:2.8,  p50:21.3, it:1850, p50n:9.7},
-  {key:"beauty", name:"Beauty e Higiene",          bench:5, pi:7.4,  pv:7.3,  pn:6.8,  p50:18.9, it:3976, p50n:8.5},
-  {key:"suple",  name:"Suplementos y Vitaminas",   bench:5, pi:3.0,  pv:3.8,  pn:4.1,  p50:15.5, it:1610, p50n:10.3},
-  {key:"bebe",   name:"Bebe y Ninos",              bench:5, pi:1.8,  pv:1.7,  pn:1.3,  p50:16.4, it:981,  p50n:9.9},
-  {key:"pet",    name:"Mascotas",                  bench:5, pi:2.3,  pv:1.8,  pn:1.5,  p50:30.0, it:1233, p50n:13.5},
-  {key:"limp",   name:"Hogar",                     bench:5, pi:16.2, pv:19.5, pn:13.1, p50:15.7, it:8668, p50n:8.2},
-  {key:"beb",    name:"Bebidas",                   bench:5, pi:2.4,  pv:4.6,  pn:2.1,  p50:17.1, it:1294, p50n:10.2},
-  {key:"snack",  name:"Snacks y Golosinas",        bench:5, pi:1.9,  pv:2.2,  pn:0.7,  p50:18.5, it:1017, p50n:11.5},
-  {key:"food",   name:"Alimentos",                 bench:5, pi:4.7,  pv:9.8,  pn:3.0,  p50:11.3, it:2504, p50n:7.5},
-  {key:"tech",   name:"Accesorios Tech",           bench:3, pi:7.2,  pv:6.7,  pn:6.9,  p50:19.3, it:3876, p50n:7.9},
-  {key:"ilum",   name:"Iluminacion y Electrica",   bench:2, pi:6.2,  pv:4.5,  pn:3.8,  p50:24.0, it:3314, p50n:12.4},
-  {key:"pape",   name:"Papeleria y Fiestas",       bench:1, pi:5.3,  pv:3.8,  pn:2.2,  p50:26.7, it:2844, p50n:15.2},
-  {key:"indum",  name:"Indumentaria",              bench:0, pi:12.2, pv:11.0, pn:10.7, p50:16.3, it:6558, p50n:12.5},
-  {key:"moda",   name:"Accesorios de Moda",        bench:0, pi:2.6,  pv:1.8,  pn:1.5,  p50:24.9, it:1416, p50n:12.0},
-  {key:"const",  name:"Construccion",              bench:0, pi:4.8,  pv:3.6,  pn:3.1,  p50:24.9, it:2589, p50n:9.7},
-  {key:"tecno",  name:"Tecnologia",                bench:0, pi:1.6,  pv:1.5,  pn:18.8, p50:23.0, it:881,  p50n:4.2},
-  {key:"libr",   name:"Libros",                    bench:0, pi:1.2,  pv:1.6,  pn:2.2,  p50:12.3, it:660,  p50n:2.4},
-  {key:"auto",   name:"Automotor",                 bench:0, pi:2.1,  pv:1.4,  pn:1.0,  p50:25.0, it:1112, p50n:14.8},
-  {key:"depo",   name:"Deportes",                  bench:0, pi:1.6,  pv:1.2,  pn:0.8,  p50:23.8, it:852,  p50n:15.7}
+  {key:"beb",   name:"Bebidas",                   bench:5, pi:2.4,  pv:4.6,  pn:2.1,  p50:17.1, it:1294, p50n:10.2, sc:0.659, sm:0.377, sq:1.00, ss:0.85},
+  {key:"food",  name:"Alimentos",                  bench:5, pi:4.7,  pv:9.8,  pn:3.0,  p50:11.3, it:2504, p50n:7.5,  sc:0.635, sm:0.386, sq:1.00, ss:0.71},
+  {key:"suple", name:"Suplementos y Vitaminas",    bench:5, pi:3.0,  pv:3.8,  pn:4.1,  p50:15.5, it:1610, p50n:10.3, sc:0.632, sm:0.312, sq:1.00, ss:0.88},
+  {key:"limp",  name:"Hogar",                      bench:5, pi:16.2, pv:19.5, pn:13.1, p50:15.7, it:8668, p50n:8.2,  sc:0.583, sm:0.566, sq:1.00, ss:0.00},
+  {key:"beauty",name:"Beauty e Higiene",           bench:5, pi:7.4,  pv:7.3,  pn:6.8,  p50:18.9, it:3976, p50n:8.5,  sc:0.573, sm:0.308, sq:1.00, ss:0.59},
+  {key:"farma", name:"Farmacia y Salud",           bench:5, pi:3.5,  pv:3.3,  pn:2.8,  p50:21.3, it:1850, p50n:9.7,  sc:0.568, sm:0.200, sq:1.00, ss:0.84},
+  {key:"snack", name:"Snacks y Golosinas",         bench:5, pi:1.9,  pv:2.2,  pn:0.7,  p50:18.5, it:1017, p50n:11.5, sc:0.566, sm:0.151, sq:1.00, ss:0.95},
+  {key:"bebe",  name:"Bebe y Ninos",               bench:5, pi:1.8,  pv:1.7,  pn:1.3,  p50:16.4, it:981,  p50n:9.9,  sc:0.553, sm:0.118, sq:1.00, ss:0.97},
+  {key:"pet",   name:"Mascotas",                   bench:5, pi:2.3,  pv:1.8,  pn:1.5,  p50:30.0, it:1233, p50n:13.5, sc:0.512, sm:0.064, sq:1.00, ss:0.90},
+  {key:"tecno", name:"Tecnologia",                 bench:0, pi:1.6,  pv:1.5,  pn:18.8, p50:23.0, it:881,  p50n:4.2,  sc:0.482, sm:0.579, sq:0.00, ss:0.96},
+  {key:"tech",  name:"Accesorios Tech",            bench:3, pi:7.2,  pv:6.7,  pn:6.9,  p50:19.3, it:3876, p50n:7.9,  sc:0.452, sm:0.294, sq:0.60, ss:0.62},
+  {key:"ilum",  name:"Iluminacion y Electrica",    bench:2, pi:6.2,  pv:4.5,  pn:3.8,  p50:24.0, it:3314, p50n:12.4, sc:0.322, sm:0.134, sq:0.40, ss:0.67},
+  {key:"libr",  name:"Libros",                     bench:0, pi:1.2,  pv:1.6,  pn:2.2,  p50:12.3, it:660,  p50n:2.4,  sc:0.292, sm:0.185, sq:0.00, ss:1.00},
+  {key:"indum", name:"Indumentaria",               bench:0, pi:12.2, pv:11.0, pn:10.7, p50:16.3, it:6558, p50n:12.5, sc:0.267, sm:0.370, sq:0.00, ss:0.41},
+  {key:"pape",  name:"Papeleria y Fiestas",        bench:1, pi:5.3,  pv:3.8,  pn:2.2,  p50:26.7, it:2844, p50n:15.2, sc:0.238, sm:0.074, sq:0.20, ss:0.70},
+  {key:"depo",  name:"Deportes",                   bench:0, pi:1.6,  pv:1.2,  pn:0.8,  p50:23.8, it:852,  p50n:15.7, sc:0.217, sm:0.041, sq:0.00, ss:0.98},
+  {key:"const", name:"Construccion",               bench:0, pi:4.8,  pv:3.6,  pn:3.1,  p50:24.9, it:2589, p50n:9.7,  sc:0.207, sm:0.112, sq:0.00, ss:0.75},
+  {key:"moda",  name:"Accesorios de Moda",         bench:0, pi:2.6,  pv:1.8,  pn:1.5,  p50:24.9, it:1416, p50n:12.0, sc:0.204, sm:0.043, sq:0.00, ss:0.91},
+  {key:"auto",  name:"Automotor",                  bench:0, pi:2.1,  pv:1.4,  pn:1.0,  p50:25.0, it:1112, p50n:14.8, sc:0.194, sm:0.009, sq:0.00, ss:0.95}
 ];
 function initT9(){
   var tbody=document.getElementById('t9-body');
@@ -1380,6 +1380,44 @@ function initT9(){
     sorted.forEach(function(d){cum+=d[field];var pct=cum/total*100;tiers[d.key]=pct<=80?'green':pct<=90?'yellow':'red';});
     return tiers;
   }
+  var pvTiers=abcTiers(T9,'pv'); var pnTiers=abcTiers(T9,'pn');
+  var CM={green:{bg:'#e8f5e9',tx:'#2e7d32'},yellow:{bg:'#fff8e1',tx:'#e65100'},red:{bg:'#ffebee',tx:'#c62828'}};
+  function badge(v,tier){var c=CM[tier];return'<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:'+c.bg+';color:'+c.tx+';font-size:11px;font-weight:700">'+v.toFixed(1)+'%</span>';}
+  function p50badge(v,n){var bg=v<18?'#e8f5e9':v<=25?'#fff8e1':'#ffebee';var tx=v<18?'#2e7d32':v<=25?'#e65100':'#c62828';return'<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:'+bg+';color:'+tx+';font-size:11px;font-weight:700">'+v.toFixed(1)+'% <span style="font-weight:400;font-size:9px;opacity:.75">('+n+' prods)</span></span>';}
+  function scoreBadge(sc,sm,sq,ss){
+    var pct=Math.round(sc*100);
+    var bg=sc>=0.55?'#e8f5e9':sc>=0.35?'#fff8e1':'#ffebee';
+    var tx=sc>=0.55?'#2e7d32':sc>=0.35?'#e65100':'#c62828';
+    return'<div style="display:flex;flex-direction:column;align-items:center;gap:2px">'
+      +'<span style="display:inline-block;padding:3px 10px;border-radius:10px;background:'+bg+';color:'+tx+';font-size:13px;font-weight:800">'+pct+'</span>'
+      +'<span style="font-size:8px;color:#aaa">M:'+Math.round(sm*100)+' Q:'+Math.round(sq*100)+' S:'+Math.round(ss*100)+'</span>'
+      +'</div>';
+  }
+  T9.forEach(function(f,idx){
+    var clr=f.bench>=4?'#2e7d32':f.bench>=2?'#1565c0':f.bench>=1?'#e65100':'#9e9e9e';
+    var benchBar='<div style="display:flex;align-items:center;flex-wrap:nowrap">';
+    for(var b=0;b<5;b++){benchBar+='<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:'+(b<f.bench?clr:'#e0e0e0')+'margin-right:4px;flex-shrink:0"></span>';}
+    benchBar+='</div>';
+    var empty='<span style="color:#ccc;font-size:11px">—</span>';
+    var fmtPct=function(v){return'<span style="font-size:12px;font-weight:700;color:#111">'+v.toFixed(1)+'%</span>';};
+    var tr=document.createElement('tr');
+    tr.style.borderBottom='1px solid #f0f0f0';
+    tr.style.borderLeft='4px solid '+clr;
+    tr.onmouseover=function(){this.style.background='#fafafa';};
+    tr.onmouseout=function(){this.style.background='';};
+    tr.innerHTML=
+      '<td style="padding:8px 6px;text-align:center;font-size:11px;font-weight:800;color:#bbb">'+( idx+1)+'</td>'+
+      '<td style="padding:8px 10px;font-size:11px;font-weight:700">'+f.name+'</td>'+
+      '<td style="padding:8px 10px">'+benchBar+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+badge(f.pv,pvTiers[f.key])+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+badge(f.pn,pnTiers[f.key])+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+p50badge(f.p50,Math.round(f.p50/100*f.it))+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+p50badge(f.p50n,Math.round(f.p50n/100*f.it))+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+empty+'</td>'+
+      '<td style="padding:8px 10px;text-align:center">'+scoreBadge(f.sc,f.sm,f.sq,f.ss)+'</td>';
+    tbody.appendChild(tr);
+  });
+}
   var pvTiers=abcTiers(T9,'pv'); var pnTiers=abcTiers(T9,'pn');
   var CM={green:{bg:'#e8f5e9',tx:'#2e7d32'},yellow:{bg:'#fff8e1',tx:'#e65100'},red:{bg:'#ffebee',tx:'#c62828'}};
   function badge(v,tier){var c=CM[tier];return'<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:'+c.bg+';color:'+c.tx+';font-size:11px;font-weight:700">'+v.toFixed(1)+'%</span>';}
