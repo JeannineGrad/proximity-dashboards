@@ -1418,34 +1418,6 @@ function initT9(){
     tbody.appendChild(tr);
   });
 }
-  var pvTiers=abcTiers(T9,'pv'); var pnTiers=abcTiers(T9,'pn');
-  var CM={green:{bg:'#e8f5e9',tx:'#2e7d32'},yellow:{bg:'#fff8e1',tx:'#e65100'},red:{bg:'#ffebee',tx:'#c62828'}};
-  function badge(v,tier){var c=CM[tier];return'<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:'+c.bg+';color:'+c.tx+';font-size:11px;font-weight:700">'+v.toFixed(1)+'%</span>';}
-  function p50badge(v,n){var bg=v<18?'#e8f5e9':v<=25?'#fff8e1':'#ffebee';var tx=v<18?'#2e7d32':v<=25?'#e65100':'#c62828';return'<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:'+bg+';color:'+tx+';font-size:11px;font-weight:700">'+v.toFixed(1)+'% <span style="font-weight:400;font-size:9px;opacity:.75">('+n+' prods)</span></span>';}
-  T9.forEach(function(f){
-    var clr=f.bench>=4?'#2e7d32':f.bench>=2?'#1565c0':f.bench>=1?'#e65100':'#9e9e9e';
-    var benchBar='<div style="display:flex;align-items:center;flex-wrap:nowrap">';
-    for(var b=0;b<5;b++){benchBar+='<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:'+(b<f.bench?clr:'#e0e0e0')+';margin-right:4px;flex-shrink:0"></span>';}
-    benchBar+='</div>';
-    var empty='<span style="color:#ccc;font-size:11px">—</span>';
-    var fmtPct=function(v){return'<span style="font-size:12px;font-weight:700;color:#111">'+v.toFixed(1)+'%</span>';};
-    var tr=document.createElement('tr');
-    tr.style.borderBottom='1px solid #f0f0f0';
-    tr.style.borderLeft='4px solid '+clr;
-    tr.onmouseover=function(){this.style.background='#fafafa';};
-    tr.onmouseout=function(){this.style.background='';};
-    tr.innerHTML=
-      '<td style="padding:8px 10px;font-size:11px;font-weight:700">'+f.name+'</td>'+
-      '<td style="padding:8px 10px">'+benchBar+'</td>'+
-
-      '<td style="padding:8px 10px;text-align:center">'+badge(f.pv,pvTiers[f.key])+'</td>'+
-      '<td style="padding:8px 10px;text-align:center">'+badge(f.pn,pnTiers[f.key])+'</td>'+
-      '<td style="padding:8px 10px;text-align:center">'+p50badge(f.p50,Math.round(f.p50/100*f.it))+'</td>'+
-      '<td style="padding:8px 10px;text-align:center">'+p50badge(f.p50n,Math.round(f.p50n/100*f.it))+'</td>'+
-      '<td style="padding:8px 10px;text-align:center">'+empty+'</td>';
-    tbody.appendChild(tr);
-  });
-}
 var _origST9=switchTab;
 switchTab=function(id,btn){_origST9(id,btn);if(id==='t9')initT9();};
 </script><div id="t10" class="tab-pane">
