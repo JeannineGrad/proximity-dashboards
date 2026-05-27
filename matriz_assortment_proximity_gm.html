@@ -1331,42 +1331,53 @@ var _origST8=switchTab;
 switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 </script>
 <div id="t9" class="tab-pane">
-<div style="margin-top:20px">
-<div style="font-size:11px;font-weight:800;color:#555;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Detalle de KPIs — datos que construyen el score</div>
-<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:flex-start">
-  <span style="font-size:9px;font-weight:800;color:#888;white-space:nowrap;margin-top:2px">MISIONES:</span>
-  <div style="display:flex;gap:6px;flex-wrap:wrap">
-    <span style="background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:2px 8px;font-size:9px;color:#e65100"><strong>U</strong> Urgencia</span>
-    <span style="font-size:9px;color:#aaa;white-space:nowrap;margin-top:2px">Lo necesito ya — sin eso no funciona (medicamentos, pa&ntilde;ales, pilas, cargador roto)</span>
+<div class="wrap">
+<div style="margin-bottom:16px">
+  <div style="font-size:15px;font-weight:900;margin-bottom:3px">Priorizaci&oacute;n de Categor&iacute;as &mdash; GM Agora SP</div>
+  <div style="font-size:10px;color:#888">24 categor&iacute;as &middot; ajust&aacute; los pesos &middot; score recalcula en tiempo real</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
+  <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #e0e0e0">
+    <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#2e7d32;margin-bottom:4px">Relevancia MeLi</div>
+    <div style="font-size:24px;font-weight:900;color:#2e7d32;margin-bottom:8px" id="t9-v-meli">50%</div>
+    <input type="range" id="t9-s-meli" min="0" max="100" value="50" oninput="t9Update()" style="width:100%;accent-color:#2e7d32">
   </div>
-  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">
-    <span style="background:#fff3e0;border:1px solid #ffcc80;border-radius:6px;padding:2px 8px;font-size:9px;color:#ff6f00"><strong>I</strong> Impulso</span>
-    <span style="font-size:9px;color:#aaa;white-space:nowrap;margin-top:2px">Lo vi, lo quiero ahora — trend, promo flash, antojo</span>
+  <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #e0e0e0">
+    <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#e65100;margin-bottom:4px">Misiones de Compra</div>
+    <div style="font-size:24px;font-weight:900;color:#e65100;margin-bottom:8px" id="t9-v-mis">50%</div>
+    <input type="range" id="t9-s-mis" min="0" max="100" value="50" oninput="t9Update()" style="width:100%;accent-color:#e65100">
   </div>
-  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">
-    <span style="background:#e3f2fd;border:1px solid #90caf9;border-radius:6px;padding:2px 8px;font-size:9px;color:#1565c0"><strong>C</strong> Conveniencia</span>
-    <span style="font-size:9px;color:#aaa;white-space:nowrap;margin-top:2px">Prefiero recibirlo hoy — rutina, no salgo, lo necesito esta noche</span>
+  <div style="background:#f8f8f8;border-radius:10px;padding:14px 16px;border:1px solid #e0e0e0">
+    <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:#1565c0;margin-bottom:4px">QC Signal</div>
+    <div style="font-size:24px;font-weight:900;color:#1565c0;margin-bottom:8px" id="t9-v-qc">0%</div>
+    <input type="range" id="t9-s-qc" min="0" max="100" value="0" oninput="t9Update()" style="width:100%;accent-color:#1565c0">
   </div>
-  <div style="width:100%;font-size:9px;color:#bbb;margin-top:2px">0 = no aplica &nbsp; 1 = aplica &nbsp; 2 = misi&oacute;n principal &nbsp; · &nbsp; Click para cambiar</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+  <span id="t9-sum-badge" style="font-size:12px;font-weight:800;padding:3px 10px;border-radius:20px;background:#e8f5e9;color:#2e7d32">Suma: 100%</span>
+  <button onclick="t9Normalize()" style="font-size:10px;padding:4px 12px;background:#f0f0f0;border:1px solid #ddd;border-radius:20px;cursor:pointer;font-family:inherit;color:#666">Normalizar</button>
+</div>
+<div style="display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+  <div style="display:flex;align-items:center;gap:6px"><span style="background:#fff8e1;border:1px solid #ffe082;border-radius:5px;padding:1px 7px;font-size:9px;font-weight:800;color:#e65100">U</span><span style="font-size:9px;color:#888">Urgencia &mdash; lo necesito ya (medicamentos, pa&ntilde;ales, pilas, cargador roto)</span></div>
+  <div style="display:flex;align-items:center;gap:6px"><span style="background:#fff3e0;border:1px solid #ffcc80;border-radius:5px;padding:1px 7px;font-size:9px;font-weight:800;color:#ff6f00">I</span><span style="font-size:9px;color:#888">Impulso &mdash; lo vi, lo quiero ahora (trend, promo flash, antojo)</span></div>
+  <div style="display:flex;align-items:center;gap:6px"><span style="background:#e3f2fd;border:1px solid #90caf9;border-radius:5px;padding:1px 7px;font-size:9px;font-weight:800;color:#1565c0">C</span><span style="font-size:9px;color:#888">Conveniencia &mdash; prefiero recibirlo hoy (rutina, no salgo, lo necesito esta noche)</span></div>
+  <div style="width:100%;font-size:9px;color:#bbb">0 = no aplica &nbsp; 1 = aplica &nbsp; 2 = misi&oacute;n principal &nbsp;&middot;&nbsp; Click en U/I/C para cambiar</div>
 </div>
 <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)">
-<thead>
-<tr style="background:#f8f8f8;border-bottom:2px solid #e8e8e8">
-<th style="padding:6px 8px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:160px">Categoria</th>
-
-
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Vol% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en unidades del core (SKUs que hacen el 80% del vol. de la cat.) sobre el universo SP</div></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">NMV% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en NMV del core de la cat. sobre el universo SP</div></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Top 10% Units<br><span style="font-weight:600;text-transform:none;font-size:7px">% SKUs cat.</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">% de los SKUs de la cat. que est&aacute;n en el top 10% del universo SP por &oacute;rdenes</div></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Top 10% NMV<br><span style="font-weight:600;text-transform:none;font-size:7px">% SKUs cat.</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">% de los SKUs de la cat. que est&aacute;n en el top 10% del universo SP por valor</div></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:90px">SKUs Core<br><span style="font-weight:600;text-transform:none;font-size:7px">cant. productos</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">SKUs necesarios para cubrir el 80% del vol. de la cat. (assortment m&iacute;nimo relevante)</div></th>
-
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#111;min-width:90px;border-left:2px solid #e0e0e0">Score<br><span style="font-weight:600;text-transform:none;font-size:7px">0 &ndash; 100</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Score final + sub-scores M (MeLi 50%) · Q (QC 30%) · S (Simplicidad 20%)</div></th>
-</thead>
-<tbody id="t9-kpi-body"></tbody>
+<thead><tr style="background:#f8f8f8;border-bottom:2px solid #e8e8e8">
+  <th style="padding:7px 8px;width:28px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777">#</th>
+  <th style="padding:7px 8px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777">Categor&iacute;a</th>
+  <th style="padding:7px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#777">Score</th>
+  <th style="padding:7px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32">MeLi</th>
+  <th style="padding:7px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:90px">Misiones<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">U &middot; I &middot; C (click)</div></th>
+  <th style="padding:7px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#1565c0">QC</th>
+  <th style="padding:7px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32">Vol%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">core</div></th>
+  <th style="padding:7px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32">NMV%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">core</div></th>
+  <th style="padding:7px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32">T10%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">units</div></th>
+  <th style="padding:7px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32">T10%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">NMV</div></th>
+</tr></thead>
+<tbody id="t9-sim-body"></tbody>
 </table>
-<div style="margin-top:8px;font-size:9px;color:#aaa">Col. azul = QC Signal (30%) · Col. verde = Relevancia MeLi (50%) · Col naranja = Simplicidad (20%) · u/SKU informativo</div>
-</div>
 </div>
 </div>
 <script>
