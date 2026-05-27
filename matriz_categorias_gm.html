@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Matriz Categorias GM Agora SP</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;padding:24px;color:#111}
+.card{background:#fff;border-radius:12px;padding:20px 24px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.hdr{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+.hdr h2{font-size:15px;font-weight:800}
+.hdr span{font-size:10px;color:#888}
+table{width:100%;border-collapse:collapse}
+.th-group{font-size:8px;font-weight:700;text-transform:uppercase;color:#aaa;padding:4px 10px 2px;text-align:center;border-bottom:1px solid #f0f0f0}
+.th-group.left{text-align:left}
+.th-sub{font-size:7px;font-weight:700;text-transform:uppercase;color:#bbb;padding:2px 10px 6px;text-align:center;border-bottom:2px solid #ececec}
+.th-sub.left{text-align:left}
+.tier-hdr td{font-size:8px;font-weight:800;color:#666;padding:10px 10px 4px;background:#f8f8f8;border-top:2px solid #e0e0e0;border-bottom:1px solid #ececec}
+tbody tr.row{border-bottom:1px solid #f5f5f5;transition:background .1s}
+tbody tr.row:hover td{background:#f5f7ff}
+td{padding:6px 10px;vertical-align:middle;text-align:center}
+td.name{text-align:left;font-size:12px;font-weight:700;white-space:nowrap;min-width:180px}
+td.key{text-align:left;font-size:9px;color:#ccc;padding-left:4px;width:40px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 1.5px;vertical-align:middle}
+.legend{margin-top:18px;display:flex;gap:20px;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:9px;color:#888}
+.leg-dot{display:inline-block;width:9px;height:9px;border-radius:50%}
+.tier1-bg{background:#fafff7}
+.tier2-bg{background:#f7faff}
+.tier3-bg{background:#fafafa}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="hdr">
+    <h2>Priorización de Categorías — GM Agora SP</h2>
+    <span>19 categorías · universo 53.605 products · R$397M NMV · May 2026</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="th-group left" colspan="2">Categoría</th>
+        <th class="th-group" colspan="5">Benchmark QC</th>
+        <th class="th-group" colspan="2">Relevancia MeLi</th>
+        <th class="th-group" colspan="2">Facilidad de entrada</th>
+      </tr>
+      <tr>
+        <th class="th-sub left" colspan="2"></th>
+        <th class="th-sub">iFood</th>
+        <th class="th-sub">Rappi</th>
+        <th class="th-sub">Meituan</th>
+        <th class="th-sub">Blinkit</th>
+        <th class="th-sub">Amazon</th>
+        <th class="th-sub">% catálogo</th>
+        <th class="th-sub">% NMV</th>
+        <th class="th-sub">Pareto 50%</th>
+        <th class="th-sub">Productiz.</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <div class="legend">
+    <div class="leg-item"><span class="leg-dot" style="background:#ea1d2c"></span>iFood Turbo</div>
+    <div class="leg-item"><span class="leg-dot" style="background:#ff6b35"></span>Rappi</div>
+    <div class="leg-item"><span class="leg-dot" style="background:#009966"></span>Meituan</div>
+    <div class="leg-item"><span class="leg-dot" style="background:#f4c430"></span>Blinkit</div>
+    <div class="leg-item"><span class="leg-dot" style="background:#ff9900"></span>Amazon Now</div>
+    <div class="leg-item" style="margin-left:16px"><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#1565c0"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Relevancia (quintil en universo SP)</div>
+    <div class="leg-item"><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#2e7d32"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span><span class="leg-dot" style="background:#e0e0e0"></span> Facilidad (más dots = más simple)</div>
+  </div>
+</div>
+
+<script>
+// bench: iFood,Rappi,Meituan,Blinkit,Amazon
+// items_q, nmv_q, pareto_q, prod_q: quintil 1-5 relativo a las 19 categorias
+// Pareto: mayor = más distribuido = más simple (más dots)
+// Productiz: mayor compresion = más productizado = más simple (más dots)
+var CATS = [
+  // [key, label, bench, items_q, nmv_q, pareto_q, prod_q]
+  // ── Tier 1: presencia en los 5 benchmarks ──────────────────────────────────
+  ["farma",  "Farmacia y Salud",          "11111", 3,3,3,3],
+  ["beauty", "Beauty e Higiene",           "11111", 5,4,3,3],
+  ["suple",  "Suplementos y Vitaminas",    "11111", 3,4,1,4],
+  ["bebe",   "Bebe y Ninos",               "11111", 1,1,2,2],
+  ["pet",    "Mascotas",                   "11111", 2,2,5,4],
+  ["limp",   "Hogar",                      "11111", 5,5,1,3],
+  ["beb",    "Bebidas",                    "11111", 2,2,2,5],
+  ["snack",  "Snacks y Golosinas",         "11111", 2,1,3,4],
+  ["food",   "Alimentos",                  "11111", 4,3,1,5],
+  // ── Tier 2: presencia parcial en benchmarks ────────────────────────────────
+  ["tech",   "Accesorios Tech",            "00111", 4,4,2,3],
+  ["ilum",   "Iluminacion y Electrica",    "00101", 4,4,4,2],
+  ["pape",   "Papeleria y Fiestas",        "00001", 4,3,5,2],
+  // ── Tier 3: sin presencia en benchmarks ───────────────────────────────────
+  ["indum",  "Indumentaria",               "00000", 5,5,2,1],
+  ["moda",   "Accesorios de Moda",         "00000", 3,2,4,1],
+  ["const",  "Construccion",               "00000", 3,3,5,2],
+  ["tecno",  "Tecnologia",                 "00000", 1,5,3,4],
+  ["libr",   "Libros",                     "00000", 1,2,1,5],
+  ["auto",   "Automotor",                  "00000", 2,1,4,1],
+  ["depo",   "Deportes",                   "00000", 1,1,4,1],
+];
+
+var COMP_CLR  = ["#ea1d2c","#ff6b35","#009966","#f4c430","#ff9900"];
+var COMP_OFF  = "#ededed";
+var MELI_CLR  = "#1565c0";
+var EASY_CLR  = "#2e7d32";
+var DOT_OFF   = "#e8e8e8";
+var TIER_LBL  = ["","Tier 1 — Presente en todos los benchmarks QC","Tier 2 — Presencia parcial en benchmarks","Tier 3 — Sin presencia en benchmarks"];
+var TIER_BG   = ["","#fafff7","#f7faff","#fafafa"];
+
+function makeDots(n, max, clrOn, clrOff) {
+  var s = "";
+  for (var i = 1; i <= max; i++) {
+    s += '<span class="dot" style="background:' + (i <= n ? clrOn : clrOff) + '"></span>';
+  }
+  return s;
+}
+
+var tbody = document.getElementById("tbody");
+var lastTier = 0;
+
+CATS.forEach(function(c) {
+  var key=c[0], lbl=c[1], bench=c[2], iq=c[3], nq=c[4], pq=c[5], prq=c[6];
+  var b = bench.split("").map(Number);
+  var bcnt = b.reduce(function(a,v){return a+v;},0);
+  var tier = bcnt===5 ? 1 : bcnt>0 ? 2 : 3;
+
+  if (tier !== lastTier) {
+    var th = document.createElement("tr");
+    th.className = "tier-hdr";
+    th.innerHTML = '<td colspan="11">' + TIER_LBL[tier] + '</td>';
+    tbody.appendChild(th);
+    lastTier = tier;
+  }
+
+  var benchCells = b.map(function(x,i){
+    return '<td><span class="dot" style="background:' + (x ? COMP_CLR[i] : COMP_OFF) + '" title="'+(x?"presente":"ausente")+'"></span></td>';
+  }).join("");
+
+  var tr = document.createElement("tr");
+  tr.className = "row";
+  tr.style.background = TIER_BG[tier];
+  tr.innerHTML =
+    '<td class="name">' + lbl + '</td>' +
+    '<td class="key">' + key + '</td>' +
+    benchCells +
+    '<td>' + makeDots(iq, 5, MELI_CLR, DOT_OFF) + '</td>' +
+    '<td>' + makeDots(nq, 5, MELI_CLR, DOT_OFF) + '</td>' +
+    '<td>' + makeDots(pq, 5, EASY_CLR, DOT_OFF) + '</td>' +
+    '<td>' + makeDots(prq, 5, EASY_CLR, DOT_OFF) + '</td>';
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
