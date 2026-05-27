@@ -1495,6 +1495,7 @@ function t9Mis(key,field){
   if(event&&event.target){event.target.textContent=cat[field];event.target.style.background=MIS_CLR[cat[field]];}
   var p=document.getElementById('t9-pending'); if(p)p.style.display='inline';
 }
+function t9Normalize(){
   var wm=+(document.getElementById('t9-s-meli')||{value:50}).value;
   var wms=+(document.getElementById('t9-s-mis')||{value:30}).value;
   var wq=+(document.getElementById('t9-s-qc')||{value:20}).value;
