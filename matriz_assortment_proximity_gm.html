@@ -1344,7 +1344,7 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Vol% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en unidades del core (SKUs que hacen el 80% del vol. de la cat.) sobre el universo SP</div></th>
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">NMV% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en NMV del core de la cat. sobre el universo SP</div></th>
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:90px">SKUs Core<br><span style="font-weight:600;text-transform:none;font-size:7px">cant. productos</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">SKUs necesarios para cubrir el 80% del vol. de la cat. (assortment m&iacute;nimo relevante)</div></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:90px">u/SKU Core<br><span style="font-weight:600;text-transform:none;font-size:7px">und. / producto</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Velocidad de venta prom. de los SKUs del core. M&aacute;s alto = cada producto vende m&aacute;s = menor riesgo de surtido</div></th>
+
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#111;min-width:90px;border-left:2px solid #e0e0e0">Score<br><span style="font-weight:600;text-transform:none;font-size:7px">0 &ndash; 100</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Score final + sub-scores M (MeLi 50%) · Q (QC 30%) · S (Simplicidad 20%)</div></th>
 </thead>
 <tbody id="t9-kpi-body"></tbody>
@@ -1419,7 +1419,7 @@ function initT9(){
       kpiFmt(d.vol+'%','#2e7d32')+
       kpiFmt(d.nmv+'%','#2e7d32')+
       kpiFmt(d.p80,'#e65100')+
-      kpiFmt(d.usku,'#e65100')+
+
       scCell;
     kpiBody.appendChild(tr);
   });
