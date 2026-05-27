@@ -1339,10 +1339,10 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 <th style="padding:6px 8px;text-align:left;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;min-width:160px">Categoria</th>
 
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#1565c0;min-width:90px">QC Signal<br><span style="font-weight:600;text-transform:none;font-size:7px">bench / 5</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Players QC globales que llevan la categor&iacute;a</div></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Top 10% Units<br><span style="font-weight:600;text-transform:none;font-size:7px">% SKUs cat.</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">% de los SKUs de la cat. que est&aacute;n en el top 10% del universo SP por &oacute;rdenes</div></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Top 10% NMV<br><span style="font-weight:600;text-transform:none;font-size:7px">% SKUs cat.</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">% de los SKUs de la cat. que est&aacute;n en el top 10% del universo SP por valor</div></th>
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Vol% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en unidades del core (SKUs que hacen el 80% del vol. de la cat.) sobre el universo SP</div></th>
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">NMV% Core<br><span style="font-weight:600;text-transform:none;font-size:7px">% total SP</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Peso en NMV del core de la cat. sobre el universo SP</div></th>
+<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Top 10% Units<br><span style="font-weight:600;text-transform:none;font-size:7px">% SKUs cat.</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">% de los SKUs de la cat. que est&aacute;n en el top 10% del universo SP por &oacute;rdenes</div></th>
+<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;min-width:90px">Top 10% NMV<br><span style="font-weight:600;text-transform:none;font-size:7px">% SKUs cat.</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">% de los SKUs de la cat. que est&aacute;n en el top 10% del universo SP por valor</div></th>
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#e65100;min-width:90px">SKUs Core<br><span style="font-weight:600;text-transform:none;font-size:7px">cant. productos</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">SKUs necesarios para cubrir el 80% del vol. de la cat. (assortment m&iacute;nimo relevante)</div></th>
 
 <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#111;min-width:90px;border-left:2px solid #e0e0e0">Score<br><span style="font-weight:600;text-transform:none;font-size:7px">0 &ndash; 100</span><div style="font-size:7px;color:#999;font-weight:400;text-transform:none;margin-top:3px;line-height:1.4">Score final + sub-scores M (MeLi 50%) · Q (QC 30%) · S (Simplicidad 20%)</div></th>
@@ -1414,10 +1414,10 @@ function initT9(){
     tr.innerHTML=
       '<td style="padding:6px 8px;font-size:11px;font-weight:700">'+d.n+'</td>'+
       '<td style="padding:6px 8px;text-align:center;background:#1565c020">'+benchDots+'</td>'+
-      kpiFmt(d.t10u+'%','#2e7d32')+
-      kpiFmt(d.t10n+'%','#2e7d32')+
       kpiFmt(d.vol+'%','#2e7d32')+
       kpiFmt(d.nmv+'%','#2e7d32')+
+      kpiFmt(d.t10u+'%','#2e7d32')+
+      kpiFmt(d.t10n+'%','#2e7d32')+
       kpiFmt(d.p80,'#e65100')+
 
       scCell;
