@@ -1406,8 +1406,8 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
   <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#7b1fa2">NMV%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">core</div></th>
   <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#7b1fa2">T10%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">units</div></th>
   <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#7b1fa2">T10%<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">NMV</div></th>
-  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#7b1fa2;border-left:2px solid #e1bee7">Score MeLi<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">sub-score</div></th>
-<th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#555;border-left:2px solid #e0e0e0;background:#f5f0ff">SKUs<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">core (p80)</div></th>  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#333;border-left:2px solid #e8e8e8">Score Final<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">ponderado</div></th><th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;border-left:2px solid #c8e6c9;background:#f1f8e9">SKUs<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">core (p80)</div></th><th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#333;border-left:2px solid #e0e0e0;background:#f9f9f9">Sellers<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">recom. / zona</div></th>
+  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;border-left:2px solid #c8e6c9">Score MeLi<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">sub-score</div></th>
+  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#333;border-left:2px solid #e8e8e8">Score Final<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">ponderado</div></th>  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#2e7d32;border-left:2px solid #c8e6c9;background:#f1f8e9">SKUs core<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">(p80)</div></th>  <th style="padding:6px 8px;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:#555;border-left:2px solid #e0e0e0;background:#f9f9f9">Sellers<div style="font-size:7px;font-weight:400;text-transform:none;color:#aaa">recom. / zona</div></th>
 </tr></thead>
 
 
@@ -1509,11 +1509,11 @@ function t9Update(){
       '<td style="padding:6px 10px;text-align:left;font-size:12px;font-weight:700">'+c.name+'</td>'+
       '<td style="padding:6px 8px;text-align:center"><span data-key="'+c.key+'"  onclick="t9MisClick(this)" style="display:inline-block;width:28px;height:28px;line-height:28px;border-radius:50%;font-size:14px;font-weight:900;background:'+(c.mis===2?'#ff7043':c.mis===1?'#ffcc80':'#e0e0e0')+';color:#333;cursor:pointer;user-select:none;text-align:center">'+c.mis+'</span></td>'+
       '<td style="padding:6px 8px;text-align:center;border-left:2px solid #e8e8e8">'+benchDots+'<div style="font-size:10px;font-weight:700;color:#1565c0;margin-top:2px">'+Math.round(c.qc*100)+'</div></td>'+
-      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#7b1fa2;border-left:2px solid #f3e5f5">'+c.vol+'%</td>'+
-      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#7b1fa2">'+c.nmv+'%</td>'+
-      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#7b1fa2">'+c.t10u+'%</td>'+
-      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#7b1fa2">'+c.t10n+'%</td>'+
-      '<td style="padding:6px 8px;text-align:center;font-size:11px;font-weight:700;color:#7b1fa2;border-left:2px solid #e1bee7">'+Math.round(c.meli*100)+'</td>'+
+      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#2e7d32;border-left:2px solid #e8f5e9">'+c.vol+'%</td>'+
+      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#2e7d32">'+c.nmv+'%</td>'+
+      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#2e7d32">'+c.t10u+'%</td>'+
+      '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#2e7d32">'+c.t10n+'%</td>'+
+      '<td style="padding:6px 8px;text-align:center;font-size:11px;font-weight:700;color:#2e7d32;border-left:2px solid #c8e6c9">'+Math.round(c.meli*100)+'</td>'+
       '<td style="padding:6px 8px;text-align:center;border-left:2px solid #e8e8e8"><span style="display:inline-block;padding:2px 10px;border-radius:10px;background:'+scBg+';color:'+scTx+';font-size:13px;font-weight:900">'+sc100+'</span></td>'+t9GetSellers(c);
     tbody.appendChild(tr);
   });
