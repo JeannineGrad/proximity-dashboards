@@ -387,24 +387,32 @@ td.ch{text-align:left;font-weight:600}
     <span style="font-size:9px;color:#888;font-weight:700;white-space:nowrap">CATEGORIA GM:</span>
     <select id="sel-cat" onchange="applyFilters()" style="font-size:10px;padding:4px 8px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-family:inherit;color:#333">
       <option value="">Todas</option>
-      <option value="__critico">Solo categorias criticas</option>
-      <option value="farma">Farmacia, Salud y Belleza</option>
+      <option value="farma">Farmacia y Salud</option>
+      <option value="beauty">Beauty e Higiene</option>
+      <option value="suple">Suplementos y Vitaminas</option>
       <option value="bebe">Bebe y Ninos</option>
       <option value="pet">Mascotas</option>
-      <option value="beb">Bebidas y Snacks</option>
+      <option value="limp">Limpieza</option>
+      <option value="deco">Organizacion y Decoracion</option>
+      <option value="text">Textiles Hogar</option>
+      <option value="eldom">Pequenos Electrodomesticos</option>
+      <option value="cocina">Cocina y Utensilios</option>
+      <option value="beb">Bebidas</option>
+      <option value="snack">Snacks y Golosinas</option>
+      <option value="food">Alimentos</option>
       <option value="tech">Accesorios Tech</option>
       <option value="ilum">Iluminacion y Electrica</option>
       <option value="pape">Papeleria y Fiestas</option>
-      <option value="moda">Accesorios de Moda</option>
-      <option value="food">Alimentos</option>
-      <option value="limp">Hogar</option>
-      <option value="tecno">Tecnologia</option>
       <option value="indum">Indumentaria</option>
+      <option value="moda">Accesorios de Moda</option>
+      <option value="const">Materiales Construccion</option>
+      <option value="seghogar">Seguridad del Hogar</option>
+      <option value="movil">Dispositivos Moviles</option>
+      <option value="compu">Computacion</option>
+      <option value="fotogam">Foto y Gaming</option>
       <option value="libr">Libros</option>
       <option value="auto">Automotor</option>
       <option value="depo">Deportes</option>
-      <option value="const">Construccion</option>
-    </select>
   </div>
   <div style="display:flex;align-items:center;gap:5px">
     <span style="font-size:9px;color:#888;font-weight:700;white-space:nowrap">DEMANDA SP:</span>
@@ -870,7 +878,7 @@ function resetFilters(){
 var CAT_MAP={"PERSONAL CARE ESSENTIALS":"farma","CPG BODY CARE":"farma","BODY CARE":"farma","HAIR":"farma","BEAUTY ELECTRONICS":"farma","BEAUTY SALOON":"farma","FACIAL CARE":"farma","MANICURE & PEDICURE":"farma","SOLAR CARE":"farma","FRAGRANCES":"farma","PHARMACY ARTICLES":"farma","HEALTH ELECTRONICS":"farma","HEALTH PROFESSIONAL":"farma","OTC MEDICINES":"farma","EYES MAKEUP":"farma","FACIAL MAKEUP":"farma","LIPS MAKEUP":"farma","MAKEUP KITS AND ACCESSORIES":"farma","PERSONAL CARE KITS":"farma","PERSONAL CARE TOOLS AND ACCESSORIES":"farma","ESTHETIC":"farma","MASSAGERS":"farma","OFTALMOLOGY":"farma","BABY DIAPERS":"bebe","CPG BABY CARE":"bebe","ADULT DIAPERS & PADS":"farma","BREASTFEED & EATING ACCESSORIES":"bebe","BABY SECURITY":"bebe","BABY ACCESSORIES":"bebe","BABY CARE":"bebe","BABY BATHROOM":"bebe","BABY BEDROOM":"bebe","BABY TOYS & ACTIVITY CENTERS":"bebe","PET ACCESSORIES":"pet","PET BEAUTY & HYGIENE":"pet","PET HEALTH & MEDICINE":"pet","PET FOOD & TREATS":"pet","PET HOUSES, TOYS & FASHION":"pet","PET PROFESSIONAL":"pet","CLEANING PRODUCTS & SUPPLIES":"limp","LAUNDRY PRODUCTS":"limp","TOILET PAPERS & NAPKINS":"limp","INSECTICIDES":"limp","CLEANING EQUIPMENT":"limp","CLEANING & LAUNDRY":"limp","NON ALCOHOLICS":"beb","ALCOHOLICS":"beb","COOKIES & SNACKS":"beb","BAR, WINE & ACC":"beb","PERIPHERALS ACCESSORIES":"tech","ACCESSORIES & PARTS FOR COMMUNICATION":"tech","CONNECTIVITY & NETWORKS":"tech","PC PERIPHERALS":"tech","AUDIO ACCESSORIES":"tech","HEADPHONES":"tech","STREAMING MEDIA DEVICES":"tech","TELEVISIONS ACCESSORIES":"tech","CAMERA ACCESSORIES":"tech","TABLETS & READERS ACCESSORIES":"tech","SMARTPHONES PARTS & ACCESSORIES":"tech","ELECTRONIC, TOOLS & COMPONENTS":"tech","KITCHEN HOME":"limp","KITCHEN":"limp","TABLETOP":"limp","ORGANIZATION":"limp","DINING & KITCHEN TEXTILES":"limp","KITCHEN PARTS":"limp","SPORTS SUPPLEMENTS":"farma","VITAMINS & MINERALS":"farma","HEALTH SUPPLEMENTS":"farma","OTHERS SUPPLEMENTS":"farma","BULBS & LED STRIPS":"ilum","WALL & CEILING LIGHTS":"ilum","EMERGENCY & FLOOD LIGHTS":"ilum","TABLE & DESK LAMPS":"ilum","FLOOR LAMPS":"ilum","OTHER HOME LIGHTING":"ilum","ELECTRICAL":"ilum","POWER TOOLS":"ilum","MANUAL TOOLS":"ilum","TOOL ACCESSORIES":"ilum","PARTICULAR TOOLS":"ilum","MEASURING TOOLS":"ilum","BATTERIES":"limp","STORAGE":"tech","PARTY DECORATION":"pape","BOARD AND CARD GAMES":"bebe","OTHER TOYS & GAMES":"bebe","CANDLES AND ACC":"limp","ORNAMENTS":"limp","ARTIFICIAL FLOWERS AND PLANTS":"limp","ANTIQUES & HOBBIES":"pape","ART & CRAFT":"pape","ART & CRAFT SUPPLIES":"pape","OFFICE & SCHOOL SUPPLIES":"pape","BREAKFAST & CEREALS":"food","GROCERIES":"food","CHOCOLATE & SWEETS":"beb","CANNED_AND_PRESERVED_FOOD":"food","FRESH FOOD":"food","OTHER FOOD":"food","SEASONAL FOOD":"food","INFANTS & BABIES":"food","BREAKFAST & CEREALS":"food","GROCERIES":"food","CHOCOLATE & SWEETS":"beb","CANNED AND PRESERVED FOOD":"food","FRESH FOOD":"food","OTHER FOOD":"food","SEASONAL FOOD":"food","INFANTS & BABIES":"food","CANNED_AND_PRESERVED_FOOD":"food","ADVERTISEMENT & GRAPHIC DESIGN":"pape","OFFICE EQUIPMENT":"pape","PACKAGING":"pape","BREAKFAST & CEREALS":"food","GROCERIES":"food","CHOCOLATE & SWEETS":"beb","CANNED":"food","FRESH FOOD":"food","OTHER FOOD":"food","SEASONAL FOOD":"food","INFANTS & BABIES":"food","CLOTHING":"moda","BASICS":"moda","SNEAKERS":"moda","SANDAL":"moda","BAG & BACKPACK":"moda","OTHER APPAREL ACCESSORIES":"moda","JEWELRY":"moda","WATCH":"moda","HATS":"moda","BEDROOM TEXTILES":"limp","BATHROOM TEXTILES":"limp","HOUSING & CLEANING":"limp","FAUCETS":"const","BATHROOM & KITCHEN CONSTRUCTION":"const","BATHROOM":"const","DOOR, WINDOW & FENCES":"const","CONSTRUCTION MATERIALS":"const","PAINTING":"const","SAFETY EQUIPMENT":"const","SMARTPHONES":"tech","PRINTERS PARTS & ACCESSORIES":"tech","CAMERAS, MONITORS & KITS":"tech","CANNED":"food","CANNED_AND_PRESERVED_FOOD":"food","HABERDASHERY":"pape","CARS & VANS ACCESSORIES":"auto","MOTORCYCLE ACCESSORIES":"auto","CARS & VANS REPLACEMENT PARTS":"auto","ORNAMENTS":"limp","ARTIFICIAL FLOWERS AND PLANTS":"limp","CANDLES AND ACC":"limp","BOARD AND CARD GAMES":"bebe","OTHER TOYS & GAMES":"bebe","BABY TOYS & ACTIVITY CENTERS":"bebe","BUILDING TOYS":"bebe","ELECTRONIC TOYS":"bebe","LIFELIKE TOYS":"bebe","TOY VEHICLES":"bebe","PARTY DECORATION":"pape","ART & CRAFT":"pape","ART & CRAFT SUPPLIES":"pape","ANTIQUES & HOBBIES":"pape","SMARTPHONES":"tecno","CAMERAS, MONITORS & KITS":"tecno","PRINTERS PARTS & ACCESSORIES":"tecno","DESKTOP PC PARTS":"tecno","PRINTERS":"tecno","MONITORS & ACCESSORIES":"tecno","CLOTHING":"indum","BASICS":"indum","SNEAKERS":"indum","SANDAL":"indum","SPORTS SUPPLEMENTS":"farma","VITAMINS & MINERALS":"farma","HEALTH SUPPLEMENTS":"farma","OTHERS SUPPLEMENTS":"farma","KITCHEN HOME":"limp","KITCHEN":"limp","TABLETOP":"limp","DINING & KITCHEN TEXTILES":"limp","KITCHEN PARTS":"limp"};
 var CAT_LBL={"farma":"Farmacia y Salud","beauty":"Beauty e Higiene","suple":"Suplementos y Vitaminas","bebe":"Bebe y Ninos","pet":"Mascotas","limp":"Limpieza","deco":"Organizacion y Decoracion","text":"Textiles Hogar","eldom":"Pequenos Electrodomesticos","cocina":"Cocina y Utensilios","beb":"Bebidas","snack":"Snacks y Golosinas","food":"Alimentos","tech":"Accesorios Tech","ilum":"Iluminacion y Electrica","pape":"Papeleria y Fiestas","indum":"Indumentaria","moda":"Accesorios de Moda","const":"Materiales Construccion","seghogar":"Seguridad del Hogar","movil":"Dispositivos Moviles","compu":"Computacion","fotogam":"Foto y Gaming","libr":"Libros","auto":"Automotor","depo":"Deportes"};
 var CAT_KEYS=["beb","beauty","farma","suple","snack","limp","food","bebe","pet","tech","eldom","cocina","deco","text","ilum","pape","indum","moda","const","seghogar","movil","compu","fotogam","libr","auto","depo"];
-var CAT_CLR={"farma":"#e91e63","bebe":"#1e88e5","pet":"#43a047","limp":"#00acc1","beb":"#fb8c00","tech":"#7b1fa2","ilum":"#f9a825","pape":"#546e7a","food":"#6d4c41","moda":"#78909c","const":"#5d4037","auto":"#455a64","tecno":"#4a148c","indum":"#616161","depo":"#00897b","libr":"#8d6e63"};
+var CAT_CLR={"farma":"#e91e63","beauty":"#ad1457","suple":"#6a1b9a","bebe":"#1e88e5","pet":"#43a047","limp":"#00acc1","deco":"#558b2f","text":"#37474f","eldom":"#00695c","cocina":"#bf360c","beb":"#fb8c00","snack":"#e65100","food":"#6d4c41","tech":"#7b1fa2","ilum":"#f9a825","pape":"#546e7a","indum":"#616161","moda":"#78909c","const":"#5d4037","seghogar":"#1a237e","movil":"#0d47a1","compu":"#1565c0","fotogam":"#4a148c","libr":"#8d6e63","auto":"#455a64","depo":"#2e7d32"};
 function getCatBadge(n,u){
   var c=CAT_MAP[n],b="";
   var bs="display:inline-block;margin-left:5px;padding:1px 5px;border-radius:8px;font-size:7px;font-weight:700;color:#fff;vertical-align:middle;line-height:14px;background:";
