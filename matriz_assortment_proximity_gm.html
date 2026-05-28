@@ -1514,7 +1514,7 @@ function showCatTops(cat){
   if(!cat||!window.CAT_TOPS||!CAT_TOPS[cat]) return;
   var data=CAT_TOPS[cat], items=data.items;
   var totalNMV=0; items.forEach(function(it){totalNMV+=it.nmv;});
-  document.getElementById('cat-tops-stats').textContent=items.length+' items \xb7 '+data.total_u.toLocaleString('pt-BR')+' u/30d \xb7 R$'+Math.round(totalNMV/1000)+'K NMV';
+
   var html='<table><thead><tr>'
     +'<th style="width:32px;font-size:8px">#</th>'
     +'<th class="ch" style="font-size:8px">Producto</th>'
