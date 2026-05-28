@@ -1744,9 +1744,9 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 var T9 = [
   {key:"beauty",name:"Beauty e Higiene",         bench:5,meli:0.419,qc:1.00,urg:1,imp:2,con:1,mis:2,t10u:11.1,t10n:13.0,vol:5.9, nmv:6.0, p80:2620},
   {key:"tech",  name:"Accesorios Tech",          bench:3,meli:0.359,qc:0.60,urg:2,imp:1,con:1,mis:2,t10u:10.2,t10n:13.1,vol:5.0, nmv:5.0, p80:2199},
-  {key:"limp",  name:"Limpieza",                 bench:5,meli:0.536,qc:1.00,urg:1,imp:1,con:1,mis:1,t10u:20.1,t10n:8.6, vol:8.5, nmv:3.8, p80:2096},
+  {key:"limp",  name:"Limpieza",                 bench:5,meli:0.536,qc:1.00,urg:1,imp:1,con:1,mis:1,t10u:20.1,t10n:8.6, vol:8.5, nmv:3.8, ds:true,p80:2096},
   {key:"snack", name:"Snacks y Golosinas",       bench:5,meli:0.185,qc:1.00,urg:1,imp:2,con:1,mis:2,t10u:15.2,t10n:3.5, vol:1.8, nmv:0.6, p80:699},
-  {key:"food",  name:"Alimentos",                bench:5,meli:0.509,qc:1.00,urg:2,imp:1,con:1,mis:1,t10u:21.8,t10n:7.4, vol:7.8, nmv:2.8, p80:1998},
+  {key:"food",  name:"Alimentos",                bench:5,meli:0.509,qc:1.00,urg:2,imp:1,con:1,mis:1,t10u:21.8,t10n:7.4, vol:7.8, nmv:2.8, ds:true,p80:1998},
   {key:"bebe",  name:"Bebe y Ninos",             bench:5,meli:0.112,qc:1.00,urg:2,imp:1,con:1,mis:2,t10u:7.2, t10n:8.1, vol:1.5, nmv:1.3, p80:783},
   {key:"pet",   name:"Mascotas",                 bench:5,meli:0.107,qc:1.00,urg:2,imp:1,con:1,mis:2,t10u:7.0, t10n:7.7, vol:1.4, nmv:1.4, p80:986},
   {key:"beb",   name:"Bebidas",                  bench:5,meli:0.422,qc:1.00,urg:1,imp:1,con:1,mis:2,t10u:23.7,t10n:12.9,vol:3.7, nmv:2.1, p80:1253},
@@ -1807,9 +1807,9 @@ function t9Update(){
   tbody.innerHTML='';
   var MIS_CLR={0:'#e0e0e0',1:'#ffcc80',2:'#ff7043'};
   scored.forEach(function(c,idx){
-    var clr=c.bench>=4?'#2e7d32':c.bench>=2?'#1565c0':c.bench>=1?'#e65100':'#9e9e9e';
+    var clr=c.ds?'#bdbdbd':(c.bench>=4?'#2e7d32':c.bench>=2?'#1565c0':c.bench>=1?'#e65100':'#9e9e9e');
     var sc100=Math.round(c.sc*100);
-    var scBg=sc100>=45?'#e8f5e9':sc100>=25?'#fff8e1':'#f5f5f5';
+    var scBg=c.ds?'#f5f5f5':(sc100>=45?'#e8f5e9':sc100>=25?'#fff8e1':'#f5f5f5');
     var scTx=sc100>=45?'#2e7d32':sc100>=25?'#e65100':'#9e9e9e';
     var uBg=MIS_CLR[c.urg]; var iBg=MIS_CLR[c.imp]; var cBg=MIS_CLR[c.con];
 
@@ -1823,7 +1823,7 @@ function t9Update(){
 
     tr.innerHTML=
       '<td style="padding:6px 6px;text-align:center;font-size:11px;font-weight:800;color:#bbb">'+(idx+1)+'</td>'+
-      '<td style="padding:6px 10px;text-align:left;font-size:12px;font-weight:700">'+c.name+'</td>'+
+      '<td style="padding:6px 10px;text-align:left;font-size:12px;font-weight:700">'+c.name+(c.ds?' <span style="font-size:8px;background:#e0e0e0;color:#757575;padding:1px 6px;border-radius:8px;font-weight:700">Dark Store / Super</span>':'')+'</td>'+
       '<td style="padding:6px 8px;text-align:center"><span data-key="'+c.key+'"  onclick="t9MisClick(this)" style="display:inline-block;width:28px;height:28px;line-height:28px;border-radius:50%;font-size:14px;font-weight:900;background:'+(c.mis===2?'#ff7043':c.mis===1?'#ffcc80':'#e0e0e0')+';color:#333;cursor:pointer;user-select:none;text-align:center">'+c.mis+'</span></td>'+
       '<td style="padding:6px 8px;text-align:center;border-left:2px solid #e8e8e8">'+benchDots+'<div style="font-size:10px;font-weight:700;color:#1565c0;margin-top:2px">'+Math.round(c.qc*100)+'</div></td>'+
       '<td style="padding:6px 8px;text-align:center;font-size:11px;color:#2e7d32;border-left:2px solid #e8e8e8">'+c.vol+'%</td>'+
