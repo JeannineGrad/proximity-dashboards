@@ -320,117 +320,114 @@ td.ch{text-align:left;font-weight:600}
 
 </div>
 <div id="t3" class="tab-pane active">
-<div class="wrap" style="max-width:860px">
-
-<div style="margin-bottom:24px">
-  <div style="font-size:16px;font-weight:900;margin-bottom:4px">Metodolog&iacute;a de Priorizaci&oacute;n &mdash; GM Agora SP</div>
-  <div style="font-size:10px;color:#888">Quick Commerce &middot; S&atilde;o Paulo &middot; Lanzamiento jun-08 2026 &middot; 26 categor&iacute;as &middot; universo 53.605 products</div>
+<div class="wrap">
+<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+  <button onclick="showSec('s1',this)" class="fw-btn active" style="background:#e8f5e9;color:#2e7d32;border:none;padding:5px 14px;border-radius:20px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Definición Categorías</button>
+  <button onclick="showSec('s2',this)" class="fw-btn" style="background:#f0f0f0;color:#555;border:none;padding:5px 14px;border-radius:20px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Priorización Categorías</button>
+  <button onclick="showSec('s3',this)" class="fw-btn" style="background:#f0f0f0;color:#555;border:none;padding:5px 14px;border-radius:20px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Priorización Sellers</button>
+  <button onclick="showSec('s4',this)" class="fw-btn" style="background:#f0f0f0;color:#555;border:none;padding:5px 14px;border-radius:20px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Demanda SP</button>
 </div>
 
-<!-- PASO 1 -->
-<div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
-  <div style="min-width:32px;height:32px;border-radius:50%;background:#1565c0;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
-  <div>
-    <div style="font-size:12px;font-weight:800;margin-bottom:4px">Objetivo</div>
-    <div style="font-size:11px;color:#444;line-height:1.6">Definir qu&eacute; categor&iacute;as priorizar en el lanzamiento, balanceando: <strong>defender</strong> las categor&iacute;as m&aacute;s importantes para MeLi y <strong>atacar</strong> donde el mercado QC ya valid&oacute; demanda. Prioridad: defensa primero.</div>
+<!-- SECCION 1: DEFINICION CATEGORIAS -->
+<div id="ms1" style="display:block">
+  <div style="font-size:13px;font-weight:800;margin-bottom:12px">26 Categor&iacute;as &mdash; GM Agora SP</div>
+  <div style="font-size:10px;color:#666;margin-bottom:14px">Partimos de la taxonom&iacute;a de MeLi y realizamos splits estrat&eacute;gicos para separar perfiles de demanda, sellers y modelo de compra distintos.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+    <div style="background:#e8f5e9;border-radius:8px;padding:12px"><div style="font-size:10px;font-weight:800;color:#2e7d32;margin-bottom:6px">Benchmark QC 5/5</div><div style="font-size:9px;color:#444;line-height:1.7">Bebidas &middot; Alimentos &middot; Beauty e Higiene &middot; Farmacia y Salud &middot; Suplementos &middot; Snacks &middot; Limpieza &middot; Bebe y Ni&ntilde;os &middot; Mascotas</div></div>
+    <div style="background:#e3f2fd;border-radius:8px;padding:12px"><div style="font-size:10px;font-weight:800;color:#1565c0;margin-bottom:6px">Benchmark QC parcial</div><div style="font-size:9px;color:#444;line-height:1.7">Accesorios Tech (3/5) &middot; Iluminaci&oacute;n (2/5) &middot; Papeler&iacute;a (1/5)</div></div>
+    <div style="background:#f5f5f5;border-radius:8px;padding:12px"><div style="font-size:10px;font-weight:800;color:#555;margin-bottom:6px">Sin benchmark QC</div><div style="font-size:9px;color:#444;line-height:1.7">Indumentaria &middot; Moda &middot; Peq. Electro &middot; Cocina &middot; Deco &middot; Textiles &middot; Dispositivos M&oacute;viles &middot; Computaci&oacute;n &middot; Foto y Gaming &middot; Seg. Hogar &middot; Mat. Construcci&oacute;n &middot; Libros &middot; Deportes &middot; Automotor</div></div>
+  </div>
+  <div style="margin-top:12px;background:#fff8e1;border-left:4px solid #ff9800;padding:10px 14px;border-radius:0 6px 6px 0;font-size:10px;color:#555;line-height:1.6">
+    <strong>Splits realizados:</strong> Hogar &rarr; Limpieza / Deco / Textiles / Peq. Electro / Cocina &middot; Tecnolog&iacute;a &rarr; Dispositivos M&oacute;viles / Computaci&oacute;n / Foto y Gaming &middot; Construcci&oacute;n &rarr; Materiales / Seguridad del Hogar &middot; Bebidas y Snacks &rarr; separados &middot; Farmacia &rarr; Farmacia / Beauty / Suplementos
   </div>
 </div>
 
-<!-- PASO 2 -->
-<div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
-  <div style="min-width:32px;height:32px;border-radius:50%;background:#1565c0;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
-  <div>
-    <div style="font-size:12px;font-weight:800;margin-bottom:4px">Universo de an&aacute;lisis</div>
-    <div style="font-size:11px;color:#444;line-height:1.6">Demanda real MeLi SP (abr&ndash;may 2026) con restricciones log&iacute;sticas QC (&le;50cm, &le;15kg) y m&iacute;nimo 30 u/30d.</div>
-    <div style="font-size:11px;color:#444;line-height:1.6;margin-top:4px"><strong>53.605 products</strong> &middot; 5.3M u/30d &middot; R$397M NMV &middot; <strong>26 categor&iacute;as</strong> (88% cat&aacute;logo, 90% volumen)</div>
-    <div style="margin-top:8px;font-size:10px;color:#666;line-height:1.6"><strong>Splits respecto a taxonom&iacute;a original:</strong> Hogar &rarr; Limpieza / Deco / Textiles / Peq. Electro / Cocina &middot; Tecnolog&iacute;a &rarr; Dispositivos M&oacute;viles / Computaci&oacute;n / Foto y Gaming &middot; Construcci&oacute;n &rarr; Materiales / Seguridad del Hogar</div>
+<!-- SECCION 2: PRIORIZACION CATEGORIAS -->
+<div id="ms2" style="display:none">
+  <div style="font-size:13px;font-weight:800;margin-bottom:8px">Modelo de Priorizaci&oacute;n</div>
+  <div style="font-size:10px;color:#666;margin-bottom:14px">Score (0&ndash;100) por categor&iacute;a usando tres dimensiones con pesos ajustables. Defensa primero, ataque segundo.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
+    <div style="background:#e8f5e9;border-left:4px solid #2e7d32;border-radius:0 8px 8px 0;padding:12px">
+      <div style="font-size:10px;font-weight:800;color:#2e7d32;margin-bottom:6px">Relevancia MeLi &mdash; 50%</div>
+      <div style="font-size:9px;color:#444;line-height:1.7">&bull; % SKUs en top 10% SP por volumen<br>&bull; % vol del core (pareto 80%)<br>&bull; % SKUs en top 10% SP por NMV<br>&bull; % NMV del core<br><strong>= promedio de 4 sub-m&eacute;tricas norm.</strong></div>
+    </div>
+    <div style="background:#fff3e0;border-left:4px solid #e65100;border-radius:0 8px 8px 0;padding:12px">
+      <div style="font-size:10px;font-weight:800;color:#e65100;margin-bottom:6px">Misiones de Compra &mdash; 35%</div>
+      <div style="font-size:9px;color:#444;line-height:1.7"><strong>Urgencia</strong>: lo necesito ya<br><strong>Impulso</strong>: lo vi, lo quiero ahora<br><strong>Conveniencia</strong>: prefiero recibirlo hoy<br>Score: 0 (no aplica) / 1 (aplica) / 2 (principal)<br><strong>Editable por categor&iacute;a en Priorizaci&oacute;n v2</strong></div>
+    </div>
+    <div style="background:#e3f2fd;border-left:4px solid #1565c0;border-radius:0 8px 8px 0;padding:12px">
+      <div style="font-size:10px;font-weight:800;color:#1565c0;margin-bottom:6px">QC Signal &mdash; 15%</div>
+      <div style="font-size:9px;color:#444;line-height:1.7">Cu&aacute;ntos de los 5 players QC globales llevan la categor&iacute;a:<br>iFood &middot; Rappi &middot; Meituan &middot; Blinkit &middot; Amazon Now<br><strong>Score = players / 5</strong></div>
+    </div>
+  </div>
+  <div style="background:#f8f8f8;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:10px;line-height:1.8;margin-bottom:10px">
+    <span style="color:#1565c0;font-weight:700">Score</span> = 0.50 &times; MeLi + 0.35 &times; Misiones + 0.15 &times; QC_Signal<br>
+    <span style="color:#888;font-size:9px">Los pesos son ajustables en tiempo real desde el tab Priorizaci&oacute;n v2</span>
+  </div>
+  <div style="font-size:10px;color:#888;line-height:1.6">
+    <strong>¿Por qu&eacute; promedio aritm&eacute;tico y no geom&eacute;trico?</strong> Para que una categor&iacute;a pueda destacar aunque sea d&eacute;bil en una dimensi&oacute;n. Tecnolog&iacute;a tiene bajo volumen de &oacute;rdenes pero el NMV m&aacute;s alto &mdash; con promedio geom&eacute;trico quedar&iacute;a penalizada injustamente.<br>
+    <strong>¿Por qu&eacute; usar el core (pareto 80%) y no el total?</strong> El total incluye el tail de productos sin demanda real. El core a&iacute;sla el assortment que realmente mueve el negocio.
   </div>
 </div>
 
-<!-- PASO 3 -->
-<div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
-  <div style="min-width:32px;height:32px;border-radius:50%;background:#1565c0;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
-  <div style="width:100%">
-    <div style="font-size:12px;font-weight:800;margin-bottom:10px">Las tres dimensiones del score</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
-      <div style="background:#e8f5e9;border-left:4px solid #2e7d32;border-radius:0 8px 8px 0;padding:12px 14px">
-        <div style="font-size:11px;font-weight:800;margin-bottom:6px;color:#2e7d32">&#128230; Relevancia MeLi &mdash; 50%</div>
-        <div style="font-size:10px;color:#444;line-height:1.7">
-          &bull; % SKUs en top 10% universe por <strong>unidades</strong><br>
-          &bull; % vol del core (pareto 80%)<br>
-          &bull; % SKUs en top 10% universe por <strong>NMV</strong><br>
-          &bull; % NMV del core<br>
-          <strong>Score = promedio de 4 sub-m&eacute;tricas normalizadas</strong>
-        </div>
-      </div>
-      <div style="background:#fff3e0;border-left:4px solid #e65100;border-radius:0 8px 8px 0;padding:12px 14px">
-        <div style="font-size:11px;font-weight:800;margin-bottom:6px;color:#e65100">&#127919; Misiones de Compra &mdash; 35%</div>
-        <div style="font-size:10px;color:#444;line-height:1.7">
-          Qu&eacute; tan bien encaja la categor&iacute;a en los momentos de compra QC:<br>
-          &bull; <strong>Urgencia</strong>: lo necesito ya<br>
-          &bull; <strong>Impulso</strong>: lo vi, lo quiero ahora<br>
-          &bull; <strong>Conveniencia</strong>: prefiero recibirlo hoy<br>
-          <strong>Score = 0 (no aplica) / 1 (aplica) / 2 (misi&oacute;n principal)</strong>
-        </div>
-      </div>
-      <div style="background:#e3f2fd;border-left:4px solid #1565c0;border-radius:0 8px 8px 0;padding:12px 14px">
-        <div style="font-size:11px;font-weight:800;margin-bottom:6px;color:#1565c0">&#127919; QC Signal &mdash; 15%</div>
-        <div style="font-size:10px;color:#444;line-height:1.7">
-          Cu&aacute;ntos de los 5 players QC globales llevan la categor&iacute;a:<br>
-          iFood &middot; Rappi &middot; Meituan &middot; Blinkit &middot; Amazon Now<br>
-          <strong>Score = players / 5</strong><br><br>
-          Vale 15% porque una categor&iacute;a puede ser cr&iacute;tica para MeLi aunque los benchmarks no la tengan (ej. Tecnolog&iacute;a).
-        </div>
-      </div>
+<!-- SECCION 3: PRIORIZACION SELLERS -->
+<div id="ms3" style="display:none">
+  <div style="font-size:13px;font-weight:800;margin-bottom:8px">Priorizaci&oacute;n de Sellers &mdash; Cu&aacute;ntos necesitamos por zona</div>
+  <div style="font-size:10px;color:#666;margin-bottom:14px">La cantidad de sellers necesarios para cubrir el assortment relevante de cada categor&iacute;a en una zona se estima combinando la <strong>prioridad de la categor&iacute;a</strong> (Score Final) y la <strong>complejidad del surtido</strong> (SKUs del core).</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+    <div style="background:#f8f8f8;border-radius:8px;padding:12px">
+      <div style="font-size:10px;font-weight:800;color:#333;margin-bottom:6px">Complejidad del surtido</div>
+      <div style="font-size:9px;color:#444;line-height:1.8">Medida por <strong>SKUs core = pareto 80%</strong>:<br>&bull; Alta: &ge;1.500 SKUs<br>&bull; Media: 500&ndash;1.500 SKUs<br>&bull; Baja: &lt;500 SKUs<br><span style="color:#888">Umbrales ajustables en Priorizaci&oacute;n v2</span></div>
     </div>
-    <div style="margin-top:10px;background:#fff3e0;border-left:4px solid #ff9800;padding:9px 13px;border-radius:0 6px 6px 0;font-size:10px;color:#555;line-height:1.6">
-      <strong>¿Por qu&eacute; el core (pareto 80%) y no el total de la categor&iacute;a?</strong> El total incluye el tail de productos con poca demanda. El core a&iacute;sla el assortment que realmente mueve el negocio y elimina el sesgo de tama&ntilde;o.
+    <div style="background:#f8f8f8;border-radius:8px;padding:12px">
+      <div style="font-size:10px;font-weight:800;color:#333;margin-bottom:6px">Matriz de referencia (default)</div>
+      <table style="border-collapse:collapse;font-size:9px;width:100%">
+        <tr><th style="background:#eee;border:1px solid #ddd;padding:3px 6px"></th><th style="background:#eee;border:1px solid #ddd;padding:3px 6px">Alta</th><th style="background:#eee;border:1px solid #ddd;padding:3px 6px">Media</th><th style="background:#eee;border:1px solid #ddd;padding:3px 6px">Baja</th></tr>
+        <tr><td style="background:#e8f5e9;border:1px solid #ddd;padding:3px 6px;font-weight:700;color:#2e7d32">Prioridad Alta</td><td style="border:1px solid #ddd;padding:3px 6px;text-align:center;font-weight:800">4</td><td style="border:1px solid #ddd;padding:3px 6px;text-align:center;font-weight:800">3</td><td style="border:1px solid #ddd;padding:3px 6px;text-align:center;font-weight:800">2</td></tr>
+        <tr><td style="background:#fff8e1;border:1px solid #ddd;padding:3px 6px;font-weight:700;color:#e65100">Prioridad Media</td><td style="border:1px solid #ddd;padding:3px 6px;text-align:center;font-weight:800">3</td><td style="border:1px solid #ddd;padding:3px 6px;text-align:center;font-weight:800">2</td><td style="border:1px solid #ddd;padding:3px 6px;text-align:center;font-weight:800">2</td></tr>
+        <tr><td style="background:#fafafa;border:1px solid #ddd;padding:3px 6px;font-weight:700;color:#888">Prioridad Baja</td><td style="border:1px solid #ddd;padding:3px 6px;text-align:center;font-weight:800">1</td><td style="border:1px solid #ddd;padding:3px 6px;text-align:center;font-weight:800">1</td><td style="border:1px solid #ddd;padding:3px 6px;text-align:center;font-weight:800">1</td></tr>
+      </table>
     </div>
-    <div style="margin-top:8px;background:#e3f2fd;border-left:4px solid #1565c0;padding:9px 13px;border-radius:0 6px 6px 0;font-size:10px;color:#555;line-height:1.6">
-      <strong>¿Por qu&eacute; &ldquo;% SKUs en top 10%&rdquo; y no &ldquo;% de volumen total&rdquo;?</strong> El volumen total est&aacute; sesgado por tama&ntilde;o. Bebidas tiene 22.6% de sus SKUs en el top 10% global: casi 1 de cada 4 productos es top performer. Eso no se ve con volumen bruto.
-    </div>
+  </div>
+  <div style="background:#e3f2fd;border-left:4px solid #1565c0;padding:10px 14px;border-radius:0 6px 6px 0;font-size:10px;color:#555;line-height:1.6">
+    La matriz es <strong>completamente configurable</strong> en el tab Priorizaci&oacute;n v2 &mdash; pod&eacute;s cambiar los umbrales de prioridad, los umbrales de complejidad y la cantidad de sellers por celda en tiempo real. Los cambios se aplican al hacer click en <strong>Recalcular</strong>.
   </div>
 </div>
 
-<!-- PASO 4 -->
-<div style="display:flex;gap:16px;margin-bottom:24px;align-items:flex-start">
-  <div style="min-width:32px;height:32px;border-radius:50%;background:#1565c0;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">5</div>
-  <div>
-    <div style="font-size:12px;font-weight:800;margin-bottom:8px">F&oacute;rmula</div>
-    <div style="background:#f8f8f8;border-radius:8px;padding:12px 16px;font-family:monospace;font-size:11px;line-height:1.8">
-      <span style="color:#1565c0;font-weight:700">Score (0&ndash;100)</span> = 0.50 &times; MeLi + 0.35 &times; Misiones + 0.15 &times; QC_Signal<br>
-      MeLi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0.25&times;T10U + 0.25&times;T10N + 0.25&times;VOL + 0.25&times;NMV &nbsp;<span style="color:#888;font-size:9px">(norm. 0&rarr;1)</span><br>
-      Misiones &nbsp;&nbsp;= 0 / 1 / 2 &rarr; normalizado a 0&rarr;1 dividi&eacute;ndolo por 2<br>
-      QC_Signal = bench / 5
+<!-- SECCION 4: DEMANDA SP -->
+<div id="ms4" style="display:none">
+  <div style="font-size:13px;font-weight:800;margin-bottom:8px">Base de datos de demanda SP</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+    <div style="background:#f8f8f8;border-radius:8px;padding:12px">
+      <div style="font-size:10px;font-weight:800;color:#555;margin-bottom:6px">Fuente y per&iacute;odo</div>
+      <div style="font-size:10px;color:#444;line-height:1.7">BigQuery MeLi SP<br><strong>Abr 21 &ndash; May 20 2026</strong><br>Transacciones reales de compradores en SP</div>
     </div>
-    <div style="margin-top:8px;font-size:10px;color:#666">Los pesos son <strong>ajustables en tiempo real</strong> desde la tab &ldquo;Priorizaci&oacute;n v2&rdquo;. Los pesos por defecto son 50/35/15.</div>
-  </div>
-</div>
-
-<!-- PASO 5: SELLERS -->
-<div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
-  <div style="min-width:32px;height:32px;border-radius:50%;background:#1565c0;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">6</div>
-  <div>
-    <div style="font-size:12px;font-weight:800;margin-bottom:4px">Sellers recomendados por zona</div>
-    <div style="font-size:11px;color:#444;line-height:1.6">La cantidad de sellers necesarios para cubrir el assortment relevante de cada categor&iacute;a en una zona se estima a partir de la complejidad del surtido (SKUs core = pareto 80%) y la prioridad de la categor&iacute;a (Score Final).</div>
-    <div style="margin-top:8px;background:#f8f8f8;border-radius:8px;padding:10px 14px;font-size:10px;color:#555">
-      <strong>Complejidad</strong> = SKUs core &mdash; Alta &ge;1500 &middot; Media 500&ndash;1500 &middot; Baja &lt;500<br>
-      <strong>Prioridad</strong> = Score Final &mdash; Alto &ge;45 &middot; Medio 25&ndash;44 &middot; Bajo &lt;25<br>
-      La matriz y los umbrales son <strong>configurables</strong> desde la tab Priorizaci&oacute;n v2.
+    <div style="background:#f8f8f8;border-radius:8px;padding:12px">
+      <div style="font-size:10px;font-weight:800;color:#555;margin-bottom:6px">Filtros aplicados</div>
+      <div style="font-size:10px;color:#444;line-height:1.7">&bull; Log&iacute;stica QC: &le;50cm, &le;15kg<br>&bull; Demanda m&iacute;nima: 30 u/30d<br>&bull; Excluidos: items internos MP + dominios digitales</div>
+    </div>
+    <div style="background:#e8f5e9;border-radius:8px;padding:12px">
+      <div style="font-size:10px;font-weight:800;color:#2e7d32;margin-bottom:6px">Universo resultante</div>
+      <div style="font-size:10px;color:#444;line-height:1.7"><strong>53.605</strong> product_ids &uacute;nicos<br><strong>5.3M</strong> unidades / 30 d&iacute;as<br><strong>R$397M</strong> NMV total</div>
+    </div>
+    <div style="background:#e3f2fd;border-radius:8px;padding:12px">
+      <div style="font-size:10px;font-weight:800;color:#1565c0;margin-bottom:6px">Cobertura 26 categor&iacute;as</div>
+      <div style="font-size:10px;color:#444;line-height:1.7"><strong>88%</strong> del cat&aacute;logo<br><strong>90%</strong> del volumen<br><strong>~79%</strong> del NMV</div>
     </div>
   </div>
+  <div style="font-size:10px;color:#888;line-height:1.6">El 21% de NMV restante corresponde a categor&iacute;as fuera del scope QC (electrodom&eacute;sticos grandes, muebles, equipamiento comercial). Smartphones y notebooks <strong>s&iacute; est&aacute;n incluidos</strong> en Dispositivos M&oacute;viles y Computaci&oacute;n. &rarr; Ver detalle completo en tab <strong>Demanda SP</strong>.</div>
 </div>
-
-
-
-
-
-
-
-
 
 </div>
 </div>
+<script>
+function showSec(id,btn){
+  ["ms1","ms2","ms3","ms4"].forEach(function(s){document.getElementById(s).style.display="none";});
+  document.getElementById(id).style.display="block";
+  document.querySelectorAll(".fw-btn").forEach(function(b){b.style.background="#f0f0f0";b.style.color="#555";});
+  btn.style.background="#e8f5e9"; btn.style.color="#2e7d32";
+}
+</script>
 </div>
 <div id="t5" class="tab-pane">
 <div style="background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:10px">
