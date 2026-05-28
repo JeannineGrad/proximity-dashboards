@@ -1584,6 +1584,52 @@ function downloadCoreCSV(){
   a.href=url; a.download=fname+'_sp.csv'; document.body.appendChild(a); a.click();
   setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},100);
 }
+function downloadCoreByVertical(){
+  var cat=document.getElementById('cat-tops-sel').value;
+  if(!window.CAT_TOPS) return;
+  var catsToProcess=(!cat||cat==='__all')?CAT_KEYS:[cat];
+  var allCore=[];
+  catsToProcess.forEach(function(k){
+    if(!CAT_TOPS[k]) return;
+    var items=CAT_TOPS[k].items; var totalU=CAT_TOPS[k].total_u;
+    var catName=CAT_LBL[k]||k;
+    var thresh=totalU*0.80; var cum=0;
+    for(var i=0;i<items.length;i++){
+      cum+=items[i].u;
+      allCore.push({cat:catName,vert:items[i].vert||'',a1:items[i].a1||'',a2:items[i].a2,dom:items[i].dom,pid:items[i].pid,t:items[i].t,u:items[i].u,nmv:items[i].nmv});
+      if(cum>=thresh) break;
+    }
+  });
+  allCore.sort(function(a,b){
+    if(a.vert<b.vert) return -1; if(a.vert>b.vert) return 1;
+    return b.u-a.u;
+  });
+  var vertTotals={};
+  allCore.forEach(function(it){vertTotals[it.vert]=(vertTotals[it.vert]||0)+it.u;});
+  var vertCum={};
+  var rows=['vertical,agg1,agg2,dominio,categoria,product_id,nombre,units_30d,nmv_brl,pct_vol_vertical'];
+  allCore.forEach(function(it){
+    vertCum[it.vert]=(vertCum[it.vert]||0)+it.u;
+    var pct=((vertCum[it.vert])/(vertTotals[it.vert]||1)*100).toFixed(1);
+    rows.push([
+      '"'+it.vert+'"',
+      '"'+it.a1+'"',
+      '"'+it.a2+'"',
+      '"'+it.dom+'"',
+      '"'+it.cat+'"',
+      it.pid,
+      '"'+it.t.replace(/"/g,'')+'"',
+      it.u,
+      it.nmv,
+      pct+'%'
+    ].join(','));
+  });
+  var fname=(!cat||cat==='__all')?'core80_por_vertical':'core80_'+cat+'_por_vertical';
+  var blob=new Blob([rows.join('\n')],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob); var a=document.createElement('a');
+  a.href=url; a.download=fname+'_sp.csv'; document.body.appendChild(a); a.click();
+  setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},100);
+}
 var _origST8=switchTab;
 switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 </script>
