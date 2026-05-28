@@ -1489,6 +1489,8 @@ var CAT_TOPS={"auto":{n:"Automotor",total_u:69877,items:[{pid:"MLB5314914634",t:
   <span style="font-size:9px;color:#888;font-weight:700;white-space:nowrap">CATEGORIA:</span>
   <select id="cat-tops-sel" onchange="showCatTops(this.value)" style="font-size:11px;padding:4px 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-family:inherit;color:#333;min-width:220px"></select>
   <button onclick="downloadCoreCSV()" style="font-size:11px;padding:6px 16px;background:#2e7d32;color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:700">&#8595; Descargar Core SKUs (pareto 80%)</button>
+  <button onclick="downloadCoreByVertical()" style="font-size:11px;padding:6px 16px;background:#1565c0;color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:700;margin-left:6px">&#8595; Por Vertical MeLi</button>
+  <div style="font-size:9px;color:#aaa;font-style:italic;margin-top:4px">Mismos SKUs (core pareto 80%) &mdash; solo cambia el ordenamiento</div>
 
   <span id="cat-tops-stats" style="font-size:9px;color:#888"></span>
 </div>
@@ -1506,7 +1508,7 @@ function initCatTops(){
     o.textContent=(CAT_LBL[k]||k);
     sel.appendChild(o);
   });
-  if(sel.options.length>0) showCatTops(sel.options[0].value);
+  if(sel.options.length>1) showCatTops(sel.options[1].value);
 }
 function showCatTops(cat){
   if(!cat||!window.CAT_TOPS||!CAT_TOPS[cat]) return;
