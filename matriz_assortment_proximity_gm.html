@@ -1,6 +1,324 @@
 ﻿<!-- v=202605271317 --><!DOCTYPE html>
-</html>
-</body>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Assortment GM Agora SP</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;color:#111}
+.wrap{padding:16px 22px}
+.hdr{border-left:5px solid #FFE600;padding:7px 14px;background:#fff;margin-bottom:10px;border-radius:0 6px 6px 0}
+.title{font-size:14px;font-weight:800}.sub{font-size:9px;color:#777;margin-top:2px}
+.tabs{display:flex;gap:4px;margin-bottom:10px}
+.tab-btn{padding:4px 12px;font-size:9px;font-weight:600;border:none;border-radius:5px;cursor:pointer;font-family:inherit;background:#f0f0f0;color:#888}
+.tab-btn.active{background:#e8e8e8;color:#333;border-bottom:2px solid #1565c0}
+.tab-pane{display:none}.tab-pane.active{display:block}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+thead th{font-size:8px;font-weight:700;text-transform:uppercase;padding:7px 8px;text-align:center;background:#f8f8f8;border-bottom:2px solid #e8e8e8;color:#777}
+thead th.ch{text-align:left}
+tbody tr.mr{border-bottom:1px solid #f0f0f0;cursor:pointer}
+tbody tr.mr:hover td{background:#f5f7ff}
+tbody tr.mr.open td{background:#f0f4ff}
+td{padding:7px 8px;font-size:12px;vertical-align:middle;text-align:center}
+td.ch{text-align:left;font-weight:600}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e0e0e0;margin:0 1px}
+.dot.on{background:#2e7d32}
+.ct{width:44px;height:5px;background:#e8e8e8;border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle}
+.cf{height:100%;background:#43a047;border-radius:3px}
+.ab{font-size:8px;font-weight:700;padding:2px 6px;border-radius:10px}
+.ad{background:#e8f5e9;color:#2e7d32}.ah{background:#ffebee;color:#c62828}
+.arr{display:inline-block;margin-left:4px;transition:transform .18s;color:#bbb;font-size:10px}
+.open .arr{transform:rotate(90deg)}
+.det{display:none}.det.open{display:table-row}
+.det td{padding:0!important;background:#f7f9ff!important}
+.din{padding:10px 14px}
+.dh{font-size:9px;font-weight:700;text-transform:uppercase;color:#888;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center}
+.dlb{background:#1565c0;color:#fff;border:none;font-size:8px;font-weight:700;padding:3px 8px;border-radius:5px;cursor:pointer;font-family:inherit}
+.pt{width:100%;border-collapse:collapse;font-size:11px}
+.pt th{background:#eef1fb;color:#555;font-weight:700;font-size:8px;text-transform:uppercase;padding:4px 7px;text-align:left}
+.pt td{padding:3px 7px;border-bottom:1px solid #f0f0f0}
+.pt tr:hover td{background:#f0f4ff}
+.si{color:#2e7d32;font-weight:700}.no{color:#c62828}
+.rn{color:#bbb;font-size:10px}.gi{font-size:8px;color:#aaa;margin-top:5px}
+.tx-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.tx-table thead th{font-size:8px;font-weight:700;text-transform:uppercase;padding:7px 10px;background:#f8f8f8;border-bottom:2px solid #e8e8e8;color:#777;text-align:right}
+.tx-table thead th:first-child{text-align:left}
+.tx-table tbody tr{border-bottom:1px solid #f5f5f5;cursor:pointer}
+.tx-table tbody tr:hover td{background:#fafafa}
+.tx-table td{padding:5px 10px;font-size:11px;text-align:right}
+.tx-table td:first-child{text-align:left}
+.tx-v{font-weight:800;font-size:12px;background:#e3f2fd!important;color:#0d47a1}
+.tx-a1{padding-left:18px!important;font-weight:700;background:#f8f8f8!important}
+.tx-a2{padding-left:34px!important;color:#444}
+.tx-a3{padding-left:50px!important;color:#666;font-size:10px}
+.tx-prod td:first-child{padding-left:82px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px}
+.tx-prod{font-size:10px;background:#fafafa!important;color:#444}
+.tx-prod:hover td{background:#f0f4ff!important}
+.tx-dom{padding-left:66px!important;color:#888;font-size:10px;font-style:italic}
+.tx-cob{font-weight:700}
+.tx-arr{color:#bbb;font-size:9px;margin-right:4px;display:inline-block;transition:transform .15s}
+.tx-open .tx-arr{transform:rotate(90deg)}
+#fw-grid table td{text-align:left} #fw-grid table th{text-align:left} .fw-btn{padding:4px 12px;font-size:9px;font-weight:700;border:none;border-radius:6px;cursor:pointer;font-family:inherit} .fw-card{border-radius:10px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08);background:#fff} .fw-tag{display:inline-block;padding:2px 6px;border-radius:4px;font-size:8px;font-weight:700;margin:2px 2px 2px 0} .fw-agg{display:inline-block;padding:1px 5px;border-radius:3px;font-size:8px;background:#f5f5f5;color:#555;margin:1px} .nav-link{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;background:#1565c0;color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;margin-top:10px} .nav-link:hover{background:#0d47a1} .tx-child{display:none}
+.tx-child.open{display:table-row}
+.dl-btn{background:none;border:1px solid #ccc;border-radius:4px;padding:1px 5px;font-size:9px;cursor:pointer;color:#555;margin-left:6px;float:right;font-family:inherit}
+.dl-btn:hover{background:#e8f5e9;border-color:#43a047;color:#2e7d32}
+.cf-btn{padding:3px 9px;font-size:9px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;opacity:.75}
+.cf-btn:hover,.cf-btn.active{opacity:1;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.sl-tbl{width:100%;border-collapse:collapse;font-size:11px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.sl-tbl th{background:#f8f8f8;padding:6px 8px;font-size:8px;font-weight:700;text-transform:uppercase;color:#777;cursor:pointer;white-space:nowrap;border-bottom:2px solid #e8e8e8}
+.sl-tbl th:hover{background:#eef}
+.sl-tbl td{padding:5px 8px;border-bottom:1px solid #f5f5f5;vertical-align:middle}
+.sl-tbl tr:hover td{background:#fafafa}
+.cat-bar{display:inline-block;height:8px;border-radius:2px;vertical-align:middle;margin-right:1px}
+.greedy-row{padding:8px 12px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:10px}
+.greedy-row:last-child{border-bottom:none}
+</style><style>
+@media print {
+  .tabs, button, #cat-filter, .cf-btn, .dl-btn, select { display:none!important; }
+  .tab-pane { display:block!important; }
+  .wrap { padding:8px; }
+  body { background:#fff; }
+  @page { margin:1.5cm; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div style="background:#fff;border-left:5px solid #FFE600;padding:12px 20px 14px;margin-bottom:10px;border-radius:0 8px 8px 0;box-shadow:0 1px 4px rgba(0,0,0,.08);display:flex;justify-content:space-between;align-items:center">
+  <div>
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:4px">Documento Interno · Confidencial</div>
+    <div style="font-size:22px;font-weight:900;color:#111;line-height:1.1">Assortment GM Agora</div>
+    <div style="font-size:14px;font-weight:700;color:#1565c0;margin-top:2px">Sao Paulo · Lanzamiento jun-08 2026</div>
+  </div>
+  <button onclick="window.print()" style="font-size:13px;padding:12px 22px;background:#111;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:700;white-space:nowrap">&#11015; Exportar PDF</button>
+</div>
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('t3',this)">Metodologia</button>
+  <button class="tab-btn" onclick="switchTab('t1',this)">Benchmark categorias</button>
+  <button class="tab-btn" onclick="switchTab('t6',this)">Categorias Priorizadas</button><button class="tab-btn" onclick="switchTab('t10',this)">Racional Score</button><button class="tab-btn" onclick="switchTab('t9',this)">Priorizacion v2</button><button class="tab-btn" onclick="switchTab('t7',this)" style="display:none">Hunting Roadmap</button><button class="tab-btn" onclick="switchTab('t8',this)">Tops por Categoria</button>
+  <button class="tab-btn" onclick="switchTab('t2',this)">Demanda SP</button>
+  <button class="tab-btn" onclick="switchTab('t5',this)">Pareto demanda SP <span style="font-size:7px;background:#ff9800;color:#fff;padding:1px 4px;border-radius:3px;font-weight:700;vertical-align:middle">WIP</span></button>
+</div>
+<div id="t2" class="tab-pane">
+<div id="cat-filter" style="display:flex;gap:10px;margin-bottom:8px;align-items:center;flex-wrap:wrap">
+  <div style="display:flex;align-items:center;gap:5px">
+    <span style="font-size:9px;color:#888;font-weight:700;white-space:nowrap">CATEGORIA GM:</span>
+    <select id="sel-cat" onchange="applyFilters()" style="font-size:10px;padding:4px 8px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-family:inherit;color:#333">
+      <option value="">Todas</option>
+      <option value="__critico">Solo categorias criticas</option>
+      <option value="farma">Farmacia, Salud y Belleza</option>
+      <option value="bebe">Bebe y Ninos</option>
+      <option value="pet">Mascotas</option>
+      <option value="beb">Bebidas y Snacks</option>
+      <option value="tech">Accesorios Tech</option>
+      <option value="ilum">Iluminacion y Electrica</option>
+      <option value="pape">Papeleria y Fiestas</option>
+      <option value="moda">Accesorios de Moda</option>
+      <option value="food">Alimentos</option>
+      <option value="limp">Hogar</option>
+      <option value="tecno">Tecnologia</option>
+      <option value="indum">Indumentaria</option>
+      <option value="libr">Libros</option>
+      <option value="auto">Automotor</option>
+      <option value="depo">Deportes</option>
+      <option value="const">Construccion</option>
+  </div>
+  <div style="display:flex;align-items:center;gap:5px">
+    <span style="font-size:9px;color:#888;font-weight:700;white-space:nowrap">DEMANDA SP:</span>
+    <select id="sel-dem" onchange="applyFilters()" style="font-size:10px;padding:4px 8px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-family:inherit;color:#333">
+      <option value="">Todos los niveles</option>
+      <option value="100k">Muy alta (&ge;100k u/30d)</option>
+      <option value="50k">Alta (&ge;50k u/30d)</option>
+      <option value="10k">Media (&ge;10k u/30d)</option>
+      <option value="1k">Baja (&ge;1k u/30d)</option>
+    </select>
+  </div>
+  <button onclick="resetFilters()" style="font-size:9px;padding:4px 10px;border:1px solid #ccc;border-radius:6px;background:#fff;cursor:pointer;font-family:inherit;color:#555">&#10005; Limpiar</button>
+  <span id="filter-count" style="font-size:9px;color:#888"></span>
+</div>
+<table class="tx-table">
+<thead>
+<tr>
+  <th style="text-align:left">Vertical / AGG1 / AGG2 / Dominio</th>
+  <th>Productos</th>
+  <th>Units/30d</th>
+  <th>NMV R$M</th>
+  <th>Cobertura</th>
+</tr>
+</thead>
+<tbody id="txb"></tbody>
+</table>
+<div style="margin-top:6px;font-size:8px;color:#bbb">click para expandir · cobertura = product_ids cubiertos por listings activos sellers iGM · 53.605 product_ids únicos · ABR-MAY 2026</div>
+</div>
+<div id="t1" class="tab-pane">
+<div style="margin-bottom:12px">
+  <div style="font-size:13px;font-weight:800;margin-bottom:4px">Quick Commerce Global — Benchmark Players</div>
+  <div style="font-size:9px;color:#888;margin-bottom:12px">Modelos operativos, métricas clave y categorías top · fuentes públicas 2024–2025</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px">
+
+    <!-- iFood Turbo -->
+    <div style="background:#1a237e;color:#fff;border-radius:10px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:800">iFood Turbo</div>
+          <div style="font-size:9px;opacity:.7;margin-top:2px">Brasil · operaciones en SP, RJ, BH y otras</div>
+        </div>
+        <span style="background:#ffeb3b;color:#1a237e;font-size:8px;font-weight:800;padding:2px 7px;border-radius:4px">Q-COM BR</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9px;margin-bottom:10px">
+        <div><span style="opacity:.6">Modelo</span><div style="font-weight:700;margin-top:1px">Dark store propio + partners</div></div>
+        <div><span style="opacity:.6">SKUs / dark store</span><div style="font-weight:700;margin-top:1px">~2.000–4.000</div></div>
+        <div><span style="opacity:.6">Entrega</span><div style="font-weight:700;margin-top:1px;color:#ffeb3b">15–30 min</div></div>
+        <div><span style="opacity:.6">Ticket promedio</span><div style="font-weight:700;margin-top:1px">R$80–120</div></div>
+        <div><span style="opacity:.6">Ciudades activas</span><div style="font-weight:700;margin-top:1px">6+ ciudades BR</div></div>
+        <div><span style="opacity:.6">Fresh % GMV</span><div style="font-weight:700;margin-top:1px">~15–20%</div></div>
+      </div>
+      <div style="font-size:8px;opacity:.6;margin-bottom:4px">TOP CATEGORÍAS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Bebidas</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Snacks</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Higiene</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Limpieza</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Farmacia OTC</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Alimentos básicos</span>
+      </div>
+    </div>
+
+    <!-- Rappi Turbo -->
+    <div style="background:#1a237e;color:#fff;border-radius:10px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:800">Rappi Turbo</div>
+          <div style="font-size:9px;opacity:.7;margin-top:2px">9 países LatAm + España</div>
+        </div>
+        <span style="background:#ff6b35;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:4px">Q-COM LATAM</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9px;margin-bottom:10px">
+        <div><span style="opacity:.6">Modelo</span><div style="font-weight:700;margin-top:1px">Dark store 1P propio</div></div>
+        <div><span style="opacity:.6">SKUs / dark store</span><div style="font-weight:700;margin-top:1px">~1.500–2.500</div></div>
+        <div><span style="opacity:.6">Entrega (Turbo)</span><div style="font-weight:700;margin-top:1px;color:#ffeb3b">10–15 min</div></div>
+        <div><span style="opacity:.6">Ticket promedio</span><div style="font-weight:700;margin-top:1px">USD 12–18</div></div>
+        <div><span style="opacity:.6">Dark stores</span><div style="font-weight:700;margin-top:1px">~150–300 LatAm</div></div>
+        <div><span style="opacity:.6">GMV grocery</span><div style="font-weight:700;margin-top:1px">~25–30% total</div></div>
+      </div>
+      <div style="font-size:8px;opacity:.6;margin-bottom:4px">TOP CATEGORÍAS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Bebidas</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Alcohol</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Snacks</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Lácteos</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Higiene / OTC</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Mascotas / Bebé</span>
+      </div>
+    </div>
+
+    <!-- Meituan Flash -->
+    <div style="background:#1a237e;color:#fff;border-radius:10px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:800">Meituan 闪购</div>
+          <div style="font-size:9px;opacity:.7;margin-top:2px">China · 2.800+ ciudades</div>
+        </div>
+        <span style="background:#e53935;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:4px">Q-COM CN</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9px;margin-bottom:10px">
+        <div><span style="opacity:.6">Modelo</span><div style="font-weight:700;margin-top:1px">Plataforma + lightning stores</div></div>
+        <div><span style="opacity:.6">SKUs / dark store</span><div style="font-weight:700;margin-top:1px">3.000–10.000</div></div>
+        <div><span style="opacity:.6">Entrega</span><div style="font-weight:700;margin-top:1px;color:#ffeb3b">30 min (15–20 express)</div></div>
+        <div><span style="opacity:.6">AOV</span><div style="font-weight:700;margin-top:1px">RMB 60–80 (~USD 9)</div></div>
+        <div><span style="opacity:.6">Dark stores</span><div style="font-weight:700;margin-top:1px">30.000–50.000</div></div>
+        <div><span style="opacity:.6">GMV 2024 est.</span><div style="font-weight:700;margin-top:1px">~USD 18–22B</div></div>
+      </div>
+      <div style="font-size:8px;opacity:.6;margin-bottom:4px">TOP CATEGORÍAS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Snacks / Bebidas (35%)</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Farmacia OTC</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Belleza</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Electrónica acc.</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Bebé / Mascotas</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+
+    <!-- Blinkit / Zepto -->
+    <div style="background:#1a237e;color:#fff;border-radius:10px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:800">Blinkit / Zepto</div>
+          <div style="font-size:9px;opacity:.7;margin-top:2px">India · Blinkit (Zomato) + Zepto (independiente)</div>
+        </div>
+        <span style="background:#43a047;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:4px">Q-COM IN</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:9px;margin-bottom:10px">
+        <div></div>
+        <div style="text-align:center;font-size:8px;font-weight:700;opacity:.7;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:3px">Blinkit</div>
+        <div style="text-align:center;font-size:8px;font-weight:700;opacity:.7;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:3px">Zepto</div>
+        <div style="opacity:.6">SKUs/store</div><div style="text-align:center;font-weight:700">8.000–12.000</div><div style="text-align:center;font-weight:700">8.000–9.000</div>
+        <div style="opacity:.6">Entrega</div><div style="text-align:center;font-weight:700;color:#ffeb3b">10 min</div><div style="text-align:center;font-weight:700;color:#ffeb3b">10 min</div>
+        <div style="opacity:.6">AOV</div><div style="text-align:center;font-weight:700">INR 620–650</div><div style="text-align:center;font-weight:700">INR 500–550</div>
+        <div style="opacity:.6">Dark stores</div><div style="text-align:center;font-weight:700">~1.000</div><div style="text-align:center;font-weight:700">~700–750</div>
+        <div style="opacity:.6">GMV anual</div><div style="text-align:center;font-weight:700">~USD 3B</div><div style="text-align:center;font-weight:700">~USD 3–4B</div>
+      </div>
+      <div style="font-size:8px;opacity:.6;margin-bottom:4px">TOP CATEGORÍAS (ambos)</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Grocery / Frescos</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Lácteos / Huevos</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Snacks / Bebidas</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Higiene / OTC</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Electrónica acc.</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Bebé / Mascotas</span>
+      </div>
+    </div>
+
+    <!-- Amazon Now -->
+    <div style="background:#1a237e;color:#fff;border-radius:10px;padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:800">Amazon Now</div>
+          <div style="font-size:9px;opacity:.7;margin-top:2px">India (relaunch 2024) + Same-Day global</div>
+        </div>
+        <span style="background:#ff9800;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:4px">TECH-RETAIL</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9px;margin-bottom:10px">
+        <div><span style="opacity:.6">Modelo</span><div style="font-weight:700;margin-top:1px">Marketplace + dark stores (Flex)</div></div>
+        <div><span style="opacity:.6">SKUs</span><div style="font-weight:700;margin-top:1px">~15.000–20.000</div></div>
+        <div><span style="opacity:.6">Entrega (India)</span><div style="font-weight:700;margin-top:1px;color:#ffeb3b">15–20 min</div></div>
+        <div><span style="opacity:.6">Same-Day (US)</span><div style="font-weight:700;margin-top:1px">&lt;5 hs · 90 metros</div></div>
+        <div><span style="opacity:.6">Ciudades (India)</span><div style="font-weight:700;margin-top:1px">4–6 (piloto 2024–25)</div></div>
+        <div><span style="opacity:.6">Integración</span><div style="font-weight:700;margin-top:1px">Prime ecosystem</div></div>
+      </div>
+      <div style="font-size:8px;opacity:.6;margin-bottom:4px">TOP CATEGORÍAS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Grocery / Frescos</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Alimentos envasados</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Higiene / OTC</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Hogar / Limpieza</span>
+        <span style="background:rgba(255,255,255,.15);padding:2px 6px;border-radius:3px;font-size:8px">Electrónica acc.</span>
+      </div>
+      <div style="margin-top:8px;font-size:8px;background:rgba(255,255,255,.1);border-radius:4px;padding:5px 8px;opacity:.85">Amazon Fresh US: ~USD 5–6B GMV anual · 2h promise para Prime</div>
+    </div>
+
+  </div>
+  <div style="font-size:8px;color:#bbb;margin-top:6px">Fuentes públicas 2024–2025: earnings disclosures, Redseer, Euromonitor, prensa especializada · datos son estimados donde no hay divulgación oficial</div>
+</div><table>
+<thead>
+<tr>
+  <th class="ch" style="text-align:left">Categoria</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:8px">iFood Turbo</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:8px">Rappi Now</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:8px">Meituan Flash</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:8px">Blinkit / Zepto</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:8px">Amazon Now</th>
+  <th style="background:#f0f4ff;color:#1565c0;font-size:9px;font-weight:800">#</th>
+</tr>
+</thead>
+
+<tbody id="tb"></tbody>
+</table>
+
+</div>
 <div id="t3" class="tab-pane active">
 
 <!-- SECCIÓN 1 -->
