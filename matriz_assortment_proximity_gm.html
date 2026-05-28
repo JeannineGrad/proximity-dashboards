@@ -1802,7 +1802,7 @@ function t9Update(){
   var scored=T9.map(function(c){
     var ms=c.mis/2;
     return {key:c.key,name:c.name,bench:c.bench,meli:c.meli,qc:c.qc,mis:c.mis,p80:c.p80,vol:c.vol,nmv:c.nmv,t10u:c.t10u,t10n:c.t10n,ms:ms,sc:(wm*c.meli+wms*ms+wq*c.qc)/total};
-  }).sort(function(a,b){return b.sc-a.sc;});
+  }).sort(function(a,b){if(a.ds&&!b.ds)return 1;if(!a.ds&&b.ds)return -1;return b.sc-a.sc;});
   var tbody=document.getElementById('t9-sim-body'); if(!tbody)return;
   tbody.innerHTML='';
   var MIS_CLR={0:'#e0e0e0',1:'#ffcc80',2:'#ff7043'};
