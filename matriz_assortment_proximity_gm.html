@@ -387,17 +387,49 @@ td.ch{text-align:left;font-weight:600}
 
 <!-- 4. DEMANDA SP -->
 <div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08)">
-  <div style="font-size:12px;font-weight:800;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f0f0f0">4. An&aacute;lisis de Demanda SP</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px">
-    <div style="background:#f8f8f8;border-radius:6px;padding:8px 10px"><div style="font-size:8px;font-weight:700;color:#555;margin-bottom:4px">Fuente y per&iacute;odo</div><div style="font-size:9px;color:#444;line-height:1.6">BigQuery MeLi SP<br><strong>Abr 21&ndash;May 20 2026</strong></div></div>
-    <div style="background:#f8f8f8;border-radius:6px;padding:8px 10px"><div style="font-size:8px;font-weight:700;color:#555;margin-bottom:4px">Filtros QC</div><div style="font-size:9px;color:#444;line-height:1.6">&le;50cm &middot; &le;15kg<br>&ge;30 u/30d</div></div>
-    <div style="background:#e8f5e9;border-radius:6px;padding:8px 10px"><div style="font-size:8px;font-weight:700;color:#2e7d32;margin-bottom:4px">Universo</div><div style="font-size:9px;color:#444;line-height:1.6"><strong>53.605</strong> products<br><strong>5.3M</strong> u/30d &middot; R$397M</div></div>
-    <div style="background:#e3f2fd;border-radius:6px;padding:8px 10px"><div style="font-size:8px;font-weight:700;color:#1565c0;margin-bottom:4px">Cobertura 26 cats</div><div style="font-size:9px;color:#444;line-height:1.6"><strong>88%</strong> cat&aacute;logo<br><strong>90%</strong> volumen</div></div>
+  <div style="font-size:12px;font-weight:800;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #f0f0f0">4. An&aacute;lisis de Demanda SP &mdash; C&oacute;mo construimos el universo</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+    <div style="background:#f8f8f8;border-radius:8px;padding:10px 12px">
+      <div style="font-size:9px;font-weight:800;color:#333;margin-bottom:6px">Fuente de datos</div>
+      <div style="font-size:9px;color:#444;line-height:1.7">
+        &bull; <strong>Demanda</strong>: query BQ sobre transacciones SP, per&iacute;odo <strong>Abr 21 &ndash; May 20 2026</strong><br>
+        &bull; <strong>Taxonom&iacute;a</strong>: join con cat&aacute;logo MeLi (item_id &rarr; product_id, agg2, domain_id)<br>
+        &bull; Archivos generados en CSV y procesados localmente con PowerShell
+      </div>
+    </div>
+    <div style="background:#f8f8f8;border-radius:8px;padding:10px 12px">
+      <div style="font-size:9px;font-weight:800;color:#333;margin-bottom:6px">Filtros y exclusiones</div>
+      <div style="font-size:9px;color:#444;line-height:1.7">
+        &bull; <strong>Dimensiones QC</strong>: &le;50cm dimensi&oacute;n mayor, &le;15kg<br>
+        &bull; <strong>Demanda m&iacute;nima</strong>: &ge;30 unidades/30 d&iacute;as por &iacute;tem<br>
+        &bull; <strong>Excluidos</strong>: 7 items internos de MP + dominios digitales (software, m&uacute;sica/pel&iacute;culas)
+      </div>
+    </div>
+    <div style="background:#f8f8f8;border-radius:8px;padding:10px 12px">
+      <div style="font-size:9px;font-weight:800;color:#333;margin-bottom:6px">De items a products</div>
+      <div style="font-size:9px;color:#444;line-height:1.7">
+        &bull; M&uacute;ltiples <strong>item_ids</strong> pueden compartir el mismo <strong>product_id</strong> (cat&aacute;logo MeLi)<br>
+        &bull; Deduplicamos a nivel product_id para eliminar variantes del mismo producto<br>
+        &bull; Items sin product_id en taxonom&iacute;a = &ldquo;SIN CLASIFICAR&rdquo; (1.662 items &asymp;3%)
+      </div>
+    </div>
+    <div style="background:#f8f8f8;border-radius:8px;padding:10px 12px">
+      <div style="font-size:9px;font-weight:800;color:#333;margin-bottom:6px">Universo final</div>
+      <div style="font-size:9px;color:#444;line-height:1.7">
+        &bull; <strong>53.605</strong> product_ids &uacute;nicos con demanda QC-elegible<br>
+        &bull; <strong>5.3M</strong> unidades / 30 d&iacute;as &middot; <strong>R$397M</strong> NMV<br>
+        &bull; 26 categor&iacute;as = 88% cat&aacute;logo, 90% vol, ~79% NMV
+      </div>
+    </div>
   </div>
-  <div style="font-size:9px;color:#888;line-height:1.5">El 21% de NMV restante son categor&iacute;as fuera del scope QC. Smartphones y notebooks <strong>s&iacute; est&aacute;n incluidos</strong>. &rarr; Ver detalle en tab <strong>Demanda SP</strong>.</div>
+
+  <div style="background:#fff8e1;border-left:4px solid #ff9800;padding:8px 12px;border-radius:0 5px 5px 0;font-size:9px;color:#555;line-height:1.5;margin-bottom:8px">
+    <strong>21% de NMV no cubierto:</strong> corresponde a ~168 AGG2s peque&ntilde;os (electrodom&eacute;sticos grandes, muebles, equipamiento comercial/industrial) fuera del scope log&iacute;stico QC. Smartphones y notebooks <strong>s&iacute; est&aacute;n incluidos</strong> en Dispositivos M&oacute;viles y Computaci&oacute;n.
+  </div>
+  <div style="font-size:9px;color:#888">Ver detalle interactivo en el tab <strong>Demanda SP</strong>.</div>
 </div>
 
-</div>
 </div>
 </div>
 <div id="t2" class="tab-pane">
