@@ -810,13 +810,13 @@ DATA_SORTED.forEach(function(cat,idx){
 });
 
 
-var ALL_CATS=["farma","bebe","pet","limp","beb","tech","cocina","suple","ilum","elec","pilas","life","pape"];
+var ALL_CATS=["farma","beauty","suple","bebe","pet","limp","beb","snack","food","tech","ilum","pape"];
 var DEM_THRESHOLDS={"100k":100000,"50k":50000,"10k":10000,"1k":1000};
 function applyFilters(){
   var cat=document.getElementById("sel-cat").value;
   var dem=document.getElementById("sel-dem").value;
   var demMin=dem?DEM_THRESHOLDS[dem]:0;
-  var isCritico=(cat==="__critico");
+  var isCritico=(cat==="__critico"); var isNoCritico=(cat==="__nocritico");
   var filtered=(cat!==""||dem!=="");
   if(!filtered){resetFilters();return;}  // collapse all first
   document.querySelectorAll("tr.tx-child").forEach(function(r){r.classList.remove("open");r.style.display="none";});
@@ -827,7 +827,7 @@ function applyFilters(){
   document.querySelectorAll("tr.tx-a2").forEach(function(r){
     var rc=r.dataset.cat||"";
     var ru=parseInt(r.dataset.units)||0;
-    var catOk=!cat||(isCritico?(ALL_CATS.indexOf(rc)>=0):(rc===cat));
+    var catOk=!cat||(isCritico?(ALL_CATS.indexOf(rc)>=0):(isNoCritico?(ALL_CATS.indexOf(rc)<0&&rc!==""):(rc===cat)));
     var demOk=!demMin||(ru>=demMin);
     if(catOk&&demOk){r.style.display="table-row";matchCount++;} else {r.style.display="none";}
   });
