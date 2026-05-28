@@ -95,7 +95,7 @@ td.ch{text-align:left;font-weight:600}
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('t3',this)">Metodologia</button>
   <button class="tab-btn" onclick="switchTab('t1',this)">Benchmark categorias</button>
-  <button class="tab-btn" onclick="switchTab('t6',this)" style="display:none">Categorias Priorizadas</button><button class="tab-btn" onclick="switchTab('t9',this)">Priorizacion Categorias</button><button class="tab-btn" onclick="switchTab('t7',this)" style="display:none">Hunting Roadmap</button><button class="tab-btn" onclick="switchTab('t8',this)">Top SKUs</button>
+  <button class="tab-btn" onclick="switchTab('t6',this)" style="display:none">Categorias Priorizadas</button><button class="tab-btn" onclick="switchTab('t9',this)">Priorizacion Categorias</button><button class="tab-btn" onclick="switchTab('t7',this)" style="display:none">Hunting Roadmap</button><button class="tab-btn" onclick="switchTab('t8',this)">Top SKUs</button><button class="tab-btn" onclick="switchTab('t11',this)">Actualizaci&oacute;n</button>
   <button class="tab-btn" onclick="switchTab('t2',this)">Demanda SP</button>
   <button class="tab-btn" onclick="switchTab('t5',this)">Pareto demanda SP <span style="font-size:7px;background:#ff9800;color:#fff;padding:1px 4px;border-radius:3px;font-weight:700;vertical-align:middle">WIP</span></button>
 </div>
@@ -2050,5 +2050,126 @@ switchTab=function(id,btn){_origST9(id,btn);if(id==='t9')initT9();};
 </body>
 
 </html>
+<div id="t11" class="tab-pane">
+<div class="wrap" style="max-width:900px">
+<div style="margin-bottom:20px">
+  <div style="font-size:15px;font-weight:900;margin-bottom:3px">Gu&iacute;a de Actualizaci&oacute;n</div>
+  <div style="font-size:10px;color:#888">C&oacute;mo actualizar el an&aacute;lisis cuando hay un nuevo per&iacute;odo de datos</div>
+</div>
+
+<!-- PASO 1: BQ -->
+<div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:14px">
+  <div style="display:flex;gap:12px;align-items:flex-start">
+    <div style="min-width:28px;height:28px;border-radius:50%;background:#1565c0;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+    <div>
+      <div style="font-size:12px;font-weight:800;margin-bottom:6px">Correr las queries en BigQuery</div>
+      <div style="font-size:10px;color:#444;line-height:1.7;margin-bottom:8px">Hay dos queries que generan los CSV fuente. Cambiar el rango de fechas en ambas:</div>
+      <div style="background:#f8f8f8;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:10px;line-height:1.8;margin-bottom:8px">
+        <strong>Query demanda:</strong> WHERE fecha BETWEEN 'YYYY-MM-DD' AND 'YYYY-MM-DD'<br>
+        &bull; Filtros ya incluidos: dimensiones QC (&le;50cm, &le;15kg), &ge;30 u/30d<br>
+        &bull; Descargar como CSV &rarr; renombrar con la fecha del per&iacute;odo<br><br>
+        <strong>Query taxonom&iacute;a:</strong> generalmente no cambia, pero si hay nuevas categor&iacute;as en MeLi conviene refrescarla
+      </div>
+      <div style="font-size:10px;color:#888;background:#e3f2fd;padding:8px 12px;border-radius:5px;border-left:3px solid #1565c0">Actualizar las rutas en los scripts: <code>$demFile</code> en <strong>build_cat_matrix.ps1</strong> y <strong>build_category_tops.ps1</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 2: SNAPSHOT -->
+<div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:14px">
+  <div style="display:flex;gap:12px;align-items:flex-start">
+    <div style="min-width:28px;height:28px;border-radius:50%;background:#e65100;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+    <div>
+      <div style="font-size:12px;font-weight:800;margin-bottom:6px">Guardar snapshot del per&iacute;odo actual (antes de pisar)</div>
+      <div style="font-size:10px;color:#444;line-height:1.7;margin-bottom:8px">Antes de correr los scripts con datos nuevos, guardar una copia del cat_tops actual para poder comparar despu&eacute;s:</div>
+      <div style="background:#f8f8f8;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:10px;line-height:1.8">
+        Copy-Item cat_tops_data.js cat_tops_data_ABR-MAY26.js<br>
+        Copy-Item matriz_assortment_proximity_gm.html matriz_gm_ABR-MAY26.html
+      </div>
+      <div style="font-size:10px;color:#888;margin-top:6px">Esto permite tener el an&aacute;lisis del per&iacute;odo anterior intacto para comparar m&aacute;s adelante.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 3: SCRIPTS -->
+<div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:14px">
+  <div style="display:flex;gap:12px;align-items:flex-start">
+    <div style="min-width:28px;height:28px;border-radius:50%;background:#2e7d32;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+    <div style="width:100%">
+      <div style="font-size:12px;font-weight:800;margin-bottom:6px">Correr los scripts de an&aacute;lisis</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:#f8f8f8;border-radius:6px;padding:10px 12px">
+          <div style="font-size:10px;font-weight:700;margin-bottom:4px">3a. M&eacute;tricas de priorizaci&oacute;n</div>
+          <div style="font-family:monospace;font-size:9px;color:#555">.\build_cat_matrix.ps1</div>
+          <div style="font-size:9px;color:#888;margin-top:4px">Genera pareto80, p80_u%, p80_nmv%, u/SKU por categor&iacute;a</div>
+        </div>
+        <div style="background:#f8f8f8;border-radius:6px;padding:10px 12px">
+          <div style="font-size:10px;font-weight:700;margin-bottom:4px">3b. Top SKUs por categor&iacute;a</div>
+          <div style="font-family:monospace;font-size:9px;color:#555">.\build_category_tops.ps1</div>
+          <div style="font-size:9px;color:#888;margin-top:4px">Genera cat_tops_data.js (top 1000 items/cat con vertical, agg1, agg2)</div>
+        </div>
+        <div style="background:#f8f8f8;border-radius:6px;padding:10px 12px">
+          <div style="font-size:10px;font-weight:700;margin-bottom:4px">3c. Top 10% del universo</div>
+          <div style="font-family:monospace;font-size:9px;color:#555">Script PowerShell (inline)</div>
+          <div style="font-size:9px;color:#888;margin-top:4px">Calcula % SKUs de cada cat. en top 10% SP por unidades y NMV. Ver script en la sesi&oacute;n anterior.</div>
+        </div>
+        <div style="background:#f8f8f8;border-radius:6px;padding:10px 12px">
+          <div style="font-size:10px;font-weight:700;margin-bottom:4px">3d. Recalcular scores</div>
+          <div style="font-family:monospace;font-size:9px;color:#555">Script PowerShell (inline)</div>
+          <div style="font-size:9px;color:#888;margin-top:4px">Con los nuevos t10u, t10n, vol%, nmv% → recalcular meli score normalizado para cada cat.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 4: EMBED -->
+<div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:14px">
+  <div style="display:flex;gap:12px;align-items:flex-start">
+    <div style="min-width:28px;height:28px;border-radius:50%;background:#7b1fa2;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
+    <div>
+      <div style="font-size:12px;font-weight:800;margin-bottom:6px">Actualizar el HTML</div>
+      <div style="font-size:10px;color:#444;line-height:1.7;margin-bottom:8px">Tres cosas a actualizar en el HTML:</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="background:#f8f8f8;border-radius:5px;padding:8px 12px;font-size:10px"><strong>var CAT_TOPS</strong> &mdash; reemplazar con el contenido del nuevo cat_tops_data.js<br><span style="color:#888;font-size:9px">Buscar la l&iacute;nea que empieza con "var CAT_TOPS=" y reemplazarla completa</span></div>
+        <div style="background:#f8f8f8;border-radius:5px;padding:8px 12px;font-size:10px"><strong>var T9</strong> &mdash; actualizar los valores de meli, t10u, t10n, vol, nmv, p80 con los nuevos n&uacute;meros<br><span style="color:#888;font-size:9px">Los scores se recalculan autom&aacute;ticamente en el simulador. Solo actualizar los datos crudos.</span></div>
+        <div style="background:#f8f8f8;border-radius:5px;padding:8px 12px;font-size:10px"><strong>Metodolog&iacute;a secci&oacute;n 4</strong> &mdash; actualizar per&iacute;odo y cobertura<br><span style="color:#888;font-size:9px">Fecha del per&iacute;odo y % de cobertura del universo</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 5: PUBLISH -->
+<div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:20px">
+  <div style="display:flex;gap:12px;align-items:flex-start">
+    <div style="min-width:28px;height:28px;border-radius:50%;background:#333;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">5</div>
+    <div>
+      <div style="font-size:12px;font-weight:800;margin-bottom:6px">Publicar en GitHub Pages</div>
+      <div style="font-size:10px;color:#444;line-height:1.7;margin-bottom:8px">Script PowerShell para publicar (ya existe en el repo):</div>
+      <div style="background:#f8f8f8;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:10px;line-height:1.8">
+        $token = "TU_TOKEN"<br>
+        $sha = (Invoke-RestMethod .../contents/archivo.html).sha<br>
+        $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes("archivo.html"))<br>
+        # PUT con message, sha, content &rarr; commit autom&aacute;tico
+      </div>
+      <div style="font-size:10px;color:#888;margin-top:6px">La URL p&uacute;blica se actualiza en 1-2 minutos: <strong>https://jeanninegrad.github.io/proximity-dashboards/matriz_assortment_proximity_gm.html</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- EVOLUCION -->
+<div style="background:#fff3e0;border-left:4px solid #ff9800;border-radius:0 10px 10px 0;padding:16px 20px">
+  <div style="font-size:11px;font-weight:800;color:#e65100;margin-bottom:8px">&#128200; Seguimiento de evolución de items — próximamente</div>
+  <div style="font-size:10px;color:#555;line-height:1.7">
+    Para trackear qué items <strong>entraron y salieron</strong> del top de cada categoría entre períodos:<br><br>
+    &bull; Guardar el snapshot antes de actualizar (Paso 2 arriba)<br>
+    &bull; Correr script de comparación que identifique rotación en top N por categoría<br>
+    &bull; Ver qué productos nuevos aparecieron y cuáles dejaron de estar en el core<br><br>
+    <em>El diseño de esta vista está pendiente de definición. Se construirá cuando tengamos el segundo período de datos.</em>
+  </div>
+</div>
+
+</div>
+</div>
 </body>
 </html>
