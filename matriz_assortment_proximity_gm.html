@@ -814,10 +814,10 @@ DATA_SORTED.forEach(function(cat,idx){
 var ALL_CATS=["farma","beauty","suple","bebe","pet","limp","beb","snack","food","tech","ilum","pape"];
 var DEM_THRESHOLDS={"100k":100000,"50k":50000,"10k":10000,"1k":1000};
 function applyFilters(){
-function applyFilters(){
   var scEl=document.getElementById('sel-cat'); if(!scEl) return;
   var sdEl=document.getElementById('sel-dem'); if(!sdEl) return;
   var cat=scEl.value; var dem=sdEl.value;
+  var demMin=dem?DEM_THRESHOLDS[dem]:0;
   var filtered=(cat!==""||dem!=="");
   if(!filtered){resetFilters();return;}  // collapse all first
   document.querySelectorAll("tr.tx-child").forEach(function(r){r.classList.remove("open");r.style.display="none";});
