@@ -828,7 +828,7 @@ function applyFilters(){
   document.querySelectorAll("tr.tx-a2").forEach(function(r){
     var rc=r.dataset.cat||"";
     var ru=parseInt(r.dataset.units)||0;
-    var catOk=!cat||(isCritico?(ALL_CATS.indexOf(rc)>=0):(isNoCritico?(ALL_CATS.indexOf(rc)<0&&rc!==""):(rc===cat)));
+    var catOk=!cat||(rc===cat);
     var demOk=!demMin||(ru>=demMin);
     if(catOk&&demOk){r.style.display="table-row";matchCount++;} else {r.style.display="none";}
   });
