@@ -1519,6 +1519,11 @@ function t9Update(){
     tbody.appendChild(tr);
   });
 }
+function t9CompLabel(p80){
+  var ch=+(document.getElementById('cfg-ch')||{value:1500}).value;
+  var cm=+(document.getElementById('cfg-cm')||{value:500}).value;
+  return p80>=ch?'(Alta)':p80>=cm?'(Media)':'(Baja)';
+}
 function t9GetSellers(c){
   var sh=+(document.getElementById('cfg-sh')||{value:45}).value;
   var sm=+(document.getElementById('cfg-sm')||{value:25}).value;
