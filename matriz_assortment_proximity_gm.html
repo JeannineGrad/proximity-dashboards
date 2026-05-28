@@ -839,7 +839,7 @@ function applyFilters(){
 }
 function resetFilters(){
   document.getElementById("sel-cat").value="";
-  document.getElementById("sel-dem").value="";
+  var sd=document.getElementById('sel-dem'); if(sd)sd.value='';
   document.querySelectorAll("tr.tx-child").forEach(function(r){r.classList.remove("open");r.style.display="";});
   document.querySelectorAll("tr.tx-v,tr.tx-a1").forEach(function(r){r.style.display="";r.classList.remove("tx-open");});
   var fc=document.getElementById("filter-count");
