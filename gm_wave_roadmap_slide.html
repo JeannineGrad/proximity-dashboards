@@ -59,6 +59,7 @@ td.cell li:empty::after{content:attr(data-ph);color:#ccc;font-style:italic;point
 
 /* Merged cell subtle left border accent */
 td.cell[colspan]{border-left:1px solid #eee}
+td.cell.hl-orange{border:2px solid #FF8F00;background:#fff9f0 !important}
 tr.detalle td{background:#fffef0 !important}
 </style>
 </head>
@@ -134,7 +135,7 @@ tr.detalle td{background:#fffef0 !important}
           <li contenteditable="true">Medicion de performance</li>
           <li contenteditable="true">Validacion de capacidad</li>
         </ul></td>
-        <td class="cell w1c" colspan="3"><ul>
+        <td class="cell w1c hl-orange" colspan="3"><ul>
           <li contenteditable="true">Stress test dias y horarios pico</li>
           <li contenteditable="true">Saturacion de capacidad</li>
           <li contenteditable="true">Productividad de rutas</li>
