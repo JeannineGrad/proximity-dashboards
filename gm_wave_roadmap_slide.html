@@ -247,15 +247,21 @@ document.addEventListener('keydown', function(e) {
   }
 
   if (e.key === 'Backspace') {
-    var text = li.textContent;
-    if (text === '' || text === '\n') {
-      e.preventDefault();
-      var siblings = Array.from(li.parentNode.children);
-      if (siblings.length > 1) {
-        var idx = siblings.indexOf(li);
-        var target = siblings[idx - 1] || siblings[idx + 1];
-        li.parentNode.removeChild(li);
-        if (target) { target.focus(); placeCaretAtEnd(target); }
+    var isEmpty = li.textContent.trim() === '' || li.innerHTML === '<br>';
+    var sel = window.getSelection();
+    var atStart = sel.anchorOffset === 0;
+    if (isEmpty || atStart) {
+      if (isEmpty) {
+        e.preventDefault();
+        var siblings = Array.from(li.parentNode.children);
+        if (siblings.length > 1) {
+          var idx = siblings.indexOf(li);
+          var target = siblings[idx - 1] || siblings[idx + 1];
+          li.parentNode.removeChild(li);
+          if (target) { target.focus(); placeCaretAtEnd(target); }
+        } else {
+          li.textContent = '';
+        }
       }
     }
   }
