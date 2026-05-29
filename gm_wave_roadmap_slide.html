@@ -59,6 +59,7 @@ td.cell li:empty::after{content:attr(data-ph);color:#ccc;font-style:italic;point
 
 /* Merged cell subtle left border accent */
 td.cell[colspan]{border-left:1px solid #eee}
+tr.detalle td{background:#fffef0 !important}
 </style>
 </head>
 <body>
@@ -102,7 +103,7 @@ td.cell[colspan]{border-left:1px solid #eee}
       </tr>
 
       <!-- Detalle -->
-      <tr>
+      <tr class="detalle">
         <td class="rl" contenteditable="true">Detalle</td>
         <td class="cell w0c"><ul>
           <li contenteditable="true">POC · 1 → 5 sellers</li>
