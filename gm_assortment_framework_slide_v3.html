@@ -45,11 +45,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .formula{background:#f8f8f8;border-radius:5px;padding:6px 10px;margin-top:4px;font-size:7.5px;line-height:1.6;font-family:monospace;color:#333}
 
 /* Seller matrix */
-.mat{display:grid;grid-template-columns:86px 1fr 1fr;gap:3px}
+.mat{display:grid;grid-template-columns:76px 1fr 1fr 1fr;gap:3px}
 .mat-blank{background:transparent}
-.mat-ch{background:#f5f5f5;border-radius:4px;padding:5px 6px;font-size:7px;font-weight:700;color:#777;text-align:center;line-height:1.4}
-.mat-rh{background:#f5f5f5;border-radius:4px;padding:5px 6px;font-size:7px;font-weight:700;color:#555;display:flex;align-items:center;line-height:1.4}
-.mat-cell{border-radius:4px;padding:6px;font-size:14px;font-weight:900;text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px}
+.mat-ch{background:#f5f5f5;border-radius:4px;padding:4px 5px;font-size:6.5px;font-weight:700;color:#777;text-align:center;line-height:1.4}
+.mat-rh{background:#f5f5f5;border-radius:4px;padding:4px 6px;font-size:6.5px;font-weight:700;color:#555;display:flex;align-items:center;line-height:1.4}
+.mat-cell{border-radius:4px;padding:5px 4px;font-size:13px;font-weight:900;text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px}
 .mat-cell small{font-size:6px;font-weight:600;opacity:.75}
 .c-hi{background:#e8f5e9;color:#2e7d32}
 .c-md{background:#fff8e1;color:#e65100}
@@ -168,22 +168,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <div class="col-title">Asignacion de Sellers por Zona</div>
       <div class="mat">
         <div class="mat-blank"></div>
-        <div class="mat-ch">Surtido Simple<br><span style="font-weight:400">&lt;800 SKUs core</span></div>
-        <div class="mat-ch">Surtido Complejo<br><span style="font-weight:400">&ge;800 SKUs core</span></div>
+        <div class="mat-ch">Alta<br><span style="font-weight:400">&ge;1500 SKUs</span></div>
+        <div class="mat-ch">Media<br><span style="font-weight:400">500&ndash;1499</span></div>
+        <div class="mat-ch">Baja<br><span style="font-weight:400">&lt;500 SKUs</span></div>
 
-        <div class="mat-rh">Score Alto<br><span style="color:#2e7d32">&ge;70</span></div>
-        <div class="mat-cell c-hi">3<small>sellers / zona</small></div>
-        <div class="mat-cell c-hi">4<small>sellers / zona</small></div>
+        <div class="mat-rh">Score Alto<br><span style="color:#2e7d32">&ge;45</span></div>
+        <div class="mat-cell c-hi">4<small>sell./zona</small></div>
+        <div class="mat-cell c-hi">3<small>sell./zona</small></div>
+        <div class="mat-cell c-hi">2<small>sell./zona</small></div>
 
-        <div class="mat-rh">Score Medio<br><span style="color:#e65100">35&ndash;69</span></div>
-        <div class="mat-cell c-md">2<small>sellers / zona</small></div>
-        <div class="mat-cell c-md">2&ndash;3<small>sellers / zona</small></div>
+        <div class="mat-rh">Score Medio<br><span style="color:#e65100">25&ndash;44</span></div>
+        <div class="mat-cell c-md">3<small>sell./zona</small></div>
+        <div class="mat-cell c-md">2<small>sell./zona</small></div>
+        <div class="mat-cell c-md">2<small>sell./zona</small></div>
 
-        <div class="mat-rh">Score Bajo<br><span style="color:#9e9e9e">&lt;35</span></div>
-        <div class="mat-cell c-lo">1<small>seller / zona</small></div>
-        <div class="mat-cell c-lo">1&ndash;2<small>sellers / zona</small></div>
+        <div class="mat-rh">Score Bajo<br><span style="color:#9e9e9e">&lt;25</span></div>
+        <div class="mat-cell c-lo">1<small>sell./zona</small></div>
+        <div class="mat-cell c-lo">1<small>sell./zona</small></div>
+        <div class="mat-cell c-lo">1<small>sell./zona</small></div>
       </div>
-      <div class="mat-note">Complejidad = SKUs que acumulan el 80% del volumen de la categoria. Umbrales ajustables por equipo comercial.</div>
+      <div class="mat-note">Complejidad de surtido = SKUs que acumulan el 80% del volumen de la categoria (pareto 80%). Umbrales ajustables por equipo comercial.</div>
     </div>
 
   </div>
