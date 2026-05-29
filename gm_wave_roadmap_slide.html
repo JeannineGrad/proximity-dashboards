@@ -234,6 +234,12 @@ tr.detalle td.cell ul{align-items:center}
 
 </div>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('[contenteditable], li').forEach(function(el) {
+    el.spellcheck = false;
+  });
+});
+
 document.addEventListener('keydown', function(e) {
   var li = e.target;
   if (li.tagName !== 'LI') return;
