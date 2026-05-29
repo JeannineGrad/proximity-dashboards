@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proximity Dashboards — Jeannine Gradlmuller</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;min-height:100vh;padding:40px 32px}
+.page{max-width:1060px;margin:0 auto}
+
+/* Header */
+.hdr{border-left:5px solid #FFE600;padding:4px 0 4px 16px;margin-bottom:36px}
+.hdr-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px}
+.hdr-title{font-size:26px;font-weight:900;color:#111;line-height:1.1}
+.hdr-sub{font-size:12px;color:#1565c0;font-weight:700;margin-top:4px}
+
+/* Section */
+.section{margin-bottom:36px}
+.section-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#aaa;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #e8e8e8}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+
+/* Card */
+.card{background:#fff;border-radius:10px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.08);text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:box-shadow .15s,transform .15s;border-left:3px solid transparent}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.12);transform:translateY(-1px)}
+.card-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px}
+.card-title{font-size:13px;font-weight:800;color:#111;line-height:1.3}
+.card-desc{font-size:11px;color:#666;line-height:1.5;flex:1}
+.card-link{font-size:10px;font-weight:700;margin-top:4px;display:flex;align-items:center;gap:4px}
+.card-link::after{content:"→"}
+
+/* Accent colors per project */
+.gm   {border-left-color:#1565c0}.gm .card-tag{color:#1565c0}.gm .card-link{color:#1565c0}
+.food {border-left-color:#2e7d32}.food .card-tag{color:#2e7d32}.food .card-link{color:#2e7d32}
+.inst {border-left-color:#e65100}.inst .card-tag{color:#e65100}.inst .card-link{color:#e65100}
+.brand{border-left-color:#7b1fa2}.brand .card-tag{color:#7b1fa2}.brand .card-link{color:#7b1fa2}
+.slide{border-left-color:#888}.slide .card-tag{color:#888}.slide .card-link{color:#888}
+
+/* Slide badge */
+.badge{display:inline-block;font-size:8px;font-weight:700;padding:2px 7px;border-radius:8px;background:#f0f0f0;color:#888;margin-left:6px;vertical-align:middle}
+.badge.new{background:#e8f5e9;color:#2e7d32}
+
+.footer{text-align:center;font-size:10px;color:#bbb;margin-top:40px;padding-top:20px;border-top:1px solid #e8e8e8}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hdr">
+    <div class="hdr-tag">Proximity · MercadoLibre</div>
+    <div class="hdr-title">Dashboards &amp; Slides</div>
+    <div class="hdr-sub">Jeannine Gradlmuller &nbsp;·&nbsp; Growth Proximity MLA &amp; GM Brasil</div>
+  </div>
+
+  <!-- GM BRASIL -->
+  <div class="section">
+    <div class="section-title">GM Agora &nbsp;·&nbsp; São Paulo &nbsp;·&nbsp; Lanzamiento jun-2026</div>
+    <div class="grid">
+
+      <a class="card gm" href="matriz_assortment_proximity_gm.html" target="_blank">
+        <span class="card-tag">Dashboard principal <span class="badge new">Live</span></span>
+        <div class="card-title">Matriz de Assortment GM Agora SP</div>
+        <div class="card-desc">Benchmark de categorías, simulador de score interactivo (25/50/25), top SKUs por categoría, demanda SP, cobertura ~99% del universo.</div>
+        <span class="card-link">Abrir dashboard</span>
+      </a>
+
+      <a class="card gm" href="gm_wave_roadmap_slide.html" target="_blank">
+        <span class="card-tag">Slide &nbsp;·&nbsp; Editable</span>
+        <div class="card-title">Roadmap de Lanzamiento — Waves 0 → 2</div>
+        <div class="card-desc">Tabla editable con operaciones, producto, hunting, demanda y financials por wave. Celdas combinadas, bullets editables.</div>
+        <span class="card-link">Abrir slide</span>
+      </a>
+
+      <a class="card gm" href="gm_assortment_framework_slide_v3.html" target="_blank">
+        <span class="card-tag">Slide &nbsp;·&nbsp; Recomendada</span>
+        <div class="card-title">Framework de Assortment — v3</div>
+        <div class="card-desc">Top: flujo conceptual / dimensiones del score / matriz de sellers por zona. Bottom: ranking top 15 categorías en 5+5+5.</div>
+        <span class="card-link">Abrir slide</span>
+      </a>
+
+      <a class="card slide" href="gm_assortment_framework_slide_v2.html" target="_blank">
+        <span class="card-tag">Slide &nbsp;·&nbsp; Versión anterior</span>
+        <div class="card-title">Framework de Assortment — v2</div>
+        <div class="card-desc">3 columnas: flujo conceptual, dimensiones del score, ranking top 15. Sin datos de universo, más narrativo.</div>
+        <span class="card-link">Abrir slide</span>
+      </a>
+
+      <a class="card slide" href="gm_assortment_framework_slide.html" target="_blank">
+        <span class="card-tag">Slide &nbsp;·&nbsp; Versión anterior</span>
+        <div class="card-title">Framework de Assortment — v1</div>
+        <div class="card-desc">3 columnas: universo de análisis + proceso, dimensiones del score, ranking top 15. Con KPIs numéricos.</div>
+        <span class="card-link">Abrir slide</span>
+      </a>
+
+      <a class="card gm" href="proximity_gm_hunting.html" target="_blank">
+        <span class="card-tag">Análisis</span>
+        <div class="card-title">Hunting GM Agora SP</div>
+        <div class="card-desc">Perfiles de sellers, cobertura por categoría y zona, priorización comercial.</div>
+        <span class="card-link">Abrir</span>
+      </a>
+
+      <a class="card gm" href="scoring_simulator.html" target="_blank">
+        <span class="card-tag">Herramienta</span>
+        <div class="card-title">Simulador de Score — Standalone</div>
+        <div class="card-desc">Versión independiente del simulador de priorización de categorías con pesos ajustables.</div>
+        <span class="card-link">Abrir simulador</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- INSTORE -->
+  <div class="section">
+    <div class="section-title">Instore &nbsp;·&nbsp; MercadoLibre Argentina</div>
+    <div class="grid">
+
+      <a class="card inst" href="instore_buyer_analysis.html" target="_blank">
+        <span class="card-tag">Dashboard principal <span class="badge new">Live</span></span>
+        <div class="card-title">Instore Buyer Analysis</div>
+        <div class="card-desc">Lifecycle de compradores, churn, onboarding, perfil demográfico y misiones de compra. Oct-25 a abr-26.</div>
+        <span class="card-link">Abrir dashboard</span>
+      </a>
+
+      <a class="card inst" href="instore_monthly_mayo2026.html" target="_blank">
+        <span class="card-tag">Slides &nbsp;·&nbsp; Monthly</span>
+        <div class="card-title">Monthly Instore — Mayo 2026</div>
+        <div class="card-desc">Deck de la reunión mensual de instore, mayo 2026.</div>
+        <span class="card-link">Abrir slides</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- FOOD / PROXIMITY ARG -->
+  <div class="section">
+    <div class="section-title">Food &amp; Proximity &nbsp;·&nbsp; Argentina</div>
+    <div class="grid">
+
+      <a class="card food" href="food_churn_analysis.html" target="_blank">
+        <span class="card-tag">Memo &nbsp;·&nbsp; Análisis</span>
+        <div class="card-title">Churn &amp; Cupones — Food MLA</div>
+        <div class="card-desc">Análisis de churn en food, impacto de cupones, segmentación por NSE y comportamiento post-canje. Cap 1 y 2 completos.</div>
+        <span class="card-link">Abrir memo</span>
+      </a>
+
+      <a class="card food" href="food_zona_comparison.html" target="_blank">
+        <span class="card-tag">Dashboard</span>
+        <div class="card-title">Comparación de Zonas — Food</div>
+        <div class="card-desc">KPIs por zona geográfica: buyers, recurrencia, onboarding, churn y cobertura de restaurantes.</div>
+        <span class="card-link">Abrir dashboard</span>
+      </a>
+
+      <a class="card food" href="food_barrios_coverage.html" target="_blank">
+        <span class="card-tag">Análisis</span>
+        <div class="card-title">Cobertura por Barrios — San Isidro</div>
+        <div class="card-desc">Análisis de demanda y cobertura de oferta a nivel barrio. Foco en San Isidro y comparativa vs CABA.</div>
+        <span class="card-link">Abrir análisis</span>
+      </a>
+
+      <a class="card food" href="proximity_zone_readiness.html" target="_blank">
+        <span class="card-tag">Dashboard</span>
+        <div class="card-title">Zone Readiness Score</div>
+        <div class="card-desc">Score por zona en 3 dimensiones: oferta, demanda y servicio. Quintiles dentro del dataset, evolución vs mes anterior.</div>
+        <span class="card-link">Abrir dashboard</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- BRANDING -->
+  <div class="section">
+    <div class="section-title">Branding &amp; Identidad &nbsp;·&nbsp; Proximity</div>
+    <div class="grid">
+
+      <a class="card brand" href="proximity_branding_touchpoints.html" target="_blank">
+        <span class="card-tag">Análisis</span>
+        <div class="card-title">Touchpoints de Branding Proximity</div>
+        <div class="card-desc">Mapeo de todos los touchpoints donde aplica la identidad visual Proximity: in-app, riders, locales, vía pública.</div>
+        <span class="card-link">Abrir</span>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="footer">Proximity · MercadoLibre &nbsp;·&nbsp; jeannine.gradlmuller@mercadolibre.com &nbsp;·&nbsp; Actualizado may-2026</div>
+
+</div>
+</body>
+</html>
