@@ -14,43 +14,55 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .hdr-left .sub{font-size:10px;color:#1565c0;font-weight:700;margin-top:2px}
 .hdr-right{font-size:9px;color:#bbb;text-align:right}
 
-.grid{flex:1;display:grid;grid-template-columns:96px repeat(5,1fr);grid-template-rows:34px 30px repeat(6,1fr);border:1px solid #e0e0e0;border-radius:8px;overflow:hidden}
+.tbl-wrap{flex:1;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden}
+table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed}
+col.c-lbl{width:96px}
 
-.wh{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;letter-spacing:.3px;border-right:1px solid rgba(255,255,255,.15);border-bottom:2px solid #e0e0e0;text-align:center;outline:none;cursor:text}
-.wh:last-child{border-right:none}
-.wh:focus{filter:brightness(1.08)}
-.corner{background:#f5f5f5;border-right:1px solid #e0e0e0;border-bottom:2px solid #e0e0e0}
+/* Wave headers */
+thead th.corner{background:#f5f5f5;border-right:1px solid #e0e0e0;border-bottom:2px solid #e0e0e0}
+thead th.wh{font-size:11px;font-weight:900;letter-spacing:.3px;text-align:center;border-right:1px solid rgba(255,255,255,.15);border-bottom:2px solid #e0e0e0;outline:none;cursor:text;padding:0 4px}
+thead th.wh:last-child{border-right:none}
+thead th.wh:focus{filter:brightness(1.1)}
 .w0h{background:#1565c0;color:#fff}
 .w1h{background:#37474f;color:#fff}
 .w15h{background:#546e7a;color:#fff}
 .w18h{background:#78909c;color:#eee}
 .w2h{background:#b0bec5;color:#444}
 
+/* Cell backgrounds */
 .w0c{background:#f0f5ff}
 .w1c{background:#fff}
 .w15c{background:#fff}
 .w18c{background:#fafafa}
 .w2c{background:#f8f8f8}
 
-.etd-lbl{background:#f5f5f5;font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#1565c0;display:flex;align-items:center;padding:0 8px;border-right:1px solid #e0e0e0;border-bottom:1px solid #eee}
-.etd-cell{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1565c0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;outline:none;cursor:text;padding:0 6px}
-.etd-cell:last-child{border-right:none}
-.etd-cell:focus{background:#fffde7}
+/* ETD row */
+tr.etd td.rl{color:#1565c0}
+tr.etd td.dc{font-size:11px;font-weight:800;color:#1565c0;text-align:center;vertical-align:middle;border-right:1px solid #eee;border-bottom:1px solid #eee;outline:none;cursor:text;padding:0 4px}
+tr.etd td.dc:last-child{border-right:none}
+tr.etd td.dc:focus{background:#fffde7}
 
-.rl{background:#f5f5f5;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#888;display:flex;align-items:flex-start;padding:7px 8px 0;border-right:1px solid #e0e0e0;border-bottom:1px solid #eee;line-height:1.4;outline:none;cursor:text}
-.rl:focus{background:#eee}
-.rl.last{border-bottom:none}
+/* Row label */
+td.rl{background:#f5f5f5;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#888;vertical-align:top;padding:7px 8px 0;border-right:1px solid #e0e0e0;border-bottom:1px solid #eee;outline:none;cursor:text;line-height:1.4}
+td.rl:focus{background:#eee}
 
-.cell{padding:5px 8px 4px;border-right:1px solid #eee;border-bottom:1px solid #eee;overflow:hidden}
-.cell.last{border-bottom:none}
-.cell:last-child{border-right:none}
-.cell ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
-.cell li{font-size:9px;color:#222;line-height:1.45;padding-left:11px;position:relative;outline:none;cursor:text;min-height:13px}
-.cell li::before{content:"·";position:absolute;left:2px;color:#aaa;font-weight:700;font-size:11px;line-height:1.2}
-.cell li:focus{background:#fffde7;border-radius:2px}
-.cell li:focus::before{color:#1565c0}
-.cell li:hover:not(:focus)::before{color:#888}
-.cell li:empty::after{content:attr(data-ph);color:#ccc;font-style:italic;pointer-events:none}
+/* Data cell */
+td.cell{vertical-align:top;padding:5px 8px 4px;border-right:1px solid #eee;border-bottom:1px solid #eee;overflow:hidden}
+td.cell:last-child{border-right:none}
+td.cell:focus-within{z-index:1}
+tbody tr:last-child td{border-bottom:none}
+
+/* Bullets */
+td.cell ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+td.cell li{font-size:9px;color:#222;line-height:1.45;padding-left:11px;position:relative;outline:none;cursor:text;min-height:13px}
+td.cell li::before{content:"·";position:absolute;left:2px;color:#aaa;font-weight:700;font-size:11px;line-height:1.2}
+td.cell li:focus{background:#fffde7;border-radius:2px}
+td.cell li:focus::before{color:#1565c0}
+td.cell li:hover:not(:focus)::before{color:#888}
+td.cell li:empty::after{content:attr(data-ph);color:#ccc;font-style:italic;pointer-events:none}
+
+/* Merged cell subtle left border accent */
+td.cell[colspan]{border-left:2px dashed #e0e0e0}
 </style>
 </head>
 <body>
@@ -65,160 +77,161 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <div class="hdr-right" contenteditable="true">May 2026</div>
   </div>
 
-  <div class="grid">
+  <div class="tbl-wrap">
+  <table>
+    <colgroup>
+      <col class="c-lbl">
+      <col><col><col><col><col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="corner"></th>
+        <th class="wh w0h" contenteditable="true">WAVE 0</th>
+        <th class="wh w1h" contenteditable="true">WAVE 1</th>
+        <th class="wh w15h" contenteditable="true">WAVE 1.5</th>
+        <th class="wh w18h" contenteditable="true">WAVE 1.8</th>
+        <th class="wh w2h" contenteditable="true">WAVE 2</th>
+      </tr>
+    </thead>
+    <tbody>
 
-    <!-- Wave headers -->
-    <div class="corner"></div>
-    <div class="wh w0h" contenteditable="true">WAVE 0</div>
-    <div class="wh w1h" contenteditable="true">WAVE 1</div>
-    <div class="wh w15h" contenteditable="true">WAVE 1.5</div>
-    <div class="wh w18h" contenteditable="true">WAVE 1.8</div>
-    <div class="wh w2h" contenteditable="true">WAVE 2</div>
+      <!-- ETD -->
+      <tr class="etd">
+        <td class="rl" contenteditable="true">ETD</td>
+        <td class="dc w0c" contenteditable="true">8 junio</td>
+        <td class="dc w1c" contenteditable="true">15 junio</td>
+        <td class="dc w15c" contenteditable="true">22 junio</td>
+        <td class="dc w18c" contenteditable="true">Q3</td>
+        <td class="dc w2c" contenteditable="true">TBD</td>
+      </tr>
 
-    <!-- ETD -->
-    <div class="etd-lbl">ETD</div>
-    <div class="etd-cell w0c" contenteditable="true">8 junio</div>
-    <div class="etd-cell w1c" contenteditable="true">15 junio</div>
-    <div class="etd-cell w15c" contenteditable="true">22 junio</div>
-    <div class="etd-cell w18c" contenteditable="true">Q3</div>
-    <div class="etd-cell w2c" contenteditable="true">TBD</div>
+      <!-- Detalle -->
+      <tr>
+        <td class="rl" contenteditable="true">Detalle</td>
+        <td class="cell w0c"><ul>
+          <li contenteditable="true">POC · 1 → 5 sellers</li>
+          <li contenteditable="true">~50 shp/dia</li>
+        </ul></td>
+        <td class="cell w1c"><ul>
+          <li contenteditable="true">~20 sellers</li>
+          <li contenteditable="true">~300 shp/dia</li>
+        </ul></td>
+        <td class="cell w15c"><ul>
+          <li contenteditable="true">~40 sellers</li>
+          <li contenteditable="true">~500 shp/dia</li>
+        </ul></td>
+        <td class="cell w18c"><ul>
+          <li contenteditable="true" data-ph="completar"></li>
+        </ul></td>
+        <td class="cell w2c"><ul>
+          <li contenteditable="true">Mar Aberto · TBD</li>
+          <li contenteditable="true">50+ shp/h pico</li>
+        </ul></td>
+      </tr>
 
-    <!-- Detalle -->
-    <div class="rl" contenteditable="true">Detalle</div>
-    <div class="cell w0c"><ul>
-      <li contenteditable="true">POC · 1 → 5 sellers</li>
-      <li contenteditable="true">~50 shp/dia</li>
-    </ul></div>
-    <div class="cell w1c"><ul>
-      <li contenteditable="true">~20 sellers</li>
-      <li contenteditable="true">~300 shp/dia</li>
-    </ul></div>
-    <div class="cell w15c"><ul>
-      <li contenteditable="true">~40 sellers</li>
-      <li contenteditable="true">~500 shp/dia</li>
-    </ul></div>
-    <div class="cell w18c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
-    </ul></div>
-    <div class="cell w2c"><ul>
-      <li contenteditable="true">Mar Aberto · TBD</li>
-      <li contenteditable="true">50+ shp/h pico</li>
-    </ul></div>
+      <!-- Operaciones — W1+W1.5+W1.8 merged -->
+      <tr>
+        <td class="rl" contenteditable="true">Operaciones</td>
+        <td class="cell w0c"><ul>
+          <li contenteditable="true">Fluxo OK end-to-end</li>
+          <li contenteditable="true">Medicion de performance</li>
+          <li contenteditable="true">Validacion de capacidad</li>
+        </ul></td>
+        <td class="cell w1c" colspan="3"><ul>
+          <li contenteditable="true">Stress test dias y horarios pico</li>
+          <li contenteditable="true">Saturacion de capacidad</li>
+          <li contenteditable="true">Productividad de rutas</li>
+        </ul></td>
+        <td class="cell w2c"><ul>
+          <li contenteditable="true">Zonas con demanda suficiente para nube de riders</li>
+        </ul></td>
+      </tr>
 
-    <!-- Operaciones -->
-    <div class="rl" contenteditable="true">Operaciones</div>
-    <div class="cell w0c"><ul>
-      <li contenteditable="true">Fluxo OK end-to-end</li>
-      <li contenteditable="true">Medicion de performance</li>
-      <li contenteditable="true">Validacion de capacidad</li>
-    </ul></div>
-    <div class="cell w1c"><ul>
-      <li contenteditable="true">Stress test dias y horarios pico</li>
-      <li contenteditable="true">Saturacion de capacidad</li>
-      <li contenteditable="true">Productividad de rutas</li>
-    </ul></div>
-    <div class="cell w15c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
-    </ul></div>
-    <div class="cell w18c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
-    </ul></div>
-    <div class="cell w2c"><ul>
-      <li contenteditable="true">Zonas con demanda suficiente para nube de riders</li>
-    </ul></div>
+      <!-- Producto — W1+W1.5 merged, W1.8+W2 merged -->
+      <tr>
+        <td class="rl" contenteditable="true">Producto</td>
+        <td class="cell w0c"><ul>
+          <li contenteditable="true">Visibilidad BB</li>
+          <li contenteditable="true">Optin manual, sin opt out</li>
+          <li contenteditable="true">Integradores exp. basica</li>
+          <li contenteditable="true">Seller central basico</li>
+        </ul></td>
+        <td class="cell w1c" colspan="2"><ul>
+          <li contenteditable="true">Mejorar flujos de wave 0</li>
+        </ul></td>
+        <td class="cell w18c" colspan="2"><ul>
+          <li contenteditable="true">Seller multi origen · opt out items</li>
+          <li contenteditable="true">Proximity only · nuevos poligonos</li>
+          <li contenteditable="true">Optin automatico · self service</li>
+        </ul></td>
+      </tr>
 
-    <!-- Producto -->
-    <div class="rl" contenteditable="true">Producto</div>
-    <div class="cell w0c"><ul>
-      <li contenteditable="true">Visibilidad BB</li>
-      <li contenteditable="true">Optin manual, sin opt out</li>
-      <li contenteditable="true">Integradores exp. basica</li>
-      <li contenteditable="true">Seller central basico</li>
-    </ul></div>
-    <div class="cell w1c"><ul>
-      <li contenteditable="true">Mejorar flujos de wave 0</li>
-    </ul></div>
-    <div class="cell w15c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
-    </ul></div>
-    <div class="cell w18c"><ul>
-      <li contenteditable="true">Seller multi origen · opt out items</li>
-      <li contenteditable="true">Proximity only · nuevos poligonos</li>
-      <li contenteditable="true">Optin automatico · self service</li>
-    </ul></div>
-    <div class="cell w2c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
-    </ul></div>
+      <!-- Hunting & Farming — W1+W1.5 merged -->
+      <tr>
+        <td class="rl" contenteditable="true">Hunting &amp; Farming</td>
+        <td class="cell w0c"><ul>
+          <li contenteditable="true">100% Farming</li>
+          <li contenteditable="true">Sellers Cartera Asesorada</li>
+        </ul></td>
+        <td class="cell w1c" colspan="2"><ul>
+          <li contenteditable="true">Surtido minimo cross categoria</li>
+          <li contenteditable="true">100% Farming Cartera Asesorada</li>
+        </ul></td>
+        <td class="cell w18c"><ul>
+          <li contenteditable="true">Ver cadenas que cubren varias zonas y categorias</li>
+        </ul></td>
+        <td class="cell w2c"><ul>
+          <li contenteditable="true">Farming en nuevas zonas</li>
+          <li contenteditable="true">Hunting sellers (gap assortment)</li>
+          <li contenteditable="true">Mas cadenas</li>
+        </ul></td>
+      </tr>
 
-    <!-- Hunting & Farming -->
-    <div class="rl" contenteditable="true">Hunting &amp; Farming</div>
-    <div class="cell w0c"><ul>
-      <li contenteditable="true">100% Farming</li>
-      <li contenteditable="true">Sellers Cartera Asesorada</li>
-    </ul></div>
-    <div class="cell w1c"><ul>
-      <li contenteditable="true">Surtido minimo cross categoria</li>
-      <li contenteditable="true">100% Farming Cartera Asesorada</li>
-    </ul></div>
-    <div class="cell w15c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
-    </ul></div>
-    <div class="cell w18c"><ul>
-      <li contenteditable="true">Ver cadenas que cubren varias zonas y categorias</li>
-    </ul></div>
-    <div class="cell w2c"><ul>
-      <li contenteditable="true">Farming en nuevas zonas</li>
-      <li contenteditable="true">Hunting sellers (gap assortment)</li>
-      <li contenteditable="true">Mas cadenas</li>
-    </ul></div>
+      <!-- Demanda / Assortment — W1+W1.5 merged -->
+      <tr>
+        <td class="rl" contenteditable="true">Demanda / Assortment</td>
+        <td class="cell w0c"><ul>
+          <li contenteditable="true">Sin estimulo</li>
+          <li contenteditable="true">Demanda organica via search</li>
+        </ul></td>
+        <td class="cell w1c" colspan="2"><ul>
+          <li contenteditable="true">Medir cobertura assortment y demanda en la zona</li>
+        </ul></td>
+        <td class="cell w18c"><ul>
+          <li contenteditable="true">Primeiras acoes de demanda</li>
+          <li contenteditable="true">Placements + push</li>
+          <li contenteditable="true">NPS Buyer &amp; Seller</li>
+        </ul></td>
+        <td class="cell w2c"><ul>
+          <li contenteditable="true">Calendario comercial ativo</li>
+          <li contenteditable="true">Volume p/ medir CVR</li>
+          <li contenteditable="true">Plan comunicacion entrega &lt;1h</li>
+          <li contenteditable="true">Lifecycle mgmt · frequencia de compra</li>
+        </ul></td>
+      </tr>
 
-    <!-- Demanda / Assortment -->
-    <div class="rl" contenteditable="true">Demanda / Assortment</div>
-    <div class="cell w0c"><ul>
-      <li contenteditable="true">Sin estimulo</li>
-      <li contenteditable="true">Demanda organica via search</li>
-    </ul></div>
-    <div class="cell w1c"><ul>
-      <li contenteditable="true">Medir cobertura assortment y demanda en la zona</li>
-    </ul></div>
-    <div class="cell w15c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
-    </ul></div>
-    <div class="cell w18c"><ul>
-      <li contenteditable="true">Primeiras acoes de demanda</li>
-      <li contenteditable="true">Placements + push</li>
-      <li contenteditable="true">NPS Buyer &amp; Seller</li>
-    </ul></div>
-    <div class="cell w2c"><ul>
-      <li contenteditable="true">Calendario comercial ativo</li>
-      <li contenteditable="true">Volume p/ medir CVR</li>
-      <li contenteditable="true">Plan comunicacion entrega &lt;1h</li>
-      <li contenteditable="true">Lifecycle mgmt · frequencia de compra</li>
-    </ul></div>
+      <!-- Financials — W0+W1 merged, W1.5+W1.8 merged -->
+      <tr>
+        <td class="rl" contenteditable="true">Financials</td>
+        <td class="cell w0c" colspan="2"><ul>
+          <li contenteditable="true">Sin foco en financials</li>
+        </ul></td>
+        <td class="cell w15c" colspan="2"><ul>
+          <li contenteditable="true">Primeiros dados economics</li>
+          <li contenteditable="true">CPS teorico vs real</li>
+          <li contenteditable="true">DC% visible</li>
+          <li contenteditable="true">Ajustes pricing si necesario</li>
+        </ul></td>
+        <td class="cell w2c"><ul>
+          <li contenteditable="true">Financials saudaveis</li>
+          <li contenteditable="true">Revenue management activo</li>
+        </ul></td>
+      </tr>
 
-    <!-- Financials -->
-    <div class="rl last" contenteditable="true">Financials</div>
-    <div class="cell w0c last"><ul>
-      <li contenteditable="true">Sin foco en financials</li>
-    </ul></div>
-    <div class="cell w1c last"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
-    </ul></div>
-    <div class="cell w15c last"><ul>
-      <li contenteditable="true">Primeiros dados economics</li>
-      <li contenteditable="true">CPS teorico vs real</li>
-      <li contenteditable="true">DC% visible</li>
-      <li contenteditable="true">Ajustes pricing si necesario</li>
-    </ul></div>
-    <div class="cell w18c last"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
-    </ul></div>
-    <div class="cell w2c last"><ul>
-      <li contenteditable="true">Financials saudaveis</li>
-      <li contenteditable="true">Revenue management activo</li>
-    </ul></div>
-
+    </tbody>
+  </table>
   </div>
+
 </div>
 </body>
 </html>
