@@ -14,10 +14,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .hdr-left .sub{font-size:10px;color:#1565c0;font-weight:700;margin-top:2px}
 .hdr-right{font-size:9px;color:#bbb;text-align:right}
 
-/* GRID */
 .grid{flex:1;display:grid;grid-template-columns:96px repeat(5,1fr);grid-template-rows:34px 30px repeat(6,1fr);border:1px solid #e0e0e0;border-radius:8px;overflow:hidden}
 
-/* Wave headers */
 .wh{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;letter-spacing:.3px;border-right:1px solid rgba(255,255,255,.15);border-bottom:2px solid #e0e0e0;text-align:center;outline:none;cursor:text}
 .wh:last-child{border-right:none}
 .wh:focus{filter:brightness(1.08)}
@@ -28,24 +26,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .w18h{background:#78909c;color:#eee}
 .w2h{background:#b0bec5;color:#444}
 
-/* Cell backgrounds */
 .w0c{background:#f0f5ff}
 .w1c{background:#fff}
 .w15c{background:#fff}
 .w18c{background:#fafafa}
 .w2c{background:#f8f8f8}
 
-/* ETD row */
 .etd-lbl{background:#f5f5f5;font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#1565c0;display:flex;align-items:center;padding:0 8px;border-right:1px solid #e0e0e0;border-bottom:1px solid #eee}
 .etd-cell{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1565c0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;outline:none;cursor:text;padding:0 6px}
 .etd-cell:last-child{border-right:none}
 .etd-cell:focus{background:#fffde7}
 
-/* Row labels */
-.rl{background:#f5f5f5;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#888;display:flex;align-items:flex-start;padding:7px 8px 0;border-right:1px solid #e0e0e0;border-bottom:1px solid #eee;line-height:1.4}
+.rl{background:#f5f5f5;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#888;display:flex;align-items:flex-start;padding:7px 8px 0;border-right:1px solid #e0e0e0;border-bottom:1px solid #eee;line-height:1.4;outline:none;cursor:text}
+.rl:focus{background:#eee}
 .rl.last{border-bottom:none}
 
-/* Data cells — bullet list */
 .cell{padding:5px 8px 4px;border-right:1px solid #eee;border-bottom:1px solid #eee;overflow:hidden}
 .cell.last{border-bottom:none}
 .cell:last-child{border-right:none}
@@ -56,8 +51,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .cell li:focus::before{color:#1565c0}
 .cell li:hover:not(:focus)::before{color:#888}
 .cell li:empty::after{content:attr(data-ph);color:#ccc;font-style:italic;pointer-events:none}
-.cell.empty-cell{display:flex;align-items:flex-start;padding-top:7px}
-.cell.empty-cell li{color:#bbb}
 </style>
 </head>
 <body>
@@ -131,7 +124,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <li contenteditable="true" data-ph="completar"></li>
     </ul></div>
     <div class="cell w2c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
+      <li contenteditable="true">Zonas con demanda suficiente para nube de riders</li>
     </ul></div>
 
     <!-- Producto -->
@@ -149,8 +142,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <li contenteditable="true" data-ph="completar"></li>
     </ul></div>
     <div class="cell w18c"><ul>
-      <li contenteditable="true">Seller multi origen</li>
-      <li contenteditable="true">Opt out</li>
+      <li contenteditable="true">Seller multi origen · opt out items</li>
+      <li contenteditable="true">Proximity only · nuevos poligonos</li>
+      <li contenteditable="true">Optin automatico · self service</li>
     </ul></div>
     <div class="cell w2c"><ul>
       <li contenteditable="true" data-ph="completar"></li>
@@ -163,35 +157,43 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <li contenteditable="true">Sellers Cartera Asesorada</li>
     </ul></div>
     <div class="cell w1c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
+      <li contenteditable="true">Surtido minimo cross categoria</li>
+      <li contenteditable="true">100% Farming Cartera Asesorada</li>
     </ul></div>
     <div class="cell w15c"><ul>
       <li contenteditable="true" data-ph="completar"></li>
     </ul></div>
     <div class="cell w18c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
+      <li contenteditable="true">Ver cadenas que cubren varias zonas y categorias</li>
     </ul></div>
     <div class="cell w2c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
+      <li contenteditable="true">Farming en nuevas zonas</li>
+      <li contenteditable="true">Hunting sellers (gap assortment)</li>
+      <li contenteditable="true">Mas cadenas</li>
     </ul></div>
 
-    <!-- Demanda -->
-    <div class="rl" contenteditable="true">Demanda</div>
+    <!-- Demanda / Assortment -->
+    <div class="rl" contenteditable="true">Demanda / Assortment</div>
     <div class="cell w0c"><ul>
       <li contenteditable="true">Sin estimulo</li>
       <li contenteditable="true">Demanda organica via search</li>
     </ul></div>
     <div class="cell w1c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
+      <li contenteditable="true">Medir cobertura assortment y demanda en la zona</li>
     </ul></div>
     <div class="cell w15c"><ul>
       <li contenteditable="true" data-ph="completar"></li>
     </ul></div>
     <div class="cell w18c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
+      <li contenteditable="true">Primeiras acoes de demanda</li>
+      <li contenteditable="true">Placements + push</li>
+      <li contenteditable="true">NPS Buyer &amp; Seller</li>
     </ul></div>
     <div class="cell w2c"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
+      <li contenteditable="true">Calendario comercial ativo</li>
+      <li contenteditable="true">Volume p/ medir CVR</li>
+      <li contenteditable="true">Plan comunicacion entrega &lt;1h</li>
+      <li contenteditable="true">Lifecycle mgmt · frequencia de compra</li>
     </ul></div>
 
     <!-- Financials -->
@@ -203,13 +205,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <li contenteditable="true" data-ph="completar"></li>
     </ul></div>
     <div class="cell w15c last"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
+      <li contenteditable="true">Primeiros dados economics</li>
+      <li contenteditable="true">CPS teorico vs real</li>
+      <li contenteditable="true">DC% visible</li>
+      <li contenteditable="true">Ajustes pricing si necesario</li>
     </ul></div>
     <div class="cell w18c last"><ul>
       <li contenteditable="true" data-ph="completar"></li>
     </ul></div>
     <div class="cell w2c last"><ul>
-      <li contenteditable="true" data-ph="completar"></li>
+      <li contenteditable="true">Financials saudaveis</li>
+      <li contenteditable="true">Revenue management activo</li>
     </ul></div>
 
   </div>
