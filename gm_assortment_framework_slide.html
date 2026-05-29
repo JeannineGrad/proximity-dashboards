@@ -37,16 +37,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .d3{background:#e3f2fd;}.d3 .dim-title{color:#1565c0}.d3 .dim-weight{color:#1565c0}
 .formula{background:#f8f8f8;border-radius:6px;padding:8px 12px;margin-top:4px;font-size:9px;line-height:1.7;font-family:monospace;color:#333}
 /* RIGHT: Ranking */
-.rank-row{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #f5f5f5}
+.rank-header{display:flex;align-items:center;gap:6px;padding:0 0 6px 0;border-bottom:2px solid #e0e0e0;margin-bottom:2px}
+.rank-header .rank-n{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#bbb;width:16px;flex-shrink:0}
+.rank-header .rank-cat{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#bbb;flex:1}
+.rank-header .rank-score-h{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#bbb;width:38px;text-align:center}
+.rank-header .rank-sellers-h{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#bbb;width:42px;text-align:right}
+.rank-row{display:flex;align-items:center;gap:6px;padding:3.5px 0;border-bottom:1px solid #f5f5f5}
 .rank-row:last-child{border-bottom:none}
 .rank-n{font-size:10px;font-weight:800;color:#bbb;width:16px;flex-shrink:0}
 .rank-cat{font-size:9.5px;font-weight:700;color:#111;flex:1}
-.rank-score{font-size:10px;font-weight:900;padding:2px 7px;border-radius:10px}
+.rank-score{font-size:10px;font-weight:900;padding:2px 7px;border-radius:10px;width:38px;text-align:center}
 .score-a{background:#e8f5e9;color:#2e7d32}
 .score-b{background:#fff8e1;color:#e65100}
-.rank-sellers{font-size:8.5px;color:#888;width:38px;text-align:right}
+.rank-sellers{font-size:8.5px;color:#888;width:42px;text-align:right}
 .ds-tag{font-size:7px;background:#f0f0f0;color:#999;padding:1px 5px;border-radius:6px;font-weight:700}
-.dash-link{margin-top:8px;font-size:8px;background:#e3f2fd;border-radius:6px;padding:6px 10px;color:#1565c0;line-height:1.5}
+.dash-link{margin-top:7px;font-size:8px;background:#e3f2fd;border-radius:6px;padding:6px 10px;color:#1565c0;line-height:1.5}
 .dash-link a{color:#1565c0;font-weight:700;text-decoration:none}
 .footer{margin-top:14px;padding-top:10px;border-top:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center}
 .footer-note{font-size:8px;color:#bbb}
@@ -59,12 +64,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   <div class="hdr">
     <div class="hdr-left">
       <div class="tag">Documento Interno &middot; Confidencial</div>
-      <div class="title">Framework de Priorizaci&oacute;n de Assortment</div>
-      <div class="subtitle">GM Agora &middot; S&atilde;o Paulo &middot; Lanzamiento jun-08 2026</div>
+      <div class="title">Framework de Priorizacion de Assortment</div>
+      <div class="subtitle">GM Agora &middot; Sao Paulo &middot; Lanzamiento jun-08 2026</div>
     </div>
     <div class="hdr-right">
       <div style="font-size:9px;color:#aaa">Basado en demanda real MeLi SP</div>
-      <div style="font-size:9px;color:#aaa">ABR–MAY 2026</div>
+      <div style="font-size:9px;color:#aaa">ABR&ndash;MAY 2026</div>
     </div>
   </div>
 
@@ -73,7 +78,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 
     <!-- COL 1: UNIVERSE + PROCESS -->
     <div class="col">
-      <div class="col-title">Universo de An&aacute;lisis</div>
+      <div class="col-title">Universo de Analisis</div>
       <div class="universe">
         <div class="kpi">
           <div class="kpi-n">53.605</div>
@@ -81,23 +86,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
         </div>
         <div class="kpi">
           <div class="kpi-n">5.4M</div>
-          <div class="kpi-l">unidades / 30 d&iacute;as</div>
+          <div class="kpi-l">unidades / 30 dias</div>
         </div>
         <div class="kpi">
           <div class="kpi-n">26</div>
-          <div class="kpi-l">categor&iacute;as definidas</div>
+          <div class="kpi-l">categorias definidas</div>
         </div>
         <div class="kpi">
           <div class="kpi-n">~99%</div>
           <div class="kpi-l">cobertura del universo</div>
         </div>
       </div>
-      <div class="col-title">C&oacute;mo se arma el score</div>
+      <div class="col-title">Como se arma el score</div>
       <div class="process">
-        <div class="step"><div class="step-n">1</div><span>Demanda real MeLi SP filtrada por restricciones QC (&le;50cm, &le;15kg)</span></div>
-        <div class="step"><div class="step-n">2</div><span>26 categor&iacute;as con splits estrat&eacute;gicos (ej. Hogar → 5 subcategor&iacute;as)</span></div>
-        <div class="step"><div class="step-n">3</div><span>Score por 3 dimensiones ponderadas: relevancia MeLi, misiones de compra QC, y benchmark global</span></div>
-        <div class="step"><div class="step-n">4</div><span>Sellers recomendados por zona seg&uacute;n score × complejidad de surtido (pareto 80%)</span></div>
+        <div class="step"><div class="step-n">1</div><span>Demanda real MeLi SP filtrada por restricciones QC (50cm, 15kg)</span></div>
+        <div class="step"><div class="step-n">2</div><span>26 categorias definidas segun benchmarks QC globales y naturaleza de consumo en MeLi SP</span></div>
+        <div class="step"><div class="step-n">3</div><span>Score por 3 dimensiones ponderadas: relevancia MeLi, misiones de compra QC y benchmark global</span></div>
+        <div class="step"><div class="step-n">4</div><span>Sellers recomendados por zona segun score x complejidad de surtido (pareto 80%)</span></div>
       </div>
     </div>
 
@@ -109,7 +114,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <div class="dim d2">
         <div class="dim-weight">50%</div>
         <div class="dim-title">Misiones de Compra</div>
-        <div class="dim-desc"><strong>Urgencia</strong> · <strong>Impulso</strong> · <strong>Conveniencia</strong><br>Qu&eacute; tan bien encaja la categor&iacute;a en los momentos de compra QC</div>
+        <div class="dim-desc"><strong>Urgencia</strong> &middot; <strong>Impulso</strong> &middot; <strong>Conveniencia</strong><br>Que tan bien encaja la categoria en los momentos de compra QC</div>
       </div>
       <div class="dim d1">
         <div class="dim-weight">25%</div>
@@ -122,8 +127,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
         <div class="dim-desc">Presencia en los 5 players QC globales (iFood &middot; Rappi &middot; Meituan &middot; Blinkit &middot; Amazon Now)</div>
       </div>
       <div class="formula">
-        <span style="color:#1565c0;font-weight:700">Score (0–100)</span> = 0.25×MeLi + 0.50×Misiones + 0.25×QC<br>
-        <span style="color:#888;font-size:8px">Pesos ajustables · 26 categor&iacute;as · ~99% del universo SP</span>
+        <span style="color:#1565c0;font-weight:700">Score (0&ndash;100)</span> = 0.25&times;MeLi + 0.50&times;Misiones + 0.25&times;QC<br>
+        <span style="color:#888;font-size:8px">Pesos ajustables &middot; 26 categorias &middot; ~99% del universo SP</span>
       </div>
     </div>
 
@@ -131,32 +136,38 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 
     <!-- COL 3: RANKING OUTPUT -->
     <div class="col">
-      <div class="col-title">Output — Ranking de Categor&iacute;as</div>
-      <div class="rank-row"><span class="rank-n">1</span><span class="rank-cat">Beauty e Higiene</span><span class="rank-score score-a">71</span><span class="rank-sellers">4 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">2</span><span class="rank-cat">Accesorios Tech</span><span class="rank-score score-a">62</span><span class="rank-sellers">4 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">3</span><span class="rank-cat">Snacks y Golosinas</span><span class="rank-score score-a">59</span><span class="rank-sellers">3 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">4</span><span class="rank-cat">Beb&eacute; y Ni&ntilde;os</span><span class="rank-score score-a">56</span><span class="rank-sellers">3 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">5</span><span class="rank-cat">Mascotas</span><span class="rank-score score-a">55</span><span class="rank-sellers">3 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">6</span><span class="rank-cat">Bebidas</span><span class="rank-score score-a">54</span><span class="rank-sellers">3 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">7</span><span class="rank-cat">Suplementos</span><span class="rank-score score-b">50</span><span class="rank-sellers">3 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">8</span><span class="rank-cat">Dispositivos M&oacute;viles</span><span class="rank-score score-b">49</span><span class="rank-sellers">2 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">9</span><span class="rank-cat">Farmacia y Salud</span><span class="rank-score score-b">45</span><span class="rank-sellers">3 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">10</span><span class="rank-cat">Electro Dom&eacute;stico</span><span class="rank-score score-b">44</span><span class="rank-sellers">2 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">11</span><span class="rank-cat">Computaci&oacute;n</span><span class="rank-score score-b">41</span><span class="rank-sellers">2 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">12</span><span class="rank-cat">Iluminaci&oacute;n Hogar</span><span class="rank-score score-b">38</span><span class="rank-sellers">2 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">13</span><span class="rank-cat">Cocina y Comedor</span><span class="rank-score score-b">37</span><span class="rank-sellers">2 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">14</span><span class="rank-cat">Librer&iacute;a y Papeler&iacute;a</span><span class="rank-score score-b">35</span><span class="rank-sellers">2 sell.</span></div>
-      <div class="rank-row"><span class="rank-n">15</span><span class="rank-cat">Deporte y Outdoor</span><span class="rank-score score-b">33</span><span class="rank-sellers">2 sell.</span></div>
-      <div class="rank-row" style="opacity:.4;margin-top:2px"><span class="rank-n" style="color:#ccc">—</span><span class="rank-cat" style="color:#bbb">Limpieza &amp; Alimentos</span><span class="ds-tag">Dark Store</span></div>
-      <div class="dash-link">Scores por dimensi&oacute;n · simulador interactivo · top SKUs por categor&iacute;a &rarr;<br><a href="https://jeanninegrad.github.io/proximity-dashboards/matriz_assortment_proximity_gm.html">jeanninegrad.github.io/proximity-dashboards/matriz_assortment_proximity_gm.html</a></div>
+      <div class="col-title">Output &mdash; Ranking de Categorias</div>
+      <div class="rank-header">
+        <span class="rank-n">#</span>
+        <span class="rank-cat">Categoria</span>
+        <span class="rank-score-h">Score</span>
+        <span class="rank-sellers-h">Sellers</span>
+      </div>
+      <div class="rank-row"><span class="rank-n">1</span><span class="rank-cat">Bebidas</span><span class="rank-score score-a">86</span><span class="rank-sellers">3 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">2</span><span class="rank-cat">Beauty e Higiene</span><span class="rank-score score-a">85</span><span class="rank-sellers">4 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">3</span><span class="rank-cat">Suplementos y Vitaminas</span><span class="rank-score score-a">84</span><span class="rank-sellers">3 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">4</span><span class="rank-cat">Farmacia y Salud</span><span class="rank-score score-a">81</span><span class="rank-sellers">3 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">5</span><span class="rank-cat">Snacks y Golosinas</span><span class="rank-score score-a">80</span><span class="rank-sellers">3 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">6</span><span class="rank-cat">Bebe y Ninos</span><span class="rank-score score-a">78</span><span class="rank-sellers">3 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">7</span><span class="rank-cat">Mascotas</span><span class="rank-score score-a">77</span><span class="rank-sellers">3 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">8</span><span class="rank-cat">Accesorios Tech</span><span class="rank-score score-a">74</span><span class="rank-sellers">4 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">9</span><span class="rank-cat">Papeleria y Fiestas</span><span class="rank-score score-b">58</span><span class="rank-sellers">2 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">10</span><span class="rank-cat">Accesorios de Moda</span><span class="rank-score score-b">52</span><span class="rank-sellers">2 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">11</span><span class="rank-cat">Pequenos Electrodomesticos</span><span class="rank-score score-b">44</span><span class="rank-sellers">2 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">12</span><span class="rank-cat">Dispositivos Moviles</span><span class="rank-score score-b">41</span><span class="rank-sellers">2 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">13</span><span class="rank-cat">Iluminacion y Electrica</span><span class="rank-score score-b">40</span><span class="rank-sellers">2 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">14</span><span class="rank-cat">Indumentaria</span><span class="rank-score score-b">38</span><span class="rank-sellers">2 sell.</span></div>
+      <div class="rank-row"><span class="rank-n">15</span><span class="rank-cat">Cocina y Utensilios</span><span class="rank-score score-b">35</span><span class="rank-sellers">2 sell.</span></div>
+      <div class="rank-row" style="opacity:.4;margin-top:2px"><span class="rank-n" style="color:#ccc">&mdash;</span><span class="rank-cat" style="color:#bbb">Limpieza &amp; Alimentos</span><span class="ds-tag">Dark Store</span></div>
+      <div class="dash-link">Scores por dimension &middot; simulador interactivo &middot; top SKUs por categoria &rarr;<br><a href="https://jeanninegrad.github.io/proximity-dashboards/matriz_assortment_proximity_gm.html">jeanninegrad.github.io/proximity-dashboards/matriz_assortment_proximity_gm.html</a></div>
     </div>
 
   </div>
 
   <!-- FOOTER -->
   <div class="footer">
-    <div class="footer-note">Scores ajustables en tiempo real · Misiones editables por categor&iacute;a · Sellers configurables por zona</div>
-    <div class="footer-tag">GM Agora SP · Framework de Assortment · May 2026</div>
+    <div class="footer-note">Scores ajustables en tiempo real &middot; Misiones editables por categoria &middot; Sellers configurables por zona</div>
+    <div class="footer-tag">GM Agora SP &middot; Framework de Assortment &middot; May 2026</div>
   </div>
 </div>
 </body>
