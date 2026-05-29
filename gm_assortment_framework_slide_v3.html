@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>GM Agora — Framework de Assortment v3</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.slide{width:1100px;height:620px;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.10);padding:28px 36px;display:flex;flex-direction:column}
+
+/* HEADER */
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;border-left:5px solid #FFE600;padding-left:14px;flex-shrink:0}
+.hdr-left .tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:3px}
+.hdr-left .title{font-size:19px;font-weight:900;color:#111;line-height:1.1}
+.hdr-left .subtitle{font-size:10px;color:#1565c0;font-weight:700;margin-top:2px}
+.hdr-right{text-align:right;font-size:9px;color:#bbb}
+
+/* TOP — 3 columns */
+.top{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;flex-shrink:0}
+.col{padding:0 20px}
+.col:first-child{padding-left:0}
+.col:last-child{padding-right:0}
+.divider{background:#f0f0f0;margin:0 4px}
+.col-title{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#aaa;margin-bottom:10px}
+
+/* Flow */
+.flow{display:flex;flex-direction:column}
+.flow-step{display:flex;gap:10px;align-items:stretch}
+.flow-left{display:flex;flex-direction:column;align-items:center;width:22px;flex-shrink:0}
+.flow-dot{width:22px;height:22px;border-radius:50%;background:#1565c0;color:#fff;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.flow-line{width:2px;background:#e8e8e8;flex:1;margin:2px 0}
+.flow-step:last-child .flow-line{display:none}
+.flow-content{padding-bottom:10px;flex:1}
+.flow-label{font-size:9.5px;font-weight:800;color:#111;margin-bottom:2px}
+.flow-desc{font-size:7.5px;color:#666;line-height:1.5}
+
+/* Dimensions */
+.dim{border-radius:7px;padding:7px 10px;margin-bottom:5px}
+.dim-title{font-size:9.5px;font-weight:800;margin-bottom:2px}
+.dim-desc{font-size:7.5px;color:#555;line-height:1.4}
+.dim-weight{font-size:17px;font-weight:900;float:right;margin-top:-1px;opacity:.9}
+.d1{background:#e8f5e9;}.d1 .dim-title{color:#2e7d32}.d1 .dim-weight{color:#2e7d32}
+.d2{background:#fff3e0;}.d2 .dim-title{color:#e65100}.d2 .dim-weight{color:#e65100}
+.d3{background:#e3f2fd;}.d3 .dim-title{color:#1565c0}.d3 .dim-weight{color:#1565c0}
+.formula{background:#f8f8f8;border-radius:5px;padding:6px 10px;margin-top:4px;font-size:7.5px;line-height:1.6;font-family:monospace;color:#333}
+
+/* Seller matrix */
+.mat{display:grid;grid-template-columns:86px 1fr 1fr;gap:3px}
+.mat-blank{background:transparent}
+.mat-ch{background:#f5f5f5;border-radius:4px;padding:5px 6px;font-size:7px;font-weight:700;color:#777;text-align:center;line-height:1.4}
+.mat-rh{background:#f5f5f5;border-radius:4px;padding:5px 6px;font-size:7px;font-weight:700;color:#555;display:flex;align-items:center;line-height:1.4}
+.mat-cell{border-radius:4px;padding:6px;font-size:14px;font-weight:900;text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px}
+.mat-cell small{font-size:6px;font-weight:600;opacity:.75}
+.c-hi{background:#e8f5e9;color:#2e7d32}
+.c-md{background:#fff8e1;color:#e65100}
+.c-lo{background:#f5f5f5;color:#9e9e9e}
+.mat-note{font-size:6.5px;color:#aaa;margin-top:6px;line-height:1.4}
+
+/* BOTTOM */
+.sep{height:1px;background:#efefef;margin:12px 0 10px;flex-shrink:0}
+.bottom-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#aaa;margin-bottom:7px;flex-shrink:0}
+.bottom{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;flex-shrink:0}
+.rk-col{padding:0 16px}
+.rk-col:first-child{padding-left:0}
+.rk-col:last-child{padding-right:0}
+.rk-hdr{display:flex;gap:5px;padding-bottom:5px;border-bottom:1.5px solid #e8e8e8;margin-bottom:2px}
+.rk-hdr span{font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#ccc}
+.rk-hdr .h-cat{flex:1}
+.rk-hdr .h-sc{width:32px;text-align:center}
+.rk-hdr .h-sv{width:36px;text-align:right}
+.rank-row{display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid #f8f8f8}
+.rank-row:last-child{border-bottom:none}
+.rn{font-size:9px;font-weight:800;color:#ccc;width:14px;flex-shrink:0}
+.rc{font-size:8.5px;font-weight:700;color:#111;flex:1}
+.rs{font-size:9px;font-weight:900;padding:2px 5px;border-radius:7px;width:32px;text-align:center}
+.rs-a{background:#e8f5e9;color:#2e7d32}
+.rs-b{background:#fff8e1;color:#e65100}
+.rv{font-size:7.5px;color:#999;width:36px;text-align:right}
+
+/* FOOTER */
+.dash-link{font-size:7.5px;background:#e3f2fd;border-radius:5px;padding:5px 10px;color:#1565c0;line-height:1.4;margin-top:8px;flex-shrink:0}
+.dash-link a{color:#1565c0;font-weight:700;text-decoration:none}
+.footer{margin-top:8px;padding-top:7px;border-top:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.footer-note{font-size:7px;color:#bbb}
+.footer-tag{font-size:7.5px;font-weight:700;color:#888}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="tag">Documento Interno &middot; Confidencial</div>
+      <div class="title">Framework de Priorizacion de Assortment</div>
+      <div class="subtitle">GM Agora &middot; Sao Paulo &middot; Lanzamiento jun-08 2026</div>
+    </div>
+    <div class="hdr-right">
+      <div>Basado en demanda real MeLi SP</div>
+      <div>ABR&ndash;MAY 2026</div>
+    </div>
+  </div>
+
+  <!-- TOP -->
+  <div class="top">
+
+    <div class="col">
+      <div class="col-title">Como priorizamos</div>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-left"><div class="flow-dot">1</div><div class="flow-line"></div></div>
+          <div class="flow-content">
+            <div class="flow-label">Demanda real de MeLi SP</div>
+            <div class="flow-desc">Partimos de las compras reales de los ultimos 30 dias, tomando los productos con demanda sostenida como base del analisis.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-left"><div class="flow-dot">2</div><div class="flow-line"></div></div>
+          <div class="flow-content">
+            <div class="flow-label">Filtros de Quick Commerce</div>
+            <div class="flow-desc">Aplicamos restricciones logisticas del canal: peso, volumen y condiciones de entrega express.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-left"><div class="flow-dot">3</div><div class="flow-line"></div></div>
+          <div class="flow-content">
+            <div class="flow-label">Categorias segun benchmarks y consumo local</div>
+            <div class="flow-desc">26 categorias definidas combinando players QC globales con la naturaleza de consumo en MeLi SP.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-left"><div class="flow-dot">4</div><div class="flow-line"></div></div>
+          <div class="flow-content">
+            <div class="flow-label">Score de priorizacion por categoria</div>
+            <div class="flow-desc">Score en base a 3 dimensiones ponderadas. Output: ranking con sellers recomendados por zona.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="col">
+      <div class="col-title">Dimensiones del Score</div>
+      <div class="dim d2">
+        <div class="dim-weight">50%</div>
+        <div class="dim-title">Misiones de Compra</div>
+        <div class="dim-desc"><strong>Urgencia</strong> &middot; <strong>Impulso</strong> &middot; <strong>Conveniencia</strong> &mdash; Que tan bien encaja la categoria en los momentos de compra QC</div>
+      </div>
+      <div class="dim d1">
+        <div class="dim-weight">25%</div>
+        <div class="dim-title">Relevancia MeLi</div>
+        <div class="dim-desc">% SKUs en top 10% SP &middot; Volumen y NMV del core (pareto 80%)</div>
+      </div>
+      <div class="dim d3">
+        <div class="dim-weight">25%</div>
+        <div class="dim-title">QC Signal</div>
+        <div class="dim-desc">Presencia en los 5 players QC globales (iFood &middot; Rappi &middot; Meituan &middot; Blinkit &middot; Amazon Now)</div>
+      </div>
+      <div class="formula">
+        <span style="color:#1565c0;font-weight:700">Score</span> = 0.25&times;MeLi + 0.50&times;Misiones + 0.25&times;QC &nbsp;<span style="color:#aaa">(pesos ajustables)</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="col">
+      <div class="col-title">Asignacion de Sellers por Zona</div>
+      <div class="mat">
+        <div class="mat-blank"></div>
+        <div class="mat-ch">Surtido Simple<br><span style="font-weight:400">&lt;800 SKUs core</span></div>
+        <div class="mat-ch">Surtido Complejo<br><span style="font-weight:400">&ge;800 SKUs core</span></div>
+
+        <div class="mat-rh">Score Alto<br><span style="color:#2e7d32">&ge;70</span></div>
+        <div class="mat-cell c-hi">3<small>sellers / zona</small></div>
+        <div class="mat-cell c-hi">4<small>sellers / zona</small></div>
+
+        <div class="mat-rh">Score Medio<br><span style="color:#e65100">35&ndash;69</span></div>
+        <div class="mat-cell c-md">2<small>sellers / zona</small></div>
+        <div class="mat-cell c-md">2&ndash;3<small>sellers / zona</small></div>
+
+        <div class="mat-rh">Score Bajo<br><span style="color:#9e9e9e">&lt;35</span></div>
+        <div class="mat-cell c-lo">1<small>seller / zona</small></div>
+        <div class="mat-cell c-lo">1&ndash;2<small>sellers / zona</small></div>
+      </div>
+      <div class="mat-note">Complejidad = SKUs que acumulan el 80% del volumen de la categoria. Umbrales ajustables por equipo comercial.</div>
+    </div>
+
+  </div>
+
+  <!-- SEPARATOR -->
+  <div class="sep"></div>
+
+  <!-- BOTTOM LABEL -->
+  <div class="bottom-label">Output &mdash; Ranking de Categorias &nbsp;&middot;&nbsp; Score 0&ndash;100 &nbsp;&middot;&nbsp; Pesos 25 / 50 / 25</div>
+
+  <!-- BOTTOM RANKING -->
+  <div class="bottom">
+
+    <div class="rk-col">
+      <div class="rk-hdr"><span style="width:14px">#</span><span class="h-cat">Categoria</span><span class="h-sc">Score</span><span class="h-sv">Sell./Zona</span></div>
+      <div class="rank-row"><span class="rn">1</span><span class="rc">Bebidas</span><span class="rs rs-a">86</span><span class="rv">3 sell.</span></div>
+      <div class="rank-row"><span class="rn">2</span><span class="rc">Beauty e Higiene</span><span class="rs rs-a">85</span><span class="rv">4 sell.</span></div>
+      <div class="rank-row"><span class="rn">3</span><span class="rc">Suplementos y Vitaminas</span><span class="rs rs-a">84</span><span class="rv">3 sell.</span></div>
+      <div class="rank-row"><span class="rn">4</span><span class="rc">Farmacia y Salud</span><span class="rs rs-a">81</span><span class="rv">3 sell.</span></div>
+      <div class="rank-row"><span class="rn">5</span><span class="rc">Snacks y Golosinas</span><span class="rs rs-a">80</span><span class="rv">3 sell.</span></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="rk-col">
+      <div class="rk-hdr"><span style="width:14px">#</span><span class="h-cat">Categoria</span><span class="h-sc">Score</span><span class="h-sv">Sell./Zona</span></div>
+      <div class="rank-row"><span class="rn">6</span><span class="rc">Bebe y Ninos</span><span class="rs rs-a">78</span><span class="rv">3 sell.</span></div>
+      <div class="rank-row"><span class="rn">7</span><span class="rc">Mascotas</span><span class="rs rs-a">77</span><span class="rv">3 sell.</span></div>
+      <div class="rank-row"><span class="rn">8</span><span class="rc">Accesorios Tech</span><span class="rs rs-a">74</span><span class="rv">4 sell.</span></div>
+      <div class="rank-row"><span class="rn">9</span><span class="rc">Papeleria y Fiestas</span><span class="rs rs-b">58</span><span class="rv">2 sell.</span></div>
+      <div class="rank-row"><span class="rn">10</span><span class="rc">Accesorios de Moda</span><span class="rs rs-b">52</span><span class="rv">2 sell.</span></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="rk-col">
+      <div class="rk-hdr"><span style="width:14px">#</span><span class="h-cat">Categoria</span><span class="h-sc">Score</span><span class="h-sv">Sell./Zona</span></div>
+      <div class="rank-row"><span class="rn">11</span><span class="rc">Pequenos Electrodomesticos</span><span class="rs rs-b">44</span><span class="rv">2 sell.</span></div>
+      <div class="rank-row"><span class="rn">12</span><span class="rc">Dispositivos Moviles</span><span class="rs rs-b">41</span><span class="rv">2 sell.</span></div>
+      <div class="rank-row"><span class="rn">13</span><span class="rc">Iluminacion y Electrica</span><span class="rs rs-b">40</span><span class="rv">2 sell.</span></div>
+      <div class="rank-row"><span class="rn">14</span><span class="rc">Indumentaria</span><span class="rs rs-b">38</span><span class="rv">2 sell.</span></div>
+      <div class="rank-row"><span class="rn">15</span><span class="rc">Cocina y Utensilios</span><span class="rs rs-b">35</span><span class="rv">2 sell.</span></div>
+    </div>
+
+  </div>
+
+  <!-- DASH LINK -->
+  <div class="dash-link">Scores por dimension &middot; simulador interactivo &middot; top SKUs por categoria &rarr;&nbsp;&nbsp;<a href="https://jeanninegrad.github.io/proximity-dashboards/matriz_assortment_proximity_gm.html">jeanninegrad.github.io/proximity-dashboards/matriz_assortment_proximity_gm.html</a></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-note">Limpieza y Alimentos fuera de scope &mdash; seran atendidas via Dark Stores &middot; Scores y pesos ajustables en tiempo real</div>
+    <div class="footer-tag">GM Agora SP &middot; Framework de Assortment &middot; May 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
