@@ -233,5 +233,42 @@ tr.detalle td.cell ul{align-items:center}
   </div>
 
 </div>
+<script>
+document.addEventListener('keydown', function(e) {
+  var li = e.target;
+  if (li.tagName !== 'LI') return;
+
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    var newLi = document.createElement('li');
+    newLi.contentEditable = 'true';
+    li.parentNode.insertBefore(newLi, li.nextSibling);
+    newLi.focus();
+  }
+
+  if (e.key === 'Backspace') {
+    var text = li.textContent;
+    if (text === '' || text === '\n') {
+      e.preventDefault();
+      var siblings = Array.from(li.parentNode.children);
+      if (siblings.length > 1) {
+        var idx = siblings.indexOf(li);
+        var target = siblings[idx - 1] || siblings[idx + 1];
+        li.parentNode.removeChild(li);
+        if (target) { target.focus(); placeCaretAtEnd(target); }
+      }
+    }
+  }
+});
+
+function placeCaretAtEnd(el) {
+  var range = document.createRange();
+  var sel = window.getSelection();
+  range.selectNodeContents(el);
+  range.collapse(false);
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+</script>
 </body>
 </html>
