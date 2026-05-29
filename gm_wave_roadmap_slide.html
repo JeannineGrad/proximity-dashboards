@@ -17,50 +17,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 /* GRID */
 .grid{flex:1;display:grid;grid-template-columns:96px repeat(5,1fr);grid-template-rows:34px 30px repeat(6,1fr);border:1px solid #e0e0e0;border-radius:8px;overflow:hidden}
 
-/* Wave header row */
-.wh{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;letter-spacing:.3px;border-right:1px solid #e0e0e0;border-bottom:2px solid #e0e0e0;text-align:center;outline:none;cursor:text}
+/* Wave headers */
+.wh{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;letter-spacing:.3px;border-right:1px solid rgba(255,255,255,.15);border-bottom:2px solid #e0e0e0;text-align:center;outline:none;cursor:text}
 .wh:last-child{border-right:none}
-.wh:focus{background:#fffde7}
+.wh:focus{filter:brightness(1.08)}
 .corner{background:#f5f5f5;border-right:1px solid #e0e0e0;border-bottom:2px solid #e0e0e0}
-
-/* Wave 0 — active */
 .w0h{background:#1565c0;color:#fff}
-.w0h:focus{background:#1976d2}
-.w0c{background:#e8f2ff}
-/* Wave 1 */
 .w1h{background:#37474f;color:#fff}
-.w1h:focus{background:#455a64}
-.w1c{background:#fff}
-/* Wave 1.5 */
 .w15h{background:#546e7a;color:#fff}
-.w15h:focus{background:#607d8b}
-.w15c{background:#fff}
-/* Wave 1.8 */
 .w18h{background:#78909c;color:#eee}
-.w18h:focus{background:#90a4ae}
+.w2h{background:#b0bec5;color:#444}
+
+/* Cell backgrounds */
+.w0c{background:#f0f5ff}
+.w1c{background:#fff}
+.w15c{background:#fff}
 .w18c{background:#fafafa}
-/* Wave 2 */
-.w2h{background:#b0bec5;color:#555}
-.w2h:focus{background:#cfd8dc}
 .w2c{background:#f8f8f8}
 
 /* ETD row */
 .etd-lbl{background:#f5f5f5;font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#1565c0;display:flex;align-items:center;padding:0 8px;border-right:1px solid #e0e0e0;border-bottom:1px solid #eee}
-.etd-cell{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1565c0;border-right:1px solid #e0e0e0;border-bottom:1px solid #eee;text-align:center;outline:none;cursor:text;padding:0 6px}
+.etd-cell{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1565c0;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;outline:none;cursor:text;padding:0 6px}
 .etd-cell:last-child{border-right:none}
 .etd-cell:focus{background:#fffde7}
 
-/* Data rows */
-.rl{background:#f5f5f5;font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#888;display:flex;align-items:flex-start;padding:6px 8px;border-right:1px solid #e0e0e0;border-bottom:1px solid #eee;line-height:1.4}
-.rl:last-child{border-bottom:none}
-.cell{font-size:8px;color:#333;line-height:1.5;padding:6px 8px;border-right:1px solid #eee;border-bottom:1px solid #eee;outline:none;cursor:text;overflow:hidden}
-.cell:last-child{border-right:none}
-.cell:focus{background:#fffde7;z-index:1}
-.cell:hover:not(:focus){background:#fafafa}
-.last .cell,.last .rl{border-bottom:none}
+/* Row labels */
+.rl{background:#f5f5f5;font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#888;display:flex;align-items:flex-start;padding:7px 8px 0;border-right:1px solid #e0e0e0;border-bottom:1px solid #eee;line-height:1.4}
+.rl.last{border-bottom:none}
 
-/* Editable hint */
-[contenteditable]:empty:before{content:attr(data-ph);color:#ccc;pointer-events:none}
+/* Data cells — bullet list */
+.cell{padding:5px 8px 4px;border-right:1px solid #eee;border-bottom:1px solid #eee;overflow:hidden}
+.cell.last{border-bottom:none}
+.cell:last-child{border-right:none}
+.cell ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.cell li{font-size:9px;color:#222;line-height:1.45;padding-left:11px;position:relative;outline:none;cursor:text;min-height:13px}
+.cell li::before{content:"·";position:absolute;left:2px;color:#aaa;font-weight:700;font-size:11px;line-height:1.2}
+.cell li:focus{background:#fffde7;border-radius:2px}
+.cell li:focus::before{color:#1565c0}
+.cell li:hover:not(:focus)::before{color:#888}
+.cell li:empty::after{content:attr(data-ph);color:#ccc;font-style:italic;pointer-events:none}
+.cell.empty-cell{display:flex;align-items:flex-start;padding-top:7px}
+.cell.empty-cell li{color:#bbb}
 </style>
 </head>
 <body>
@@ -77,7 +74,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 
   <div class="grid">
 
-    <!-- ROW 1: Wave headers -->
+    <!-- Wave headers -->
     <div class="corner"></div>
     <div class="wh w0h" contenteditable="true">WAVE 0</div>
     <div class="wh w1h" contenteditable="true">WAVE 1</div>
@@ -85,7 +82,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <div class="wh w18h" contenteditable="true">WAVE 1.8</div>
     <div class="wh w2h" contenteditable="true">WAVE 2</div>
 
-    <!-- ROW 2: ETD -->
+    <!-- ETD -->
     <div class="etd-lbl">ETD</div>
     <div class="etd-cell w0c" contenteditable="true">8 junio</div>
     <div class="etd-cell w1c" contenteditable="true">15 junio</div>
@@ -93,53 +90,127 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <div class="etd-cell w18c" contenteditable="true">Q3</div>
     <div class="etd-cell w2c" contenteditable="true">TBD</div>
 
-    <!-- ROW 3: Detalle -->
-    <div class="rl">Detalle</div>
-    <div class="cell w0c" contenteditable="true" data-ph="—">POC · 1 → 5 sellers · ~50 shp/dia</div>
-    <div class="cell w1c" contenteditable="true" data-ph="—">~20 sellers · ~300 shp/dia</div>
-    <div class="cell w15c" contenteditable="true" data-ph="—">~40 sellers · ~500 shp/dia</div>
-    <div class="cell w18c" contenteditable="true" data-ph="—"></div>
-    <div class="cell w2c" contenteditable="true" data-ph="—">Mar Aberto · TBD · 50+ shp/h pico</div>
+    <!-- Detalle -->
+    <div class="rl" contenteditable="true">Detalle</div>
+    <div class="cell w0c"><ul>
+      <li contenteditable="true">POC · 1 → 5 sellers</li>
+      <li contenteditable="true">~50 shp/dia</li>
+    </ul></div>
+    <div class="cell w1c"><ul>
+      <li contenteditable="true">~20 sellers</li>
+      <li contenteditable="true">~300 shp/dia</li>
+    </ul></div>
+    <div class="cell w15c"><ul>
+      <li contenteditable="true">~40 sellers</li>
+      <li contenteditable="true">~500 shp/dia</li>
+    </ul></div>
+    <div class="cell w18c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w2c"><ul>
+      <li contenteditable="true">Mar Aberto · TBD</li>
+      <li contenteditable="true">50+ shp/h pico</li>
+    </ul></div>
 
-    <!-- ROW 4: Operaciones -->
-    <div class="rl">Operaciones</div>
-    <div class="cell w0c" contenteditable="true" data-ph="—">Fluxo OK end-to-end; medicion de performance, validacion de capacidad</div>
-    <div class="cell w1c" contenteditable="true" data-ph="—">Stress test: Performance en dias y horarios pico, saturacion de capacidad, productividad de rutas</div>
-    <div class="cell w15c" contenteditable="true" data-ph="—"></div>
-    <div class="cell w18c" contenteditable="true" data-ph="—"></div>
-    <div class="cell w2c" contenteditable="true" data-ph="—"></div>
+    <!-- Operaciones -->
+    <div class="rl" contenteditable="true">Operaciones</div>
+    <div class="cell w0c"><ul>
+      <li contenteditable="true">Fluxo OK end-to-end</li>
+      <li contenteditable="true">Medicion de performance</li>
+      <li contenteditable="true">Validacion de capacidad</li>
+    </ul></div>
+    <div class="cell w1c"><ul>
+      <li contenteditable="true">Stress test dias y horarios pico</li>
+      <li contenteditable="true">Saturacion de capacidad</li>
+      <li contenteditable="true">Productividad de rutas</li>
+    </ul></div>
+    <div class="cell w15c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w18c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w2c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
 
-    <!-- ROW 5: Producto -->
-    <div class="rl">Producto</div>
-    <div class="cell w0c" contenteditable="true" data-ph="—">Visibilidad BB, optin manual para sellers con todos los items elegibles sin poder hacer opt out, integradores experiencia basica, seller central basico</div>
-    <div class="cell w1c" contenteditable="true" data-ph="—">Mejorar los flujos de wave 0</div>
-    <div class="cell w15c" contenteditable="true" data-ph="—"></div>
-    <div class="cell w18c" contenteditable="true" data-ph="—">Seller multi origen, opt out</div>
-    <div class="cell w2c" contenteditable="true" data-ph="—"></div>
+    <!-- Producto -->
+    <div class="rl" contenteditable="true">Producto</div>
+    <div class="cell w0c"><ul>
+      <li contenteditable="true">Visibilidad BB</li>
+      <li contenteditable="true">Optin manual, sin opt out</li>
+      <li contenteditable="true">Integradores exp. basica</li>
+      <li contenteditable="true">Seller central basico</li>
+    </ul></div>
+    <div class="cell w1c"><ul>
+      <li contenteditable="true">Mejorar flujos de wave 0</li>
+    </ul></div>
+    <div class="cell w15c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w18c"><ul>
+      <li contenteditable="true">Seller multi origen</li>
+      <li contenteditable="true">Opt out</li>
+    </ul></div>
+    <div class="cell w2c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
 
-    <!-- ROW 6: Hunting & Farming -->
-    <div class="rl">Hunting &amp; Farming</div>
-    <div class="cell w0c" contenteditable="true" data-ph="—">100% Farming con sellers de Cartera Asesorada</div>
-    <div class="cell w1c" contenteditable="true" data-ph="—"></div>
-    <div class="cell w15c" contenteditable="true" data-ph="—"></div>
-    <div class="cell w18c" contenteditable="true" data-ph="—"></div>
-    <div class="cell w2c" contenteditable="true" data-ph="—"></div>
+    <!-- Hunting & Farming -->
+    <div class="rl" contenteditable="true">Hunting &amp; Farming</div>
+    <div class="cell w0c"><ul>
+      <li contenteditable="true">100% Farming</li>
+      <li contenteditable="true">Sellers Cartera Asesorada</li>
+    </ul></div>
+    <div class="cell w1c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w15c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w18c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w2c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
 
-    <!-- ROW 7: Demanda -->
-    <div class="rl">Demanda</div>
-    <div class="cell w0c" contenteditable="true" data-ph="—">Sin estimulo, demanda organica basada en visibilidad de search</div>
-    <div class="cell w1c" contenteditable="true" data-ph="—"></div>
-    <div class="cell w15c" contenteditable="true" data-ph="—"></div>
-    <div class="cell w18c" contenteditable="true" data-ph="—"></div>
-    <div class="cell w2c" contenteditable="true" data-ph="—"></div>
+    <!-- Demanda -->
+    <div class="rl" contenteditable="true">Demanda</div>
+    <div class="cell w0c"><ul>
+      <li contenteditable="true">Sin estimulo</li>
+      <li contenteditable="true">Demanda organica via search</li>
+    </ul></div>
+    <div class="cell w1c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w15c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w18c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w2c"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
 
-    <!-- ROW 8: Financials -->
-    <div class="rl last">Financials</div>
-    <div class="cell w0c last" contenteditable="true" data-ph="—">Sin foco en financials</div>
-    <div class="cell w1c last" contenteditable="true" data-ph="—"></div>
-    <div class="cell w15c last" contenteditable="true" data-ph="—"></div>
-    <div class="cell w18c last" contenteditable="true" data-ph="—"></div>
-    <div class="cell w2c last" contenteditable="true" data-ph="—"></div>
+    <!-- Financials -->
+    <div class="rl last" contenteditable="true">Financials</div>
+    <div class="cell w0c last"><ul>
+      <li contenteditable="true">Sin foco en financials</li>
+    </ul></div>
+    <div class="cell w1c last"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w15c last"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w18c last"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
+    <div class="cell w2c last"><ul>
+      <li contenteditable="true" data-ph="completar"></li>
+    </ul></div>
 
   </div>
 </div>
