@@ -242,32 +242,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('keydown', function(e) {
   var li = e.target;
-  if (li.tagName !== 'LI') return;
+  if (!li || li.tagName !== 'LI') return;
 
   if (e.key === 'Enter') {
     e.preventDefault();
     var newLi = document.createElement('li');
     newLi.contentEditable = 'true';
+    newLi.spellcheck = false;
     li.parentNode.insertBefore(newLi, li.nextSibling);
     newLi.focus();
   }
 
   if (e.key === 'Backspace') {
-    var isEmpty = li.textContent.trim() === '' || li.innerHTML === '<br>';
-    var sel = window.getSelection();
-    var atStart = sel.anchorOffset === 0;
-    if (isEmpty || atStart) {
-      if (isEmpty) {
-        e.preventDefault();
-        var siblings = Array.from(li.parentNode.children);
-        if (siblings.length > 1) {
-          var idx = siblings.indexOf(li);
-          var target = siblings[idx - 1] || siblings[idx + 1];
-          li.parentNode.removeChild(li);
-          if (target) { target.focus(); placeCaretAtEnd(target); }
-        } else {
-          li.textContent = '';
-        }
+    var text = li.innerText || li.textContent || '';
+    if (text.trim() === '') {
+      e.preventDefault();
+      var siblings = Array.from(li.parentNode.children);
+      if (siblings.length > 1) {
+        var idx = siblings.indexOf(li);
+        var target = siblings[idx - 1] || siblings[idx + 1];
+        li.parentNode.removeChild(li);
+        if (target) { target.focus(); placeCaretAtEnd(target); }
       }
     }
   }
