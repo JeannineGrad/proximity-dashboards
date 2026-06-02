@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>GM Agora SP — Growth Brief</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;display:flex;justify-content:center;padding:40px 24px;min-height:100vh}
+.page{width:900px;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.10);padding:40px 44px}
+
+/* Header */
+.hdr{border-left:5px solid #FFE600;padding-left:16px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-start}
+.hdr-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px}
+.hdr-title{font-size:22px;font-weight:900;color:#111;line-height:1.1}
+.hdr-sub{font-size:11px;color:#1565c0;font-weight:700;margin-top:4px}
+.hdr-right{font-size:9px;color:#bbb;text-align:right;line-height:1.8}
+
+/* Rol */
+.rol-box{background:#f8f8f8;border-radius:8px;padding:14px 18px;margin-bottom:28px;border-left:3px solid #1565c0}
+.rol-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#1565c0;margin-bottom:6px}
+.rol-text{font-size:13px;color:#111;line-height:1.6;font-weight:500}
+
+/* Section title */
+.sec-title{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#aaa;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #efefef}
+
+/* Banderas grid */
+.banderas{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:28px}
+.bandera{border-radius:10px;border:1px solid #efefef;padding:16px 16px 14px;display:flex;flex-direction:column;gap:8px}
+.b-num{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px}
+.b-title{font-size:13px;font-weight:900;color:#111;line-height:1.3}
+.b-desc{font-size:10px;color:#555;line-height:1.55}
+.b-section{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#aaa;margin-top:6px;margin-bottom:3px}
+.b-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:3px}
+.b-list li{font-size:9.5px;color:#333;line-height:1.45;padding-left:10px;position:relative}
+.b-list li::before{content:"·";position:absolute;left:2px;color:#aaa;font-size:11px;line-height:1.2}
+
+.b1{border-top:3px solid #1565c0}.b1 .b-num{color:#1565c0}
+.b2{border-top:3px solid #2e7d32}.b2 .b-num{color:#2e7d32}
+.b3{border-top:3px solid #e65100}.b3 .b-num{color:#e65100}
+
+/* PV section */
+.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+.pv-card{border-radius:10px;border:1px solid #efefef;padding:16px}
+.pv-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.pv-prop{font-size:11px;font-weight:700;color:#111;line-height:1.4;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #efefef;font-style:italic}
+.pv-card.seller .pv-label{color:#1565c0}
+.pv-card.buyer .pv-label{color:#2e7d32}
+
+/* No es mío */
+.nomio{background:#fafafa;border-radius:8px;padding:12px 16px;display:flex;gap:24px}
+.nomio-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#bbb;margin-bottom:4px}
+.nomio-item{font-size:10px;color:#999}
+
+/* Footer */
+.footer{margin-top:24px;padding-top:14px;border-top:1px solid #efefef;display:flex;justify-content:space-between;font-size:8.5px;color:#bbb}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hdr">
+    <div>
+      <div class="hdr-tag">Documento Interno &middot; Confidencial</div>
+      <div class="hdr-title">Rol &amp; Prioridades — GM Agora SP</div>
+      <div class="hdr-sub">Jeannine Gradlmuller &middot; Growth Cross Proximity</div>
+    </div>
+    <div class="hdr-right">
+      GM Agora &middot; São Paulo<br>POC jun-2026
+    </div>
+  </div>
+
+  <!-- ROL -->
+  <div class="sec-title">Posicionamiento de rol</div>
+  <div class="rol-box">
+    <div class="rol-label">Mi rol en el proyecto</div>
+    <div class="rol-text">Ser la capa de inteligencia de growth del proyecto — conectar la oferta que traemos (sellers, assortment) con la demanda real, y asegurar que las decisiones de buyer y seller growth estén coordinadas por data. Defino el norte y mido si llegamos.</div>
+  </div>
+
+  <!-- BANDERAS -->
+  <div class="sec-title">Las tres banderas</div>
+  <div class="banderas">
+
+    <div class="bandera b1">
+      <div class="b-num">Bandera 1</div>
+      <div class="b-title">Assortment Coverage como métrica viva</div>
+      <div class="b-desc">Cruzar el framework de assortment con los sellers activos en la zona para trackear qué % del assortment crítico está cubierto, por categoría y por wave.</div>
+      <div class="b-section">Entregables inmediatos</div>
+      <ul class="b-list">
+        <li>Cruce framework × sellers locales → mapa de gaps</li>
+        <li>Métrica de cobertura semanal por categoría</li>
+        <li>Alerta de categorías con cobertura = 0</li>
+      </ul>
+      <div class="b-section">KPIs</div>
+      <ul class="b-list">
+        <li>% assortment crítico cubierto por categoría</li>
+        <li>SKUs activos en Agora vs SKUs críticos del framework</li>
+        <li>Categorías sin ningún seller activo</li>
+      </ul>
+    </div>
+
+    <div class="bandera b2">
+      <div class="b-num">Bandera 2</div>
+      <div class="b-title">Demand Signal — medir si la oferta convierte</div>
+      <div class="b-desc">Armar el framework de medición de demanda ahora, para tener el diagnóstico listo cuando haya volumen. Identificar si el problema es oferta, visibilidad o conversión.</div>
+      <div class="b-section">Entregables inmediatos</div>
+      <ul class="b-list">
+        <li>Definir 4-5 métricas clave de demand side</li>
+        <li>Gestionar acceso a data de search/visibilidad SP</li>
+        <li>Primer reporte CVR cuando haya volumen mínimo</li>
+      </ul>
+      <div class="b-section">KPIs</div>
+      <ul class="b-list">
+        <li>% búsquedas con al menos 1 listing Agora disponible</li>
+        <li>CVR listings Agora vs logística tradicional (mismo ítem)</li>
+        <li>Tasa de recompra a 30 días</li>
+        <li>Diferencial de precio Agora vs tradicional por categoría</li>
+      </ul>
+    </div>
+
+    <div class="bandera b3">
+      <div class="b-num">Bandera 3</div>
+      <div class="b-title">Coordinación Buyer × Seller Growth</div>
+      <div class="b-desc">Articular los dos roles nuevos con una visión integrada supply-demand. Evitar que seller growth traiga oferta sin demanda validada y que buyer growth active demanda sin oferta disponible.</div>
+      <div class="b-section">Entregables inmediatos</div>
+      <ul class="b-list">
+        <li>Proponer cadencia de sync quincenal entre los tres</li>
+        <li>Template compartido de métricas integradas</li>
+        <li>Definir responsabilidades sin superposición</li>
+      </ul>
+      <div class="b-section">KPIs compartidos</div>
+      <ul class="b-list">
+        <li>Oferta cubierta × demanda real por categoría</li>
+        <li>Cuello de botella del mes (oferta / visibilidad / conversión)</li>
+        <li>Progreso vs targets por wave</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- PROPUESTA DE VALOR -->
+  <div class="sec-title">Propuesta de valor a medir por lado</div>
+  <div class="pv-grid">
+
+    <div class="pv-card seller">
+      <div class="pv-label">Seller</div>
+      <div class="pv-prop">"Agora te da un canal adicional de ventas con demanda incremental en tu zona, sin canibalizar tu canal habitual."</div>
+      <ul class="b-list">
+        <li>Órdenes incrementales generadas por Agora</li>
+        <li>Take rate vs alternativas (PeYa, Rappi)</li>
+        <li>Tiempo hasta primera venta desde activación</li>
+        <li>Complejidad operativa percibida</li>
+      </ul>
+    </div>
+
+    <div class="pv-card buyer">
+      <div class="pv-label">Buyer</div>
+      <div class="pv-prop">"Recibís en menos de 1 hora lo que normalmente esperarías días, al mismo precio."</div>
+      <ul class="b-list">
+        <li>Diferencial de precio Agora vs logística tradicional</li>
+        <li>SLA real vs prometido (&lt;1h)</li>
+        <li>NPS post-entrega</li>
+        <li>Tasa de recompra a 30 días</li>
+        <li>CVR cuando la oferta Agora está disponible</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- NO ES MÍO -->
+  <div class="sec-title">Fuera de mi scope directo</div>
+  <div class="nomio">
+    <div>
+      <div class="nomio-label">Seller Growth</div>
+      <div class="nomio-item">Hunting de sellers · Materiales para KAMs · Onboarding operativo</div>
+    </div>
+    <div>
+      <div class="nomio-label">Buyer Growth</div>
+      <div class="nomio-item">Activaciones de demanda · Campañas · Cupones · Lifecycle</div>
+    </div>
+    <div>
+      <div class="nomio-label">Equipo local SP</div>
+      <div class="nomio-item">Operaciones · Logística · Relación diaria con sellers</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>GM Agora SP &middot; Jeannine Gradlmuller &middot; Growth Cross Proximity</span>
+    <span>Jun 2026</span>
+  </div>
+
+</div>
+</body>
+</html>
