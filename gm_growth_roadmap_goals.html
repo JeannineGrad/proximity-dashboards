@@ -6,7 +6,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;display:flex;justify-content:center;padding:40px 24px;min-height:100vh}
-.page{width:980px;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.10);padding:40px 44px}
+.page{width:780px;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.10);padding:40px 44px}
 
 .hdr{border-left:5px solid #FFE600;padding-left:16px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-start}
 .hdr-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px}
@@ -14,44 +14,40 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .hdr-sub{font-size:11px;color:#1565c0;font-weight:700;margin-top:4px}
 .hdr-right{font-size:9px;color:#bbb;text-align:right;line-height:1.8}
 
+/* Legend */
+.legend{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:5px;font-size:9.5px;color:#555;font-weight:600}
+.leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.lc{background:#1565c0}.ls{background:#2e7d32}.lb{background:#e65100}
+
 /* Wave block */
-.wave-block{margin-bottom:28px;border-radius:10px;overflow:hidden;border:1px solid #e8e8e8}
-.wave-header{padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
-.wave-header .wname{font-size:14px;font-weight:900;color:#fff;letter-spacing:.3px}
-.wave-header .wetd{font-size:10px;font-weight:700;color:rgba(255,255,255,.75)}
-.wave-header .wdesc{font-size:10px;color:rgba(255,255,255,.7);margin-top:2px}
-
-.w0-hdr{background:#1565c0}
-.w1-hdr{background:#37474f}
-.w15-hdr{background:#546e7a}
-.w18-hdr{background:#78909c}
-.w2-hdr{background:#90a4ae}
-
-/* 3-col grid inside wave */
-.wave-cols{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #e8e8e8}
-.wcol{padding:14px 16px;border-right:1px solid #efefef}
-.wcol:last-child{border-right:none}
-.wcol-label{font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #f0f0f0}
-.lbl-cross{color:#1565c0}
-.lbl-seller{color:#2e7d32}
-.lbl-buyer{color:#e65100}
+.wave{margin-bottom:30px}
+.wave-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-radius:8px;margin-bottom:12px}
+.wave-hdr .wname{font-size:13px;font-weight:900;color:#fff;letter-spacing:.2px}
+.wave-hdr .wetd{font-size:9px;font-weight:700;color:rgba(255,255,255,.75)}
+.wave-hdr .wdesc{font-size:9px;color:rgba(255,255,255,.65);margin-top:1px}
+.w0{background:#1565c0}.w1{background:#37474f}.w15{background:#546e7a}.w18{background:#78909c}.w2{background:#90a4ae}
 
 /* Items */
-.wi{margin-bottom:8px}
-.wi-title{font-size:10px;font-weight:800;color:#111;margin-bottom:2px}
-.wi-desc{font-size:9px;color:#666;line-height:1.5}
-.wi-goal{display:inline-block;font-size:7.5px;font-weight:700;background:#f0f0f0;color:#999;padding:1px 6px;border-radius:6px;margin-top:3px}
-.wi-done{opacity:.6}
-.wi-done .wi-title::after{content:" ✓";color:#2e7d32;font-size:9px}
-.wi-empty{font-size:9px;color:#ccc;font-style:italic}
+.items{display:flex;flex-direction:column;gap:0}
+.item{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid #f5f5f5}
+.item:last-child{border-bottom:none}
+.item-num{font-size:10px;font-weight:800;color:#ccc;width:18px;flex-shrink:0;padding-top:1px}
+.item-body{flex:1}
+.item-title{font-size:11px;font-weight:800;color:#111;margin-bottom:2px}
+.item-desc{font-size:10px;color:#666;line-height:1.55}
+.item-goal{font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block}
+.item-tag{flex-shrink:0;font-size:8px;font-weight:800;padding:3px 9px;border-radius:6px;margin-top:1px;white-space:nowrap}
+.tag-cross{background:#e3f2fd;color:#1565c0}
+.tag-seller{background:#e8f5e9;color:#2e7d32}
+.tag-buyer{background:#fff3e0;color:#e65100}
+.tag-co{background:#f3e5f5;color:#7b1fa2}
+.item.done .item-title{color:#888}
+.item.done .item-title::after{content:" ✓";color:#2e7d32;font-weight:900}
 
-/* Legend */
-.legend{display:flex;gap:16px;margin-bottom:20px;padding:10px 14px;background:#f8f8f8;border-radius:8px;align-items:center}
-.leg-item{display:flex;align-items:center;gap:6px;font-size:9.5px;font-weight:600;color:#555}
-.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.leg-cross{background:#1565c0}
-.leg-seller{background:#2e7d32}
-.leg-buyer{background:#e65100}
+/* Product alert */
+.alert{background:#fff8e1;border-radius:6px;padding:9px 14px;margin-top:10px;font-size:9.5px;color:#795548;line-height:1.55;border-left:3px solid #FFE600}
+.alert strong{color:#e65100}
 
 .footer{margin-top:28px;padding-top:12px;border-top:1px solid #efefef;display:flex;justify-content:space-between;font-size:8.5px;color:#bbb}
 </style>
@@ -63,376 +59,348 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <div>
       <div class="hdr-tag">Documento Interno &middot; GM Agora SP</div>
       <div class="hdr-title">Growth Roadmap por Wave</div>
-      <div class="hdr-sub">Responsabilidades · Goals 2026 · Seller / Buyer / Cross</div>
+      <div class="hdr-sub">Prioridades · Responsables · Goals 2026</div>
     </div>
     <div class="hdr-right">GM Agora &middot; São Paulo<br>POC jun-2026</div>
   </div>
 
   <div class="legend">
-    <div class="leg-item"><div class="leg-dot leg-cross"></div>Growth Cross — Jeannine</div>
-    <div class="leg-item"><div class="leg-dot leg-seller"></div>Seller Growth</div>
-    <div class="leg-item"><div class="leg-dot leg-buyer"></div>Buyer Growth</div>
-    <div style="margin-left:auto;font-size:9px;color:#aaa">Referencias entre [ ] corresponden a los frameworks del plan de goals 2026</div>
+    <div class="leg"><div class="leg-dot lc"></div>Growth Cross — Jeannine</div>
+    <div class="leg"><div class="leg-dot ls"></div>Seller Growth</div>
+    <div class="leg"><div class="leg-dot lb"></div>Buyer Growth</div>
+    <div style="margin-left:auto;font-size:8.5px;color:#bbb">[ ] = referencia al plan de goals 2026</div>
   </div>
 
   <!-- WAVE 0 -->
-  <div class="wave-block">
-    <div class="wave-header w0-hdr">
+  <div class="wave">
+    <div class="wave-hdr w0">
       <div>
         <div class="wname">WAVE 0 — POC</div>
         <div class="wdesc">1 → 5 sellers · ~50 shp/día · Fluxo OK end-to-end</div>
       </div>
-      <div class="wetd">ETD: 8 junio</div>
+      <div class="wetd">8 junio</div>
     </div>
-    <div class="wave-cols">
-
-      <div class="wcol">
-        <div class="wcol-label lbl-cross">Growth Cross</div>
-        <div class="wi wi-done">
-          <div class="wi-title">Baseline de demanda SP</div>
-          <div class="wi-desc">Framework de assortment con score por categoría, cobertura ~99%</div>
-          <span class="wi-goal">Cap 4.1</span>
+    <div class="items">
+      <div class="item done">
+        <div class="item-num">1</div>
+        <div class="item-body">
+          <div class="item-title">Baseline de demanda SP</div>
+          <div class="item-desc">Framework de assortment con score por categoría, cobertura ~99% del universo. Cruce con sellers activos → mapa de gaps por categoría</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 4.1</span>
         </div>
-        <div class="wi">
-          <div class="wi-title">Cruce assortment × sellers activos</div>
-          <div class="wi-desc">Mapa de gaps por categoría — qué categorías tienen cobertura y cuáles no</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Validar métricas de demanda del POC</div>
-          <div class="wi-desc">Las métricas de éxito del POC (flujo, operación) las define producto. Growth valida qué demanda orgánica se puede esperar dada la oferta disponible, y trackea si el assortment que tenemos es suficiente para generarla</div>
-          <span class="wi-goal">Cap 4.2</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">PV buyer — definir componentes para GM</div>
-          <div class="wi-desc">Oferta disponible, precio vs logística tradicional, SLA &lt;1h. Métricas clave de cada componente</div>
-          <span class="wi-goal">Cap 1.1</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">PV seller — co-construir con Seller Growth</div>
-          <div class="wi-desc">Demanda incremental, operación, visibilidad, financiero. Validado con data de demanda SP</div>
-          <span class="wi-goal">Cap 1.2</span>
-        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
       </div>
-
-      <div class="wcol">
-        <div class="wcol-label lbl-seller">Seller Growth</div>
-        <div class="wi wi-done">
-          <div class="wi-title">Material de hunting — Cartera Asesorada</div>
-          <div class="wi-desc">Pitch deck y manual para KAMs. En uso en el POC</div>
+      <div class="item">
+        <div class="item-num">2</div>
+        <div class="item-body">
+          <div class="item-title">Material de hunting y manual para KAMs — Cartera Asesorada</div>
+          <div class="item-desc">Pitch deck y manual en uso en el POC. Actualizar con FAQ de objeciones reales del campo</div>
         </div>
-        <div class="wi">
-          <div class="wi-title">Onboarding a nivel catálogo</div>
-          <div class="wi-desc">Se suben automáticamente todos los ítems que cumplen las restricciones logísticas de tamaño y peso — no hay opt-in por ítem hoy. El trabajo es entender qué sellers tienen el catálogo correcto y acompañarlos en el proceso de activación. Opt-in por ítem es un desarrollo de producto futuro</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">PV seller — co-construir con Growth Cross</div>
-          <div class="wi-desc">Componentes y métricas de la propuesta para el seller. Benchmark take rate vs PeYa / Rappi</div>
-          <span class="wi-goal">Cap 1.2</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">FAQ con objeciones del POC</div>
-          <div class="wi-desc">Actualizar material con aprendizajes de las primeras conversaciones con sellers</div>
-        </div>
+        <div class="item-tag tag-seller">Seller Growth</div>
       </div>
-
-      <div class="wcol">
-        <div class="wcol-label lbl-buyer">Buyer Growth</div>
-        <div class="wi">
-          <div class="wi-title">Mapear universo de compradores en la zona</div>
-          <div class="wi-desc">Cuántos buyers activos de MeLi hay en la zona del POC, qué categorías compran, con qué frecuencia</div>
+      <div class="item">
+        <div class="item-num">3</div>
+        <div class="item-body">
+          <div class="item-title">Propuesta de valor buyer — definir componentes para GM</div>
+          <div class="item-desc">Oferta disponible, precio vs logística tradicional, SLA &lt;1h. Métricas clave de cada componente. Benchmark vs iFood / Rappi</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 1.1</span>
         </div>
-        <div class="wi">
-          <div class="wi-title">Definir framework de medición de demand side</div>
-          <div class="wi-desc">Armar la medición antes de que haya volumen: CVR, visibilidad en search, diferencial de precio</div>
-          <span class="wi-goal">Cap 4.2</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">PV buyer — co-construir con Growth Cross</div>
-          <div class="wi-desc">Componentes y métricas de la experiencia del comprador en GM. Gaps actuales</div>
-          <span class="wi-goal">Cap 1.1</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Mapear herramientas disponibles con marketing</div>
-          <div class="wi-desc">Entender qué canales y palancas estarán disponibles: placements, push, cupones, MeLi+</div>
-        </div>
+        <div class="item-tag tag-co">Co · Buyer</div>
       </div>
-
+      <div class="item">
+        <div class="item-num">4</div>
+        <div class="item-body">
+          <div class="item-title">Propuesta de valor seller — definir componentes para GM</div>
+          <div class="item-desc">Demanda incremental, operación, visibilidad, financiero. Benchmark take rate vs PeYa / Rappi. Validado con data de demanda SP</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 1.2</span>
+        </div>
+        <div class="item-tag tag-co">Co · Seller</div>
+      </div>
+      <div class="item">
+        <div class="item-num">5</div>
+        <div class="item-body">
+          <div class="item-title">Onboarding a nivel catálogo</div>
+          <div class="item-desc">Se suben automáticamente todos los ítems que cumplen las restricciones logísticas. El trabajo es identificar qué sellers tienen el catálogo correcto y acompañar la activación. Opt-in por ítem es desarrollo de producto futuro</div>
+        </div>
+        <div class="item-tag tag-seller">Seller Growth</div>
+      </div>
+      <div class="item">
+        <div class="item-num">6</div>
+        <div class="item-body">
+          <div class="item-title">Validar métricas de demanda del POC</div>
+          <div class="item-desc">Las métricas de éxito del POC (flujo, operación) las define producto. Growth valida qué demanda orgánica se puede esperar dada la oferta disponible y trackea si el assortment es suficiente para generarla</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 4.2</span>
+        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
+      </div>
+      <div class="item">
+        <div class="item-num">7</div>
+        <div class="item-body">
+          <div class="item-title">Mapear universo de compradores en la zona</div>
+          <div class="item-desc">Cuántos buyers activos de MeLi hay en la zona, qué categorías compran, con qué frecuencia. Base para la segmentación</div>
+        </div>
+        <div class="item-tag tag-buyer">Buyer Growth</div>
+      </div>
+      <div class="item">
+        <div class="item-num">8</div>
+        <div class="item-body">
+          <div class="item-title">Mapear herramientas de demanda disponibles con marketing</div>
+          <div class="item-desc">Entender qué canales y palancas estarán disponibles: placements, push, cupones, MeLi+. Necesario antes de poder planificar activaciones</div>
+        </div>
+        <div class="item-tag tag-buyer">Buyer Growth</div>
+      </div>
     </div>
   </div>
 
   <!-- WAVE 1 -->
-  <div class="wave-block">
-    <div class="wave-header w1-hdr">
+  <div class="wave">
+    <div class="wave-hdr w1">
       <div>
         <div class="wname">WAVE 1</div>
         <div class="wdesc">~20 sellers · ~300 shp/día · Stress test performance</div>
       </div>
-      <div class="wetd">ETD: 15 junio</div>
+      <div class="wetd">15 junio</div>
     </div>
-    <div class="wave-cols">
-
-      <div class="wcol">
-        <div class="wcol-label lbl-cross">Growth Cross</div>
-        <div class="wi">
-          <div class="wi-title">Tracking semanal de cobertura de assortment</div>
-          <div class="wi-desc">Métrica viva: % assortment crítico cubierto por categoría. Alerta de gaps urgentes</div>
+    <div class="items">
+      <div class="item">
+        <div class="item-num">1</div>
+        <div class="item-body">
+          <div class="item-title">Tracking semanal de cobertura de assortment</div>
+          <div class="item-desc">Métrica viva: % del assortment crítico cubierto por categoría. Alerta de gaps urgentes. Se actualiza cada vez que entra un seller nuevo</div>
         </div>
-        <div class="wi">
-          <div class="wi-title">Primer análisis de demand signal</div>
-          <div class="wi-desc">CVR listings Agora vs logística tradicional. Visibilidad en search. Diagnóstico: el problema es oferta, visibilidad o conversión</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Buyer Segmentation Framework — primer draft</div>
-          <div class="wi-desc">Nuevo → Onboarding → Onboardeado → Retenido → En riesgo. Reglas de transición adaptadas a GM (frecuencia más baja que food)</div>
-          <span class="wi-goal">Cap 1.3</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Seller Segmentation Framework — primer draft</div>
-          <div class="wi-desc">Nueva → Activa → Consolidada → En riesgo. Aplicado a los 3 perfiles de seller de GM</div>
-          <span class="wi-goal">Cap 1.4</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Propuesta de coordinación buyer × seller</div>
-          <div class="wi-desc">Cadencia quincenal con los dos roles. Template compartido de métricas integradas</div>
-        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
       </div>
-
-      <div class="wcol">
-        <div class="wcol-label lbl-seller">Seller Growth</div>
-        <div class="wi">
-          <div class="wi-title">Benchmark pricing vs competencia</div>
-          <div class="wi-desc">Take rate PeYa / Rappi por categoría. ASP promedio del assortment crítico de SP. Dónde está el modelo competitivo</div>
+      <div class="item">
+        <div class="item-num">2</div>
+        <div class="item-body">
+          <div class="item-title">Benchmark pricing y análisis de rentabilidad por categoría</div>
+          <div class="item-desc">Take rate PeYa / Rappi por categoría. ¿Con el take rate actual le cierra al seller? Semáforo por categoría. Foco en bajo ASP (snacks, bebidas, beauty)</div>
         </div>
-        <div class="wi">
-          <div class="wi-title">Análisis de rentabilidad por categoría</div>
-          <div class="wi-desc">¿Con el take rate actual le cierra al seller? Semáforo por categoría. Foco en bajo ASP (snacks, bebidas, beauty)</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Material para sellers MeLi no cartera</div>
-          <div class="wi-desc">Pitch estandarizado + segmentación de qué sellers contactar por categoría (input del cruce assortment)</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Surtido mínimo cross categoría</div>
-          <div class="wi-desc">Definir el assortment mínimo que debe tener cada zona para que la propuesta de valor al buyer sea real</div>
-        </div>
+        <div class="item-tag tag-seller">Seller Growth</div>
       </div>
-
-      <div class="wcol">
-        <div class="wcol-label lbl-buyer">Buyer Growth</div>
-        <div class="wi">
-          <div class="wi-title">Medir cobertura assortment y demanda en la zona</div>
-          <div class="wi-desc">Primeras métricas de demand side: qué buscan los buyers, qué encuentran, qué no encuentran</div>
+      <div class="item">
+        <div class="item-num">3</div>
+        <div class="item-body">
+          <div class="item-title">Primer análisis de demand signal</div>
+          <div class="item-desc">CVR listings Agora vs logística tradicional. Visibilidad en search. Diagnóstico: el cuello de botella es oferta, visibilidad o conversión</div>
         </div>
-        <div class="wi">
-          <div class="wi-title">Primer reporte de primeras compras</div>
-          <div class="wi-desc">¿Quiénes son los primeros compradores? ¿Qué compraron? ¿Volvieron?</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Definir estrategia de primera demanda</div>
-          <div class="wi-desc">Identificar el momento y la palanca correcta para el primer estímulo de demanda. Coordinar con marketing</div>
-        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
       </div>
-
+      <div class="item">
+        <div class="item-num">4</div>
+        <div class="item-body">
+          <div class="item-title">Buyer Segmentation Framework — primer draft</div>
+          <div class="item-desc">Nuevo → Onboarding → Onboardeado → Retenido → En riesgo. Reglas de transición adaptadas a GM (frecuencia más baja que food, mayor ticket)</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 1.3</span>
+        </div>
+        <div class="item-tag tag-co">Co · Buyer</div>
+      </div>
+      <div class="item">
+        <div class="item-num">5</div>
+        <div class="item-body">
+          <div class="item-title">Seller Segmentation Framework — primer draft</div>
+          <div class="item-desc">Nueva → Activa → Consolidada → En riesgo. Aplicado a los 3 perfiles de seller de GM. Define qué acciones tomar en cada estado</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 1.4</span>
+        </div>
+        <div class="item-tag tag-co">Co · Seller</div>
+      </div>
+      <div class="item">
+        <div class="item-num">6</div>
+        <div class="item-body">
+          <div class="item-title">Material para sellers MeLi no cartera — estandarizar pitch</div>
+          <div class="item-desc">Versión escalable del pitch + segmentación de qué sellers contactar por categoría (input del cruce assortment). Canal: Seller Dev</div>
+        </div>
+        <div class="item-tag tag-seller">Seller Growth</div>
+      </div>
+      <div class="item">
+        <div class="item-num">7</div>
+        <div class="item-body">
+          <div class="item-title">Medir cobertura assortment y demanda en la zona</div>
+          <div class="item-desc">Primeras métricas de demand side: qué buscan los buyers, qué encuentran, qué no encuentran</div>
+        </div>
+        <div class="item-tag tag-buyer">Buyer Growth</div>
+      </div>
     </div>
-    <div style="background:#fff8e1;border-top:1px solid #ffe082;padding:10px 16px;font-size:9.5px;color:#795548;line-height:1.55">
-      <strong style="color:#e65100">Decisión de producto pendiente — bloquea estrategia de buyer growth:</strong> Definir el modelo de visibilidad y acceso de Agora. Opción A: solo via search (el buyer busca y si hay oferta Agora se la mostramos). Opción B: hub dedicado de Agora con oferta concentrada, acceso directo desde la app, donde eventualmente también viva la oferta de dark stores. La opción B habilita awareness del servicio y estrategias de demanda independientes del search. <strong>Growth tiene que levantar este requerimiento a producto.</strong>
-    </div>
+    <div class="alert"><strong>Decisión de producto pendiente — bloquea estrategia de buyer growth:</strong> Definir el modelo de visibilidad y acceso de Agora. Opción A: solo via search. Opción B: hub dedicado con oferta concentrada y acceso directo desde la app, donde también viviría la oferta de dark stores. La opción B habilita awareness del servicio independiente del search. Growth tiene que levantar este requerimiento a producto.</div>
   </div>
 
   <!-- WAVE 1.5 -->
-  <div class="wave-block">
-    <div class="wave-header w15-hdr">
+  <div class="wave">
+    <div class="wave-hdr w15">
       <div>
         <div class="wname">WAVE 1.5</div>
         <div class="wdesc">~40 sellers · ~500 shp/día</div>
       </div>
-      <div class="wetd">ETD: 22 junio</div>
+      <div class="wetd">22 junio</div>
     </div>
-    <div class="wave-cols">
-
-      <div class="wcol">
-        <div class="wcol-label lbl-cross">Growth Cross</div>
-        <div class="wi">
-          <div class="wi-title">Growth Funnel Scorecard — primer draft</div>
-          <div class="wi-desc">Impresiones → sesiones → VIP → carrito → checkout. Identifica dónde caen los usuarios para llevar a producto con datos</div>
-          <span class="wi-goal">Cap 1.5</span>
+    <div class="items">
+      <div class="item">
+        <div class="item-num">1</div>
+        <div class="item-body">
+          <div class="item-title">Primeiras ações de demanda</div>
+          <div class="item-desc">Placements + push. Primeros estímulos coordinados con marketing. Validar qué convierte en GM</div>
         </div>
-        <div class="wi">
-          <div class="wi-title">Zone Readiness Score — aplicar a GM</div>
-          <div class="wi-desc">Score por zona: oferta, demanda, nivel de servicio. Base para decisiones de expansión en waves siguientes</div>
-          <span class="wi-goal">Cap 1.6</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Aplicar frameworks transversales a GM</div>
-          <div class="wi-desc">PV buyer/seller, segmentaciones y funnel validados con data del POC y wave 1. Thresholds adaptados a GM</div>
-          <span class="wi-goal">Cap 4.1</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">NPS Buyer &amp; Seller</div>
-          <div class="wi-desc">Primera medición de satisfacción en ambos lados. Identificar fricciones en la experiencia</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Primeiros dados de economics</div>
-          <div class="wi-desc">CPS teórico vs real. DC% visible. Ajustes de pricing si necesario</div>
-        </div>
+        <div class="item-tag tag-buyer">Buyer Growth</div>
       </div>
-
-      <div class="wcol">
-        <div class="wcol-label lbl-seller">Seller Growth</div>
-        <div class="wi">
-          <div class="wi-title">Levantar MOV como requerimiento a producto</div>
-          <div class="wi-desc">Mínimo de orden como palanca clave de economics. Definir el requerimiento formal con casos de uso y urgencia</div>
+      <div class="item">
+        <div class="item-num">2</div>
+        <div class="item-body">
+          <div class="item-title">Levantar MOV como requerimiento a producto</div>
+          <div class="item-desc">Mínimo de orden como palanca clave de economics en bajo ASP. Definir el requerimiento formal con casos de uso y urgencia</div>
         </div>
-        <div class="wi">
-          <div class="wi-title">Palancas de mejora de rentabilidad</div>
-          <div class="wi-desc">Take rate diferenciado por categoría, subsidio temporal en categorías estratégicas</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Iterar onboarding con aprendizajes</div>
-          <div class="wi-desc">Actualizar proceso y materiales con lo aprendido en waves 0 y 1</div>
-        </div>
+        <div class="item-tag tag-seller">Seller Growth</div>
       </div>
-
-      <div class="wcol">
-        <div class="wcol-label lbl-buyer">Buyer Growth</div>
-        <div class="wi">
-          <div class="wi-title">Primeiras ações de demanda</div>
-          <div class="wi-desc">Placements + push. Primeros estímulos coordinados con marketing. Validar qué convierte</div>
+      <div class="item">
+        <div class="item-num">3</div>
+        <div class="item-body">
+          <div class="item-title">NPS Buyer &amp; Seller</div>
+          <div class="item-desc">Primera medición de satisfacción en ambos lados. Identificar fricciones en la experiencia para llevar a producto y operaciones</div>
         </div>
-        <div class="wi">
-          <div class="wi-title">Lifecycle management — primeros pasos</div>
-          <div class="wi-desc">Primeras acciones de retención para buyers que compraron en wave 0-1. Baseline de recompra a 30 días</div>
-        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
       </div>
-
+      <div class="item">
+        <div class="item-num">4</div>
+        <div class="item-body">
+          <div class="item-title">Growth Funnel Scorecard — primer draft</div>
+          <div class="item-desc">Impresiones → sesiones → VIP → carrito → checkout. Identifica dónde caen los usuarios para llevar a producto con datos</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 1.5</span>
+        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
+      </div>
+      <div class="item">
+        <div class="item-num">5</div>
+        <div class="item-body">
+          <div class="item-title">Primeiros dados de economics</div>
+          <div class="item-desc">CPS teórico vs real. DC% visible. Ajustes de pricing si necesario</div>
+        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
+      </div>
+      <div class="item">
+        <div class="item-num">6</div>
+        <div class="item-body">
+          <div class="item-title">Lifecycle management — primeros pasos</div>
+          <div class="item-desc">Primeras acciones de retención para buyers que compraron en wave 0-1. Baseline de recompra a 30 días</div>
+        </div>
+        <div class="item-tag tag-buyer">Buyer Growth</div>
+      </div>
+      <div class="item">
+        <div class="item-num">7</div>
+        <div class="item-body">
+          <div class="item-title">Zone Readiness Score — aplicar a GM</div>
+          <div class="item-desc">Score por zona: oferta, demanda, nivel de servicio. Base para decisiones de expansión a nuevas zonas</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 1.6</span>
+        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
+      </div>
     </div>
   </div>
 
   <!-- WAVE 1.8 -->
-  <div class="wave-block">
-    <div class="wave-header w18-hdr">
+  <div class="wave">
+    <div class="wave-hdr w18">
       <div>
         <div class="wname">WAVE 1.8</div>
         <div class="wdesc">Seller multi origen · Opt out · Nuevos polígonos</div>
       </div>
-      <div class="wetd">ETD: Q3</div>
+      <div class="wetd">Q3</div>
     </div>
-    <div class="wave-cols">
-
-      <div class="wcol">
-        <div class="wcol-label lbl-cross">Growth Cross</div>
-        <div class="wi">
-          <div class="wi-title">Frameworks buyer/seller validados con data</div>
-          <div class="wi-desc">Segmentaciones calibradas con volumen real. Acciones de activación por segmento funcionando</div>
-          <span class="wi-goal">Cap 1.3 · 1.4</span>
+    <div class="items">
+      <div class="item">
+        <div class="item-num">1</div>
+        <div class="item-body">
+          <div class="item-title">Plan de comunicación — lanzamiento entrega &lt;1h</div>
+          <div class="item-desc">Awareness del servicio. Mensaje clave: recibís en menos de 1 hora. Coordinar con marketing y branding</div>
         </div>
-        <div class="wi">
-          <div class="wi-title">Diagnóstico ecosistema MeLi</div>
-          <div class="wi-desc">% buyers GM que usa MP, retención MeLi+ vs no MeLi+, propensión Marketplace → GM</div>
-          <span class="wi-goal">Cap 2.1</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Assortment recomendado para nuevas zonas</div>
-          <div class="wi-desc">Replicar el análisis de demanda para cada nueva zona habilitada por los nuevos polígonos</div>
-        </div>
+        <div class="item-tag tag-buyer">Buyer Growth</div>
       </div>
-
-      <div class="wcol">
-        <div class="wcol-label lbl-seller">Seller Growth</div>
-        <div class="wi">
-          <div class="wi-title">Identificar cadenas multi-zona</div>
-          <div class="wi-desc">Qué cadenas pueden cubrir varias zonas y categorías. Base para la expansión</div>
+      <div class="item">
+        <div class="item-num">2</div>
+        <div class="item-body">
+          <div class="item-title">Diagnóstico ecosistema MeLi</div>
+          <div class="item-desc">% buyers GM que usa MP, retención MeLi+ vs no MeLi+, propensión Marketplace → GM. Base para diseñar la integración</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 2.1</span>
         </div>
-        <div class="wi">
-          <div class="wi-title">Visibilidad sellers proximity-only</div>
-          <div class="wi-desc">Cuando producto habilite el perfil, definir estrategia de boosting para listings sin historia en MeLi</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Estrategia de ramp up sellers nuevos</div>
-          <div class="wi-desc">Proceso diferenciado para sellers proximity-only en nuevas zonas</div>
-        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
       </div>
-
-      <div class="wcol">
-        <div class="wcol-label lbl-buyer">Buyer Growth</div>
-        <div class="wi">
-          <div class="wi-title">Plan de comunicación entrega &lt;1h</div>
-          <div class="wi-desc">Lanzamiento de awareness del servicio. Mensaje clave: recibís en menos de 1 hora</div>
+      <div class="item">
+        <div class="item-num">3</div>
+        <div class="item-body">
+          <div class="item-title">Assortment recomendado para nuevas zonas</div>
+          <div class="item-desc">Replicar el análisis de demanda para cada nueva zona habilitada por los nuevos polígonos</div>
         </div>
-        <div class="wi">
-          <div class="wi-title">Lifecycle management activo</div>
-          <div class="wi-desc">Journeys de retención, reactivación y rescate de buyers en riesgo funcionando</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Frecuencia de compra</div>
-          <div class="wi-desc">Acciones para aumentar la recurrencia. Identificar qué categorías generan hábito</div>
-        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
       </div>
-
+      <div class="item">
+        <div class="item-num">4</div>
+        <div class="item-body">
+          <div class="item-title">Identificar cadenas multi-zona y estrategia de visibilidad proximity-only</div>
+          <div class="item-desc">Qué cadenas cubren varias zonas. Cuando producto habilite sellers proximity-only, definir boosting para listings sin historia en MeLi</div>
+        </div>
+        <div class="item-tag tag-seller">Seller Growth</div>
+      </div>
+      <div class="item">
+        <div class="item-num">5</div>
+        <div class="item-body">
+          <div class="item-title">Lifecycle management activo y frecuencia de compra</div>
+          <div class="item-desc">Journeys de retención, reactivación y rescate funcionando. Acciones para aumentar recurrencia</div>
+        </div>
+        <div class="item-tag tag-buyer">Buyer Growth</div>
+      </div>
     </div>
   </div>
 
   <!-- WAVE 2 -->
-  <div class="wave-block">
-    <div class="wave-header w2-hdr">
+  <div class="wave">
+    <div class="wave-hdr w2">
       <div>
         <div class="wname">WAVE 2 — Mar Aberto</div>
-        <div class="wdesc">50+ shp/h pico · Zonas con nube de riders · Financials saudáveis</div>
+        <div class="wdesc">50+ shp/h pico · Financials saudáveis · Revenue management</div>
       </div>
-      <div class="wetd">ETD: TBD</div>
+      <div class="wetd">TBD</div>
     </div>
-    <div class="wave-cols">
-
-      <div class="wcol">
-        <div class="wcol-label lbl-cross">Growth Cross</div>
-        <div class="wi">
-          <div class="wi-title">Zone Readiness Score como motor de expansión</div>
-          <div class="wi-desc">Priorización de nuevas zonas basada en el score. Framework establecido y operativo</div>
-          <span class="wi-goal">Cap 1.6</span>
+    <div class="items">
+      <div class="item">
+        <div class="item-num">1</div>
+        <div class="item-body">
+          <div class="item-title">Ecosistema MeLi — integración activa</div>
+          <div class="item-desc">MeLi+ como palanca de retención, MP como affordability, Marketplace como canal de adquisición para buyers GM</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 2.1</span>
         </div>
-        <div class="wi">
-          <div class="wi-title">Ecosistema MeLi — integración activa</div>
-          <div class="wi-desc">MeLi+ como palanca de retención, MP como affordability, Marketplace como adquisición</div>
-          <span class="wi-goal">Cap 2.1</span>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Revenue management activo</div>
-          <div class="wi-desc">Financials saudáveis. Pricing dinámico. Economics por categoría optimizados</div>
-        </div>
+        <div class="item-tag tag-co">Co · Buyer</div>
       </div>
-
-      <div class="wcol">
-        <div class="wcol-label lbl-seller">Seller Growth</div>
-        <div class="wi">
-          <div class="wi-title">Farming en nuevas zonas</div>
-          <div class="wi-desc">Expandir cartera de sellers al ritmo de apertura de zonas</div>
+      <div class="item">
+        <div class="item-num">2</div>
+        <div class="item-body">
+          <div class="item-title">Zone Readiness Score como motor de expansión</div>
+          <div class="item-desc">Priorización de nuevas zonas basada en el score. Framework establecido y operativo para escalar</div>
+          <span class="wi-goal" style="font-size:7.5px;font-weight:700;background:#f0f0f0;color:#aaa;padding:1px 6px;border-radius:5px;margin-top:3px;display:inline-block">Cap 1.6</span>
         </div>
-        <div class="wi">
-          <div class="wi-title">Hunting para gaps de assortment</div>
-          <div class="wi-desc">Sellers específicos para cubrir categorías sin cobertura en zonas nuevas</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">Más cadenas multi-zona</div>
-          <div class="wi-desc">Sellers que operan en varias zonas simultáneamente para reducir complejidad</div>
-        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
       </div>
-
-      <div class="wcol">
-        <div class="wcol-label lbl-buyer">Buyer Growth</div>
-        <div class="wi">
-          <div class="wi-title">Calendario comercial activo</div>
-          <div class="wi-desc">Activaciones de demanda planificadas. Integración con calendario MeLi</div>
+      <div class="item">
+        <div class="item-num">3</div>
+        <div class="item-body">
+          <div class="item-title">Revenue management activo</div>
+          <div class="item-desc">Financials saudáveis. Economics por categoría optimizados. Pricing dinámico</div>
         </div>
-        <div class="wi">
-          <div class="wi-title">Volumen para medir CVR</div>
-          <div class="wi-desc">Con volumen suficiente, análisis completo de conversión por categoría, zona y segmento</div>
-        </div>
-        <div class="wi">
-          <div class="wi-title">MeLi+ como palanca de retención</div>
-          <div class="wi-desc">Integración con el programa de fidelidad para aumentar frecuencia de compra en GM</div>
-        </div>
+        <div class="item-tag tag-cross">Growth Cross</div>
       </div>
-
+      <div class="item">
+        <div class="item-num">4</div>
+        <div class="item-body">
+          <div class="item-title">Farming en nuevas zonas + hunting para gaps de assortment</div>
+          <div class="item-desc">Expandir cartera de sellers al ritmo de apertura de zonas. Sellers específicos para cubrir categorías sin cobertura</div>
+        </div>
+        <div class="item-tag tag-seller">Seller Growth</div>
+      </div>
+      <div class="item">
+        <div class="item-num">5</div>
+        <div class="item-body">
+          <div class="item-title">Calendario comercial activo</div>
+          <div class="item-desc">Activaciones de demanda planificadas. Integración con calendario MeLi. MeLi+ como palanca de frecuencia</div>
+        </div>
+        <div class="item-tag tag-buyer">Buyer Growth</div>
+      </div>
     </div>
   </div>
 
