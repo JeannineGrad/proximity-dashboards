@@ -7,43 +7,33 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;display:flex;justify-content:center;padding:40px 24px;min-height:100vh}
 .page{width:1000px;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.10);padding:40px 44px}
-
 .hdr{border-left:5px solid #FFE600;padding-left:16px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-start}
 .hdr-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px}
 .hdr-title{font-size:22px;font-weight:900;color:#111}
 .hdr-sub{font-size:11px;color:#1565c0;font-weight:700;margin-top:4px}
 .hdr-right{font-size:9px;color:#bbb;text-align:right;line-height:1.8}
-
 .grids{display:grid;grid-template-columns:1fr 1fr;gap:32px}
 .list-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#aaa;margin-bottom:4px;padding-bottom:8px;border-bottom:2px solid #111}
 .list-sub{font-size:8px;color:#bbb;margin-bottom:12px;margin-top:3px}
-
 table{width:100%;border-collapse:collapse}
 thead th{font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#bbb;padding:4px 6px;border-bottom:1px solid #e8e8e8}
 thead th.r{text-align:right}
 tbody tr{border-bottom:1px solid #f5f5f5}
 tbody tr:last-child{border-bottom:none}
-tbody tr.mover-up{background:#f0fdf4}
-tbody tr.mover-dn{background:#fff7f7}
+tbody tr.up{background:#f0fdf4}
+tbody tr.dn{background:#fff7f7}
 tbody td{padding:4px 6px;font-size:10px;color:#222;vertical-align:middle}
 tbody td.r{text-align:right}
 tbody td.cat{font-weight:700}
-
 .rn{font-size:10px;font-weight:900;color:#ccc;width:16px;display:inline-block;text-align:right}
 .rn-hi{color:#1565c0}
-
 .sc{display:inline-block;font-size:9px;font-weight:900;padding:1px 7px;border-radius:7px;min-width:26px;text-align:center}
 .sc-hi{background:#e8f5e9;color:#2e7d32}
 .sc-md{background:#fff8e1;color:#e65100}
 .sc-lo{background:#f5f5f5;color:#9e9e9e}
-
-.delta{font-size:9.5px;font-weight:800;min-width:30px;text-align:right;display:inline-block}
-.d-up{color:#2e7d32}
-.d-dn{color:#e53935}
-.d-eq{color:#bbb}
-
-.arrow{font-size:9px;color:#bbb}
-
+.sc-top{background:#1565c0;color:#fff}
+.delta{font-size:9.5px;font-weight:800;min-width:55px;text-align:right;display:inline-block}
+.d-up{color:#2e7d32}.d-dn{color:#e53935}.d-eq{color:#bbb}
 .note{margin-top:20px;background:#f8f8f8;border-radius:8px;padding:12px 16px;font-size:9px;color:#555;line-height:1.7}
 .note strong{color:#111}
 .footer{margin-top:16px;padding-top:10px;border-top:1px solid #efefef;display:flex;justify-content:space-between;font-size:8px;color:#bbb}
@@ -51,83 +41,80 @@ tbody td.cat{font-weight:700}
 </head>
 <body>
 <div class="page">
-
   <div class="hdr">
     <div>
       <div class="hdr-tag">Documento Interno &middot; GM Agora SP</div>
-      <div class="hdr-title">¿Qué pasa si reemplazamos la demanda MeLi por la demanda de la zona?</div>
-      <div class="hdr-sub">Misma fórmula · mismo 25% de peso · distinto input</div>
+      <div class="hdr-title">¿Qué pasa si reemplazamos la demanda MeLi por la demanda real de la zona?</div>
+      <div class="hdr-sub">Misma fórmula 25/50/25 · mismo peso · input MeLi = demanda zona 4.5km</div>
     </div>
-    <div class="hdr-right">Fórmula: 25%×MeLi + 50%×Misiones + 25%×QC<br>Zona: 13km desde Brás · Feb–Abr 2026</div>
+    <div class="hdr-right">Zona: 4.5km desde Brás<br>Período: ABR 21 – MAY 20 2026<br>488k items · 227k buyers</div>
   </div>
 
   <div class="grids">
 
-    <!-- FRAMEWORK ACTUAL -->
     <div>
       <div class="list-title">Score actual — Framework</div>
-      <div class="list-sub">MeLi = % SKUs top 10% + vol% + NMV% en todo SP</div>
+      <div class="list-sub">MeLi = % SKUs top 10% + vol% + NMV% en todo SP · pesos 25/50/25</div>
       <table>
         <thead><tr><th>#</th><th>Categoría</th><th class="r">Score</th><th class="r">Cambio</th></tr></thead>
         <tbody>
-<tr><td><span class="rn rn-hi">1</span></td><td class="cat">Bebidas</td><td class="r"><span class="sc sc-hi">86</span></td><td class="r"><span class="delta d-dn">−11 ↓↓</span></td></tr>
-<tr><td><span class="rn rn-hi">2</span></td><td class="cat">Beauty e Higiene</td><td class="r"><span class="sc sc-hi">85</span></td><td class="r"><span class="delta d-up">+1</span></td></tr>
-<tr><td><span class="rn rn-hi">3</span></td><td class="cat">Suplementos y Vitaminas</td><td class="r"><span class="sc sc-hi">84</span></td><td class="r"><span class="delta d-up">+5 ↑</span></td></tr>
+<tr><td><span class="rn rn-hi">1</span></td><td class="cat">Bebidas</td><td class="r"><span class="sc sc-hi">86</span></td><td class="r"><span class="delta d-dn">−10 ↓↓</span></td></tr>
+<tr><td><span class="rn rn-hi">2</span></td><td class="cat">Beauty e Higiene</td><td class="r"><span class="sc sc-hi">85</span></td><td class="r"><span class="delta d-up">+15 ↑↑</span></td></tr>
+<tr><td><span class="rn rn-hi">3</span></td><td class="cat">Suplementos y Vitaminas</td><td class="r"><span class="sc sc-hi">84</span></td><td class="r"><span class="delta d-up">+3</span></td></tr>
 <tr><td><span class="rn rn-hi">4</span></td><td class="cat">Farmacia y Salud</td><td class="r"><span class="sc sc-hi">81</span></td><td class="r"><span class="delta d-up">+3</span></td></tr>
-<tr><td><span class="rn rn-hi">5</span></td><td class="cat">Snacks y Golosinas</td><td class="r"><span class="sc sc-hi">80</span></td><td class="r"><span class="delta d-dn">−5 ↓</span></td></tr>
-<tr><td><span class="rn rn-hi">6</span></td><td class="cat">Bebe y Ninos</td><td class="r"><span class="sc sc-hi">78</span></td><td class="r"><span class="delta d-dn">−3</span></td></tr>
-<tr><td><span class="rn rn-hi">7</span></td><td class="cat">Mascotas</td><td class="r"><span class="sc sc-hi">77</span></td><td class="r"><span class="delta d-up">+1</span></td></tr>
-<tr><td><span class="rn rn-hi">8</span></td><td class="cat">Accesorios Tech</td><td class="r"><span class="sc sc-hi">74</span></td><td class="r"><span class="delta d-up">+5 ↑</span></td></tr>
-<tr><td><span class="rn">9</span></td><td class="cat">Papeleria y Fiestas</td><td class="r"><span class="sc sc-md">58</span></td><td class="r"><span class="delta d-up">+6 ↑</span></td></tr>
-<tr><td><span class="rn">10</span></td><td class="cat">Accesorios de Moda</td><td class="r"><span class="sc sc-md">52</span></td><td class="r"><span class="delta d-up">+2</span></td></tr>
-<tr><td><span class="rn">11</span></td><td class="cat">Peq. Electrodomesticos</td><td class="r"><span class="sc sc-md">44</span></td><td class="r"><span class="delta d-dn">−6 ↓</span></td></tr>
-<tr><td><span class="rn">12</span></td><td class="cat">Dispositivos Moviles</td><td class="r"><span class="sc sc-md">41</span></td><td class="r"><span class="delta d-dn">−16 ↓↓</span></td></tr>
-<tr><td><span class="rn">13</span></td><td class="cat">Iluminacion y Electrica</td><td class="r"><span class="sc sc-md">40</span></td><td class="r"><span class="delta d-up">+3</span></td></tr>
-<tr><td><span class="rn">14</span></td><td class="cat">Indumentaria</td><td class="r"><span class="sc sc-md">38</span></td><td class="r"><span class="delta d-up">+12 ↑↑</span></td></tr>
-<tr><td><span class="rn">15</span></td><td class="cat">Cocina y Utensilios</td><td class="r"><span class="sc sc-md">35</span></td><td class="r"><span class="delta d-up">+17 ↑↑</span></td></tr>
+<tr><td><span class="rn rn-hi">5</span></td><td class="cat">Snacks y Golosinas</td><td class="r"><span class="sc sc-hi">80</span></td><td class="r"><span class="delta d-dn">−4 ↓</span></td></tr>
+<tr><td><span class="rn rn-hi">6</span></td><td class="cat">Bebe y Ninos</td><td class="r"><span class="sc sc-hi">78</span></td><td class="r"><span class="delta d-up">+3</span></td></tr>
+<tr><td><span class="rn rn-hi">7</span></td><td class="cat">Mascotas</td><td class="r"><span class="sc sc-hi">77</span></td><td class="r"><span class="delta d-up">+6 ↑</span></td></tr>
+<tr><td><span class="rn rn-hi">8</span></td><td class="cat">Accesorios Tech</td><td class="r"><span class="sc sc-hi">74</span></td><td class="r"><span class="delta d-up">+11 ↑↑</span></td></tr>
+<tr><td><span class="rn">9</span></td><td class="cat">Papeleria y Fiestas</td><td class="r"><span class="sc sc-md">58</span></td><td class="r"><span class="delta d-up">+13 ↑↑</span></td></tr>
+<tr><td><span class="rn">10</span></td><td class="cat">Accesorios de Moda</td><td class="r"><span class="sc sc-md">52</span></td><td class="r"><span class="delta d-dn">−2</span></td></tr>
+<tr><td><span class="rn">11</span></td><td class="cat">Peq. Electrodomesticos</td><td class="r"><span class="sc sc-md">44</span></td><td class="r"><span class="delta d-dn">−5 ↓</span></td></tr>
+<tr><td><span class="rn">12</span></td><td class="cat">Dispositivos Moviles</td><td class="r"><span class="sc sc-md">41</span></td><td class="r"><span class="delta d-dn">−14 ↓↓</span></td></tr>
+<tr><td><span class="rn">13</span></td><td class="cat">Iluminacion y Electrica</td><td class="r"><span class="sc sc-md">40</span></td><td class="r"><span class="delta d-up">+10 ↑↑</span></td></tr>
+<tr><td><span class="rn">14</span></td><td class="cat">Indumentaria</td><td class="r"><span class="sc sc-md">38</span></td><td class="r"><span class="delta d-dn">−13 ↓↓</span></td></tr>
+<tr><td><span class="rn">15</span></td><td class="cat">Cocina y Utensilios</td><td class="r"><span class="sc sc-md">35</span></td><td class="r"><span class="delta d-up">+11 ↑↑</span></td></tr>
 <tr><td><span class="rn">16</span></td><td class="cat">Foto y Gaming</td><td class="r"><span class="sc sc-lo">32</span></td><td class="r"><span class="delta d-dn">−7 ↓</span></td></tr>
 <tr><td><span class="rn">17</span></td><td class="cat">Computacion</td><td class="r"><span class="sc sc-lo">32</span></td><td class="r"><span class="delta d-dn">−7 ↓</span></td></tr>
-<tr><td><span class="rn">18</span></td><td class="cat">Libros</td><td class="r"><span class="sc sc-lo">30</span></td><td class="r"><span class="delta d-eq">=</span></td></tr>
+<tr><td><span class="rn">18</span></td><td class="cat">Libros</td><td class="r"><span class="sc sc-lo">30</span></td><td class="r"><span class="delta d-up">+1</span></td></tr>
 <tr><td><span class="rn">19</span></td><td class="cat">Seguridad Hogar</td><td class="r"><span class="sc sc-lo">28</span></td><td class="r"><span class="delta d-dn">−3</span></td></tr>
-<tr><td><span class="rn">20</span></td><td class="cat">Deportes</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r"><span class="delta d-up">+1</span></td></tr>
-<tr><td><span class="rn">21</span></td><td class="cat">Decoracion</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r"><span class="delta d-up">+1</span></td></tr>
-<tr><td><span class="rn">22</span></td><td class="cat">Automotor</td><td class="r"><span class="sc sc-lo">26</span></td><td class="r"><span class="delta d-up">+12 ↑↑</span></td></tr>
+<tr><td><span class="rn">20</span></td><td class="cat">Deportes</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r"><span class="delta d-eq">=</span></td></tr>
+<tr><td><span class="rn">21</span></td><td class="cat">Decoracion</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r"><span class="delta d-up">+3</span></td></tr>
+<tr><td><span class="rn">22</span></td><td class="cat">Automotor</td><td class="r"><span class="sc sc-lo">26</span></td><td class="r"><span class="delta d-up">+14 ↑↑</span></td></tr>
 <tr><td><span class="rn">23</span></td><td class="cat">Materiales Construccion</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r"><span class="delta d-dn">−4</span></td></tr>
-<tr><td><span class="rn">24</span></td><td class="cat">Textiles Hogar</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r"><span class="delta d-eq">=</span></td></tr>
+<tr><td><span class="rn">24</span></td><td class="cat">Textiles Hogar</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r"><span class="delta d-up">+2</span></td></tr>
         </tbody>
       </table>
     </div>
 
-    <!-- SCORE CON DEMANDA ZONA -->
     <div>
-      <div class="list-title">Score ajustado — Demanda zona</div>
-      <div class="list-sub">MeLi = demanda real en 13km radio (normalizada) · Misiones y QC igual</div>
+      <div class="list-title">Score ajustado — Demanda real zona</div>
+      <div class="list-sub">MeLi = envíos QC-elegibles en zona 4.5km · ABR 21–MAY 20 2026 · Misiones y QC igual</div>
       <table>
         <thead><tr><th>#</th><th>Categoría</th><th class="r">Score</th><th class="r">vs actual</th></tr></thead>
         <tbody>
-<tr class="mover-up"><td><span class="rn rn-hi">1</span></td><td class="cat">Suplementos y Vitaminas</td><td class="r"><span class="sc sc-hi">89</span></td><td class="r"><span class="delta d-up">↑ era #3</span></td></tr>
-<tr><td><span class="rn rn-hi">2</span></td><td class="cat">Beauty e Higiene</td><td class="r"><span class="sc sc-hi">86</span></td><td class="r"><span class="delta d-eq">= #2</span></td></tr>
-<tr><td><span class="rn rn-hi">3</span></td><td class="cat">Farmacia y Salud</td><td class="r"><span class="sc sc-hi">84</span></td><td class="r"><span class="delta d-up">↑ era #4</span></td></tr>
-<tr class="mover-up"><td><span class="rn rn-hi">4</span></td><td class="cat">Accesorios Tech</td><td class="r"><span class="sc sc-hi">79</span></td><td class="r"><span class="delta d-up">↑↑ era #8</span></td></tr>
-<tr><td><span class="rn rn-hi">5</span></td><td class="cat">Mascotas</td><td class="r"><span class="sc sc-hi">78</span></td><td class="r"><span class="delta d-up">↑ era #7</span></td></tr>
-<tr class="mover-dn"><td><span class="rn rn-hi">6</span></td><td class="cat">Bebidas</td><td class="r"><span class="sc sc-hi">75</span></td><td class="r"><span class="delta d-dn">↓↓ era #1</span></td></tr>
-<tr class="mover-dn"><td><span class="rn rn-hi">7</span></td><td class="cat">Snacks y Golosinas</td><td class="r"><span class="sc sc-hi">75</span></td><td class="r"><span class="delta d-dn">↓ era #5</span></td></tr>
-<tr class="mover-dn"><td><span class="rn rn-hi">8</span></td><td class="cat">Bebe y Ninos</td><td class="r"><span class="sc sc-hi">75</span></td><td class="r"><span class="delta d-dn">↓ era #6</span></td></tr>
-<tr class="mover-up"><td><span class="rn">9</span></td><td class="cat">Papeleria y Fiestas</td><td class="r"><span class="sc sc-md">64</span></td><td class="r"><span class="delta d-up">↑ era #9</span></td></tr>
-<tr><td><span class="rn">10</span></td><td class="cat">Accesorios de Moda</td><td class="r"><span class="sc sc-md">54</span></td><td class="r"><span class="delta d-eq">= #10</span></td></tr>
-<tr class="mover-up"><td><span class="rn">11</span></td><td class="cat">Cocina y Utensilios</td><td class="r"><span class="sc sc-md">52</span></td><td class="r"><span class="delta d-up">↑↑ era #15</span></td></tr>
-<tr><td><span class="rn">12</span></td><td class="cat">Indumentaria</td><td class="r"><span class="sc sc-md">50</span></td><td class="r"><span class="delta d-up">↑↑ era #14</span></td></tr>
-<tr><td><span class="rn">13</span></td><td class="cat">Iluminacion y Electrica</td><td class="r"><span class="sc sc-md">43</span></td><td class="r"><span class="delta d-eq">≈ #13</span></td></tr>
-<tr><td><span class="rn">14</span></td><td class="cat">Peq. Electrodomesticos</td><td class="r"><span class="sc sc-md">38</span></td><td class="r"><span class="delta d-dn">↓ era #11</span></td></tr>
-<tr class="mover-up"><td><span class="rn">15</span></td><td class="cat">Automotor</td><td class="r"><span class="sc sc-md">38</span></td><td class="r"><span class="delta d-up">↑↑ era #22</span></td></tr>
-<tr><td><span class="rn">16</span></td><td class="cat">Libros</td><td class="r"><span class="sc sc-lo">30</span></td><td class="r"><span class="delta d-eq">= #18</span></td></tr>
-<tr><td><span class="rn">17</span></td><td class="cat">Deportes</td><td class="r"><span class="sc sc-lo">28</span></td><td class="r"><span class="delta d-eq">≈ #21</span></td></tr>
-<tr><td><span class="rn">18</span></td><td class="cat">Decoracion</td><td class="r"><span class="sc sc-lo">28</span></td><td class="r"><span class="delta d-eq">≈ #20</span></td></tr>
-<tr><td><span class="rn">19</span></td><td class="cat">Seguridad Hogar</td><td class="r"><span class="sc sc-lo">25</span></td><td class="r"><span class="delta d-eq">≈ #19</span></td></tr>
-<tr class="mover-dn"><td><span class="rn">20</span></td><td class="cat">Dispositivos Moviles</td><td class="r"><span class="sc sc-lo">25</span></td><td class="r"><span class="delta d-dn">↓↓ era #12</span></td></tr>
-<tr class="mover-dn"><td><span class="rn">21</span></td><td class="cat">Foto y Gaming</td><td class="r"><span class="sc sc-lo">25</span></td><td class="r"><span class="delta d-dn">↓ era #16</span></td></tr>
-<tr class="mover-dn"><td><span class="rn">22</span></td><td class="cat">Computacion</td><td class="r"><span class="sc sc-lo">25</span></td><td class="r"><span class="delta d-dn">↓ era #17</span></td></tr>
-<tr><td><span class="rn">23</span></td><td class="cat">Textiles Hogar</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r"><span class="delta d-eq">= #24</span></td></tr>
+<tr class="up"><td><span class="rn rn-hi">1</span></td><td class="cat">Beauty e Higiene</td><td class="r"><span class="sc sc-top">100</span></td><td class="r"><span class="delta d-up">↑↑ era #2</span></td></tr>
+<tr><td><span class="rn rn-hi">2</span></td><td class="cat">Suplementos y Vitaminas</td><td class="r"><span class="sc sc-hi">87</span></td><td class="r"><span class="delta d-up">↑ era #3</span></td></tr>
+<tr class="up"><td><span class="rn rn-hi">3</span></td><td class="cat">Accesorios Tech</td><td class="r"><span class="sc sc-hi">85</span></td><td class="r"><span class="delta d-up">↑↑ era #8</span></td></tr>
+<tr><td><span class="rn rn-hi">4</span></td><td class="cat">Farmacia y Salud</td><td class="r"><span class="sc sc-hi">84</span></td><td class="r"><span class="delta d-eq">= #4</span></td></tr>
+<tr><td><span class="rn rn-hi">5</span></td><td class="cat">Mascotas</td><td class="r"><span class="sc sc-hi">83</span></td><td class="r"><span class="delta d-up">↑ era #7</span></td></tr>
+<tr><td><span class="rn rn-hi">6</span></td><td class="cat">Bebe y Ninos</td><td class="r"><span class="sc sc-hi">81</span></td><td class="r"><span class="delta d-eq">= #6</span></td></tr>
+<tr class="dn"><td><span class="rn rn-hi">7</span></td><td class="cat">Bebidas</td><td class="r"><span class="sc sc-hi">76</span></td><td class="r"><span class="delta d-dn">↓↓ era #1</span></td></tr>
+<tr class="dn"><td><span class="rn rn-hi">8</span></td><td class="cat">Snacks y Golosinas</td><td class="r"><span class="sc sc-hi">76</span></td><td class="r"><span class="delta d-dn">↓ era #5</span></td></tr>
+<tr class="up"><td><span class="rn">9</span></td><td class="cat">Papeleria y Fiestas</td><td class="r"><span class="sc sc-hi">71</span></td><td class="r"><span class="delta d-up">↑↑ era #9</span></td></tr>
+<tr class="up"><td><span class="rn">10</span></td><td class="cat">Iluminacion y Electrica</td><td class="r"><span class="sc sc-md">50</span></td><td class="r"><span class="delta d-up">↑↑ era #13</span></td></tr>
+<tr><td><span class="rn">11</span></td><td class="cat">Accesorios de Moda</td><td class="r"><span class="sc sc-md">50</span></td><td class="r"><span class="delta d-dn">↓ era #10</span></td></tr>
+<tr class="up"><td><span class="rn">12</span></td><td class="cat">Cocina y Utensilios</td><td class="r"><span class="sc sc-md">46</span></td><td class="r"><span class="delta d-up">↑↑ era #15</span></td></tr>
+<tr class="up"><td><span class="rn">13</span></td><td class="cat">Automotor</td><td class="r"><span class="sc sc-md">40</span></td><td class="r"><span class="delta d-up">↑↑ era #22</span></td></tr>
+<tr><td><span class="rn">14</span></td><td class="cat">Peq. Electrodomesticos</td><td class="r"><span class="sc sc-md">39</span></td><td class="r"><span class="delta d-dn">↓ era #11</span></td></tr>
+<tr><td><span class="rn">15</span></td><td class="cat">Libros</td><td class="r"><span class="sc sc-lo">31</span></td><td class="r"><span class="delta d-eq">≈ #18</span></td></tr>
+<tr><td><span class="rn">16</span></td><td class="cat">Decoracion</td><td class="r"><span class="sc sc-lo">30</span></td><td class="r"><span class="delta d-up">↑ era #21</span></td></tr>
+<tr><td><span class="rn">17</span></td><td class="cat">Deportes</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r"><span class="delta d-eq">= #20</span></td></tr>
+<tr class="dn"><td><span class="rn">18</span></td><td class="cat">Dispositivos Moviles</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r"><span class="delta d-dn">↓↓ era #12</span></td></tr>
+<tr class="dn"><td><span class="rn">19</span></td><td class="cat">Indumentaria</td><td class="r"><span class="sc sc-lo">25</span></td><td class="r"><span class="delta d-dn">↓↓ era #14</span></td></tr>
+<tr><td><span class="rn">20</span></td><td class="cat">Foto y Gaming</td><td class="r"><span class="sc sc-lo">25</span></td><td class="r"><span class="delta d-dn">↓ era #16</span></td></tr>
+<tr><td><span class="rn">21</span></td><td class="cat">Computacion</td><td class="r"><span class="sc sc-lo">25</span></td><td class="r"><span class="delta d-dn">↓ era #17</span></td></tr>
+<tr><td><span class="rn">22</span></td><td class="cat">Seguridad Hogar</td><td class="r"><span class="sc sc-lo">25</span></td><td class="r"><span class="delta d-eq">≈ #19</span></td></tr>
+<tr><td><span class="rn">23</span></td><td class="cat">Textiles Hogar</td><td class="r"><span class="sc sc-lo">6</span></td><td class="r"><span class="delta d-eq">≈ #24</span></td></tr>
 <tr><td><span class="rn">24</span></td><td class="cat">Materiales Construccion</td><td class="r"><span class="sc sc-lo">0</span></td><td class="r"><span class="delta d-dn">↓ era #23</span></td></tr>
         </tbody>
       </table>
@@ -136,16 +123,19 @@ tbody td.cat{font-weight:700}
   </div>
 
   <div class="note">
-    <strong>Principales cambios:</strong>
-    &nbsp; <strong style="color:#2e7d32">Ganadores</strong>: Cocina (#15→#11, +17pts) · Automotor (#22→#15, +12pts) · Accesorios Tech (#8→#4, +5pts) · Suplementos (#3→#1, +5pts) · Papelería (#9, +6pts)
+    <strong>Ganadores con demanda zona:</strong>
+    Beauty sube a score 100 (#2→#1) · Tech (#8→#3, +11) · Papelería (#9, +13pts) · Iluminación (#13→#10, +10) · Cocina (#15→#12, +11) · Automotor (#22→#13, +14)
     &nbsp;&nbsp;|&nbsp;&nbsp;
-    <strong style="color:#e53935">Perdedores</strong>: Bebidas (#1→#6, −11pts) · Dispositivos Móviles (#12→#20, −16pts) · Foto y Gaming (−7pts) · Snacks (#5→#7, −5pts) · Bebe y Niños (−3pts)
+    <strong>Perdedores:</strong>
+    Bebidas (#1→#7, −10pts) · Dispositivos Móviles (#12→#18, −14pts) · Indumentaria (#14→#19, −13pts) · Foto/Gaming y Computación (−7pts)
     &nbsp;&nbsp;|&nbsp;&nbsp;
-    Bebidas, Snacks y Bebe caen porque no aparecen en el top 30 de la zona (probablemente se canalizan por dark stores / supermercados). Cocina y Automotor suben porque tienen demanda real fuerte en la zona que el framework no capturaba.
+    <strong>Estables:</strong> Farmacia (#4), Bebe (#6), Suplementos (#3→#2)
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    Bebidas y Snacks bajan porque tienen muy poca demanda en el marketplace de la zona (0.5% cada uno) — probablemente se canalizan por supermercados o dark stores.
   </div>
 
   <div class="footer">
-    <span>Fórmula idéntica: 25%×MeLi + 50%×Misiones + 25%×QC · solo cambia el input del componente MeLi (SP-wide → zona 13km Brás)</span>
+    <span>Fórmula idéntica: 25%×MeLi + 50%×Misiones + 25%×QC · Input MeLi cambia de SP-wide a demanda zona 4.5km ABR–MAY 2026</span>
     <span>GM Agora SP · Jun 2026</span>
   </div>
 
