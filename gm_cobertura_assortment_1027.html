@@ -6,7 +6,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;display:flex;justify-content:center;padding:40px 24px;min-height:100vh}
-.page{width:940px;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.10);padding:40px 44px}
+.page{width:1200px;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.10);padding:40px 44px}
 
 .hdr{border-left:5px solid #FFE600;padding-left:16px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-start}
 .hdr-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px}
@@ -15,39 +15,36 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .hdr-right{font-size:9px;color:#bbb;text-align:right;line-height:1.8}
 
 .grids{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-
-.list-block{}
 .list-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#aaa;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #111}
 
 table{width:100%;border-collapse:collapse}
-thead th{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#999;padding:5px 8px;text-align:left;border-bottom:1px solid #e8e8e8}
+thead th{font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#999;padding:5px 6px;text-align:left;border-bottom:1px solid #e8e8e8;white-space:nowrap}
 thead th.r{text-align:right}
 tbody tr{border-bottom:1px solid #f5f5f5}
 tbody tr:last-child{border-bottom:none}
-tbody tr.ds{opacity:.5}
-tbody td{padding:5px 8px;font-size:10px;color:#222;vertical-align:middle}
+tbody tr.ds{opacity:.45}
+tbody td{padding:4px 6px;font-size:9.5px;color:#222;vertical-align:middle}
 tbody td.r{text-align:right}
-tbody td.cat{font-weight:700}
+tbody td.cat{font-weight:700;font-size:9.5px}
+tbody td.names{font-size:8px;color:#555;line-height:1.4;max-width:140px}
 
-/* Score badge */
-.sc{display:inline-block;font-size:9px;font-weight:900;padding:2px 7px;border-radius:8px;min-width:28px;text-align:center}
+.sc{display:inline-block;font-size:8.5px;font-weight:900;padding:1px 6px;border-radius:7px;min-width:24px;text-align:center}
 .sc-hi{background:#e8f5e9;color:#2e7d32}
 .sc-md{background:#fff8e1;color:#e65100}
 .sc-lo{background:#f5f5f5;color:#9e9e9e}
 
-/* Coverage bar */
-.cov-wrap{display:flex;align-items:center;gap:6px}
-.cov-bar{height:6px;border-radius:3px;background:#e8e8e8;width:60px;overflow:hidden;flex-shrink:0}
+.cov-wrap{display:flex;align-items:center;gap:4px}
+.cov-bar{height:5px;border-radius:3px;background:#efefef;width:44px;overflow:hidden;flex-shrink:0}
 .cov-fill{height:100%;border-radius:3px}
-.cov-fill-hi{background:#2e7d32}
-.cov-fill-md{background:#e65100}
-.cov-fill-lo{background:#bdbdbd}
-.cov-pct{font-size:9px;font-weight:700;min-width:32px}
+.cov-hi{background:#2e7d32}.cov-md{background:#e65100}.cov-lo{background:#bdbdbd}
+.cov-pct{font-size:8.5px;font-weight:700;min-width:28px}
+.pct-hi{color:#2e7d32}.pct-md{color:#e65100}.pct-lo{color:#bdbdbd}
 
-.rank-n{font-size:9px;font-weight:800;color:#ccc;width:16px;display:inline-block}
+.sep-col{background:#f5f5f5;width:1px;padding:0}
+.rank-n{font-size:8.5px;font-weight:800;color:#ccc;width:14px;display:inline-block}
+.ds-tag{font-size:7px;background:#f0f0f0;color:#999;padding:1px 4px;border-radius:4px;font-weight:700;margin-left:3px}
 
-.ds-tag{font-size:7px;background:#f0f0f0;color:#999;padding:1px 5px;border-radius:5px;font-weight:700;margin-left:4px}
-
+.subtitle{font-size:8px;color:#888;margin-top:2px;font-weight:400}
 .footer{margin-top:24px;padding-top:12px;border-top:1px solid #efefef;display:flex;justify-content:space-between;font-size:8px;color:#bbb}
 </style>
 </head>
@@ -69,92 +66,150 @@ tbody td.cat{font-weight:700}
 
   <div class="grids">
 
-    <!-- LISTA 1: ORDEN FRAMEWORK -->
-    <div class="list-block">
+    <!-- LISTA 1 -->
+    <div>
       <div class="list-title">Por relevancia del framework (score 25/50/25)</div>
       <table>
         <thead>
           <tr>
             <th>#</th>
             <th>Categoría</th>
-            <th class="r">Score</th>
+            <th class="r">Sc.</th>
             <th class="r">Dem%</th>
-            <th colspan="2">Cobertura</th>
-            <th class="r">Sell.</th>
+            <th colspan="2">Cob% 1027</th>
+            <th class="r">N</th>
+            <th colspan="2">Cob% sel.</th>
+            <th>Sellers destacados</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><span class="rank-n">1</span></td><td class="cat">Bebidas</td><td class="r"><span class="sc sc-hi">86</span></td><td class="r">2.5%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:0.4%"></div></div><span class="cov-pct" style="color:#bdbdbd">0.4%</span></div></td><td></td><td class="r">6</td></tr>
-          <tr><td><span class="rank-n">2</span></td><td class="cat">Beauty e Higiene</td><td class="r"><span class="sc sc-hi">85</span></td><td class="r">5.7%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:1.9%"></div></div><span class="cov-pct" style="color:#bdbdbd">1.9%</span></div></td><td></td><td class="r">31</td></tr>
-          <tr><td><span class="rank-n">3</span></td><td class="cat">Suplementos y Vitaminas</td><td class="r"><span class="sc sc-hi">84</span></td><td class="r">4.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-md" style="width:8.4%"></div></div><span class="cov-pct" style="color:#e65100">8.4%</span></div></td><td></td><td class="r">7</td></tr>
-          <tr><td><span class="rank-n">4</span></td><td class="cat">Farmacia y Salud</td><td class="r"><span class="sc sc-hi">81</span></td><td class="r">8.3%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:1.9%"></div></div><span class="cov-pct" style="color:#bdbdbd">1.9%</span></div></td><td></td><td class="r">30</td></tr>
-          <tr><td><span class="rank-n">5</span></td><td class="cat">Snacks y Golosinas</td><td class="r"><span class="sc sc-hi">80</span></td><td class="r">2.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:0.1%"></div></div><span class="cov-pct" style="color:#bdbdbd">0.1%</span></div></td><td></td><td class="r">1</td></tr>
-          <tr><td><span class="rank-n">6</span></td><td class="cat">Bebe y Ninos</td><td class="r"><span class="sc sc-hi">78</span></td><td class="r">1.2%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:4.8%"></div></div><span class="cov-pct" style="color:#e65100">4.8%</span></div></td><td></td><td class="r">24</td></tr>
-          <tr><td><span class="rank-n">7</span></td><td class="cat">Mascotas</td><td class="r"><span class="sc sc-hi">77</span></td><td class="r">7.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:3.6%"></div></div><span class="cov-pct" style="color:#bdbdbd">3.6%</span></div></td><td></td><td class="r">11</td></tr>
-          <tr><td><span class="rank-n">8</span></td><td class="cat">Accesorios Tech</td><td class="r"><span class="sc sc-hi">74</span></td><td class="r">5.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-md" style="width:6.2%"></div></div><span class="cov-pct" style="color:#e65100">6.2%</span></div></td><td></td><td class="r">100</td></tr>
-          <tr><td><span class="rank-n">9</span></td><td class="cat">Papeleria y Fiestas</td><td class="r"><span class="sc sc-md">58</span></td><td class="r">9.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:3.6%"></div></div><span class="cov-pct" style="color:#bdbdbd">3.6%</span></div></td><td></td><td class="r">51</td></tr>
-          <tr><td><span class="rank-n">10</span></td><td class="cat">Accesorios de Moda</td><td class="r"><span class="sc sc-md">52</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div><span class="cov-pct" style="color:#bdbdbd">0%</span></div></td><td></td><td class="r">0</td></tr>
-          <tr><td><span class="rank-n">11</span></td><td class="cat">Peq. Electrodomesticos</td><td class="r"><span class="sc sc-md">44</span></td><td class="r">1.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-md" style="width:7.7%"></div></div><span class="cov-pct" style="color:#e65100">7.7%</span></div></td><td></td><td class="r">26</td></tr>
-          <tr><td><span class="rank-n">12</span></td><td class="cat">Dispositivos Moviles</td><td class="r"><span class="sc sc-md">41</span></td><td class="r">0.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:3.2%"></div></div><span class="cov-pct" style="color:#bdbdbd">3.2%</span></div></td><td></td><td class="r">6</td></tr>
-          <tr><td><span class="rank-n">13</span></td><td class="cat">Iluminacion y Electrica</td><td class="r"><span class="sc sc-md">40</span></td><td class="r">12.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:4.4%"></div></div><span class="cov-pct" style="color:#bdbdbd">4.4%</span></div></td><td></td><td class="r">56</td></tr>
-          <tr><td><span class="rank-n">14</span></td><td class="cat">Indumentaria</td><td class="r"><span class="sc sc-md">38</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div><span class="cov-pct" style="color:#bdbdbd">0%</span></div></td><td></td><td class="r">0</td></tr>
-          <tr><td><span class="rank-n">15</span></td><td class="cat">Cocina y Utensilios</td><td class="r"><span class="sc sc-md">35</span></td><td class="r">11.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:4.6%"></div></div><span class="cov-pct" style="color:#bdbdbd">4.6%</span></div></td><td></td><td class="r">43</td></tr>
-          <tr><td><span class="rank-n">16</span></td><td class="cat">Foto y Gaming</td><td class="r"><span class="sc sc-lo">32</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div><span class="cov-pct" style="color:#bdbdbd">0%</span></div></td><td></td><td class="r">0</td></tr>
-          <tr><td><span class="rank-n">17</span></td><td class="cat">Computacion</td><td class="r"><span class="sc sc-lo">32</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-hi" style="width:25%"></div></div><span class="cov-pct" style="color:#2e7d32">25%</span></div></td><td></td><td class="r">1</td></tr>
-          <tr><td><span class="rank-n">18</span></td><td class="cat">Libros</td><td class="r"><span class="sc sc-lo">30</span></td><td class="r">5.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-hi" style="width:43.7%"></div></div><span class="cov-pct" style="color:#2e7d32">43.7%</span></div></td><td></td><td class="r">24</td></tr>
-          <tr><td><span class="rank-n">19</span></td><td class="cat">Seguridad Hogar</td><td class="r"><span class="sc sc-lo">28</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div><span class="cov-pct" style="color:#bdbdbd">0%</span></div></td><td></td><td class="r">0</td></tr>
-          <tr><td><span class="rank-n">20</span></td><td class="cat">Deportes</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r">0.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:3.6%"></div></div><span class="cov-pct" style="color:#bdbdbd">3.6%</span></div></td><td></td><td class="r">14</td></tr>
-          <tr><td><span class="rank-n">21</span></td><td class="cat">Decoracion</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r">2.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:2.2%"></div></div><span class="cov-pct" style="color:#bdbdbd">2.2%</span></div></td><td></td><td class="r">16</td></tr>
-          <tr><td><span class="rank-n">22</span></td><td class="cat">Automotor</td><td class="r"><span class="sc sc-lo">26</span></td><td class="r">3.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:3.1%"></div></div><span class="cov-pct" style="color:#bdbdbd">3.1%</span></div></td><td></td><td class="r">27</td></tr>
-          <tr><td><span class="rank-n">23</span></td><td class="cat">Textiles Hogar</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r">2.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:1.7%"></div></div><span class="cov-pct" style="color:#bdbdbd">1.7%</span></div></td><td></td><td class="r">12</td></tr>
-          <tr><td><span class="rank-n">24</span></td><td class="cat">Materiales Construccion</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div><span class="cov-pct" style="color:#bdbdbd">0%</span></div></td><td></td><td class="r">0</td></tr>
-          <tr class="ds"><td><span class="rank-n">—</span></td><td class="cat">Limpieza <span class="ds-tag">DS</span></td><td class="r"><span class="sc sc-lo">—</span></td><td class="r">6.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:4.3%"></div></div><span class="cov-pct" style="color:#bdbdbd">4.3%</span></div></td><td></td><td class="r">36</td></tr>
-          <tr class="ds"><td><span class="rank-n">—</span></td><td class="cat">Alimentos <span class="ds-tag">DS</span></td><td class="r"><span class="sc sc-lo">—</span></td><td class="r">5.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:0.3%"></div></div><span class="cov-pct" style="color:#bdbdbd">0.3%</span></div></td><td></td><td class="r">7</td></tr>
+
+<tr><td><span class="rank-n">1</span></td><td class="cat">Bebidas</td><td class="r"><span class="sc sc-hi">86</span></td><td class="r">2.5%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.4%"></div></div></div></td><td><span class="cov-pct pct-lo">0.4%</span></td><td class="r">6</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0%"></div></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">2</span></td><td class="cat">Beauty e Higiene</td><td class="r"><span class="sc sc-hi">85</span></td><td class="r">5.7%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:1.9%"></div></div></div></td><td><span class="cov-pct pct-lo">1.9%</span></td><td class="r">31</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.5%"></div></div></div></td><td><span class="cov-pct pct-lo">0.5%</span></td><td class="names">Andy Imports; Breutronic; LDK Com.</td></tr>
+
+<tr><td><span class="rank-n">3</span></td><td class="cat">Suplementos y Vitaminas</td><td class="r"><span class="sc sc-hi">84</span></td><td class="r">4.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-md" style="width:8.4%"></div></div></div></td><td><span class="cov-pct pct-md">8.4%</span></td><td class="r">7</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.1%"></div></div></div></td><td><span class="cov-pct pct-lo">0.1%</span></td><td class="names">Blue Monkey</td></tr>
+
+<tr><td><span class="rank-n">4</span></td><td class="cat">Farmacia y Salud</td><td class="r"><span class="sc sc-hi">81</span></td><td class="r">8.3%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:1.9%"></div></div></div></td><td><span class="cov-pct pct-lo">1.9%</span></td><td class="r">30</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.2%"></div></div></div></td><td><span class="cov-pct pct-lo">0.2%</span></td><td class="names">Enjoy Pets; RCA Home Tech</td></tr>
+
+<tr><td><span class="rank-n">5</span></td><td class="cat">Snacks y Golosinas</td><td class="r"><span class="sc sc-hi">80</span></td><td class="r">2.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.1%"></div></div></div></td><td><span class="cov-pct pct-lo">0.1%</span></td><td class="r">1</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">6</span></td><td class="cat">Bebe y Ninos</td><td class="r"><span class="sc sc-hi">78</span></td><td class="r">1.2%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:4.8%"></div></div></div></td><td><span class="cov-pct pct-lo">4.8%</span></td><td class="r">24</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.3%"></div></div></div></td><td><span class="cov-pct pct-lo">0.3%</span></td><td class="names">Focos; MMX Com.; RCA Home Tech</td></tr>
+
+<tr><td><span class="rank-n">7</span></td><td class="cat">Mascotas</td><td class="r"><span class="sc sc-hi">77</span></td><td class="r">7.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.6%"></div></div></div></td><td><span class="cov-pct pct-lo">3.6%</span></td><td class="r">11</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:2.6%"></div></div></div></td><td><span class="cov-pct pct-lo">2.6%</span></td><td class="names">Blue Monkey; E.A. Para Pets; Enjoy Pets</td></tr>
+
+<tr><td><span class="rank-n">8</span></td><td class="cat">Accesorios Tech</td><td class="r"><span class="sc sc-hi">74</span></td><td class="r">5.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-md" style="width:6.2%"></div></div></div></td><td><span class="cov-pct pct-md">6.2%</span></td><td class="r">100</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.4%"></div></div></div></td><td><span class="cov-pct pct-lo">0.4%</span></td><td class="names">Angel Electr.; Total Info</td></tr>
+
+<tr><td><span class="rank-n">9</span></td><td class="cat">Papeleria y Fiestas</td><td class="r"><span class="sc sc-md">58</span></td><td class="r">9.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.6%"></div></div></div></td><td><span class="cov-pct pct-lo">3.6%</span></td><td class="r">51</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.2%"></div></div></div></td><td><span class="cov-pct pct-lo">0.2%</span></td><td class="names">Casa Peonia; Focos; Ink-Laser; RCA</td></tr>
+
+<tr><td><span class="rank-n">10</span></td><td class="cat">Accesorios de Moda</td><td class="r"><span class="sc sc-md">52</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="r">0</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">11</span></td><td class="cat">Peq. Electrodomesticos</td><td class="r"><span class="sc sc-md">44</span></td><td class="r">1.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-md" style="width:7.7%"></div></div></div></td><td><span class="cov-pct pct-md">7.7%</span></td><td class="r">26</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.2%"></div></div></div></td><td><span class="cov-pct pct-lo">3.2%</span></td><td class="names">Angel Electr.; Precolandia; RCA</td></tr>
+
+<tr><td><span class="rank-n">12</span></td><td class="cat">Dispositivos Moviles</td><td class="r"><span class="sc sc-md">41</span></td><td class="r">0.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.2%"></div></div></div></td><td><span class="cov-pct pct-lo">3.2%</span></td><td class="r">6</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">13</span></td><td class="cat">Iluminacion y Electrica</td><td class="r"><span class="sc sc-md">40</span></td><td class="r">12.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:4.4%"></div></div></div></td><td><span class="cov-pct pct-lo">4.4%</span></td><td class="r">56</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.2%"></div></div></div></td><td><span class="cov-pct pct-lo">0.2%</span></td><td class="names">Andy Imports; LDK Com.; Precolandia</td></tr>
+
+<tr><td><span class="rank-n">14</span></td><td class="cat">Indumentaria</td><td class="r"><span class="sc sc-md">38</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="r">0</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">15</span></td><td class="cat">Cocina y Utensilios</td><td class="r"><span class="sc sc-md">35</span></td><td class="r">11.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:4.6%"></div></div></div></td><td><span class="cov-pct pct-lo">4.6%</span></td><td class="r">43</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:1.5%"></div></div></div></td><td><span class="cov-pct pct-lo">1.5%</span></td><td class="names">Andy Imports; Casa Peonia; LDK; Precolandia; Trends</td></tr>
+
+<tr><td><span class="rank-n">16</span></td><td class="cat">Foto y Gaming</td><td class="r"><span class="sc sc-lo">32</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="r">0</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">17</span></td><td class="cat">Computacion</td><td class="r"><span class="sc sc-lo">32</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-hi" style="width:25%"></div></div></div></td><td><span class="cov-pct pct-hi">25%</span></td><td class="r">1</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-hi" style="width:25%"></div></div></div></td><td><span class="cov-pct pct-hi">25%</span></td><td class="names">Total Info</td></tr>
+
+<tr><td><span class="rank-n">18</span></td><td class="cat">Libros</td><td class="r"><span class="sc sc-lo">30</span></td><td class="r">5.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-hi" style="width:43.7%"></div></div></div></td><td><span class="cov-pct pct-hi">43.7%</span></td><td class="r">24</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.3%"></div></div></div></td><td><span class="cov-pct pct-lo">0.3%</span></td><td class="names">LDK Com.; Precolandia</td></tr>
+
+<tr><td><span class="rank-n">19</span></td><td class="cat">Seguridad Hogar</td><td class="r"><span class="sc sc-lo">28</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="r">0</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">20</span></td><td class="cat">Deportes</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r">0.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.6%"></div></div></div></td><td><span class="cov-pct pct-lo">3.6%</span></td><td class="r">14</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.2%"></div></div></div></td><td><span class="cov-pct pct-lo">0.2%</span></td><td class="names">Precolandia</td></tr>
+
+<tr><td><span class="rank-n">21</span></td><td class="cat">Decoracion</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r">2.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:2.2%"></div></div></div></td><td><span class="cov-pct pct-lo">2.2%</span></td><td class="r">16</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.6%"></div></div></div></td><td><span class="cov-pct pct-lo">0.6%</span></td><td class="names">Precolandia; RCA Home Tech</td></tr>
+
+<tr><td><span class="rank-n">22</span></td><td class="cat">Automotor</td><td class="r"><span class="sc sc-lo">26</span></td><td class="r">3.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.1%"></div></div></div></td><td><span class="cov-pct pct-lo">3.1%</span></td><td class="r">27</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.1%"></div></div></div></td><td><span class="cov-pct pct-lo">0.1%</span></td><td class="names">LDK Com.; RCA Home Tech</td></tr>
+
+<tr><td><span class="rank-n">23</span></td><td class="cat">Textiles Hogar</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r">2.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:1.7%"></div></div></div></td><td><span class="cov-pct pct-lo">1.7%</span></td><td class="r">12</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.1%"></div></div></div></td><td><span class="cov-pct pct-lo">0.1%</span></td><td class="names">Trends</td></tr>
+
+<tr><td><span class="rank-n">24</span></td><td class="cat">Materiales Construccion</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="r">0</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr class="ds"><td><span class="rank-n">—</span></td><td class="cat">Limpieza <span class="ds-tag">DS</span></td><td class="r">—</td><td class="r">6.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:4.3%"></div></div></div></td><td><span class="cov-pct pct-lo">4.3%</span></td><td class="r">36</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.3%"></div></div></div></td><td><span class="cov-pct pct-lo">0.3%</span></td><td class="names">Blue Monkey; Precolandia; RCA</td></tr>
+
+<tr class="ds"><td><span class="rank-n">—</span></td><td class="cat">Alimentos <span class="ds-tag">DS</span></td><td class="r">—</td><td class="r">5.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.3%"></div></div></div></td><td><span class="cov-pct pct-lo">0.3%</span></td><td class="r">7</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.1%"></div></div></div></td><td><span class="cov-pct pct-lo">0.1%</span></td><td class="names">Blue Monkey</td></tr>
+
         </tbody>
       </table>
     </div>
 
-    <!-- LISTA 2: ORDEN DEMANDA SP -->
-    <div class="list-block">
+    <!-- LISTA 2 -->
+    <div>
       <div class="list-title">Por demanda real SP (unidades/30d · pareto 80%)</div>
       <table>
         <thead>
           <tr>
             <th>#</th>
             <th>Categoría</th>
-            <th class="r">Score</th>
+            <th class="r">Sc.</th>
             <th class="r">Dem%</th>
-            <th colspan="2">Cobertura</th>
-            <th class="r">Sell.</th>
+            <th colspan="2">Cob% 1027</th>
+            <th class="r">N</th>
+            <th colspan="2">Cob% sel.</th>
+            <th>Sellers destacados</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><span class="rank-n">1</span></td><td class="cat">Iluminacion y Electrica</td><td class="r"><span class="sc sc-md">40</span></td><td class="r">12.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:4.4%"></div></div><span class="cov-pct" style="color:#bdbdbd">4.4%</span></div></td><td></td><td class="r">56</td></tr>
-          <tr><td><span class="rank-n">2</span></td><td class="cat">Cocina y Utensilios</td><td class="r"><span class="sc sc-md">35</span></td><td class="r">11.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:4.6%"></div></div><span class="cov-pct" style="color:#bdbdbd">4.6%</span></div></td><td></td><td class="r">43</td></tr>
-          <tr><td><span class="rank-n">3</span></td><td class="cat">Papeleria y Fiestas</td><td class="r"><span class="sc sc-md">58</span></td><td class="r">9.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:3.6%"></div></div><span class="cov-pct" style="color:#bdbdbd">3.6%</span></div></td><td></td><td class="r">51</td></tr>
-          <tr><td><span class="rank-n">4</span></td><td class="cat">Farmacia y Salud</td><td class="r"><span class="sc sc-hi">81</span></td><td class="r">8.3%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:1.9%"></div></div><span class="cov-pct" style="color:#bdbdbd">1.9%</span></div></td><td></td><td class="r">30</td></tr>
-          <tr><td><span class="rank-n">5</span></td><td class="cat">Mascotas</td><td class="r"><span class="sc sc-hi">77</span></td><td class="r">7.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:3.6%"></div></div><span class="cov-pct" style="color:#bdbdbd">3.6%</span></div></td><td></td><td class="r">11</td></tr>
-          <tr class="ds"><td><span class="rank-n">6</span></td><td class="cat">Limpieza <span class="ds-tag">DS</span></td><td class="r"><span class="sc sc-lo">—</span></td><td class="r">6.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:4.3%"></div></div><span class="cov-pct" style="color:#bdbdbd">4.3%</span></div></td><td></td><td class="r">36</td></tr>
-          <tr><td><span class="rank-n">7</span></td><td class="cat">Accesorios Tech</td><td class="r"><span class="sc sc-hi">74</span></td><td class="r">5.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-md" style="width:6.2%"></div></div><span class="cov-pct" style="color:#e65100">6.2%</span></div></td><td></td><td class="r">100</td></tr>
-          <tr><td><span class="rank-n">8</span></td><td class="cat">Beauty e Higiene</td><td class="r"><span class="sc sc-hi">85</span></td><td class="r">5.7%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:1.9%"></div></div><span class="cov-pct" style="color:#bdbdbd">1.9%</span></div></td><td></td><td class="r">31</td></tr>
-          <tr><td><span class="rank-n">9</span></td><td class="cat">Libros</td><td class="r"><span class="sc sc-lo">30</span></td><td class="r">5.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-hi" style="width:43.7%"></div></div><span class="cov-pct" style="color:#2e7d32">43.7%</span></div></td><td></td><td class="r">24</td></tr>
-          <tr class="ds"><td><span class="rank-n">10</span></td><td class="cat">Alimentos <span class="ds-tag">DS</span></td><td class="r"><span class="sc sc-lo">—</span></td><td class="r">5.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:0.3%"></div></div><span class="cov-pct" style="color:#bdbdbd">0.3%</span></div></td><td></td><td class="r">7</td></tr>
-          <tr><td><span class="rank-n">11</span></td><td class="cat">Suplementos y Vitaminas</td><td class="r"><span class="sc sc-hi">84</span></td><td class="r">4.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-md" style="width:8.4%"></div></div><span class="cov-pct" style="color:#e65100">8.4%</span></div></td><td></td><td class="r">7</td></tr>
-          <tr><td><span class="rank-n">12</span></td><td class="cat">Automotor</td><td class="r"><span class="sc sc-lo">26</span></td><td class="r">3.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:3.1%"></div></div><span class="cov-pct" style="color:#bdbdbd">3.1%</span></div></td><td></td><td class="r">27</td></tr>
-          <tr><td><span class="rank-n">13</span></td><td class="cat">Snacks y Golosinas</td><td class="r"><span class="sc sc-hi">80</span></td><td class="r">2.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:0.1%"></div></div><span class="cov-pct" style="color:#bdbdbd">0.1%</span></div></td><td></td><td class="r">1</td></tr>
-          <tr><td><span class="rank-n">14</span></td><td class="cat">Bebidas</td><td class="r"><span class="sc sc-hi">86</span></td><td class="r">2.5%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:0.4%"></div></div><span class="cov-pct" style="color:#bdbdbd">0.4%</span></div></td><td></td><td class="r">6</td></tr>
-          <tr><td><span class="rank-n">15</span></td><td class="cat">Decoracion</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r">2.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:2.2%"></div></div><span class="cov-pct" style="color:#bdbdbd">2.2%</span></div></td><td></td><td class="r">16</td></tr>
-          <tr><td><span class="rank-n">16</span></td><td class="cat">Textiles Hogar</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r">2.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:1.7%"></div></div><span class="cov-pct" style="color:#bdbdbd">1.7%</span></div></td><td></td><td class="r">12</td></tr>
-          <tr><td><span class="rank-n">17</span></td><td class="cat">Peq. Electrodomesticos</td><td class="r"><span class="sc sc-md">44</span></td><td class="r">1.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-md" style="width:7.7%"></div></div><span class="cov-pct" style="color:#e65100">7.7%</span></div></td><td></td><td class="r">26</td></tr>
-          <tr><td><span class="rank-n">18</span></td><td class="cat">Bebe y Ninos</td><td class="r"><span class="sc sc-hi">78</span></td><td class="r">1.2%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:4.8%"></div></div><span class="cov-pct" style="color:#bdbdbd">4.8%</span></div></td><td></td><td class="r">24</td></tr>
-          <tr><td><span class="rank-n">19</span></td><td class="cat">Deportes</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r">0.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:3.6%"></div></div><span class="cov-pct" style="color:#bdbdbd">3.6%</span></div></td><td></td><td class="r">14</td></tr>
-          <tr><td><span class="rank-n">20</span></td><td class="cat">Dispositivos Moviles</td><td class="r"><span class="sc sc-md">41</span></td><td class="r">0.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-lo" style="width:3.2%"></div></div><span class="cov-pct" style="color:#bdbdbd">3.2%</span></div></td><td></td><td class="r">6</td></tr>
-          <tr><td><span class="rank-n">21</span></td><td class="cat">Foto y Gaming</td><td class="r"><span class="sc sc-lo">32</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div><span class="cov-pct" style="color:#bdbdbd">0%</span></div></td><td></td><td class="r">0</td></tr>
-          <tr><td><span class="rank-n">22</span></td><td class="cat">Computacion</td><td class="r"><span class="sc sc-lo">32</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-fill-hi" style="width:25%"></div></div><span class="cov-pct" style="color:#2e7d32">25%</span></div></td><td></td><td class="r">1</td></tr>
-          <tr><td><span class="rank-n">23</span></td><td class="cat">Materiales Construccion</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div><span class="cov-pct" style="color:#bdbdbd">0%</span></div></td><td></td><td class="r">0</td></tr>
-          <tr><td><span class="rank-n">24</span></td><td class="cat">Seguridad Hogar</td><td class="r"><span class="sc sc-lo">28</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div><span class="cov-pct" style="color:#bdbdbd">0%</span></div></td><td></td><td class="r">0</td></tr>
-          <tr><td><span class="rank-n">25</span></td><td class="cat">Indumentaria</td><td class="r"><span class="sc sc-md">38</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div><span class="cov-pct" style="color:#bdbdbd">0%</span></div></td><td></td><td class="r">0</td></tr>
-          <tr><td><span class="rank-n">26</span></td><td class="cat">Accesorios de Moda</td><td class="r"><span class="sc sc-md">52</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div><span class="cov-pct" style="color:#bdbdbd">0%</span></div></td><td></td><td class="r">0</td></tr>
+
+<tr><td><span class="rank-n">1</span></td><td class="cat">Iluminacion y Electrica</td><td class="r"><span class="sc sc-md">40</span></td><td class="r">12.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:4.4%"></div></div></div></td><td><span class="cov-pct pct-lo">4.4%</span></td><td class="r">56</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.2%"></div></div></div></td><td><span class="cov-pct pct-lo">0.2%</span></td><td class="names">Andy Imports; LDK Com.; Precolandia</td></tr>
+
+<tr><td><span class="rank-n">2</span></td><td class="cat">Cocina y Utensilios</td><td class="r"><span class="sc sc-md">35</span></td><td class="r">11.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:4.6%"></div></div></div></td><td><span class="cov-pct pct-lo">4.6%</span></td><td class="r">43</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:1.5%"></div></div></div></td><td><span class="cov-pct pct-lo">1.5%</span></td><td class="names">Andy Imports; Casa Peonia; LDK; Precolandia; Trends</td></tr>
+
+<tr><td><span class="rank-n">3</span></td><td class="cat">Papeleria y Fiestas</td><td class="r"><span class="sc sc-md">58</span></td><td class="r">9.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.6%"></div></div></div></td><td><span class="cov-pct pct-lo">3.6%</span></td><td class="r">51</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.2%"></div></div></div></td><td><span class="cov-pct pct-lo">0.2%</span></td><td class="names">Casa Peonia; Focos; Ink-Laser; RCA</td></tr>
+
+<tr><td><span class="rank-n">4</span></td><td class="cat">Farmacia y Salud</td><td class="r"><span class="sc sc-hi">81</span></td><td class="r">8.3%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:1.9%"></div></div></div></td><td><span class="cov-pct pct-lo">1.9%</span></td><td class="r">30</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.2%"></div></div></div></td><td><span class="cov-pct pct-lo">0.2%</span></td><td class="names">Enjoy Pets; RCA Home Tech</td></tr>
+
+<tr><td><span class="rank-n">5</span></td><td class="cat">Mascotas</td><td class="r"><span class="sc sc-hi">77</span></td><td class="r">7.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.6%"></div></div></div></td><td><span class="cov-pct pct-lo">3.6%</span></td><td class="r">11</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:2.6%"></div></div></div></td><td><span class="cov-pct pct-lo">2.6%</span></td><td class="names">Blue Monkey; E.A. Para Pets; Enjoy Pets</td></tr>
+
+<tr class="ds"><td><span class="rank-n">6</span></td><td class="cat">Limpieza <span class="ds-tag">DS</span></td><td class="r">—</td><td class="r">6.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:4.3%"></div></div></div></td><td><span class="cov-pct pct-lo">4.3%</span></td><td class="r">36</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.3%"></div></div></div></td><td><span class="cov-pct pct-lo">0.3%</span></td><td class="names">Blue Monkey; Precolandia; RCA</td></tr>
+
+<tr><td><span class="rank-n">7</span></td><td class="cat">Accesorios Tech</td><td class="r"><span class="sc sc-hi">74</span></td><td class="r">5.8%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-md" style="width:6.2%"></div></div></div></td><td><span class="cov-pct pct-md">6.2%</span></td><td class="r">100</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.4%"></div></div></div></td><td><span class="cov-pct pct-lo">0.4%</span></td><td class="names">Angel Electr.; Total Info</td></tr>
+
+<tr><td><span class="rank-n">8</span></td><td class="cat">Beauty e Higiene</td><td class="r"><span class="sc sc-hi">85</span></td><td class="r">5.7%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:1.9%"></div></div></div></td><td><span class="cov-pct pct-lo">1.9%</span></td><td class="r">31</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.5%"></div></div></div></td><td><span class="cov-pct pct-lo">0.5%</span></td><td class="names">Andy Imports; Breutronic; LDK Com.</td></tr>
+
+<tr><td><span class="rank-n">9</span></td><td class="cat">Libros</td><td class="r"><span class="sc sc-lo">30</span></td><td class="r">5.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-hi" style="width:43.7%"></div></div></div></td><td><span class="cov-pct pct-hi">43.7%</span></td><td class="r">24</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.3%"></div></div></div></td><td><span class="cov-pct pct-lo">0.3%</span></td><td class="names">LDK Com.; Precolandia</td></tr>
+
+<tr class="ds"><td><span class="rank-n">10</span></td><td class="cat">Alimentos <span class="ds-tag">DS</span></td><td class="r">—</td><td class="r">5.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.3%"></div></div></div></td><td><span class="cov-pct pct-lo">0.3%</span></td><td class="r">7</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.1%"></div></div></div></td><td><span class="cov-pct pct-lo">0.1%</span></td><td class="names">Blue Monkey</td></tr>
+
+<tr><td><span class="rank-n">11</span></td><td class="cat">Suplementos y Vitaminas</td><td class="r"><span class="sc sc-hi">84</span></td><td class="r">4.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-md" style="width:8.4%"></div></div></div></td><td><span class="cov-pct pct-md">8.4%</span></td><td class="r">7</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.1%"></div></div></div></td><td><span class="cov-pct pct-lo">0.1%</span></td><td class="names">Blue Monkey</td></tr>
+
+<tr><td><span class="rank-n">12</span></td><td class="cat">Automotor</td><td class="r"><span class="sc sc-lo">26</span></td><td class="r">3.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.1%"></div></div></div></td><td><span class="cov-pct pct-lo">3.1%</span></td><td class="r">27</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.1%"></div></div></div></td><td><span class="cov-pct pct-lo">0.1%</span></td><td class="names">LDK Com.; RCA Home Tech</td></tr>
+
+<tr><td><span class="rank-n">13</span></td><td class="cat">Snacks y Golosinas</td><td class="r"><span class="sc sc-hi">80</span></td><td class="r">2.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.1%"></div></div></div></td><td><span class="cov-pct pct-lo">0.1%</span></td><td class="r">1</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">14</span></td><td class="cat">Bebidas</td><td class="r"><span class="sc sc-hi">86</span></td><td class="r">2.5%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.4%"></div></div></div></td><td><span class="cov-pct pct-lo">0.4%</span></td><td class="r">6</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">15</span></td><td class="cat">Decoracion</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r">2.4%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:2.2%"></div></div></div></td><td><span class="cov-pct pct-lo">2.2%</span></td><td class="r">16</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.6%"></div></div></div></td><td><span class="cov-pct pct-lo">0.6%</span></td><td class="names">Precolandia; RCA Home Tech</td></tr>
+
+<tr><td><span class="rank-n">16</span></td><td class="cat">Textiles Hogar</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r">2.0%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:1.7%"></div></div></div></td><td><span class="cov-pct pct-lo">1.7%</span></td><td class="r">12</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.1%"></div></div></div></td><td><span class="cov-pct pct-lo">0.1%</span></td><td class="names">Trends</td></tr>
+
+<tr><td><span class="rank-n">17</span></td><td class="cat">Peq. Electrodomesticos</td><td class="r"><span class="sc sc-md">44</span></td><td class="r">1.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-md" style="width:7.7%"></div></div></div></td><td><span class="cov-pct pct-md">7.7%</span></td><td class="r">26</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.2%"></div></div></div></td><td><span class="cov-pct pct-lo">3.2%</span></td><td class="names">Angel Electr.; Precolandia; RCA</td></tr>
+
+<tr><td><span class="rank-n">18</span></td><td class="cat">Bebe y Ninos</td><td class="r"><span class="sc sc-hi">78</span></td><td class="r">1.2%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:4.8%"></div></div></div></td><td><span class="cov-pct pct-lo">4.8%</span></td><td class="r">24</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.3%"></div></div></div></td><td><span class="cov-pct pct-lo">0.3%</span></td><td class="names">Focos; MMX Com.; RCA Home Tech</td></tr>
+
+<tr><td><span class="rank-n">19</span></td><td class="cat">Deportes</td><td class="r"><span class="sc sc-lo">27</span></td><td class="r">0.9%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.6%"></div></div></div></td><td><span class="cov-pct pct-lo">3.6%</span></td><td class="r">14</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:0.2%"></div></div></div></td><td><span class="cov-pct pct-lo">0.2%</span></td><td class="names">Precolandia</td></tr>
+
+<tr><td><span class="rank-n">20</span></td><td class="cat">Dispositivos Moviles</td><td class="r"><span class="sc sc-md">41</span></td><td class="r">0.6%</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-lo" style="width:3.2%"></div></div></div></td><td><span class="cov-pct pct-lo">3.2%</span></td><td class="r">6</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">21</span></td><td class="cat">Foto y Gaming</td><td class="r"><span class="sc sc-lo">32</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="r">0</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">22</span></td><td class="cat">Computacion</td><td class="r"><span class="sc sc-lo">32</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-hi" style="width:25%"></div></div></div></td><td><span class="cov-pct pct-hi">25%</span></td><td class="r">1</td><td><div class="cov-wrap"><div class="cov-bar"><div class="cov-fill cov-hi" style="width:25%"></div></div></div></td><td><span class="cov-pct pct-hi">25%</span></td><td class="names">Total Info</td></tr>
+
+<tr><td><span class="rank-n">23</span></td><td class="cat">Materiales Construccion</td><td class="r"><span class="sc sc-lo">4</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="r">0</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">24</span></td><td class="cat">Seguridad Hogar</td><td class="r"><span class="sc sc-lo">28</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="r">0</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">25</span></td><td class="cat">Indumentaria</td><td class="r"><span class="sc sc-md">38</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="r">0</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
+<tr><td><span class="rank-n">26</span></td><td class="cat">Accesorios de Moda</td><td class="r"><span class="sc sc-md">52</span></td><td class="r">—</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="r">0</td><td><div class="cov-wrap"><div class="cov-bar"></div></div></td><td><span class="cov-pct pct-lo">0%</span></td><td class="names">—</td></tr>
+
         </tbody>
       </table>
     </div>
@@ -162,7 +217,7 @@ tbody td.cat{font-weight:700}
   </div>
 
   <div class="footer">
-    <span>Cobertura = % de product IDs del pareto 80% cubiertos por al menos 1 seller activo &middot; Dem% = participacion en demanda total SP (u/30d) &middot; DS = Dark Store, no scope GM Agora</span>
+    <span>Cob% 1027 = cobertura sobre todos los sellers · Cob% sel. = cobertura solo con los 26 sellers de las listas compartidas · N = sellers del total de 1027 con cobertura · DS = Dark Store</span>
     <span>GM Agora SP &middot; Jun 2026</span>
   </div>
 
