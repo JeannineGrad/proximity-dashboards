@@ -243,7 +243,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
         <div class="def-card" style="border-top-color:#4361ee">
           <h5>Par&aacute;metros del c&aacute;lculo</h5>
           <p><strong>Churn 30d:</strong> % de buyers activos en el mes M que no compran en el mes M+1 (mismo canal).<br>
-          <strong>Churn 90d:</strong> % de buyers activos en el mes M sin compra en los 90 d&iacute;as siguientes. Disponible hasta Ene-26 para DRY (ventana cerrada al momento del an&aacute;lisis, abr-26). Sin dato para Instore en Ene-26.<br>
+          <strong>Churn 90d:</strong> % de buyers activos en el mes M sin compra en los 90 d&iacute;as siguientes. Instore: disponible hasta Feb-26 (Mar-26 cierra jun-29). Super Full DRY: disponible hasta Ene-26 en este an&aacute;lisis.<br>
           Cada canal/vertical se mide sobre su propia base &mdash; no son buyers cruzados.</p>
         </div>
         <div class="def-card" style="border-top-color:#4361ee">
@@ -672,7 +672,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
       <div class="def-grid">
         <div class="def-card"><h5>Segmento socioecon&oacute;mico</h5><p>Clasificaci&oacute;n socioecon&oacute;mica del usuario elaborada por el equipo de Mercado Pago: Platinum â†’ Gold â†’ Silver â†’ Bronze. Fuente: LK_MP_MAUS_SEGMENTATION al mes de la primera compra instore.</p></div>
         <div class="def-card"><h5>G&eacute;nero</h5><p>Fuente: LK_USER_GENDER. Se excluyen "unknown" y sin clasificaci&oacute;n para los an&aacute;lisis de proporci&oacute;n.</p></div>
-        <div class="def-card" style="border-top-color:#e94560"><h5>Nota estad&iacute;stica</h5><p>Comparaciones agregadas (g&eacute;nero total, segmento total) son robustas. Perfiles combinados con celdas de 6&mdash;12 buyers son indicativos pero no concluyentes &mdash; se confirmar&aacute;n con las cohortes de mar-26 y abr-26 cuando cierren.</p></div>
+        <div class="def-card" style="border-top-color:#e94560"><h5>Nota estad&iacute;stica</h5><p>Comparaciones agregadas (g&eacute;nero total, segmento total) son robustas. Perfiles combinados con celdas de 6&mdash;12 buyers son indicativos pero no concluyentes &mdash; se confirmar&aacute;n con las cohortes de abr-26 y may-26 cuando cierren.</p></div>
       </div>
     </div>
   </div>
@@ -850,7 +850,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
   <div class="section">
     <div class="section-title">C&oacute;mo leer esta solapa</div>
     <div class="section-body">
-      <p style="font-size:12px;color:#444;margin-bottom:14px">Compara las 4 tiendas en dos dimensiones: tasa de onboarding (% de nuevos buyers que alcanzan 5 pedidos en 90 d&iacute;as) y distribuci&oacute;n de misiones de compra. Base: todos los buyers oct-25 / abr-26 para onboarding (incluye ventanas parciales); todos los pedidos oct-25 / abr-26 para misiones.</p>
+      <p style="font-size:12px;color:#444;margin-bottom:14px">Compara las 4 tiendas en dos dimensiones: tasa de onboarding (% de nuevos buyers que alcanzan 5 pedidos en 90 d&iacute;as) y distribuci&oacute;n de misiones de compra. Base: todos los buyers oct-25 / may-26 para onboarding; misiones de mayo 2026.</p>
     </div>
   </div>
 
@@ -861,19 +861,19 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
         <thead>
           <tr>
             <th>Tienda</th>
-            <th class="num">Buyers (oct-25 a abr-26)</th>
+            <th class="num">Buyers (oct-25 a may-26)</th>
             <th class="num">Onboarded</th>
             <th class="num">% Onboarded</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Villa Urquiza</td><td class="num">2.367</td><td class="num">72</td><td class="num highlight-green">3.0%</td></tr>
-          <tr><td>Scalabrini</td><td class="num">4.239</td><td class="num">102</td><td class="num">2.4%</td></tr>
-          <tr><td>Caballito</td><td class="num">3.372</td><td class="num">75</td><td class="num">2.2%</td></tr>
-          <tr><td>Vicente Lopez</td><td class="num">3.995</td><td class="num">76</td><td class="num highlight-red">1.9%</td></tr>
+          <tr><td>Villa Urquiza</td><td class="num">3.053</td><td class="num">85</td><td class="num highlight-green">2.8%</td></tr>
+          <tr><td>Scalabrini</td><td class="num">5.312</td><td class="num">125</td><td class="num">2.4%</td></tr>
+          <tr><td>Caballito</td><td class="num">4.256</td><td class="num">97</td><td class="num">2.3%</td></tr>
+          <tr><td>Vicente Lopez</td><td class="num">4.999</td><td class="num">99</td><td class="num highlight-red">2.0%</td></tr>
         </tbody>
       </table>
-      <p class="note">Villa Urquiza mantiene la tasa m&aacute;s alta de onboarding (3.0%), seguida de Scalabrini (2.4%). Vicente Lopez registra la menor tasa (1.9%). Datos actualizados al per&iacute;odo oct-25 / abr-26.</p>
+      <p class="note">Villa Urquiza mantiene la tasa m&aacute;s alta de onboarding (2.8%), seguida de Scalabrini (2.4%). Vicente Lopez registra la menor tasa (2.0%). Datos actualizados al per&iacute;odo oct-25 / may-26 (incluye ventanas parciales abr y may).</p>
     </div>
   </div>
 
@@ -891,14 +891,14 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
           </tr>
         </thead>
         <tbody>
-          <tr><td>Fill-in</td><td class="num">61.2%</td><td class="num">63.7%</td><td class="num">60.1%</td><td class="num highlight-green">58.4%</td></tr>
-          <tr><td>Compra puntual</td><td class="num">26.5%</td><td class="num">22.7%</td><td class="num">29.8%</td><td class="num highlight-red">30.3%</td></tr>
-          <tr><td>Compra semanal</td><td class="num">8.1%</td><td class="num highlight-green">9.4%</td><td class="num">5.5%</td><td class="num">7.9%</td></tr>
-          <tr><td>Ocasi&oacute;n / juntada</td><td class="num">3.4%</td><td class="num">3.1%</td><td class="num">3.5%</td><td class="num">2.3%</td></tr>
-          <tr><td>Estocada mensual</td><td class="num">0.8%</td><td class="num">1.1%</td><td class="num">1.1%</td><td class="num">1.3%</td></tr>
+          <tr><td>Fill-in</td><td class="num">57.1%</td><td class="num">57.3%</td><td class="num">58.4%</td><td class="num highlight-green">55.1%</td></tr>
+          <tr><td>Compra puntual</td><td class="num">28.6%</td><td class="num">28.7%</td><td class="num highlight-red">29.0%</td><td class="num">31.0%</td></tr>
+          <tr><td>Compra semanal</td><td class="num">8.7%</td><td class="num highlight-green">9.5%</td><td class="num">7.6%</td><td class="num">9.6%</td></tr>
+          <tr><td>Ocasi&oacute;n / juntada</td><td class="num">4.4%</td><td class="num">3.6%</td><td class="num">4.0%</td><td class="num">3.6%</td></tr>
+          <tr><td>Estocada mensual</td><td class="num">1.2%</td><td class="num">0.9%</td><td class="num">1.0%</td><td class="num">0.7%</td></tr>
         </tbody>
       </table>
-      <p class="note">Las misiones son homog&eacute;neas entre tiendas &mdash; el patr&oacute;n dominante (fill-in + compra puntual) se repite en todas. Fill-in subi&oacute; en todas las tiendas vs meses anteriores. Vicente Lopez lidera en compra semanal (9.4%). Villa Urquiza sigue con menos fill-in relativo y m&aacute;s compra puntual. Datos: abril 2026 (Scalabrini 1.236 pedidos, Vicente Lopez 1.193, Caballito 1.070, Villa Urquiza 800).</p>
+      <p class="note">Patr&oacute;n homog&eacute;neo entre tiendas: fill-in + compra puntual dominan en todas. Vicente Lopez y Villa Urquiza lideran en compra semanal (9.5% y 9.6%). Villa Urquiza tiene mayor compra puntual (31%). Datos: mayo 2026 (Scalabrini 1.819 pedidos, Vicente Lopez 1.743, Caballito 1.363, Villa Urquiza 1.109).</p>
     </div>
   </div>
 
@@ -915,7 +915,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
       <div class="def-grid">
         <div class="def-card">
           <h5>Per&iacute;odo de an&aacute;lisis</h5>
-          <p>Octubre 2025 &mdash; abril 2026 (abril parcial). Para onboarding con ventana completa: oct-25 a feb-26. Mar-26 y abr-26 tienen ventana de 90 d&iacute;as abierta.</p>
+          <p>Octubre 2025 &mdash; mayo 2026. Para onboarding con ventana completa: oct-25 a mar-26. Abr-26 cierra jun-30 y may-26 cierra jul-30 (ventana parcial).</p>
         </div>
         <div class="def-card">
           <h5>Fuentes</h5>
