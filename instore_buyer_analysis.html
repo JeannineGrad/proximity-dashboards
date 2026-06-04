@@ -208,26 +208,26 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
       <div style="display:flex;gap:12px;margin-bottom:20px;align-items:stretch">
         <div style="flex:1;background:#eef2ff;border-top:4px solid #4361ee;border-radius:6px;padding:14px 16px;text-align:center">
           <div style="font-size:11px;font-weight:700;color:#4361ee;letter-spacing:.5px;margin-bottom:6px">NEW BUYER</div>
-          <div style="font-size:28px;font-weight:800;color:#1a1a2e">11.762</div>
+          <div style="font-size:28px;font-weight:800;color:#1a1a2e">17.549</div>
           <div style="font-size:11px;color:#666;margin-top:4px">100% &mdash; todos entran ac&aacute;</div>
           <div style="margin-top:10px;padding-top:10px;border-top:1px solid #ccd0f0;font-size:11px;color:#444">1,1 &oacute;rdenes en su mes de entrada</div>
         </div>
-        <div style="display:flex;align-items:center;color:#aaa;font-size:18px">â†’</div>
+        <div style="display:flex;align-items:center;color:#aaa;font-size:18px">&rarr;</div>
         <div style="flex:1;background:#fffbea;border-top:4px solid #f4a261;border-radius:6px;padding:14px 16px;text-align:center">
           <div style="font-size:11px;font-weight:700;color:#c87941;letter-spacing:.5px;margin-bottom:6px">RECURRING</div>
-          <div style="font-size:28px;font-weight:800;color:#1a1a2e">1.335</div>
-          <div style="font-size:11px;color:#666;margin-top:4px">11% de los nuevos buyers</div>
-          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f0e0c0;font-size:11px;color:#444">Activos como RECURRING 1,2 meses en promedio antes de subir o churnearse</div>
+          <div style="font-size:28px;font-weight:800;color:#1a1a2e">2.703</div>
+          <div style="font-size:11px;color:#666;margin-top:4px">15,4% de los nuevos buyers</div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f0e0c0;font-size:11px;color:#444">Compraron al menos un mes m&aacute;s con 1 orden mensual</div>
         </div>
-        <div style="display:flex;align-items:center;color:#aaa;font-size:18px">â†’</div>
+        <div style="display:flex;align-items:center;color:#aaa;font-size:18px">&rarr;</div>
         <div style="flex:1;background:#eafaf1;border-top:4px solid #2ecc71;border-radius:6px;padding:14px 16px;text-align:center">
           <div style="font-size:11px;font-weight:700;color:#1a8a4a;letter-spacing:.5px;margin-bottom:6px">FREQUENT</div>
-          <div style="font-size:28px;font-weight:800;color:#1a1a2e">518</div>
-          <div style="font-size:11px;color:#666;margin-top:4px">4,4% de los nuevos buyers</div>
-          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #b0e0c0;font-size:11px;color:#444">2,6 &oacute;rdenes en sus meses FREQUENT</div>
+          <div style="font-size:28px;font-weight:800;color:#1a1a2e">902</div>
+          <div style="font-size:11px;color:#666;margin-top:4px">5,1% de los nuevos buyers</div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #b0e0c0;font-size:11px;color:#444">2+ &oacute;rdenes en al menos un mes</div>
         </div>
       </div>
-      <p class="note">El cluster se asigna mes a mes &mdash; no es permanente. Un buyer puede ser RECURRING en febrero y FREQUENT en marzo si aumenta su frecuencia. La diferencia clave: cuando alguien llega a FREQUENT, m&aacute;s que duplica sus &oacute;rdenes mensuales respecto a RECURRING. <strong>Los tres n&uacute;meros no se suman:</strong> el total de buyers &uacute;nicos desde el inicio de la operaci&oacute;n es 11.762 (= NEW BUYER), ya que todo buyer pasa por ese cluster en su primer mes. RECURRING y FREQUENT son subconjuntos de esos mismos buyers que en alg&uacute;n mes posterior compraron m&aacute;s seguido.</p>
+      <p class="note">El cluster se asigna mes a mes &mdash; no es permanente. Un buyer puede ser RECURRING en febrero y FREQUENT en marzo si aumenta su frecuencia. <strong>Los tres n&uacute;meros no se suman:</strong> el total de buyers &uacute;nicos desde el inicio de la operaci&oacute;n es 17.549 (= NEW BUYER). RECURRING y FREQUENT son subconjuntos de esos mismos buyers que en alg&uacute;n mes posterior compraron de nuevo. Per&iacute;odo: oct-25 a may-26.</p>
     </div>
   </div>
 
@@ -265,6 +265,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <th class="num">Ene-26</th>
             <th class="num">Feb-26</th>
             <th class="num">Mar-26</th>
+            <th class="num">Abr-26</th>
+            <th class="num">May-26</th>
           </tr>
         </thead>
         <tbody>
@@ -276,23 +278,29 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num">878</td>
             <td class="num">2.537</td>
             <td class="num">2.597</td>
-            <td class="num">3.598</td>
-            <td class="num">4.293</td>
+            <td class="num">3.599</td>
+            <td class="num">4.292</td>
+            <td class="num">3.519</td>
+            <td class="num highlight">4.989</td>
           </tr>
           <tr style="background:#f0f4ff">
             <td>% Churn 30d</td>
-            <td class="num highlight-red">81.9%</td>
-            <td class="num highlight-red">85.2%</td>
-            <td class="num highlight-red">87.7%</td>
-            <td class="num highlight-red">81.1%</td>
-            <td class="num highlight-red">81.4%</td>
-            <td class="num highlight-red">83.5%</td>
+            <td class="num highlight-red">72.9%</td>
+            <td class="num highlight-red">79.5%</td>
+            <td class="num highlight-red">81.0%</td>
+            <td class="num highlight-red">71.9%</td>
+            <td class="num highlight-red">73.1%</td>
+            <td class="num highlight-red">77.1%</td>
+            <td class="num highlight-red">78.0%</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
           <tr style="background:#f0f4ff">
             <td>% Churn 90d</td>
-            <td class="num highlight-red">73.4%</td>
-            <td class="num highlight-red">79.6%</td>
-            <td class="num highlight-red">81.2%</td>
+            <td class="num highlight-red">60.1%</td>
+            <td class="num highlight-red">70.2%</td>
+            <td class="num highlight-red">72.3%</td>
+            <td class="num highlight-red">60.3%</td>
+            <td class="num highlight-red">63.5%</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
@@ -308,6 +316,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num">345.404</td>
             <td class="num">329.510</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
           <tr style="background:#fffbe6">
             <td>% Churn 30d</td>
@@ -317,6 +327,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num">73.7%</td>
             <td class="num">70.1%</td>
             <td class="num">75.8%</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
           <tr style="background:#fffbe6">
             <td>% Churn 90d</td>
@@ -324,6 +336,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num">56.5%</td>
             <td class="num">57.0%</td>
             <td class="num">59.3%</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
@@ -338,6 +352,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num">285.159</td>
             <td class="num">276.566</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
           <tr>
             <td>% Churn 30d</td>
@@ -347,6 +363,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num" style="color:#27ae60"><strong>71.1%</strong></td>
             <td class="num" style="color:#27ae60"><strong>67.5%</strong></td>
             <td class="num" style="color:#27ae60"><strong>71.7%</strong></td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
           <tr>
             <td>% Churn 90d</td>
@@ -354,6 +372,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num" style="color:#27ae60"><strong>52.9%</strong></td>
             <td class="num" style="color:#27ae60"><strong>54.2%</strong></td>
             <td class="num" style="color:#27ae60"><strong>55.7%</strong></td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
@@ -368,6 +388,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num">104.953</td>
             <td class="num">90.289</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
           <tr>
             <td>% Churn 30d</td>
@@ -377,6 +399,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num highlight-red">88.4%</td>
             <td class="num highlight-red">87.0%</td>
             <td class="num highlight-red">86.2%</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
           <tr>
             <td>% Churn 90d</td>
@@ -384,6 +408,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num highlight-red">76.2%</td>
             <td class="num highlight-red">74.8%</td>
             <td class="num highlight-red">79.2%</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
@@ -398,6 +424,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num">4.915</td>
             <td class="num">4.379</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
           <tr>
             <td>% Churn 30d</td>
@@ -407,6 +435,8 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num" style="color:#7f0000"><strong>97.3%</strong></td>
             <td class="num" style="color:#7f0000"><strong>97.1%</strong></td>
             <td class="num" style="color:#7f0000"><strong>85.5%</strong></td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
           <tr>
             <td>% Churn 90d</td>
@@ -416,30 +446,36 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
             <td class="num" style="color:#7f0000"><strong>94.8%</strong></td>
             <td class="num" style="color:#aaa">&mdash;*</td>
             <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
 
           <!-- BRECHA vs CPG -->
           <tr style="border-top:2px solid #999;background:#f8f8f8">
-            <td colspan="2" style="font-size:11px;color:#555"><em>Brecha Instore vs CPG DRY (Instore âˆ’ CPG)</em></td>
-            <td class="num highlight-red">+14.1pp</td>
-            <td class="num highlight-red">+15.2pp</td>
-            <td class="num highlight-red">+16.4pp</td>
-            <td class="num highlight-red">+10.0pp</td>
-            <td class="num highlight-red">+13.9pp</td>
-            <td class="num highlight-red">+11.8pp</td>
+            <td colspan="2" style="font-size:11px;color:#555"><em>Brecha Instore vs CPG DRY (Instore &minus; CPG)</em></td>
+            <td class="num highlight-red">+5.1pp</td>
+            <td class="num highlight-red">+9.5pp</td>
+            <td class="num highlight-red">+9.7pp</td>
+            <td class="num highlight-red">+0.8pp</td>
+            <td class="num highlight-red">+5.6pp</td>
+            <td class="num highlight-red">+5.4pp</td>
+            <td class="num highlight-red">+6.3pp</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
           <tr style="background:#f8f8f8">
-            <td colspan="2" style="font-size:11px;color:#555"><em>Brecha Instore vs Beauty DRY (Instore âˆ’ Beauty)</em></td>
-            <td class="num" style="color:#888">âˆ’2.6pp</td>
-            <td class="num" style="color:#888">âˆ’3.0pp</td>
-            <td class="num" style="color:#888">+1.1pp</td>
-            <td class="num" style="color:#888">âˆ’7.3pp</td>
-            <td class="num" style="color:#888">âˆ’5.6pp</td>
-            <td class="num" style="color:#888">âˆ’2.7pp</td>
+            <td colspan="2" style="font-size:11px;color:#555"><em>Brecha Instore vs Beauty DRY (Instore &minus; Beauty)</em></td>
+            <td class="num" style="color:#888">&minus;11.6pp</td>
+            <td class="num" style="color:#888">&minus;8.7pp</td>
+            <td class="num" style="color:#888">&minus;5.6pp</td>
+            <td class="num" style="color:#888">&minus;16.5pp</td>
+            <td class="num" style="color:#888">&minus;13.9pp</td>
+            <td class="num" style="color:#888">&minus;9.1pp</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
+            <td class="num" style="color:#aaa">&mdash;*</td>
           </tr>
         </tbody>
       </table>
-      <p class="note">* Churn 90d no disponible para Feb-26 y Mar-26 (ventana de 90d post-mes no cerrada al momento del an&aacute;lisis, abr-26). Para Instore, el churn 90d de Ene-26 tampoco est&aacute; disponible en este an&aacute;lisis. Buyers activos Mar-26 para Super Full: sin dato al cierre de este an&aacute;lisis. Super Full Total churn Mar-26: promedio ponderado estimado (~75.8%). Feb-26 Instore churn corregido a 81.4% (dato definitivo). | Los n&uacute;meros de churn 90d de CPG pueden diferir levemente de versiones anteriores por ajuste en metodolog&iacute;a.</p>
+      <p class="note">* Super Full: datos disponibles hasta Mar-26 (abr y may pendientes de query por billing). Instore actualizado oct-25 a may-26. Churn 90d Instore disponible hasta Feb-26 (Mar-26 cierra jun-29). Churn 30d May-26 no disponible (jun-26 no cerrado). Brechas recalculadas con nuevos datos BQ.</p>
     </div>
   </div>
 
@@ -457,7 +493,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
       <div class="def-grid">
         <div class="def-card"><h5>Onboarded</h5><p>Buyer que alcanza <strong>5 o m&aacute;s compras</strong> dentro de los primeros <strong>90 d&iacute;as</strong> desde su primera compra en el canal.</p></div>
         <div class="def-card"><h5>Ventana completa</h5><p>Para que el dato sea comparable, solo se incluyen buyers cuya primera compra fue antes de enero 2026 &mdash; es decir, que ya tuvieron sus 90 d&iacute;as completos al cierre del an&aacute;lisis.</p></div>
-        <div class="def-card"><h5>Nota feb / mar</h5><p>Los buyers de feb-26 y mar-26 a&uacute;n tienen su ventana de 90 d&iacute;as abierta. Sus tasas de onboarding van a subir cuando se acumulen m&aacute;s compras.</p></div>
+        <div class="def-card"><h5>Nota abr / may</h5><p>Los buyers de abr-26 y may-26 a&uacute;n tienen su ventana de 90 d&iacute;as abierta. Oct-25 a mar-26 ya cerrados. Abr-26 cierra jun-30, may-26 cierra jul-30.</p></div>
       </div>
     </div>
   </div>
@@ -468,18 +504,18 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
       <div class="kpi-row">
         <div class="kpi-card green">
           <div class="label">Buyers onboarded (total)</div>
-          <div class="value">284</div>
-          <div class="sub">sobre 7.578 con ventana completa (oct-25 a feb-26)</div>
+          <div class="value">370</div>
+          <div class="sub">sobre 11.762 con ventana completa (oct-25 a mar-26)</div>
         </div>
         <div class="kpi-card">
           <div class="label">Tasa promedio</div>
-          <div class="value">3.7%</div>
-          <div class="sub">oct-25 / feb-26 cerrados</div>
+          <div class="value">3.1%</div>
+          <div class="sub">oct-25 a mar-26 cerrados</div>
         </div>
         <div class="kpi-card red">
           <div class="label">Buyers no onboarded</div>
-          <div class="value">7.294</div>
-          <div class="sub">96.3% del total</div>
+          <div class="value">11.392</div>
+          <div class="sub">96.9% del total</div>
         </div>
       </div>
 
@@ -504,7 +540,7 @@ header .sub { font-size: .68rem; opacity: .5; margin-top: 2px; }
           <tr><td>May-26</td><td class=”num”>3.436</td><td class=”num”>4</td><td class=”num” style=”color:#aaa”>0.1%*</td><td style=”font-size:11px;color:#aaa”>Ventana incompleta (cierra jul-30)</td></tr>
         </tbody>
       </table>
-      <p class="note">* Mar-26 tiene ventana hasta jun-26 y Abr-26 hasta jul-26. El % final ser&aacute; mayor. Feb-26 ahora cerrado con datos definitivos de BQ (HAVING MIN filter aplicado para primera compra ever). Oct-25 a Feb-26 son datos cerrados y comparables.</p>
+      <p class="note">* Abr-26 y May-26 tienen ventana incompleta (cierran jun-30 y jul-30 respectivamente). Oct-25 a Mar-26 son datos cerrados y comparables. El % final de abr y may ser&aacute; mayor.</p>
     </div>
   </div>
 
