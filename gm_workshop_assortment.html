@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>GM Agora SP — Workshop Assortment por Categoria</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;min-height:100vh;padding:32px 24px}
+.page{max-width:1100px;margin:0 auto}
+
+.hdr{border-left:5px solid #FFE600;padding-left:16px;margin-bottom:28px}
+.hdr-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px}
+.hdr-title{font-size:22px;font-weight:900;color:#111}
+.hdr-sub{font-size:11px;color:#1565c0;font-weight:700;margin-top:4px}
+
+/* Category selector */
+.cat-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.cat-btn{padding:6px 14px;font-size:10px;font-weight:700;border:none;border-radius:20px;cursor:pointer;font-family:inherit;background:#e8e8e8;color:#555;transition:all .15s}
+.cat-btn.active{background:#1565c0;color:#fff}
+.cat-btn:hover:not(.active){background:#d0d0d0}
+
+/* Category panel */
+.cat-panel{display:none}
+.cat-panel.active{display:block}
+
+.cat-header{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.06);display:flex;align-items:center;gap:16px}
+.cat-name{font-size:18px;font-weight:900;color:#111}
+.cat-meta{font-size:10px;color:#888;margin-top:2px}
+.cat-stat{background:#f0f5ff;border-radius:6px;padding:6px 12px;text-align:center;min-width:80px}
+.cat-stat-n{font-size:16px;font-weight:900;color:#1565c0}
+.cat-stat-l{font-size:8px;color:#888;text-transform:uppercase;letter-spacing:.4px}
+
+/* Domain table */
+.tbl-wrap{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#888;padding:10px 14px;text-align:left;background:#f8f8f8;border-bottom:2px solid #e8e8e8}
+thead th.r{text-align:right}
+tbody tr{border-bottom:1px solid #f5f5f5}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#fafafa}
+tbody td{padding:10px 14px;font-size:10.5px;color:#222;vertical-align:top}
+tbody td.dom{font-weight:700;white-space:nowrap}
+tbody td.pct{text-align:right;font-weight:700;color:#1565c0;white-space:nowrap}
+tbody td.skus{text-align:right;color:#888;white-space:nowrap}
+tbody td.tipo{color:#333;line-height:1.5}
+tbody td.sizes{color:#555;line-height:1.5;font-size:10px}
+tbody td.brands{color:#555;line-height:1.5;font-size:10px}
+
+.vol-bar{height:4px;background:#e3f2fd;border-radius:2px;margin-top:4px;overflow:hidden}
+.vol-fill{height:100%;background:#1565c0;border-radius:2px}
+
+.dom-tag{display:inline-block;font-size:7.5px;font-weight:700;padding:2px 6px;border-radius:8px;margin-left:4px;vertical-align:middle}
+.tag-main{background:#e3f2fd;color:#1565c0}
+.tag-acc{background:#f5f5f5;color:#999}
+.tag-ojo{background:#fff8e1;color:#e65100}
+
+.footer{text-align:center;font-size:9px;color:#bbb;margin-top:24px;padding-top:16px;border-top:1px solid #e8e8e8}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hdr">
+    <div class="hdr-tag">GM Agora SP &middot; Workshop Assortment &middot; Jun 2026</div>
+    <div class="hdr-title">Composici&oacute;n por categor&iacute;a &mdash; Pareto 80% SP</div>
+    <div class="hdr-sub">Dominio &middot; Tipo de producto &middot; Tama&ntilde;os/Presentaci&oacute;n &middot; Marcas</div>
+  </div>
+
+  <div class="cat-tabs">
+    <button class="cat-btn active" onclick="showCat('beb',this)">Bebidas</button>
+    <button class="cat-btn" onclick="showCat('beauty',this)">Beauty e Higiene</button>
+    <button class="cat-btn" onclick="showCat('suple',this)">Suplementos</button>
+    <button class="cat-btn" onclick="showCat('snack',this)">Snacks</button>
+    <button class="cat-btn" onclick="showCat('pet',this)">Mascotas</button>
+    <button class="cat-btn" onclick="showCat('farma',this)">Farmacia</button>
+    <button class="cat-btn" onclick="showCat('tech',this)">Accesorios Tech</button>
+    <button class="cat-btn" onclick="showCat('cocina',this)">Cocina</button>
+    <button class="cat-btn" onclick="showCat('ilum',this)">Iluminaci&oacute;n</button>
+    <button class="cat-btn" onclick="showCat('depo',this)">Deportes</button>
+  </div>
+
+  <!-- BEBIDAS -->
+  <div class="cat-panel active" id="cat-beb">
+    <div class="cat-header">
+      <div>
+        <div class="cat-name">Bebidas</div>
+        <div class="cat-meta">Score framework: 86 &middot; Pareto 80% SP &middot; ABR&ndash;MAY 2026</div>
+      </div>
+      <div class="cat-stat"><div class="cat-stat-n">222</div><div class="cat-stat-l">SKUs pareto</div></div>
+      <div class="cat-stat"><div class="cat-stat-n">16</div><div class="cat-stat-l">Dominios</div></div>
+      <div class="cat-stat"><div class="cat-stat-n">75.5M</div><div class="cat-stat-l">u/30d</div></div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:180px">Dominio</th>
+            <th class="r" style="width:55px">SKUs</th>
+            <th class="r" style="width:60px">Vol%</th>
+            <th>Tipo de producto</th>
+            <th>Tama&ntilde;os / Presentaci&oacute;n</th>
+            <th>Marcas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dom">JUICES <span class="dom-tag tag-main">core</span></td>
+            <td class="skus">87</td>
+            <td class="pct">50.6%<div class="vol-bar"><div class="vol-fill" style="width:100%"></div></div></td>
+            <td class="tipo">Jugos de fruta integral 100%, sin az&uacute;car agregada</td>
+            <td class="sizes">1L tetra pak &middot; garrafa 1L &middot; pack 3 sabores</td>
+            <td class="brands">Aurora &middot; Maguary &middot; Campo Largo &middot; Natural One &middot; Frut Del Valle</td>
+          </tr>
+          <tr>
+            <td class="dom">MINERAL WATERS <span class="dom-tag tag-main">core</span></td>
+            <td class="skus">48</td>
+            <td class="pct">17.1%<div class="vol-bar"><div class="vol-fill" style="width:34%"></div></div></td>
+            <td class="tipo">Agua mineral natural con y sin gas</td>
+            <td class="sizes">1L PET &middot; 2L PET &middot; pack 6x1L &middot; copo 300ml x48</td>
+            <td class="brands">S&atilde;o Louren&ccedil;o &middot; Crystal &middot; Prata &middot; Fontana Trevi</td>
+          </tr>
+          <tr>
+            <td class="dom">SOFT DRINKS <span class="dom-tag tag-main">core</span></td>
+            <td class="skus">28</td>
+            <td class="pct">10.3%<div class="vol-bar"><div class="vol-fill" style="width:20%"></div></div></td>
+            <td class="tipo">Gaseosas y bebidas carbonatadas sin alcohol</td>
+            <td class="sizes">1L PET &middot; 2L PET &middot; pack 6x1L</td>
+            <td class="brands">Coca-Cola &middot; H2Oh! &middot; Schweppes &middot; Guaraná Antarctica &middot; Gini</td>
+          </tr>
+          <tr>
+            <td class="dom">READY TO DRINK COCKTAILS</td>
+            <td class="skus">17</td>
+            <td class="pct">6.2%<div class="vol-bar"><div class="vol-fill" style="width:12%"></div></div></td>
+            <td class="tipo">Caldo de ca&ntilde;a, Soju coreano, batidas prontas, gin spritz</td>
+            <td class="sizes">360ml &middot; 750ml &middot; pack x12</td>
+            <td class="brands">Jinro &middot; Jambuzera &middot; Biarritz</td>
+          </tr>
+          <tr>
+            <td class="dom">DRINK STIRRERS <span class="dom-tag tag-ojo">revisar</span></td>
+            <td class="skus">11</td>
+            <td class="pct">4.0%<div class="vol-bar"><div class="vol-fill" style="width:8%"></div></div></td>
+            <td class="tipo">Palitos mezcladores descartables para caf&eacute;</td>
+            <td class="sizes">Pack 8cm x1000u &middot; 9cm por unidad</td>
+            <td class="brands">Sin marca (commodities gastron&oacute;micos)</td>
+          </tr>
+          <tr>
+            <td class="dom">SPARKLING WINES</td>
+            <td class="skus">8</td>
+            <td class="pct">2.9%<div class="vol-bar"><div class="vol-fill" style="width:6%"></div></div></td>
+            <td class="tipo">Espumante, Prosecco 0% alcohol, Kombucha</td>
+            <td class="sizes">750ml &middot; pack x3 &middot; pack x6 &middot; Magnum 1.5L</td>
+            <td class="brands">Aurora &middot; Salton &middot; Rio Sol &middot; Kombucha Pod</td>
+          </tr>
+          <tr>
+            <td class="dom">GINGER</td>
+            <td class="skus">4</td>
+            <td class="pct">1.4%<div class="vol-bar"><div class="vol-fill" style="width:3%"></div></div></td>
+            <td class="tipo">Gengibre em conserva para sushi</td>
+            <td class="sizes">1kg &middot; pack x2</td>
+            <td class="brands">Karui &middot; Hinata</td>
+          </tr>
+          <tr>
+            <td class="dom">ENERGY DRINKS</td>
+            <td class="skus">4</td>
+            <td class="pct">1.4%<div class="vol-bar"><div class="vol-fill" style="width:3%"></div></div></td>
+            <td class="tipo">Energ&eacute;ticos y bebidas funcionales</td>
+            <td class="sizes">Unidad &middot; pack x12</td>
+            <td class="brands">Red Bull &middot; Açaí Futuro &middot; Green Up</td>
+          </tr>
+          <tr>
+            <td class="dom">SPORTS DRINKS</td>
+            <td class="skus">3</td>
+            <td class="pct">1.1%<div class="vol-bar"><div class="vol-fill" style="width:2%"></div></div></td>
+            <td class="tipo">Isot&oacute;nicos y bebida l&aacute;ctea prote&iacute;ca</td>
+            <td class="sizes">1L &middot; unidad</td>
+            <td class="brands">Powerade &middot; Nutren Protein</td>
+          </tr>
+          <tr>
+            <td class="dom">FRUIT PULPS</td>
+            <td class="skus">3</td>
+            <td class="pct">1.1%<div class="vol-bar"><div class="vol-fill" style="width:2%"></div></div></td>
+            <td class="tipo">Polpa de fruta para drinks y postres</td>
+            <td class="sizes">1kg &middot; balde 4kg</td>
+            <td class="brands">Jeb</td>
+          </tr>
+          <tr>
+            <td class="dom">FLAVORED WATERS</td>
+            <td class="skus">2</td>
+            <td class="pct">1.1%<div class="vol-bar"><div class="vol-fill" style="width:2%"></div></div></td>
+            <td class="tipo">Aguas funcionales con prote&iacute;na y creatina</td>
+            <td class="sizes">1L</td>
+            <td class="brands">Moving &middot; Mamba</td>
+          </tr>
+          <tr>
+            <td class="dom">WINE AERATORS / DECANTERS <span class="dom-tag tag-acc">accesorio</span></td>
+            <td class="skus">3</td>
+            <td class="pct">1.1%<div class="vol-bar"><div class="vol-fill" style="width:2%"></div></div></td>
+            <td class="tipo">Decantadores de vino en cristal</td>
+            <td class="sizes">1L &middot; 1.5L</td>
+            <td class="brands">Bohemia</td>
+          </tr>
+          <tr style="opacity:.5">
+            <td class="dom">OTROS (4 dominios) <span class="dom-tag tag-acc">accesorio</span></td>
+            <td class="skus">4</td>
+            <td class="pct">1.6%</td>
+            <td class="tipo" colspan="3" style="color:#aaa">Organizadores, decantadores, embalajes para vino — accesorios del canal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PLACEHOLDER PANELS -->
+  <div class="cat-panel" id="cat-beauty"><div style="padding:40px;text-align:center;color:#bbb;background:#fff;border-radius:10px">Beauty e Higiene — en construcción</div></div>
+  <div class="cat-panel" id="cat-suple"><div style="padding:40px;text-align:center;color:#bbb;background:#fff;border-radius:10px">Suplementos — en construcción</div></div>
+  <div class="cat-panel" id="cat-snack"><div style="padding:40px;text-align:center;color:#bbb;background:#fff;border-radius:10px">Snacks — en construcción</div></div>
+  <div class="cat-panel" id="cat-pet"><div style="padding:40px;text-align:center;color:#bbb;background:#fff;border-radius:10px">Mascotas — en construcción</div></div>
+  <div class="cat-panel" id="cat-farma"><div style="padding:40px;text-align:center;color:#bbb;background:#fff;border-radius:10px">Farmacia — en construcción</div></div>
+  <div class="cat-panel" id="cat-tech"><div style="padding:40px;text-align:center;color:#bbb;background:#fff;border-radius:10px">Accesorios Tech — en construcción</div></div>
+  <div class="cat-panel" id="cat-cocina"><div style="padding:40px;text-align:center;color:#bbb;background:#fff;border-radius:10px">Cocina — en construcción</div></div>
+  <div class="cat-panel" id="cat-ilum"><div style="padding:40px;text-align:center;color:#bbb;background:#fff;border-radius:10px">Iluminación — en construcción</div></div>
+  <div class="cat-panel" id="cat-depo"><div style="padding:40px;text-align:center;color:#bbb;background:#fff;border-radius:10px">Deportes — en construcción</div></div>
+
+  <div class="footer">GM Agora SP &middot; Workshop Assortment &middot; Jun 2026 &middot; Pareto 80% SP ABR&ndash;MAY 2026</div>
+</div>
+
+<script>
+function showCat(id, btn) {
+  document.querySelectorAll('.cat-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('cat-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
