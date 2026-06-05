@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f4f4f4;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.slide{width:1100px;height:620px;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.10);display:flex;flex-direction:column;overflow:hidden}
+
+/* HEADER */
+.hdr{padding:14px 28px 12px;border-left:5px solid #FFE600;margin:20px 28px 0;flex-shrink:0}
+.hdr-tag{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:2px}
+.hdr-title{font-size:17px;font-weight:900;color:#111;line-height:1.1}
+.hdr-sub{font-size:9.5px;color:#1565c0;font-weight:700;margin-top:3px}
+
+/* KPI ROW */
+.kpi-row{display:flex;gap:10px;margin:10px 28px 8px;flex-shrink:0}
+.kpi{background:#f0f5ff;border-radius:7px;padding:6px 14px;text-align:center;display:flex;flex-direction:column}
+.kpi-n{font-size:18px;font-weight:900;color:#1565c0}
+.kpi-l{font-size:7.5px;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-top:1px}
+.kpi-sep{flex:1}
+
+/* BODY */
+.body{display:flex;flex:1;overflow:hidden;margin:0 28px 0;border-top:1px solid #f0f0f0}
+
+/* LEFT */
+.left{width:165px;padding:12px 14px 12px 0;border-right:1px solid #f0f0f0;display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.pt{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#aaa;margin-bottom:2px}
+.icard{background:#f8f9ff;border:1px solid #e8eef8;border-radius:6px;padding:6px 9px}
+.icard-l{font-size:7.5px;color:#888;text-transform:uppercase;letter-spacing:.3px;margin-bottom:1px}
+.icard-n{font-size:18px;font-weight:900;color:#1565c0}
+.icard-s{font-size:8px;color:#888}
+.leg{display:flex;align-items:center;gap:5px;font-size:8.5px;color:#555;margin-bottom:3px}
+.dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.note{font-size:7.5px;color:#888;line-height:1.45;padding:6px 8px;background:#fffde7;border-radius:4px;border-left:2px solid #FFE600;margin-top:auto}
+
+/* TABLE */
+.tbl-wrap{flex:1;overflow:hidden;padding-left:14px}
+table{width:100%;border-collapse:collapse;font-size:9.5px}
+thead tr{background:#f8f9ff}
+th{padding:5px 6px;text-align:left;font-size:7.5px;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:.4px;border-bottom:1.5px solid #e8e8e8;white-space:nowrap}
+td{padding:2.4px 6px;border-bottom:1px solid #f8f8f8;white-space:nowrap;vertical-align:middle}
+tr:hover td{background:#fafcff}
+.rn{font-size:8.5px;font-weight:800;color:#ccc;text-align:center}
+.cn{font-size:9.5px;font-weight:700;color:#111}
+.sp{display:inline-block;font-size:8.5px;font-weight:900;padding:1px 6px;border-radius:7px;min-width:24px;text-align:center}
+.sh{background:#e8f5e9;color:#2e7d32}
+.sm{background:#fff8e1;color:#e65100}
+.sl{background:#f5f5f5;color:#9e9e9e}
+.bc{display:flex;align-items:center;gap:4px}
+.bw{height:5px;border-radius:2px;overflow:hidden;background:#eee}
+.bf{height:100%;border-radius:2px}
+.bv{font-size:9px;font-weight:700;text-align:right}
+.tr-sep td{border-top:1.5px solid #e8e8e8}
+.td-dim{color:#9e9e9e}
+
+/* FOOTER */
+.footer{padding:7px 28px;border-top:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.fn{font-size:7px;color:#bbb}
+.ft{font-size:7.5px;font-weight:700;color:#888}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="hdr">
+    <div class="hdr-tag">GM Agora SP &middot; Planificaci&oacute;n Operacional</div>
+    <div class="hdr-title">Volumen estimado de pedidos por categor&iacute;a</div>
+    <div class="hdr-sub">Objetivo: 50 pedidos/hora &middot; Operaci&oacute;n L&ndash;V 9&ndash;17hs &middot; Mix ponderado por score framework (pesos 25/50/25)</div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-n">50</div><div class="kpi-l">Pedidos / hora</div></div>
+    <div class="kpi"><div class="kpi-n">400</div><div class="kpi-l">Pedidos / d&iacute;a</div></div>
+    <div class="kpi"><div class="kpi-n">8.700</div><div class="kpi-l">Pedidos / mes</div></div>
+    <div class="kpi"><div class="kpi-n">21.75</div><div class="kpi-l">D&iacute;as h&aacute;b / mes</div></div>
+    <div class="kpi"><div class="kpi-n">1.164</div><div class="kpi-l">Suma de scores</div></div>
+    <div class="kpi-sep"></div>
+    <div style="text-align:right;font-size:8px;color:#aaa;align-self:center">ABR&ndash;MAY 2026</div>
+  </div>
+
+  <div class="body">
+    <div class="left">
+      <div class="pt">Referencia</div>
+      <div class="icard"><div class="icard-l">Top 8 avg seller</div><div class="icard-n">~8.7</div><div class="icard-s">ped/seller/d&iacute;a (score &ge;74)</div></div>
+      <div class="icard"><div class="icard-l">Sellers GM totales</div><div class="icard-n">70</div><div class="icard-s">suma sellers/zona &middot; 24 cat.</div></div>
+      <div style="margin-top:4px">
+        <div class="pt">Score tier</div>
+        <div class="leg"><div class="dot" style="background:#2e7d32"></div>Alto &ge;45</div>
+        <div class="leg"><div class="dot" style="background:#e65100"></div>Medio 25&ndash;44</div>
+        <div class="leg"><div class="dot" style="background:#9e9e9e"></div>Bajo &lt;25</div>
+      </div>
+      <div class="note">Mix% = score/1.164 &mdash; refleja relevancia estimada para GM Proximity, no el vol real SP. Limpieza y Alimentos excluidos (Dark Store).</div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18px;text-align:center">#</th>
+            <th>Categor&iacute;a</th>
+            <th style="width:42px;text-align:center">Score</th>
+            <th style="width:105px">Mix %</th>
+            <th style="width:54px;text-align:right">Ped/mes</th>
+            <th style="width:50px;text-align:right">Ped/d&iacute;a</th>
+            <th style="width:36px;text-align:right">Sell.</th>
+            <th style="width:110px">Ped/seller/d&iacute;a</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr><td class="rn">1</td><td class="cn">Bebidas</td><td style="text-align:center"><span class="sp sh">86</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:100%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:28px">7.4%</span></div></td><td style="text-align:right;font-weight:700">643</td><td style="text-align:right">29.6</td><td style="text-align:right">3</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:100%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:22px">9.9</span></div></td></tr>
+<tr><td class="rn">2</td><td class="cn">Beauty e Higiene</td><td style="text-align:center"><span class="sp sh">85</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:99%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:28px">7.3%</span></div></td><td style="text-align:right;font-weight:700">635</td><td style="text-align:right">29.2</td><td style="text-align:right">4</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:74%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:22px">7.3</span></div></td></tr>
+<tr><td class="rn">3</td><td class="cn">Suplementos y Vitaminas</td><td style="text-align:center"><span class="sp sh">84</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:97%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:28px">7.2%</span></div></td><td style="text-align:right;font-weight:700">628</td><td style="text-align:right">28.9</td><td style="text-align:right">3</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:97%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:22px">9.6</span></div></td></tr>
+<tr><td class="rn">4</td><td class="cn">Farmacia y Salud</td><td style="text-align:center"><span class="sp sh">81</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:95%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:28px">7.0%</span></div></td><td style="text-align:right;font-weight:700">605</td><td style="text-align:right">27.8</td><td style="text-align:right">3</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:94%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:22px">9.3</span></div></td></tr>
+<tr><td class="rn">5</td><td class="cn">Snacks y Golosinas</td><td style="text-align:center"><span class="sp sh">80</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:93%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:28px">6.9%</span></div></td><td style="text-align:right;font-weight:700">598</td><td style="text-align:right">27.5</td><td style="text-align:right">3</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:93%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:22px">9.2</span></div></td></tr>
+<tr><td class="rn">6</td><td class="cn">Mascotas</td><td style="text-align:center"><span class="sp sh">78</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:90%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:28px">6.7%</span></div></td><td style="text-align:right;font-weight:700">583</td><td style="text-align:right">26.8</td><td style="text-align:right">3</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:90%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:22px">8.9</span></div></td></tr>
+<tr><td class="rn">7</td><td class="cn">Beb&eacute; y Ni&ntilde;os</td><td style="text-align:center"><span class="sp sh">78</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:90%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:28px">6.7%</span></div></td><td style="text-align:right;font-weight:700">583</td><td style="text-align:right">26.8</td><td style="text-align:right">3</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:90%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:22px">8.9</span></div></td></tr>
+<tr><td class="rn">8</td><td class="cn">Accesorios Tech</td><td style="text-align:center"><span class="sp sh">74</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:86%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:28px">6.4%</span></div></td><td style="text-align:right;font-weight:700">553</td><td style="text-align:right">25.4</td><td style="text-align:right">4</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:65%;background:#2e7d32"></div></div><span class="bv" style="color:#2e7d32;min-width:22px">6.4</span></div></td></tr>
+<tr class="tr-sep"><td class="rn">9</td><td class="cn">Papeler&iacute;a y Fiestas</td><td style="text-align:center"><span class="sp sm">58</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:68%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">5.0%</span></div></td><td style="text-align:right;font-weight:700">434</td><td style="text-align:right">20.0</td><td style="text-align:right">4</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:51%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">5.0</span></div></td></tr>
+<tr><td class="rn">10</td><td class="cn">Accesorios de Moda</td><td style="text-align:center"><span class="sp sm">52</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:61%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">4.5%</span></div></td><td style="text-align:right;font-weight:700">389</td><td style="text-align:right">17.9</td><td style="text-align:right">3</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:61%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">6.0</span></div></td></tr>
+<tr><td class="rn">11</td><td class="cn">Peq. Electrodom&eacute;sticos</td><td style="text-align:center"><span class="sp sm">44</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:51%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">3.8%</span></div></td><td style="text-align:right;font-weight:700">329</td><td style="text-align:right">15.1</td><td style="text-align:right">2</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:77%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">7.6</span></div></td></tr>
+<tr><td class="rn">12</td><td class="cn">Dispositivos M&oacute;viles</td><td style="text-align:center"><span class="sp sm">41</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:47%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">3.5%</span></div></td><td style="text-align:right;font-weight:700">306</td><td style="text-align:right">14.1</td><td style="text-align:right">2</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:71%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">7.0</span></div></td></tr>
+<tr><td class="rn">13</td><td class="cn">Iluminaci&oacute;n y El&eacute;ctrica</td><td style="text-align:center"><span class="sp sm">40</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:46%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">3.4%</span></div></td><td style="text-align:right;font-weight:700">299</td><td style="text-align:right">13.7</td><td style="text-align:right">3</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:46%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">4.6</span></div></td></tr>
+<tr><td class="rn">14</td><td class="cn">Indumentaria</td><td style="text-align:center"><span class="sp sm">38</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:45%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">3.3%</span></div></td><td style="text-align:right;font-weight:700">284</td><td style="text-align:right">13.1</td><td style="text-align:right">3</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:44%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">4.4</span></div></td></tr>
+<tr><td class="rn">15</td><td class="cn">Cocina y Utensilios</td><td style="text-align:center"><span class="sp sm">35</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:40%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">3.0%</span></div></td><td style="text-align:right;font-weight:700">262</td><td style="text-align:right">12.0</td><td style="text-align:right">3</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:40%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">4.0</span></div></td></tr>
+<tr><td class="rn">16</td><td class="cn">Computaci&oacute;n</td><td style="text-align:center"><span class="sp sm">32</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:36%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">2.7%</span></div></td><td style="text-align:right;font-weight:700">239</td><td style="text-align:right">11.0</td><td style="text-align:right">2</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:56%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">5.5</span></div></td></tr>
+<tr><td class="rn">17</td><td class="cn">Foto y Gaming</td><td style="text-align:center"><span class="sp sm">32</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:36%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">2.7%</span></div></td><td style="text-align:right;font-weight:700">239</td><td style="text-align:right">11.0</td><td style="text-align:right">2</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:56%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">5.5</span></div></td></tr>
+<tr><td class="rn">18</td><td class="cn">Libros</td><td style="text-align:center"><span class="sp sm">30</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:35%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">2.6%</span></div></td><td style="text-align:right;font-weight:700">224</td><td style="text-align:right">10.3</td><td style="text-align:right">2</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:52%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">5.2</span></div></td></tr>
+<tr><td class="rn">19</td><td class="cn">Seguridad del Hogar</td><td style="text-align:center"><span class="sp sm">28</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:32%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">2.4%</span></div></td><td style="text-align:right;font-weight:700">209</td><td style="text-align:right">9.6</td><td style="text-align:right">2</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:48%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">4.8</span></div></td></tr>
+<tr><td class="rn">20</td><td class="cn">Organizaci&oacute;n y Decoraci&oacute;n</td><td style="text-align:center"><span class="sp sm">27</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:31%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">2.3%</span></div></td><td style="text-align:right;font-weight:700">202</td><td style="text-align:right">9.3</td><td style="text-align:right">2</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:46%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">4.6</span></div></td></tr>
+<tr><td class="rn">21</td><td class="cn">Deportes</td><td style="text-align:center"><span class="sp sm">27</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:31%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">2.3%</span></div></td><td style="text-align:right;font-weight:700">202</td><td style="text-align:right">9.3</td><td style="text-align:right">2</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:46%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">4.6</span></div></td></tr>
+<tr><td class="rn">22</td><td class="cn">Automotor</td><td style="text-align:center"><span class="sp sm">26</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:30%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:28px">2.2%</span></div></td><td style="text-align:right;font-weight:700">194</td><td style="text-align:right">8.9</td><td style="text-align:right">2</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:44%;background:#e65100"></div></div><span class="bv" style="color:#e65100;min-width:22px">4.4</span></div></td></tr>
+<tr class="tr-sep"><td class="rn td-dim">23</td><td class="cn td-dim">Textiles Hogar</td><td style="text-align:center"><span class="sp sl">4</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:4%;background:#9e9e9e"></div></div><span class="bv" style="color:#9e9e9e;min-width:28px">0.3%</span></div></td><td style="text-align:right;color:#bbb">30</td><td style="text-align:right;color:#bbb">1.4</td><td style="text-align:right;color:#bbb">1</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:14%;background:#9e9e9e"></div></div><span class="bv" style="color:#9e9e9e;min-width:22px">1.4</span></div></td></tr>
+<tr><td class="rn td-dim">24</td><td class="cn td-dim">Materiales Construcci&oacute;n</td><td style="text-align:center"><span class="sp sl">4</span></td><td><div class="bc"><div class="bw" style="width:60px"><div class="bf" style="width:4%;background:#9e9e9e"></div></div><span class="bv" style="color:#9e9e9e;min-width:28px">0.3%</span></div></td><td style="text-align:right;color:#bbb">30</td><td style="text-align:right;color:#bbb">1.4</td><td style="text-align:right;color:#bbb">1</td><td><div class="bc"><div class="bw" style="width:52px"><div class="bf" style="width:14%;background:#9e9e9e"></div></div><span class="bv" style="color:#9e9e9e;min-width:22px">1.4</span></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="fn">Mix% = score / 1.164 &middot; Score = 25% MeLi + 50% Misiones + 25% QC &middot; Sellers/zona del framework matriz &middot; Limpieza y Alimentos: Dark Store / Super (fuera de scope)</span>
+    <span class="ft">GM Agora SP &middot; Jun 2026</span>
+  </div>
+
+</div>
+</body>
+</html>
