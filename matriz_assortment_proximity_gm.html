@@ -2305,12 +2305,23 @@ switchTab=function(id,btn){_origST9(id,btn);if(id==='t9')initT9();};
 </div>
 <script>
 function whTab(t){
-  document.getElementById('wh-vol').style.display = t==='vol' ? 'block' : 'none';
-  document.getElementById('wh-det').style.display = t==='det' ? 'block' : 'none';
-  document.getElementById('wh-btn-vol').style.background = t==='vol' ? '#1a2454' : '#e8e8e8';
-  document.getElementById('wh-btn-vol').style.color = t==='vol' ? '#fff' : '#555';
-  document.getElementById('wh-btn-det').style.background = t==='det' ? '#1a2454' : '#e8e8e8';
-  document.getElementById('wh-btn-det').style.color = t==='det' ? '#fff' : '#555';
+  var vol=document.getElementById('wh-vol'), det=document.getElementById('wh-det');
+  var bv=document.getElementById('wh-btn-vol'), bd=document.getElementById('wh-btn-det');
+  if(!vol||!det||!bv||!bd) return;
+  vol.style.display = t==='vol' ? 'block' : 'none';
+  det.style.display = t==='det' ? 'block' : 'none';
+  bv.style.background = t==='vol' ? '#1a2454' : '#e8e8e8';
+  bv.style.color = t==='vol' ? '#fff' : '#555';
+  bd.style.background = t==='det' ? '#1a2454' : '#e8e8e8';
+  bd.style.color = t==='det' ? '#fff' : '#555';
 }
+// Null-safe guard for switchTab — prevents crash when id not in DOM
+(function(){
+  var _orig = switchTab;
+  switchTab = function(id, btn){
+    if (!document.getElementById(id)) return;
+    _orig(id, btn);
+  };
+})();
 </script>
 </div>
