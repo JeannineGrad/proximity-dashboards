@@ -95,7 +95,7 @@ td.ch{text-align:left;font-weight:600}
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('t3',this)">Metodologia</button>
   <button class="tab-btn" onclick="switchTab('t1',this)">Benchmark categorias</button>
-  <button class="tab-btn" onclick="switchTab('t6',this)" style="display:none">Categorias Priorizadas</button><button class="tab-btn" onclick="switchTab('t9',this)">Priorizacion Categorias</button><button class="tab-btn" onclick="switchTab('t7',this)" style="display:none">Hunting Roadmap</button><button class="tab-btn" onclick="switchTab('t8',this)">Top SKUs</button><button class="tab-btn" onclick="switchTab('t11',this)">Actualizaci&oacute;n</button><button class="tab-btn" onclick="switchTab('t12',this)">Score vs Zona</button>
+  <button class="tab-btn" onclick="switchTab('t6',this)" style="display:none">Categorias Priorizadas</button><button class="tab-btn" onclick="switchTab('t9',this)">Priorizacion Categorias</button><button class="tab-btn" onclick="switchTab('t7',this)" style="display:none">Hunting Roadmap</button><button class="tab-btn" onclick="switchTab('t8',this)">Top SKUs</button><button class="tab-btn" onclick="switchTab('t11',this)">Actualizaci&oacute;n</button><button class="tab-btn" onclick="switchTab('t12',this)">Score vs Zona</button><button class="tab-btn" onclick="switchTab('twh',this)" style="background:#1a2454;color:#fff;font-weight:800">Workshop Hunting</button>
   <button class="tab-btn" onclick="switchTab('t2',this)">Demanda SP</button>
   <button class="tab-btn" onclick="switchTab('t5',this)">Pareto demanda SP <span style="font-size:7px;background:#ff9800;color:#fff;padding:1px 4px;border-radius:3px;font-weight:700;vertical-align:middle">WIP</span></button>
 </div>
@@ -2271,6 +2271,31 @@ switchTab=function(id,btn){_origST9(id,btn);if(id==='t9')initT9();};
   <strong style="color:#e53935">Baja:</strong> Bebidas (#7) · Snacks (#8) · Dispositivos Móviles · Indumentaria &nbsp;·&nbsp;
   Bebidas y Snacks bajan en el ranking porque tienen baja demanda en el marketplace de la zona (0.5% c/u) — probablemente se canalizan por supermercados o dark stores. Sin embargo, mantienen posiciones altas (#7 y #8) gracias a su fuerte QC Signal y misiones de compra.
 </div>
+
+</div>
+</div>
+
+
+<div id="twh" class="tab-pane">
+<div style="padding:20px 24px">
+
+  <div style="border-left:5px solid #FFE600;padding-left:14px;margin-bottom:24px">
+    <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:3px">GM Agora SP &middot; Lanzamiento Jun 2026</div>
+    <div style="font-size:18px;font-weight:900;color:#111">Workshop Hunting</div>
+    <div style="font-size:10px;color:#1565c0;font-weight:700;margin-top:3px">Volumen estimado por categor&iacute;a &middot; Assortment por dominio &middot; Top SKUs del framework</div>
+  </div>
+
+  <!-- Slide: volumen por categoria -->
+  <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#aaa;margin-bottom:8px">Volumen estimado &middot; 50 pedidos/hora target</div>
+  <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.10);margin-bottom:32px">
+    <iframe src="slide_pedidos_por_categoria.html" width="1100" height="640" frameborder="0" scrolling="no" style="display:block"></iframe>
+  </div>
+
+  <!-- Workshop assortment por dominio -->
+  <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#aaa;margin-bottom:8px">Assortment por dominio &middot; 26 categor&iacute;as &middot; Top SKUs del framework</div>
+  <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.10)">
+    <iframe src="gm_workshop_assortment.html" width="100%" height="900" frameborder="0" style="display:block"></iframe>
+  </div>
 
 </div>
 </div>
