@@ -1885,6 +1885,9 @@ function t9Normalize(){
 }
 var _origST9=switchTab;
 switchTab=function(id,btn){_origST9(id,btn);if(id==='t9')initT9();};
+// Guard: prevents crash when tab id not yet in DOM
+var _stGuard=switchTab;
+switchTab=function(id,btn){if(!document.getElementById(id))return;_stGuard(id,btn);};
 </script>
 
 
