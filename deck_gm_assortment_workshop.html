@@ -550,48 +550,6 @@ body{background:#d0d4e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
 </div>
 
 <!-- ══ S_NEXT: PRÓXIMOS PASOS ══ -->
-<div class="slide" id="s_next">
-<div class="s-pad">
-  <div class="yl">
-    <div class="s-tag" contenteditable="true" spellcheck="false">GM Agora SP &middot; Jun 2026</div>
-    <div class="s-title" contenteditable="true" spellcheck="false">Pr&oacute;ximos pasos</div>
-  </div>
-  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px">
-    <div style="display:flex;align-items:flex-start;gap:16px">
-      <div style="width:36px;height:36px;border-radius:50%;background:#1a2454;color:#FFE600;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
-      <div style="flex:1;padding-top:6px">
-        <div style="font-size:14px;font-weight:900;color:#111" contenteditable="true" spellcheck="false">Armar lista de sellers por categor&iacute;a a activar</div>
-        <div style="font-size:10px;color:#888;margin-top:2px" contenteditable="true" spellcheck="false">Sellers del pol&iacute;gono que cubren dominios y SKUs del pareto &rarr; priorizar por categor&iacute;a y zona</div>
-      </div>
-    </div>
-    <div style="width:100%;height:1px;background:#f0f0f0;margin-left:52px"></div>
-    <div style="display:flex;align-items:flex-start;gap:16px">
-      <div style="width:36px;height:36px;border-radius:50%;background:#1a2454;color:#FFE600;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
-      <div style="flex:1;padding-top:6px">
-        <div style="font-size:14px;font-weight:900;color:#111" contenteditable="true" spellcheck="false">Armar lista de sellers por categor&iacute;a a farmear cat&aacute;logo</div>
-        <div style="font-size:10px;color:#888;margin-top:2px" contenteditable="true" spellcheck="false">Sellers con dominio relevante pero sin los SKUs del pareto &rarr; definir plan de farming con KAM</div>
-      </div>
-    </div>
-    <div style="width:100%;height:1px;background:#f0f0f0;margin-left:52px"></div>
-    <div style="display:flex;align-items:flex-start;gap:16px">
-      <div style="width:36px;height:36px;border-radius:50%;background:#1a2454;color:#FFE600;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
-      <div style="flex:1;padding-top:6px">
-        <div style="font-size:14px;font-weight:900;color:#111" contenteditable="true" spellcheck="false">Definir Preferred Proximity Partners por categor&iacute;a y zona</div>
-        <div style="font-size:10px;color:#888;margin-top:2px" contenteditable="true" spellcheck="false">Del universo de sellers actuales, h&eacute;roes locales y cadenas &rarr; definir el n&uacute;cleo de preferred por categor&iacute;a</div>
-      </div>
-    </div>
-    <div style="width:100%;height:1px;background:#f0f0f0;margin-left:52px"></div>
-    <div style="display:flex;align-items:flex-start;gap:16px">
-      <div style="width:36px;height:36px;border-radius:50%;background:#FFE600;color:#1a2454;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
-      <div style="flex:1;padding-top:6px">
-        <div style="font-size:14px;font-weight:900;color:#111" contenteditable="true" spellcheck="false">Definir KPIs de medici&oacute;n y momentos de medici&oacute;n</div>
-        <div style="font-size:10px;color:#888;margin-top:2px" contenteditable="true" spellcheck="false">Cobertura de SKUs, disponibilidad por categor&iacute;a, precio competitivo &rarr; definir cadencia y owners</div>
-      </div>
-    </div>
-  </div>
-  <div class="footer"><span class="fn"></span><span class="ft">GM Agora SP &middot; Jun 2026</span></div>
-</div>
-</div>
 
 <div class="nav">
   <button class="nav-btn" id="prev" onclick="goSlide(-1)">&#8592;</button>
@@ -602,7 +560,7 @@ body{background:#d0d4e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',
 </div><!-- /deck -->
 
 <script>
-var current=0, total=7;
+var current=0, total=6;
 function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=0;i<total;i++){var d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.setAttribute('data-i',i);d.onclick=function(){goTo(+this.getAttribute('data-i'))};c.appendChild(d);}}
 function goTo(n){var slides=document.querySelectorAll('.slide');slides[current].classList.remove('active');current=Math.max(0,Math.min(total-1,n));slides[current].classList.add('active');document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('active',i===current)});document.getElementById('counter').textContent=(current+1)+' / '+total;document.getElementById('prev').disabled=current===0;document.getElementById('next').disabled=current===total-1;}
 function goSlide(d){goTo(current+d);}
