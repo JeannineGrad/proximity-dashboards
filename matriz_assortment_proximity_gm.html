@@ -98,7 +98,7 @@ td.ch{text-align:left;font-weight:600}
   <button class="tab-btn" onclick="switchTab('t6',this)" style="display:none">Categorias Priorizadas</button><button class="tab-btn" onclick="switchTab('t9',this)">Priorizacion Categorias</button><button class="tab-btn" onclick="switchTab('t7',this)" style="display:none">Hunting Roadmap</button><button class="tab-btn" onclick="switchTab('t8',this)">Top SKUs</button><button class="tab-btn" onclick="switchTab('twh',this)" style="background:#1a2454;color:#fff;font-weight:800">Workshop Hunting</button><button class="tab-btn" onclick="switchTab('t11',this)">Actualizaci&oacute;n</button><button class="tab-btn" onclick="switchTab('t12',this)">Score vs Zona</button>
   <button class="tab-btn" onclick="switchTab('t2',this)">Demanda SP</button>
   <button class="tab-btn" onclick="switchTab('t5',this)">Pareto demanda SP <span style="font-size:7px;background:#ff9800;color:#fff;padding:1px 4px;border-radius:3px;font-weight:700;vertical-align:middle">WIP</span></button>
-  <button class="tab-btn" onclick="switchTab('tdeck',this)" style="background:#1a2454;color:#FFE600;font-weight:800">Deck Reuni&oacute;n Jun&nbsp;&#128202;</button>
+
 </div>
 <div id="t1" class="tab-pane">
 <div style="margin-bottom:12px">
@@ -2292,6 +2292,7 @@ switchTab=function(id,btn){if(!document.getElementById(id))return;_stGuard(id,bt
   <div id="wh-tabs" style="display:flex;gap:6px;margin-bottom:16px">
     <button id="wh-btn-vol" onclick="whTab('vol')" style="padding:6px 18px;font-size:11px;font-weight:800;border:none;border-radius:20px;cursor:pointer;font-family:inherit;background:#1a2454;color:#fff;transition:all .15s">Volumen</button>
     <button id="wh-btn-det" onclick="whTab('det')" style="padding:6px 18px;font-size:11px;font-weight:800;border:none;border-radius:20px;cursor:pointer;font-family:inherit;background:#e8e8e8;color:#555;transition:all .15s">Detalle por categor&iacute;a</button>
+    <button id="wh-btn-deck" onclick="whTab('deck')" style="padding:6px 18px;font-size:11px;font-weight:800;border:none;border-radius:20px;cursor:pointer;font-family:inherit;background:#FFE600;color:#1a2454;transition:all .15s">&#128202; Deck Reuni&oacute;n Jun 2026</button>
   </div>
 
   <div id="wh-vol">
@@ -2306,26 +2307,27 @@ switchTab=function(id,btn){if(!document.getElementById(id))return;_stGuard(id,bt
     </div>
   </div>
 
-<div id="tdeck" class="tab-pane">
-  <div style="margin-bottom:8px;display:flex;align-items:center;gap:12px">
-    <div style="font-size:13px;font-weight:800;color:#1a2454">Deck presentado en reuni&oacute;n &mdash; Workshop Assortment GM Agora SP &middot; Jun 2026</div>
-    <a href="https://jeanninegrad.github.io/proximity-dashboards/deck_gm_assortment_workshop.html" target="_blank" style="font-size:9px;font-weight:700;padding:4px 10px;background:#1a2454;color:#FFE600;border-radius:5px;text-decoration:none">Abrir en pantalla completa &#8599;</a>
+  <div id="wh-deck" style="display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:800;color:#1a2454">Deck presentado en reuni&oacute;n &mdash; Workshop Assortment GM Agora SP &middot; Jun 2026</div>
+      <a href="https://jeanninegrad.github.io/proximity-dashboards/deck_gm_assortment_workshop.html" target="_blank" style="font-size:9px;font-weight:700;padding:5px 12px;background:#1a2454;color:#FFE600;border-radius:6px;text-decoration:none">Abrir en pantalla completa &#8599;</a>
+    </div>
+    <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.12)">
+      <iframe src="https://jeanninegrad.github.io/proximity-dashboards/deck_gm_assortment_workshop.html" width="1100" height="660" frameborder="0" scrolling="no" style="display:block"></iframe>
+    </div>
   </div>
-  <iframe src="https://jeanninegrad.github.io/proximity-dashboards/deck_gm_assortment_workshop.html" width="100%" height="660" frameborder="0" style="display:block;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.12)"></iframe>
-</div>
 
 </div>
 <script>
 function whTab(t){
-  var vol=document.getElementById('wh-vol'), det=document.getElementById('wh-det');
-  var bv=document.getElementById('wh-btn-vol'), bd=document.getElementById('wh-btn-det');
-  if(!vol||!det||!bv||!bd) return;
-  vol.style.display = t==='vol' ? 'block' : 'none';
-  det.style.display = t==='det' ? 'block' : 'none';
-  bv.style.background = t==='vol' ? '#1a2454' : '#e8e8e8';
-  bv.style.color = t==='vol' ? '#fff' : '#555';
-  bd.style.background = t==='det' ? '#1a2454' : '#e8e8e8';
-  bd.style.color = t==='det' ? '#fff' : '#555';
+  var vol=document.getElementById('wh-vol'), det=document.getElementById('wh-det'), deck=document.getElementById('wh-deck');
+  var bv=document.getElementById('wh-btn-vol'), bd=document.getElementById('wh-btn-det'), bdk=document.getElementById('wh-btn-deck');
+  if(vol) vol.style.display = t==='vol' ? 'block' : 'none';
+  if(det) det.style.display = t==='det' ? 'block' : 'none';
+  if(deck) deck.style.display = t==='deck' ? 'block' : 'none';
+  if(bv){ bv.style.background = t==='vol' ? '#1a2454' : '#e8e8e8'; bv.style.color = t==='vol' ? '#fff' : '#555'; }
+  if(bd){ bd.style.background = t==='det' ? '#1a2454' : '#e8e8e8'; bd.style.color = t==='det' ? '#fff' : '#555'; }
+  if(bdk){ bdk.style.background = t==='deck' ? '#1a2454' : '#FFE600'; bdk.style.color = t==='deck' ? '#FFE600' : '#1a2454'; }
 }
 // Null-safe guard for switchTab — prevents crash when id not in DOM
 (function(){
