@@ -2325,14 +2325,17 @@ switchTab=function(id,btn){_origST8(id,btn);if(id==='t8')initCatTops();};
 </div>
 <script>
 function whTab(t){
-  var vol=document.getElementById('wh-vol'), det=document.getElementById('wh-det'), deck=document.getElementById('wh-deck');
-  var bv=document.getElementById('wh-btn-vol'), bd=document.getElementById('wh-btn-det'), bdk=document.getElementById('wh-btn-deck');
+  var vol=document.getElementById('wh-vol'), det=document.getElementById('wh-det'), deck=document.getElementById('wh-deck'), skus=document.getElementById('wh-skus');
+  var bv=document.getElementById('wh-btn-vol'), bd=document.getElementById('wh-btn-det'), bdk=document.getElementById('wh-btn-deck'), bsk=document.getElementById('wh-btn-skus');
   if(vol) vol.style.display = t==='vol' ? 'block' : 'none';
   if(det) det.style.display = t==='det' ? 'block' : 'none';
   if(deck) deck.style.display = t==='deck' ? 'block' : 'none';
+  if(skus) skus.style.display = t==='skus' ? 'block' : 'none';
   if(bv){ bv.style.background = t==='vol' ? '#1a2454' : '#e8e8e8'; bv.style.color = t==='vol' ? '#fff' : '#555'; }
   if(bd){ bd.style.background = t==='det' ? '#1a2454' : '#e8e8e8'; bd.style.color = t==='det' ? '#fff' : '#555'; }
   if(bdk){ bdk.style.background = t==='deck' ? '#1a2454' : '#FFE600'; bdk.style.color = t==='deck' ? '#FFE600' : '#1a2454'; }
+  if(bsk){ bsk.style.background = t==='skus' ? '#1a2454' : '#e8e8e8'; bsk.style.color = t==='skus' ? '#fff' : '#555'; }
+  if(t==='skus' && typeof initCatTops === 'function') initCatTops();
 }
 // Null-safe guard for switchTab — prevents crash when id not in DOM
 (function(){
