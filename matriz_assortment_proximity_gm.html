@@ -2223,6 +2223,18 @@ function showCatTops(cat){
   });
   html+='</tbody></table>';
   document.getElementById('cat-tops-table').innerHTML=html;
+
+  // Note for suplementos: framework domains are keyword-based, not real a2
+  var note = document.getElementById('supl-domain-note');
+  if(!note){ note=document.createElement('div'); note.id='supl-domain-note'; document.getElementById('cat-tops-table').parentNode.insertBefore(note, document.getElementById('cat-tops-table')); }
+  if(cat==='supl'){
+    note.innerHTML='<div style="margin-bottom:8px;padding:7px 12px;background:#fff8e1;border-left:4px solid #e65100;border-radius:0 6px 6px 0;font-size:9px;color:#555;line-height:1.6">'
+      +'<strong style="color:#e65100">Nota &mdash; Suplementos:</strong> En MeLi todos los &iacute;tems comparten el mismo <code>domain_id</code> (MLB-SUPPLEMENTS) y el mismo AGG2. '
+      +'Los <strong>4 sub-dominios del framework</strong> (Sports Supplements, Vitamins &amp; Minerals, Health Supplements, Others) fueron definidos mediante '
+      +'<strong>clasificaci&oacute;n por keywords del t&iacute;tulo</strong> — no reflejan la taxonom&iacute;a real de MeLi sino una divisi&oacute;n funcional del assortment.</div>';
+  } else {
+    note.innerHTML='';
+  }
 }
 function downloadCatCSV(){
   var cat=document.getElementById('cat-tops-sel').value;
