@@ -1,0 +1,694 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>GM Agora SP — Assortment Workshop</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+.img-btn{position:fixed;bottom:18px;right:175px;z-index:9999;background:#1a2454;color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:11px;font-weight:800;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.2);font-family:inherit;transition:all .15s}
+.img-btn:hover{background:#2c3e80}
+#img-input{display:none}
+.img-drop-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(26,36,84,.9);align-items:center;justify-content:center}
+.img-drop-overlay.visible{display:flex}
+.img-drop-box{width:420px;height:240px;border:2px dashed #FFE600;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;font-family:inherit;text-align:center;padding:24px}
+.img-close{position:fixed;top:20px;right:24px;color:#fff;font-size:24px;cursor:pointer;background:none;border:none;font-family:inherit;z-index:100000}
+body{background:#d0d4e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh}
+.deck{display:flex;flex-direction:column;align-items:center;gap:0;box-shadow:0 8px 40px rgba(0,0,0,.2);border-radius:14px;overflow:hidden}
+.nav{display:flex;align-items:center;gap:16px;width:1100px;background:#1a2454;padding:10px 24px}
+.nav-btn{width:30px;height:30px;border:none;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.nav-btn:hover{background:rgba(255,255,255,.3)}
+.nav-btn:disabled{background:rgba(255,255,255,.05);color:rgba(255,255,255,.2);cursor:default}
+.nav-dots{display:flex;gap:8px;flex:1;justify-content:center}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .15s}
+.dot.active{background:#FFE600;width:20px;border-radius:4px}
+.nav-counter{font-size:11px;color:rgba(255,255,255,.5);font-weight:700;min-width:40px;text-align:right}
+.slides-wrap{width:1100px;overflow:hidden}
+.slide{width:1100px;height:580px;background:#fff;display:none;flex-direction:column;overflow:hidden}
+.slide.active{display:flex}
+/* SHARED */
+.s-pad{padding:32px 48px 24px;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.s-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#999;margin-bottom:5px}
+.s-title{font-size:20px;font-weight:900;color:#111;line-height:1.2}
+.s-title em{color:#1a2454;font-style:normal}
+.footer{display:flex;justify-content:space-between;align-items:center}
+.fn{font-size:8px;color:#bbb}
+.ft{font-size:8px;font-weight:700;color:#888}
+.yl{border-left:5px solid #FFE600;padding-left:14px;margin-bottom:18px}
+/* pills */
+.pill-h{background:#e8f5e9;color:#2e7d32;font-size:8px;font-weight:800;padding:2px 8px;border-radius:8px;display:inline-block}
+.pill-m{background:#fff8e1;color:#e65100;font-size:8px;font-weight:800;padding:2px 8px;border-radius:8px;display:inline-block}
+.pill-l{background:#f5f5f5;color:#9e9e9e;font-size:8px;font-weight:800;padding:2px 8px;border-radius:8px;display:inline-block}
+
+/* ── EDITABLE MODE ─────────────────────────────────────────────── */
+[contenteditable="true" spellcheck="false"]{outline:none;cursor:text}
+[contenteditable="true" spellcheck="false"]:hover{background:rgba(255,230,0,.07);border-radius:3px}
+[contenteditable="true" spellcheck="false"]:focus{background:rgba(255,230,0,.12);border-radius:3px;box-shadow:0 0 0 1.5px rgba(255,230,0,.4)}
+.save-btn{position:fixed;bottom:18px;right:18px;z-index:9999;background:#FFE600;color:#1a2454;border:none;border-radius:20px;padding:8px 20px;font-size:11px;font-weight:800;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.2);font-family:inherit;transition:all .15s}
+.save-btn:hover{background:#ffd800;transform:scale(1.04)}
+.edit-hint{position:fixed;bottom:18px;left:18px;z-index:9999;font-size:9px;color:rgba(255,255,255,.5);background:rgba(26,36,84,.8);padding:5px 12px;border-radius:10px;font-family:inherit}</style>
+</head>
+<body>
+
+<button class="img-btn" onclick="openImgPicker()" title="Insertar imagen en la slide actual">&#128247; Insertar imagen</button>
+<input type="file" id="img-input" accept="image/*" onchange="insertImage(this)">
+<button class="save-btn" onclick="saveHTML()" title="Guardar cambios como nuevo archivo HTML">&#128190; Guardar cambios</button>
+<button class="img-btn" onclick="openImgPicker()">&#128247; Insertar imagen</button>
+<input type="file" id="img-input" accept="image/*" onchange="insertImage(this)">
+<div class="edit-hint">&#9998; Click en cualquier texto para editar</div>
+<div class="deck">
+<div class="slides-wrap">
+
+
+<div class="slide" id="s0">
+<div class="s-pad">
+  <div style="margin-bottom:16px">
+    <div class="s-tag" contenteditable="true" spellcheck="false">GM Agora SP &middot; Workshop Assortment &middot; Jun 2026</div>
+    <div class="s-title" contenteditable="true" spellcheck="false" style="font-size:20px">Objetivos del workshop</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px">
+    <div style="display:flex;align-items:center;gap:20px;width:680px">
+      <div style="width:40px;height:40px;border-radius:50%;background:#1a2454;color:#FFE600;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+      <div contenteditable="true" spellcheck="false" style="font-size:20px;font-weight:900;color:#111;letter-spacing:.2px">Compartir el framework propuesto</div>
+    </div>
+    <div style="width:680px;height:1px;background:#eee;margin-left:60px"></div>
+    <div style="display:flex;align-items:center;gap:20px;width:680px">
+      <div style="width:40px;height:40px;border-radius:50%;background:#1a2454;color:#FFE600;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+      <div contenteditable="true" spellcheck="false" style="font-size:20px;font-weight:900;color:#111;letter-spacing:.2px">Mostrar diagn&oacute;stico de cobertura inicial</div>
+    </div>
+    <div style="width:680px;height:1px;background:#eee;margin-left:60px"></div>
+    <div style="display:flex;align-items:center;gap:20px;width:680px">
+      <div style="width:40px;height:40px;border-radius:50%;background:#1a2454;color:#FFE600;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+      <div contenteditable="true" spellcheck="false" style="font-size:20px;font-weight:900;color:#111;letter-spacing:.2px">Discutir plan de acci&oacute;n</div>
+    </div>
+  </div>
+  <div class="footer" style="margin-top:8px"><span class="fn"></span><span class="ft">GM Agora SP &middot; Jun 2026</span></div>
+</div>
+</div>
+
+<div class="slide" id="s2">
+<div class="s-pad">
+  <div class="yl" style="margin-bottom:16px">
+    <div class="s-tag" contenteditable="true" spellcheck="false">GM Agora SP &middot; 1. Framework propuesto</div>
+    <div class="s-title" contenteditable="true" spellcheck="false">C&oacute;mo definimos el assortment cr&iacute;tico</div>
+  </div>
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+
+    <!-- COL IZQ: PASO 1 + PASO 2 -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+
+      <!-- PASO 1 -->
+      <div style="background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 1px 5px rgba(0,0,0,.08)">
+        <div style="font-size:11px;font-weight:800;margin-bottom:7px;padding-bottom:6px;border-bottom:2px solid #f0f0f0;color:#111">1. Benchmark de categor&iacute;as y an&aacute;lisis de demanda SP</div>
+        <div style="font-size:9.5px;color:#555;line-height:1.6;margin-bottom:8px">Cruzamos el benchmark de los 5 principales players de QC global con la demanda real de San Pablo en MeLi &rarr; <strong>26 categor&iacute;as priorizadas</strong>.</div>
+        <div style="background:#e8f5e9;border-left:4px solid #2e7d32;border-radius:0 7px 7px 0;padding:8px 12px">
+          <div style="font-size:9px;font-weight:800;color:#2e7d32;margin-bottom:2px">5/5 players QC globales validaron las mismas categor&iacute;as</div>
+          <div style="font-size:8.5px;color:#444;line-height:1.55">iFood &middot; Rappi &middot; Meituan &middot; Blinkit &middot; Amazon Now</div>
+        </div>
+      </div>
+
+      <!-- PASO 2 -->
+      <div style="flex:1;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 1px 5px rgba(0,0,0,.08)">
+        <div style="font-size:11px;font-weight:800;margin-bottom:7px;padding-bottom:6px;border-bottom:2px solid #f0f0f0;color:#111">2. Scoring de categor&iacute;as &mdash; priorizaci&oacute;n 0&ndash;100</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:9px">
+          <div style="background:#e8f5e9;border-left:4px solid #2e7d32;border-radius:0 7px 7px 0;padding:8px 11px">
+            <div style="font-size:9px;font-weight:800;color:#2e7d32;margin-bottom:2px">Relevancia MeLi &mdash; 25%</div>
+            <div style="font-size:8.5px;color:#444;line-height:1.55">% SKUs en top 10% SP por volumen &middot; % volumen core (pareto 80%)</div>
+          </div>
+          <div style="background:#fff3e0;border-left:4px solid #e65100;border-radius:0 7px 7px 0;padding:8px 11px">
+            <div style="font-size:9px;font-weight:800;color:#e65100;margin-bottom:2px">Misiones de compra &mdash; 50%</div>
+            <div style="font-size:8.5px;color:#444;line-height:1.55"><strong>Urgencia</strong> &middot; <strong>Impulso</strong> &middot; <strong>Conveniencia</strong> &middot; Score 0/1/2</div>
+          </div>
+          <div style="background:#e3f2fd;border-left:4px solid #1565c0;border-radius:0 7px 7px 0;padding:8px 11px">
+            <div style="font-size:9px;font-weight:800;color:#1565c0;margin-bottom:2px">QC Signal &mdash; 25%</div>
+            <div style="font-size:8.5px;color:#444;line-height:1.55">Cu&aacute;ntos de los 5 players QC llevan la categor&iacute;a &middot; Score = players / 5</div>
+          </div>
+        </div>
+        <div style="background:#f8f8f8;border-radius:7px;padding:7px 12px;font-size:10px;color:#333;font-family:monospace;text-align:center">
+          <span style="color:#1565c0;font-weight:700">Score</span> = 0.25 &times; MeLi &nbsp;+&nbsp; <span style="color:#e65100;font-weight:700">0.50</span> &times; Misiones &nbsp;+&nbsp; 0.25 &times; QC_Signal
+        </div>
+      </div>
+    </div>
+
+    <!-- COL DER: PASO 3 -->
+    <div style="background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 1px 5px rgba(0,0,0,.08)">
+      <div style="font-size:11px;font-weight:800;margin-bottom:7px;padding-bottom:6px;border-bottom:2px solid #f0f0f0;color:#111">3. Complejidad de cat&aacute;logo por categor&iacute;a</div>
+      <div style="font-size:9.5px;color:#555;line-height:1.6;margin-bottom:10px">Analizamos la complejidad del cat&aacute;logo de cada categor&iacute;a en base a la cantidad de SKUs que hacen al 80% del volumen de venta. A mayor complejidad, m&aacute;s sellers preferred necesitamos para cubrirla bien.</div>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="background:#fbe9e7;border-left:4px solid #c62828;border-radius:0 7px 7px 0;padding:10px 13px">
+          <div style="font-size:9.5px;font-weight:800;color:#c62828;margin-bottom:3px">Alta &mdash; &ge;1.500 SKUs</div>
+          <div style="font-size:9px;color:#444;line-height:1.6">Beauty, Indumentaria, Accesorios Tech, Iluminaci&oacute;n, Papeler&iacute;a, Cocina, Mat. Construcci&oacute;n, Limpieza, Alimentos</div>
+        </div>
+        <div style="background:#fff8e1;border-left:4px solid #e65100;border-radius:0 7px 7px 0;padding:10px 13px">
+          <div style="font-size:9.5px;font-weight:800;color:#e65100;margin-bottom:3px">Media &mdash; 500&ndash;1.499 SKUs</div>
+          <div style="font-size:9px;color:#444;line-height:1.6">Bebidas, Farmacia, Suplementos, Mascotas, Beb&eacute;, Snacks, Deportes, Automotor, Textiles, Org. Deco, Acc. Moda, Peq. Electrodom.</div>
+        </div>
+        <div style="background:#f5f5f5;border-left:4px solid #9e9e9e;border-radius:0 7px 7px 0;padding:10px 13px">
+          <div style="font-size:9.5px;font-weight:800;color:#666;margin-bottom:3px">Baja &mdash; &lt;500 SKUs</div>
+          <div style="font-size:9px;color:#444;line-height:1.6">Computaci&oacute;n, Libros, Foto y Gaming, Disp. M&oacute;viles, Seg. del Hogar</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer" style="margin-top:10px"><span class="fn">26 categor&iacute;as &middot; pareto 80% sobre demanda real MeLi SP &middot; ABR&ndash;MAY 2026</span><span class="ft">GM Agora SP &middot; Jun 2026</span></div>
+</div>
+</div>
+
+<!-- ══ S3: OUTPUT FRAMEWORK ══ -->
+<div class="slide" id="s3">
+<div class="s-pad">
+  <div class="yl" style="margin-bottom:14px">
+    <div class="s-tag" contenteditable="true" spellcheck="false">GM Agora SP &middot; 1. Framework propuesto</div>
+    <div class="s-title" contenteditable="true" spellcheck="false">Las <em>26 categor&iacute;as</em> &mdash; SKUs del pareto 80% y complejidad de surtido</div>
+  </div>
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+
+    <!-- COL 1 -->
+    <div>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr>
+          <th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:left;border-radius:5px 0 0 0">Categor&iacute;a</th>
+          <th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:center">Score</th><th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:center;white-space:nowrap">p80 SKUs</th>
+          <th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:center;border-radius:0 5px 0 0">Complejidad</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Bebidas</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e8f5e9;color:#2e7d32">86</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">1.253</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Beauty e Higiene</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e8f5e9;color:#2e7d32">85</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">2.620</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Suplementos</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e8f5e9;color:#2e7d32">84</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">1.079</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Farmacia y Salud</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e8f5e9;color:#2e7d32">81</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">1.311</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Snacks y Golosinas</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e8f5e9;color:#2e7d32">80</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">699</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Beb&eacute; y Ni&ntilde;os</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e8f5e9;color:#2e7d32">78</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">783</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Mascotas</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e8f5e9;color:#2e7d32">77</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">986</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Accesorios Tech</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e8f5e9;color:#2e7d32">74</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">2.199</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td></tr>
+          <tr><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Papeler&iacute;a y Fiestas</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e8f5e9;color:#2e7d32">58</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">2.268</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- COL 2 -->
+    <div>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr>
+          <th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:left;border-radius:5px 0 0 0">Categor&iacute;a</th>
+          <th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:center">Score</th><th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:center;white-space:nowrap">p80 SKUs</th>
+          <th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:center;border-radius:0 5px 0 0">Complejidad</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Accesorios de Moda</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e8f5e9;color:#2e7d32">52</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">983</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Peq. Electrodom&eacute;sticos</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">44</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">809</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Disp. M&oacute;viles</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">41</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">190</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">Baja</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Iluminaci&oacute;n</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">40</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">2.179</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Indumentaria</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">38</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">3.774</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Cocina y Utensilios</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">35</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">2.005</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Computaci&oacute;n</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">32</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">340</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">Baja</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Foto y Gaming</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">32</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">148</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">Baja</span></td></tr>
+          <tr><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Libros</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">30</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">460</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">Baja</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- COL 3 -->
+    <div>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr>
+          <th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:left;border-radius:5px 0 0 0">Categor&iacute;a</th>
+          <th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:center">Score</th><th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:center;white-space:nowrap">p80 SKUs</th>
+          <th style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#1a2454;padding:4px 7px;text-align:center;border-radius:0 5px 0 0">Complejidad</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Seg. del Hogar</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">28</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">305</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">Baja</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Org. y Decoraci&oacute;n</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">27</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">1.092</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Deportes</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">27</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">1.284</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Automotor</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">26</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">989</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Textiles Hogar</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#fff8e1;color:#e65100">25</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">824</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#111">Mat. Construcci&oacute;n</td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">24</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#333">1.782</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td></tr>
+          <tr style="border-bottom:1px solid #f2f2f2"><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#666;font-style:italic">Limpieza <span style="font-size:7px;font-weight:800;padding:1px 4px;border-radius:3px;background:#e3f2fd;color:#1565c0;font-style:normal">DS</span></td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e3f2fd;color:#1565c0">DS</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#999">2.096</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td></tr>
+          <tr><td style="padding:5px 7px;font-size:10px;font-weight:700;color:#666;font-style:italic">Alimentos <span style="font-size:7px;font-weight:800;padding:1px 4px;border-radius:3px;background:#e3f2fd;color:#1565c0;font-style:normal">DS</span></td><td style="padding:5px 4px;text-align:center"><span style="font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;background:#e3f2fd;color:#1565c0">DS</span></td><td style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#999">1.998</td><td style="padding:5px 7px;text-align:center"><span style="font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div style="display:flex;gap:14px;margin-top:10px;padding-top:8px;border-top:1px solid #f0f0f0;align-items:center">
+    <span style="font-size:8px;color:#888;font-weight:700">Complejidad:</span>
+    <span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta &ge;1.500 SKUs</span>
+    <span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:4px;background:#fff8e1;color:#e65100">Media 500&ndash;1.499 SKUs</span>
+    <span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">Baja &lt;500 SKUs</span>
+    <span style="font-size:8px;font-weight:800;padding:2px 8px;border-radius:4px;background:#e3f2fd;color:#1565c0">DS</span><span style="font-size:8px;color:#888">&nbsp;= Dark Store / Super (fuera del scope de GM)</span>
+    <span style="margin-left:auto" class="ft">GM Agora SP &middot; Jun 2026</span>
+  </div>
+</div>
+</div>
+
+<!-- ══ S4: EQUILIBRIO + RECOMENDACIÓN SELLERS ══ -->
+
+<div class="slide" id="s5b">
+<div class="s-pad" style="padding:20px 36px 16px">
+  <div class="yl" style="margin-bottom:8px">
+    <div class="s-tag" contenteditable="true" spellcheck="false">GM Agora SP &middot; 2. Diagn&oacute;stico de cobertura</div>
+    <div class="s-title" contenteditable="true" spellcheck="false">Cobertura inicial &mdash; <em>dominios presentes, SKUs exactos bajos en ambos universos</em></div>
+  </div>
+  <div style="flex:1;min-height:0;overflow-y:auto">
+    <!-- tablas -->
+    <div style="display:flex;flex-direction:column;gap:5px">
+
+      <!-- 38 sellers -->
+      <div>
+        <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#1a2454;padding-bottom:3px;border-bottom:2px solid #1a2454;margin-bottom:4px">38 sellers candidatos</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:start">
+          <table style="width:100%;border-collapse:collapse"><thead><tr><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:left">Categoria</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center">Dom.</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center;white-space:nowrap">SKU p80</th></tr></thead><tbody>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Bebidas</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">86</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:31%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">31%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Beauty e Higiene</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">85</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:55%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">55%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:2%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">2%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Suplementos</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">84</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:100%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">100%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:2%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">2%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Farmacia y Salud</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">81</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:38%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">38%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Snacks y Golosinas</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">80</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:67%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">67%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Bebe y Ninos</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">78</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:74%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">74%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Mascotas</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">77</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:79%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">79%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:3%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">3%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Accesorios Tech</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">74</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:56%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">56%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:2%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">2%</span></div></td></tr>
+            <tr><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Papeleria</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">58</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:84%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">84%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:1%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">1%</span></div></td></tr>
+          </tbody></table>
+          <table style="width:100%;border-collapse:collapse"><thead><tr><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:left">Categoria</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center">Dom.</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center;white-space:nowrap">SKU p80</th></tr></thead><tbody>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Accesorios Moda</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">52</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:84%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">84%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Peq. Electrodom.</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">44</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:59%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">59%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:4%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">4%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Disp. Moviles</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">41</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:67%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">67%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Iluminacion</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">40</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:48%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">48%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Indumentaria</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">38</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:32%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">32%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Cocina y Utensilios</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">35</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:86%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">86%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:2%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">2%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Computacion</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">32</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:79%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">79%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:4%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">4%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Foto y Gaming</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">32</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:38%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">38%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Libros</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">30</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:80%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">80%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:2%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">2%</span></div></td></tr>
+          </tbody></table>
+          <table style="width:100%;border-collapse:collapse"><thead><tr><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:left">Categoria</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center">Dom.</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center;white-space:nowrap">SKU p80</th></tr></thead><tbody>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Seg. del Hogar</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">28</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:31%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">31%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Org. y Deco</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">27</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:77%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">77%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Deportes</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">27</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:50%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">50%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Automotor</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">26</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:42%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">42%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Textiles Hogar</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">4</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:73%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">73%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Mat. Construccion</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">4</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:36%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">36%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#666;font-style:italic">Limpieza</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e3f2fd;color:#1565c0">DS</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:68%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">68%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#666;font-style:italic">Alimentos</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e3f2fd;color:#1565c0">DS</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+          </tbody></table>
+        </div>
+      </div>
+
+      <!-- divider -->
+      <div style="border-top:1px dashed #ddd"></div>
+
+      <!-- ~1016 sellers -->
+      <div>
+        <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#666;padding-bottom:3px;border-bottom:2px solid #bbb;margin-bottom:4px">~1.016 sellers en la zona</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:start">
+          <table style="width:100%;border-collapse:collapse"><thead><tr><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:left">Categoria</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center">Dom.</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center;white-space:nowrap">SKU p80</th></tr></thead><tbody>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Bebidas</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">86</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:77%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">77%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Beauty e Higiene</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">85</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:86%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">86%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:2%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">2%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Suplementos</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">84</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:100%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">100%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:11%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">11%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Farmacia y Salud</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">81</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:83%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">83%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:2%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">2%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Snacks y Golosinas</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">80</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:78%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#e65100">78%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Bebe y Ninos</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">78</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:89%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">89%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:2%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">2%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Mascotas</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">77</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:92%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">92%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:4%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">4%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Accesorios Tech</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">74</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:100%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">100%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:7%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">7%</span></div></td></tr>
+            <tr><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Papeleria</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">58</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:97%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">97%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:4%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">4%</span></div></td></tr>
+          </tbody></table>
+          <table style="width:100%;border-collapse:collapse"><thead><tr><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:left">Categoria</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center">Dom.</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center;white-space:nowrap">SKU p80</th></tr></thead><tbody>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Accesorios Moda</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e8f5e9;color:#2e7d32">52</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:94%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">94%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:13%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">13%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Peq. Electrodom.</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">44</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:100%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">100%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:7%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">7%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Disp. Moviles</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">41</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:100%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">100%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:1%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">1%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Iluminacion</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">40</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:100%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">100%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:5%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">5%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Indumentaria</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">38</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:100%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">100%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:24%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">24%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Cocina y Utensilios</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">35</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:100%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">100%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:6%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">6%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Computacion</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">32</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:97%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">97%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:15%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">15%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Foto y Gaming</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">32</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Libros</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">30</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:80%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">80%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:30%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">30%</span></div></td></tr>
+          </tbody></table>
+          <table style="width:100%;border-collapse:collapse"><thead><tr><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:left">Categoria</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center">Dom.</th><th style="padding:3px 5px;font-size:6.5px;font-weight:800;text-transform:uppercase;color:#fff;background:#1a2454;text-align:center;white-space:nowrap">SKU p80</th></tr></thead><tbody>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Seg. del Hogar</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">28</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:92%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">92%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:5%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">5%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Org. y Deco</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">27</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:97%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">97%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:1%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">1%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Deportes</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">27</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:92%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">92%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:2%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">2%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Automotor</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#fff8e1;color:#e65100">26</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:100%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">100%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:4%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">4%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Textiles Hogar</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">4</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:95%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">95%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:1%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">1%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#111">Mat. Construccion</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">4</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:87%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">87%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:2%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">2%</span></div></td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#666;font-style:italic">Limpieza</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e3f2fd;color:#1565c0">DS</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:90%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">90%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+            <tr><td style="padding:2px 5px"><span style="font-size:8.5px;font-weight:800;color:#666;font-style:italic">Alimentos</span> <span style="font-size:7px;font-weight:700;padding:1px 4px;border-radius:4px;background:#e3f2fd;color:#1565c0">DS</span></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:85%;height:100%;background:#2e7d32;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#2e7d32">85%</span></div></td><td style="padding:2px 5px;text-align:center"><div style="display:flex;align-items:center;gap:2px"><div style="width:30px;height:4px;background:#eee;border-radius:2px;overflow:hidden"><div style="width:0%;height:100%;background:#c62828;border-radius:2px"></div></div><span style="font-size:8px;font-weight:900;color:#c62828">0%</span></div></td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer" style="margin-top:6px"><span class="fn">Dom. = % dominios del framework con al menos 1 listing &middot; SKU exacto = % product_ids del pareto 80% con listing activo</span><span class="ft">GM Agora SP &middot; Jun 2026</span></div>
+</div>
+</div>
+
+<div class="slide" id="s_decision">
+<div class="s-pad" style="padding:20px 36px 14px">
+  <div class="yl" style="margin-bottom:10px">
+    <div class="s-tag" contenteditable="true" spellcheck="false">GM Agora SP &middot; 3. Plan de acci&oacute;n</div>
+    <div class="s-title" contenteditable="true" spellcheck="false">&iquest;Con qu&eacute; sellers avanzamos? <em>Escalamos si el paso anterior no resuelve la brecha</em></div>
+  </div>
+  <div style="flex:1;display:flex;gap:10px;min-height:0">
+
+  <!-- COL IZQ: 3 pasos -->
+  <div style="flex:5;display:flex;flex-direction:column;gap:6px;min-height:0">
+
+      <!-- PASO 1 -->
+      <div style="flex:1;border-radius:10px;border:1.5px solid #c5cae9;display:flex;flex-direction:column;overflow:hidden">
+        <div style="background:#1a2454;padding:7px 14px;border-bottom:3px solid #FFE600;display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:8px;font-weight:800;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:1px">Paso 1 &mdash; Siempre primero</div>
+            <div style="font-size:12px;font-weight:900;color:#fff">Sellers actuales de la zona</div>
+          </div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);font-style:italic">Sellers MeLi del pol&iacute;gono</div>
+        </div>
+        <div style="padding:7px 14px;flex:1;display:flex;flex-direction:column;gap:4px">
+          <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;color:#2e7d32;letter-spacing:.4px">&#10003; Cubren dominio relevante de la categor&iacute;a + SKUs del pareto</div>
+          <div style="font-size:8.5px;color:#333;padding:4px 9px;background:#e8f5e9;border-radius:5px">&#9889; <strong>Priorizar</strong> &mdash; avanzar directamente en Agora</div>
+          <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;color:#e65100;margin-top:2px;letter-spacing:.4px">&#10141; Cubren dominio relevante pero NO los SKUs del pareto</div>
+          <div style="font-size:8.5px;color:#333;padding:4px 9px;background:#fff8e1;border-radius:5px">&#128239; <strong>Evaluar farming del cat&aacute;logo</strong> &mdash; trabajar con el seller para publicar los SKUs que faltan del pareto 80%</div>
+        </div>
+      </div>
+
+      <!-- PASO 2 -->
+      <div style="flex:1;border-radius:10px;border:1.5px solid #c8e6c9;display:flex;flex-direction:column;overflow:hidden">
+        <div style="background:#2e7d32;padding:7px 14px;border-bottom:3px solid #FFE600;display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:8px;font-weight:800;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:1px">Paso 2 &mdash; Si el paso 1 no cubre la brecha</div>
+            <div style="font-size:12px;font-weight:900;color:#fff">H&eacute;roes locales &mdash; Hunting externo</div>
+          </div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);font-style:italic">Sellers fuera de MeLi</div>
+        </div>
+        <div style="padding:7px 14px;flex:1;display:flex;gap:10px">
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:8.5px;color:#555;line-height:1.5">Sellers peque&ntilde;os con amplitud de surtido correcta en la categor&iacute;a, que hoy no est&aacute;n en MeLi o tienen poca actividad.</div>
+            <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;color:#2e7d32;margin-top:2px">Criterios de selecci&oacute;n</div>
+            <div style="font-size:8.5px;color:#333;padding:4px 8px;background:#e8f5e9;border-radius:5px">Cubre brecha real del pareto &middot; dentro del radio operativo &middot; reputaci&oacute;n o potencial de construirla</div>
+            <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;color:#c62828;margin-top:2px">Desaf&iacute;os</div>
+            <div style="font-size:8.5px;color:#333;padding:4px 8px;background:#ffebee;border-radius:5px">Onboarding desde cero &middot; publicaci&oacute;n de cat&aacute;logo &middot; arranque sin reputaci&oacute;n</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 3 -->
+      <div style="flex:1;border-radius:10px;border:1.5px solid #ffe082;display:flex;flex-direction:column;overflow:hidden">
+        <div style="background:#e65100;padding:7px 14px;border-bottom:3px solid #FFE600;display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:8px;font-weight:800;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:1px">Paso 3 &mdash; Para dar escala y consideraci&oacute;n</div>
+            <div style="font-size:12px;font-weight:900;color:#fff">Cadenas y franquicias</div>
+          </div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);font-style:italic">mayor palanca, sujeto a producto</div>
+        </div>
+        <div style="padding:7px 14px;flex:1;display:flex;gap:10px">
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:8.5px;color:#555;line-height:1.5">Para categor&iacute;as donde los pasos anteriores no alcanzan o donde queremos construir consideraci&oacute;n inmediata y replicar r&aacute;pido a nuevas zonas.</div>
+            <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;color:#2e7d32;margin-top:2px">Por qu&eacute; son clave</div>
+            <div style="font-size:8.5px;color:#333;padding:4px 8px;background:#fff3e0;border-radius:5px">Assortment cr&iacute;tico propio &middot; consideraci&oacute;n inmediata en el buyer &middot; f&aacute;cil de escalar a nuevas zonas</div>
+            <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;color:#e65100;margin-top:2px">Qu&eacute; definimos</div>
+            <div style="font-size:8.5px;color:#333;padding:4px 8px;background:#fff3e0;border-radius:5px">Qu&eacute; cadenas priorizar &middot; limitaciones con producto &middot; c&oacute;mo elevar a equipo de producto</div>
+          </div>
+        </div>
+      </div>
+
+  </div><!-- /col izq -->
+
+  <!-- COL CENTRO: discusiones por paso -->
+  <div style="flex:2;display:flex;flex-direction:column;gap:6px;min-height:0">
+    <div style="flex:1;border-radius:10px;border:1.5px solid #c5cae9;background:#f8f9ff;padding:9px 13px;display:flex;flex-direction:column;gap:4px">
+      <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;color:#1a2454;letter-spacing:.4px;margin-bottom:1px">&#128172; Paso 1 &mdash; A discutir</div>
+      <div contenteditable="true" spellcheck="false" style="font-size:8.5px;color:#444;line-height:1.55">¿Cómo avanzamos con sellers interesantes dentro de MeLi que no son cartera asesorada? ¿Quién los contacta, bajo qué proceso y con qué propuesta?</div>
+    </div>
+    <div style="flex:1;border-radius:10px;border:1.5px solid #c8e6c9;background:#f6fbf6;padding:9px 13px;display:flex;flex-direction:column;gap:4px">
+      <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;color:#2e7d32;letter-spacing:.4px;margin-bottom:1px">&#128172; Paso 2 &mdash; A discutir</div>
+      <div contenteditable="true" spellcheck="false" style="font-size:8.5px;color:#444;line-height:1.55">Identificar sellers potenciales por categoría. ¿Qué necesitamos para subirlos a MeLi? ¿Onboarding, catálogo, contacto comercial?</div>
+    </div>
+    <div style="flex:1;border-radius:10px;border:1.5px solid #ffe082;background:#fffdf5;padding:9px 13px;display:flex;flex-direction:column;gap:4px">
+      <div style="font-size:7.5px;font-weight:800;text-transform:uppercase;color:#e65100;letter-spacing:.4px;margin-bottom:1px">&#128172; Paso 3 &mdash; A discutir</div>
+      <div contenteditable="true" spellcheck="false" style="font-size:8.5px;color:#444;line-height:1.55">Identificar cadenas y franquicias prioritarias por categoría. ¿Qué necesitamos para subirlas? ¿Limitaciones de producto, integración, take rate?</div>
+    </div>
+  </div><!-- /col centro -->
+
+  <!-- COL DER: box cruzado Preferred Sellers -->
+  <div style="flex:2;border-radius:10px;background:#1a2454;border-top:3px solid #FFE600;padding:12px 13px;display:flex;flex-direction:column;gap:8px;min-height:0;overflow:hidden">
+    <div style="font-size:8px;font-weight:800;text-transform:uppercase;color:#FFE600;letter-spacing:.5px">Output de este an&aacute;lisis</div>
+    <div style="font-size:10px;font-weight:900;color:#fff;line-height:1.35">Definir por categor&iacute;a y por zona cu&aacute;les van a ser los <em style="color:#FFE600;font-style:normal">Proximity Preferred Sellers</em></div>
+    <div style="width:100%;height:1px;background:rgba(255,255,255,.15)"></div>
+    <div style="font-size:8.5px;color:rgba(255,255,255,.75);line-height:1.6">De los 3 universos &mdash; sellers MeLi actuales, h&eacute;roes locales y cadenas &mdash; identificar el n&uacute;cleo de sellers preferred por categor&iacute;a que vamos a priorizar, desarrollar y mantener cercanos.</div>
+  </div><!-- /col der -->
+
+  </div><!-- /flex row -->
+  <div class="footer"><span class="fn">Los pasos son complementarios y secuenciales &mdash; la cobertura del diagn&oacute;stico define por d&oacute;nde empezar en cada categor&iacute;a</span><span class="ft">GM Agora SP &middot; Jun 2026</span></div>
+</div>
+</div>
+
+<div class="slide" id="s4">
+<div class="s-pad">
+  <div class="yl" style="margin-bottom:14px">
+    <div class="s-tag" contenteditable="true" spellcheck="false">GM Agora SP &middot; 3. Plan de acci&oacute;n</div>
+    <div class="s-title" contenteditable="true" spellcheck="false">Proximity <em>Preferred Sellers</em> &mdash; el n&uacute;cleo de sellers que vamos a priorizar y desarrollar</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:11px">
+
+    <!-- FILA SUPERIOR -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;height:158px">
+
+      <!-- arriba izq: Preferred Proximity Sellers -->
+      <div style="background:#fffde7;border-left:4px solid #FFE600;border-radius:0 10px 10px 0;padding:14px 16px;display:flex;flex-direction:column;justify-content:space-between">
+        <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#e65100;margin-bottom:5px">Preferred Proximity Sellers</div>
+        <div style="font-size:11px;font-weight:900;color:#111;line-height:1.25;margin-bottom:7px">No es limitar &mdash; es desarrollar<br>un n&uacute;cleo clave por categor&iacute;a</div>
+        <div style="font-size:9px;color:#555;line-height:1.6">Con quienes tenemos relaci&oacute;n cercana: cubrimos gran parte del pareto, los guiamos, farmeamos su cat&aacute;logo y evitamos diluir una demanda que es esencialmente <strong>local</strong>.</div>
+      </div>
+
+      <!-- arriba der: espectro + 3 cards cortas -->
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="height:26px;border-radius:7px;overflow:hidden;display:flex;font-size:9.5px;font-weight:800;flex-shrink:0">
+          <div style="flex:1;background:#ffebee;display:flex;align-items:center;justify-content:center;color:#c62828">&#10060; Muy pocos</div>
+          <div style="flex:1;background:#e8f5e9;display:flex;align-items:center;justify-content:center;color:#2e7d32;border-left:2px solid #fff;border-right:2px solid #fff">&#10003; Zona &oacute;ptima</div>
+          <div style="flex:1;background:#ffebee;display:flex;align-items:center;justify-content:center;color:#c62828">&#10060; Demasiados</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;flex:1">
+          <div style="border-radius:8px;padding:8px 10px;border:1.5px solid #ffcdd2;background:#fff8f8">
+            <div style="font-size:8px;font-weight:800;color:#c62828;margin-bottom:3px">Riesgo disponibilidad</div>
+            <div style="font-size:8.5px;color:#666;line-height:1.45">Un seller apaga Agora → categor&iacute;a sin oferta. Quiebres = desaparece.</div>
+          </div>
+          <div style="border-radius:8px;padding:8px 10px;border:1.5px solid #c8e6c9;background:#f1f8f1">
+            <div style="font-size:8px;font-weight:800;color:#2e7d32;margin-bottom:3px">Equilibrio correcto</div>
+            <div style="font-size:8.5px;color:#555;line-height:1.45">Oferta disponible. Volumen concentrado = incentivo real por seller.</div>
+          </div>
+          <div style="border-radius:8px;padding:8px 10px;border:1.5px solid #ffcdd2;background:#fff8f8">
+            <div style="font-size:8px;font-weight:800;color:#c62828;margin-bottom:3px">Riesgo relevancia</div>
+            <div style="font-size:8.5px;color:#666;line-height:1.45">Demanda diluida → poco vol. &ldquo;Mucho trabajo, poco retorno&rdquo; → lo apaga.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILA INFERIOR: ancho completo -->
+    <div style="flex:1;display:grid;grid-template-columns:310px 1fr;gap:11px">
+
+      <!-- matriz derivación -->
+      <div style="background:#1a2454;border-radius:10px;padding:14px 16px;border-top:3px solid #FFE600;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:8px;font-weight:800;color:#FFE600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">N&uacute;cleo preferred = f(score, complejidad)</div>
+        <div style="display:grid;grid-template-columns:88px 1fr 1fr 1fr;gap:4px;font-size:8px;text-align:center">
+          <div style="background:rgba(255,255,255,.07);border-radius:4px;padding:5px 4px;color:rgba(255,255,255,.35)"></div>
+          <div style="background:rgba(255,255,255,.07);border-radius:4px;padding:5px 4px;color:rgba(255,255,255,.65);font-weight:700">Comp. Alta</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:4px;padding:5px 4px;color:rgba(255,255,255,.65);font-weight:700">Comp. Media</div>
+          <div style="background:rgba(255,255,255,.07);border-radius:4px;padding:5px 4px;color:rgba(255,255,255,.65);font-weight:700">Comp. Baja</div>
+          <div style="background:rgba(46,125,50,.3);border-radius:4px;padding:5px 4px;color:#81c784;font-weight:700">Score Alto</div>
+          <div style="background:#FFE600;border-radius:4px;padding:5px 4px;color:#1a2454;font-weight:900;font-size:13px">4</div>
+          <div style="background:rgba(255,255,255,.15);border-radius:4px;padding:5px 4px;color:#fff;font-weight:700;font-size:13px">3</div>
+          <div style="background:rgba(255,255,255,.12);border-radius:4px;padding:5px 4px;color:#fff;font-weight:700;font-size:13px">2</div>
+          <div style="background:rgba(230,81,0,.25);border-radius:4px;padding:5px 4px;color:#ffb74d;font-weight:700">Score Medio</div>
+          <div style="background:rgba(255,255,255,.15);border-radius:4px;padding:5px 4px;color:#fff;font-weight:700;font-size:13px">3</div>
+          <div style="background:rgba(255,255,255,.12);border-radius:4px;padding:5px 4px;color:#fff;font-weight:700;font-size:13px">2</div>
+          <div style="background:rgba(255,255,255,.09);border-radius:4px;padding:5px 4px;color:rgba(255,255,255,.6);font-weight:700;font-size:13px">2</div>
+          <div style="background:rgba(255,255,255,.05);border-radius:4px;padding:5px 4px;color:rgba(255,255,255,.35);font-weight:700">Score Bajo</div>
+          <div style="background:rgba(255,255,255,.09);border-radius:4px;padding:5px 4px;color:rgba(255,255,255,.55);font-weight:700;font-size:13px">1</div>
+          <div style="background:rgba(255,255,255,.09);border-radius:4px;padding:5px 4px;color:rgba(255,255,255,.55);font-weight:700;font-size:13px">1</div>
+          <div style="background:rgba(255,255,255,.09);border-radius:4px;padding:5px 4px;color:rgba(255,255,255,.55);font-weight:700;font-size:13px">1</div>
+        </div>
+      </div>
+
+      <!-- tabla resultado -->
+      <div style="overflow-y:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:9.5px">
+          <thead><tr style="background:#f0f5ff">
+            <th style="padding:4px 8px;text-align:left;font-size:7.5px;font-weight:800;color:#1565c0;text-transform:uppercase;border-bottom:2px solid #1565c0">Categor&iacute;a</th>
+            <th style="padding:4px 8px;text-align:center;font-size:7.5px;font-weight:800;color:#1565c0;text-transform:uppercase;border-bottom:2px solid #1565c0">Score</th>
+            <th style="padding:4px 8px;text-align:center;font-size:7.5px;font-weight:800;color:#1565c0;text-transform:uppercase;border-bottom:2px solid #1565c0">Complejidad</th>
+            <th style="padding:4px 8px;text-align:center;font-size:7.5px;font-weight:800;color:#1565c0;text-transform:uppercase;border-bottom:2px solid #1565c0">Preferred/zona</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:3px 8px;font-weight:700">Bebidas</td><td style="text-align:center"><span class="pill-h">86</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td><td style="text-align:center;font-weight:900;color:#1a2454;font-size:13px">3</td></tr>
+            <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:3px 8px;font-weight:700">Beauty e Higiene</td><td style="text-align:center"><span class="pill-h">85</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td><td style="text-align:center;font-weight:900;color:#1a2454;font-size:13px">4</td></tr>
+            <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:3px 8px;font-weight:700">Suplementos</td><td style="text-align:center"><span class="pill-h">84</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td><td style="text-align:center;font-weight:900;color:#1a2454;font-size:13px">3</td></tr>
+            <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:3px 8px;font-weight:700">Farmacia y Salud</td><td style="text-align:center"><span class="pill-h">81</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td><td style="text-align:center;font-weight:900;color:#1a2454;font-size:13px">3</td></tr>
+            <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:3px 8px;font-weight:700">Snacks y Golosinas</td><td style="text-align:center"><span class="pill-h">80</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td><td style="text-align:center;font-weight:900;color:#1a2454;font-size:13px">3</td></tr>
+            <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:3px 8px;font-weight:700">Mascotas</td><td style="text-align:center"><span class="pill-h">78</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td><td style="text-align:center;font-weight:900;color:#1a2454;font-size:13px">3</td></tr>
+            <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:3px 8px;font-weight:700">Beb&eacute; y Ni&ntilde;os</td><td style="text-align:center"><span class="pill-h">78</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td><td style="text-align:center;font-weight:900;color:#1a2454;font-size:13px">3</td></tr>
+            <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:3px 8px;font-weight:700">Accesorios Tech</td><td style="text-align:center"><span class="pill-h">74</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td><td style="text-align:center;font-weight:900;color:#1a2454;font-size:13px">4</td></tr>
+            <tr style="border-bottom:1px solid #f0f0f0;background:#fafafa"><td style="padding:3px 8px;color:#777">Papeler&iacute;a y Fiestas</td><td style="text-align:center"><span class="pill-m">58</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td><td style="text-align:center;font-weight:900;color:#888;font-size:13px">4</td></tr>
+            <tr style="border-bottom:1px solid #f0f0f0;background:#fafafa"><td style="padding:3px 8px;color:#777">Accesorios de Moda</td><td style="text-align:center"><span class="pill-m">52</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fff8e1;color:#e65100">Media</span></td><td style="text-align:center;font-weight:900;color:#888;font-size:13px">2</td></tr>
+            <tr style="border-bottom:1px solid #f0f0f0;background:#fafafa"><td style="padding:3px 8px;color:#777">Iluminaci&oacute;n, Indumentaria, Cocina...</td><td style="text-align:center"><span class="pill-m">25&ndash;44</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#fbe9e7;color:#c62828">Alta</span></td><td style="text-align:center;font-weight:900;color:#888;font-size:13px">3</td></tr>
+            <tr style="background:#fafafa"><td style="padding:3px 8px;color:#aaa">Computaci&oacute;n, Foto, Libros, Seg. Hogar...</td><td style="text-align:center"><span class="pill-l">25&ndash;35</span></td><td style="text-align:center"><span style="font-size:7.5px;font-weight:800;padding:1px 6px;border-radius:4px;background:#f5f5f5;color:#9e9e9e">Baja</span></td><td style="text-align:center;font-weight:900;color:#ccc;font-size:13px">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+  <div class="footer"><span class="fn">Preferred = sellers clave por categor&iacute;a &middot; complejidad = SKUs pareto 80% &middot; Ref: seller que apag&oacute; Amazon por bajo vol. vs. esfuerzo operativo</span><span class="ft">GM Agora SP &middot; Jun 2026</span></div>
+</div>
+</div>
+
+<!-- ══ S_NEXT: PRÓXIMOS PASOS ══ -->
+<div class="slide" id="s_next">
+<div class="s-pad">
+  <div class="yl">
+    <div class="s-tag" contenteditable="true" spellcheck="false">GM Agora SP &middot; Jun 2026</div>
+    <div class="s-title" contenteditable="true" spellcheck="false">Pr&oacute;ximos pasos</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px">
+    <div style="display:flex;align-items:flex-start;gap:16px">
+      <div style="width:36px;height:36px;border-radius:50%;background:#1a2454;color:#FFE600;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+      <div style="flex:1;padding-top:6px">
+        <div style="font-size:14px;font-weight:900;color:#111" contenteditable="true" spellcheck="false">Armar lista de sellers por categor&iacute;a a activar</div>
+        <div style="font-size:10px;color:#888;margin-top:2px" contenteditable="true" spellcheck="false">Sellers del pol&iacute;gono que cubren dominios y SKUs del pareto &rarr; priorizar por categor&iacute;a y zona</div>
+      </div>
+    </div>
+    <div style="width:100%;height:1px;background:#f0f0f0;margin-left:52px"></div>
+    <div style="display:flex;align-items:flex-start;gap:16px">
+      <div style="width:36px;height:36px;border-radius:50%;background:#1a2454;color:#FFE600;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+      <div style="flex:1;padding-top:6px">
+        <div style="font-size:14px;font-weight:900;color:#111" contenteditable="true" spellcheck="false">Armar lista de sellers por categor&iacute;a a farmear cat&aacute;logo</div>
+        <div style="font-size:10px;color:#888;margin-top:2px" contenteditable="true" spellcheck="false">Sellers con dominio relevante pero sin los SKUs del pareto &rarr; definir plan de farming con KAM</div>
+      </div>
+    </div>
+    <div style="width:100%;height:1px;background:#f0f0f0;margin-left:52px"></div>
+    <div style="display:flex;align-items:flex-start;gap:16px">
+      <div style="width:36px;height:36px;border-radius:50%;background:#1a2454;color:#FFE600;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+      <div style="flex:1;padding-top:6px">
+        <div style="font-size:14px;font-weight:900;color:#111" contenteditable="true" spellcheck="false">Definir Preferred Proximity Partners por categor&iacute;a y zona</div>
+        <div style="font-size:10px;color:#888;margin-top:2px" contenteditable="true" spellcheck="false">Del universo de sellers actuales, h&eacute;roes locales y cadenas &rarr; definir el n&uacute;cleo de preferred por categor&iacute;a</div>
+      </div>
+    </div>
+    <div style="width:100%;height:1px;background:#f0f0f0;margin-left:52px"></div>
+    <div style="display:flex;align-items:flex-start;gap:16px">
+      <div style="width:36px;height:36px;border-radius:50%;background:#FFE600;color:#1a2454;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
+      <div style="flex:1;padding-top:6px">
+        <div style="font-size:14px;font-weight:900;color:#111" contenteditable="true" spellcheck="false">Definir KPIs de medici&oacute;n y momentos de medici&oacute;n</div>
+        <div style="font-size:10px;color:#888;margin-top:2px" contenteditable="true" spellcheck="false">Cobertura de SKUs, disponibilidad por categor&iacute;a, precio competitivo &rarr; definir cadencia y owners</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span class="fn"></span><span class="ft">GM Agora SP &middot; Jun 2026</span></div>
+</div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn" id="prev" onclick="goSlide(-1)">&#8592;</button>
+  <div class="nav-dots" id="dots"></div>
+  <button class="nav-btn" id="next" onclick="goSlide(1)">&#8594;</button>
+  <div class="nav-counter" id="counter">1 / 9</div>
+</div>
+</div><!-- /deck -->
+
+<script>
+var current=0, total=7;
+function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=0;i<total;i++){var d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.setAttribute('data-i',i);d.onclick=function(){goTo(+this.getAttribute('data-i'))};c.appendChild(d);}}
+function goTo(n){var slides=document.querySelectorAll('.slide');slides[current].classList.remove('active');current=Math.max(0,Math.min(total-1,n));slides[current].classList.add('active');document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('active',i===current)});document.getElementById('counter').textContent=(current+1)+' / '+total;document.getElementById('prev').disabled=current===0;document.getElementById('next').disabled=current===total-1;}
+function goSlide(d){goTo(current+d);}
+
+function openImgPicker(){
+  document.getElementById('img-overlay').classList.add('visible');
+  var box = document.getElementById('img-drop-box');
+  box.ondragover = function(e){e.preventDefault(); box.style.background='rgba(255,230,0,.1)'};
+  box.ondragleave = function(){box.style.background=''};
+  box.ondrop = function(e){
+    e.preventDefault(); box.style.background='';
+    var file = e.dataTransfer.files[0];
+    if(file && file.type.startsWith('image/')) processImageFile(file);
+  };
+}
+function closeImgOverlay(){ document.getElementById('img-overlay').classList.remove('visible'); }
+function insertImage(input){
+  if(!input.files[0]) return;
+  processImageFile(input.files[0]);
+  input.value='';
+}
+function processImageFile(file){
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var slide = document.querySelectorAll('.slide')[current];
+    var img = document.createElement('img');
+    img.src = e.target.result;
+    img.style.cssText = 'max-width:280px;max-height:180px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.15);cursor:move;position:absolute;top:80px;right:24px;z-index:10';
+    img.title = 'Arrastr&aacute; para mover &middot; Click derecho para eliminar';
+    img.oncontextmenu = function(ev){ ev.preventDefault(); if(confirm('Eliminar imagen?')) this.remove(); };
+    makeDraggable(img);
+    slide.appendChild(img);
+    closeImgOverlay();
+  };
+  reader.readAsDataURL(file);
+}
+function makeDraggable(el){
+  var dx=0,dy=0,mx=0,my=0;
+  el.style.position='absolute';
+  el.onmousedown = function(e){
+    e.preventDefault();
+    mx=e.clientX; my=e.clientY;
+    document.onmousemove = function(e2){
+      dx=mx-e2.clientX; dy=my-e2.clientY; mx=e2.clientX; my=e2.clientY;
+      el.style.top=(el.offsetTop-dy)+'px'; el.style.left=(el.offsetLeft-dx)+'px';
+      el.style.right='auto';
+    };
+    document.onmouseup=function(){document.onmousemove=null;document.onmouseup=null};
+  };
+}
+function saveHTML(){
+  // Clone the document, remove contenteditable attrs and save button for clean output
+  var clone = document.documentElement.cloneNode(true);
+  // Keep contenteditable so file stays editable after saving
+  var blob = new Blob(['<!DOCTYPE html>\n' + clone.outerHTML], {type:'text/html;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'deck_gm_assortment_workshop_v' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '.html';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(a.href);}, 100);
+}
+
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowDown')goSlide(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')goSlide(-1);});
+buildDots();goTo(0);document.getElementById('prev').disabled=true;
+
+// Make ALL text content in slides editable
+(function makeEditable(){
+  var skip = ['SCRIPT','STYLE','BUTTON','INPUT','IFRAME','TABLE','THEAD','TBODY','TR','TH','TD','SVG','PATH','LINE','DEFS','MARKER','FOREIGNOBJECT'];
+  document.querySelectorAll('.slide *').forEach(function(el){
+    if(skip.indexOf(el.tagName) >= 0) return;
+    if(el.querySelector('*:not(span):not(strong):not(em):not(b):not(i)')) return; // skip parent containers
+    var txt = el.textContent.trim();
+    if(txt.length < 2) return;
+    if(el.getAttribute('contenteditable')) return; // already set
+    el.setAttribute('contenteditable','true');
+    el.setAttribute('spellcheck','false');
+  });
+  // Also make any remaining divs with direct text content editable
+  document.querySelectorAll('.slide div, .slide li, .slide p, .slide span').forEach(function(el){
+    if(skip.indexOf(el.tagName) >= 0) return;
+    var hasChildElements = false;
+    el.childNodes.forEach(function(n){ if(n.nodeType===1 && skip.indexOf(n.tagName)<0) hasChildElements=true; });
+    if(!hasChildElements && el.textContent.trim().length > 1){
+      el.setAttribute('contenteditable','true');
+      el.setAttribute('spellcheck','false');
+    }
+  });
+})();
+</script>
+<div class="img-drop-overlay" id="img-overlay">
+  <button class="img-close" onclick="closeImgOverlay()">&#10005;</button>
+  <div class="img-drop-box" id="img-drop-box">
+    <div style="font-size:36px">&#128247;</div>
+    <div style="font-size:13px;font-weight:700">Arrastr&aacute; una imagen o hacé click</div>
+    <small style="font-size:10px;color:rgba(255,255,255,.6)">Se inserta en la slide actual &middot; PNG, JPG, GIF</small>
+    <button onclick="document.getElementById('img-input').click()" style="margin-top:10px;padding:9px 22px;background:#FFE600;color:#1a2454;border:none;border-radius:20px;font-weight:800;cursor:pointer;font-family:inherit;font-size:11px">Seleccionar archivo</button>
+  </div>
+</div>
+</body>
+</html>
