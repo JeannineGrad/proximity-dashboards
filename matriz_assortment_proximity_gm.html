@@ -1917,14 +1917,15 @@ switchTab=function(id,btn){if(!document.getElementById(id))return;_stGuard(id,bt
     <div style="min-width:28px;height:28px;border-radius:50%;background:#1565c0;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
     <div>
       <div style="font-size:12px;font-weight:800;margin-bottom:6px">Correr las queries en BigQuery</div>
-      <div style="font-size:10px;color:#444;line-height:1.7;margin-bottom:8px">Hay dos queries que generan los CSV fuente. Cambiar el rango de fechas en ambas:</div>
+      <div style="font-size:10px;color:#444;line-height:1.7;margin-bottom:8px">Una query principal genera el CSV fuente. Cambiar <strong>2 fechas</strong> (aparecen 4 veces en el script):</div>
       <div style="background:#f8f8f8;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:10px;line-height:1.8;margin-bottom:8px">
-        <strong>Query demanda:</strong> WHERE fecha BETWEEN 'YYYY-MM-DD' AND 'YYYY-MM-DD'<br>
-        &bull; Filtros ya incluidos: dimensiones QC (&le;50cm, &le;15kg), &ge;30 u/30d<br>
-        &bull; Descargar como CSV &rarr; renombrar con la fecha del per&iacute;odo<br><br>
-        <strong>Query taxonom&iacute;a:</strong> generalmente no cambia, pero si hay nuevas categor&iacute;as en MeLi conviene refrescarla
+        <strong>Script:</strong> Downloads/query_assortment_sp_product_id.sql<br>
+        <strong>Tablas:</strong> BT_SHP_SHIPPING_ITEMS + BT_SHP_SHIPMENTS + LK_ITE_ITEMS_LITE<br>
+        <strong>Cambiar:</strong> DATE '2026-05-09' / DATE '2026-05-10' &rarr; nuevo per&iacute;odo (4 ocurrencias)<br>
+        &bull; Filtros ya incluidos: dim &le;50cm, suma &le;100cm, peso &le;15kg, &ge;30u/30d<br>
+        &bull; Scan estimado: ~500-700GB · Descargar CSV con fecha en el nombre
       </div>
-      <div style="font-size:10px;color:#888;background:#e3f2fd;padding:8px 12px;border-radius:5px;border-left:3px solid #1565c0">Actualizar las rutas en los scripts: <code>$demFile</code> en <strong>build_cat_matrix.ps1</strong> y <strong>build_category_tops.ps1</strong></div>
+      <div style="font-size:10px;color:#888;background:#e3f2fd;padding:8px 12px;border-radius:5px;border-left:3px solid #1565c0">Documentaci&oacute;n completa del pipeline: <strong>Documents/framework_queries/README.md</strong></div>
     </div>
   </div>
 </div>
@@ -1953,24 +1954,18 @@ switchTab=function(id,btn){if(!document.getElementById(id))return;_stGuard(id,bt
       <div style="font-size:12px;font-weight:800;margin-bottom:6px">Correr los scripts de an&aacute;lisis</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
         <div style="background:#f8f8f8;border-radius:6px;padding:10px 12px">
-          <div style="font-size:10px;font-weight:700;margin-bottom:4px">3a. M&eacute;tricas de priorizaci&oacute;n</div>
-          <div style="font-family:monospace;font-size:9px;color:#555">.\build_cat_matrix.ps1</div>
-          <div style="font-size:9px;color:#888;margin-top:4px">Genera pareto80, p80_u%, p80_nmv%, u/SKU por categor&iacute;a</div>
+          <div style="font-size:10px;font-weight:700;margin-bottom:4px">3a. Generar cat_tops_data.js + gm_workshop_assortment.html</div>
+          <div style="font-family:monospace;font-size:9px;color:#555">.\build_workshop_tool.ps1 -CsvFile "bq-results-YYYYMMDD.csv"</div>
+          <div style="font-size:9px;color:#888;margin-top:4px">Genera pareto 80% por categor&iacute;a, cat_tops_data.js y la tab Detalle por categor&iacute;a</div>
         </div>
         <div style="background:#f8f8f8;border-radius:6px;padding:10px 12px">
-          <div style="font-size:10px;font-weight:700;margin-bottom:4px">3b. Top SKUs por categor&iacute;a</div>
-          <div style="font-family:monospace;font-size:9px;color:#555">.\build_category_tops.ps1</div>
-          <div style="font-size:9px;color:#888;margin-top:4px">Genera cat_tops_data.js (top 1000 items/cat con vertical, agg1, agg2)</div>
+          <div style="font-size:10px;font-weight:700;margin-bottom:4px">3b. Cobertura de sellers (opcional)</div>
+          <div style="font-family:monospace;font-size:9px;color:#555">.\gen_coverage_slide.ps1</div>
+          <div style="font-size:9px;color:#888;margin-top:4px">Solo si cambia el set de sellers a analizar. Inputs: cat_tops_data.js + CSV listings activos</div>
         </div>
-        <div style="background:#f8f8f8;border-radius:6px;padding:10px 12px">
-          <div style="font-size:10px;font-weight:700;margin-bottom:4px">3c. Top 10% del universo</div>
-          <div style="font-family:monospace;font-size:9px;color:#555">Script PowerShell (inline)</div>
-          <div style="font-size:9px;color:#888;margin-top:4px">Calcula % SKUs de cada cat. en top 10% SP por unidades y NMV. Ver script en la sesi&oacute;n anterior.</div>
-        </div>
-        <div style="background:#f8f8f8;border-radius:6px;padding:10px 12px">
-          <div style="font-size:10px;font-weight:700;margin-bottom:4px">3d. Recalcular scores</div>
-          <div style="font-family:monospace;font-size:9px;color:#555">Script PowerShell (inline)</div>
-          <div style="font-size:9px;color:#888;margin-top:4px">Con los nuevos t10u, t10n, vol%, nmv% → recalcular meli score normalizado para cada cat.</div>
+        <div style="background:#e8f5e9;border-radius:6px;padding:10px 12px;border-left:3px solid #2e7d32">
+          <div style="font-size:10px;font-weight:700;margin-bottom:4px;color:#2e7d32">Pipeline completo documentado</div>
+          <div style="font-size:9px;color:#555;margin-top:2px">Ver Documents/framework_queries/README.md para el paso a paso completo con tablas BQ, costos de scan y checklist mensual.</div>
         </div>
       </div>
     </div>
