@@ -1190,49 +1190,30 @@ new Chart(document.getElementById('chartCR'),{
 
   document.getElementById('tbl_s7').innerHTML = tblF(channels_s7, baseO_s7, mabO_s7, S_b, S_n, CR_b, CR_n, 's7');
 
-  // Summary — 4 boxes: baseline órd/día → ef.vol + ef.mix + ef.tasa = neto
-  const ord_b_day = Math.round(baseO_s7.tot);
-  const nc_s7 = efNeto>=0?'#2e7d32':'#c62828';
-  const bcVol  = efVol>=0  ?'#eff6ff':'#fef2f2';
-  const bcVol2 = efVol>=0  ?'#4da6ff':'#c62828';
-  const bcMix  = efMix>=0  ?'#fff8e1':'#fff8e1';
-  const bcMix2 = efMix>=0  ?'#e65100':'#c62828';
-  const bcTasa = efTasa>=0 ?'#e8f5e9':'#fef2f2';
-  const bcTasa2= efTasa>=0 ?'#2e7d32':'#c62828';
-  const bcNeto = efNeto>=0 ?'#e8f5e9':'#fef2f2';
-  const bcNeto2= nc_s7;
-
+  // Summary — 3 boxes matching EXACTLY table totals × 30
+  const M=30;
+  const sum_vol = channels_s7.reduce((a,ch)=>a+(ch.so-ch.sb)*ch.cr_b,0)*M;
+  const sum_dcr = channels_s7.reduce((a,ch)=>a+ch.so*(ch.cr_n-ch.cr_b),0)*M;
+  const sum_net = sum_vol+sum_dcr;
+  const box7=(label,val,bg,col,sub)=>
+    `<div style="flex:1;background:${bg};border-radius:7px;padding:8px 12px;text-align:center">
+      <div style="font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${col};margin-bottom:3px">${label}</div>
+      <div style="font-size:20px;font-weight:900;color:${val>=0?col:'#c62828'};line-height:1">${val>=0?'+':''}${nn(val)}</div>
+      <div style="font-size:7px;color:#aaa;margin-top:2px">${sub}</div>
+    </div>`;
   document.getElementById('summary_s7').innerHTML=`
-    <div style="display:flex;align-items:center;gap:6px;width:100%">
-      <div style="background:#f5f7fa;border-radius:7px;padding:7px 12px;text-align:center;flex-shrink:0">
-        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#aaa;margin-bottom:2px">Baseline órd/día</div>
-        <div style="font-size:19px;font-weight:900;color:#1a2454;line-height:1">${nn(ord_b_day)}</div>
-        <div style="font-size:7px;color:#bbb;margin-top:1px">W1.1 · total</div>
+    <div style="display:flex;align-items:center;gap:8px;width:100%">
+      <div style="background:#f5f7fa;border-radius:7px;padding:8px 12px;text-align:center;flex-shrink:0">
+        <div style="font-size:7.5px;font-weight:700;text-transform:uppercase;color:#aaa;margin-bottom:3px">Baseline órd/día</div>
+        <div style="font-size:20px;font-weight:900;color:#1a2454;line-height:1">${nn(Math.round(baseO_s7.tot))}</div>
+        <div style="font-size:7px;color:#bbb;margin-top:2px">W1.1 total</div>
       </div>
-      <div style="font-size:16px;color:#ddd;flex-shrink:0">→</div>
-      <div style="background:${bcVol};border:1.5px solid ${bcVol2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
-        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcVol2};margin-bottom:2px">Ef. Volumen</div>
-        <div style="font-size:19px;font-weight:900;color:${bcVol2};line-height:1">${sgn(efVol)}${nn(efVol)}</div>
-        <div style="font-size:7px;color:#aaa;margin-top:1px">(S_n−S_b)×CR_b×30</div>
-      </div>
-      <div style="font-size:14px;color:#ddd;flex-shrink:0">+</div>
-      <div style="background:${bcMix};border:1.5px solid ${bcMix2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
-        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcMix2};margin-bottom:2px">Ef. Mix CR</div>
-        <div style="font-size:19px;font-weight:900;color:${bcMix2};line-height:1">${sgn(efMix)}${nn(efMix)}</div>
-        <div style="font-size:7px;color:#aaa;margin-top:1px">S_n×(CR_c−CR_b)×30</div>
-      </div>
-      <div style="font-size:14px;color:#ddd;flex-shrink:0">+</div>
-      <div style="background:${bcTasa};border:1.5px solid ${bcTasa2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
-        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcTasa2};margin-bottom:2px">Ef. Tasa</div>
-        <div style="font-size:19px;font-weight:900;color:${bcTasa2};line-height:1">${sgn(efTasa)}${nn(efTasa)}</div>
-        <div style="font-size:7px;color:#aaa;margin-top:1px">S_n×(CR_n−CR_c)×30</div>
-      </div>
-      <div style="font-size:14px;color:#ddd;flex-shrink:0">=</div>
-      <div style="background:${bcNeto};border:2px solid ${bcNeto2};border-radius:7px;padding:7px 14px;text-align:center;flex:1">
-        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcNeto2};margin-bottom:2px">NETO / mes</div>
-        <div style="font-size:22px;font-weight:900;color:${bcNeto2};line-height:1">${sgn(efNeto)}${nn(efNeto)}</div>
-        <div style="font-size:7px;color:#aaa;margin-top:1px">vs W1.1 × 30d</div>
-      </div>
+      <div style="color:#ccc;font-size:18px;flex-shrink:0">→</div>
+      ${box7('Δ órd vol. × 30d',sum_vol,'#fffde7','#e65100','Δ ses × CR base · col. tabla')}
+      <div style="color:#ccc;font-size:16px;flex-shrink:0">+</div>
+      ${box7('Impacto Δ CR × 30d',sum_dcr,'#fce4ec','#c62828','ses_new × Δ CR · col. tabla')}
+      <div style="color:#ccc;font-size:16px;flex-shrink:0">=</div>
+      ${box7('NETO / mes',sum_net,sum_net>=0?'#e8f5e9':'#fce4ec',sum_net>=0?'#2e7d32':'#c62828','Δ órd total × 30d')}
     </div>`;
 
   document.getElementById('fn_s7').innerHTML=
@@ -1311,49 +1292,30 @@ new Chart(document.getElementById('chartCR'),{
 
   document.getElementById('tbl_s8').innerHTML = tblF(channels_s8, baseO_s8, mabO_s8, S_b, S_n, CR_b, CR_n, 's8');
 
-  // Summary — 4 boxes
-  const ord_b_day = Math.round(baseO_s8.tot);
-  const nc_s8 = efNeto>=0?'#2e7d32':'#c62828';
-  const bcVol  = efVol>=0  ?'#eff6ff':'#fef2f2';
-  const bcVol2 = efVol>=0  ?'#4da6ff':'#c62828';
-  const bcMix  = efMix>=0  ?'#fff8e1':'#fff8e1';
-  const bcMix2 = efMix>=0  ?'#e65100':'#c62828';
-  const bcTasa = efTasa>=0 ?'#e8f5e9':'#fef2f2';
-  const bcTasa2= efTasa>=0 ?'#2e7d32':'#c62828';
-  const bcNeto = efNeto>=0 ?'#e8f5e9':'#fef2f2';
-  const bcNeto2= nc_s8;
-
+  // Summary — 3 boxes matching EXACTLY table totals × 30
+  const M8=30;
+  const sum_vol8 = channels_s8.reduce((a,ch)=>a+(ch.so-ch.sb)*ch.cr_b,0)*M8;
+  const sum_dcr8 = channels_s8.reduce((a,ch)=>a+ch.so*(ch.cr_n-ch.cr_b),0)*M8;
+  const sum_net8 = sum_vol8+sum_dcr8;
+  const box8=(label,val,bg,col,sub)=>
+    `<div style="flex:1;background:${bg};border-radius:7px;padding:8px 12px;text-align:center">
+      <div style="font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${col};margin-bottom:3px">${label}</div>
+      <div style="font-size:20px;font-weight:900;color:${val>=0?col:'#c62828'};line-height:1">${val>=0?'+':''}${nn(val)}</div>
+      <div style="font-size:7px;color:#aaa;margin-top:2px">${sub}</div>
+    </div>`;
   document.getElementById('summary_s8').innerHTML=`
-    <div style="display:flex;align-items:center;gap:6px;width:100%">
-      <div style="background:#f5f7fa;border-radius:7px;padding:7px 12px;text-align:center;flex-shrink:0">
-        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#aaa;margin-bottom:2px">Baseline órd/día</div>
-        <div style="font-size:19px;font-weight:900;color:#1a2454;line-height:1">${nn(ord_b_day)}</div>
-        <div style="font-size:7px;color:#bbb;margin-top:1px">W1.1 · total</div>
+    <div style="display:flex;align-items:center;gap:8px;width:100%">
+      <div style="background:#f5f7fa;border-radius:7px;padding:8px 12px;text-align:center;flex-shrink:0">
+        <div style="font-size:7.5px;font-weight:700;text-transform:uppercase;color:#aaa;margin-bottom:3px">Baseline órd/día</div>
+        <div style="font-size:20px;font-weight:900;color:#1a2454;line-height:1">${nn(Math.round(baseO_s8.tot))}</div>
+        <div style="font-size:7px;color:#bbb;margin-top:2px">W1.1 total</div>
       </div>
-      <div style="font-size:16px;color:#ddd;flex-shrink:0">→</div>
-      <div style="background:${bcVol};border:1.5px solid ${bcVol2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
-        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcVol2};margin-bottom:2px">Ef. Volumen</div>
-        <div style="font-size:19px;font-weight:900;color:${bcVol2};line-height:1">${sgn(efVol)}${nn(efVol)}</div>
-        <div style="font-size:7px;color:#aaa;margin-top:1px">(S_n−S_b)×CR_b×30</div>
-      </div>
-      <div style="font-size:14px;color:#ddd;flex-shrink:0">+</div>
-      <div style="background:${bcMix};border:1.5px solid ${bcMix2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
-        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcMix2};margin-bottom:2px">Ef. Mix CR</div>
-        <div style="font-size:19px;font-weight:900;color:${bcMix2};line-height:1">${sgn(efMix)}${nn(efMix)}</div>
-        <div style="font-size:7px;color:#aaa;margin-top:1px">S_n×(CR_c−CR_b)×30</div>
-      </div>
-      <div style="font-size:14px;color:#ddd;flex-shrink:0">+</div>
-      <div style="background:${bcTasa};border:1.5px solid ${bcTasa2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
-        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcTasa2};margin-bottom:2px">Ef. Tasa</div>
-        <div style="font-size:19px;font-weight:900;color:${bcTasa2};line-height:1">${sgn(efTasa)}${nn(efTasa)}</div>
-        <div style="font-size:7px;color:#aaa;margin-top:1px">S_n×(CR_n−CR_c)×30</div>
-      </div>
-      <div style="font-size:14px;color:#ddd;flex-shrink:0">=</div>
-      <div style="background:${bcNeto};border:2px solid ${bcNeto2};border-radius:7px;padding:7px 14px;text-align:center;flex:1">
-        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcNeto2};margin-bottom:2px">NETO / mes</div>
-        <div style="font-size:22px;font-weight:900;color:${bcNeto2};line-height:1">${sgn(efNeto)}${nn(efNeto)}</div>
-        <div style="font-size:7px;color:#aaa;margin-top:1px">vs W1.1 × 30d</div>
-      </div>
+      <div style="color:#ccc;font-size:18px;flex-shrink:0">→</div>
+      ${box8('Δ órd vol. × 30d',sum_vol8,'#fffde7','#e65100','Δ ses × CR base · col. tabla')}
+      <div style="color:#ccc;font-size:16px;flex-shrink:0">+</div>
+      ${box8('Impacto Δ CR × 30d',sum_dcr8,'#fce4ec','#c62828','ses_new × Δ CR · col. tabla')}
+      <div style="color:#ccc;font-size:16px;flex-shrink:0">=</div>
+      ${box8('NETO / mes',sum_net8,sum_net8>=0?'#e8f5e9':'#fce4ec',sum_net8>=0?'#2e7d32':'#c62828','Δ órd total × 30d')}
     </div>`;
 
   document.getElementById('fn_s8').innerHTML=
