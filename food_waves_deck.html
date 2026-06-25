@@ -126,6 +126,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
   </div>
   <div class="sbody" style="padding:14px 34px 12px;gap:14px">
     <div style="display:flex;gap:16px;flex-shrink:0" id="crSummary"></div>
+    <div style="display:flex;gap:10px;flex-shrink:0;margin-top:-6px" id="crMixRow"></div>
     <div style="flex:1;position:relative"><canvas id="chartCR"></canvas></div>
     <div class="footnote">Área sombreada = gap entre tasas · promedios calculados sobre las 5 waves</div>
   </div>
@@ -402,6 +403,40 @@ if(crSum) crSum.innerHTML=`
     <div style="font-size:7.5px;color:#ccc">a donde van las sesiones · prom. 5 waves</div>
   </div>
 `;
+
+// Second row: counterfactual CR (mix effect only)
+const crMixRow = document.getElementById('crMixRow');
+if(crMixRow){
+  // CR base = W1.1 total CR
+  const cr_base_val = wOrd[0].tot / wSes[0].tot;
+  // CR counterfactual = MarAb session shares × W1.1 CRs per channel
+  const mab = waveDefs.length-1; // Mar Abierto index
+  const tot_ses_mab = wSes[mab].tot;
+  const channels_cr = [
+    {k:'onlyML', cr_b: wOrd[0].onlyML/(wSes[0].onlyML||1)},
+    {k:'greenA', cr_b: wOrd[0].greenA/(wSes[0].greenA||1)},
+    {k:'greenB', cr_b: wOrd[0].greenB/(wSes[0].greenB||1)},
+    {k:'mp',     cr_b: wOrd[0].mp    /(wSes[0].mp    ||1)},
+  ];
+  const cr_counter = channels_cr.reduce((a,ch)=>{
+    return a + (wSes[mab][ch.k]/tot_ses_mab)*ch.cr_b;
+  },0);
+  const mix_eff = (cr_counter - cr_base_val)*100;
+  const box = (label,val,sub,bg,col) =>
+    `<div style="flex:1;background:${bg};border-radius:5px;padding:6px 12px;display:flex;flex-direction:column;align-items:center;gap:1px">
+      <div style="font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#aaa">${label}</div>
+      <div style="font-size:18px;font-weight:900;color:${col};line-height:1">${val}</div>
+      <div style="font-size:7px;color:#ccc">${sub}</div>
+    </div>`;
+  crMixRow.innerHTML =
+    box('CR base (W1.1)', (cr_base_val*100).toFixed(2)+'%', 'mix W1.1 · CR W1.1', '#f5f7fa', '#1a2454') +
+    `<div style="display:flex;align-items:center;font-size:14px;color:#ddd;padding:0 2px">→</div>` +
+    box('CR si solo cambia mix', (cr_counter*100).toFixed(2)+'%', 'mix Mar Ab. · CR W1.1', '#fff8e1', '#e65100') +
+    `<div style="display:flex;align-items:center;font-size:14px;color:#ddd;padding:0 2px">=</div>` +
+    box('Efecto mix puro', (mix_eff>=0?'+':'')+mix_eff.toFixed(2)+' pp', 'solo desplazamiento de sesiones', '#fce4ec', '#c62828') +
+    `<div style="flex:2"></div>` +
+    `<div style="flex:2;align-self:center;font-size:8px;color:#aaa;line-height:1.5;padding:0 8px">Sin cambios en tasas individuales,<br>el mix MP→ML reduce la CR total<br>en <b style="color:#c62828">${mix_eff.toFixed(2)} pp</b></div>`;
+}
 
 const crGapPlugin={
   id:'crGap',
