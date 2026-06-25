@@ -1174,7 +1174,7 @@ new Chart(document.getElementById('chartCR'),{
     const tot_ocb = dtot_ses * CR_b;             // Δ vol impact = Δses × CR_base
     const tot_dcr = tot_so * (CR_n - CR_b);     // CR change impact
     h+=`<tr class="total-row">
-      <td class="label" style="border-left:3px solid #1a2454;font-size:9.5px">Total</td>
+      <td class="label" style="border-left:3px solid #1a2454;font-size:9.5px">Total / día</td>
       <td class="right" style="font-size:9.5px">${nn(tot_sb)}</td>
       <td class="right" style="font-size:9.5px">${nn(tot_so)}</td>
       <td class="right ${dtot_ses>=0?'pos':'neg'}" style="font-size:9.5px">${sgn(dtot_ses)}${nn(dtot_ses)}</td>
@@ -1184,6 +1184,14 @@ new Chart(document.getElementById('chartCR'),{
       <td class="right ${tot_dcr>=0?'pos':'neg'}" style="font-size:10px;font-weight:900;background:#ffeef0">${sgn(tot_dcr)}${nn(tot_dcr)}</td>
       <td class="right" style="font-size:10px;font-weight:900;background:#f0fdf8;border-left:2px solid #a5d6a7">${nn(tot_on)}</td>
       <td class="right ${dtot_ord>=0?'pos':'neg'}" style="font-size:11px;font-weight:900;background:#f0fdf8">${sgn(dtot_ord)}${nn(dtot_ord)}</td>
+    </tr>
+    <tr style="background:#1a2454">
+      <td class="label" colspan="5" style="color:#FFB700;font-size:9.5px;font-weight:800;border-left:4px solid #FFB700;padding-left:10px">Impacto mensual estimado (× 30 días)</td>
+      <td class="right" style="background:#fffde7;font-size:12px;font-weight:900;color:${tot_ocb*30>=0?'#e65100':'#c62828'}">${sgn(tot_ocb*30)}${nn(tot_ocb*30)}</td>
+      <td style="background:#1a2454"></td>
+      <td class="right" style="background:#fce4ec;font-size:12px;font-weight:900;color:${tot_dcr*30>=0?'#2e7d32':'#c62828'}">${sgn(tot_dcr*30)}${nn(tot_dcr*30)}</td>
+      <td style="background:#1a2454"></td>
+      <td class="right" style="background:${dtot_ord*30>=0?'#e8f5e9':'#fce4ec'};font-size:14px;font-weight:900;color:${dtot_ord*30>=0?'#2e7d32':'#c62828'};border-left:3px solid ${dtot_ord*30>=0?'#00a878':'#c62828'}">${sgn(dtot_ord*30)}${nn(dtot_ord*30)}</td>
     </tr></tbody>`;
     return h;
   };
@@ -1200,6 +1208,7 @@ new Chart(document.getElementById('chartCR'),{
       <div style="font-size:20px;font-weight:900;color:${val>=0?col:'#c62828'};line-height:1">${val>=0?'+':''}${nn(val)}</div>
       <div style="font-size:7px;color:#aaa;margin-top:2px">${sub}</div>
     </div>`;
+  document.getElementById('summary_s7').style.display='none';
   document.getElementById('summary_s7').innerHTML=`
     <div style="display:flex;align-items:center;gap:8px;width:100%">
       <div style="background:#f5f7fa;border-radius:7px;padding:8px 12px;text-align:center;flex-shrink:0">
@@ -1302,6 +1311,7 @@ new Chart(document.getElementById('chartCR'),{
       <div style="font-size:20px;font-weight:900;color:${val>=0?col:'#c62828'};line-height:1">${val>=0?'+':''}${nn(val)}</div>
       <div style="font-size:7px;color:#aaa;margin-top:2px">${sub}</div>
     </div>`;
+  document.getElementById('summary_s8').style.display='none';
   document.getElementById('summary_s8').innerHTML=`
     <div style="display:flex;align-items:center;gap:8px;width:100%">
       <div style="background:#f5f7fa;border-radius:7px;padding:8px 12px;text-align:center;flex-shrink:0">
