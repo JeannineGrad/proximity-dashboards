@@ -1068,12 +1068,12 @@ new Chart(document.getElementById('chartCR'),{
   const mab_s7  = wAvg7(rawSes_shared, pd('11/6'), pd('23/6'));
   const mabO_s7 = wAvg7(rawOrd_shared, pd('11/6'), pd('23/6'));
 
-  const KEYS=['onlyML','greenA','greenB','mp'];
+  const KEYS=['mp','greenB','greenA','onlyML'];
   const channels_s7=[
-    {key:'onlyML', label:'Only ML',    color:'rgba(255,183,0,0.7)'},
-    {key:'greenA', label:'Green ML A', color:'#81c784'},
-    {key:'greenB', label:'Green ML B', color:'#2e7d32'},
-    {key:'mp',     label:'MP',         color:'#4da6ff'},
+    {key:'mp',     label:'MP',          color:'#4da6ff'},
+    {key:'greenB', label:'Green ML B',  color:'#2e7d32'},
+    {key:'greenA', label:'Green ML A',  color:'#81c784'},
+    {key:'onlyML', label:'Only ML',     color:'rgba(255,183,0,0.7)'},
   ];
 
   function nn(v){return Math.round(v).toLocaleString('es-AR');}
@@ -1118,8 +1118,8 @@ new Chart(document.getElementById('chartCR'),{
     ch.tasa_ch = so*(ch.cr_n - ch.cr_b)*M;
   });
 
-  // Table — sessions → CR → orders flow
-  const tblF = (channels, baseO, mabO, S_b, S_n, CR_b, CR_n, sfx) => {
+  // Table — sessions → CR → orders flow (shared global)
+  window.tblF = (channels, baseO, mabO, S_b, S_n, CR_b, CR_n, sfx) => {
     let h=`<colgroup>
       <col style="width:100px">
       <col style="width:78px"><col style="width:78px"><col style="width:78px">
