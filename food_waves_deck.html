@@ -209,7 +209,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
   <div class="hdr">
     <div class="hdr-tag">Food MLA · Impacto mensual estructural · Mar Abierto vs Wave 1.1</div>
     <div class="hdr-title">NUEVO DISEÑO: Impacto mensual estructural — si Mar Abierto es el nuevo nivel</div>
-    <div class="hdr-sub">Descomposición 3 efectos: Volumen (Δsesiones × CR_base) + Mix CR (sesiones × ΔCR_contrafactual) + Tasa (sesiones × ΔCR_real) · suma = Δ órdenes/mes total ✓ · baseline W1.1 (11/2–12/3) · Mar Abierto 11/6–23/6</div>
+    <div class="hdr-sub">Sesiones → efecto volumen (Δses × CR base) → efecto cambio de tasa → impacto mensual · baseline W1.1 (11/2–12/3) · Mar Abierto = últimos 7 días (17/6–23/6)</div>
   </div>
   <div class="s4-body">
     <table class="s45-tbl" id="tbl_s7"></table>
@@ -1065,8 +1065,8 @@ new Chart(document.getElementById('chartCR'),{
 
   const base_s7 = wAvg7(rawSes_shared, pd('11/2'), pd('12/3'));
   const baseO_s7= wAvg7(rawOrd_shared, pd('11/2'), pd('12/3'));
-  const mab_s7  = wAvg7(rawSes_shared, pd('11/6'), pd('23/6'));
-  const mabO_s7 = wAvg7(rawOrd_shared, pd('11/6'), pd('23/6'));
+  const mab_s7  = wAvg7(rawSes_shared, pd('17/6'), pd('23/6'));
+  const mabO_s7 = wAvg7(rawOrd_shared, pd('17/6'), pd('23/6'));
 
   const KEYS=['mp','greenB','greenA','onlyML'];
   const channels_s7=[
