@@ -435,7 +435,18 @@ if(crMixRow){
     `<div style="display:flex;align-items:center;font-size:14px;color:#ddd;padding:0 2px">=</div>` +
     box('Efecto mix puro', (mix_eff>=0?'+':'')+mix_eff.toFixed(2)+' pp', 'solo desplazamiento de sesiones', '#fce4ec', '#c62828') +
     `<div style="flex:2"></div>` +
-    `<div style="flex:2;align-self:center;font-size:8px;color:#aaa;line-height:1.5;padding:0 8px">Sin cambios en tasas individuales,<br>el mix MP→ML reduce la CR total<br>en <b style="color:#c62828">${mix_eff.toFixed(2)} pp</b></div>`;
+    (()=>{
+      const ord_day = Math.abs(mix_eff/100) * wSes[0].tot;
+      const ord_month = ord_day * 30;
+      const fmt = v => Math.round(v).toLocaleString('es-AR');
+      return `<div style="flex:0 0 auto;background:#fce4ec;border-radius:5px;padding:6px 12px;display:flex;flex-direction:column;gap:2px;align-self:center">
+        <div style="font-size:7.5px;font-weight:700;text-transform:uppercase;color:#c62828;letter-spacing:.4px">Impacto sobre sesiones base</div>
+        <div style="font-size:9px;color:#555;line-height:1.6">
+          ${fmt(ord_day)} órd/día perdidas<br>
+          <b style="color:#c62828">${fmt(ord_month)} órd/mes</b> (× 30d)
+        </div>
+      </div>`;
+    })();
 }
 
 const crGapPlugin={
