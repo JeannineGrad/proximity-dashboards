@@ -1067,14 +1067,16 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
     <col style="width:104px"><col style="width:104px"><col style="width:104px">
   </colgroup>
   <thead><tr>
-    <th class="left" style="font-size:8.5px">Canal</th>
-    <th class="right" style="font-size:8px">Ses base<br><span style="font-weight:400">× 30d</span></th>
-    <th class="right" style="font-size:8px">Ses new<br><span style="font-weight:400">× 30d</span></th>
-    <th class="right" style="font-size:8px">Δ ses<br><span style="font-weight:400">× 30d</span></th>
-    <th class="right" style="font-size:8px">Δ %<br><span style="font-weight:400">ses</span></th>
-    <th class="right" style="background:#fff8e1;color:#e65100;font-size:8px">Impacto var. vol.<br><span style="font-weight:400">Δses × CR base × 30</span></th>
-    <th class="right" style="background:#fce4ec;color:#c62828;font-size:8px">Impacto Δ CR<br><span style="font-weight:400">ses_new × Δ CR × 30</span></th>
-    <th class="right" style="background:#e8f5e9;color:#2e7d32;font-size:8px">Δ órd total<br><span style="font-weight:400">× 30d</span></th>
+    <th class="left" rowspan="2" style="font-size:8.5px">Canal</th>
+    <th class="right" rowspan="2" style="font-size:8px">Ses base<br><span style="font-weight:400">× 30d</span></th>
+    <th class="right" rowspan="2" style="font-size:8px">Ses new<br><span style="font-weight:400">× 30d</span></th>
+    <th class="right" rowspan="2" style="font-size:8px">Δ ses<br><span style="font-weight:400">× 30d</span></th>
+    <th class="right" rowspan="2" style="font-size:8px">Δ %<br><span style="font-weight:400">ses</span></th>
+    <th class="right" colspan="3" style="background:#f0fdf8;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7">Impacto en órdenes (× 30d)</th>
+  </tr><tr>
+    <th class="right" style="background:#fff8e1;color:#e65100;font-size:8px">Impacto var. vol.<br><span style="font-weight:400">Δses × CR base</span></th>
+    <th class="right" style="background:#fce4ec;color:#c62828;font-size:8px">Impacto Δ CR<br><span style="font-weight:400">ses_new × Δ CR</span></th>
+    <th class="right" style="background:#e8f5e9;color:#2e7d32;font-size:8px">Δ órd total</th>
   </tr></thead><tbody>`;
 
   tbl5 += chRow(channels_s5.find(c=>c.key==='mp_red'));
@@ -1110,102 +1112,7 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
     `Mar Abierto = 18/6–24/6 (7d) · baseline W1.1 = 11/2–12/3 · CR por canal: MP redirect=${pct(channels_s5.find(c=>c.key==='mp_red').cr_b)} base→${pct(channels_s5.find(c=>c.key==='mp_red').cr_n)} · MP directo=${pct(channels_s5.find(c=>c.key==='mp_dir').cr_b)} base→${pct(channels_s5.find(c=>c.key==='mp_dir').cr_n)} · ML pre-redir=${pct(channels_s5.find(c=>c.key==='ml_prered').cr_b)} base→${pct(channels_s5.find(c=>c.key==='ml_prered').cr_n)} · ML directo=${pct(channels_s5.find(c=>c.key==='ml_dir').cr_b)} base→${pct(channels_s5.find(c=>c.key==='ml_dir').cr_n)} · 28/5 excluido`;
 })();
 
-// (slide 8 removed)
-
-  function wAvg8(raw,s,e){
-    const days=raw.filter(r=>{const d=pd(r[0]);return d>=s&&d<=e;});
-    const n=days.length;
-    if(!n)return{onlyML:0,greenA:0,greenB:0,mp:0,tot:0};
-    return{
-      onlyML:days.reduce((a,r)=>a+r[1],0)/n,
-      greenA:days.reduce((a,r)=>a+r[2],0)/n,
-      greenB:days.reduce((a,r)=>a+r[3],0)/n,
-      mp:    days.reduce((a,r)=>a+r[4]+r[5]+r[6],0)/n,
-      tot:   days.reduce((a,r)=>a+r[1]+r[2]+r[3]+r[4]+r[5]+r[6],0)/n,
-    };
-  }
-
-  const base_s8 = wAvg8(rawSes_shared, pd('11/2'), pd('12/3'));
-  const baseO_s8= wAvg8(rawOrd_shared, pd('11/2'), pd('12/3'));
-  const mab_s8  = wAvg8(rawSes_shared, pd('17/6'), pd('23/6'));
-  const mabO_s8 = wAvg8(rawOrd_shared, pd('17/6'), pd('23/6'));
-
-  const KEYS=['onlyML','greenA','greenB','mp'];
-  const channels_s8=[
-    {key:'onlyML', label:'Only ML',    color:'rgba(255,183,0,0.7)'},
-    {key:'greenA', label:'Green ML A', color:'#81c784'},
-    {key:'greenB', label:'Green ML B', color:'#2e7d32'},
-    {key:'mp',     label:'MP',         color:'#4da6ff'},
-  ];
-
-  function nn(v){return Math.round(v).toLocaleString('es-AR');}
-  function pct(v){return (v*100).toFixed(1)+'%';}
-  function sgn(v){return v>=0?'+':'';}
-
-  const M=30;
-
-  // Aggregate totals
-  const S_b = base_s8.tot;
-  const S_n = mab_s8.tot;
-  const CR_b = baseO_s8.tot / (S_b||1);
-  const CR_n = mabO_s8.tot / (S_n||1);
-
-  // CR contrafactual = mix nuevo × CR canal base
-  const crCanalBase = {};
-  KEYS.forEach(k=>{ crCanalBase[k] = baseO_s8[k] / (base_s8[k]||1); });
-  const CR_c = KEYS.reduce((a,k)=> a + (mab_s8[k]/(S_n||1)) * crCanalBase[k], 0);
-
-  // 3 efectos agregados
-  const efVol  = (S_n - S_b) * CR_b * M;
-  const efMix  = S_n * (CR_c - CR_b) * M;
-  const efTasa = S_n * (CR_n - CR_c) * M;
-  const efNeto = efVol + efMix + efTasa;
-
-  // Per-channel contributions
-  channels_s8.forEach(ch=>{
-    const sb=base_s8[ch.key], so=mab_s8[ch.key];
-    const ob=baseO_s8[ch.key], oo=mabO_s8[ch.key];
-    ch.sb=sb; ch.so=so; ch.ob=ob; ch.oo=oo;
-    ch.cr_b = sb>0?ob/sb:0;
-    ch.cr_n = so>0?oo/so:0;
-    ch.share_b = sb/(S_b||1);
-    ch.share_n = so/(S_n||1);
-    ch.delta_ses = so - sb;
-    ch.vol_ch  = (so-sb)*ch.cr_b*M;
-    ch.mix_ch  = (ch.share_n - ch.share_b) * ch.cr_b * S_n * M;
-    ch.tasa_ch = so*(ch.cr_n - ch.cr_b)*M;
-  });
-
-  document.getElementById('tbl_s8').innerHTML = window.tblF(channels_s8, baseO_s8, mabO_s8, S_b, S_n, CR_b, CR_n);
-
-  // Summary — 3 boxes matching EXACTLY table totals × 30
-  const M8=30;
-  const sum_vol8 = channels_s8.reduce((a,ch)=>a+(ch.so-ch.sb)*ch.cr_b,0)*M8;
-  const sum_dcr8 = channels_s8.reduce((a,ch)=>a+ch.so*(ch.cr_n-ch.cr_b),0)*M8;
-  const sum_net8 = sum_vol8+sum_dcr8;
-  const box8=(label,val,bg,col,sub)=>
-    `<div style="flex:1;background:${bg};border-radius:7px;padding:8px 12px;text-align:center">
-      <div style="font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${col};margin-bottom:3px">${label}</div>
-      <div style="font-size:20px;font-weight:900;color:${val>=0?col:'#c62828'};line-height:1">${val>=0?'+':''}${nn(val)}</div>
-      <div style="font-size:7px;color:#aaa;margin-top:2px">${sub}</div>
-    </div>`;
-  document.getElementById('summary_s8').style.display='none';
-  document.getElementById('summary_s8').innerHTML=`
-    <div style="display:flex;align-items:center;gap:8px;width:100%">
-      <div style="background:#f5f7fa;border-radius:7px;padding:8px 12px;text-align:center;flex-shrink:0">
-        <div style="font-size:7.5px;font-weight:700;text-transform:uppercase;color:#aaa;margin-bottom:3px">Baseline órd/día</div>
-        <div style="font-size:20px;font-weight:900;color:#1a2454;line-height:1">${nn(Math.round(baseO_s8.tot))}</div>
-        <div style="font-size:7px;color:#bbb;margin-top:2px">W1.1 total</div>
-      </div>
-      <div style="color:#ccc;font-size:18px;flex-shrink:0">→</div>
-      ${box8('Δ órd vol. × 30d',sum_vol8,'#fffde7','#e65100','Δ ses × CR base · col. tabla')}
-      <div style="color:#ccc;font-size:16px;flex-shrink:0">+</div>
-      ${box8('Impacto Δ CR × 30d',sum_dcr8,'#fce4ec','#c62828','ses_new × Δ CR · col. tabla')}
-      <div style="color:#ccc;font-size:16px;flex-shrink:0">=</div>
-      ${box8('NETO / mes',sum_net8,sum_net8>=0?'#e8f5e9':'#fce4ec',sum_net8>=0?'#2e7d32':'#c62828','Δ órd total × 30d')}
-    </div>`;
-
-  document.getElementById('fn_s8').innerHTML=
+// slide 8 removed
 </script>
 </body>
 </html>
