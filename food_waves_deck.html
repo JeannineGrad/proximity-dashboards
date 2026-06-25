@@ -181,6 +181,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
     <div class="hdr-sub">4 canales · Mar Abierto = 18/6–24/6 · baseline W1.1 · CR real por canal · proyección × 30 días</div>
   </div>
   <div class="s4-body">
+    <div id="cr_strip_s6" style="display:flex;gap:10px;margin-bottom:8px;flex-shrink:0"></div>
     <table class="s45-tbl" id="tbl_s6"></table>
     <div class="s5-highlight" id="summary_s6"></div>
     <div class="s4-footnote" id="fn_s6"></div>
@@ -1062,9 +1063,9 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
   const all_chs = channels_s5;
 
   let tbl5=`<colgroup>
-    <col style="width:145px"><col style="width:72px"><col style="width:72px">
-    <col style="width:74px"><col style="width:55px">
-    <col style="width:104px"><col style="width:104px"><col style="width:104px">
+    <col style="width:160px"><col style="width:82px"><col style="width:82px">
+    <col style="width:82px"><col style="width:60px">
+    <col style="width:116px"><col style="width:116px"><col style="width:116px">
   </colgroup>
   <thead><tr>
     <th class="left" rowspan="2" style="font-size:8.5px">Canal</th>
@@ -1103,6 +1104,24 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
   </tr></tbody>`;
 
   document.getElementById('tbl_s6').innerHTML = tbl5;
+
+  // ── CR strip ──────────────────────────────────────────────────────────────
+  const strip = document.getElementById('cr_strip_s6');
+  if(strip){
+    strip.innerHTML = channels_s5.map(ch=>{
+      const dc = ch.cr_n > ch.cr_b ? 'color:#2e7d32' : 'color:#c62828';
+      const arrow = ch.cr_n > ch.cr_b ? '↑' : ch.cr_n < ch.cr_b ? '↓' : '→';
+      return `<div style="flex:1;background:#f5f7fa;border-radius:6px;padding:6px 10px;border-left:3px solid ${ch.color}">
+        <div style="font-size:8px;font-weight:700;color:#555;margin-bottom:3px">${ch.label}</div>
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <span style="font-size:11px;font-weight:700;color:#aaa">${pct(ch.cr_b)}</span>
+          <span style="font-size:10px;${dc}">${arrow}</span>
+          <span style="font-size:13px;font-weight:900;${dc}">${pct(ch.cr_n)}</span>
+        </div>
+        <div style="font-size:7.5px;color:#bbb;margin-top:1px">base → Mar Ab.</div>
+      </div>`;
+    }).join('');
+  }
 
   // ── Hide summary box ───────────────────────────────────────────────────────
   document.getElementById('summary_s6').style.display = 'none';
