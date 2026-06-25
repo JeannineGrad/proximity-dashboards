@@ -1029,7 +1029,7 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
       <td class="right muted" style="font-size:9px">${nn5(ch.sb*M5)}</td>
       <td class="right" style="font-size:9px">${nn5(ch.so*M5)}</td>
       <td class="right ${dsc}" style="font-size:9px;font-weight:700">${sgn5(r.ds)}${nn5(r.ds*M5)}</td>
-      <td class="right ${dsc}" style="font-size:8.5px;color:#888">${sgn5(r.ds)}${pctS}</td>
+      <td class="right ${dsc}" style="font-size:8.5px;font-weight:700">${sgn5(r.ds)}${pctS}</td>
       <td class="right ${vc}" style="font-size:9px;font-weight:700;background:#fffde7">${sgn5(r.vol)}${nn5(r.vol*M5)}</td>
       <td class="right ${rc}" style="font-size:9px;font-weight:700;background:#fce4ec">${sgn5(r.rate)}${nn5(r.rate*M5)}</td>
       <td class="right ${dc}" style="font-size:9.5px;font-weight:800;background:#f0fdf8">${sgn5(r.dord)}${nn5(r.dord*M5)}</td>
@@ -1072,7 +1072,7 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
     <th class="right" style="font-size:8px">Ses new<br><span style="font-weight:400">× 30d</span></th>
     <th class="right" style="font-size:8px">Δ ses<br><span style="font-weight:400">× 30d</span></th>
     <th class="right" style="font-size:8px">Δ %<br><span style="font-weight:400">ses</span></th>
-    <th class="right" style="background:#fff8e1;color:#e65100;font-size:8px">Δ órd vol.<br><span style="font-weight:400">Δses × CR base × 30</span></th>
+    <th class="right" style="background:#fff8e1;color:#e65100;font-size:8px">Impacto var. vol.<br><span style="font-weight:400">Δses × CR base × 30</span></th>
     <th class="right" style="background:#fce4ec;color:#c62828;font-size:8px">Impacto Δ CR<br><span style="font-weight:400">ses_new × Δ CR × 30</span></th>
     <th class="right" style="background:#e8f5e9;color:#2e7d32;font-size:8px">Δ órd total<br><span style="font-weight:400">× 30d</span></th>
   </tr></thead><tbody>`;
@@ -1094,7 +1094,7 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
     <td style="border-left:4px solid #1a2454;padding-left:8px;color:#1a2454">TOTAL</td>
     <td class="right">${nn5(t_sb*M5)}</td><td class="right">${nn5(t_so*M5)}</td>
     <td class="right ${t_ds>=0?'pos':'neg'}">${sgn5(t_ds)}${nn5(t_ds*M5)}</td>
-    <td class="right ${t_ds>=0?'pos':'neg'}" style="font-size:9px">${sgn5(t_ds)}${t_pct}</td>
+    <td class="right ${t_ds>=0?'pos':'neg'}" style="font-size:9px;font-weight:700">${sgn5(t_ds)}${t_pct}</td>
     <td class="right ${t_vol>=0?'pos':'neg'}" style="background:#fffde7;font-size:11px">${sgn5(t_vol)}${nn5(t_vol*M5)}</td>
     <td class="right ${t_rate>=0?'pos':'neg'}" style="background:#fce4ec;font-size:11px">${sgn5(t_rate)}${nn5(t_rate*M5)}</td>
     <td class="right ${t_dord>=0?'pos':'neg'}" style="background:#f0fdf8;font-size:12px">${sgn5(t_dord)}${nn5(t_dord*M5)}</td>
