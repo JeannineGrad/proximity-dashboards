@@ -307,26 +307,22 @@ const avgTot=(totCRd.reduce((a,v)=>a+v,0)/totCRd.length).toFixed(1);
 const avgGap=(parseFloat(avgML)-parseFloat(avgMP)).toFixed(1);
 const crSum=document.getElementById('crSummary');
 if(crSum) crSum.innerHTML=`
-  <div style="flex:1;background:#fffbe6;border-radius:6px;border-bottom:3px solid #FFB700;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:2px">
-    <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#bbb">Tasa de conv. ML</div>
-    <div style="font-size:28px;font-weight:900;color:#e6a800;line-height:1">${avgML}%</div>
-    <div style="font-size:7.5px;color:#ccc">Only ML + Green A + B · prom. 5 waves</div>
-  </div>
-  <div style="flex:1;background:#fce4ec;border-radius:6px;border-bottom:3px solid #c62828;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:2px">
-    <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#c62828">Gap MP − ML</div>
-    <div style="font-size:28px;font-weight:900;color:#c62828;line-height:1">${avgGap} pp</div>
-    <div style="font-size:7.5px;color:#c62828;opacity:.6">${avgGap} órdenes por 100 ses. desplazadas</div>
-  </div>
   <div style="flex:1;background:#eff6ff;border-radius:6px;border-bottom:3px solid #4da6ff;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:2px">
     <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#bbb">Tasa de conv. MP</div>
     <div style="font-size:28px;font-weight:900;color:#1565C0;line-height:1">${avgMP}%</div>
-    <div style="font-size:7.5px;color:#ccc">Con ML + Sin ML + No cl. · prom. 5 waves</div>
+    <div style="font-size:7.5px;color:#ccc">de donde vienen las sesiones · prom. 5 waves</div>
   </div>
-  <div style="flex:1;background:#f0fdf8;border-radius:6px;border-bottom:3px solid #00a878;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:2px">
-    <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#bbb">Tasa de conv. Total</div>
-    <div style="font-size:28px;font-weight:900;color:#00a878;line-height:1">${avgTot}%</div>
-    <div style="font-size:7.5px;color:#ccc">ML + MP combinados · prom. 5 waves</div>
-  </div>`;
+  <div style="flex:1;background:#fce4ec;border-radius:6px;border-bottom:3px solid #c62828;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:2px">
+    <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#c62828">Gap ML − MP</div>
+    <div style="font-size:28px;font-weight:900;color:#c62828;line-height:1">${avgGap} pp</div>
+    <div style="font-size:7.5px;color:#c62828;opacity:.6">${avgGap} órdenes por 100 ses. desplazadas</div>
+  </div>
+  <div style="flex:1;background:#fffbe6;border-radius:6px;border-bottom:3px solid #FFB700;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:2px">
+    <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#bbb">Tasa de conv. ML</div>
+    <div style="font-size:28px;font-weight:900;color:#e6a800;line-height:1">${avgML}%</div>
+    <div style="font-size:7.5px;color:#ccc">a donde van las sesiones · prom. 5 waves</div>
+  </div>
+`;
 
 const crGapPlugin={
   id:'crGap',
@@ -362,7 +358,7 @@ const crGapPlugin={
       ctx.beginPath();ctx.moveTo(x,ptML.y+2);ctx.lineTo(x-3,ptML.y+9);ctx.lineTo(x+3,ptML.y+9);ctx.fill();
       ctx.beginPath();ctx.moveTo(x,ptMP.y-2);ctx.lineTo(x-3,ptMP.y-9);ctx.lineTo(x+3,ptMP.y-9);ctx.fill();
       ctx.font='bold 8.5px Segoe UI,Arial';ctx.fillStyle='#c62828';
-      ctx.fillText('+'+gap+'pp',x+22,midY+4);
+      ctx.fillText(gap+'pp',x+28,midY-6);
     });
     ctx.restore();
   }
