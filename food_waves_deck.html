@@ -172,24 +172,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
   </div>
 </div>
 
-<!-- SLIDE 5: IMPACTO MENSUAL -->
-<div class="slide">
-  <span class="snum">5</span>
-  <div class="hdr">
-    <div class="hdr-tag">Food MLA · Impacto mensual estructural · Mar Abierto vs Wave 1.1</div>
-    <div class="hdr-title">Impacto mensual estructural — si Mar Abierto es el nuevo nivel</div>
-    <div class="hdr-sub">Comparativa: promedio diario Mar Abierto (11/6–23/6) vs baseline Wave 1.1 (11/2–12/3) · proyección × 30 días · CR fijado en W1.1 para efecto volumen</div>
-  </div>
-  <div class="s4-body">
-    <table class="s45-tbl" id="tbl_s5"></table>
-    <div class="s5-highlight" id="summary_s5"></div>
-    <div class="s4-footnote" id="fn_s5"></div>
-  </div>
-</div>
-
 <!-- SLIDE 6: IMPACTO MENSUAL — últimos 7 días -->
 <div class="slide">
-  <span class="snum">6</span>
+  <span class="snum">5</span>
   <div class="hdr">
     <div class="hdr-tag">Food MLA · Impacto mensual estructural · Mar Abierto vs Wave 1.1</div>
     <div class="hdr-title">Mar Abierto = últimos 7 días (17/6–23/6)</div>
@@ -203,24 +188,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
 </div>
 
 
-<!-- SLIDE 7: NUEVO DISEÑO — IMPACTO MENSUAL (descomposición 3 efectos) -->
-<div class="slide">
-  <span class="snum">7</span>
-  <div class="hdr">
-    <div class="hdr-tag">Food MLA · Impacto mensual estructural · Mar Abierto vs Wave 1.1</div>
-    <div class="hdr-title">NUEVO DISEÑO: Impacto mensual estructural — si Mar Abierto es el nuevo nivel</div>
-    <div class="hdr-sub">Sesiones → efecto volumen (Δses × CR base) → efecto cambio de tasa → impacto mensual · baseline W1.1 (11/2–12/3) · Mar Abierto = últimos 7 días (17/6–23/6)</div>
-  </div>
-  <div class="s4-body">
-    <table class="s45-tbl" id="tbl_s7"></table>
-    <div class="s5-highlight" id="summary_s7"></div>
-    <div class="s4-footnote" id="fn_s7"></div>
-  </div>
-</div>
-
 <!-- SLIDE 8: NUEVO DISEÑO — IMPACTO MENSUAL últimos 7 días (descomposición 3 efectos) -->
 <div class="slide">
-  <span class="snum">8</span>
+  <span class="snum">6</span>
   <div class="hdr">
     <div class="hdr-tag">Food MLA · Impacto mensual estructural · Mar Abierto vs Wave 1.1</div>
     <div class="hdr-title">NUEVO DISEÑO: Mar Abierto = últimos 7 días (17/6–23/6)</div>
@@ -239,7 +209,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
   <button class="nav-btn" id="btn-prev" onclick="go(-1)">&#8592;</button>
   <div id="nav-dots"></div>
   <button class="nav-btn" id="btn-next" onclick="go(1)">&#8594;</button>
-  <span id="nav-label">1 / 8</span>
+  <span id="nav-label">1 / 6</span>
 </div>
 </div><!-- /viewer -->
 
@@ -790,134 +760,6 @@ new Chart(document.getElementById('chartCR'),{
     Δ ses/día = promedio diario wave N − promedio diario W1.1 · 28/5 excluido (Día de la Hamburguesa a nivel industria)`;
 })();
 
-// ── SLIDE 5: IMPACTO MENSUAL ESTRUCTURAL ─────────────────────────────────
-(function() {
-  function pd(s){const[d,m]=s.split('/').map(Number);return new Date(2026,m-1,d);}
-
-  function wAvg5(raw,s,e){
-    const days=raw.filter(r=>{const d=pd(r[0]);return d>=s&&d<=e;});
-    const n=days.length;
-    if(!n)return{onlyML:0,greenA:0,greenB:0,mp:0,tot:0};
-    return{
-      onlyML:days.reduce((a,r)=>a+r[1],0)/n,
-      greenA:days.reduce((a,r)=>a+r[2],0)/n,
-      greenB:days.reduce((a,r)=>a+r[3],0)/n,
-      mp:    days.reduce((a,r)=>a+r[4]+r[5]+r[6],0)/n,
-      tot:   days.reduce((a,r)=>a+r[1]+r[2]+r[3]+r[4]+r[5]+r[6],0)/n,
-    };
-  }
-
-  const base_s5 = wAvg5(rawSes_shared, pd('11/2'), pd('12/3'));
-  const baseO_s5= wAvg5(rawOrd_shared, pd('11/2'), pd('12/3'));
-  const mab_s5  = wAvg5(rawSes_shared, pd('11/6'), pd('23/6'));
-  const mabO_s5 = wAvg5(rawOrd_shared, pd('11/6'), pd('23/6'));
-
-  const channels_s5=[
-    {key:'mp',     label:'MP',         color:'#4da6ff'},
-    {key:'greenB', label:'Green ML B',  color:'#2e7d32'},
-    {key:'greenA', label:'Green ML A',  color:'#81c784'},
-    {key:'onlyML', label:'Only ML',     color:'rgba(255,183,0,0.7)'},
-  ];
-
-  function nn(v){return Math.round(v).toLocaleString('es-AR');}
-  function pct(v){return (v*100).toFixed(1)+'%';}
-
-  const M=30;
-
-  let html_s5=`<colgroup>
-    <col style="width:110px"><col style="width:70px"><col style="width:70px"><col style="width:75px">
-    <col style="width:70px"><col style="width:70px"><col style="width:75px">
-    <col style="width:80px"><col style="width:80px"><col style="width:85px">
-  </colgroup>
-  <thead><tr>
-    <th class="left" rowspan="2">Canal</th>
-    <th class="right" colspan="3" style="background:#f0f4ff;color:#1a2454;border-bottom:1px solid #c5cae9">Baseline (W1.1 · ses/día)</th>
-    <th class="right" colspan="3" style="background:#e8f5e9;color:#2e7d32;border-bottom:1px solid #a5d6a7">Mar Abierto (ses/día)</th>
-    <th class="right" colspan="3" style="background:#fff8e1;color:#e65100;border-bottom:1px solid #ffe082">Impacto mensual × ${M}d</th>
-  </tr><tr>
-    <th class="right" style="background:#f0f4ff;color:#555;font-size:7.5px">Ses/día</th>
-    <th class="right" style="background:#f0f4ff;color:#555;font-size:7.5px">CR</th>
-    <th class="right" style="background:#f0f4ff;color:#555;font-size:7.5px">Órd/día</th>
-    <th class="right" style="background:#e8f5e9;color:#555;font-size:7.5px">Ses/día</th>
-    <th class="right" style="background:#e8f5e9;color:#555;font-size:7.5px">CR</th>
-    <th class="right" style="background:#e8f5e9;color:#555;font-size:7.5px">Órd/día</th>
-    <th class="right" style="background:#fff8e1;color:#e65100;font-size:7.5px">Vol (Δses×CR_base)</th>
-    <th class="right" style="background:#fff8e1;color:#e65100;font-size:7.5px">Tasa (ses×ΔCR)</th>
-    <th class="right" style="background:#e65100;color:#fff;font-size:7.5px;border-left:2px solid #e65100">Neto total</th>
-  </tr></thead><tbody>`;
-
-  let totVol_s5=0, totTasa_s5=0, totNeto_s5=0;
-  channels_s5.forEach(ch=>{
-    const sb=base_s5[ch.key], so=mab_s5[ch.key];
-    const ob=baseO_s5[ch.key], oo=mabO_s5[ch.key];
-    const cr_b = sb>0?ob/sb:0;
-    const cr_a = so>0?oo/so:0;
-    const vol  = (so-sb)*cr_b*M;
-    const tasa = so*(cr_a-cr_b)*M;
-    const neto = vol+tasa;
-    totVol_s5+=vol; totTasa_s5+=tasa; totNeto_s5+=neto;
-    const nv=vol>=0?'pos':'neg', nt=tasa>=0?'pos':'neg', nn2=neto>=0?'pos':'neg';
-    html_s5+=`<tr>
-      <td class="label" style="border-left-color:${ch.color}">${ch.label}</td>
-      <td class="right muted">${nn(sb)}</td>
-      <td class="right muted">${pct(cr_b)}</td>
-      <td class="right muted">${nn(ob)}</td>
-      <td class="right">${nn(so)}</td>
-      <td class="right">${pct(cr_a)}</td>
-      <td class="right">${nn(oo)}</td>
-      <td class="right ${nv}" style="background:#fff8e1">${vol>=0?'+':''}${nn(vol)}</td>
-      <td class="right ${nt}" style="background:#fff8e1">${tasa>=0?'+':''}${nn(tasa)}</td>
-      <td class="right ${nn2}" style="background:#fffde7;font-weight:800;border-left:2px solid #e65100">${neto>=0?'+':''}${nn(neto)}</td>
-    </tr>`;
-  });
-
-  const pairs_s5=[
-    {label:'Subtotal MP + Green B', keys:['mp','greenB']},
-    {label:'Subtotal Green A + Only ML', keys:['greenA','onlyML']},
-  ];
-  pairs_s5.forEach(p=>{
-    let sv=0,st=0,sn=0;
-    p.keys.forEach(k=>{
-      const sb=base_s5[k],so=mab_s5[k],ob=baseO_s5[k],oo=mabO_s5[k];
-      const cr_b=sb>0?ob/sb:0,cr_a=so>0?oo/so:0;
-      sv+=(so-sb)*cr_b*M; st+=so*(cr_a-cr_b)*M;
-    });
-    sn=sv+st;
-    html_s5+=`<tr class="sub-row">
-      <td class="label" colspan="7" style="border-left:3px solid #3949ab">↳ ${p.label}</td>
-      <td class="right ${sv>=0?'pos':'neg'}" style="background:#fff8e1">${sv>=0?'+':''}${nn(sv)}</td>
-      <td class="right ${st>=0?'pos':'neg'}" style="background:#fff8e1">${st>=0?'+':''}${nn(st)}</td>
-      <td class="right ${sn>=0?'pos':'neg'}" style="background:#fffde7;font-weight:800;border-left:2px solid #e65100">${sn>=0?'+':''}${nn(sn)}</td>
-    </tr>`;
-  });
-
-  const nt_s5=totNeto_s5>=0?'pos':'neg';
-  html_s5+=`<tr class="total-row">
-    <td class="label" colspan="7">Total ecosystem</td>
-    <td class="right ${totVol_s5>=0?'pos':'neg'}" style="background:#fff8e1;font-weight:800">${totVol_s5>=0?'+':''}${nn(totVol_s5)}</td>
-    <td class="right ${totTasa_s5>=0?'pos':'neg'}" style="background:#fff8e1;font-weight:800">${totTasa_s5>=0?'+':''}${nn(totTasa_s5)}</td>
-    <td class="right ${nt_s5}" style="background:#fffde7;font-size:11px;font-weight:900;border-left:2px solid #e65100">${totNeto_s5>=0?'+':''}${nn(totNeto_s5)}</td>
-  </tr></tbody>`;
-
-  document.getElementById('tbl_s5').innerHTML=html_s5;
-
-  const nc_s5=totNeto_s5>=0?'#2e7d32':'#c62828';
-  document.getElementById('summary_s5').innerHTML=`
-    <div class="s5-hl-item"><div class="s5-hl-label">Impacto mensual vol.</div><div class="s5-hl-val" style="color:#c62828;font-size:20px">${totVol_s5>=0?'+':''}${nn(totVol_s5)}</div><div class="s5-hl-sub">Δ ses × CR base × 30d</div></div>
-    <div style="font-size:20px;color:#ddd">+</div>
-    <div class="s5-hl-item"><div class="s5-hl-label">Impacto mensual tasa</div><div class="s5-hl-val" style="color:#e65100;font-size:20px">${totTasa_s5>=0?'+':''}${nn(totTasa_s5)}</div><div class="s5-hl-sub">ses actual × Δ CR × 30d</div></div>
-    <div style="font-size:20px;color:#ddd">=</div>
-    <div class="s5-hl-item"><div class="s5-hl-label">Neto mensual estructural</div><div class="s5-hl-val" style="color:${nc_s5};font-size:24px">${totNeto_s5>=0?'+':''}${nn(totNeto_s5)}</div><div class="s5-hl-sub">vs baseline W1.1 · por mes</div></div>
-    <div style="width:1px;background:#e0e0e0;align-self:stretch;margin:0 6px"></div>
-    <div class="s5-hl-item" style="text-align:left">
-      <div class="s5-hl-label" style="text-align:left">Supuestos</div>
-      <div style="font-size:7.5px;color:#888;line-height:1.6">Nivel estructural = promedio Mar Abierto (11/6–23/6)<br>Baseline = Wave 1.1 (11/2–12/3)<br>Proyección = × 30 días<br>CR base fijado en W1.1 para aislar efecto mix</div>
-    </div>`;
-
-  document.getElementById('fn_s5').innerHTML=
-    `CR base por canal: MP=${pct(baseO_s5.mp/base_s5.mp)} · GreenB=${pct(baseO_s5.greenB/(base_s5.greenB||1))} · GreenA=${pct(baseO_s5.greenA/(base_s5.greenA||1))} · OnlyML=${pct(baseO_s5.onlyML/base_s5.onlyML)} · 28/5 excluido (Día de la Hamburguesa)`;
-})();
-
 // ── SLIDE 6: IMPACTO MENSUAL ESTRUCTURAL — últimos 7 días (17/6–23/6) ────
 (function() {
   function pd(s){const[d,m]=s.split('/').map(Number);return new Date(2026,m-1,d);}
@@ -1046,190 +888,6 @@ new Chart(document.getElementById('chartCR'),{
     `CR base por canal: MP=${pct(baseO_s6.mp/base_s6.mp)} · GreenB=${pct(baseO_s6.greenB/(base_s6.greenB||1))} · GreenA=${pct(baseO_s6.greenA/(base_s6.greenA||1))} · OnlyML=${pct(baseO_s6.onlyML/base_s6.onlyML)} · 28/5 excluido (Día de la Hamburguesa)`;
 })();
 
-// ── SLIDE 7: NUEVO DISEÑO — IMPACTO MENSUAL — descomposición 3 efectos ───
-(function() {
-  function pd(s){const[d,m]=s.split('/').map(Number);return new Date(2026,m-1,d);}
-
-  function wAvg7(raw,s,e){
-    const days=raw.filter(r=>{const d=pd(r[0]);return d>=s&&d<=e;});
-    const n=days.length;
-    if(!n)return{onlyML:0,greenA:0,greenB:0,mp:0,tot:0};
-    return{
-      onlyML:days.reduce((a,r)=>a+r[1],0)/n,
-      greenA:days.reduce((a,r)=>a+r[2],0)/n,
-      greenB:days.reduce((a,r)=>a+r[3],0)/n,
-      mp:    days.reduce((a,r)=>a+r[4]+r[5]+r[6],0)/n,
-      tot:   days.reduce((a,r)=>a+r[1]+r[2]+r[3]+r[4]+r[5]+r[6],0)/n,
-    };
-  }
-
-  const base_s7 = wAvg7(rawSes_shared, pd('11/2'), pd('12/3'));
-  const baseO_s7= wAvg7(rawOrd_shared, pd('11/2'), pd('12/3'));
-  const mab_s7  = wAvg7(rawSes_shared, pd('17/6'), pd('23/6'));
-  const mabO_s7 = wAvg7(rawOrd_shared, pd('17/6'), pd('23/6'));
-
-  const KEYS=['mp','greenB','greenA','onlyML'];
-  const channels_s7=[
-    {key:'mp',     label:'MP',          color:'#4da6ff'},
-    {key:'greenB', label:'Green ML B',  color:'#2e7d32'},
-    {key:'greenA', label:'Green ML A',  color:'#81c784'},
-    {key:'onlyML', label:'Only ML',     color:'rgba(255,183,0,0.7)'},
-  ];
-
-  function nn(v){return Math.round(v).toLocaleString('es-AR');}
-  function pct(v){return (v*100).toFixed(1)+'%';}
-  function sgn(v){return v>=0?'+':'';}
-
-  const M=30;
-
-  // Aggregate totals
-  const S_b = base_s7.tot;
-  const S_n = mab_s7.tot;
-  const CR_b = baseO_s7.tot / (S_b||1);
-  const CR_n = mabO_s7.tot / (S_n||1);
-
-  // CR contrafactual = mix nuevo × CR canal base
-  const crCanalBase = {};
-  KEYS.forEach(k=>{ crCanalBase[k] = baseO_s7[k] / (base_s7[k]||1); });
-  const CR_c = KEYS.reduce((a,k)=> a + (mab_s7[k]/(S_n||1)) * crCanalBase[k], 0);
-
-  // 3 efectos agregados
-  const efVol  = (S_n - S_b) * CR_b * M;
-  const efMix  = S_n * (CR_c - CR_b) * M;
-  const efTasa = S_n * (CR_n - CR_c) * M;
-  const efNeto = efVol + efMix + efTasa;
-
-  // Per-channel mix contribution: (share_new_k - share_base_k) * CR_canal_base_k * S_n * M
-  // Per-channel tasa contribution: ses_new_k * (CR_canal_new_k - CR_canal_base_k) * M
-  channels_s7.forEach(ch=>{
-    const sb=base_s7[ch.key], so=mab_s7[ch.key];
-    const ob=baseO_s7[ch.key], oo=mabO_s7[ch.key];
-    ch.sb=sb; ch.so=so; ch.ob=ob; ch.oo=oo;
-    ch.cr_b = sb>0?ob/sb:0;
-    ch.cr_n = so>0?oo/so:0;
-    ch.share_b = sb/(S_b||1);
-    ch.share_n = so/(S_n||1);
-    ch.delta_ses = so - sb;
-    // volume contribution = (ses_new - ses_base) * CR_canal_base * M
-    ch.vol_ch  = (so-sb)*ch.cr_b*M;
-    // mix contribution = (share_new - share_base) * CR_canal_base * S_n * M
-    ch.mix_ch  = (ch.share_n - ch.share_b) * ch.cr_b * S_n * M;
-    // tasa contribution = ses_new * (CR_canal_new - CR_canal_base) * M
-    ch.tasa_ch = so*(ch.cr_n - ch.cr_b)*M;
-  });
-
-  // Table — sessions → CR → orders flow (shared global)
-  window.tblF = (channels, baseO, mabO, S_b, S_n, CR_b, CR_n, sfx) => {
-    // Columns: Canal | Ses base | Ses new | Δses | CR base | Órd c/CR base | CR new | Impacto ΔCR | Órd new | Δ órd total
-    let h=`<colgroup>
-      <col style="width:95px">
-      <col style="width:72px"><col style="width:72px"><col style="width:72px">
-      <col style="width:58px"><col style="width:72px">
-      <col style="width:58px"><col style="width:72px">
-      <col style="width:72px"><col style="width:72px">
-    </colgroup>
-    <thead><tr>
-      <th class="left" rowspan="2" style="font-size:8px">Canal</th>
-      <th class="right" colspan="3" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Sesiones / día</th>
-      <th class="right" colspan="2" style="background:#fff8e1;color:#e65100;font-size:7.5px;border-bottom:1px solid #ffe082;border-left:2px solid #ffe082">CR base → primer impacto</th>
-      <th class="right" colspan="2" style="background:#fce4ec;color:#c62828;font-size:7.5px;border-bottom:1px solid #ef9a9a;border-left:2px solid #ef9a9a">CR nueva → impacto adicional</th>
-      <th class="right" colspan="2" style="background:#e8f5e9;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7;border-left:2px solid #a5d6a7">Resultado</th>
-    </tr><tr>
-      <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base W1.1</th>
-      <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Mar Ab.</th>
-      <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Δ ses/día</th>
-      <th class="right" style="background:#fff8e1;color:#888;font-size:7px;border-left:2px solid #ffe082">CR base</th>
-      <th class="right" style="background:#fff8e1;color:#888;font-size:7px">Δ órd vol.<br><span style="font-size:6.5px;font-weight:400">Δses × CR_base</span></th>
-      <th class="right" style="background:#fce4ec;color:#888;font-size:7px;border-left:2px solid #ef9a9a">CR new</th>
-      <th class="right" style="background:#fce4ec;color:#888;font-size:7px">Impacto Δ CR<br><span style="font-size:6.5px;font-weight:400">ses_new × Δ CR</span></th>
-      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px;border-left:2px solid #a5d6a7">Órd/día new</th>
-      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px">Δ órd/día total</th>
-    </tr></thead><tbody>`;
-
-    channels.forEach(ch=>{
-      const ds   = ch.so - ch.sb;
-      const ob      = ch.sb * ch.cr_b;                // baseline orders
-      const o_cb    = ds * ch.cr_b;                   // Δ vol impact = Δses × CR_base
-      const imp_dcr = ch.so * (ch.cr_n - ch.cr_b);   // CR change impact = ses_new × ΔCR
-      const on      = ch.so * ch.cr_n;                // new orders
-      const dord    = on - ob;
-      h+=`<tr>
-        <td class="label" style="border-left:3px solid ${ch.color};padding-left:7px;font-size:9px">${ch.label}</td>
-        <td class="right muted" style="font-size:9px">${nn(ch.sb)}</td>
-        <td class="right" style="font-size:9px">${nn(ch.so)}</td>
-        <td class="right ${ds>=0?'pos':'neg'}" style="font-size:9px;font-weight:700">${sgn(ds)}${nn(ds)}</td>
-        <td class="right muted" style="font-size:8.5px;background:#fffde7;border-left:2px solid #ffe082">${pct(ch.cr_b)}</td>
-        <td class="right ${o_cb>=0?'pos':'neg'}" style="font-size:9px;background:#fffde7;font-weight:700">${sgn(o_cb)}${nn(o_cb)}</td>
-        <td class="right" style="font-size:8.5px;background:#ffeef0;border-left:2px solid #ef9a9a">${pct(ch.cr_n)}</td>
-        <td class="right ${imp_dcr>=0?'pos':'neg'}" style="font-size:9px;background:#ffeef0;font-weight:700">${sgn(imp_dcr)}${nn(imp_dcr)}</td>
-        <td class="right" style="font-size:9px;background:#f0fdf8;border-left:2px solid #a5d6a7">${nn(on)}</td>
-        <td class="right ${dord>=0?'pos':'neg'}" style="font-size:9px;font-weight:800;background:#f0fdf8">${sgn(dord)}${nn(dord)}</td>
-      </tr>`;
-    });
-
-    const tot_sb=channels.reduce((a,c)=>a+c.sb,0);
-    const tot_so=channels.reduce((a,c)=>a+c.so,0);
-    const tot_ob=baseO.tot, tot_on=mabO.tot;
-    const dtot_ses=tot_so-tot_sb, dtot_ord=tot_on-tot_ob;
-    const tot_ocb = dtot_ses * CR_b;             // Δ vol impact = Δses × CR_base
-    const tot_dcr = tot_so * (CR_n - CR_b);     // CR change impact
-    h+=`<tr class="total-row">
-      <td class="label" style="border-left:3px solid #1a2454;font-size:9.5px">Total / día</td>
-      <td class="right" style="font-size:9.5px">${nn(tot_sb)}</td>
-      <td class="right" style="font-size:9.5px">${nn(tot_so)}</td>
-      <td class="right ${dtot_ses>=0?'pos':'neg'}" style="font-size:9.5px">${sgn(dtot_ses)}${nn(dtot_ses)}</td>
-      <td class="right" style="font-size:9px;background:#fffde7;border-left:2px solid #ffe082">${pct(CR_b)}</td>
-      <td class="right ${tot_ocb>=0?'pos':'neg'}" style="font-size:10px;font-weight:900;background:#fffde7">${sgn(tot_ocb)}${nn(tot_ocb)}</td>
-      <td class="right" style="font-size:9px;background:#ffeef0;border-left:2px solid #ef9a9a">${pct(CR_n)}</td>
-      <td class="right ${tot_dcr>=0?'pos':'neg'}" style="font-size:10px;font-weight:900;background:#ffeef0">${sgn(tot_dcr)}${nn(tot_dcr)}</td>
-      <td class="right" style="font-size:10px;font-weight:900;background:#f0fdf8;border-left:2px solid #a5d6a7">${nn(tot_on)}</td>
-      <td class="right ${dtot_ord>=0?'pos':'neg'}" style="font-size:11px;font-weight:900;background:#f0fdf8">${sgn(dtot_ord)}${nn(dtot_ord)}</td>
-    </tr>
-    <tr style="background:#1a2454">
-      <td class="label" colspan="5" style="color:#FFB700;font-size:9.5px;font-weight:800;border-left:4px solid #FFB700;padding-left:10px">Impacto mensual estimado (× 30 días)</td>
-      <td class="right" style="background:#fffde7;font-size:12px;font-weight:900;color:${tot_ocb*30>=0?'#e65100':'#c62828'}">${sgn(tot_ocb*30)}${nn(tot_ocb*30)}</td>
-      <td style="background:#1a2454"></td>
-      <td class="right" style="background:#fce4ec;font-size:12px;font-weight:900;color:${tot_dcr*30>=0?'#2e7d32':'#c62828'}">${sgn(tot_dcr*30)}${nn(tot_dcr*30)}</td>
-      <td style="background:#1a2454"></td>
-      <td class="right" style="background:${dtot_ord*30>=0?'#e8f5e9':'#fce4ec'};font-size:14px;font-weight:900;color:${dtot_ord*30>=0?'#2e7d32':'#c62828'};border-left:3px solid ${dtot_ord*30>=0?'#00a878':'#c62828'}">${sgn(dtot_ord*30)}${nn(dtot_ord*30)}</td>
-    </tr></tbody>`;
-    return h;
-  };
-
-  document.getElementById('tbl_s7').innerHTML = tblF(channels_s7, baseO_s7, mabO_s7, S_b, S_n, CR_b, CR_n, 's7');
-
-  // Summary — 3 boxes matching EXACTLY table totals × 30
-  const sum_vol = channels_s7.reduce((a,ch)=>a+(ch.so-ch.sb)*ch.cr_b,0)*M;
-  const sum_dcr = channels_s7.reduce((a,ch)=>a+ch.so*(ch.cr_n-ch.cr_b),0)*M;
-  const sum_net = sum_vol+sum_dcr;
-  const box7=(label,val,bg,col,sub)=>
-    `<div style="flex:1;background:${bg};border-radius:7px;padding:8px 12px;text-align:center">
-      <div style="font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${col};margin-bottom:3px">${label}</div>
-      <div style="font-size:20px;font-weight:900;color:${val>=0?col:'#c62828'};line-height:1">${val>=0?'+':''}${nn(val)}</div>
-      <div style="font-size:7px;color:#aaa;margin-top:2px">${sub}</div>
-    </div>`;
-  document.getElementById('summary_s7').style.display='none';
-  document.getElementById('summary_s7').innerHTML=`
-    <div style="display:flex;align-items:center;gap:8px;width:100%">
-      <div style="background:#f5f7fa;border-radius:7px;padding:8px 12px;text-align:center;flex-shrink:0">
-        <div style="font-size:7.5px;font-weight:700;text-transform:uppercase;color:#aaa;margin-bottom:3px">Baseline órd/día</div>
-        <div style="font-size:20px;font-weight:900;color:#1a2454;line-height:1">${nn(Math.round(baseO_s7.tot))}</div>
-        <div style="font-size:7px;color:#bbb;margin-top:2px">W1.1 total</div>
-      </div>
-      <div style="color:#ccc;font-size:18px;flex-shrink:0">→</div>
-      ${box7('Δ órd vol. × 30d',sum_vol,'#fffde7','#e65100','Δ ses × CR base · col. tabla')}
-      <div style="color:#ccc;font-size:16px;flex-shrink:0">+</div>
-      ${box7('Impacto Δ CR × 30d',sum_dcr,'#fce4ec','#c62828','ses_new × Δ CR · col. tabla')}
-      <div style="color:#ccc;font-size:16px;flex-shrink:0">=</div>
-      ${box7('NETO / mes',sum_net,sum_net>=0?'#e8f5e9':'#fce4ec',sum_net>=0?'#2e7d32':'#c62828','Δ órd total × 30d')}
-    </div>`;
-
-  document.getElementById('fn_s7').innerHTML=
-    `Descomposición: Ef. Vol. = (S_n−S_b)×CR_b×30 · Ef. Mix = S_n×(CR_contrafactual−CR_b)×30 · Ef. Tasa = S_n×(CR_n−CR_contrafactual)×30 · Σ = Neto ✓ ·
-    CR_b total=${pct(CR_b)} · CR_c (contrafactual)=${pct(CR_c)} · CR_n total=${pct(CR_n)} ·
-    CR base por canal: MP=${pct(crCanalBase.mp)} · GreenB=${pct(crCanalBase.greenB)} · GreenA=${pct(crCanalBase.greenA)} · OnlyML=${pct(crCanalBase.onlyML)} · 28/5 excluido`;
-})();
-
 // ── SLIDE 8: NUEVO DISEÑO — IMPACTO MENSUAL — descomposición 3 efectos (últimos 7 días) ─
 (function() {
   function pd(s){const[d,m]=s.split('/').map(Number);return new Date(2026,m-1,d);}
@@ -1297,6 +955,84 @@ new Chart(document.getElementById('chartCR'),{
     ch.mix_ch  = (ch.share_n - ch.share_b) * ch.cr_b * S_n * M;
     ch.tasa_ch = so*(ch.cr_n - ch.cr_b)*M;
   });
+
+  // Table builder — sessions → CR → orders flow
+  function tblF(channels, baseO, mabO, S_b, S_n, CR_b, CR_n, sfx) {
+    function nn(v){return Math.round(v).toLocaleString('es-AR');}
+    function pct(v){return (v*100).toFixed(1)+'%';}
+    function sgn(v){return v>=0?'+':'';}
+    let h=`<colgroup>
+      <col style="width:95px">
+      <col style="width:72px"><col style="width:72px"><col style="width:72px">
+      <col style="width:58px"><col style="width:72px">
+      <col style="width:58px"><col style="width:72px">
+      <col style="width:72px"><col style="width:72px">
+    </colgroup>
+    <thead><tr>
+      <th class="left" rowspan="2" style="font-size:8px">Canal</th>
+      <th class="right" colspan="3" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Sesiones / día</th>
+      <th class="right" colspan="2" style="background:#fff8e1;color:#e65100;font-size:7.5px;border-bottom:1px solid #ffe082;border-left:2px solid #ffe082">CR base → primer impacto</th>
+      <th class="right" colspan="2" style="background:#fce4ec;color:#c62828;font-size:7.5px;border-bottom:1px solid #ef9a9a;border-left:2px solid #ef9a9a">CR nueva → impacto adicional</th>
+      <th class="right" colspan="2" style="background:#e8f5e9;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7;border-left:2px solid #a5d6a7">Resultado</th>
+    </tr><tr>
+      <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base W1.1</th>
+      <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Mar Ab.</th>
+      <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Δ ses/día</th>
+      <th class="right" style="background:#fff8e1;color:#888;font-size:7px;border-left:2px solid #ffe082">CR base</th>
+      <th class="right" style="background:#fff8e1;color:#888;font-size:7px">Δ órd vol.<br><span style="font-size:6.5px;font-weight:400">Δses × CR_base</span></th>
+      <th class="right" style="background:#fce4ec;color:#888;font-size:7px;border-left:2px solid #ef9a9a">CR new</th>
+      <th class="right" style="background:#fce4ec;color:#888;font-size:7px">Impacto Δ CR<br><span style="font-size:6.5px;font-weight:400">ses_new × Δ CR</span></th>
+      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px;border-left:2px solid #a5d6a7">Órd/día new</th>
+      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px">Δ órd/día total</th>
+    </tr></thead><tbody>`;
+    channels.forEach(ch=>{
+      const ds   = ch.so - ch.sb;
+      const ob      = ch.sb * ch.cr_b;
+      const o_cb    = ds * ch.cr_b;
+      const imp_dcr = ch.so * (ch.cr_n - ch.cr_b);
+      const on      = ch.so * ch.cr_n;
+      const dord    = on - ob;
+      h+=`<tr>
+        <td class="label" style="border-left:3px solid ${ch.color};padding-left:7px;font-size:9px">${ch.label}</td>
+        <td class="right muted" style="font-size:9px">${nn(ch.sb)}</td>
+        <td class="right" style="font-size:9px">${nn(ch.so)}</td>
+        <td class="right ${ds>=0?'pos':'neg'}" style="font-size:9px;font-weight:700">${sgn(ds)}${nn(ds)}</td>
+        <td class="right muted" style="font-size:8.5px;background:#fffde7;border-left:2px solid #ffe082">${pct(ch.cr_b)}</td>
+        <td class="right ${o_cb>=0?'pos':'neg'}" style="font-size:9px;background:#fffde7;font-weight:700">${sgn(o_cb)}${nn(o_cb)}</td>
+        <td class="right" style="font-size:8.5px;background:#ffeef0;border-left:2px solid #ef9a9a">${pct(ch.cr_n)}</td>
+        <td class="right ${imp_dcr>=0?'pos':'neg'}" style="font-size:9px;background:#ffeef0;font-weight:700">${sgn(imp_dcr)}${nn(imp_dcr)}</td>
+        <td class="right" style="font-size:9px;background:#f0fdf8;border-left:2px solid #a5d6a7">${nn(on)}</td>
+        <td class="right ${dord>=0?'pos':'neg'}" style="font-size:9px;font-weight:800;background:#f0fdf8">${sgn(dord)}${nn(dord)}</td>
+      </tr>`;
+    });
+    const tot_sb=channels.reduce((a,c)=>a+c.sb,0);
+    const tot_so=channels.reduce((a,c)=>a+c.so,0);
+    const tot_ob=baseO.tot, tot_on=mabO.tot;
+    const dtot_ses=tot_so-tot_sb, dtot_ord=tot_on-tot_ob;
+    const tot_ocb = dtot_ses * CR_b;
+    const tot_dcr = tot_so * (CR_n - CR_b);
+    h+=`<tr class="total-row">
+      <td class="label" style="border-left:3px solid #1a2454;font-size:9.5px">Total / día</td>
+      <td class="right" style="font-size:9.5px">${nn(tot_sb)}</td>
+      <td class="right" style="font-size:9.5px">${nn(tot_so)}</td>
+      <td class="right ${dtot_ses>=0?'pos':'neg'}" style="font-size:9.5px">${sgn(dtot_ses)}${nn(dtot_ses)}</td>
+      <td class="right" style="font-size:9px;background:#fffde7;border-left:2px solid #ffe082">${pct(CR_b)}</td>
+      <td class="right ${tot_ocb>=0?'pos':'neg'}" style="font-size:10px;font-weight:900;background:#fffde7">${sgn(tot_ocb)}${nn(tot_ocb)}</td>
+      <td class="right" style="font-size:9px;background:#ffeef0;border-left:2px solid #ef9a9a">${pct(CR_n)}</td>
+      <td class="right ${tot_dcr>=0?'pos':'neg'}" style="font-size:10px;font-weight:900;background:#ffeef0">${sgn(tot_dcr)}${nn(tot_dcr)}</td>
+      <td class="right" style="font-size:10px;font-weight:900;background:#f0fdf8;border-left:2px solid #a5d6a7">${nn(tot_on)}</td>
+      <td class="right ${dtot_ord>=0?'pos':'neg'}" style="font-size:11px;font-weight:900;background:#f0fdf8">${sgn(dtot_ord)}${nn(dtot_ord)}</td>
+    </tr>
+    <tr style="background:#1a2454">
+      <td class="label" colspan="5" style="color:#FFB700;font-size:9.5px;font-weight:800;border-left:4px solid #FFB700;padding-left:10px">Impacto mensual estimado (× 30 días)</td>
+      <td class="right" style="background:#fffde7;font-size:12px;font-weight:900;color:${tot_ocb*30>=0?'#e65100':'#c62828'}">${sgn(tot_ocb*30)}${nn(tot_ocb*30)}</td>
+      <td style="background:#1a2454"></td>
+      <td class="right" style="background:#fce4ec;font-size:12px;font-weight:900;color:${tot_dcr*30>=0?'#2e7d32':'#c62828'}">${sgn(tot_dcr*30)}${nn(tot_dcr*30)}</td>
+      <td style="background:#1a2454"></td>
+      <td class="right" style="background:${dtot_ord*30>=0?'#e8f5e9':'#fce4ec'};font-size:14px;font-weight:900;color:${dtot_ord*30>=0?'#2e7d32':'#c62828'};border-left:3px solid ${dtot_ord*30>=0?'#00a878':'#c62828'}">${sgn(dtot_ord*30)}${nn(dtot_ord*30)}</td>
+    </tr></tbody>`;
+    return h;
+  }
 
   document.getElementById('tbl_s8').innerHTML = tblF(channels_s8, baseO_s8, mabO_s8, S_b, S_n, CR_b, CR_n, 's8');
 
