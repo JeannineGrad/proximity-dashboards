@@ -1170,9 +1170,9 @@ new Chart(document.getElementById('chartCR'),{
     const tot_sb=channels.reduce((a,c)=>a+c.sb,0);
     const tot_so=channels.reduce((a,c)=>a+c.so,0);
     const tot_ob=baseO.tot, tot_on=mabO.tot;
+    const dtot_ses=tot_so-tot_sb, dtot_ord=tot_on-tot_ob;
     const tot_ocb = dtot_ses * CR_b;             // Δ vol impact = Δses × CR_base
     const tot_dcr = tot_so * (CR_n - CR_b);     // CR change impact
-    const dtot_ses=tot_so-tot_sb, dtot_ord=tot_on-tot_ob;
     h+=`<tr class="total-row">
       <td class="label" style="border-left:3px solid #1a2454;font-size:9.5px">Total</td>
       <td class="right" style="font-size:9.5px">${nn(tot_sb)}</td>
