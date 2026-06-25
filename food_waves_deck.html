@@ -1191,7 +1191,6 @@ new Chart(document.getElementById('chartCR'),{
   document.getElementById('tbl_s7').innerHTML = tblF(channels_s7, baseO_s7, mabO_s7, S_b, S_n, CR_b, CR_n, 's7');
 
   // Summary — 3 boxes matching EXACTLY table totals × 30
-  const M=30;
   const sum_vol = channels_s7.reduce((a,ch)=>a+(ch.so-ch.sb)*ch.cr_b,0)*M;
   const sum_dcr = channels_s7.reduce((a,ch)=>a+ch.so*(ch.cr_n-ch.cr_b),0)*M;
   const sum_net = sum_vol+sum_dcr;
