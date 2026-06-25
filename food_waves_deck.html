@@ -349,7 +349,7 @@ const crGapPlugin={
     // Gap arrows between ML and MP
     mlCRd.forEach((_,i)=>{
       const ptML=mML.data[i],ptMP=mMP.data[i];if(!ptML||!ptMP)return;
-      const gap=(mpCRd[i]-mlCRd[i]).toFixed(1);
+      const gap=(mlCRd[i]-mpCRd[i]).toFixed(1);
       const x=ptML.x+26,y1=ptML.y+6,y2=ptMP.y-6,midY=(ptML.y+ptMP.y)/2;
       ctx.strokeStyle='#c62828';ctx.lineWidth=1.2;ctx.setLineDash([3,2]);
       ctx.beginPath();ctx.moveTo(x,y1);ctx.lineTo(x,y2);ctx.stroke();
