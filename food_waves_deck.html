@@ -296,12 +296,14 @@ buildPanel('rpOrd',wOrd);
 makeChart('chartOrd',wOrd,0,40000,3);
 
 // ── SLIDE 2: CR GAP ───────────────────────────────────────────────────────
-const mlCRd=waveDefs.map((_,i)=>+(wOrd[i].ml/wSes[i].ml*100).toFixed(1));
-const mpCRd=waveDefs.map((_,i)=>+(wOrd[i].mp/wSes[i].mp*100).toFixed(1));
+const mlCRd =waveDefs.map((_,i)=>+(wOrd[i].ml /wSes[i].ml *100).toFixed(1));
+const mpCRd =waveDefs.map((_,i)=>+(wOrd[i].mp /wSes[i].mp *100).toFixed(1));
+const totCRd=waveDefs.map((_,i)=>+(wOrd[i].tot/wSes[i].tot*100).toFixed(1));
 
 // 3 summary boxes
-const avgML=(mlCRd.reduce((a,v)=>a+v,0)/mlCRd.length).toFixed(1);
-const avgMP=(mpCRd.reduce((a,v)=>a+v,0)/mpCRd.length).toFixed(1);
+const avgML =(mlCRd.reduce((a,v)=>a+v,0)/mlCRd.length).toFixed(1);
+const avgMP =(mpCRd.reduce((a,v)=>a+v,0)/mpCRd.length).toFixed(1);
+const avgTot=(totCRd.reduce((a,v)=>a+v,0)/totCRd.length).toFixed(1);
 const avgGap=(parseFloat(avgMP)-parseFloat(avgML)).toFixed(1);
 const crSum=document.getElementById('crSummary');
 if(crSum) crSum.innerHTML=`
@@ -319,30 +321,48 @@ if(crSum) crSum.innerHTML=`
     <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#bbb">Tasa de conv. MP</div>
     <div style="font-size:28px;font-weight:900;color:#1565C0;line-height:1">${avgMP}%</div>
     <div style="font-size:7.5px;color:#ccc">Con ML + Sin ML + No cl. · prom. 5 waves</div>
+  </div>
+  <div style="flex:1;background:#f0fdf8;border-radius:6px;border-bottom:3px solid #00a878;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:2px">
+    <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#bbb">Tasa de conv. Total</div>
+    <div style="font-size:28px;font-weight:900;color:#00a878;line-height:1">${avgTot}%</div>
+    <div style="font-size:7.5px;color:#ccc">ML + MP combinados · prom. 5 waves</div>
   </div>`;
 
 const crGapPlugin={
   id:'crGap',
   afterDatasetsDraw(chart){
     const{ctx}=chart;
-    const m0=chart.getDatasetMeta(0), m1=chart.getDatasetMeta(1);
+    const mML=chart.getDatasetMeta(0),mMP=chart.getDatasetMeta(1),mTot=chart.getDatasetMeta(2);
     ctx.save();ctx.textAlign='center';
+    // Value labels on each curve
+    mlCRd.forEach((v,i)=>{
+      const pt=mML.data[i];if(!pt)return;
+      ctx.font='bold 8.5px Segoe UI,Arial';ctx.fillStyle='#e6a800';
+      ctx.fillText(v.toFixed(1)+'%',pt.x,pt.y-10);
+    });
+    mpCRd.forEach((v,i)=>{
+      const pt=mMP.data[i];if(!pt)return;
+      ctx.font='bold 8.5px Segoe UI,Arial';ctx.fillStyle='#1565C0';
+      ctx.fillText(v.toFixed(1)+'%',pt.x,pt.y+17);
+    });
+    totCRd.forEach((v,i)=>{
+      const pt=mTot.data[i];if(!pt)return;
+      ctx.font='bold 8px Segoe UI,Arial';ctx.fillStyle='#00a878';
+      ctx.fillText(v.toFixed(1)+'%',pt.x-28,pt.y+4);
+    });
+    // Gap arrows between ML and MP
     mlCRd.forEach((_,i)=>{
-      const ptML=m0.data[i], ptMP=m1.data[i];
-      if(!ptML||!ptMP)return;
+      const ptML=mML.data[i],ptMP=mMP.data[i];if(!ptML||!ptMP)return;
       const gap=(mpCRd[i]-mlCRd[i]).toFixed(1);
-      const midX=ptML.x, topY=ptML.y, botY=ptMP.y, midY=(topY+botY)/2;
-      // Arrow line
+      const x=ptML.x+26,y1=ptML.y+6,y2=ptMP.y-6,midY=(ptML.y+ptMP.y)/2;
       ctx.strokeStyle='#c62828';ctx.lineWidth=1.2;ctx.setLineDash([3,2]);
-      ctx.beginPath();ctx.moveTo(midX+22,topY+6);ctx.lineTo(midX+22,botY-6);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x,y1);ctx.lineTo(x,y2);ctx.stroke();
       ctx.setLineDash([]);
-      // Arrowheads
       ctx.fillStyle='#c62828';
-      ctx.beginPath();ctx.moveTo(midX+22,topY+2);ctx.lineTo(midX+19,topY+9);ctx.lineTo(midX+25,topY+9);ctx.fill();
-      ctx.beginPath();ctx.moveTo(midX+22,botY-2);ctx.lineTo(midX+19,botY-9);ctx.lineTo(midX+25,botY-9);ctx.fill();
-      // Label
-      ctx.font='bold 9px Segoe UI,Arial';ctx.fillStyle='#c62828';
-      ctx.fillText('+'+gap+'pp',midX+34,midY+3.5);
+      ctx.beginPath();ctx.moveTo(x,ptML.y+2);ctx.lineTo(x-3,ptML.y+9);ctx.lineTo(x+3,ptML.y+9);ctx.fill();
+      ctx.beginPath();ctx.moveTo(x,ptMP.y-2);ctx.lineTo(x-3,ptMP.y-9);ctx.lineTo(x+3,ptMP.y-9);ctx.fill();
+      ctx.font='bold 8.5px Segoe UI,Arial';ctx.fillStyle='#c62828';
+      ctx.fillText('+'+gap+'pp',x+22,midY+4);
     });
     ctx.restore();
   }
@@ -353,20 +373,21 @@ new Chart(document.getElementById('chartCR'),{
   data:{
     labels:waveDefs.map(w=>[w.name,w.range]),
     datasets:[
-      {label:'CR ML',data:mlCRd,borderColor:'#FFB700',backgroundColor:'rgba(255,183,0,0.1)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#FFB700',tension:0.3,fill:'+1',order:2},
-      {label:'CR MP',data:mpCRd,borderColor:'#4da6ff',backgroundColor:'rgba(77,166,255,0.08)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#4da6ff',tension:0.3,fill:false,order:1},
+      {label:'CR ML', data:mlCRd, borderColor:'#FFB700',backgroundColor:'rgba(255,183,0,0.08)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#FFB700',tension:0.3,fill:'+1',order:2},
+      {label:'CR MP', data:mpCRd, borderColor:'#4da6ff',backgroundColor:'rgba(77,166,255,0.06)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#4da6ff',tension:0.3,fill:false,order:1},
+      {label:'CR Tot',data:totCRd,borderColor:'#00a878',backgroundColor:'transparent',borderWidth:2,borderDash:[5,3],pointRadius:4,pointBackgroundColor:'#00a878',tension:0.3,fill:false,order:1},
     ]
   },
   options:{
     responsive:true,maintainAspectRatio:false,animation:false,
-    layout:{padding:{right:50}},
+    layout:{padding:{right:55}},
     plugins:{
       legend:{display:false},
       tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw.toFixed(1)}%`}}
     },
     scales:{
       x:{grid:{display:false},ticks:{font:{size:10},color:'#555'}},
-      y:{grid:{color:'#f0f0f0'},min:5,max:35,
+      y:{grid:{color:'#f0f0f0'},min:5,max:30,
         ticks:{font:{size:10},color:'#aaa',callback:v=>v+'%'},
         title:{display:true,text:'tasa de conversión (%)',font:{size:8.5},color:'#ccc'}}
     }
