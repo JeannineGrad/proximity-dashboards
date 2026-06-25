@@ -1118,63 +1118,66 @@ new Chart(document.getElementById('chartCR'),{
     ch.tasa_ch = so*(ch.cr_n - ch.cr_b)*M;
   });
 
-  // Table — 9 columns
-  let html_s7=`<colgroup>
-    <col style="width:95px">
-    <col style="width:60px"><col style="width:60px">
-    <col style="width:60px"><col style="width:60px">
-    <col style="width:55px"><col style="width:55px">
-    <col style="width:80px"><col style="width:80px"><col style="width:80px">
-  </colgroup>
-  <thead><tr>
-    <th class="left" rowspan="2" style="font-size:8px">Canal</th>
-    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Ses/día</th>
-    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">CR canal</th>
-    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Δ ses/día</th>
-    <th class="right" style="background:#eff6ff;color:#1565C0;font-size:7.5px;border-bottom:1px solid #93c5fd" rowspan="2">Contrib.<br>ef. volumen</th>
-    <th class="right" style="background:#fff8e1;color:#e65100;font-size:7.5px;border-bottom:1px solid #ffe082" rowspan="2">Contrib.<br>ef. mix CR</th>
-    <th class="right" style="background:#e8f5e9;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7" rowspan="2">Contrib.<br>ef. tasa</th>
-  </tr><tr>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base</th>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">New</th>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base</th>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">New</th>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Abs</th>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">%</th>
-  </tr></thead><tbody>`;
+  // Table — sessions → CR → orders flow
+  const tblF = (channels, baseO, mabO, S_b, S_n, CR_b, CR_n, sfx) => {
+    let h=`<colgroup>
+      <col style="width:100px">
+      <col style="width:78px"><col style="width:78px"><col style="width:78px">
+      <col style="width:62px"><col style="width:62px">
+      <col style="width:78px"><col style="width:78px"><col style="width:78px">
+    </colgroup>
+    <thead>
+    <tr>
+      <th class="left" rowspan="2" style="font-size:8px">Canal</th>
+      <th class="right" colspan="3" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Sesiones / día</th>
+      <th class="right" colspan="2" style="background:#fff8e1;color:#e65100;font-size:7.5px;border-bottom:1px solid #ffe082">Tasa de conversión</th>
+      <th class="right" colspan="3" style="background:#e8f5e9;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7">Órdenes / día</th>
+    </tr><tr>
+      <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base W1.1</th>
+      <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Mar Ab.</th>
+      <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Δ ses/día</th>
+      <th class="right" style="background:#fff8e1;color:#888;font-size:7px">CR base</th>
+      <th class="right" style="background:#fff8e1;color:#888;font-size:7px">CR new</th>
+      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px">Base W1.1</th>
+      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px">Mar Ab.</th>
+      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px">Δ órd/día</th>
+    </tr></thead><tbody>`;
 
-  channels_s7.forEach(ch=>{
-    const ds=ch.delta_ses, dsPct=(ds/(ch.sb||1));
-    const nv=ch.vol_ch>=0?'pos':'neg';
-    const nm=ch.mix_ch>=0?'pos':'neg';
-    const nt=ch.tasa_ch>=0?'pos':'neg';
-    html_s7+=`<tr>
-      <td class="label" style="border-left:3px solid ${ch.color};padding-left:7px;font-size:9px">${ch.label}</td>
-      <td class="right muted" style="font-size:8.5px">${nn(ch.sb)}</td>
-      <td class="right" style="font-size:8.5px">${nn(ch.so)}</td>
-      <td class="right muted" style="font-size:8.5px">${pct(ch.cr_b)}</td>
-      <td class="right" style="font-size:8.5px">${pct(ch.cr_n)}</td>
-      <td class="right ${ds>=0?'pos':'neg'}" style="font-size:8px">${sgn(ds)}${nn(ds)}</td>
-      <td class="right ${dsPct>=0?'pos':'neg'}" style="font-size:8px">${sgn(dsPct)}${(dsPct*100).toFixed(1)}%</td>
-      <td class="right ${nv}" style="background:#eff6ff;font-size:8px;font-weight:700">${sgn(ch.vol_ch)}${nn(ch.vol_ch)}</td>
-      <td class="right ${nm}" style="background:#fff8e1;font-size:8px;font-weight:700">${sgn(ch.mix_ch)}${nn(ch.mix_ch)}</td>
-      <td class="right ${nt}" style="background:#e8f5e9;font-size:8px;font-weight:700">${sgn(ch.tasa_ch)}${nn(ch.tasa_ch)}</td>
-    </tr>`;
-  });
+    channels.forEach(ch=>{
+      const ds=ch.so-ch.sb;
+      const ob=ch.sb*ch.cr_b, on=ch.so*ch.cr_n, dord=on-ob;
+      h+=`<tr>
+        <td class="label" style="border-left:3px solid ${ch.color};padding-left:7px;font-size:9px">${ch.label}</td>
+        <td class="right muted" style="font-size:9px">${nn(ch.sb)}</td>
+        <td class="right" style="font-size:9px">${nn(ch.so)}</td>
+        <td class="right ${ds>=0?'pos':'neg'}" style="font-size:9px;font-weight:700">${sgn(ds)}${nn(ds)}</td>
+        <td class="right muted" style="font-size:8.5px;background:#fffde7">${pct(ch.cr_b)}</td>
+        <td class="right" style="font-size:8.5px;background:#fffde7">${pct(ch.cr_n)}</td>
+        <td class="right muted" style="font-size:9px;background:#f0fdf8">${nn(ob)}</td>
+        <td class="right" style="font-size:9px;background:#f0fdf8">${nn(on)}</td>
+        <td class="right ${dord>=0?'pos':'neg'}" style="font-size:9px;font-weight:700;background:#f0fdf8">${sgn(dord)}${nn(dord)}</td>
+      </tr>`;
+    });
 
-  const totVolCh=channels_s7.reduce((a,c)=>a+c.vol_ch,0);
-  const totMixCh=channels_s7.reduce((a,c)=>a+c.mix_ch,0);
-  const totTasaCh=channels_s7.reduce((a,c)=>a+c.tasa_ch,0);
-  const totNetoCh=totVolCh+totMixCh+totTasaCh;
+    const tot_sb=channels.reduce((a,c)=>a+c.sb,0);
+    const tot_so=channels.reduce((a,c)=>a+c.so,0);
+    const tot_ob=baseO.tot, tot_on=mabO.tot;
+    const dtot_ses=tot_so-tot_sb, dtot_ord=tot_on-tot_ob;
+    h+=`<tr class="total-row">
+      <td class="label" style="border-left:3px solid #1a2454;font-size:9.5px">Total</td>
+      <td class="right" style="font-size:9.5px">${nn(tot_sb)}</td>
+      <td class="right" style="font-size:9.5px">${nn(tot_so)}</td>
+      <td class="right ${dtot_ses>=0?'pos':'neg'}" style="font-size:9.5px">${sgn(dtot_ses)}${nn(dtot_ses)}</td>
+      <td class="right" style="font-size:9px;background:#fffde7">${pct(CR_b)}</td>
+      <td class="right" style="font-size:9px;background:#fffde7">${pct(CR_n)}</td>
+      <td class="right" style="font-size:9.5px;background:#f0fdf8">${nn(tot_ob)}</td>
+      <td class="right" style="font-size:9.5px;background:#f0fdf8">${nn(tot_on)}</td>
+      <td class="right ${dtot_ord>=0?'pos':'neg'}" style="font-size:10px;font-weight:900;background:#f0fdf8">${sgn(dtot_ord)}${nn(dtot_ord)}</td>
+    </tr></tbody>`;
+    return h;
+  };
 
-  html_s7+=`<tr class="total-row">
-    <td class="label" colspan="7" style="font-size:9px">Total ecosystem</td>
-    <td class="right ${totVolCh>=0?'pos':'neg'}" style="background:#dbeafe;font-weight:900;font-size:10px">${sgn(totVolCh)}${nn(totVolCh)}</td>
-    <td class="right ${totMixCh>=0?'pos':'neg'}" style="background:#fff8e1;font-weight:900;font-size:10px">${sgn(totMixCh)}${nn(totMixCh)}</td>
-    <td class="right ${totTasaCh>=0?'pos':'neg'}" style="background:#dcfce7;font-weight:900;font-size:10px">${sgn(totTasaCh)}${nn(totTasaCh)}</td>
-  </tr></tbody>`;
-
-  document.getElementById('tbl_s7').innerHTML=html_s7;
+  document.getElementById('tbl_s7').innerHTML = tblF(channels_s7, baseO_s7, mabO_s7, S_b, S_n, CR_b, CR_n, 's7');
 
   // Summary — 4 boxes: baseline órd/día → ef.vol + ef.mix + ef.tasa = neto
   const ord_b_day = Math.round(baseO_s7.tot);
@@ -1295,62 +1298,7 @@ new Chart(document.getElementById('chartCR'),{
     ch.tasa_ch = so*(ch.cr_n - ch.cr_b)*M;
   });
 
-  // Table
-  let html_s8=`<colgroup>
-    <col style="width:95px">
-    <col style="width:60px"><col style="width:60px">
-    <col style="width:60px"><col style="width:60px">
-    <col style="width:55px"><col style="width:55px">
-    <col style="width:80px"><col style="width:80px"><col style="width:80px">
-  </colgroup>
-  <thead><tr>
-    <th class="left" rowspan="2" style="font-size:8px">Canal</th>
-    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Ses/día</th>
-    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">CR canal</th>
-    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Δ ses/día</th>
-    <th class="right" style="background:#eff6ff;color:#1565C0;font-size:7.5px;border-bottom:1px solid #93c5fd" rowspan="2">Contrib.<br>ef. volumen</th>
-    <th class="right" style="background:#fff8e1;color:#e65100;font-size:7.5px;border-bottom:1px solid #ffe082" rowspan="2">Contrib.<br>ef. mix CR</th>
-    <th class="right" style="background:#e8f5e9;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7" rowspan="2">Contrib.<br>ef. tasa</th>
-  </tr><tr>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base</th>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">New</th>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base</th>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">New</th>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Abs</th>
-    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">%</th>
-  </tr></thead><tbody>`;
-
-  channels_s8.forEach(ch=>{
-    const ds=ch.delta_ses, dsPct=(ds/(ch.sb||1));
-    const nv=ch.vol_ch>=0?'pos':'neg';
-    const nm=ch.mix_ch>=0?'pos':'neg';
-    const nt=ch.tasa_ch>=0?'pos':'neg';
-    html_s8+=`<tr>
-      <td class="label" style="border-left:3px solid ${ch.color};padding-left:7px;font-size:9px">${ch.label}</td>
-      <td class="right muted" style="font-size:8.5px">${nn(ch.sb)}</td>
-      <td class="right" style="font-size:8.5px">${nn(ch.so)}</td>
-      <td class="right muted" style="font-size:8.5px">${pct(ch.cr_b)}</td>
-      <td class="right" style="font-size:8.5px">${pct(ch.cr_n)}</td>
-      <td class="right ${ds>=0?'pos':'neg'}" style="font-size:8px">${sgn(ds)}${nn(ds)}</td>
-      <td class="right ${dsPct>=0?'pos':'neg'}" style="font-size:8px">${sgn(dsPct)}${(dsPct*100).toFixed(1)}%</td>
-      <td class="right ${nv}" style="background:#eff6ff;font-size:8px;font-weight:700">${sgn(ch.vol_ch)}${nn(ch.vol_ch)}</td>
-      <td class="right ${nm}" style="background:#fff8e1;font-size:8px;font-weight:700">${sgn(ch.mix_ch)}${nn(ch.mix_ch)}</td>
-      <td class="right ${nt}" style="background:#e8f5e9;font-size:8px;font-weight:700">${sgn(ch.tasa_ch)}${nn(ch.tasa_ch)}</td>
-    </tr>`;
-  });
-
-  const totVolCh=channels_s8.reduce((a,c)=>a+c.vol_ch,0);
-  const totMixCh=channels_s8.reduce((a,c)=>a+c.mix_ch,0);
-  const totTasaCh=channels_s8.reduce((a,c)=>a+c.tasa_ch,0);
-
-  html_s8+=`<tr class="total-row">
-    <td class="label" colspan="7" style="font-size:9px">Total ecosystem</td>
-    <td class="right ${totVolCh>=0?'pos':'neg'}" style="background:#dbeafe;font-weight:900;font-size:10px">${sgn(totVolCh)}${nn(totVolCh)}</td>
-    <td class="right ${totMixCh>=0?'pos':'neg'}" style="background:#fff8e1;font-weight:900;font-size:10px">${sgn(totMixCh)}${nn(totMixCh)}</td>
-    <td class="right ${totTasaCh>=0?'pos':'neg'}" style="background:#dcfce7;font-weight:900;font-size:10px">${sgn(totTasaCh)}${nn(totTasaCh)}</td>
-  </tr></tbody>`;
-
-  document.getElementById('tbl_s8').innerHTML=html_s8;
+  document.getElementById('tbl_s8').innerHTML = tblF(channels_s8, baseO_s8, mabO_s8, S_b, S_n, CR_b, CR_n, 's8');
 
   // Summary — 4 boxes
   const ord_b_day = Math.round(baseO_s8.tot);
