@@ -202,13 +202,44 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
   </div>
 </div>
 
+
+<!-- SLIDE 7: NUEVO DISEÑO — IMPACTO MENSUAL (descomposición 3 efectos) -->
+<div class="slide">
+  <span class="snum">7</span>
+  <div class="hdr">
+    <div class="hdr-tag">Food MLA · Impacto mensual estructural · Mar Abierto vs Wave 1.1</div>
+    <div class="hdr-title">NUEVO DISEÑO: Impacto mensual estructural — si Mar Abierto es el nuevo nivel</div>
+    <div class="hdr-sub">Descomposición 3 efectos: Volumen (Δsesiones × CR_base) + Mix CR (sesiones × ΔCR_contrafactual) + Tasa (sesiones × ΔCR_real) · suma = Δ órdenes/mes total ✓ · baseline W1.1 (11/2–12/3) · Mar Abierto 11/6–23/6</div>
+  </div>
+  <div class="s4-body">
+    <table class="s45-tbl" id="tbl_s7"></table>
+    <div class="s5-highlight" id="summary_s7"></div>
+    <div class="s4-footnote" id="fn_s7"></div>
+  </div>
+</div>
+
+<!-- SLIDE 8: NUEVO DISEÑO — IMPACTO MENSUAL últimos 7 días (descomposición 3 efectos) -->
+<div class="slide">
+  <span class="snum">8</span>
+  <div class="hdr">
+    <div class="hdr-tag">Food MLA · Impacto mensual estructural · Mar Abierto vs Wave 1.1</div>
+    <div class="hdr-title">NUEVO DISEÑO: Mar Abierto = últimos 7 días (17/6–23/6)</div>
+    <div class="hdr-sub">Descomposición 3 efectos: Volumen (Δsesiones × CR_base) + Mix CR (sesiones × ΔCR_contrafactual) + Tasa (sesiones × ΔCR_real) · suma = Δ órdenes/mes total ✓ · baseline W1.1 (11/2–12/3) · Mar Abierto 17/6–23/6 (últimos 7d)</div>
+  </div>
+  <div class="s4-body">
+    <table class="s45-tbl" id="tbl_s8"></table>
+    <div class="s5-highlight" id="summary_s8"></div>
+    <div class="s4-footnote" id="fn_s8"></div>
+  </div>
+</div>
+
 </div><!-- /slide-wrap -->
 
 <div id="nav">
   <button class="nav-btn" id="btn-prev" onclick="go(-1)">&#8592;</button>
   <div id="nav-dots"></div>
   <button class="nav-btn" id="btn-next" onclick="go(1)">&#8594;</button>
-  <span id="nav-label">1 / 6</span>
+  <span id="nav-label">1 / 8</span>
 </div>
 </div><!-- /viewer -->
 
@@ -1013,6 +1044,363 @@ new Chart(document.getElementById('chartCR'),{
 
   document.getElementById('fn_s6').innerHTML=
     `CR base por canal: MP=${pct(baseO_s6.mp/base_s6.mp)} · GreenB=${pct(baseO_s6.greenB/(base_s6.greenB||1))} · GreenA=${pct(baseO_s6.greenA/(base_s6.greenA||1))} · OnlyML=${pct(baseO_s6.onlyML/base_s6.onlyML)} · 28/5 excluido (Día de la Hamburguesa)`;
+})();
+
+// ── SLIDE 7: NUEVO DISEÑO — IMPACTO MENSUAL — descomposición 3 efectos ───
+(function() {
+  function pd(s){const[d,m]=s.split('/').map(Number);return new Date(2026,m-1,d);}
+
+  function wAvg7(raw,s,e){
+    const days=raw.filter(r=>{const d=pd(r[0]);return d>=s&&d<=e;});
+    const n=days.length;
+    if(!n)return{onlyML:0,greenA:0,greenB:0,mp:0,tot:0};
+    return{
+      onlyML:days.reduce((a,r)=>a+r[1],0)/n,
+      greenA:days.reduce((a,r)=>a+r[2],0)/n,
+      greenB:days.reduce((a,r)=>a+r[3],0)/n,
+      mp:    days.reduce((a,r)=>a+r[4]+r[5]+r[6],0)/n,
+      tot:   days.reduce((a,r)=>a+r[1]+r[2]+r[3]+r[4]+r[5]+r[6],0)/n,
+    };
+  }
+
+  const base_s7 = wAvg7(rawSes_shared, pd('11/2'), pd('12/3'));
+  const baseO_s7= wAvg7(rawOrd_shared, pd('11/2'), pd('12/3'));
+  const mab_s7  = wAvg7(rawSes_shared, pd('11/6'), pd('23/6'));
+  const mabO_s7 = wAvg7(rawOrd_shared, pd('11/6'), pd('23/6'));
+
+  const KEYS=['onlyML','greenA','greenB','mp'];
+  const channels_s7=[
+    {key:'onlyML', label:'Only ML',    color:'rgba(255,183,0,0.7)'},
+    {key:'greenA', label:'Green ML A', color:'#81c784'},
+    {key:'greenB', label:'Green ML B', color:'#2e7d32'},
+    {key:'mp',     label:'MP',         color:'#4da6ff'},
+  ];
+
+  function nn(v){return Math.round(v).toLocaleString('es-AR');}
+  function pct(v){return (v*100).toFixed(1)+'%';}
+  function sgn(v){return v>=0?'+':'';}
+
+  const M=30;
+
+  // Aggregate totals
+  const S_b = base_s7.tot;
+  const S_n = mab_s7.tot;
+  const CR_b = baseO_s7.tot / (S_b||1);
+  const CR_n = mabO_s7.tot / (S_n||1);
+
+  // CR contrafactual = mix nuevo × CR canal base
+  const crCanalBase = {};
+  KEYS.forEach(k=>{ crCanalBase[k] = baseO_s7[k] / (base_s7[k]||1); });
+  const CR_c = KEYS.reduce((a,k)=> a + (mab_s7[k]/(S_n||1)) * crCanalBase[k], 0);
+
+  // 3 efectos agregados
+  const efVol  = (S_n - S_b) * CR_b * M;
+  const efMix  = S_n * (CR_c - CR_b) * M;
+  const efTasa = S_n * (CR_n - CR_c) * M;
+  const efNeto = efVol + efMix + efTasa;
+
+  // Per-channel mix contribution: (share_new_k - share_base_k) * CR_canal_base_k * S_n * M
+  // Per-channel tasa contribution: ses_new_k * (CR_canal_new_k - CR_canal_base_k) * M
+  channels_s7.forEach(ch=>{
+    const sb=base_s7[ch.key], so=mab_s7[ch.key];
+    const ob=baseO_s7[ch.key], oo=mabO_s7[ch.key];
+    ch.sb=sb; ch.so=so; ch.ob=ob; ch.oo=oo;
+    ch.cr_b = sb>0?ob/sb:0;
+    ch.cr_n = so>0?oo/so:0;
+    ch.share_b = sb/(S_b||1);
+    ch.share_n = so/(S_n||1);
+    ch.delta_ses = so - sb;
+    // volume contribution = (ses_new - ses_base) * CR_canal_base * M
+    ch.vol_ch  = (so-sb)*ch.cr_b*M;
+    // mix contribution = (share_new - share_base) * CR_canal_base * S_n * M
+    ch.mix_ch  = (ch.share_n - ch.share_b) * ch.cr_b * S_n * M;
+    // tasa contribution = ses_new * (CR_canal_new - CR_canal_base) * M
+    ch.tasa_ch = so*(ch.cr_n - ch.cr_b)*M;
+  });
+
+  // Table — 9 columns
+  let html_s7=`<colgroup>
+    <col style="width:95px">
+    <col style="width:60px"><col style="width:60px">
+    <col style="width:60px"><col style="width:60px">
+    <col style="width:55px"><col style="width:55px">
+    <col style="width:80px"><col style="width:80px"><col style="width:80px">
+  </colgroup>
+  <thead><tr>
+    <th class="left" rowspan="2" style="font-size:8px">Canal</th>
+    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Ses/día</th>
+    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">CR canal</th>
+    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Δ ses/día</th>
+    <th class="right" style="background:#eff6ff;color:#1565C0;font-size:7.5px;border-bottom:1px solid #93c5fd" rowspan="2">Contrib.<br>ef. volumen</th>
+    <th class="right" style="background:#fff8e1;color:#e65100;font-size:7.5px;border-bottom:1px solid #ffe082" rowspan="2">Contrib.<br>ef. mix CR</th>
+    <th class="right" style="background:#e8f5e9;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7" rowspan="2">Contrib.<br>ef. tasa</th>
+  </tr><tr>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base</th>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">New</th>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base</th>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">New</th>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Abs</th>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">%</th>
+  </tr></thead><tbody>`;
+
+  channels_s7.forEach(ch=>{
+    const ds=ch.delta_ses, dsPct=(ds/(ch.sb||1));
+    const nv=ch.vol_ch>=0?'pos':'neg';
+    const nm=ch.mix_ch>=0?'pos':'neg';
+    const nt=ch.tasa_ch>=0?'pos':'neg';
+    html_s7+=`<tr>
+      <td class="label" style="border-left:3px solid ${ch.color};padding-left:7px;font-size:9px">${ch.label}</td>
+      <td class="right muted" style="font-size:8.5px">${nn(ch.sb)}</td>
+      <td class="right" style="font-size:8.5px">${nn(ch.so)}</td>
+      <td class="right muted" style="font-size:8.5px">${pct(ch.cr_b)}</td>
+      <td class="right" style="font-size:8.5px">${pct(ch.cr_n)}</td>
+      <td class="right ${ds>=0?'pos':'neg'}" style="font-size:8px">${sgn(ds)}${nn(ds)}</td>
+      <td class="right ${dsPct>=0?'pos':'neg'}" style="font-size:8px">${sgn(dsPct)}${(dsPct*100).toFixed(1)}%</td>
+      <td class="right ${nv}" style="background:#eff6ff;font-size:8px;font-weight:700">${sgn(ch.vol_ch)}${nn(ch.vol_ch)}</td>
+      <td class="right ${nm}" style="background:#fff8e1;font-size:8px;font-weight:700">${sgn(ch.mix_ch)}${nn(ch.mix_ch)}</td>
+      <td class="right ${nt}" style="background:#e8f5e9;font-size:8px;font-weight:700">${sgn(ch.tasa_ch)}${nn(ch.tasa_ch)}</td>
+    </tr>`;
+  });
+
+  const totVolCh=channels_s7.reduce((a,c)=>a+c.vol_ch,0);
+  const totMixCh=channels_s7.reduce((a,c)=>a+c.mix_ch,0);
+  const totTasaCh=channels_s7.reduce((a,c)=>a+c.tasa_ch,0);
+  const totNetoCh=totVolCh+totMixCh+totTasaCh;
+
+  html_s7+=`<tr class="total-row">
+    <td class="label" colspan="7" style="font-size:9px">Total ecosystem</td>
+    <td class="right ${totVolCh>=0?'pos':'neg'}" style="background:#dbeafe;font-weight:900;font-size:10px">${sgn(totVolCh)}${nn(totVolCh)}</td>
+    <td class="right ${totMixCh>=0?'pos':'neg'}" style="background:#fff8e1;font-weight:900;font-size:10px">${sgn(totMixCh)}${nn(totMixCh)}</td>
+    <td class="right ${totTasaCh>=0?'pos':'neg'}" style="background:#dcfce7;font-weight:900;font-size:10px">${sgn(totTasaCh)}${nn(totTasaCh)}</td>
+  </tr></tbody>`;
+
+  document.getElementById('tbl_s7').innerHTML=html_s7;
+
+  // Summary — 4 boxes: baseline órd/día → ef.vol + ef.mix + ef.tasa = neto
+  const ord_b_day = Math.round(baseO_s7.tot);
+  const nc_s7 = efNeto>=0?'#2e7d32':'#c62828';
+  const bcVol  = efVol>=0  ?'#eff6ff':'#fef2f2';
+  const bcVol2 = efVol>=0  ?'#4da6ff':'#c62828';
+  const bcMix  = efMix>=0  ?'#fff8e1':'#fff8e1';
+  const bcMix2 = efMix>=0  ?'#e65100':'#c62828';
+  const bcTasa = efTasa>=0 ?'#e8f5e9':'#fef2f2';
+  const bcTasa2= efTasa>=0 ?'#2e7d32':'#c62828';
+  const bcNeto = efNeto>=0 ?'#e8f5e9':'#fef2f2';
+  const bcNeto2= nc_s7;
+
+  document.getElementById('summary_s7').innerHTML=`
+    <div style="display:flex;align-items:center;gap:6px;width:100%">
+      <div style="background:#f5f7fa;border-radius:7px;padding:7px 12px;text-align:center;flex-shrink:0">
+        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#aaa;margin-bottom:2px">Baseline órd/día</div>
+        <div style="font-size:19px;font-weight:900;color:#1a2454;line-height:1">${nn(ord_b_day)}</div>
+        <div style="font-size:7px;color:#bbb;margin-top:1px">W1.1 · total</div>
+      </div>
+      <div style="font-size:16px;color:#ddd;flex-shrink:0">→</div>
+      <div style="background:${bcVol};border:1.5px solid ${bcVol2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
+        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcVol2};margin-bottom:2px">Ef. Volumen</div>
+        <div style="font-size:19px;font-weight:900;color:${bcVol2};line-height:1">${sgn(efVol)}${nn(efVol)}</div>
+        <div style="font-size:7px;color:#aaa;margin-top:1px">(S_n−S_b)×CR_b×30</div>
+      </div>
+      <div style="font-size:14px;color:#ddd;flex-shrink:0">+</div>
+      <div style="background:${bcMix};border:1.5px solid ${bcMix2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
+        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcMix2};margin-bottom:2px">Ef. Mix CR</div>
+        <div style="font-size:19px;font-weight:900;color:${bcMix2};line-height:1">${sgn(efMix)}${nn(efMix)}</div>
+        <div style="font-size:7px;color:#aaa;margin-top:1px">S_n×(CR_c−CR_b)×30</div>
+      </div>
+      <div style="font-size:14px;color:#ddd;flex-shrink:0">+</div>
+      <div style="background:${bcTasa};border:1.5px solid ${bcTasa2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
+        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcTasa2};margin-bottom:2px">Ef. Tasa</div>
+        <div style="font-size:19px;font-weight:900;color:${bcTasa2};line-height:1">${sgn(efTasa)}${nn(efTasa)}</div>
+        <div style="font-size:7px;color:#aaa;margin-top:1px">S_n×(CR_n−CR_c)×30</div>
+      </div>
+      <div style="font-size:14px;color:#ddd;flex-shrink:0">=</div>
+      <div style="background:${bcNeto};border:2px solid ${bcNeto2};border-radius:7px;padding:7px 14px;text-align:center;flex:1">
+        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcNeto2};margin-bottom:2px">NETO / mes</div>
+        <div style="font-size:22px;font-weight:900;color:${bcNeto2};line-height:1">${sgn(efNeto)}${nn(efNeto)}</div>
+        <div style="font-size:7px;color:#aaa;margin-top:1px">vs W1.1 × 30d</div>
+      </div>
+    </div>`;
+
+  document.getElementById('fn_s7').innerHTML=
+    `Descomposición: Ef. Vol. = (S_n−S_b)×CR_b×30 · Ef. Mix = S_n×(CR_contrafactual−CR_b)×30 · Ef. Tasa = S_n×(CR_n−CR_contrafactual)×30 · Σ = Neto ✓ ·
+    CR_b total=${pct(CR_b)} · CR_c (contrafactual)=${pct(CR_c)} · CR_n total=${pct(CR_n)} ·
+    CR base por canal: MP=${pct(crCanalBase.mp)} · GreenB=${pct(crCanalBase.greenB)} · GreenA=${pct(crCanalBase.greenA)} · OnlyML=${pct(crCanalBase.onlyML)} · 28/5 excluido`;
+})();
+
+// ── SLIDE 8: NUEVO DISEÑO — IMPACTO MENSUAL — descomposición 3 efectos (últimos 7 días) ─
+(function() {
+  function pd(s){const[d,m]=s.split('/').map(Number);return new Date(2026,m-1,d);}
+
+  function wAvg8(raw,s,e){
+    const days=raw.filter(r=>{const d=pd(r[0]);return d>=s&&d<=e;});
+    const n=days.length;
+    if(!n)return{onlyML:0,greenA:0,greenB:0,mp:0,tot:0};
+    return{
+      onlyML:days.reduce((a,r)=>a+r[1],0)/n,
+      greenA:days.reduce((a,r)=>a+r[2],0)/n,
+      greenB:days.reduce((a,r)=>a+r[3],0)/n,
+      mp:    days.reduce((a,r)=>a+r[4]+r[5]+r[6],0)/n,
+      tot:   days.reduce((a,r)=>a+r[1]+r[2]+r[3]+r[4]+r[5]+r[6],0)/n,
+    };
+  }
+
+  const base_s8 = wAvg8(rawSes_shared, pd('11/2'), pd('12/3'));
+  const baseO_s8= wAvg8(rawOrd_shared, pd('11/2'), pd('12/3'));
+  const mab_s8  = wAvg8(rawSes_shared, pd('17/6'), pd('23/6'));
+  const mabO_s8 = wAvg8(rawOrd_shared, pd('17/6'), pd('23/6'));
+
+  const KEYS=['onlyML','greenA','greenB','mp'];
+  const channels_s8=[
+    {key:'onlyML', label:'Only ML',    color:'rgba(255,183,0,0.7)'},
+    {key:'greenA', label:'Green ML A', color:'#81c784'},
+    {key:'greenB', label:'Green ML B', color:'#2e7d32'},
+    {key:'mp',     label:'MP',         color:'#4da6ff'},
+  ];
+
+  function nn(v){return Math.round(v).toLocaleString('es-AR');}
+  function pct(v){return (v*100).toFixed(1)+'%';}
+  function sgn(v){return v>=0?'+':'';}
+
+  const M=30;
+
+  // Aggregate totals
+  const S_b = base_s8.tot;
+  const S_n = mab_s8.tot;
+  const CR_b = baseO_s8.tot / (S_b||1);
+  const CR_n = mabO_s8.tot / (S_n||1);
+
+  // CR contrafactual = mix nuevo × CR canal base
+  const crCanalBase = {};
+  KEYS.forEach(k=>{ crCanalBase[k] = baseO_s8[k] / (base_s8[k]||1); });
+  const CR_c = KEYS.reduce((a,k)=> a + (mab_s8[k]/(S_n||1)) * crCanalBase[k], 0);
+
+  // 3 efectos agregados
+  const efVol  = (S_n - S_b) * CR_b * M;
+  const efMix  = S_n * (CR_c - CR_b) * M;
+  const efTasa = S_n * (CR_n - CR_c) * M;
+  const efNeto = efVol + efMix + efTasa;
+
+  // Per-channel contributions
+  channels_s8.forEach(ch=>{
+    const sb=base_s8[ch.key], so=mab_s8[ch.key];
+    const ob=baseO_s8[ch.key], oo=mabO_s8[ch.key];
+    ch.sb=sb; ch.so=so; ch.ob=ob; ch.oo=oo;
+    ch.cr_b = sb>0?ob/sb:0;
+    ch.cr_n = so>0?oo/so:0;
+    ch.share_b = sb/(S_b||1);
+    ch.share_n = so/(S_n||1);
+    ch.delta_ses = so - sb;
+    ch.vol_ch  = (so-sb)*ch.cr_b*M;
+    ch.mix_ch  = (ch.share_n - ch.share_b) * ch.cr_b * S_n * M;
+    ch.tasa_ch = so*(ch.cr_n - ch.cr_b)*M;
+  });
+
+  // Table
+  let html_s8=`<colgroup>
+    <col style="width:95px">
+    <col style="width:60px"><col style="width:60px">
+    <col style="width:60px"><col style="width:60px">
+    <col style="width:55px"><col style="width:55px">
+    <col style="width:80px"><col style="width:80px"><col style="width:80px">
+  </colgroup>
+  <thead><tr>
+    <th class="left" rowspan="2" style="font-size:8px">Canal</th>
+    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Ses/día</th>
+    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">CR canal</th>
+    <th class="right" colspan="2" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Δ ses/día</th>
+    <th class="right" style="background:#eff6ff;color:#1565C0;font-size:7.5px;border-bottom:1px solid #93c5fd" rowspan="2">Contrib.<br>ef. volumen</th>
+    <th class="right" style="background:#fff8e1;color:#e65100;font-size:7.5px;border-bottom:1px solid #ffe082" rowspan="2">Contrib.<br>ef. mix CR</th>
+    <th class="right" style="background:#e8f5e9;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7" rowspan="2">Contrib.<br>ef. tasa</th>
+  </tr><tr>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base</th>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">New</th>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base</th>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">New</th>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Abs</th>
+    <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">%</th>
+  </tr></thead><tbody>`;
+
+  channels_s8.forEach(ch=>{
+    const ds=ch.delta_ses, dsPct=(ds/(ch.sb||1));
+    const nv=ch.vol_ch>=0?'pos':'neg';
+    const nm=ch.mix_ch>=0?'pos':'neg';
+    const nt=ch.tasa_ch>=0?'pos':'neg';
+    html_s8+=`<tr>
+      <td class="label" style="border-left:3px solid ${ch.color};padding-left:7px;font-size:9px">${ch.label}</td>
+      <td class="right muted" style="font-size:8.5px">${nn(ch.sb)}</td>
+      <td class="right" style="font-size:8.5px">${nn(ch.so)}</td>
+      <td class="right muted" style="font-size:8.5px">${pct(ch.cr_b)}</td>
+      <td class="right" style="font-size:8.5px">${pct(ch.cr_n)}</td>
+      <td class="right ${ds>=0?'pos':'neg'}" style="font-size:8px">${sgn(ds)}${nn(ds)}</td>
+      <td class="right ${dsPct>=0?'pos':'neg'}" style="font-size:8px">${sgn(dsPct)}${(dsPct*100).toFixed(1)}%</td>
+      <td class="right ${nv}" style="background:#eff6ff;font-size:8px;font-weight:700">${sgn(ch.vol_ch)}${nn(ch.vol_ch)}</td>
+      <td class="right ${nm}" style="background:#fff8e1;font-size:8px;font-weight:700">${sgn(ch.mix_ch)}${nn(ch.mix_ch)}</td>
+      <td class="right ${nt}" style="background:#e8f5e9;font-size:8px;font-weight:700">${sgn(ch.tasa_ch)}${nn(ch.tasa_ch)}</td>
+    </tr>`;
+  });
+
+  const totVolCh=channels_s8.reduce((a,c)=>a+c.vol_ch,0);
+  const totMixCh=channels_s8.reduce((a,c)=>a+c.mix_ch,0);
+  const totTasaCh=channels_s8.reduce((a,c)=>a+c.tasa_ch,0);
+
+  html_s8+=`<tr class="total-row">
+    <td class="label" colspan="7" style="font-size:9px">Total ecosystem</td>
+    <td class="right ${totVolCh>=0?'pos':'neg'}" style="background:#dbeafe;font-weight:900;font-size:10px">${sgn(totVolCh)}${nn(totVolCh)}</td>
+    <td class="right ${totMixCh>=0?'pos':'neg'}" style="background:#fff8e1;font-weight:900;font-size:10px">${sgn(totMixCh)}${nn(totMixCh)}</td>
+    <td class="right ${totTasaCh>=0?'pos':'neg'}" style="background:#dcfce7;font-weight:900;font-size:10px">${sgn(totTasaCh)}${nn(totTasaCh)}</td>
+  </tr></tbody>`;
+
+  document.getElementById('tbl_s8').innerHTML=html_s8;
+
+  // Summary — 4 boxes
+  const ord_b_day = Math.round(baseO_s8.tot);
+  const nc_s8 = efNeto>=0?'#2e7d32':'#c62828';
+  const bcVol  = efVol>=0  ?'#eff6ff':'#fef2f2';
+  const bcVol2 = efVol>=0  ?'#4da6ff':'#c62828';
+  const bcMix  = efMix>=0  ?'#fff8e1':'#fff8e1';
+  const bcMix2 = efMix>=0  ?'#e65100':'#c62828';
+  const bcTasa = efTasa>=0 ?'#e8f5e9':'#fef2f2';
+  const bcTasa2= efTasa>=0 ?'#2e7d32':'#c62828';
+  const bcNeto = efNeto>=0 ?'#e8f5e9':'#fef2f2';
+  const bcNeto2= nc_s8;
+
+  document.getElementById('summary_s8').innerHTML=`
+    <div style="display:flex;align-items:center;gap:6px;width:100%">
+      <div style="background:#f5f7fa;border-radius:7px;padding:7px 12px;text-align:center;flex-shrink:0">
+        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#aaa;margin-bottom:2px">Baseline órd/día</div>
+        <div style="font-size:19px;font-weight:900;color:#1a2454;line-height:1">${nn(ord_b_day)}</div>
+        <div style="font-size:7px;color:#bbb;margin-top:1px">W1.1 · total</div>
+      </div>
+      <div style="font-size:16px;color:#ddd;flex-shrink:0">→</div>
+      <div style="background:${bcVol};border:1.5px solid ${bcVol2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
+        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcVol2};margin-bottom:2px">Ef. Volumen</div>
+        <div style="font-size:19px;font-weight:900;color:${bcVol2};line-height:1">${sgn(efVol)}${nn(efVol)}</div>
+        <div style="font-size:7px;color:#aaa;margin-top:1px">(S_n−S_b)×CR_b×30</div>
+      </div>
+      <div style="font-size:14px;color:#ddd;flex-shrink:0">+</div>
+      <div style="background:${bcMix};border:1.5px solid ${bcMix2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
+        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcMix2};margin-bottom:2px">Ef. Mix CR</div>
+        <div style="font-size:19px;font-weight:900;color:${bcMix2};line-height:1">${sgn(efMix)}${nn(efMix)}</div>
+        <div style="font-size:7px;color:#aaa;margin-top:1px">S_n×(CR_c−CR_b)×30</div>
+      </div>
+      <div style="font-size:14px;color:#ddd;flex-shrink:0">+</div>
+      <div style="background:${bcTasa};border:1.5px solid ${bcTasa2};border-radius:7px;padding:7px 12px;text-align:center;flex:1">
+        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcTasa2};margin-bottom:2px">Ef. Tasa</div>
+        <div style="font-size:19px;font-weight:900;color:${bcTasa2};line-height:1">${sgn(efTasa)}${nn(efTasa)}</div>
+        <div style="font-size:7px;color:#aaa;margin-top:1px">S_n×(CR_n−CR_c)×30</div>
+      </div>
+      <div style="font-size:14px;color:#ddd;flex-shrink:0">=</div>
+      <div style="background:${bcNeto};border:2px solid ${bcNeto2};border-radius:7px;padding:7px 14px;text-align:center;flex:1">
+        <div style="font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${bcNeto2};margin-bottom:2px">NETO / mes</div>
+        <div style="font-size:22px;font-weight:900;color:${bcNeto2};line-height:1">${sgn(efNeto)}${nn(efNeto)}</div>
+        <div style="font-size:7px;color:#aaa;margin-top:1px">vs W1.1 × 30d</div>
+      </div>
+    </div>`;
+
+  document.getElementById('fn_s8').innerHTML=
+    `Descomposición: Ef. Vol. = (S_n−S_b)×CR_b×30 · Ef. Mix = S_n×(CR_contrafactual−CR_b)×30 · Ef. Tasa = S_n×(CR_n−CR_contrafactual)×30 · Σ = Neto ✓ ·
+    CR_b total=${pct(CR_b)} · CR_c (contrafactual)=${pct(CR_c)} · CR_n total=${pct(CR_n)} ·
+    CR base por canal: MP=${pct(crCanalBase.mp)} · GreenB=${pct(crCanalBase.greenB)} · GreenA=${pct(crCanalBase.greenA)} · OnlyML=${pct(crCanalBase.onlyML)} · 28/5 excluido`;
 })();
 </script>
 </body>
