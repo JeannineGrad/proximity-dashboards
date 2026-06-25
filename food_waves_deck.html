@@ -813,8 +813,9 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
   const tot_so=channels.reduce((a,c)=>a+c.so,0);
   const tot_ob=baseO.tot, tot_on=mabO.tot;
   const dtot_ses=tot_so-tot_sb, dtot_ord=tot_on-tot_ob;
-  const tot_ocb = dtot_ses * CR_b;
-  const tot_dcr = tot_so * (CR_n - CR_b);
+  // Totals summing channel contributions so they reconcile with per-channel rows
+  const tot_ocb = channels.reduce((a,c)=>a+(c.so-c.sb)*c.cr_b, 0);
+  const tot_dcr = channels.reduce((a,c)=>a+c.so*(c.cr_n-c.cr_b), 0);
   h+=`<tr class="total-row">
     <td class="label" style="border-left:3px solid #1a2454;font-size:9.5px">Total / día</td>
     <td class="right" style="font-size:9.5px">${nn(tot_sb)}</td>
