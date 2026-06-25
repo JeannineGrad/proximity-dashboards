@@ -83,11 +83,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
     <div class="hdr-title">MP convierte al doble que ML — el restyle desplaza tráfico hacia el canal que menos convierte</div>
     <div class="hdr-sub">Tasa de conversión = promedio diario órdenes / promedio diario sesiones · por período de wave</div>
   </div>
-  <div class="sbody" style="padding:12px 28px 10px;gap:8px">
-    <div class="cr-strip" id="mlBoxes"></div>
+  <div class="sbody" style="padding:14px 34px 12px;gap:14px">
+    <div style="display:flex;gap:16px;flex-shrink:0" id="crSummary"></div>
     <div style="flex:1;position:relative"><canvas id="chartCR"></canvas></div>
-    <div class="cr-strip" id="mpBoxes"></div>
-    <div class="footnote">★ Wave 4 incluye Hot Sale · área sombreada = gap entre tasas de conversión</div>
+    <div class="footnote">★ Wave 4 incluye Hot Sale · área sombreada = gap entre tasas · promedios calculados sobre las 5 waves</div>
   </div>
 </div>
 
@@ -300,30 +299,67 @@ makeChart('chartOrd',wOrd,0,40000,3);
 const mlCRd=waveDefs.map((_,i)=>+(wOrd[i].ml/wSes[i].ml*100).toFixed(1));
 const mpCRd=waveDefs.map((_,i)=>+(wOrd[i].mp/wSes[i].mp*100).toFixed(1));
 
-function buildCRBoxes(elId,data,cls,valCls){
-  const el=document.getElementById(elId);
-  if(!el)return;
-  waveDefs.forEach((w,i)=>{
-    const box=document.createElement('div');
-    box.className='cr-box '+cls;
-    box.innerHTML=`<div class="cr-box-w">${w.name}</div><div class="cr-box-v ${valCls}">${data[i].toFixed(1)}%</div>`;
-    el.appendChild(box);
-  });
-}
-buildCRBoxes('mlBoxes',mlCRd,'ml','mlv');
-buildCRBoxes('mpBoxes',mpCRd,'mp','mpv');
+// 3 summary boxes
+const avgML=(mlCRd.reduce((a,v)=>a+v,0)/mlCRd.length).toFixed(1);
+const avgMP=(mpCRd.reduce((a,v)=>a+v,0)/mpCRd.length).toFixed(1);
+const avgGap=(parseFloat(avgMP)-parseFloat(avgML)).toFixed(1);
+const crSum=document.getElementById('crSummary');
+if(crSum) crSum.innerHTML=`
+  <div style="flex:1;background:#fffbe6;border-radius:8px;border-bottom:4px solid #FFB700;padding:14px 20px;display:flex;flex-direction:column;align-items:center;gap:4px">
+    <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#aaa">Tasa de conv. ML</div>
+    <div style="font-size:46px;font-weight:900;color:#e6a800;line-height:1">${avgML}%</div>
+    <div style="font-size:8px;color:#bbb">Only ML + Green A + B · prom. 5 waves</div>
+  </div>
+  <div style="flex:1;background:#fce4ec;border-radius:8px;border-bottom:4px solid #c62828;padding:14px 20px;display:flex;flex-direction:column;align-items:center;gap:4px">
+    <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#c62828">Gap MP − ML</div>
+    <div style="font-size:46px;font-weight:900;color:#c62828;line-height:1">+${avgGap} pp</div>
+    <div style="font-size:8px;color:#c62828;opacity:.7">−${avgGap} órdenes por 100 sesiones desplazadas</div>
+  </div>
+  <div style="flex:1;background:#eff6ff;border-radius:8px;border-bottom:4px solid #4da6ff;padding:14px 20px;display:flex;flex-direction:column;align-items:center;gap:4px">
+    <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#aaa">Tasa de conv. MP</div>
+    <div style="font-size:46px;font-weight:900;color:#1565C0;line-height:1">${avgMP}%</div>
+    <div style="font-size:8px;color:#bbb">Con ML + Sin ML + No cl. · prom. 5 waves</div>
+  </div>`;
+
+const crGapPlugin={
+  id:'crGap',
+  afterDatasetsDraw(chart){
+    const{ctx}=chart;
+    const m0=chart.getDatasetMeta(0), m1=chart.getDatasetMeta(1);
+    ctx.save();ctx.textAlign='center';
+    mlCRd.forEach((_,i)=>{
+      const ptML=m0.data[i], ptMP=m1.data[i];
+      if(!ptML||!ptMP)return;
+      const gap=(mpCRd[i]-mlCRd[i]).toFixed(1);
+      const midX=ptML.x, topY=ptML.y, botY=ptMP.y, midY=(topY+botY)/2;
+      // Arrow line
+      ctx.strokeStyle='#c62828';ctx.lineWidth=1.2;ctx.setLineDash([3,2]);
+      ctx.beginPath();ctx.moveTo(midX+22,topY+6);ctx.lineTo(midX+22,botY-6);ctx.stroke();
+      ctx.setLineDash([]);
+      // Arrowheads
+      ctx.fillStyle='#c62828';
+      ctx.beginPath();ctx.moveTo(midX+22,topY+2);ctx.lineTo(midX+19,topY+9);ctx.lineTo(midX+25,topY+9);ctx.fill();
+      ctx.beginPath();ctx.moveTo(midX+22,botY-2);ctx.lineTo(midX+19,botY-9);ctx.lineTo(midX+25,botY-9);ctx.fill();
+      // Label
+      ctx.font='bold 9px Segoe UI,Arial';ctx.fillStyle='#c62828';
+      ctx.fillText('+'+gap+'pp',midX+34,midY+3.5);
+    });
+    ctx.restore();
+  }
+};
 
 new Chart(document.getElementById('chartCR'),{
-  type:'line',
+  type:'line',plugins:[crGapPlugin],
   data:{
     labels:waveDefs.map(w=>[w.name,w.range]),
     datasets:[
-      {label:'CR ML',data:mlCRd,borderColor:'#FFB700',backgroundColor:'rgba(255,183,0,0.08)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#FFB700',tension:0.3,fill:'+1',order:2},
+      {label:'CR ML',data:mlCRd,borderColor:'#FFB700',backgroundColor:'rgba(255,183,0,0.1)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#FFB700',tension:0.3,fill:'+1',order:2},
       {label:'CR MP',data:mpCRd,borderColor:'#4da6ff',backgroundColor:'rgba(77,166,255,0.08)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#4da6ff',tension:0.3,fill:false,order:1},
     ]
   },
   options:{
     responsive:true,maintainAspectRatio:false,animation:false,
+    layout:{padding:{right:50}},
     plugins:{
       legend:{display:false},
       tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw.toFixed(1)}%`}}
