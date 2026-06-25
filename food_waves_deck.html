@@ -794,9 +794,8 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
     const ob    = ch.sb * ch.cr_b;
     const on    = ch.so * ch.cr_n;
     const dord  = on - ob;
-    const cr_vol = ch.cr_vol !== undefined ? ch.cr_vol : ch.cr_b; // group CR if provided
-    const o_cb  = ds * cr_vol;         // vol = Δses × CR_group
-    const imp_dcr = dord - o_cb;       // rate = remaining (ensures vol+rate=total)
+    const o_cb  = ds * ch.cr_b;        // vol = Δses × CR_canal (individual)
+    const imp_dcr = dord - o_cb;       // rate = remaining
     h+=`<tr>
       <td class="label" style="border-left:3px solid ${ch.color};padding-left:7px;font-size:9px">${ch.label}</td>
       <td class="right muted" style="font-size:9px">${nn(ch.sb)}</td>
@@ -814,9 +813,9 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
   const tot_so=channels.reduce((a,c)=>a+c.so,0);
   const tot_ob=baseO.tot, tot_on=mabO.tot;
   const dtot_ses=tot_so-tot_sb, dtot_ord=tot_on-tot_ob;
-  // Totals summing channel contributions (uses cr_vol if set, else cr_b)
-  const tot_ocb = channels.reduce((a,c)=>{const cv=c.cr_vol!==undefined?c.cr_vol:c.cr_b; return a+(c.so-c.sb)*cv;}, 0);
-  const tot_dcr = channels.reduce((a,c)=>{const cv=c.cr_vol!==undefined?c.cr_vol:c.cr_b; const ob=c.sb*c.cr_b,on=c.so*c.cr_n; return a+(on-ob)-(c.so-c.sb)*cv;}, 0);
+  // Totals summing channel contributions (individual CRs)
+  const tot_ocb = channels.reduce((a,c)=>a+(c.so-c.sb)*c.cr_b, 0);
+  const tot_dcr = channels.reduce((a,c)=>{const ob=c.sb*c.cr_b,on=c.so*c.cr_n; return a+(on-ob)-(c.so-c.sb)*c.cr_b;}, 0);
   h+=`<tr class="total-row">
     <td class="label" style="border-left:3px solid #1a2454;font-size:9.5px">Total / día</td>
     <td class="right" style="font-size:9.5px">${nn(tot_sb)}</td>
@@ -1011,17 +1010,6 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
   const CR_n = S_n > 0 ? mabO_obj.tot  / S_n : 0;
 
   function pct(v){return (v*100).toFixed(1)+'%';}
-
-  // ── Group CRs for vol effect (ML total and MP total) ─────────────────────
-  const ses_ML_b = channels_s5.filter(c=>c.key==='ml_dir'||c.key==='ml_prered').reduce((a,c)=>a+c.sb,0);
-  const ord_ML_b = channels_s5.filter(c=>c.key==='ml_dir'||c.key==='ml_prered').reduce((a,c)=>a+wAvgR(rawOrdNew,c.ordFn,s_base,e_base),0);
-  const ses_MP_b = channels_s5.filter(c=>c.key==='mp_dir'||c.key==='mp_red').reduce((a,c)=>a+c.sb,0);
-  const ord_MP_b = channels_s5.filter(c=>c.key==='mp_dir'||c.key==='mp_red').reduce((a,c)=>a+wAvgR(rawOrdNew,c.ordFn,s_base,e_base),0);
-  const CR_ML_grp = ses_ML_b>0 ? ord_ML_b/ses_ML_b : 0;
-  const CR_MP_grp = ses_MP_b>0 ? ord_MP_b/ses_MP_b : 0;
-  channels_s5.forEach(c=>{
-    c.cr_vol = (c.key==='ml_dir'||c.key==='ml_prered') ? CR_ML_grp : CR_MP_grp;
-  });
 
   // ── Render table via shared window.tblF ───────────────────────────────────
   document.getElementById('tbl_s6').innerHTML = window.tblF(channels_s5, baseO_obj, mabO_obj, S_b, S_n, CR_b, CR_n);
