@@ -188,20 +188,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
 </div>
 
 
-<!-- SLIDE 8: NUEVO DISEÑO — IMPACTO MENSUAL últimos 7 días (descomposición 3 efectos) -->
-<div class="slide">
-  <span class="snum">6</span>
-  <div class="hdr">
-    <div class="hdr-tag">Food MLA · Impacto mensual estructural · Mar Abierto vs Wave 1.1</div>
-    <div class="hdr-title">NUEVO DISEÑO: Mar Abierto = últimos 7 días (17/6–23/6)</div>
-    <div class="hdr-sub">Descomposición 3 efectos: Volumen (Δsesiones × CR_base) + Mix CR (sesiones × ΔCR_contrafactual) + Tasa (sesiones × ΔCR_real) · suma = Δ órdenes/mes total ✓ · baseline W1.1 (11/2–12/3) · Mar Abierto 17/6–23/6 (últimos 7d)</div>
-  </div>
-  <div class="s4-body">
-    <table class="s45-tbl" id="tbl_s8"></table>
-    <div class="s5-highlight" id="summary_s8"></div>
-    <div class="s4-footnote" id="fn_s8"></div>
-  </div>
-</div>
 
 </div><!-- /slide-wrap -->
 
@@ -209,7 +195,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
   <button class="nav-btn" id="btn-prev" onclick="go(-1)">&#8592;</button>
   <div id="nav-dots"></div>
   <button class="nav-btn" id="btn-next" onclick="go(1)">&#8594;</button>
-  <span id="nav-label">1 / 6</span>
+  <span id="nav-label">1 / 5</span>
 </div>
 </div><!-- /viewer -->
 
@@ -1124,9 +1110,7 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
     `Mar Abierto = 18/6–24/6 (7d) · baseline W1.1 = 11/2–12/3 · CR por canal: MP redirect=${pct(channels_s5.find(c=>c.key==='mp_red').cr_b)} base→${pct(channels_s5.find(c=>c.key==='mp_red').cr_n)} · MP directo=${pct(channels_s5.find(c=>c.key==='mp_dir').cr_b)} base→${pct(channels_s5.find(c=>c.key==='mp_dir').cr_n)} · ML pre-redir=${pct(channels_s5.find(c=>c.key==='ml_prered').cr_b)} base→${pct(channels_s5.find(c=>c.key==='ml_prered').cr_n)} · ML directo=${pct(channels_s5.find(c=>c.key==='ml_dir').cr_b)} base→${pct(channels_s5.find(c=>c.key==='ml_dir').cr_n)} · 28/5 excluido`;
 })();
 
-// ── SLIDE 8: NUEVO DISEÑO — IMPACTO MENSUAL — descomposición 3 efectos (últimos 7 días) ─
-(function() {
-  function pd(s){const[d,m]=s.split('/').map(Number);return new Date(2026,m-1,d);}
+// (slide 8 removed)
 
   function wAvg8(raw,s,e){
     const days=raw.filter(r=>{const d=pd(r[0]);return d>=s&&d<=e;});
@@ -1222,10 +1206,6 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
     </div>`;
 
   document.getElementById('fn_s8').innerHTML=
-    `Descomposición: Ef. Vol. = (S_n−S_b)×CR_b×30 · Ef. Mix = S_n×(CR_contrafactual−CR_b)×30 · Ef. Tasa = S_n×(CR_n−CR_contrafactual)×30 · Σ = Neto ✓ ·
-    CR_b total=${pct(CR_b)} · CR_c (contrafactual)=${pct(CR_c)} · CR_n total=${pct(CR_n)} ·
-    CR base por canal: MP=${pct(crCanalBase.mp)} · GreenB=${pct(crCanalBase.greenB)} · GreenA=${pct(crCanalBase.greenA)} · OnlyML=${pct(crCanalBase.onlyML)} · 28/5 excluido`;
-})();
 </script>
 </body>
 </html>
