@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Food MLA — Impacto Waves MP Restyle</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+#viewer{width:100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:12px}
+.slide-wrap{width:min(1280px, calc(100vw - 32px), calc((100vh - 80px) * 1.7778));aspect-ratio:16/9;position:relative;overflow:hidden;flex-shrink:0}
+.slide{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0;background:#fff;box-shadow:0 8px 48px rgba(0,0,0,.5);display:none;flex-direction:column}
+.slide.active{display:flex}
+.slide::before,.slide::after{content:'';position:absolute;left:0;right:0;height:6px;background:#FFB700;z-index:10}
+.slide::before{top:0}.slide::after{bottom:0}
+/* Header */
+.hdr{padding:14px 34px 10px;border-bottom:2px solid #e8eaf2;flex-shrink:0;margin-top:6px}
+.hdr-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#aaa;margin-bottom:3px}
+.hdr-title{font-size:17px;font-weight:800;color:#1a2454}
+.hdr-sub{font-size:9.5px;color:#888;margin-top:3px}
+/* Body */
+.sbody{flex:1;padding:16px 36px 12px;display:flex;flex-direction:column;gap:8px}
+.legend{display:flex;gap:20px}
+.lg{display:flex;align-items:center;gap:6px;font-size:9.5px;color:#555}
+.lg-dot{width:28px;height:3px;border-radius:2px}
+.footnote{font-size:8px;color:#bbb;text-align:right}
+.snum{position:absolute;top:14px;right:20px;font-size:11px;color:#bbb;font-weight:700}
+/* Nav */
+#nav{display:flex;align-items:center;gap:20px;user-select:none}
+.nav-btn{background:rgba(26,36,84,.12);border:none;color:#1a2454;width:44px;height:44px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.nav-btn:hover{background:rgba(26,36,84,.22)}
+.nav-btn:disabled{opacity:.25;cursor:default}
+#nav-dots{display:flex;gap:8px}
+.ndot{width:8px;height:8px;border-radius:50%;background:rgba(26,36,84,.2);cursor:pointer;transition:background .15s}
+.ndot.active{background:#FFB700}
+#nav-label{color:#888;font-size:12px;min-width:48px;text-align:center}
+</style>
+</head>
+<body>
+<div id="viewer">
+<div class="slide-wrap">
+
+<!-- SLIDE 1: SESIONES -->
+<div class="slide active">
+  <span class="snum">1</span>
+  <div class="hdr">
+    <div class="hdr-tag">Food MLA · Sesiones por período de wave · restyle Mercado Pago</div>
+    <div class="hdr-title">Cada wave del restyle de MP reduce las sesiones de MP — ML crece por usuarios redirect pero no compensa</div>
+    <div class="hdr-sub">Promedio diario de sesiones por canal · Δ indica variación vs período anterior</div>
+  </div>
+  <div class="sbody">
+    <div class="legend">
+      <div class="lg"><div class="lg-dot" style="background:rgba(255,183,0,0.5);border-top:2px dotted rgba(255,183,0,0.5)"></div>Only ML</div>
+      <div class="lg"><div class="lg-dot" style="background:rgba(255,183,0,0.75);border-top:2px dashed rgba(255,183,0,0.75)"></div>ML + Green A</div>
+      <div class="lg"><div class="lg-dot" style="background:#FFB700"></div>ML + Green A + Green B</div>
+      <div class="lg"><div class="lg-dot" style="background:#4da6ff"></div>Mercado Pago (MP)</div>
+      <div class="lg"><div class="lg-dot" style="background:rgba(0,168,120,.3);border:1.5px solid #00a878;height:12px;border-radius:2px"></div>Total ML + MP</div>
+    </div>
+    <div style="display:flex;flex:1;gap:14px;overflow:hidden">
+      <div style="flex:1;position:relative"><canvas id="chartSes"></canvas></div>
+      <div id="rpSes" style="width:175px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:10px;border-left:1px solid #e8eaf2;padding-left:14px"></div>
+    </div>
+    <div class="footnote">★ Wave 4 incluye Hot Sale (28/5: 373K sesiones vs ~210K habitual — infla el promedio) · Mar Abierto: 13 días disponibles</div>
+  </div>
+</div>
+
+<!-- SLIDE 2: ÓRDENES -->
+<div class="slide">
+  <span class="snum">2</span>
+  <div class="hdr">
+    <div class="hdr-tag">Food MLA · Órdenes por período de wave · restyle Mercado Pago</div>
+    <div class="hdr-title">El restyle de MP reduce las órdenes de MP — ML crece por usuarios redirect pero no compensa</div>
+    <div class="hdr-sub">Promedio diario de órdenes por canal · Δ indica variación vs período anterior</div>
+  </div>
+  <div class="sbody">
+    <div class="legend">
+      <div class="lg"><div class="lg-dot" style="background:rgba(255,183,0,0.5);border-top:2px dotted rgba(255,183,0,0.5)"></div>Only ML</div>
+      <div class="lg"><div class="lg-dot" style="background:rgba(255,183,0,0.75);border-top:2px dashed rgba(255,183,0,0.75)"></div>ML + Green A</div>
+      <div class="lg"><div class="lg-dot" style="background:#FFB700"></div>ML + Green A + Green B</div>
+      <div class="lg"><div class="lg-dot" style="background:#4da6ff"></div>Mercado Pago (MP)</div>
+      <div class="lg"><div class="lg-dot" style="background:rgba(0,168,120,.3);border:1.5px solid #00a878;height:12px;border-radius:2px"></div>Total ML + MP</div>
+    </div>
+    <div style="display:flex;flex:1;gap:14px;overflow:hidden">
+      <div style="flex:1;position:relative"><canvas id="chartOrd"></canvas></div>
+      <div id="rpOrd" style="width:175px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:10px;border-left:1px solid #e8eaf2;padding-left:14px"></div>
+    </div>
+    <div class="footnote">★ Wave 4 incluye Hot Sale (28/5) · Mar Abierto: 13 días disponibles</div>
+  </div>
+</div>
+
+</div><!-- /slide-wrap -->
+
+<div id="nav">
+  <button class="nav-btn" id="btn-prev" onclick="go(-1)">&#8592;</button>
+  <div id="nav-dots"></div>
+  <button class="nav-btn" id="btn-next" onclick="go(1)">&#8594;</button>
+  <span id="nav-label">1 / 2</span>
+</div>
+</div><!-- /viewer -->
+
+<script>
+// ── Navegación ───────────────────────────────────────────────────────────
+const slides = document.querySelectorAll('.slide');
+const dotsEl  = document.getElementById('nav-dots');
+let cur = 0;
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='ndot'+(i===0?' active':'');
+  d.onclick=()=>goTo(i);
+  dotsEl.appendChild(d);
+});
+function go(dir){goTo(cur+dir);}
+function goTo(n){
+  if(n<0||n>=slides.length)return;
+  slides[cur].classList.remove('active');
+  cur=n;
+  slides[cur].classList.add('active');
+  dotsEl.querySelectorAll('.ndot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+  document.getElementById('nav-label').textContent=(cur+1)+' / '+slides.length;
+  document.getElementById('btn-prev').disabled=cur===0;
+  document.getElementById('btn-next').disabled=cur===slides.length-1;
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')go(1);
+  if(e.key==='ArrowLeft')go(-1);
+});
+document.getElementById('btn-prev').disabled=true;
+
+// ── Shared helpers ────────────────────────────────────────────────────────
+function pd(s){const[d,m]=s.split('/').map(Number);return new Date(2026,m-1,d);}
+function fmt(n){return(n/1000).toFixed(1)+'K';}
+const waveDefs=[
+  {name:'Wave 1.1',    range:'11/2–12/3', s:'11/2', e:'12/3'},
+  {name:'Wave 2',      range:'13/3–20/4', s:'13/3', e:'20/4'},
+  {name:'Wave 3',      range:'21/4–20/5', s:'21/4', e:'20/5'},
+  {name:'Wave 4',      range:'21/5–10/6', s:'21/5', e:'10/6'},
+  {name:'Mar Abierto', range:'11/6–23/6', s:'11/6', e:'23/6'},
+];
+
+function computeWaves(raw){
+  return waveDefs.map(wd=>{
+    const w={...wd};
+    const s=pd(w.s),e=pd(w.e);
+    const days=raw.filter(r=>{const d=pd(r[0]);return d>=s&&d<=e;});
+    w.n      =days.length;
+    w.onlyML =Math.round(days.reduce((a,r)=>a+r[1],0)/days.length);
+    w.greenA =Math.round(days.reduce((a,r)=>a+r[2],0)/days.length);
+    w.greenB =Math.round(days.reduce((a,r)=>a+r[3],0)/days.length);
+    w.mlPlusA=Math.round(days.reduce((a,r)=>a+r[1]+r[2],0)/days.length);
+    w.ml     =Math.round(days.reduce((a,r)=>a+r[1]+r[2]+r[3],0)/days.length);
+    w.mp     =Math.round(days.reduce((a,r)=>a+r[4]+r[5]+r[6],0)/days.length);
+    w.tot    =w.ml+w.mp;
+    return w;
+  });
+}
+
+function buildPanel(panelId, waves){
+  const panel=document.getElementById(panelId);
+  const rows=[
+    {label:'Only ML',   color:'rgba(255,183,0,0.6)', k:'onlyML'},
+    {label:'Green ML A',color:'#a5d6a7',             k:'greenA'},
+    {label:'Green ML B',color:'#2e7d32',             k:'greenB'},
+    {label:'MP',        color:'#4da6ff',             k:'mp'},
+    {label:'Total',     color:'#00a878',             k:'tot', total:true},
+  ];
+  panel.innerHTML=`<div style="font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#aaa;margin-bottom:4px">${waves[0].name} → ${waves[waves.length-1].name}</div>`;
+  rows.forEach(r=>{
+    const s=waves[0][r.k],e=waves[waves.length-1][r.k],d=e-s,pct=Math.round(d/s*100);
+    const sign=d>=0?'+':'',col=d>=0?'#00a878':'#c62828';
+    const sep=r.total?'border-top:2px solid #e0e0e0;margin-top:4px;':'border-bottom:1px solid #f0f2f5';
+    panel.innerHTML+=`
+    <div style="display:flex;flex-direction:column;gap:3px;padding:6px 0;${sep}">
+      <div style="display:flex;align-items:center;gap:6px">
+        <div style="width:18px;height:${r.total?4:3}px;background:${r.color};border-radius:2px;flex-shrink:0"></div>
+        <span style="font-size:${r.total?9:8.5}px;font-weight:${r.total?900:700};color:${r.total?'#1a2454':'#444'}">${r.label}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding-left:24px">
+        <span style="font-size:8.5px;color:#aaa">${fmt(s)}</span>
+        <span style="font-size:8px;color:#ccc">→</span>
+        <span style="font-size:${r.total?11:10}px;font-weight:800;color:#1a2454">${fmt(e)}</span>
+      </div>
+      <div style="padding-left:24px;display:flex;gap:8px">
+        <span style="font-size:${r.total?11:10}px;font-weight:800;color:${col}">${sign}${fmt(d)}</span>
+        <span style="font-size:${r.total?11:10}px;font-weight:700;color:${col}">${sign}${pct}%</span>
+      </div>
+    </div>`;
+  });
+}
+
+function makeChart(canvasId, waves, yMin, yMax, hotSaleIdx){
+  const mlData    =waves.map(w=>w.ml);
+  const mpData    =waves.map(w=>w.mp);
+  const totData   =waves.map(w=>w.tot);
+  const onlyMLData=waves.map(w=>w.onlyML);
+  const mlPlusAData=waves.map(w=>w.mlPlusA);
+  const labels    =waves.map(w=>[w.name, w.range+' · '+w.n+' días']);
+
+  const plugin={
+    id:'al_'+canvasId,
+    afterDatasetsDraw(chart){
+      const{ctx}=chart;ctx.save();ctx.textAlign='center';
+      chart.getDatasetMeta(0).data.forEach((bar,i)=>{
+        if(!bar)return;
+        ctx.font='bold 10px Segoe UI,Arial';ctx.fillStyle='#00a878';
+        ctx.fillText((totData[i]/1000).toFixed(1)+'K',bar.x,bar.y-6);
+      });
+      if(hotSaleIdx!=null){
+        const b=chart.getDatasetMeta(0).data[hotSaleIdx];
+        if(b){
+          const bx=b.x,by=chart.chartArea.top+6;
+          ctx.font='bold 8px Segoe UI,Arial';
+          const lbl='★ incl. Hot Sale',tw=ctx.measureText(lbl).width;
+          ctx.fillStyle='rgba(255,87,34,0.12)';ctx.beginPath();
+          ctx.roundRect(bx-tw/2-6,by,tw+12,16,3);ctx.fill();
+          ctx.fillStyle='#e64a19';ctx.fillText(lbl,bx,by+11);
+        }
+      }
+      const m3=chart.getDatasetMeta(3);
+      mlData.forEach((v,i)=>{const pt=m3.data[i];if(!pt)return;ctx.font='bold 9.5px Segoe UI,Arial';ctx.fillStyle='#e6a800';ctx.fillText((v/1000).toFixed(1)+'K',pt.x,pt.y-11);});
+      const m4=chart.getDatasetMeta(4);
+      mpData.forEach((v,i)=>{const pt=m4.data[i];if(!pt)return;ctx.font='bold 9.5px Segoe UI,Arial';ctx.fillStyle='#1565C0';ctx.fillText((v/1000).toFixed(1)+'K',pt.x,pt.y+20);});
+      ctx.restore();
+    }
+  };
+
+  new Chart(document.getElementById(canvasId),{
+    type:'bar',plugins:[plugin],
+    data:{labels,datasets:[
+      {label:'Total',data:totData,backgroundColor:'rgba(0,168,120,.12)',borderColor:'rgba(0,168,120,.4)',borderWidth:1.5,borderRadius:4,order:3},
+      {label:'Only ML',type:'line',data:onlyMLData,borderColor:'rgba(255,183,0,0.5)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[3,4],pointRadius:3,pointBackgroundColor:'rgba(255,183,0,0.5)',tension:0.3,order:1},
+      {label:'ML+GreenA',type:'line',data:mlPlusAData,borderColor:'rgba(255,183,0,0.75)',backgroundColor:'transparent',borderWidth:2,borderDash:[6,3],pointRadius:4,pointBackgroundColor:'rgba(255,183,0,0.75)',tension:0.3,order:1},
+      {label:'ML total',type:'line',data:mlData,borderColor:'#FFB700',backgroundColor:'transparent',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#FFB700',tension:0.3,order:1},
+      {label:'MP',type:'line',data:mpData,borderColor:'#4da6ff',backgroundColor:'transparent',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#4da6ff',tension:0.3,order:2}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,animation:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${(c.raw/1000).toFixed(1)}K/día`}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:10},color:'#555'}},
+        y:{grid:{color:'#f5f5f5'},ticks:{font:{size:10},color:'#aaa',callback:v=>(v/1000).toFixed(1)+'K'},min:yMin,max:yMax}
+      }
+    }
+  });
+}
+
+// ── SESIONES ──────────────────────────────────────────────────────────────
+const rawSes=[
+  ['1/1',77610,0,0,58272,20124,2925],['2/1',82717,0,2056,60975,17284,4852],['3/1',61993,134,1967,71863,24865,4991],['4/1',64069,426,3170,67391,20835,4820],['5/1',70084,588,3975,54597,18796,6093],['6/1',80322,929,5420,58700,16336,5944],['7/1',83939,1456,7656,60931,20259,6066],['8/1',85387,1786,8180,71011,23278,6369],['9/1',89922,1871,7691,79458,22560,6847],['10/1',85009,2086,7268,80286,27283,6437],['11/1',79356,2661,8533,71505,22347,5463],['12/1',80753,2959,9152,61420,21125,6180],['13/1',85853,2861,7867,65562,19772,6614],['14/1',101386,4081,11852,79205,26410,9232],['15/1',96783,4664,13252,86783,26071,8333],['16/1',89616,4385,12713,84941,25099,8169],['17/1',89890,5038,13905,94172,32427,8370],['18/1',108669,6582,17868,87650,29692,8158],['19/1',92311,5834,14687,59486,18150,7290],['20/1',97825,5835,14861,68960,20696,7543],['21/1',79704,5922,14013,71310,23451,7336],['22/1',86643,7245,16852,79568,27579,7661],['23/1',93970,7404,17612,81586,24144,6957],['24/1',90822,7485,17134,84217,28348,6399],['25/1',78257,7039,15914,77064,27880,6587],['26/1',79213,7302,16154,61290,19257,5865],['27/1',100380,8145,18063,78400,24485,6273],['28/1',95183,8417,18532,77527,24959,5966],['29/1',89374,8743,18421,75213,25335,5651],['30/1',126817,11537,24028,86928,25586,6337],['31/1',128487,11097,22943,82551,27311,6144],
+  ['1/2',94783,11244,21650,82360,29879,5784],['2/2',75629,9085,17310,70970,22200,5607],['3/2',86106,9836,19016,68105,21215,5500],['4/2',74064,9555,17835,80540,26087,6074],['5/2',87393,11981,23364,86950,29900,5902],['6/2',79086,10496,18646,89295,26504,6449],['7/2',83723,10429,18061,85666,29911,5531],['8/2',86352,12623,21941,80403,30704,5326],['9/2',69487,10437,17805,72027,24578,5846],['10/2',82374,10612,18900,71163,23649,5807],['11/2',136818,0,0,68555,25850,6102],['12/2',118183,0,3795,80459,31260,6337],['13/2',116795,463,5704,79057,26149,6232],['14/2',103678,937,6934,89713,33069,5912],['15/2',129993,1911,9860,85994,33591,6369],['16/2',124032,2453,12044,78656,25369,7058],['17/2',119012,3034,12878,91137,27450,6649],['18/2',106972,3392,13425,76651,26780,6334],['19/2',114653,4068,15058,85198,22202,6782],['20/2',130930,4670,15940,109888,31049,7683],['21/2',107956,4898,14326,97176,24839,5753],['22/2',107803,6021,16698,89747,23226,5796],['23/2',96515,5114,12993,71083,17045,5406],['24/2',105873,5888,14748,77077,16844,5919],['25/2',89017,5828,13954,75458,18193,5494],['26/2',93944,6234,14226,93625,22013,5519],['27/2',106514,7838,18560,99533,25373,6568],['28/2',94213,7199,16008,105540,24378,5677],
+  ['1/3',99939,8001,16332,78197,20318,5364],['2/3',99879,8296,16907,63155,15260,5240],['3/3',104535,8695,18158,81064,16594,5616],['4/3',99160,8707,18358,78441,18567,6230],['5/3',106935,10424,20441,96529,22427,6819],['6/3',114555,11824,22365,119070,28802,7805],['7/3',90671,10569,19053,93632,22916,5830],['8/3',111586,13167,23750,93472,23452,5921],['9/3',84912,10525,18049,62561,15073,5907],['10/3',89139,10231,17227,77742,16050,6539],['11/3',80779,10439,17262,73075,17238,6395],['12/3',88918,12059,20415,76761,18055,6618],['13/3',93509,13683,22275,92835,23886,7172],['14/3',97283,12949,20341,98779,23360,6337],['15/3',108798,15805,24002,90950,21946,6215],['16/3',108496,14991,24968,79382,16212,7184],['17/3',103396,14470,24446,84227,14690,6690],['18/3',93408,13651,22643,74355,17250,5977],['19/3',89749,13490,21845,77431,18057,5929],['20/3',112087,18095,28622,93044,23983,7096],['21/3',86772,14297,22556,97616,22151,6320],['22/3',98800,17063,27092,86142,21270,6463],['23/3',108972,18796,29310,91956,19216,7396],['24/3',97272,17555,26813,87805,15755,6530],['25/3',86091,15177,23953,63076,15294,5686],['26/3',93613,16447,23976,74837,19468,6049],['27/3',100762,19462,28686,109505,28632,6372],['28/3',102053,19623,28703,114120,27762,6053],['29/3',111377,21726,30566,89517,21920,5921],['30/3',92879,16919,24610,66062,15709,5471],['31/3',98020,18220,26234,86727,16374,6515],
+  ['1/4',107298,20088,28696,112618,23861,7615],['2/4',99511,19023,26395,95095,21060,6215],['3/4',95741,20145,27433,105644,29743,6460],['4/4',74930,15378,20847,95035,23353,5431],['5/4',78461,17265,24211,93633,21440,5577],['6/4',72151,16402,22288,68543,17329,5867],['7/4',78339,17998,24223,83946,16965,6003],['8/4',73513,18085,24497,75973,16381,5590],['9/4',70533,17102,22159,73885,15845,5295],['10/4',82586,21313,27619,88397,24433,5530],['11/4',74596,17945,22192,94524,23710,5277],['12/4',77135,20894,26232,85069,19838,5727],['13/4',73052,17330,22257,59191,14337,5343],['14/4',71054,17030,21723,64753,13569,5524],['15/4',72051,18494,23669,68901,16057,5581],['16/4',67285,17731,22335,85754,19539,5415],['17/4',72317,19863,24895,93434,23634,5442],['18/4',61176,17190,20581,91665,20190,5255],['19/4',81277,22096,27292,88000,20777,5340],['20/4',63697,16525,21070,55558,13659,5199],['21/4',78020,18601,24238,64313,13640,7151],['22/4',74010,19554,24786,58668,12632,6359],['23/4',85532,21350,26978,71731,17530,6405],['24/4',99812,24382,30849,90488,23843,7007],['25/4',82859,21887,27896,94230,23795,6033],['26/4',89698,24636,30514,84069,19716,6478],['27/4',74828,18838,24424,58358,15230,5620],['28/4',81651,19740,24733,67278,15080,6273],['29/4',82468,19462,24000,65828,15629,6206],['30/4',88816,23593,27988,93749,21329,6212],
+  ['1/5',90179,28429,33184,101298,27788,7030],['2/5',82508,23702,28682,87655,22743,6857],['3/5',80682,23483,27567,75629,17866,6325],['4/5',68331,20074,24736,63994,16068,6323],['5/5',73271,21324,26456,69512,15537,6852],['6/5',84319,23529,29321,75995,17333,7711],['7/5',91044,24108,30769,85106,19055,10237],['8/5',94342,26761,32108,95130,22902,8328],['9/5',96002,28235,33143,95847,22477,7284],['10/5',93888,27758,32566,82760,18733,6615],['11/5',58556,18585,22632,58585,12713,6065],['12/5',61439,19169,21949,63166,13289,6207],['13/5',61092,18616,22777,66498,14054,5945],['14/5',59364,19525,23160,66748,14412,5494],['15/5',65182,22719,26617,85025,18599,5840],['16/5',67281,22111,25986,83805,18083,5513],['17/5',70689,25306,29091,75176,15277,5149],['18/5',59197,19299,23052,55302,11754,5198],['19/5',76406,23153,28267,58493,12053,7488],['20/5',60163,20140,25431,63052,13988,5685],['21/5',62982,22552,28187,65583,14750,8014],['22/5',77525,25279,31237,84769,19666,6880],['23/5',70520,23791,28072,76229,16837,6026],['24/5',76989,27200,31643,74320,15825,5667],['25/5',69138,25529,31178,67530,13930,5535],['26/5',61368,19573,23237,51301,10972,5999],['27/5',67159,22671,29030,56403,12295,6318],['28/5',113679,42078,49268,129644,30698,8336],['29/5',80015,27598,33801,72556,16835,5692],['30/5',73298,26384,32100,71047,15947,5215],['31/5',75842,28042,33671,66143,14453,4903],
+  ['1/6',66847,21085,26180,46989,10648,5575],['2/6',73944,23665,28856,49356,11781,5010],['3/6',66757,22613,28160,54514,12352,4836],['4/6',64050,23488,28218,58570,13646,5038],['5/6',78152,28741,34492,71911,17750,5331],['6/6',79809,29117,34711,71422,16950,5088],['7/6',81987,30783,37145,70772,16183,5024],['8/6',66445,23956,29332,49731,11773,5297],['9/6',66532,24547,30045,50303,10949,5370],['10/6',63709,22839,28149,52128,11582,5730],['11/6',67172,26385,34357,56324,15526,13117],['12/6',78124,28730,36532,68875,18171,12706],['13/6',94565,33695,44511,69030,19812,10693],['14/6',90539,32905,42064,71137,18497,11660],['15/6',83165,29862,37678,62507,15056,12115],['16/6',100478,35430,46832,52502,17512,14223],['17/6',84756,28696,36817,47957,12354,12325],['18/6',79807,30683,39648,61275,17751,10488],['19/6',83725,35423,46918,60950,17073,10773],['20/6',82098,32988,41513,61018,15269,9375],['21/6',83562,34802,45560,51798,14356,8756],['22/6',75917,29661,38685,52408,16666,10948],['23/6',75119,26410,34596,39824,10302,9985]
+];
+const wSes=computeWaves(rawSes);
+buildPanel('rpSes',wSes);
+makeChart('chartSes',wSes,50000,260000,3);
+
+// ── ÓRDENES ───────────────────────────────────────────────────────────────
+const rawOrd=[
+  ['1/1',4061,0,0,10613,2363,0],['2/1',6890,0,123,15113,3547,0],['3/1',6641,12,167,17175,3842,0],['4/1',7245,38,243,16037,3584,0],['5/1',6692,51,338,12760,2752,0],['6/1',6450,79,347,13947,3000,0],['7/1',7169,115,533,13929,3072,0],['8/1',6749,144,546,15913,3499,0],['9/1',8326,157,571,18305,4128,0],['10/1',7836,192,550,19487,4397,0],['11/1',7743,224,594,17716,4072,0],['12/1',6883,253,693,13885,3063,0],['13/1',6536,284,527,14730,3305,0],['14/1',8023,374,880,15989,3585,0],['15/1',8141,426,1011,17454,4143,2],['16/1',9242,487,1155,18934,4477,1],['17/1',9339,549,1145,21079,4752,0],['18/1',8783,557,1240,18867,4315,0],['19/1',5936,432,889,11960,2692,1],['20/1',6968,526,1015,13517,3183,3],['21/1',7406,590,1053,14653,3258,3],['22/1',7706,722,1395,15375,3609,0],['23/1',9098,744,1460,17873,4058,2],['24/1',8426,771,1410,18705,4295,0],['25/1',8146,714,1465,17885,4208,0],['26/1',6192,670,1207,12856,2810,2],['27/1',6567,681,1300,14280,3121,4],['28/1',7454,796,1497,14827,3340,1],['29/1',7464,836,1576,15658,3850,5],['30/1',9283,1123,1999,18944,4489,1],['31/1',8683,967,1651,19309,4604,0],
+  ['1/2',8596,1029,1839,18215,4457,0],['2/2',6118,797,1304,13504,3059,3],['3/2',6493,899,1416,14628,3356,1],['4/2',6585,982,1611,14681,3460,6],['5/2',7482,1172,2135,16301,4472,3],['6/2',8948,1316,2123,19475,5053,1],['7/2',8867,1417,2084,20395,5127,0],['8/2',8625,1437,2252,19432,4721,0],['9/2',5619,966,1447,13002,3152,2],['10/2',6205,995,1480,14052,3341,4],['11/2',11147,0,0,14278,3478,202],['12/2',10733,0,349,17182,4695,245],['13/2',12206,51,545,18833,5015,256],['14/2',11072,99,625,19895,5312,280],['15/2',11769,191,864,18084,4939,336],['16/2',9997,196,909,15565,3791,266],['17/2',10265,282,961,17071,4191,210],['18/2',8628,254,877,13656,3613,173],['19/2',9610,384,1185,18066,3136,181],['20/2',10993,407,1184,19671,3351,198],['21/2',10818,483,1193,22244,3942,263],['22/2',11097,591,1424,21484,3453,270],['23/2',7609,477,1027,14544,2135,164],['24/2',8172,540,1154,16488,2552,184],['25/2',8641,705,1397,15608,2396,197],['26/2',9167,731,1368,18740,2870,182],['27/2',12628,932,1913,23107,3748,280],['28/2',11181,912,1644,24255,3847,269],
+  ['1/3',11000,878,1633,21598,3450,306],['2/3',7697,784,1298,14684,2140,166],['3/3',7674,734,1245,16292,2371,181],['4/3',8924,844,1672,16473,2538,191],['5/3',8994,1029,1688,18694,2948,209],['6/3',12201,1285,2226,24250,3947,262],['7/3',10762,1240,1797,23038,3925,298],['8/3',10927,1423,2162,21767,3453,268],['9/3',6415,854,1181,13589,1906,176],['10/3',6689,915,1221,16022,2289,205],['11/3',7857,1160,1630,16090,2321,210],['12/3',8318,1323,1773,19150,2927,247],['13/3',10731,1707,2302,23389,3604,300],['14/3',10639,1633,2128,23989,3680,259],['15/3',9421,1648,1950,21687,3107,154],['16/3',7888,1264,1792,15286,1978,207],['17/3',7334,1208,1721,14822,2138,186],['18/3',8134,1464,2176,15132,2181,214],['19/3',8116,1433,1998,16564,2597,216],['20/3',10391,1862,2581,20355,3275,285],['21/3',10785,1885,2503,22265,3661,301],['22/3',10713,1988,2767,20633,3361,377],['23/3',9614,1798,2361,17492,2680,261],['24/3',8556,1769,2178,17888,2435,230],['25/3',6970,1332,1985,13274,1874,180],['26/3',7621,1495,1969,15482,2335,180],['27/3',10402,2117,2706,21048,3439,215],['28/3',11379,2264,3007,24772,3973,294],['29/3',10790,2279,2869,20481,3241,260],['30/3',7006,1588,1995,13408,1766,186],['31/3',8295,1881,2239,17216,2419,196],
+  ['1/4',10209,2257,2735,20335,2952,222],['2/4',10381,2457,2870,22175,3515,270],['3/4',9002,2146,2536,19390,3132,294],['4/4',8789,2070,2241,20199,3232,276],['5/4',7739,1955,2442,17621,2603,259],['6/4',5238,1352,1569,10662,1623,140],['7/4',6122,1593,1914,13730,1981,173],['8/4',7819,2213,2561,15702,2276,182],['9/4',7595,2052,2355,16248,2460,193],['10/4',10162,2795,3151,21391,3577,258],['11/4',9898,2715,2770,22469,3875,332],['12/4',9656,2711,3096,20169,3243,315],['13/4',6370,1849,2125,12878,1763,204],['14/4',6705,2045,2283,14979,2162,203],['15/4',7021,2183,2366,14139,2165,235],['16/4',7568,2247,2430,17180,2708,247],['17/4',10601,2920,3315,22438,3642,350],['18/4',10040,2890,2991,23136,3796,397],['19/4',9545,2757,3035,20822,3112,368],['20/4',5559,1847,1885,11503,1683,219],['21/4',6279,1912,2273,13402,2006,263],['22/4',6896,2211,2742,13653,1959,246],['23/4',8185,2519,2891,16593,2628,277],['24/4',10621,3238,3741,20893,3601,376],['25/4',10169,3083,3586,22557,3948,377],['26/4',9190,2956,3295,18972,3123,375],['27/4',5370,1816,2031,11513,1670,258],['28/4',6634,2186,2500,13808,2091,272],['29/4',7435,2429,2717,14496,2141,220],['30/4',9994,3282,3488,21166,3506,348],
+  ['1/5',10093,3510,3865,22299,4039,464],['2/5',9473,3139,3457,20937,3909,531],['3/5',8884,3040,3320,18491,3062,460],['4/5',5835,2201,2471,12187,1779,260],['5/5',5638,2134,2345,12799,1945,269],['6/5',7489,2731,3038,14382,2251,351],['7/5',5803,2102,2344,11439,1795,263],['8/5',9632,3533,3880,20283,3376,300],['9/5',9426,3316,3630,20243,3641,291],['10/5',9166,3396,3832,18930,3129,287],['11/5',5377,2020,2261,12422,1800,201],['12/5',5789,2224,2306,13317,1984,195],['13/5',6290,2477,2658,13589,1958,197],['14/5',6418,2529,2652,14788,2351,171],['15/5',9811,3819,4076,21058,3192,255],['16/5',9253,3292,3542,21070,3421,284],['17/5',8869,3617,3712,18979,2790,242],['18/5',5244,2126,2282,11642,1626,110],['19/5',5819,2298,2475,12615,1799,167],['20/5',6273,2565,2940,13589,1873,144],['21/5',7199,3121,3674,14154,2040,153],['22/5',10171,4151,4849,19661,3163,212],['23/5',9650,3807,4330,19831,3264,288],['24/5',9804,3955,4695,19169,3060,282],['25/5',7604,3095,3757,14756,2318,208],['26/5',5128,2152,2505,10775,1641,158],['27/5',6321,2743,3492,12100,1705,162],['28/5',8440,3457,4002,15485,2659,217],['29/5',10174,4120,4868,19291,3206,225],['30/5',9978,4189,4908,19961,3369,240],['31/5',9452,4134,4780,18369,2921,200],
+  ['1/6',5458,2429,2867,10911,1687,122],['2/6',5934,2683,3140,11916,1866,126],['3/6',6682,3018,3681,13511,2076,142],['4/6',7124,3183,3695,14278,2335,129],['5/6',10009,4274,5220,19657,3164,218],['6/6',10124,4316,5076,19643,3317,244],['7/6',7805,3607,4214,15853,2637,204],['8/6',5205,2436,3042,10195,1712,146],['9/6',6120,2892,3535,12053,1832,169],['10/6',6314,2962,3764,12561,1894,130],['11/6',7155,3715,5240,13437,2230,135],['12/6',9709,4569,6147,17836,3031,171],['13/6',9700,4849,6732,16253,3151,167],['14/6',9185,4514,6135,16323,3079,198],['15/6',7775,3787,5145,13903,2360,134],['16/6',6762,3688,5347,11090,2056,133],['17/6',6109,3192,4544,10874,1812,115],['18/6',5821,2974,4172,10123,1894,104],['19/6',9922,5114,7183,16030,2877,130],['20/6',9320,4683,6195,16163,2818,157],['21/6',7531,4223,5956,13322,2297,118],['22/6',5403,3005,4194,10117,2039,106],['23/6',5213,2777,4137,9403,1606,116]
+];
+const wOrd=computeWaves(rawOrd);
+buildPanel('rpOrd',wOrd);
+makeChart('chartOrd',wOrd,0,45000,3);
+</script>
+</body>
+</html>
