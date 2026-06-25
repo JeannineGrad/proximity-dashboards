@@ -36,6 +36,15 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
 .ndot{width:8px;height:8px;border-radius:50%;background:rgba(26,36,84,.2);cursor:pointer;transition:background .15s}
 .ndot.active{background:#FFB700}
 #nav-label{color:#888;font-size:12px;min-width:48px;text-align:center}
+/* CR Gap slide */
+.cr-strip{display:flex;gap:8px;flex-shrink:0}
+.cr-box{flex:1;border-radius:6px;padding:8px 12px;text-align:center;display:flex;flex-direction:column;gap:3px}
+.cr-box.ml{background:#fffbe6;border-bottom:3px solid #FFB700}
+.cr-box.mp{background:#eff6ff;border-bottom:3px solid #4da6ff}
+.cr-box-w{font-size:8px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.4px}
+.cr-box-v{font-size:21px;font-weight:900;line-height:1}
+.cr-box-v.mlv{color:#e6a800}.cr-box-v.mpv{color:#1565C0}
+.cr-box-gap{font-size:9px;font-weight:800;color:#c62828}
 </style>
 </head>
 <body>
@@ -66,9 +75,25 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
   </div>
 </div>
 
-<!-- SLIDE 2: ÓRDENES -->
+<!-- SLIDE 2: CR GAP -->
 <div class="slide">
   <span class="snum">2</span>
+  <div class="hdr">
+    <div class="hdr-tag">Food MLA · Tasa de conversión · restyle Mercado Pago</div>
+    <div class="hdr-title">MP convierte al doble que ML — el restyle desplaza tráfico hacia el canal que menos convierte</div>
+    <div class="hdr-sub">Tasa de conversión = promedio diario órdenes / promedio diario sesiones · por período de wave</div>
+  </div>
+  <div class="sbody" style="padding:12px 28px 10px;gap:8px">
+    <div class="cr-strip" id="mlBoxes"></div>
+    <div style="flex:1;position:relative"><canvas id="chartCR"></canvas></div>
+    <div class="cr-strip" id="mpBoxes"></div>
+    <div class="footnote">★ Wave 4 incluye Hot Sale · área sombreada = gap entre tasas de conversión</div>
+  </div>
+</div>
+
+<!-- SLIDE 3: ÓRDENES -->
+<div class="slide">
+  <span class="snum">3</span>
   <div class="hdr">
     <div class="hdr-tag">Food MLA · Órdenes por período de wave · restyle Mercado Pago</div>
     <div class="hdr-title">El restyle de MP reduce las órdenes de MP — ML crece por usuarios redirect pero no compensa</div>
@@ -96,7 +121,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
   <button class="nav-btn" id="btn-prev" onclick="go(-1)">&#8592;</button>
   <div id="nav-dots"></div>
   <button class="nav-btn" id="btn-next" onclick="go(1)">&#8594;</button>
-  <span id="nav-label">1 / 2</span>
+  <span id="nav-label">1 / 3</span>
 </div>
 </div><!-- /viewer -->
 
@@ -270,6 +295,47 @@ const rawOrd=[
 const wOrd=computeWaves(rawOrd);
 buildPanel('rpOrd',wOrd);
 makeChart('chartOrd',wOrd,0,40000,3);
+
+// ── SLIDE 2: CR GAP ───────────────────────────────────────────────────────
+const mlCRd=waveDefs.map((_,i)=>+(wOrd[i].ml/wSes[i].ml*100).toFixed(1));
+const mpCRd=waveDefs.map((_,i)=>+(wOrd[i].mp/wSes[i].mp*100).toFixed(1));
+
+function buildCRBoxes(elId,data,cls,valCls){
+  const el=document.getElementById(elId);
+  if(!el)return;
+  waveDefs.forEach((w,i)=>{
+    const box=document.createElement('div');
+    box.className='cr-box '+cls;
+    box.innerHTML=`<div class="cr-box-w">${w.name}</div><div class="cr-box-v ${valCls}">${data[i].toFixed(1)}%</div>`;
+    el.appendChild(box);
+  });
+}
+buildCRBoxes('mlBoxes',mlCRd,'ml','mlv');
+buildCRBoxes('mpBoxes',mpCRd,'mp','mpv');
+
+new Chart(document.getElementById('chartCR'),{
+  type:'line',
+  data:{
+    labels:waveDefs.map(w=>[w.name,w.range]),
+    datasets:[
+      {label:'CR ML',data:mlCRd,borderColor:'#FFB700',backgroundColor:'rgba(255,183,0,0.08)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#FFB700',tension:0.3,fill:'+1',order:2},
+      {label:'CR MP',data:mpCRd,borderColor:'#4da6ff',backgroundColor:'rgba(77,166,255,0.08)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#4da6ff',tension:0.3,fill:false,order:1},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,animation:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw.toFixed(1)}%`}}
+    },
+    scales:{
+      x:{grid:{display:false},ticks:{font:{size:10},color:'#555'}},
+      y:{grid:{color:'#f0f0f0'},min:5,max:35,
+        ticks:{font:{size:10},color:'#aaa',callback:v=>v+'%'},
+        title:{display:true,text:'tasa de conversión (%)',font:{size:8.5},color:'#ccc'}}
+    }
+  }
+});
 </script>
 </body>
 </html>
