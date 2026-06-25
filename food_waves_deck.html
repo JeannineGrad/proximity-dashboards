@@ -1120,59 +1120,70 @@ new Chart(document.getElementById('chartCR'),{
 
   // Table — sessions → CR → orders flow (shared global)
   window.tblF = (channels, baseO, mabO, S_b, S_n, CR_b, CR_n, sfx) => {
+    // Columns: Canal | Ses base | Ses new | Δses | CR base | Órd c/CR base | CR new | Impacto ΔCR | Órd new | Δ órd total
     let h=`<colgroup>
-      <col style="width:100px">
-      <col style="width:78px"><col style="width:78px"><col style="width:78px">
-      <col style="width:62px"><col style="width:62px">
-      <col style="width:78px"><col style="width:78px"><col style="width:78px">
+      <col style="width:95px">
+      <col style="width:72px"><col style="width:72px"><col style="width:72px">
+      <col style="width:58px"><col style="width:72px">
+      <col style="width:58px"><col style="width:72px">
+      <col style="width:72px"><col style="width:72px">
     </colgroup>
-    <thead>
-    <tr>
+    <thead><tr>
       <th class="left" rowspan="2" style="font-size:8px">Canal</th>
       <th class="right" colspan="3" style="background:#f0f4ff;color:#1a2454;font-size:7.5px;border-bottom:1px solid #c5cae9">Sesiones / día</th>
-      <th class="right" colspan="2" style="background:#fff8e1;color:#e65100;font-size:7.5px;border-bottom:1px solid #ffe082">Tasa de conversión</th>
-      <th class="right" colspan="3" style="background:#e8f5e9;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7">Órdenes / día</th>
+      <th class="right" colspan="2" style="background:#fff8e1;color:#e65100;font-size:7.5px;border-bottom:1px solid #ffe082;border-left:2px solid #ffe082">CR base → primer impacto</th>
+      <th class="right" colspan="2" style="background:#fce4ec;color:#c62828;font-size:7.5px;border-bottom:1px solid #ef9a9a;border-left:2px solid #ef9a9a">CR nueva → impacto adicional</th>
+      <th class="right" colspan="2" style="background:#e8f5e9;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7;border-left:2px solid #a5d6a7">Resultado</th>
     </tr><tr>
       <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Base W1.1</th>
       <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Mar Ab.</th>
       <th class="right" style="background:#f0f4ff;color:#888;font-size:7px">Δ ses/día</th>
-      <th class="right" style="background:#fff8e1;color:#888;font-size:7px">CR base</th>
-      <th class="right" style="background:#fff8e1;color:#888;font-size:7px">CR new</th>
-      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px">Base W1.1</th>
-      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px">Mar Ab.</th>
-      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px">Δ órd/día</th>
+      <th class="right" style="background:#fff8e1;color:#888;font-size:7px;border-left:2px solid #ffe082">CR base</th>
+      <th class="right" style="background:#fff8e1;color:#888;font-size:7px">Órd c/CR base<br><span style="font-size:6.5px;font-weight:400">ses_new × CR_base</span></th>
+      <th class="right" style="background:#fce4ec;color:#888;font-size:7px;border-left:2px solid #ef9a9a">CR new</th>
+      <th class="right" style="background:#fce4ec;color:#888;font-size:7px">Impacto Δ CR<br><span style="font-size:6.5px;font-weight:400">ses_new × Δ CR</span></th>
+      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px;border-left:2px solid #a5d6a7">Órd/día new</th>
+      <th class="right" style="background:#e8f5e9;color:#888;font-size:7px">Δ órd/día total</th>
     </tr></thead><tbody>`;
 
     channels.forEach(ch=>{
-      const ds=ch.so-ch.sb;
-      const ob=ch.sb*ch.cr_b, on=ch.so*ch.cr_n, dord=on-ob;
+      const ds   = ch.so - ch.sb;
+      const ob   = ch.sb * ch.cr_b;              // baseline orders
+      const o_cb = ch.so * ch.cr_b;              // new sessions × base CR (primer impacto)
+      const imp_dcr = ch.so * (ch.cr_n - ch.cr_b); // impact of CR change
+      const on   = ch.so * ch.cr_n;              // = o_cb + imp_dcr
+      const dord = on - ob;
       h+=`<tr>
         <td class="label" style="border-left:3px solid ${ch.color};padding-left:7px;font-size:9px">${ch.label}</td>
         <td class="right muted" style="font-size:9px">${nn(ch.sb)}</td>
         <td class="right" style="font-size:9px">${nn(ch.so)}</td>
         <td class="right ${ds>=0?'pos':'neg'}" style="font-size:9px;font-weight:700">${sgn(ds)}${nn(ds)}</td>
-        <td class="right muted" style="font-size:8.5px;background:#fffde7">${pct(ch.cr_b)}</td>
-        <td class="right" style="font-size:8.5px;background:#fffde7">${pct(ch.cr_n)}</td>
-        <td class="right muted" style="font-size:9px;background:#f0fdf8">${nn(ob)}</td>
-        <td class="right" style="font-size:9px;background:#f0fdf8">${nn(on)}</td>
-        <td class="right ${dord>=0?'pos':'neg'}" style="font-size:9px;font-weight:700;background:#f0fdf8">${sgn(dord)}${nn(dord)}</td>
+        <td class="right muted" style="font-size:8.5px;background:#fffde7;border-left:2px solid #ffe082">${pct(ch.cr_b)}</td>
+        <td class="right" style="font-size:9px;background:#fffde7;font-weight:700">${nn(o_cb)}</td>
+        <td class="right" style="font-size:8.5px;background:#ffeef0;border-left:2px solid #ef9a9a">${pct(ch.cr_n)}</td>
+        <td class="right ${imp_dcr>=0?'pos':'neg'}" style="font-size:9px;background:#ffeef0;font-weight:700">${sgn(imp_dcr)}${nn(imp_dcr)}</td>
+        <td class="right" style="font-size:9px;background:#f0fdf8;border-left:2px solid #a5d6a7">${nn(on)}</td>
+        <td class="right ${dord>=0?'pos':'neg'}" style="font-size:9px;font-weight:800;background:#f0fdf8">${sgn(dord)}${nn(dord)}</td>
       </tr>`;
     });
 
     const tot_sb=channels.reduce((a,c)=>a+c.sb,0);
     const tot_so=channels.reduce((a,c)=>a+c.so,0);
     const tot_ob=baseO.tot, tot_on=mabO.tot;
+    const tot_ocb = tot_so * CR_b;              // new sessions × base CR
+    const tot_dcr = tot_so * (CR_n - CR_b);     // CR change impact
     const dtot_ses=tot_so-tot_sb, dtot_ord=tot_on-tot_ob;
     h+=`<tr class="total-row">
       <td class="label" style="border-left:3px solid #1a2454;font-size:9.5px">Total</td>
       <td class="right" style="font-size:9.5px">${nn(tot_sb)}</td>
       <td class="right" style="font-size:9.5px">${nn(tot_so)}</td>
       <td class="right ${dtot_ses>=0?'pos':'neg'}" style="font-size:9.5px">${sgn(dtot_ses)}${nn(dtot_ses)}</td>
-      <td class="right" style="font-size:9px;background:#fffde7">${pct(CR_b)}</td>
-      <td class="right" style="font-size:9px;background:#fffde7">${pct(CR_n)}</td>
-      <td class="right" style="font-size:9.5px;background:#f0fdf8">${nn(tot_ob)}</td>
-      <td class="right" style="font-size:9.5px;background:#f0fdf8">${nn(tot_on)}</td>
-      <td class="right ${dtot_ord>=0?'pos':'neg'}" style="font-size:10px;font-weight:900;background:#f0fdf8">${sgn(dtot_ord)}${nn(dtot_ord)}</td>
+      <td class="right" style="font-size:9px;background:#fffde7;border-left:2px solid #ffe082">${pct(CR_b)}</td>
+      <td class="right" style="font-size:10px;font-weight:900;background:#fffde7">${nn(tot_ocb)}</td>
+      <td class="right" style="font-size:9px;background:#ffeef0;border-left:2px solid #ef9a9a">${pct(CR_n)}</td>
+      <td class="right ${tot_dcr>=0?'pos':'neg'}" style="font-size:10px;font-weight:900;background:#ffeef0">${sgn(tot_dcr)}${nn(tot_dcr)}</td>
+      <td class="right" style="font-size:10px;font-weight:900;background:#f0fdf8;border-left:2px solid #a5d6a7">${nn(tot_on)}</td>
+      <td class="right ${dtot_ord>=0?'pos':'neg'}" style="font-size:11px;font-weight:900;background:#f0fdf8">${sgn(dtot_ord)}${nn(dtot_ord)}</td>
     </tr></tbody>`;
     return h;
   };
