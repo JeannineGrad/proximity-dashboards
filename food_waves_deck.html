@@ -862,7 +862,7 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
   function pd(s){const[d,m]=s.split('/').map(Number);return new Date(2026,m-1,d);}
 
   // ── Sesiones 4 canales: [0]=fecha,[1]=ML directo,[2]=ML pre-redirected,[3]=MP redirected,[4]=MP directo ──
-  const rawSesNew=[
+  window.rawSesNew=[
     ['1/1',77610,0,64898,16423],['2/1',82717,2056,70501,12610],['3/1',62127,1967,70208,31511],
     ['4/1',64495,3170,69458,23588],['5/1',70672,3975,62567,16919],['6/1',81251,5420,67218,13762],
     ['7/1',85395,7656,68871,18385],['8/1',87173,8180,73730,26928],['9/1',91793,7691,90430,18435],
@@ -928,7 +928,7 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
   ];
 
   // ── Órdenes 4 canales: [0]=fecha,[1]=ML directo,[2]=ML pre-redirected,[3]=MP redirected,[4]=MP directo ──
-  const rawOrdNew=[
+  window.rawOrdNew=[
     ['1/1',4061,0,11426,1551],['2/1',6890,123,17464,1196],['3/1',6653,167,18760,2258],
     ['4/1',7283,243,18791,830],['5/1',6744,338,15287,225],['6/1',6529,347,16560,387],
     ['7/1',7284,533,16720,281],['8/1',6893,546,17246,2166],['9/1',8482,571,20769,1663],
@@ -1291,16 +1291,16 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
   ];
 
   channels_sN.forEach(ch=>{
-    ch.sb=wAvgN(rawSesNew,ch.sesFn,s_base,e_base);
-    ch.so=wAvgN(rawSesNew,ch.sesFn,s_mab,e_mab);
-    const ob=wAvgN(rawOrdNew,ch.ordFn,s_base,e_base);
-    const on=wAvgN(rawOrdNew,ch.ordFn,s_mab,e_mab);
+    ch.sb=wAvgN(window.rawSesNew,ch.sesFn,s_base,e_base);
+    ch.so=wAvgN(window.rawSesNew,ch.sesFn,s_mab,e_mab);
+    const ob=wAvgN(window.rawOrdNew,ch.ordFn,s_base,e_base);
+    const on=wAvgN(window.rawOrdNew,ch.ordFn,s_mab,e_mab);
     ch.cr_b=ch.sb>0?ob/ch.sb:0;
     ch.cr_n=ch.so>0?on/ch.so:0;
   });
 
-  const baseO_sN={tot:channels_sN.reduce((a,ch)=>a+wAvgN(rawOrdNew,ch.ordFn,s_base,e_base),0)};
-  const mabO_sN ={tot:channels_sN.reduce((a,ch)=>a+wAvgN(rawOrdNew,ch.ordFn,s_mab,e_mab),0)};
+  const baseO_sN={tot:channels_sN.reduce((a,ch)=>a+wAvgN(window.rawOrdNew,ch.ordFn,s_base,e_base),0)};
+  const mabO_sN ={tot:channels_sN.reduce((a,ch)=>a+wAvgN(window.rawOrdNew,ch.ordFn,s_mab,e_mab),0)};
   const S_b=channels_sN.reduce((a,ch)=>a+ch.sb,0);
   const S_n=channels_sN.reduce((a,ch)=>a+ch.so,0);
   const CR_b=S_b>0?baseO_sN.tot/S_b:0;
