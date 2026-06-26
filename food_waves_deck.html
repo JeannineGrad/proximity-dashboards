@@ -190,13 +190,44 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;display:flex;fle
 
 
 
+
+<!-- SLIDE 5: COMPARATIVO PERÍODOS -->
+<div class="slide">
+  <span class="snum">5</span>
+  <div class="hdr">
+    <div class="hdr-tag">Food MLA · Comparativo de impacto: períodos de Mar Abierto</div>
+    <div class="hdr-title">Impacto del restyle — comparativo 18/6–24/6 vs 19/6–25/6</div>
+    <div class="hdr-sub">Baseline W1.1 · CR real por canal · proyección × 30 días · cifras hardcodeadas</div>
+  </div>
+  <div class="s4-body">
+    <div id="tbl_comp_wrap" style="display:flex;gap:18px;overflow:auto;flex:1"></div>
+    <div class="s4-footnote" id="fn_comp"></div>
+  </div>
+</div>
+
+<!-- SLIDE 6: IMPACTO MENSUAL — últimos 7 días actualizado 19/6–25/6 -->
+<div class="slide">
+  <span class="snum">6</span>
+  <div class="hdr">
+    <div class="hdr-tag">Food MLA · Impacto mensual estructural · actualizado</div>
+    <div class="hdr-title">Impacto del restyle de Mercado Pago en órdenes Food · actualizado 19/6–25/6</div>
+    <div class="hdr-sub">4 canales · Mar Abierto = 19/6–25/6 · baseline W1.1 · CR real por canal · proyección × 30 días</div>
+  </div>
+  <div class="s4-body">
+    <div id="cr_strip_sNew" style="display:none"></div>
+    <table class="s45-tbl" id="tbl_sNew"></table>
+    <div class="s5-highlight" id="summary_sNew"></div>
+    <div class="s4-footnote" id="fn_sNew"></div>
+  </div>
+</div>
+
 </div><!-- /slide-wrap -->
 
 <div id="nav">
   <button class="nav-btn" id="btn-prev" onclick="go(-1)">&#8592;</button>
   <div id="nav-dots"></div>
   <button class="nav-btn" id="btn-next" onclick="go(1)">&#8594;</button>
-  <span id="nav-label">1 / 4</span>
+  <span id="nav-label">1 / 6</span>
 </div>
 </div><!-- /viewer -->
 
@@ -892,7 +923,8 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
     ['13/6',124985,47786,90590,8945],['14/6',119965,45543,93762,7532],['15/6',109579,41126,83611,6067],
     ['16/6',131899,50841,74996,9241],['17/6',110283,39986,65074,7562],['18/6',107199,42939,82057,7457],
     ['19/6',115855,50211,81178,7618],['20/6',111651,44948,78056,7606],['21/6',114930,48994,68760,6150],
-    ['22/6',102579,41753,73487,6534],['23/6',99177,37595,57142,2985],['24/6',87339,33597,57885,6531],
+    ['22/6',102579,41753,73487,6534],['23/6',99215,37611,57146,2987],['24/6',87754,33846,57891,6553],
+    ['25/6',103848,40466,56469,6475],
   ];
 
   // ── Órdenes 4 canales: [0]=fecha,[1]=ML directo,[2]=ML pre-redirected,[3]=MP redirected,[4]=MP directo ──
@@ -957,7 +989,8 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
     ['13/6',14084,7197,19182,389],['14/6',13251,6583,19233,367],['15/6',11096,5611,16102,294],
     ['16/6',10117,5681,12992,287],['17/6',8913,4931,12598,203],['18/6',8462,4504,11898,223],
     ['19/6',14538,7680,18752,285],['20/6',13511,6687,18870,268],['21/6',11313,6397,15512,226],
-    ['22/6',8039,4564,12028,233],['23/6',7683,4442,11025,101],['24/6',8217,4287,12430,129],
+    ['22/6',8039,4564,12028,233],['23/6',7684,4442,11024,101],['24/6',8217,4289,12428,129],
+    ['25/6',9477,5434,12655,136],
   ];
 
   // ── Helper: average of fn(r) over rows in [s, e] ──────────────────────────
@@ -1133,6 +1166,235 @@ window.tblF = function(channels, baseO, mabO, S_b, S_n, CR_b, CR_n) {
 })();
 
 // slide 8 removed
+
+// ── SLIDE 5: COMPARATIVO 18/6-24/6 vs 19/6-25/6 (hardcoded) ─────────────
+(function(){
+  const nn=v=>Math.round(v).toLocaleString('es-AR');
+  const sgn=v=>v>=0?'+':'';
+  const pos=v=>v>=0?'pos':'neg';
+
+  // Data: [ses_base×30, ses_old×30, ses_new×30, vol_old, dcr_old, tot_old, vol_new, dcr_new, tot_new]
+  const rows=[
+    {label:'MP → redirect a ML', color:'#4da6ff',
+     sb:2622726, so:2136707, sn:2027100,
+     vo:-114764, do_:-73765, to_:-188529,
+     vn:-140600, dn:-44800,  tn:-185400},
+    {label:'MP directo', color:'#1565C0',
+     sb:800826,  so:192347,  sn:188250,
+     vo:-29378,  do_:-3008,  to_:-32386,
+     vn:-29600,  dn:-3300,   tn:-32900},
+    {label:'ML pre-redirected', color:'#FFB700',
+     sb:725725,  so:1285873, sn:1276410,
+     vo:49921,   do_:50664,  to_:100584,
+     vn:49100,   dn:56100,   tn:105200},
+    {label:'ML directo', color:'rgba(255,183,0,0.5)',
+     sb:3086537, so:3165986, sn:3153570,
+     vo:7371,    do_:13829,  to_:21200,
+     vn:6220,    dn:19270,   tn:25490},
+  ];
+  const subs=[
+    {label:'↳ Subtotal MP',    idxs:[0,1], style:'background:#e8eaf2'},
+    {label:'↳ Impacto neto restyle',idxs:[0,1,2],style:'background:#e3f2fd;border-top:2px solid #1565C0;border-bottom:2px solid #1565C0'},
+  ];
+
+  function subtot(idxs,key){return idxs.reduce((a,i)=>a+rows[i][key],0);}
+
+  const wrap=document.getElementById('tbl_comp_wrap');
+  if(!wrap)return;
+
+  function makeTable(title,color,sKey,vKey,dKey,tKey){
+    let h=`<div style="flex:1;min-width:0">
+      <div style="font-size:9px;font-weight:800;text-transform:uppercase;color:${color};margin-bottom:8px;letter-spacing:.5px">${title}</div>
+      <table style="width:100%;border-collapse:collapse;font-size:9.5px">
+      <thead><tr style="background:#f5f7fa">
+        <th style="text-align:left;padding:6px 8px;font-size:8px;border-bottom:2px solid #e0e0e0">Canal</th>
+        <th style="text-align:right;padding:6px 8px;font-size:8px;border-bottom:2px solid #e0e0e0">Ses ×30</th>
+        <th style="text-align:right;padding:6px 8px;font-size:8px;background:#fff8e1;border-bottom:2px solid #e0e0e0">Imp. vol.</th>
+        <th style="text-align:right;padding:6px 8px;font-size:8px;background:#fce4ec;border-bottom:2px solid #e0e0e0">Imp. ΔCR</th>
+        <th style="text-align:right;padding:6px 8px;font-size:8px;background:#e8f5e9;border-bottom:2px solid #e0e0e0">Δ órd total</th>
+      </tr></thead><tbody>`;
+
+    // channel rows
+    rows.forEach((r,i)=>{
+      const s=r[sKey], v=r[vKey], d=r[dKey], t=r[tKey];
+      const ds=s-r.sb;
+      h+=`<tr>
+        <td style="border-left:3px solid ${r.color};padding-left:7px;font-size:9px;font-weight:700;padding:5px 8px">${r.label}</td>
+        <td style="text-align:right;font-size:9px;padding:5px 8px">${nn(s)}</td>
+        <td style="text-align:right;font-size:9px;padding:5px 8px;background:#fffde7" class="${pos(v)}">${sgn(v)}${nn(v)}</td>
+        <td style="text-align:right;font-size:9px;padding:5px 8px;background:#ffeef0" class="${pos(d)}">${sgn(d)}${nn(d)}</td>
+        <td style="text-align:right;font-size:9px;font-weight:800;padding:5px 8px;background:#f0fdf8" class="${pos(t)}">${sgn(t)}${nn(t)}</td>
+      </tr>`;
+      // insert subtotals after row 1 (MP) and row 2 (ML pre-redir)
+      if(i===1){
+        const sv=subtot([0,1],vKey), sd=subtot([0,1],dKey), st=subtot([0,1],tKey), ss=subtot([0,1],sKey);
+        h+=`<tr style="background:#e8eaf2;font-size:9px">
+          <td style="padding:4px 8px;font-weight:800;color:#1a2454">↳ Subtotal MP</td>
+          <td style="text-align:right;font-weight:700;padding:4px 8px">${nn(ss)}</td>
+          <td style="text-align:right;font-weight:700;padding:4px 8px;background:#fffde7" class="${pos(sv)}">${sgn(sv)}${nn(sv)}</td>
+          <td style="text-align:right;font-weight:700;padding:4px 8px;background:#ffeef0" class="${pos(sd)}">${sgn(sd)}${nn(sd)}</td>
+          <td style="text-align:right;font-weight:800;padding:4px 8px;background:#f0fdf8" class="${pos(st)}">${sgn(st)}${nn(st)}</td>
+        </tr>`;
+      }
+      if(i===2){
+        const sv=subtot([0,1,2],vKey), sd=subtot([0,1,2],dKey), st=subtot([0,1,2],tKey), ss=subtot([0,1,2],sKey);
+        h+=`<tr style="background:#e3f2fd;border-top:2px solid #1565C0;border-bottom:2px solid #1565C0;font-size:9px">
+          <td style="padding:4px 8px;font-weight:800;color:#1a2454">↳ Impacto neto restyle</td>
+          <td style="text-align:right;font-weight:700;padding:4px 8px">${nn(ss)}</td>
+          <td style="text-align:right;font-weight:700;padding:4px 8px;background:#fffde7" class="${pos(sv)}">${sgn(sv)}${nn(sv)}</td>
+          <td style="text-align:right;font-weight:700;padding:4px 8px;background:#ffeef0" class="${pos(sd)}">${sgn(sd)}${nn(sd)}</td>
+          <td style="text-align:right;font-weight:800;padding:4px 8px;background:#f0fdf8" class="${pos(st)}">${sgn(st)}${nn(st)}</td>
+        </tr>`;
+        h+=`<tr><td colspan="5" style="padding:3px 8px;font-size:8px;color:#aaa;font-style:italic">+ Variación ML directo</td></tr>`;
+      }
+    });
+
+    // total
+    const sv=rows.reduce((a,r)=>a+r[vKey],0), sd=rows.reduce((a,r)=>a+r[dKey],0), st=rows.reduce((a,r)=>a+r[tKey],0), ss=rows.reduce((a,r)=>a+r[sKey],0);
+    h+=`<tr style="background:#f5f7fa;font-weight:800;border-top:2px solid #1a2454">
+      <td style="padding:6px 8px;font-size:10px;border-left:4px solid #1a2454;color:#1a2454">TOTAL</td>
+      <td style="text-align:right;padding:6px 8px">${nn(ss)}</td>
+      <td style="text-align:right;padding:6px 8px;background:#fffde7;font-size:11px" class="${pos(sv)}">${sgn(sv)}${nn(sv)}</td>
+      <td style="text-align:right;padding:6px 8px;background:#ffeef0;font-size:11px" class="${pos(sd)}">${sgn(sd)}${nn(sd)}</td>
+      <td style="text-align:right;padding:6px 8px;background:#f0fdf8;font-size:12px" class="${pos(st)}">${sgn(st)}${nn(st)}</td>
+    </tr></tbody></table></div>`;
+    return h;
+  }
+
+  wrap.innerHTML =
+    makeTable('Mar Abierto anterior — 18/6–24/6','#e65100','so','vo','do_','to_') +
+    `<div style="width:1px;background:#e0e0e0;flex-shrink:0"></div>` +
+    makeTable('Mar Abierto actualizado — 19/6–25/6','#2e7d32','sn','vn','dn','tn');
+
+  document.getElementById('fn_comp').innerHTML=
+    `Baseline W1.1 (11/2–12/3) · Imp. vol = Δses × CR_base · Imp. ΔCR = ses_new × (CR_new − CR_base) · × 30 días`;
+})();
+
+// ── SLIDE 6: UPDATED — 19/6-25/6 (mismo formato que slide 5, datos nuevos) ─
+(function(){
+  function pd(s){const[d,m]=s.split('/').map(Number);return new Date(2026,m-1,d);}
+
+  function wAvgN(raw,fn,s,e){
+    const days=raw.filter(r=>{const d=pd(r[0]);return d>=s&&d<=e;});
+    if(!days.length)return 0;
+    return days.reduce((a,r)=>a+fn(r),0)/days.length;
+  }
+
+  const s_base=pd('11/2'),e_base=pd('12/3');
+  const s_mab=pd('19/6'),e_mab=pd('25/6');
+
+  const channels_sN=[
+    {key:'mp_red',  label:'MP → redirect a ML', color:'#4da6ff',  sesFn:r=>r[3], ordFn:r=>r[3]},
+    {key:'mp_dir',  label:'MP directo',          color:'#1565C0',  sesFn:r=>r[4], ordFn:r=>r[4]},
+    {key:'ml_prered',label:'ML pre-redirected',  color:'#FFB700',  sesFn:r=>r[2], ordFn:r=>r[2]},
+    {key:'ml_dir',  label:'ML directo',          color:'rgba(255,183,0,0.5)', sesFn:r=>r[1], ordFn:r=>r[1]},
+  ];
+
+  channels_sN.forEach(ch=>{
+    ch.sb=wAvgN(rawSesNew,ch.sesFn,s_base,e_base);
+    ch.so=wAvgN(rawSesNew,ch.sesFn,s_mab,e_mab);
+    const ob=wAvgN(rawOrdNew,ch.ordFn,s_base,e_base);
+    const on=wAvgN(rawOrdNew,ch.ordFn,s_mab,e_mab);
+    ch.cr_b=ch.sb>0?ob/ch.sb:0;
+    ch.cr_n=ch.so>0?on/ch.so:0;
+  });
+
+  const baseO_sN={tot:channels_sN.reduce((a,ch)=>a+wAvgN(rawOrdNew,ch.ordFn,s_base,e_base),0)};
+  const mabO_sN ={tot:channels_sN.reduce((a,ch)=>a+wAvgN(rawOrdNew,ch.ordFn,s_mab,e_mab),0)};
+  const S_b=channels_sN.reduce((a,ch)=>a+ch.sb,0);
+  const S_n=channels_sN.reduce((a,ch)=>a+ch.so,0);
+  const CR_b=S_b>0?baseO_sN.tot/S_b:0;
+  const CR_n=S_n>0?mabO_sN.tot/S_n:0;
+
+  function pct(v){return(v*100).toFixed(1)+'%';}
+  const nn5=v=>Math.round(v).toLocaleString('es-AR');
+  const sgn5=v=>v>=0?'+':'';
+  const M5=30;
+
+  // reuse same table builder as slide 5 (tbl_s6)
+  const mp_chs=[channels_sN.find(c=>c.key==='mp_red'),channels_sN.find(c=>c.key==='mp_dir')];
+  const mp_pre_chs=[...mp_chs,channels_sN.find(c=>c.key==='ml_prered')];
+  const all_chs=channels_sN;
+
+  function chRow(ch){
+    const ds=ch.so-ch.sb, ob=ch.sb*ch.cr_b, on=ch.so*ch.cr_n, dord=on-ob, ocb=ds*ch.cr_b, imp_dcr=dord-ocb;
+    const pctS=ch.sb>0?((ds/ch.sb)*100).toFixed(1)+'%':'—';
+    const dsc=ds>=0?'pos':'neg',vc=ocb>=0?'pos':'neg',rc=imp_dcr>=0?'pos':'neg',dc=dord>=0?'pos':'neg';
+    return `<tr>
+      <td style="border-left:3px solid ${ch.color};padding-left:7px;font-weight:700;font-size:9px;padding:5px 8px">${ch.label}</td>
+      <td class="right muted" style="font-size:9px">${nn5(ch.sb*M5)}</td>
+      <td class="right" style="font-size:9px">${nn5(ch.so*M5)}</td>
+      <td class="right ${dsc}" style="font-size:9px;font-weight:700">${sgn5(ds)}${nn5(ds*M5)}</td>
+      <td class="right ${dsc}" style="font-size:8.5px;font-weight:700">${sgn5(ds)}${pctS}</td>
+      <td class="right ${vc}" style="font-size:9px;font-weight:700;background:#fffde7">${sgn5(ocb)}${nn5(ocb*M5)}</td>
+      <td class="right ${rc}" style="font-size:9px;font-weight:700;background:#fce4ec">${sgn5(imp_dcr)}${nn5(imp_dcr*M5)}</td>
+      <td class="right ${dc}" style="font-size:9.5px;font-weight:800;background:#f0fdf8">${sgn5(dord)}${nn5(dord*M5)}</td>
+    </tr>`;
+  }
+
+  function subRow(label,chs,style){
+    const sb=chs.reduce((a,c)=>a+c.sb,0),so=chs.reduce((a,c)=>a+c.so,0);
+    const ob=chs.reduce((a,c)=>a+c.sb*c.cr_b,0),on=chs.reduce((a,c)=>a+c.so*c.cr_n,0);
+    const ds=so-sb,dord=on-ob,ocb=chs.reduce((a,c)=>a+(c.so-c.sb)*c.cr_b,0),imp_dcr=dord-ocb;
+    const pctS=sb>0?((ds/sb)*100).toFixed(1)+'%':'—';
+    const dsc=ds>=0?'pos':'neg',vc=ocb>=0?'pos':'neg',rc=imp_dcr>=0?'pos':'neg',dc=dord>=0?'pos':'neg';
+    return `<tr style="${style};font-size:9px">
+      <td style="border-left:3px solid #1a2454;padding-left:8px;font-weight:800;color:#1a2454;padding:4px 8px">↳ ${label}</td>
+      <td class="right" style="font-weight:700">${nn5(sb*M5)}</td>
+      <td class="right" style="font-weight:700">${nn5(so*M5)}</td>
+      <td class="right ${dsc}" style="font-weight:800">${sgn5(ds)}${nn5(ds*M5)}</td>
+      <td class="right ${dsc}" style="font-weight:700;font-size:8.5px">${sgn5(ds)}${pctS}</td>
+      <td class="right ${vc}" style="font-weight:800;background:#fffde7">${sgn5(ocb)}${nn5(ocb*M5)}</td>
+      <td class="right ${rc}" style="font-weight:800;background:#fce4ec">${sgn5(imp_dcr)}${nn5(imp_dcr*M5)}</td>
+      <td class="right ${dc}" style="font-weight:900;background:#f0fdf8">${sgn5(dord)}${nn5(dord*M5)}</td>
+    </tr>`;
+  }
+
+  let tbl=`<colgroup>
+    <col style="width:160px"><col style="width:82px"><col style="width:82px">
+    <col style="width:82px"><col style="width:60px">
+    <col style="width:116px"><col style="width:116px"><col style="width:116px">
+  </colgroup>
+  <thead><tr>
+    <th class="left" rowspan="2" style="font-size:8.5px">Canal</th>
+    <th class="right" rowspan="2" style="font-size:8px">Ses base<br><span style="font-weight:400">× 30d</span></th>
+    <th class="right" rowspan="2" style="font-size:8px">Ses new<br><span style="font-weight:400">× 30d</span></th>
+    <th class="right" rowspan="2" style="font-size:8px">Δ ses<br><span style="font-weight:400">× 30d</span></th>
+    <th class="right" rowspan="2" style="font-size:8px">Δ %<br><span style="font-weight:400">ses</span></th>
+    <th class="right" colspan="3" style="background:#f0fdf8;color:#2e7d32;font-size:7.5px;border-bottom:1px solid #a5d6a7">Impacto en órdenes (× 30d)</th>
+  </tr><tr>
+    <th class="right" style="background:#fff8e1;color:#e65100;font-size:8px">Impacto var. vol.<br><span style="font-weight:400">Δses × CR base</span></th>
+    <th class="right" style="background:#fce4ec;color:#c62828;font-size:8px">Impacto Δ CR<br><span style="font-weight:400">ses_new × Δ CR</span></th>
+    <th class="right" style="background:#e8f5e9;color:#2e7d32;font-size:8px">Δ órd total</th>
+  </tr></thead><tbody>`;
+
+  tbl+=chRow(channels_sN.find(c=>c.key==='mp_red'));
+  tbl+=chRow(channels_sN.find(c=>c.key==='mp_dir'));
+  tbl+=subRow('Subtotal MP',mp_chs,'background:#e8eaf2');
+  tbl+=chRow(channels_sN.find(c=>c.key==='ml_prered'));
+  tbl+=subRow('Impacto neto restyle (MP + ML redirect)',mp_pre_chs,'background:#e3f2fd;border-top:2px solid #1565C0;border-bottom:2px solid #1565C0');
+  tbl+=`<tr><td colspan="8" style="padding:3px 8px;font-size:8px;color:#aaa;font-style:italic">+ Variación ML directo (no atribuible al restyle)</td></tr>`;
+  tbl+=chRow(channels_sN.find(c=>c.key==='ml_dir'));
+
+  const t_sb=all_chs.reduce((a,c)=>a+c.sb,0),t_so=all_chs.reduce((a,c)=>a+c.so,0);
+  const t_ob=all_chs.reduce((a,c)=>a+c.sb*c.cr_b,0),t_on=all_chs.reduce((a,c)=>a+c.so*c.cr_n,0);
+  const t_ds=t_so-t_sb,t_dord=t_on-t_ob,t_vol=all_chs.reduce((a,c)=>a+(c.so-c.sb)*c.cr_b,0),t_rate=t_dord-t_vol;
+  const t_pct=t_sb>0?((t_ds/t_sb)*100).toFixed(1)+'%':'—';
+  tbl+=`<tr style="background:#f5f7fa;font-weight:800;font-size:10px;border-top:2px solid #1a2454">
+    <td style="border-left:4px solid #1a2454;padding:6px 8px;color:#1a2454">TOTAL</td>
+    <td class="right">${nn5(t_sb*M5)}</td><td class="right">${nn5(t_so*M5)}</td>
+    <td class="right ${t_ds>=0?'pos':'neg'}">${sgn5(t_ds)}${nn5(t_ds*M5)}</td>
+    <td class="right ${t_ds>=0?'pos':'neg'}" style="font-size:9px;font-weight:700">${sgn5(t_ds)}${t_pct}</td>
+    <td class="right ${t_vol>=0?'pos':'neg'}" style="background:#fffde7;font-size:11px">${sgn5(t_vol)}${nn5(t_vol*M5)}</td>
+    <td class="right ${t_rate>=0?'pos':'neg'}" style="background:#fce4ec;font-size:11px">${sgn5(t_rate)}${nn5(t_rate*M5)}</td>
+    <td class="right ${t_dord>=0?'pos':'neg'}" style="background:#f0fdf8;font-size:12px">${sgn5(t_dord)}${nn5(t_dord*M5)}</td>
+  </tr></tbody>`;
+
+  document.getElementById('tbl_sNew').innerHTML=tbl;
+  document.getElementById('summary_sNew').style.display='none';
+  document.getElementById('fn_sNew').innerHTML=
+    `Mar Abierto = 19/6–25/6 (7d) · baseline W1.1 = 11/2–12/3 · CR por canal: MP_red=${pct(channels_sN.find(c=>c.key==='mp_red').cr_b)} base→${pct(channels_sN.find(c=>c.key==='mp_red').cr_n)} · MP_dir=${pct(channels_sN.find(c=>c.key==='mp_dir').cr_b)} base→${pct(channels_sN.find(c=>c.key==='mp_dir').cr_n)} · ML_pre=${pct(channels_sN.find(c=>c.key==='ml_prered').cr_b)} base→${pct(channels_sN.find(c=>c.key==='ml_prered').cr_n)} · ML_dir=${pct(channels_sN.find(c=>c.key==='ml_dir').cr_b)} base→${pct(channels_sN.find(c=>c.key==='ml_dir').cr_n)} · 28/5 excluido`;
+})();
 </script>
 </body>
 </html>
