@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -163,6 +163,7 @@
     <button class="tab-btn" onclick="switchTab('cap2',this)">2 · Perfil onboarding</button>
     <button class="tab-btn" onclick="switchTab('sintesis',this)">Síntesis Cap. 1–2</button>
     <button class="tab-btn" onclick="switchTab('cap3',this)">3 · Churn retenidos</button>
+    <button class="tab-btn" onclick="switchTab('slide',this)">▶ Slides</button>
   </div>
 </div>
 
@@ -172,6 +173,102 @@
 
 
 
+<div id="tab-slide" class="tab-panel">
+<div style="background:#f0f0f0;padding:24px;display:flex;justify-content:center;align-items:flex-start;min-height:680px">
+<div style="width:1100px;height:620px;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.12);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;font-family:'Segoe UI',Arial,sans-serif;padding:22px 32px 16px;gap:12px;box-sizing:border-box">
+
+  <!-- HEADER -->
+  <div style="flex-shrink:0">
+    <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#FFB700;margin-bottom:4px">Por qué optimizamos por onboarding</div>
+    <div style="display:flex;align-items:baseline;gap:16px">
+      <div style="font-size:16px;font-weight:700;color:#1a1a2e;line-height:1.2;flex:1">A partir de <strong>5 transacciones en 90 días</strong> se instala el hábito y la retención se sitúa en un nivel saludable</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+      <div style="flex:1;height:2px;background:#FFB700"></div>
+      <div style="background:#f0f4ff;border:1px solid #c0cef0;border-radius:4px;padding:5px 12px;font-size:10px;color:#1a2a7a;white-space:nowrap"><span style="color:#999;font-weight:400">Def · </span><strong>Onboarded</strong> = 5+ compras en los primeros 90 días desde la primera compra ever</div>
+    </div>
+  </div>
+
+  <!-- COMPARATIVA -->
+  <div style="display:grid;grid-template-columns:1fr 2.2fr;gap:12px;flex-shrink:0">
+
+    <!-- Onboarded -->
+    <div style="background:#f0f4ff;border-radius:6px;padding:12px 16px;border:1px solid #c0cef0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;text-align:center">
+      <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#1a2a7a">✓ Onboarded · 5+ órd/90d</div>
+      <div style="font-size:9px;color:#6a7abf;font-weight:600">8.7% de buyers</div>
+      <div style="font-size:11px;font-weight:600;color:#555;margin-top:4px">Retención 91–120d</div>
+      <div style="font-size:40px;font-weight:900;color:#1a2a7a;line-height:1">65%</div>
+      <div style="margin-top:6px;font-size:8px;color:#1a2a7a;line-height:1.4;text-align:center"><strong>Cupones:</strong> Llega a 5 órdenes con solo 5–11% de uso de cupón.</div>
+    </div>
+
+    <!-- No onboarded -->
+    <div style="background:#fff5f5;border-radius:6px;padding:12px 16px;border:1px solid #f0c0c0">
+      <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#c0392b;margin-bottom:8px">✗ No onboarded · 1–4 órdenes en 90 días</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+        <script>
+        var noOnb2=[
+          {l:'1 orden',s:'58.1% buyers',ret:'10.5%'},
+          {l:'2 órdenes',s:'20.1% buyers',ret:'23.6%'},
+          {l:'3 órdenes',s:'8.7% buyers',ret:'34.4%'},
+          {l:'4 órdenes',s:'4.4% buyers',ret:'44.2%'}
+        ];
+        noOnb2.forEach(function(d,i){
+          var bg='rgba(192,57,43,'+(0.06+i*0.04)+')';
+          document.write(
+            '<div style="background:'+bg+';border-radius:4px;padding:8px 6px;text-align:center">'+
+            '<div style="font-size:10px;font-weight:700;color:#c0392b;margin-bottom:2px">'+d.l+'</div>'+
+            '<div style="font-size:8px;color:#c09090;margin-bottom:4px">'+d.s+'</div>'+
+            '<div style="font-size:11px;font-weight:600;color:#555;margin-bottom:2px">Retención 91–120d</div>'+
+            '<div style="font-size:20px;font-weight:900;color:#c0392b">'+d.ret+'</div>'+
+            '</div>'
+          );
+        });
+        </script>
+      </div>
+      <div style="margin-top:6px;font-size:8px;color:#c0392b;line-height:1.4"><strong>Cupones:</strong> No onboarded necesita 15–22% de uso de cupón para llegar a su 5ª orden vs 5–11% de onboarded.</div>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTS -->
+  <div style="flex-shrink:0">
+    <div style="font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;margin-bottom:8px">El onboarded construye hábito real — no puntual</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+
+      <div style="background:#fafafa;border-radius:5px;padding:10px 14px;border-left:3px solid #FFB700">
+        <div style="font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">Cadencia orgánica</div>
+        <div style="font-size:20px;font-weight:900;color:#1a1a2e;line-height:1.1">12-14 <span style="font-size:11px;font-weight:600">días</span></div>
+        <div style="font-size:9px;color:#bbb;margin-top:2px">entre compras desde el día 1 · vs 44d (2 órd.)</div>
+      </div>
+
+      <div style="background:#fafafa;border-radius:5px;padding:10px 14px;border-left:3px solid #FFB700">
+        <div style="font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">Tipos de comida</div>
+        <div style="font-size:20px;font-weight:900;color:#1a1a2e;line-height:1.1">~2.7 <span style="font-size:11px;font-weight:600">distintos</span></div>
+        <div style="font-size:9px;color:#bbb;margin-top:2px">en 90 días · señal de exploración real</div>
+      </div>
+
+      <div style="background:#fafafa;border-radius:5px;padding:10px 14px;border-left:3px solid #FFB700">
+        <div style="font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">Días de semana</div>
+        <div style="font-size:20px;font-weight:900;color:#1a1a2e;line-height:1.1">~4.4 <span style="font-size:11px;font-weight:600">sobre 7</span></div>
+        <div style="font-size:9px;color:#bbb;margin-top:2px">días distintos · uso integrado a la rutina</div>
+      </div>
+
+      <div style="background:#fafafa;border-radius:5px;padding:10px 14px;border-left:3px solid #FFB700">
+        <div style="font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">Marcas distintas en 90d</div>
+        <div style="font-size:20px;font-weight:900;color:#1a1a2e;line-height:1.1">~4.4 <span style="font-size:11px;font-weight:600">marcas</span></div>
+        <div style="font-size:9px;color:#bbb;margin-top:2px">restaurantes distintos en los que compró</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTNOTE -->
+  <div style="flex-shrink:0;border-top:1px solid #eee;padding-top:6px;font-size:8px;color:#ccc;line-height:1.4;margin-top:auto">
+    Fuente: BT_PROXIMITY_SHIPMENTS_DETAILED · Cohorte: nuevos buyers ever jun–ago 2025 · N = 336.099 buyers · Ventana: 90 días rodantes desde la primera compra · Retención medida entre días 91 y 120
+  </div>
+
+</div>
+</div>
+</div>
 <div id="tab-cap1" class="tab-panel active">
   <!-- CAPÍTULO 1 -->
   <h2><span class="num" style="font-size:0.85rem">CAPÍTULO 1</span> Retención de usuarios nuevos</h2>
