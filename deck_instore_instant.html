@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Instore · Estrategia de Crecimiento</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box }
+body { background:#d0d4e0; font-family:'Segoe UI',Arial,sans-serif; display:flex; align-items:center; justify-content:center; height:100vh }
+.deck { transform:scale(0.78); transform-origin:center center; }
+.deck { display:flex; flex-direction:column; box-shadow:0 8px 40px rgba(0,0,0,.2); border-radius:12px; overflow:hidden }
+.nav { width:1100px; background:#1a2a4a; padding:10px 24px; display:flex; align-items:center; gap:16px }
+.nav-btn { width:30px; height:30px; border:none; border-radius:50%; background:rgba(255,255,255,.15); color:#fff; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center }
+.nav-btn:hover { background:rgba(255,255,255,.3) }
+.nav-btn:disabled { background:rgba(255,255,255,.05); color:rgba(255,255,255,.2); cursor:default }
+.dots { flex:1; display:flex; justify-content:center; gap:8px }
+.dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.3); cursor:pointer; transition:all .2s }
+.dot.active { background:#FFB700; width:20px; border-radius:4px }
+.counter { font-size:11px; color:rgba(255,255,255,.5); font-weight:700; min-width:40px; text-align:right }
+.slides { width:1100px; height:580px; overflow:hidden; background:#fff; position:relative }
+.slide { position:absolute; inset:0; display:none; flex-direction:column }
+.slide.active { display:flex }
+
+/* Header */
+.s-hdr { background:#1a2a4a; padding:13px 32px; flex-shrink:0; display:flex; align-items:center; justify-content:space-between }
+.s-hdr .tag { font-size:8.5px; font-weight:700; color:rgba(255,255,255,.4); letter-spacing:1.5px; text-transform:uppercase }
+.s-hdr .title { font-size:16px; font-weight:900; color:#fff; margin-top:2px }
+
+/* Body: left + right */
+.s-body { flex:1; display:flex; overflow:hidden }
+.s-left { flex:1; padding:14px 24px; display:flex; flex-direction:column; gap:8px; overflow:hidden }
+.s-right { width:220px; background:#f8f9fa; border-left:1px solid #eee; padding:12px 14px; display:flex; flex-direction:column; gap:7px; flex-shrink:0 }
+
+/* Left content */
+.concept { display:flex; flex-direction:column; gap:10px }
+.concept-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#aaa; margin-bottom:2px }
+.bullet { display:flex; gap:10px; align-items:flex-start }
+.bullet-dot { width:6px; height:6px; border-radius:50%; background:#1a2a4a; flex-shrink:0; margin-top:6px }
+.bullet-dot.orange { background:#c06000 }
+.bullet-dot.green  { background:#1a7a3a }
+.bullet-dot.yellow { background:#c09000 }
+.bullet p { font-size:11px; color:#333; line-height:1.6 }
+.bullet p strong { color:#1a2a4a }
+.bullet p em { color:#c06000; font-style:normal; font-weight:700 }
+
+.divider { height:1px; background:#eee; margin:4px 0 }
+
+/* Caminos (slide 1) */
+.caminos { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px }
+.camino { border-radius:7px; padding:8px 12px; border:1.5px solid #eee }
+.camino.highlight { border-color:#1a7a3a; background:#f0fff4 }
+.camino-label { font-size:8px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:#999; margin-bottom:6px }
+.camino.highlight .camino-label { color:#1a7a3a }
+.camino-title { font-size:11px; font-weight:700; color:#333; margin-bottom:6px }
+.camino-desc { font-size:9.5px; color:#666; line-height:1.5 }
+.camino-tag { display:inline-block; margin-top:8px; font-size:8px; font-weight:700; padding:3px 8px; border-radius:4px }
+.camino-tag.red { background:#ffebee; color:#c0392b }
+.camino-tag.green { background:#c8e6c9; color:#1a7a3a }
+
+/* Right boxes */
+.kpi-box { background:#fff; border-radius:7px; padding:7px 10px; border:1px solid #eee }
+.kpi-box .k-label { font-size:7.5px; color:#aaa; font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px }
+.kpi-box .k-val { font-size:20px; font-weight:900; line-height:1 }
+.kpi-box .k-sub { font-size:8px; color:#888; margin-top:3px; line-height:1.4 }
+.kpi-box.highlight { background:#fff8f0; border-color:#e8c080 }
+.kpi-box.green { background:#e8f5e9; border-color:#a5d6a7 }
+.kpi-box.navy { background:#1a2a4a; border-color:#1a2a4a }
+.kpi-box.navy .k-label { color:rgba(255,255,255,.5) }
+.kpi-box.navy .k-val { color:#fff }
+.kpi-box.navy .k-sub { color:rgba(255,255,255,.5) }
+.ref-title { font-size:7.5px; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:1px }
+</style>
+</head>
+<body>
+<div class="deck">
+<div class="nav">
+  <button class="nav-btn" id="prev" onclick="go(-1)">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <span class="counter" id="counter"></span>
+  <button class="nav-btn" id="next" onclick="go(1)">&#8594;</button>
+</div>
+<div class="slides">
+
+<!-- ══════════════════ SLIDE 0: CARÁTULA ══════════════════ -->
+<div class="slide active" id="s0">
+  <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a2a4a 0%,#0d1a30 60%,#1a3a2a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;position:relative;overflow:hidden">
+    <!-- Fondo decorativo -->
+    <div style="position:absolute;top:-80px;right:-80px;width:360px;height:360px;border-radius:50%;background:rgba(255,183,0,.06)"></div>
+    <div style="position:absolute;bottom:-60px;left:-60px;width:280px;height:280px;border-radius:50%;background:rgba(26,122,58,.08)"></div>
+    <!-- Chip superior -->
+    <div style="background:rgba(255,183,0,.15);border:1px solid rgba(255,183,0,.4);border-radius:20px;padding:5px 16px;font-size:9px;font-weight:700;color:#FFB700;letter-spacing:2px;text-transform:uppercase">MercadoLibre · Quick Commerce · Growth</div>
+    <!-- Título principal -->
+    <div style="text-align:center">
+      <div style="font-size:38px;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1.1">Instore <span style="color:#FFB700">Instant</span></div>
+      <div style="font-size:16px;font-weight:400;color:rgba(255,255,255,.55);margin-top:8px;letter-spacing:.5px">Estrategia de lanzamiento · Octubre 2026</div>
+    </div>
+    <!-- Divisor -->
+    <div style="width:60px;height:2px;background:linear-gradient(90deg,#FFB700,#1a7a3a);border-radius:2px"></div>
+    <!-- Chip inferior -->
+    <div style="font-size:10px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase">Growth · Julio 2026</div>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 1: HOY + TARGET + CAMINOS ══════════════════ -->
+<div class="slide" id="s1">
+  <div class="s-hdr">
+    <div><div class="tag">Instore · Estrategia de Crecimiento</div><div class="title">Dónde estamos y a dónde queremos llegar</div></div>
+  </div>
+  <div class="s-body">
+    <div class="s-left">
+
+      <div class="concept">
+        <div class="concept-title">Punto de partida · Junio 2026</div>
+        <div class="bullet"><div class="bullet-dot"></div><p>Instore tiene hoy <strong>4.044 buyers activos</strong> que generan <strong>5.124 purchases por mes</strong> con una frecuencia media de 1,27 órdenes por buyer.</p></div>
+        <div class="bullet"><div class="bullet-dot"></div><p>En <strong>octubre 2026</strong> el canal migra a <strong>entrega instant</strong> — con ese cambio de modelo el target de diciembre crece significativamente.</p></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="concept">
+        <div class="concept-title">Target · Diciembre 2026</div>
+        <div class="bullet"><div class="bullet-dot orange"></div><p>El objetivo es llegar a <em>23.000 purchases por mes</em> — un crecimiento de 4,5x.</p></div>
+        <div class="bullet"><div class="bullet-dot orange"></div><p>Hay <strong>tres caminos</strong> para llegar ahí:</p></div>
+      </div>
+
+      <!-- Caminos 1 y 2 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="camino">
+          <div class="camino-label">Camino 1</div>
+          <div class="camino-title">Solo adquisición</div>
+          <div class="camino-desc">Mantener frecuencia en 1,27 y escalar buyers a 18.110 activos (×4,5 vs hoy).</div>
+          <span class="camino-tag red">No sustentable</span>
+        </div>
+        <div class="camino">
+          <div class="camino-label">Camino 2</div>
+          <div class="camino-title">Solo frecuencia</div>
+          <div class="camino-desc">Mantener 4.044 buyers y subir la frecuencia media a 5,7 órdenes por mes.</div>
+          <span class="camino-tag red">No realista</span>
+        </div>
+      </div>
+
+      <!-- FLECHAS EVOLUCIÓN -->
+      <div style="background:#f8f9fa;border-radius:8px;padding:8px 14px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:7.5px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.8px">◀ Corto plazo</span>
+          <span style="font-size:7.5px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.8px">Mediano plazo ▶</span>
+        </div>
+        <div style="margin-bottom:4px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:8px;font-weight:700;color:#1a4a8a;width:130px;flex-shrink:0">Adquisición</span>
+          <div style="flex:1;height:18px;background:#1a4a8a;clip-path:polygon(0 0, 100% 25%, 100% 75%, 0 100%);opacity:.85"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:8px;font-weight:700;color:#1a7a3a;width:130px;flex-shrink:0">Frecuencia y retención</span>
+          <div style="flex:1;height:18px;background:#1a7a3a;clip-path:polygon(0 25%, 100% 0, 100% 100%, 0 75%);opacity:.85"></div>
+        </div>
+      </div>
+
+      <!-- Camino 3 -->
+      <div class="camino highlight">
+        <div class="camino-label">Camino 3 · El plan ✓</div>
+        <div class="camino-title">Adquisición + retención</div>
+        <div class="camino-desc">Trabajar en paralelo en generación de tráfico y en mejorar la retención. Estimación inicial: <strong>~15.000 buyers activos × ~1,56 ord/mes</strong>.</div>
+        <span class="camino-tag green">A definir según inversión posible</span>
+      </div>
+
+    </div>
+    <div class="s-right">
+      <div class="ref-title">Números clave</div>
+      <div class="kpi-box">
+        <div class="k-label">Purchases hoy (jun-26)</div>
+        <div class="k-val" style="color:#1a2a4a">5.124</div>
+        <div class="k-sub">4.044 buyers × 1,27 ord/mes</div>
+      </div>
+      <div class="kpi-box highlight">
+        <div class="k-label">Target diciembre 2026</div>
+        <div class="k-val" style="color:#c06000">23.000</div>
+        <div class="k-sub">×4,5 vs junio 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 2: LOS 4 PILARES ══════════════════ -->
+<div class="slide" id="s2">
+  <div class="s-hdr">
+    <div><div class="tag">Instore · Estrategia de Crecimiento</div><div class="title">Los cuatro pilares de la estrategia</div></div>
+  </div>
+  <div class="s-body">
+    <div class="s-left" style="gap:16px;justify-content:center">
+
+      <div class="concept">
+        <div class="concept-title" style="font-size:13px;color:#1a2a4a">1 · Awareness y Generación de Tráfico</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="concept">
+        <div class="concept-title" style="font-size:13px;color:#1a2a4a">2 · Retención</div>
+        <div class="bullet"><div class="bullet-dot orange"></div><p>Para que la generación de tráfico sea sustentable, es necesario trabajar en la <strong>retención de esos usuarios</strong>. El objetivo es lograr que la mayor cantidad posible complete <strong>5 compras en sus primeros 90 días</strong>, ya que muestran una tasa de retención mensual significativamente más alta:</p></div>
+        <div style="font-size:7.5px;font-weight:700;color:#aaa;margin:8px 0 3px 16px;text-transform:uppercase;letter-spacing:.5px">Tasa de retención mensual · mes 90–120d</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-left:16px">
+          <div style="background:#e8f5e9;border:1.5px solid #2e7d32;border-radius:7px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:#1a5e20">5+ tx</div>
+            <div style="font-size:17px;font-weight:900;color:#1a5e20;line-height:1.2">62%</div>
+          </div>
+          <div style="background:#f1f8e9;border:1.5px solid #aed581;border-radius:7px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:#388e3c">4 tx</div>
+            <div style="font-size:17px;font-weight:900;color:#388e3c;line-height:1.2">38%</div>
+          </div>
+          <div style="background:#fffde7;border:1.5px solid #ffd54f;border-radius:7px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:#c07000">3 tx</div>
+            <div style="font-size:17px;font-weight:900;color:#c07000;line-height:1.2">30%</div>
+          </div>
+          <div style="background:#fff5ee;border:1.5px solid #ff8a65;border-radius:7px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:#d84315">2 tx</div>
+            <div style="font-size:17px;font-weight:900;color:#d84315;line-height:1.2">15%</div>
+          </div>
+          <div style="background:#fff0f0;border:1.5px solid #e57373;border-radius:7px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:#c62828">1 tx</div>
+            <div style="font-size:17px;font-weight:900;color:#c62828;line-height:1.2">5%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="concept">
+        <div class="concept-title" style="font-size:13px;color:#1a2a4a">3 · Frecuencia</div>
+        <div class="bullet"><div class="bullet-dot"></div><p>Los usuarios retenidos que logran las 5 transacciones parten de una <strong>frecuencia mensual más alta</strong> (2,32 órd/mes vs ~1,3 de los no graduados). A partir de ese piso, se puede trabajar para mejorar aún más su frecuencia de uso y profundizar el hábito de compra.</p></div>
+        <div style="font-size:7.5px;font-weight:700;color:#aaa;margin:8px 0 3px 16px;text-transform:uppercase;letter-spacing:.5px">Frecuencia mensual · mes 90–120d · entre los que retuvieron</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-left:16px">
+          <div style="background:#e8f5e9;border:1.5px solid #2e7d32;border-radius:7px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:#1a5e20">5+ tx</div>
+            <div style="font-size:17px;font-weight:900;color:#1a5e20;line-height:1.2">2,32</div>
+          </div>
+          <div style="background:#f1f8e9;border:1.5px solid #aed581;border-radius:7px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:#388e3c">4 tx</div>
+            <div style="font-size:17px;font-weight:900;color:#388e3c;line-height:1.2">1,43</div>
+          </div>
+          <div style="background:#fffde7;border:1.5px solid #ffd54f;border-radius:7px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:#c07000">3 tx</div>
+            <div style="font-size:17px;font-weight:900;color:#c07000;line-height:1.2">1,43</div>
+          </div>
+          <div style="background:#fff5ee;border:1.5px solid #ff8a65;border-radius:7px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:#d84315">2 tx</div>
+            <div style="font-size:17px;font-weight:900;color:#d84315;line-height:1.2">1,29</div>
+          </div>
+          <div style="background:#fff0f0;border:1.5px solid #e57373;border-radius:7px;padding:6px 4px;text-align:center">
+            <div style="font-size:8px;font-weight:700;color:#c62828">1 tx</div>
+            <div style="font-size:17px;font-weight:900;color:#c62828;line-height:1.2">1,13</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="concept">
+        <div class="concept-title" style="font-size:13px;color:#1a2a4a">4 · Cross-sell al ecosistema QC</div>
+        <div class="bullet"><div class="bullet-dot green"></div><p>Con usuarios retenidos en Instore, activamos <strong>cross-sell a Food</strong> — y eventualmente a <strong>Pharma y GM</strong>. El trigger es la graduación: un usuario que instaló el hábito en un canal es candidato natural a los otros. El objetivo final es el <strong>usuario de Quick Commerce</strong> que compra en múltiples canales del ecosistema.</p></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 3: FUNNEL FRAMEWORK ══════════════════ -->
+<div class="slide" id="s3">
+  <div class="s-hdr">
+    <div><div class="tag">Instore · Estrategia de Crecimiento</div><div class="title">Full Funnel Strategy</div></div>
+  </div>
+  <div class="s-body" style="padding:10px 14px;display:block;overflow:hidden">
+    <div style="display:flex;flex-direction:column;gap:3px;height:100%">
+
+      <!-- HEADER -->
+      <div style="display:grid;grid-template-columns:68px repeat(8,1fr);gap:3px;flex-shrink:0">
+        <div></div>
+        <div style="background:#1a2a4a;color:#fff;font-size:9px;font-weight:800;border-radius:5px;padding:7px 4px;text-align:center;line-height:1.3">Awareness</div>
+        <div style="background:#1a2a4a;color:#fff;font-size:9px;font-weight:800;border-radius:5px;padding:7px 4px;text-align:center;line-height:1.3">Consideration &amp; Trial</div>
+        <div style="background:#c06000;color:#fff;font-size:9px;font-weight:800;border-radius:5px;padding:7px 4px;text-align:center;line-height:1.3;grid-column:span 3">Onboarding · 90 días desde primera compra</div>
+        <div style="background:#1a7a3a;color:#fff;font-size:9px;font-weight:800;border-radius:5px;padding:7px 4px;text-align:center;line-height:1.3">Fidelización</div>
+        <div style="background:#555;color:#fff;font-size:9px;font-weight:800;border-radius:5px;padding:7px 4px;text-align:center;line-height:1.3;grid-column:span 2">Recupero &amp; Prevención de Churn</div>
+      </div>
+
+      <!-- MACRO OBJETIVO -->
+      <div style="display:grid;grid-template-columns:68px repeat(8,1fr);gap:3px;flex-shrink:0">
+        <div></div>
+        <div style="background:#1a2a4a;border-radius:4px;padding:5px 4px;font-size:9px;font-weight:700;color:#fff;text-align:center;display:flex;align-items:center;justify-content:center;line-height:1.3;grid-column:span 2">Lograr Primera Compra</div>
+        <div style="background:#c06000;border-radius:4px;padding:5px 4px;font-size:9px;font-weight:700;color:#fff;text-align:center;display:flex;align-items:center;justify-content:center;line-height:1.3;grid-column:span 3">Retención</div>
+        <div style="background:#1a7a3a;border-radius:4px;padding:5px 4px;font-size:9px;font-weight:700;color:#fff;text-align:center;display:flex;align-items:center;justify-content:center;line-height:1.3">Frecuencia &amp; Cross Sell</div>
+        <div style="background:#d84315;border-radius:4px;padding:5px 4px;font-size:9px;font-weight:700;color:#fff;text-align:center;display:flex;align-items:center;justify-content:center;line-height:1.3">Prevenir Churn</div>
+        <div style="background:#555;border-radius:4px;padding:5px 4px;font-size:9px;font-weight:700;color:#fff;text-align:center;display:flex;align-items:center;justify-content:center;line-height:1.3">Service Recovery</div>
+      </div>
+
+      <!-- USUARIO -->
+      <div style="display:grid;grid-template-columns:68px repeat(8,1fr);gap:3px;flex-shrink:0">
+        <div style="font-size:9px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center">Usuario</div>
+        <div style="background:#eef1f8;border-radius:4px;padding:4px;font-size:9.5px;font-weight:600;color:#1a2a4a;text-align:center;display:flex;align-items:center;justify-content:center;grid-column:span 2">Never Buyer</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:4px;font-size:9.5px;font-weight:600;color:#c06000;text-align:center;display:flex;align-items:center;justify-content:center;grid-column:span 3">New Buyer en Onboarding</div>
+        <div style="background:#e8f5e9;border-radius:4px;padding:4px;font-size:9.5px;font-weight:600;color:#1a7a3a;text-align:center;display:flex;align-items:center;justify-content:center">Graduado Onboarding</div>
+        <div style="background:#fff8f0;border-radius:4px;padding:4px;font-size:9.5px;font-weight:600;color:#d84315;text-align:center;display:flex;align-items:center;justify-content:center">No Graduado Onboarding</div>
+        <div style="background:#f5f5f5;border-radius:4px;padding:4px;font-size:9.5px;font-weight:600;color:#555;text-align:center;display:flex;align-items:center;justify-content:center">Exp. Negativa</div>
+      </div>
+
+      <!-- OBJETIVO -->
+      <div style="display:grid;grid-template-columns:68px repeat(8,1fr);gap:3px;flex:1;min-height:0">
+        <div style="font-size:9px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:flex-start;padding-top:4px">Objetivo</div>
+        <div style="background:#eef1f8;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Dar a conocer Instore Carrefour con entrega en menos de 1h</div>
+        <div style="background:#eef1f8;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Generar motivo concreto para la primera compra</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Asegurar buena 1ª experiencia y motivar 2ª compra</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Consolidar cadencia quincenal (~15d entre compras)</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Alcanzar 5+ compras en 90d — hábito formado</div>
+        <div style="background:#e8f5e9;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Mantener hábito · ampliar basket y categorías</div>
+        <div style="background:#fff8f0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Reactivar cadencia de compra antes de caer en Deep Churn</div>
+        <div style="background:#f5f5f5;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Resolver problema y recuperar confianza del buyer</div>
+      </div>
+
+      <!-- MENSAJE -->
+      <div style="display:grid;grid-template-columns:68px repeat(8,1fr);gap:3px;flex:1;min-height:0">
+        <div style="font-size:9px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:flex-start;padding-top:4px">Mensaje</div>
+        <div style="background:#eef1f8;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Carrefour en Meli · recibís en menos de 1h · como ir al súper sin salir</div>
+        <div style="background:#eef1f8;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Precio competitivo · comodidad · primera compra sin riesgo</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">¿Cómo te fue? · Volvé a pedir · oferta para próxima compra</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Tu súper quincenal · te recordamos · novedades en tus categorías</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Seguís comprando · cadencia sugerida ~15d</div>
+        <div style="background:#e8f5e9;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Exclusivo para vos · descubrí nuevas categorías</div>
+        <div style="background:#fff8f0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Extrañamos tu pedido · tenés un descuento esperándote</div>
+        <div style="background:#f5f5f5;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Lo que pasó no debería ocurrir · lo resolvemos · compensación</div>
+      </div>
+
+      <!-- CANAL -->
+      <div style="display:grid;grid-template-columns:68px repeat(8,1fr);gap:3px;flex:1.4;min-height:0">
+        <div style="font-size:9px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:flex-start;padding-top:4px">Canal</div>
+        <div style="background:#eef1f8;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">POM · Push · Sliders · Audiencias MP×Carrefour · DOOH · ADS · Afiliados</div>
+        <div style="background:#eef1f8;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Contenedor home · Promo entrada · Site merch segmentado · ADS</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Push 24-48hs post-compra · Cupón 2ª compra · ADS</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Push ~15d · Personalización historial · Recordatorio contextual · ADS</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Push cadenciado ~15d · Progreso onboarding · Personalización categorías · ADS</div>
+        <div style="background:#e8f5e9;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Push · MeLi+ · Promo frecuencia · Calendario comercial · No pierdas la racha · Invita a un amigo</div>
+        <div style="background:#fff8f0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Push reactivación · Cupón descuento · "No pedís hace X días" · Cart recovery</div>
+        <div style="background:#f5f5f5;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Crédito / reenvío inmediato · Push Email resolución · Seguimiento post-incidente · Cupón cart recovery</div>
+      </div>
+
+      <!-- MÉTRICA -->
+      <div style="display:grid;grid-template-columns:68px repeat(8,1fr);gap:3px;flex:1;min-height:0">
+        <div style="font-size:9px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:flex-start;padding-top:4px">Métrica</div>
+        <div style="background:#eef1f8;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Alcance · CTR contenedores · Sessions desde canal</div>
+        <div style="background:#eef1f8;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Conversión 1ª compra · CTR promos · Visitas desde campaña</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Tasa 2ª compra · Días 1ª-2ª · NPS post 1ª compra</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Frecuencia mensual · Días entre compras (target ~15d) · % llega a 3ª compra</div>
+        <div style="background:#fff3e0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">% llega a 5+ en 90d · Días entre compras · GMV en 90d</div>
+        <div style="background:#e8f5e9;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Retención mensual · GMV/buyer · Ticket promedio · Churn rate</div>
+        <div style="background:#fff8f0;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">Tasa de reactivación · % pasa a Soft vs Deep Churn · Días promedio sin comprar</div>
+        <div style="background:#f5f5f5;border-radius:4px;padding:7px 8px;font-size:9px;color:#333;line-height:1.55;overflow:hidden">% vuelve post-recupero · NPS post-incidente · Tiempo de resolución</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ SLIDE 4: LIFECYCLE FLOW ══════════════════ -->
+<div class="slide" id="s4">
+  <div class="s-hdr">
+    <div><div class="tag">Instore · Estrategia de Crecimiento</div><div class="title">Buyer Lifecycle</div></div>
+  </div>
+  <div class="s-body" style="padding:0;position:relative;overflow:hidden">
+
+
+    <!-- SVG arrows -->
+    <svg style="position:absolute;inset:0;pointer-events:none;z-index:2" width="1100" height="540">
+      <defs>
+        <marker id="arr"  markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#aaa"/></marker>
+        <marker id="arr-o" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#c06000"/></marker>
+        <marker id="arr-g" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#1a7a3a"/></marker>
+        <marker id="arr-n" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5z" fill="#1a2a4a"/></marker>
+      </defs>
+      <!-- Never Buyer → Onboarding -->
+      <line x1="210" y1="214" x2="229" y2="214" stroke="#aaa" stroke-width="1.8" marker-end="url(#arr)"/>
+      <!-- Onboarding → Graduated -->
+      <line x1="452" y1="120" x2="469" y2="120" stroke="#1a7a3a" stroke-width="1.8" marker-end="url(#arr-g)"/>
+      <!-- Onboarding → Not Graduated -->
+      <line x1="452" y1="216" x2="469" y2="216" stroke="#c06000" stroke-width="1.8" marker-end="url(#arr-o)"/>
+      <!-- Graduated → Active Grad -->
+      <line x1="621" y1="120" x2="640" y2="120" stroke="#1a7a3a" stroke-width="1.8" marker-end="url(#arr-g)"/>
+      <!-- Not Graduated → Active NoGrad -->
+      <line x1="621" y1="216" x2="640" y2="216" stroke="#c06000" stroke-width="1.8" marker-end="url(#arr-o)"/>
+      <!-- Active Grad → Freq QC -->
+      <line x1="800" y1="120" x2="819" y2="120" stroke="#1a7a3a" stroke-width="1.8" marker-end="url(#arr-g)"/>
+      <!-- Active NoGrad → Prev Churn (vertical) -->
+      <line x1="798" y1="216" x2="820" y2="216" stroke="#c06000" stroke-width="1.8" marker-end="url(#arr-o)"/>
+      <!-- Deep Churn re-onboarding (dashed navy) -->
+      <path d="M 432 479 L 348 479 L 348 381" fill="none" stroke="#1a2a4a" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-n)"/>
+
+      <!-- Onboarding → Not Active -->
+      <line x1="452" y1="312" x2="469" y2="312" stroke="#aaa" stroke-width="1.8" marker-end="url(#arr)"/>
+      <!-- Not Active → Soft Churn -->
+      <path d="M 617 312 L 700 312 L 700 397" fill="none" stroke="#bbb" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+      <!-- Soft Churn → Deep Churn -->
+      <path d="M 632 417 L 515 417 L 515 458" fill="none" stroke="#bbb" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+            <text x="268" y="493" font-size="7" fill="#1a2a4a" font-style="italic" font-family="Segoe UI,Arial,sans-serif" y="457">nueva ventana 90d · re-onboarding</text>
+    </svg>
+
+    <!-- NEVER BUYER -->
+    <div style="position:absolute;left:118px;top:185px;width:90px;height:58px;background:#f0f0f0;border:1.5px solid #ccc;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1">
+      <div style="font-size:11px;font-weight:700;color:#555">Never Buyer</div>
+    </div>
+
+    <!-- ONBOARDING (90d) -->
+    <div style="position:absolute;left:230px;top:53px;width:220px;height:328px;background:rgba(255,255,255,.95);border:2.5px dashed #1a2a4a;border-radius:14px;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 16px">
+      <div style="font-size:12px;font-weight:800;color:#1a2a4a;margin-bottom:18px">Onboarding (90d)</div>
+      <div style="font-size:7.5px;color:#1a2a4a;font-weight:600;margin-bottom:8px;align-self:flex-start">onboarding_active ≤30d</div>
+      <div style="display:flex;align-items:center;align-self:stretch;justify-content:center;margin-bottom:6px">
+        <div style="width:13px;height:13px;border-radius:50%;background:#1a2a4a;flex-shrink:0"></div>
+        <div style="flex:1;height:2px;background:#1a2a4a"></div>
+        <div style="width:13px;height:13px;border-radius:50%;background:#1a2a4a;flex-shrink:0"></div>
+        <div style="flex:1;height:2px;background:#1a2a4a"></div>
+        <div style="width:13px;height:13px;border-radius:50%;background:#1a2a4a;flex-shrink:0"></div>
+        <div style="flex:1;height:2px;background:#1a2a4a"></div>
+        <div style="width:13px;height:13px;border-radius:50%;background:#1a2a4a;flex-shrink:0"></div>
+        <div style="flex:1;height:2px;background:#2e7d32"></div>
+        <div style="width:15px;height:15px;border-radius:50%;background:#1a7a3a;box-shadow:0 0 0 2px #fff,0 0 0 4px #1a7a3a;flex-shrink:0"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-self:stretch;padding:0 3px;margin-bottom:16px">
+        <span style="font-size:7px;color:#555">1tx</span>
+        <span style="font-size:7px;color:#555">2tx</span>
+        <span style="font-size:7px;color:#555">3tx</span>
+        <span style="font-size:7px;color:#555">4tx</span>
+        <span style="font-size:7px;color:#1a7a3a;font-weight:700">5tx</span>
+      </div>
+    </div>
+
+    <!-- GRADUATED -->
+    <div style="position:absolute;left:470px;top:91px;width:148px;height:58px;background:#e8f5e9;border:2px solid #2e7d32;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1">
+      <div style="font-size:12px;font-weight:800;color:#1a5e20">Graduated</div>
+      <div style="font-size:8.5px;color:#388e3c;margin-top:3px">≥ 5tx en 90d</div>
+    </div>
+
+    <!-- NOT GRADUATED -->
+    <div style="position:absolute;left:470px;top:187px;width:148px;height:58px;background:#fff8f0;border:2px solid #c06000;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1">
+      <div style="font-size:12px;font-weight:800;color:#c06000">Not Graduated</div>
+      <div style="font-size:8.5px;color:#c07000;margin-top:3px">&lt; 5tx en 90d</div>
+    </div>
+
+    <!-- ACTIVE · GRADUADOS -->
+    <div style="position:absolute;left:642px;top:75px;width:156px;height:90px;background:#d4edda;border:2px solid #1a7a3a;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;padding:8px 10px">
+      <div style="font-size:11px;font-weight:800;color:#1a5e20">Active · Graduados</div>
+      <div style="font-size:7.5px;color:#388e3c;margin-top:4px">última compra &lt;30d</div>
+      <div style="width:80%;height:1px;background:rgba(26,122,58,.25);margin:5px 0"></div>
+      <div style="font-size:8px;color:#1a5e20">Casual · Core · Power</div>
+    </div>
+
+    <!-- ACTIVE · NO GRADUADOS -->
+    <div style="position:absolute;left:642px;top:171px;width:156px;height:90px;background:#fff3e0;border:2px solid #c06000;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1;padding:8px 10px">
+      <div style="font-size:11px;font-weight:800;color:#c06000">Active · No Grad.</div>
+      <div style="font-size:7.5px;color:#c07000;margin-top:4px">última compra &lt;30d</div>
+    </div>
+
+    <!-- NOT ACTIVE -->
+    <div style="position:absolute;left:469px;top:283px;width:148px;height:58px;background:#f0f0f0;border:1.5px solid #999;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1">
+      <div style="font-size:10px;font-weight:700;color:#666">Not Active</div>
+      <div style="font-size:7.5px;color:#999;margin-top:2px">última compra &gt;30d</div>
+    </div>
+
+    <!-- SOFT CHURN -->
+    <div style="position:absolute;left:632px;top:397px;width:168px;height:44px;background:#fff8e1;border:1.5px solid #f9a825;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1">
+      <div style="font-size:10px;font-weight:700;color:#e65100">Soft Churn</div>
+      <div style="font-size:7.5px;color:#f57c00;margin-top:1px">31–60 días sin comprar</div>
+    </div>
+
+    <!-- DEEP CHURN -->
+    <div style="position:absolute;left:432px;top:458px;width:166px;height:42px;background:#f5f5f5;border:1.5px solid #bbb;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1">
+      <div style="font-size:10px;font-weight:700;color:#777">Deep Churn</div>
+      <div style="font-size:7.5px;color:#aaa;margin-top:1px">&gt; 60 días sin comprar</div>
+    </div>
+
+    <!-- FRECUENCIA + CROSS-SELL -->
+    <div style="position:absolute;left:820px;top:87px;width:154px;height:66px;background:#e8f5e9;border:2px solid #1a7a3a;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1;padding:8px 12px">
+      <div style="font-size:9.5px;font-weight:700;color:#1a5e20;line-height:1.5">Mejorar frecuencia + Cross-sell a Food</div>
+    </div>
+
+    <!-- PREVENCIÓN DE CHURN -->
+    <div style="position:absolute;left:820px;top:183px;width:154px;height:66px;background:#fff8f0;border:2px solid #c06000;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1;padding:8px 12px">
+      <div style="font-size:9.5px;font-weight:700;color:#c06000;line-height:1.5">Prevención de churn</div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<!-- ══════════════════ SLIDE 5: PRÓXIMOS PASOS ══════════════════ -->
+<div class="slide" id="s5">
+  <div class="s-hdr">
+    <div><div class="tag">Instore · Estrategia de Crecimiento</div><div class="title">Próximos pasos</div></div>
+  </div>
+  <div class="s-body" style="align-items:center;justify-content:center;gap:24px;padding:40px 60px">
+
+    <div style="display:flex;flex-direction:column;gap:20px;width:100%;max-width:780px">
+
+      <div style="display:flex;align-items:flex-start;gap:20px;background:#eef1f8;border-radius:12px;padding:24px 28px;border-left:4px solid #1a2a4a">
+        <div style="width:36px;height:36px;border-radius:50%;background:#1a2a4a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:900;color:#fff">1</div>
+        <div>
+          <div style="font-size:14px;font-weight:800;color:#1a2a4a;margin-bottom:6px">Reunión con equipo de Marketing y Site Merch</div>
+          <div style="font-size:11px;color:#555;line-height:1.7">Bajar a detalle el Gantt de activaciones por etapa del funnel — fechas, owners, assets necesarios y dependencias entre canales.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:20px;background:#e8f5e9;border-radius:12px;padding:24px 28px;border-left:4px solid #1a7a3a">
+        <div style="width:36px;height:36px;border-radius:50%;background:#1a7a3a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:900;color:#fff">2</div>
+        <div>
+          <div style="font-size:14px;font-weight:800;color:#1a5e20;margin-bottom:6px">Reunión con equipo de Producto</div>
+          <div style="font-size:11px;color:#555;line-height:1.7">Construir los flujos recurrentes de retención y frecuencia — lógicas de segmentación, triggers automáticos y cadencias de comunicación post-onboarding.</div>
+          <div style="font-size:11px;color:#555;line-height:1.7;margin-top:6px">Definir la secuencia de touchpoints durante los primeros 90 días y después de la graduación — mensajes, tiempos, canales y criterios de avance entre etapas.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div><!-- /slides -->
+</div><!-- /deck -->
+
+<script>
+var slides=document.querySelectorAll('.slide');
+var cur=0;
+var dotsEl=document.getElementById('dots');
+slides.forEach(function(_,i){
+  var d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=function(){jumpTo(i);};
+  dotsEl.appendChild(d);
+});
+function jumpTo(n){
+  slides[cur].classList.remove('active');
+  dotsEl.children[cur].classList.remove('active');
+  cur=Math.max(0,Math.min(n,slides.length-1));
+  slides[cur].classList.add('active');
+  dotsEl.children[cur].classList.add('active');
+  document.getElementById('counter').textContent=(cur+1)+'/'+slides.length;
+  document.getElementById('prev').disabled=cur===0;
+  document.getElementById('next').disabled=cur===slides.length-1;
+}
+function go(d){jumpTo(cur+d);}
+jumpTo(0);
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' ')go(1);
+  if(e.key==='ArrowLeft')go(-1);
+});
+</script>
+</body>
+</html>
