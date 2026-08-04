@@ -267,11 +267,11 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div class="note">Ordenes generadas desde VIPs con promesa instant</div>
       </div>
 
-      <!-- Fila 4: CVR instant vs no-instant -->
+      <!-- Fila 4: CVR comparativo por método -->
       <div class="card full">
-        <div class="card-title">CVR instant vs no-instant · mismo seller · mismos items</div>
+        <div class="card-title">CVR por método de envío · evolución semanal (VIP → orden)</div>
         <canvas id="chartCvrComp" style="max-height:160px"></canvas>
-        <div class="note">Comparativa CVR cuando el item muestra promesa instant vs cuando no la muestra · mismo item y seller · zona optima</div>
+        <div class="note">Instant consistentemente lidera CVR · vs same day, next day y standard · sellers optineados MLB · Jun-Jul 2026</div>
       </div>
 
     </div>
@@ -399,10 +399,30 @@ function initVipsCharts(){
     }}]
   });
 
-  // Placeholders pendientes
-  ['chartOrders','chartCvrComp'].forEach(function(id){
-    var el=document.getElementById(id); if(!el)return;
-    new Chart(el,{type:'bar',data:{labels:wkLabels,datasets:[{data:[null,null,null,null,null,null,null,null],backgroundColor:'rgba(26,122,58,0.3)'}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{font:{size:9}}},x:{ticks:{font:{size:9}}}}}});
+  // Placeholder ordenes
+  var elOrd=document.getElementById('chartOrders'); if(elOrd)
+    new Chart(elOrd,{type:'bar',data:{labels:wkLabels,datasets:[{data:[null,null,null,null,null,null,null,null],backgroundColor:'rgba(26,122,58,0.3)'}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{font:{size:9}}},x:{ticks:{font:{size:9}}}}}});
+
+  // CVR comparativo por método · datos reales W24-W31
+  new Chart(document.getElementById('chartCvrComp'),{
+    type:'line',
+    data:{
+      labels:wkLabels,
+      datasets:[
+        {label:'Instant',       data:[4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01], borderColor:'#1a7a3a', backgroundColor:'transparent', pointBackgroundColor:'#1a7a3a', pointRadius:4, tension:0.3, borderWidth:2.5},
+        {label:'Same day',      data:[5.29,4.92,5.30,6.40,5.69,5.85,5.87,5.77], borderColor:'#1565c0', backgroundColor:'transparent', pointBackgroundColor:'#1565c0', pointRadius:4, tension:0.3, borderDash:[4,3], borderWidth:1.5},
+        {label:'Next day',      data:[5.24,5.10,4.90,5.79,5.82,5.63,5.08,5.10], borderColor:'#f59e0b', backgroundColor:'transparent', pointBackgroundColor:'#f59e0b', pointRadius:4, tension:0.3, borderDash:[4,3], borderWidth:1.5},
+        {label:'Standard',      data:[2.17,2.22,2.12,2.39,2.43,2.25,2.18,2.33], borderColor:'#ccc',    backgroundColor:'transparent', pointBackgroundColor:'#ccc',    pointRadius:3, tension:0.3, borderDash:[2,4], borderWidth:1}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:12,usePointStyle:true}}},
+      scales:{
+        y:{beginAtZero:true, ticks:{callback:function(v){return v+'%'},font:{size:9}}, grid:{color:'#eee'}},
+        x:{ticks:{font:{size:9}}, grid:{display:false}}
+      }
+    }
   });
 }
 var sw=['W24','W25','W26','W27','W28','W29','W30','W31'];
