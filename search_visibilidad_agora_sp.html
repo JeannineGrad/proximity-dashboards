@@ -428,13 +428,28 @@ function initVipsCharts(){
         y:{stacked:true, max:100, ticks:{callback:function(v){return v+'%'}, font:{size:9}}, grid:{color:'#eee'}}
       }
     },
-    plugins:[{id:'compTop',afterDatasetsDraw:function(chart){
+    plugins:[{id:'compLabels',afterDatasetsDraw:function(chart){
       var ctx=chart.ctx;
+      // Etiqueta total arriba del stack
       chart.getDatasetMeta(0).data.forEach(function(bar,i){
         ctx.save();
-        ctx.fillStyle='#333'; ctx.font='bold 8px Segoe UI,Arial,sans-serif'; ctx.textAlign='center';
-        ctx.fillText(compTot[i]+' ord', bar.x, chart.scales.y.getPixelForValue(100)-6);
+        ctx.fillStyle='#555'; ctx.font='bold 8px Segoe UI,Arial,sans-serif'; ctx.textAlign='center';
+        ctx.fillText(compTot[i]+' ord', bar.x, chart.scales.y.getPixelForValue(100)-5);
         ctx.restore();
+      });
+      // Etiqueta % dentro de cada segmento
+      chart.data.datasets.forEach(function(ds,di){
+        var meta=chart.getDatasetMeta(di);
+        if(meta.hidden) return;
+        meta.data.forEach(function(bar,i){
+          var val=ds.data[i];
+          if(val<8) return; // no mostrar si muy pequeño
+          ctx.save();
+          ctx.fillStyle='#fff'; ctx.font='bold 8px Segoe UI,Arial,sans-serif'; ctx.textAlign='center';
+          ctx.textBaseline='middle';
+          ctx.fillText(val+'%', bar.x, bar.y + (bar.height||bar.base-bar.y)/2);
+          ctx.restore();
+        });
       });
     }}]
   });
