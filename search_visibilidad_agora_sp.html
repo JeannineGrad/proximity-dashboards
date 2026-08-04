@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Visibilidad Agora en Search · SP</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box }
+body { font-family:'Segoe UI',Arial,sans-serif; background:#eef0f5; padding:20px; display:flex; justify-content:center }
+.wrap { width:1100px }
+.tabs { display:flex; background:#1a2a4a; border-radius:10px 10px 0 0; overflow:hidden }
+.tab  { padding:11px 22px; font-size:10px; font-weight:700; cursor:pointer; color:rgba(255,255,255,.5); border-right:1px solid rgba(255,255,255,.1); transition:.15s }
+.tab.active { background:rgba(255,255,255,.12); color:#fff }
+.tab:hover:not(.active) { background:rgba(255,255,255,.06); color:rgba(255,255,255,.8) }
+.panel { background:#fff; border-radius:0 0 10px 10px; box-shadow:0 8px 40px rgba(0,0,0,.15); display:none }
+.panel.active { display:block }
+.hdr { background:#1a2a4a; padding:14px 32px; display:flex; align-items:center; justify-content:space-between }
+.hdr-title { font-size:16px; font-weight:900; color:#fff }
+.hdr-tag { font-size:8.5px; font-weight:700; color:rgba(255,255,255,.4); letter-spacing:1.5px; text-transform:uppercase }
+.body { padding:20px 24px; display:grid; grid-template-columns:1fr 1fr; gap:16px }
+.card { background:#f8f9fa; border-radius:10px; padding:16px; border:1px solid #e8eaef }
+.card.full { grid-column:1/-1 }
+.card-title { font-size:10px; font-weight:800; color:#1a2a4a; text-transform:uppercase; letter-spacing:.8px; margin-bottom:12px }
+.kpi-row { display:flex; gap:12px; margin-bottom:14px }
+.kpi { background:#fff; border-radius:8px; padding:10px 14px; border:1px solid #e0e4ee; flex:1; text-align:center }
+.kpi-val { font-size:22px; font-weight:900; color:#1a2a4a; line-height:1.1 }
+.kpi-lbl { font-size:8px; color:#888; margin-top:3px }
+.kpi-sub { font-size:8px; color:#aaa; margin-top:2px }
+.kpi.green .kpi-val { color:#1a7a3a }
+.kpi.orange .kpi-val { color:#c06000 }
+.note { font-size:8px; color:#bbb; margin-top:10px; font-style:italic }
+canvas { max-height:200px }
+.tpanel { padding:20px 24px }
+.tpanel-title { font-size:11px; font-weight:800; color:#1a2a4a; text-transform:uppercase; letter-spacing:.8px; margin-bottom:14px; padding-bottom:8px; border-bottom:2px solid #e8eaef }
+table.dt { width:100%; border-collapse:collapse; font-size:9px }
+table.dt th { background:#1a2a4a; color:#fff; padding:7px 10px; text-align:left; font-weight:700 }
+table.dt td { padding:5px 10px; border-bottom:1px solid #f0f0f0 }
+table.dt tr:hover td { background:#f0f4ff !important }
+/* Consistent column widths in all weekly breakdown tables */
+#weekly-breakdown table,
+#weekly-breakdown-21 table { table-layout:fixed; width:100% }
+#weekly-breakdown table th:first-child,
+#weekly-breakdown-21 table th:first-child { width:200px; text-align:left }
+#weekly-breakdown table th:not(:first-child),
+#weekly-breakdown-21 table th:not(:first-child) { width:95px; text-align:center }
+#weekly-breakdown table td:first-child,
+#weekly-breakdown-21 table td:first-child { overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+#weekly-breakdown table td:not(:first-child),
+#weekly-breakdown-21 table td:not(:first-child) { text-align:center }
+/* Distribution table alignment */
+#dist-table-wrap table { table-layout:fixed; width:100% }
+#dist-table-wrap table th:first-child { width:90px }
+#dist-table-wrap table th:nth-child(2) { width:80px }
+#dist-table-wrap table th:not(:first-child):not(:nth-child(2)) { width:95px; text-align:center }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('charts')">Search · Visibilidad</div>
+    <div class="tab" onclick="showTab('vips')">VIPs · Conversion <span style="font-size:9px;background:#f59e0b;color:#fff;padding:1px 5px;border-radius:3px;margin-left:4px;font-weight:600">WIP</span></div>
+    <div class="tab" onclick="showTab('sellers')">Sellers</div>
+    <div class="tab" onclick="showTab('topdoms')">Dominios mejor posicion</div>
+    <div class="tab" onclick="showTab('botdoms')">Dominios peor posicion</div>
+  </div>
+
+  <div id="panel-charts" class="panel active">
+    <div class="hdr">
+      <div>
+        <div class="hdr-tag">GM Agora SP · Visibilidad en Search · Jun-Jul 2026</div>
+        <div class="hdr-title">Evolucion de busquedas instant en MercadoLibre Brasil</div>
+      </div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4)">Fuente: BT_SEARCH_2_0_step_search_v7 · Lun-Vie</div>
+    </div>
+    <div class="body">
+      <div class="card full">
+        <div class="kpi-row">
+          <div class="kpi green"><div class="kpi-val">99.031</div><div class="kpi-lbl">Busquedas instant W31 (27-31 jul)</div><div class="kpi-sub">semana 8-12 jun a 27-31 jul 2026</div></div>
+          <div class="kpi"><div class="kpi-val">0,023%</div><div class="kpi-lbl">Share sobre total busquedas MLB · W31</div></div>
+          <div class="kpi"><div class="kpi-val">15,9</div><div class="kpi-lbl">Posicion media primer instant W31</div></div>
+        </div>
+      </div>
+      <!-- FILA 2: Instant + Penetración -->
+      <div class="card"><div class="card-title">Busquedas instant por semana</div><canvas id="chartInstant"></canvas><div class="note">Busquedas unicas (tracking_id) con al menos 1 resultado instant · MLB total</div></div>
+      <div class="card"><div class="card-title">Penetracion sobre total busquedas Brasil</div><canvas id="chartShare"></canvas><div class="note">Share % = instant / total busquedas MLB · fuente: equipo Search · promedio dias habiles por semana · excluye anomalias</div></div>
+
+      <!-- FILA 3: Sellers + Pareto -->
+      <div class="card">
+        <div class="card-title">Sellers con visibilidad instant · por semana</div>
+        <canvas id="chartSellers"></canvas>
+        <div class="note">Sellers unicos con al menos 1 aparicion instant en search · MLB total</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Concentracion · sellers que hacen el 80% de apariciones</div>
+        <canvas id="chartPareto"></canvas>
+        <div class="note">% de sellers que acumulan el 80% de las apariciones instant · entre 40-45% semana a semana</div>
+      </div>
+
+      <!-- FILA 4: Posicion + Distribución -->
+      <div class="card"><div class="card-title">Posicion media del primer resultado instant</div><canvas id="chartPos"></canvas><div class="note">Promedio de posicion minima instant por busqueda · metodologia equipo Search</div></div>
+      <div class="card">
+        <div class="card-title">Distribucion por rango de posicion (%)</div>
+        <canvas id="chartDist"></canvas>
+        <div class="note">% de apariciones por rango · Pos 21+ crece de 37% a 44%</div>
+      </div>
+
+      <!-- FILA 5: Densidad instant en SERP -->
+      <div class="card full">
+        <div class="card-title">Densidad de resultados Agora en los primeros 20 resultados de search · W31</div>
+        <div style="display:flex;gap:20px;align-items:flex-start">
+          <div style="flex:0 0 320px">
+            <canvas id="chartDensidad" style="max-height:180px"></canvas>
+          </div>
+          <div style="flex:1;padding-top:8px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div style="background:#e8f5e9;border-radius:8px;padding:10px 14px;border:2px solid #1a7a3a">
+                <div style="font-size:18px;font-weight:900;color:#1a7a3a">66,3%</div>
+                <div style="font-size:8px;color:#888;margin-top:2px">busquedas con al menos 1 Agora en top 20</div>
+              </div>
+              <div style="background:#fde8e8;border-radius:8px;padding:10px 14px;border:1px solid #f5c6c6">
+                <div style="font-size:18px;font-weight:900;color:#c0392b">33,7%</div>
+                <div style="font-size:8px;color:#888;margin-top:2px">busquedas sin Agora en top 20 (instant debajo pos 20)</div>
+              </div>
+              <div style="background:#e8f5e9;border-radius:8px;padding:10px 14px;border:1px solid #a5d6a7;border-left:3px solid #1a7a3a">
+                <div style="font-size:7px;color:#1a7a3a;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">de ese 66,3%</div>
+                <div style="font-size:18px;font-weight:900;color:#1a5e20">~2,4</div>
+                <div style="font-size:8px;color:#888;margin-top:2px">resultados Agora promedio en top 20</div>
+              </div>
+              <div style="background:#e8f5e9;border-radius:8px;padding:10px 14px;border:1px solid #a5d6a7;border-left:3px solid #1a7a3a">
+                <div style="font-size:7px;color:#1a7a3a;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">de ese 66,3%</div>
+                <div style="font-size:18px;font-weight:900;color:#1a5e20">~10,6%</div>
+                <div style="font-size:8px;color:#888;margin-top:2px">de los primeros 20 resultados son Agora</div>
+              </div>
+            </div>
+            <div style="font-size:7.5px;color:#bbb;margin-top:10px;font-style:italic">W31 (27-31 jul) · busquedas MLB con al menos 1 resultado instant</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="dist-table-wrap" style="display:none"></div><div id="weekly-breakdown" style="display:none"></div><div id="weekly-breakdown-21" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- VIPs & CONVERSION PANEL -->
+  <div id="panel-vips" class="panel">
+    <div class="hdr">
+      <div>
+        <div class="hdr-tag">GM Agora SP · VIPs y Conversion · Jun-Jul 2026</div>
+        <div class="hdr-title">Evolucion de VIPs instant y conversion en MercadoLibre Brasil</div>
+      </div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4)">Fuente: DM_SHP_TRACKS_VIP_CONVERTION · Lun-Vie</div>
+    </div>
+    <div class="body">
+
+      <!-- KPIs -->
+      <div class="card full">
+        <div class="kpi-row">
+          <div class="kpi green"><div class="kpi-val" id="kv-vips">—</div><div class="kpi-lbl">VIPs instant W31</div></div>
+          <div class="kpi"><div class="kpi-val" id="kv-cvr">—</div><div class="kpi-lbl">CVR VIP → orden W31</div></div>
+          <div class="kpi"><div class="kpi-val" id="kv-orders">—</div><div class="kpi-lbl">Ordenes desde instant W31</div></div>
+        </div>
+        <div style="font-size:8px;color:#bbb;text-align:center;margin-top:-4px">Pendiente datos · correr queries de VIPs</div>
+      </div>
+
+      <!-- Fila 2: VIPs + CVR evolutivo -->
+      <div class="card">
+        <div class="card-title">VIPs instant por semana</div>
+        <canvas id="chartVips"></canvas>
+        <div class="note">VIPs con promesa instant · zona optima · Jun-Jul 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-title">CVR instant por semana (VIP → orden)</div>
+        <canvas id="chartCvr"></canvas>
+        <div class="note">Conversion rate instant · % de VIPs que generan orden</div>
+      </div>
+
+      <!-- Fila 3: Sellers + Ordenes -->
+      <div class="card">
+        <div class="card-title">Sellers con VIPs instant · por semana</div>
+        <canvas id="chartVipSellers"></canvas>
+        <div class="note">Sellers unicos con VIPs de promesa instant en zona</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Ordenes desde VIPs instant · por semana</div>
+        <canvas id="chartOrders"></canvas>
+        <div class="note">Ordenes generadas desde VIPs con promesa instant</div>
+      </div>
+
+      <!-- Fila 4: CVR instant vs no-instant -->
+      <div class="card full">
+        <div class="card-title">CVR instant vs no-instant · mismo seller · mismos items</div>
+        <canvas id="chartCvrComp" style="max-height:160px"></canvas>
+        <div class="note">Comparativa CVR cuando el item muestra promesa instant vs cuando no la muestra · mismo item y seller · zona optima</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="panel-sellers" class="panel">
+    <div class="tpanel">
+      <div class="tpanel-title">Sellers optineados · apariciones en search instant · Jun-Jul 2026</div>
+      <div style="font-size:8px;color:#aaa;margin-bottom:8px">Click en el encabezado de una columna para ordenar</div>
+      <table class="dt" id="sellers-table">
+        <thead>
+          <tr>
+            <th style="width:40px">#</th>
+            <th>Seller</th>
+            <th style="width:110px;text-align:right;cursor:pointer" onclick="sortSellers('aparic')" id="th-aparic">Total aparic. ↕</th>
+            <th style="width:90px;text-align:right;cursor:pointer" onclick="sortSellers('top5abs')" id="th-top5abs">Aparic. pos 1-5 ↕</th>
+            <th style="width:80px;text-align:center;cursor:pointer" onclick="sortSellers('pct')" id="th-pct">% Top 5 ↕</th>
+            <th style="width:80px;text-align:center">Pos. media</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-sellers"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="panel-topdoms" class="panel">
+    <div class="tpanel">
+      <div class="tpanel-title">Dominios · posicionamiento instant · Jun-Jul 2026</div>
+      <div style="font-size:8px;color:#aaa;margin-bottom:8px">Click en el encabezado para ordenar · Vista: mayor % en posicion 1-5</div>
+      <table class="dt" id="top-table">
+        <thead><tr>
+          <th style="width:40px">#</th><th>Dominio</th>
+          <th style="width:90px;text-align:right;cursor:pointer" onclick="sortDom('top','aparic')">Total aparic. ↕</th>
+          <th style="width:90px;text-align:right;cursor:pointer" onclick="sortDom('top','top5abs')">Aparic. pos 1-5 ↕</th>
+          <th style="width:70px;text-align:center;cursor:pointer" onclick="sortDom('top','pct5')">% Top 5 ↕</th>
+          <th style="width:80px;text-align:center;cursor:pointer" onclick="sortDom('top','pct21')">% Pos 21+ ↕</th>
+          <th style="width:80px;text-align:center">Pos. media</th>
+        </tr></thead>
+        <tbody id="tbody-top"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="panel-botdoms" class="panel">
+    <div class="tpanel">
+      <div class="tpanel-title">Dominios · posicionamiento instant · Jun-Jul 2026</div>
+      <div style="font-size:8px;color:#aaa;margin-bottom:8px">Click en el encabezado para ordenar · Vista: mayor % en posicion 21+</div>
+      <table class="dt" id="bot-table">
+        <thead><tr>
+          <th style="width:40px">#</th><th>Dominio</th>
+          <th style="width:90px;text-align:right;cursor:pointer" onclick="sortDom('bot','aparic')">Total aparic. ↕</th>
+          <th style="width:90px;text-align:right;cursor:pointer" onclick="sortDom('bot','top5abs')">Aparic. pos 1-5 ↕</th>
+          <th style="width:70px;text-align:center;cursor:pointer" onclick="sortDom('bot','pct5')">% Top 5 ↕</th>
+          <th style="width:80px;text-align:center;cursor:pointer" onclick="sortDom('bot','pct21')">% Pos 21+ ↕</th>
+          <th style="width:80px;text-align:center">Pos. media</th>
+        </tr></thead>
+        <tbody id="tbody-bot"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showTab(name){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('panel-'+name).classList.add('active');
+  var m={charts:0,vips:1,sellers:2,topdoms:3,botdoms:4};
+  document.querySelectorAll('.tab')[m[name]].classList.add('active');
+}
+// Placeholder charts for VIPs tab
+['chartVips','chartCvr','chartVipSellers','chartOrders','chartCvrComp'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  new Chart(el,{type:'bar',data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],
+    datasets:[{data:[null,null,null,null,null,null,null,null],backgroundColor:'rgba(26,122,58,0.3)'}]},
+    options:{responsive:true,plugins:{legend:{display:false}},
+      scales:{y:{beginAtZero:true,ticks:{font:{size:9}}},x:{ticks:{font:{size:9}}}}}});
+});
+var sw=['W24','W25','W26','W27','W28','W29','W30','W31'];
+var wowPct=[null,'+147%','+45%','-16%','+55%','+3%','+40%','+30%'];
+new Chart(document.getElementById('chartInstant'),{
+  type:'bar',
+  data:{labels:sw,datasets:[{data:[11430,28272,40941,34285,53006,54654,76450,99031],backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
+  options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:function(v){return v>=1000?Math.round(v/1000)+'K':v},font:{size:9}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}},
+  plugins:[{id:'wowLabels',afterDatasetsDraw:function(chart){
+    var ctx=chart.ctx;
+    chart.getDatasetMeta(0).data.forEach(function(bar,i){
+      if(wowPct[i]){
+        ctx.save();
+        ctx.fillStyle=wowPct[i].startsWith('-')?'#c0392b':'#1a7a3a';
+        ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';
+        ctx.textAlign='center';
+        ctx.fillText(wowPct[i],bar.x,bar.y-6);
+        ctx.restore();
+      }
+    });
+  }}]
+});
+var posData=[12.6,13.6,14.5,15.4,15.1,14.3,15.8,15.9];
+new Chart(document.getElementById('chartPos'),{type:'line',data:{labels:sw,datasets:[{data:posData,borderColor:'#c06000',backgroundColor:'rgba(192,96,0,0.08)',pointBackgroundColor:'#c06000',pointRadius:5,tension:0.3,fill:true}]},options:{responsive:true,layout:{padding:{top:18}},plugins:{legend:{display:false}},scales:{y:{min:8,max:22,ticks:{font:{size:9}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}},plugins:[{id:'posLabels',afterDatasetsDraw:function(chart){var ctx=chart.ctx;chart.getDatasetMeta(0).data.forEach(function(pt,i){ctx.save();ctx.fillStyle='#c06000';ctx.font='bold 8px Segoe UI,Arial';ctx.textAlign='center';ctx.fillText(posData[i],pt.x,pt.y-8);ctx.restore();});}}]});
+
+new Chart(document.getElementById('chartSellers'),{
+  type:'bar',
+  data:{labels:sw,datasets:[{
+    label:'Sellers con visibilidad instant',
+    data:[5,11,27,28,40,54,73,77],
+    backgroundColor:'rgba(26,122,58,0.75)',
+    borderRadius:4
+  }]},
+  options:{responsive:true,layout:{padding:{top:18}},
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{ticks:{font:{size:9}},grid:{display:false}},
+      y:{beginAtZero:true,ticks:{font:{size:9},stepSize:10},grid:{color:'#eee'},
+         title:{display:true,text:'sellers unicos',font:{size:8},color:'#aaa'}}
+    }
+  },
+  plugins:[{id:'sellersLabels',afterDatasetsDraw:function(chart){
+    var ctx=chart.ctx;
+    var wow=[null,'+120%','+145%','+4%','+43%','+35%','+35%','+5%'];
+    chart.getDatasetMeta(0).data.forEach(function(bar,i){
+      var v=chart.data.datasets[0].data[i];
+      ctx.save();
+      ctx.fillStyle='#1a2a4a';ctx.font='bold 8.5px Segoe UI,Arial';ctx.textAlign='center';
+      ctx.fillText(v,bar.x,bar.y-14);
+      if(wow[i]){ctx.fillStyle='#1a7a3a';ctx.font='8px Segoe UI,Arial';ctx.fillText(wow[i],bar.x,bar.y-4);}
+      ctx.restore();
+    });
+  }}]
+});
+// Pareto: % sellers que hacen el 80% de apariciones por semana
+var paretoAbs=[3,5,11,12,16,23,32,35];
+new Chart(document.getElementById('chartPareto'),{
+  type:'line',
+  data:{labels:sw,datasets:[{
+    label:'% sellers top 80%',
+    data:[60,45,41,43,40,43,44,45],
+    borderColor:'#c06000',backgroundColor:'rgba(192,96,0,0.08)',
+    pointBackgroundColor:'#c06000',pointRadius:5,tension:0.3,fill:true
+  }]},
+  options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
+    scales:{
+      y:{min:0,max:100,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'},
+         title:{display:true,text:'% del total de sellers',font:{size:8},color:'#aaa'}},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }
+  },
+  plugins:[{id:'paretoLabels',afterDatasetsDraw:function(chart){
+    var ctx=chart.ctx;
+    chart.getDatasetMeta(0).data.forEach(function(pt,i){
+      ctx.save();
+      ctx.fillStyle='#1a2a4a';
+      ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';
+      ctx.textAlign='center';
+      var pct=[60,45,41,43,40,43,44,45];
+      ctx.fillText(paretoAbs[i],pt.x,pt.y-18);
+      ctx.font='8px Segoe UI,Arial,sans-serif';
+      ctx.fillStyle='#888';
+      ctx.fillText('('+pct[i]+'%)',pt.x,pt.y-8);
+      ctx.restore();
+    });
+  }}]
+});
+
+// Share % = instant / total MLB
+var shareData=[0.0025,0.0062,0.0092,0.0091,0.0128,0.0121,0.0176,0.0233];
+new Chart(document.getElementById('chartShare'),{
+  type:'line',
+  data:{labels:sw,datasets:[{
+    label:'Share instant / total MLB',
+    data:shareData,
+    borderColor:'#1a2a4a',backgroundColor:'rgba(26,42,74,0.07)',
+    pointBackgroundColor:shareData.map(function(v){return v?'#1a2a4a':'#ccc';}),
+    pointRadius:5,tension:0.3,fill:true,spanGaps:false
+  }]},
+  options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
+    scales:{
+      y:{beginAtZero:true,ticks:{callback:function(v){return v.toFixed(4)+'%'},font:{size:9},stepSize:0.005},grid:{color:'#eee'}},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }
+  },
+  plugins:[{id:'shareLabels',afterDatasetsDraw:function(chart){
+    var ctx=chart.ctx;
+    chart.getDatasetMeta(0).data.forEach(function(pt,i){
+      if(shareData[i]===null){
+        ctx.save();ctx.fillStyle='#ccc';ctx.font='8px Segoe UI,Arial';ctx.textAlign='center';
+        ctx.fillText('pendiente',pt.x,pt.y-8);ctx.restore();
+      } else {
+        ctx.save();ctx.fillStyle='#1a2a4a';ctx.font='bold 8px Segoe UI,Arial';ctx.textAlign='center';
+        ctx.fillText(shareData[i].toFixed(4)+'%',pt.x,pt.y-10);ctx.restore();
+      }
+    });
+  }}]
+});
+
+// Densidad instant en SERP (W31 only for now)
+new Chart(document.getElementById('chartDensidad'),{
+  type:'bar',
+  data:{labels:['0 instant','1 instant','2 instant','3 instant','4 instant','5+ instant'],
+    datasets:[{
+      data:[33.7,32,12.8,5.9,4,11.6],
+      backgroundColor:['#e63946','#f9c74f','#a3d977','#1a7a3a','#1a7a3a','#1a2a4a'],
+      borderRadius:4
+    }]
+  },
+  options:{responsive:true,layout:{padding:{top:32}},plugins:{legend:{display:false},
+    tooltip:{callbacks:{label:function(c){return c.parsed.y+'%';}}}},
+    scales:{
+      y:{ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}},
+      x:{ticks:{font:{size:8}},grid:{display:false}}
+    }
+  },
+  plugins:[{id:'densLabels',afterDatasetsDraw:function(chart){
+    var ctx=chart.ctx;
+    var frac=['','1/20 = 5%','2/20 = 10%','3/20 = 15%','4/20 = 20%','5+/20 = 25%+'];
+    chart.getDatasetMeta(0).data.forEach(function(bar,i){
+      var v=chart.data.datasets[0].data[i];
+      ctx.save();
+      ctx.fillStyle='#333';ctx.font='bold 8px Segoe UI,Arial';ctx.textAlign='center';
+      ctx.fillText(v+'%',bar.x,bar.y-14);
+      if(frac[i]){
+        ctx.fillStyle='#888';ctx.font='7px Segoe UI,Arial';
+        ctx.fillText(frac[i],bar.x,bar.y-5);
+      }
+      ctx.restore();
+    });
+  }}]
+});
+
+// Add labels to position average chart
+var distAbs={
+  p1:[7674,11658,17433,13069,21980,24526,27464,37772],
+  p2:[7376,11013,15655,10970,18188,20080,24768,34947],
+  p3:[6193,8849,13184,9455,16590,17180,21935,30511],
+  p4:[6332,11131,16167,12295,19836,18048,25653,35513],
+  p5:[16356,23994,39451,29285,52141,47634,77117,109203]
+};
+var distTotals=[43931,66645,101890,75074,128735,127468,176937,247946];
+new Chart(document.getElementById('chartDist'),{type:'bar',data:{labels:sw,datasets:[
+  {label:'Pos 1-5', data:[17.4,17.4,17.1,17.2,17.2,19.5,15.7,15.2],backgroundColor:'#1a7a3a',borderWidth:0},
+  {label:'Pos 6-10',data:[16.9,16.8,15.4,14.9,14.3,16.0,14.0,14.1],backgroundColor:'#a3d977',borderWidth:0},
+  {label:'Pos 11-15',data:[13.9,13.2,12.9,12.7,12.9,13.4,12.3,12.3],backgroundColor:'#f9c74f',borderWidth:0},
+  {label:'Pos 16-20',data:[14.6,16.6,15.9,16.3,15.6,14.1,14.3,14.3],backgroundColor:'#f77f00',borderWidth:0},
+  {label:'Pos 21+',data:[37.2,36.0,38.7,38.9,40.1,37.1,43.7,44.0],backgroundColor:'#e63946',borderWidth:0}
+]},options:{responsive:true,plugins:{legend:{position:'right',labels:{font:{size:9},boxWidth:12}},tooltip:{callbacks:{label:function(ctx){var abs=distAbs['p'+(ctx.datasetIndex+1)][ctx.dataIndex];return ctx.dataset.label+': '+ctx.parsed.y+'% ('+abs.toLocaleString('es')+' aparic.)';}}}},scales:{x:{stacked:true,ticks:{font:{size:9}},grid:{display:false}},y:{stacked:true,max:100,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}}}},
+plugins:[{id:'distLabels',afterDatasetsDraw:function(chart){
+  var ctx=chart.ctx;
+  chart.data.datasets.forEach(function(ds,di){
+    var meta=chart.getDatasetMeta(di);
+    var txtColor=di<=1?'#fff':(di===2?'#333':'#fff');
+    meta.data.forEach(function(bar,i){
+      var v=ds.data[i];
+      if(v<10)return;
+      var h=bar.base-bar.y;
+      if(h<14)return;
+      ctx.save();
+      ctx.fillStyle=txtColor;
+      ctx.font='bold 8px Segoe UI,Arial,sans-serif';
+      ctx.textAlign='center';
+      ctx.fillText(v+'%',bar.x,bar.y+h/2+3);
+      ctx.restore();
+    });
+  });
+}}]});
+
+// Distribution table: buckets as rows, weeks as columns
+(function(){
+  var pct={p1:[17.4,17.4,17.1,17.2,17.2,19.5,15.7,15.5],p2:[16.9,16.8,15.4,14.9,14.3,16.0,14.0,14.2],p3:[13.9,13.2,12.9,12.7,12.9,13.4,12.3,12.2],p4:[14.6,16.6,15.9,16.3,15.6,14.1,14.3,14.1],p5:[37.2,36.0,38.7,38.9,40.1,37.1,43.7,44.1]};
+  var buckets=[{k:'p1',lbl:'Pos 1-5',c:'#1a7a3a'},{k:'p2',lbl:'Pos 6-10',c:'#5a9a10'},{k:'p3',lbl:'Pos 11-15',c:'#c09000'},{k:'p4',lbl:'Pos 16-20',c:'#e07000'},{k:'p5',lbl:'Pos 21+',c:'#c0392b'}];
+  var periods=['8-12 jun','15-19 jun','22-26 jun','29 jun-3 jul','6-10 jul','13-17 jul','20-24 jul','27-31 jul'];
+  var s='<table style="width:100%;border-collapse:collapse;font-size:8.5px"><thead><tr style="background:#f0f2f7"><th style="padding:5px 8px;text-align:left;font-weight:700;color:#333;border-bottom:2px solid #dde">Posicion</th>';
+  sw.forEach(function(w,i){s+='<th style="padding:5px 8px;text-align:center;font-weight:700;color:#1a2a4a;border-bottom:2px solid #dde">'+w+'<br><span style="font-weight:400;color:#aaa;font-size:7.5px">'+periods[i]+'</span></th>';});
+  s+='<th style="padding:5px 8px;text-align:right;font-weight:700;color:#555;border-bottom:2px solid #dde">Total</th></tr></thead><tbody>';
+  // Total row first
+  s+='<tr style="background:#1a2a4a"><td style="padding:4px 8px;font-weight:700;color:#fff">TOTAL</td>';
+  distTotals.forEach(function(t){s+='<td style="padding:4px 8px;text-align:center;font-weight:700;color:#FFB700">'+t.toLocaleString('es')+'</td>';});
+  s+='<td style="padding:4px 8px;text-align:right;font-weight:700;color:#FFB700">'+distTotals.reduce(function(a,b){return a+b;},0).toLocaleString('es')+'</td></tr>';
+  buckets.forEach(function(b,bi){
+    var bg=bi%2===0?'#fafafa':'#fff';
+    s+='<tr style="background:'+bg+'"><td style="padding:4px 8px;font-weight:700;color:'+b.c+'">'+b.lbl+'</td>';
+    var tot=0;
+    pct[b.k].forEach(function(p,i){var a=distAbs[b.k][i];tot+=a;s+='<td style="padding:4px 8px;text-align:center"><b>'+a.toLocaleString('es')+'</b><br><span style="color:#aaa;font-size:7.5px">'+p+'%</span></td>';});
+    s+='<td style="padding:4px 8px;text-align:right;font-weight:700">'+tot.toLocaleString('es')+'</td></tr>';
+  });
+  s+='<tr style="background:#1a2a4a"><td style="padding:4px 8px;font-weight:700;color:#fff">TOTAL</td>';
+  distTotals.forEach(function(t){s+='<td style="padding:4px 8px;text-align:center;font-weight:700;color:#FFB700">'+t.toLocaleString("es")+'</td>';});
+  s+='<td style="padding:4px 8px;text-align:right;font-weight:700;color:#FFB700">'+distTotals.reduce(function(a,b){return a+b;},0).toLocaleString("es")+'</td></tr>';
+  s+='</tbody></table>';
+  document.getElementById('dist-table-wrap').innerHTML=s;
+// Weekly breakdown sellers and domains in pos 1-5
+var weeklyLabels={'2026-W24':'W24','2026-W25':'W25','2026-W26':'W26','2026-W27':'W27','2026-W28':'W28','2026-W29':'W29','2026-W30':'W30','2026-W31':'W31'};
+var weeklySellers={'2026-W24':[{nome:'SONNIC SOUND CENTER',abs:2165},{nome:'BLUE MONKEY',abs:2042},{nome:'WOMAN VILLAGE FASHION',abs:1576},{nome:'ENJOY PETS LTDA',abs:454}],'2026-W25':[{nome:'SONNIC SOUND CENTER',abs:2924},{nome:'WOMAN VILLAGE FASHION',abs:1958},{nome:'BLUE MONKEY',abs:1784},{nome:'PRECOLANDIA',abs:1369},{nome:'ROBY LUSTRES',abs:1293}],'2026-W26':[{nome:'PRECOLANDIA',abs:5603},{nome:'SONNIC SOUND CENTER',abs:2010},{nome:'BLUE MONKEY',abs:1299},{nome:'WOMAN VILLAGE FASHION',abs:1279},{nome:'ROBY LUSTRES',abs:1118}],'2026-W27':[{nome:'PRECOLANDIA',abs:4387},{nome:'BRASILPHONE',abs:1800},{nome:'BLUE MONKEY',abs:979},{nome:'RCA HOME TECH LTDA',abs:949},{nome:'ANGEL  ELETRONICOS & INFORMATICA LTDA',abs:907}],'2026-W28':[{nome:'PRECOLANDIA',abs:4714},{nome:'DIGEL',abs:2919},{nome:'COMPRA CERTA COMERCIAL LTDA',abs:2805},{nome:'BRASILPHONE',abs:2146},{nome:'CASA DAS GRIFFES STORE',abs:2035}],'2026-W29':[{nome:'PRECOLANDIA',abs:4685},{nome:'DIGEL',abs:2974},{nome:'CASA DAS GRIFFES STORE',abs:2114},{nome:'ANGEL  ELETRONICOS & INFORMATICA LTDA',abs:1971},{nome:'MODA 2023',abs:1554}],'2026-W30':[{nome:'PRECOLANDIA',abs:5276},{nome:'DIGEL',abs:2401},{nome:'ANGEL  ELETRONICOS & INFORMATICA LTDA',abs:1726},{nome:'CASA DAS GRIFFES STORE',abs:1556},{nome:'SONNIC SOUND CENTER',abs:1549}],'2026-W31':[{nome:'PRECOLANDIA',abs:4347},{nome:'DIGEL',abs:2213},{nome:'ANGEL  ELETRONICOS & INFORMATICA LTDA',abs:2038},{nome:'CASA DAS GRIFFES STORE',abs:1478},{nome:'ABEX IMPORTACAO E DISTRIBUICAO DE PECAS LTDA',abs:1240}],};
+var weeklyDoms={'2026-W24':[{dom:'MLB-SUPPLEMENTS',abs:850},{dom:'MLB-SUITS',abs:446},{dom:'MLB-T_SHIRTS',abs:364},{dom:'MLB-DRESSES',abs:200},{dom:'MLB-JACKETS_AND_COATS',abs:197}],'2026-W25':[{dom:'MLB-SUPPLEMENTS',abs:699},{dom:'MLB-T_SHIRTS',abs:664},{dom:'MLB-FLOOR_CEILING_AND_WALL_LIGHTS',abs:404},{dom:'MLB-JACKETS_AND_COATS',abs:392},{dom:'MLB-TABLE_AND_DESK_LAMPS',abs:368}],'2026-W26':[{dom:'MLB-SUPPLEMENTS',abs:870},{dom:'MLB-TABLE_AND_DESK_LAMPS',abs:548},{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:457},{dom:'MLB-HOSE_ADAPTERS',abs:444},{dom:'MLB-JACKETS_AND_COATS',abs:398}],'2026-W27':[{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:1128},{dom:'MLB-SUPPLEMENTS',abs:856},{dom:'MLB-TABLE_AND_DESK_LAMPS',abs:297},{dom:'MLB-MIRRORS',abs:276},{dom:'MLB-KITCHEN_POTS',abs:275}],'2026-W28':[{dom:'MLB-SNEAKERS',abs:1816},{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:1323},{dom:'MLB-PANTS',abs:926},{dom:'MLB-SUPPLEMENTS',abs:860},{dom:'MLB-SANDALS_AND_CLOGS',abs:759}],'2026-W29':[{dom:'MLB-PANTS',abs:1836},{dom:'MLB-SNEAKERS',abs:1199},{dom:'MLB-SUPPLEMENTS',abs:941},{dom:'MLB-JACKETS_AND_COATS',abs:876},{dom:'MLB-HATS_AND_CAPS',abs:616}],'2026-W30':[{dom:'MLB-SUPPLEMENTS',abs:1790},{dom:'MLB-PANTS',abs:1312},{dom:'MLB-SNEAKERS',abs:1065},{dom:'MLB-T_SHIRTS',abs:811},{dom:'MLB-JACKETS_AND_COATS',abs:580}],'2026-W31':[{dom:'MLB-SUPPLEMENTS',abs:1510},{dom:'MLB-SNEAKERS',abs:881},{dom:'MLB-PANTS',abs:800},{dom:'MLB-T_SHIRTS',abs:526},{dom:'MLB-ELECTRICAL_CABLES',abs:493}],};
+var weekKeys=['2026-W24','2026-W25','2026-W26','2026-W27','2026-W28','2026-W29','2026-W30','2026-W31'];
+var wPeriods=['8-12 jun','15-19 jun','22-26 jun','29jun-3jul','6-10 jul','13-17 jul','20-24 jul','27-31 jul'];
+
+function buildWeeklySection(){
+  var wrap=document.getElementById('weekly-breakdown');
+  // Sellers table
+  var s='<div style="margin-top:20px"><div style="font-size:10px;font-weight:800;color:#1a2a4a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Top 5 sellers en posicion 1-5 · por semana</div>';
+  s+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:8.5px"><thead><tr style="background:#1a2a4a">';
+  s+='<th style="padding:6px 8px;text-align:left;color:#fff;font-weight:700">Seller</th>';
+  weekKeys.forEach(function(w,i){s+='<th style="padding:6px 8px;text-align:center;color:#fff;font-weight:700">'+weeklyLabels[w]+'<br><span style="font-weight:400;font-size:7px;color:rgba(255,255,255,.6)">'+wPeriods[i]+'</span></th>';});
+  s+='</tr></thead><tbody>';
+  // Get all unique seller names across all weeks (top 5 per week)
+  var allSellers={};
+  weekKeys.forEach(function(w){(weeklySellers[w]||[]).forEach(function(r){if(!allSellers[r.nome])allSellers[r.nome]={};allSellers[r.nome][w]=r.abs;});});
+  // Sort sellers by total across all weeks
+  var sellerList=Object.keys(allSellers).sort(function(a,b){
+    var ta=weekKeys.reduce(function(s,w){return s+(allSellers[a][w]||0);},0);
+    var tb=weekKeys.reduce(function(s,w){return s+(allSellers[b][w]||0);},0);
+    return tb-ta;
+  });
+  sellerList.forEach(function(nome,i){
+    var bg=i%2===0?'#fafafa':'#fff';
+    s+='<tr style="background:'+bg+'"><td style="padding:4px 8px;font-weight:600">'+nome+'</td>';
+    weekKeys.forEach(function(w){
+      var v=allSellers[nome][w];
+      s+='<td style="padding:4px 8px;text-align:center'+(v?';font-weight:700;color:#1a7a3a':'')+'">'+( v?v.toLocaleString('es'):'-')+'</td>';
+    });
+    s+='</tr>';
+  });
+  s+='</tbody></table></div>';
+
+  // Domains table
+  s+='<div style="margin-top:20px"><div style="font-size:10px;font-weight:800;color:#1a2a4a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Top 5 dominios en posicion 1-5 · por semana</div>';
+  s+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:8.5px"><thead><tr style="background:#1a2a4a">';
+  s+='<th style="padding:6px 8px;text-align:left;color:#fff;font-weight:700">Dominio</th>';
+  weekKeys.forEach(function(w,i){s+='<th style="padding:6px 8px;text-align:center;color:#fff;font-weight:700">'+weeklyLabels[w]+'<br><span style="font-weight:400;font-size:7px;color:rgba(255,255,255,.6)">'+wPeriods[i]+'</span></th>';});
+  s+='</tr></thead><tbody>';
+  var allDoms={};
+  weekKeys.forEach(function(w){(weeklyDoms[w]||[]).forEach(function(r){if(!allDoms[r.dom])allDoms[r.dom]={};allDoms[r.dom][w]=r.abs;});});
+  var domList=Object.keys(allDoms).sort(function(a,b){
+    var ta=weekKeys.reduce(function(s,w){return s+(allDoms[a][w]||0);},0);
+    var tb=weekKeys.reduce(function(s,w){return s+(allDoms[b][w]||0);},0);
+    return tb-ta;
+  });
+  domList.forEach(function(dom,i){
+    var bg=i%2===0?'#fafafa':'#fff';
+    s+='<tr style="background:'+bg+'"><td style="padding:4px 8px;font-weight:600">'+dom+'</td>';
+    weekKeys.forEach(function(w){
+      var v=allDoms[dom][w];
+      s+='<td style="padding:4px 8px;text-align:center'+(v?';font-weight:700;color:#1a7a3a':'')+'">'+( v?v.toLocaleString('es'):'-')+'</td>';
+    });
+    s+='</tr>';
+  });
+  s+='</tbody></table></div></div>';
+  wrap.innerHTML=s;
+}
+buildWeeklySection();
+// Pos 21+ weekly breakdown
+var weekly21Sellers={'2026-W24':[{nome:'BLUE MONKEY',abs:7362},{nome:'SONNIC SOUND CENTER',abs:5220},{nome:'WOMAN VILLAGE FASHION',abs:1683},{nome:'ENJOY PETS LTDA',abs:558}],'2026-W25':[{nome:'SONNIC SOUND CENTER',abs:8025},{nome:'BLUE MONKEY',abs:3285},{nome:'ROBY LUSTRES',abs:3106},{nome:'WOMAN VILLAGE FASHION',abs:2750},{nome:'PRECOLANDIA',abs:2310}],'2026-W26':[{nome:'PRECOLANDIA',abs:11099},{nome:'SONNIC SOUND CENTER',abs:6259},{nome:'ROBY LUSTRES',abs:3133},{nome:'BLUE MONKEY',abs:2970},{nome:'WOMAN VILLAGE FASHION',abs:2156}],'2026-W27':[{nome:'PRECOLANDIA',abs:8756},{nome:'BRASILPHONE',abs:4202},{nome:'SONNIC SOUND CENTER',abs:2760},{nome:'G3 CONCEPT LTDA',abs:2182},{nome:'BASSI & BORGES LTDA',abs:2024}],'2026-W28':[{nome:'PRECOLANDIA',abs:9135},{nome:'DIGEL',abs:8782},{nome:'CASA DAS GRIFFES STORE',abs:5028},{nome:'BRASILPHONE',abs:4938},{nome:'COMPRA CERTA COMERCIAL LTDA',abs:4674}],'2026-W29':[{nome:'DIGEL',abs:7896},{nome:'PRECOLANDIA',abs:5571},{nome:'SONNIC SOUND CENTER',abs:5501},{nome:'CASA DAS GRIFFES STORE',abs:2698},{nome:'BASSI & BORGES LTDA',abs:2674}],'2026-W30':[{nome:'PRECOLANDIA',abs:12703},{nome:'DIGEL',abs:9735},{nome:'SONNIC SOUND CENTER',abs:6219},{nome:'G3 CONCEPT LTDA',abs:3488},{nome:'THREE C STEP UP',abs:3204}],'2026-W31':[{nome:'PRECOLANDIA',abs:8991},{nome:'DIGEL',abs:8928},{nome:'SONNIC SOUND CENTER',abs:4251},{nome:'G3 CONCEPT LTDA',abs:3555},{nome:'THREE C STEP UP',abs:2852}],};
+var weekly21Doms={'2026-W24':[{dom:'MLB-SUPPLEMENTS',abs:5150},{dom:'MLB-DRESSES',abs:338},{dom:'MLB-T_SHIRTS',abs:328},{dom:'MLB-JACKETS_AND_COATS',abs:318},{dom:'MLB-VEHICLE_SUSPENSION_BALL_JOINTS',abs:313}],'2026-W25':[{dom:'MLB-SUPPLEMENTS',abs:1727},{dom:'MLB-TABLE_AND_DESK_LAMPS',abs:1175},{dom:'MLB-FLOOR_CEILING_AND_WALL_LIGHTS',abs:1163},{dom:'MLB-VEHICLE_SUSPENSION_CONTROL_ARM_BUSHINGS',abs:629},{dom:'MLB-JACKETS_AND_COATS',abs:595}],'2026-W26':[{dom:'MLB-SUPPLEMENTS',abs:2185},{dom:'MLB-FLOOR_CEILING_AND_WALL_LIGHTS',abs:1481},{dom:'MLB-TABLE_AND_DESK_LAMPS',abs:1220},{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:1110},{dom:'MLB-DISHES_PLATES',abs:924}],'2026-W27':[{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:2918},{dom:'MLB-SUPPLEMENTS',abs:1952},{dom:'MLB-DISHES_PLATES',abs:1097},{dom:'MLB-FLOOR_CEILING_AND_WALL_LIGHTS',abs:879},{dom:'MLB-MIRRORS',abs:869}],'2026-W28':[{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:3509},{dom:'MLB-SNEAKERS',abs:3255},{dom:'MLB-PANTS',abs:2117},{dom:'MLB-SUPPLEMENTS',abs:1865},{dom:'MLB-ELECTRICAL_CABLES',abs:1789}],'2026-W29':[{dom:'MLB-PANTS',abs:3469},{dom:'MLB-SUPPLEMENTS',abs:1760},{dom:'MLB-ELECTRICAL_CABLES',abs:1624},{dom:'MLB-SNEAKERS',abs:1460},{dom:'MLB-FLOOR_CEILING_AND_WALL_LIGHTS',abs:1434}],'2026-W30':[{dom:'MLB-SUPPLEMENTS',abs:5219},{dom:'MLB-PANTS',abs:4033},{dom:'MLB-ELECTRICAL_CABLES',abs:1895},{dom:'MLB-SURVEILLANCE_CAMERAS',abs:1714},{dom:'MLB-SNEAKERS',abs:1638}],'2026-W31':[{dom:'MLB-SUPPLEMENTS',abs:4279},{dom:'MLB-PANTS',abs:3587},{dom:'MLB-ELECTRICAL_CABLES',abs:1977},{dom:'MLB-MARTIAL_ARTS_AND_BOXING_GLOVES',abs:1641},{dom:'MLB-SURVEILLANCE_CAMERAS',abs:1479}],};
+
+function buildWeekly21Section(){
+  var wrap=document.getElementById('weekly-breakdown-21');
+  var wLabels={'2026-W24':'W24','2026-W25':'W25','2026-W26':'W26','2026-W27':'W27','2026-W28':'W28','2026-W29':'W29','2026-W30':'W30','2026-W31':'W31'};
+  var wPer=['8-12 jun','15-19 jun','22-26 jun','29jun-3jul','6-10 jul','13-17 jul','20-24 jul','27-31 jul'];
+  var wk=['2026-W24','2026-W25','2026-W26','2026-W27','2026-W28','2026-W29','2026-W30','2026-W31'];
+
+  function buildTable(dataMap, keyField, color, title) {
+    var s='<div style="margin-top:20px"><div style="font-size:10px;font-weight:800;color:#1a2a4a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">'+title+'</div>';
+    s+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:8.5px"><thead><tr style="background:#c0392b">';
+    s+='<th style="padding:6px 8px;text-align:left;color:#fff;font-weight:700">'+keyField+'</th>';
+    wk.forEach(function(w,i){s+='<th style="padding:6px 8px;text-align:center;color:#fff;font-weight:700">'+wLabels[w]+'<br><span style="font-weight:400;font-size:7px;color:rgba(255,255,255,.7)">'+wPer[i]+'</span></th>';});
+    s+='</tr></thead><tbody>';
+    var allKeys={};
+    wk.forEach(function(w){(dataMap[w]||[]).forEach(function(r){var k=r[keyField==='Seller'?'nome':'dom'];if(!allKeys[k])allKeys[k]={};allKeys[k][w]=r.abs;});});
+    var keyList=Object.keys(allKeys).sort(function(a,b){
+      return wk.reduce(function(s,w){return s+(allKeys[b][w]||0);},0)-wk.reduce(function(s,w){return s+(allKeys[a][w]||0);},0);
+    });
+    keyList.forEach(function(k,i){
+      var bg=i%2===0?'#fafafa':'#fff';
+      s+='<tr style="background:'+bg+'"><td style="padding:4px 8px;font-weight:600">'+k+'</td>';
+      wk.forEach(function(w){var v=allKeys[k][w];s+='<td style="padding:4px 8px;text-align:center'+(v?';font-weight:700;color:#c0392b':'')+'">'+( v?v.toLocaleString('es'):'-')+'</td>';});
+      s+='</tr>';
+    });
+    s+='</tbody></table></div></div>';
+    return s;
+  }
+
+  wrap.innerHTML = buildTable(weekly21Sellers,'Seller','#c0392b','Top 5 sellers en posicion 21+ · por semana') +
+                   buildTable(weekly21Doms,'Dominio','#c0392b','Top 5 dominios en posicion 21+ · por semana');
+}
+buildWeekly21Section();
+})();
+
+var sellersData = [{rank:1,nome:'LINA LINGERIE LTDA',aparic:'2043',pct5:'30.3%',pos:'14'},{rank:2,nome:'GIRL COMERCIO DE VESTUARIO STORE LTDA',aparic:'3330',pct5:'27.8%',pos:'15.3'},{rank:3,nome:'ANGEL  ELETRONICOS & INFORMATICA LTDA',aparic:'29221',pct5:'26.6%',pos:'16.3'},{rank:4,nome:'RCA HOME TECH LTDA',aparic:'22976',pct5:'26.3%',pos:'16.5'},{rank:5,nome:'GRUPO EX',aparic:'2135',pct5:'26.1%',pos:'15.7'},{rank:6,nome:'C.B. COMERCIO DE PRESENTES LTDA',aparic:'8779',pct5:'24.2%',pos:'16.1'},{rank:7,nome:'STILLUS HOME',aparic:'3701',pct5:'23.6%',pos:'16.9'},{rank:8,nome:'NEW STORE MIX',aparic:'4429',pct5:'23.5%',pos:'15.2'},{rank:9,nome:'57.591.290 HERITO DOS SANTOS',aparic:'5685',pct5:'23.3%',pos:'17.5'},{rank:10,nome:'KOMPRA LOGO LTDA',aparic:'4382',pct5:'22.5%',pos:'17.6'},{rank:11,nome:'WOMAN VILLAGE FASHION',aparic:'35694',pct5:'22.2%',pos:'16.4'},{rank:12,nome:'KAVOD BRASIL',aparic:'140',pct5:'21.4%',pos:'17.7'},{rank:13,nome:'ENJOY PETS LTDA',aparic:'11411',pct5:'21.4%',pos:'16.9'},{rank:14,nome:'PARAMAR COMERCIO DE PARAFUSOS E PECAS LTDA',aparic:'20034',pct5:'20.5%',pos:'17.3'},{rank:15,nome:'KAUANE SILVA SANTOS ARTIGOS DO VESTUARIO',aparic:'3006',pct5:'20.5%',pos:'16.3'},{rank:16,nome:'LONG COMERCIO ONLINE LTDA',aparic:'7584',pct5:'20.4%',pos:'17.6'},{rank:17,nome:'SOPRA BALAO ARTIGOS PARA FESTAS E BRINQUEDOS LTDA.',aparic:'8157',pct5:'20%',pos:'17.9'},{rank:18,nome:'COMPRA CERTA COMERCIAL LTDA',aparic:'14271',pct5:'19.7%',pos:'16.5'},{rank:19,nome:'PRECOLANDIA',aparic:'154908',pct5:'19.6%',pos:'17.5'},{rank:20,nome:'CASA DAS GRIFFES STORE',aparic:'37281',pct5:'19.3%',pos:'17.5'},{rank:21,nome:'LUCKY FESTA',aparic:'2748',pct5:'19.1%',pos:'18.6'},{rank:22,nome:'M&R SHOP COMERCIO VAREJISTA DE ACESSORIOS LTDA',aparic:'4097',pct5:'18.8%',pos:'17.4'},{rank:23,nome:'MODA 2023',aparic:'27821',pct5:'18.8%',pos:'17.2'},{rank:24,nome:'GR DO BRASIL LTDA',aparic:'5266',pct5:'18.6%',pos:'17.5'},{rank:25,nome:'ABEX IMPORTACAO E DISTRIBUICAO DE PECAS LTDA',aparic:'15189',pct5:'18.4%',pos:'18'},{rank:26,nome:'HERANCA DISTRIBUIDORA',aparic:'3713',pct5:'17.7%',pos:'17.1'},{rank:27,nome:'L.S LOCAL SURF COMERCIO E CONFECCAO LTDA',aparic:'7262',pct5:'17.4%',pos:'17.4'},{rank:28,nome:'VERE COMERCIAL DISTRIBUIDORA',aparic:'5172',pct5:'17.3%',pos:'18.2'},{rank:29,nome:'BRASILPHONE',aparic:'27195',pct5:'17%',pos:'18.2'},{rank:30,nome:'BLUE MONKEY',aparic:'59676',pct5:'16.9%',pos:'19.2'}];
+var topData = [{rank:1,dom:'MLB-KITCHEN_MANUAL_SQUEEZERS',aparic:'208',pct5:'68.3%',pct21:'23.6%',pos:'10.4'},{rank:2,dom:'MLB-POPCORN_MACHINES',aparic:'33',pct5:'60.6%',pct21:'12.1%',pos:'7.9'},{rank:3,dom:'MLB-FOOTBALL_BALLS',aparic:'43',pct5:'60.5%',pct21:'2.3%',pos:'6.3'},{rank:4,dom:'MLB-PAJAMAS',aparic:'38',pct5:'60.5%',pct21:'13.2%',pos:'9.1'},{rank:5,dom:'MLB-VEHICLE_REFLECTIVE_TAPES',aparic:'31',pct5:'58.1%',pct21:'12.9%',pos:'9.7'},{rank:6,dom:'MLB-FISHING_ROD_CASES',aparic:'28',pct5:'57.1%',pct21:'17.9%',pos:'9.7'},{rank:7,dom:'MLB-CAKE_TOPPERS',aparic:'39',pct5:'56.4%',pct21:'20.5%',pos:'11'},{rank:8,dom:'MLB-PORTABLE_HANGING_SCALES',aparic:'29',pct5:'55.2%',pct21:'24.1%',pos:'13.9'},{rank:9,dom:'MLB-PUNCHING_BAGS',aparic:'24',pct5:'54.2%',pct21:'25%',pos:'10.9'},{rank:10,dom:'MLB-MOTORCYCLE_RAIN_SUITS',aparic:'34',pct5:'52.9%',pct21:'38.2%',pos:'13.4'},{rank:11,dom:'MLB-VEHICLE_ENGINE_COOLANT_THERMOSTAT_HOUSINGS',aparic:'25',pct5:'52%',pct21:'28%',pos:'10.6'},{rank:12,dom:'MLB-TOASTERS',aparic:'137',pct5:'51.8%',pct21:'19.7%',pos:'10.9'},{rank:13,dom:'MLB-PADLOCKS',aparic:'35',pct5:'51.4%',pct21:'17.1%',pos:'9.6'},{rank:14,dom:'MLB-JUMP_ROPES',aparic:'245',pct5:'49.4%',pct21:'17.1%',pos:'11.4'},{rank:15,dom:'MLB-CUTTING_PLIERS',aparic:'60',pct5:'48.3%',pct21:'11.7%',pos:'9.3'},{rank:16,dom:'MLB-WRENCHES',aparic:'27',pct5:'48.1%',pct21:'33.3%',pos:'16.7'},{rank:17,dom:'MLB-PC_THERMAL_COMPOUND_PASTES',aparic:'25',pct5:'48%',pct21:'12%',pos:'9.6'},{rank:18,dom:'MLB-SOFT_DRINKS',aparic:'21',pct5:'47.6%',pct21:'33.3%',pos:'17.8'},{rank:19,dom:'MLB-VEHICLE_BRAKE_FLUIDS',aparic:'301',pct5:'47.2%',pct21:'6%',pos:'7.7'},{rank:20,dom:'MLB-BALLOON_STICKS',aparic:'93',pct5:'46.2%',pct21:'20.4%',pos:'9.5'},{rank:21,dom:'MLB-BROOMS',aparic:'33',pct5:'45.5%',pct21:'36.4%',pos:'15'},{rank:22,dom:'MLB-INFANTS_HARNESSES_AND_WRIST_LEASHES',aparic:'20',pct5:'45%',pct21:'25%',pos:'12.6'},{rank:23,dom:'MLB-TRAVEL_PILLOWS',aparic:'127',pct5:'44.9%',pct21:'22%',pos:'12.6'},{rank:24,dom:'MLB-POP_FILTERS',aparic:'29',pct5:'44.8%',pct21:'13.8%',pos:'9.5'},{rank:25,dom:'MLB-BLENDER_JARS',aparic:'27',pct5:'44.4%',pct21:'33.3%',pos:'13.6'},{rank:26,dom:'MLB-CAT_HOUSES',aparic:'94',pct5:'43.6%',pct21:'31.9%',pos:'14.1'},{rank:27,dom:'MLB-SWIMWEAR',aparic:'1444',pct5:'43.5%',pct21:'19.1%',pos:'11.7'},{rank:28,dom:'MLB-AUDIO_AND_VIDEO_OPTICAL_LASER_LENSES',aparic:'30',pct5:'43.3%',pct21:'26.7%',pos:'14.1'},{rank:29,dom:'MLB-MINERAL_WATERS',aparic:'54',pct5:'42.6%',pct21:'29.6%',pos:'16.9'},{rank:30,dom:'MLB-SPORT_AND_MEDICAL_BANDAGES',aparic:'301',pct5:'42.5%',pct21:'27.2%',pos:'12.8'}];
+var botData = [{rank:1,dom:'MLB-CHAIR_COVERS',aparic:'28',pct5:'3.6%',pct21:'92.9%',pos:'28'},{rank:2,dom:'MLB-PARTY_GLASSES',aparic:'28',pct5:'7.1%',pct21:'85.7%',pos:'26.5'},{rank:3,dom:'MLB-MOTORCYCLE_SPEEDOMETER_CABLES',aparic:'52',pct5:'7.7%',pct21:'80.8%',pos:'31.7'},{rank:4,dom:'MLB-VEHICLE_FUEL_TANKS',aparic:'85',pct5:'0%',pct21:'78.8%',pos:'31.8'},{rank:5,dom:'MLB-FLASHLIGHTS',aparic:'67',pct5:'9%',pct21:'76.1%',pos:'26.5'},{rank:6,dom:'MLB-WALKIE_TALKIES',aparic:'113',pct5:'13.3%',pct21:'74.3%',pos:'24.2'},{rank:7,dom:'MLB-SHOE_RACKS_AND_CABINETS',aparic:'118',pct5:'10.2%',pct21:'72.9%',pos:'25.3'},{rank:8,dom:'MLB-AIR_CONDITIONER_BLOWER_WHEELS',aparic:'50',pct5:'12%',pct21:'72%',pos:'25.6'},{rank:9,dom:'MLB-MEMORY_CARDS',aparic:'399',pct5:'4.5%',pct21:'71.2%',pos:'26.9'},{rank:10,dom:'MLB-MANUAL_GRAIN_MILLS',aparic:'31',pct5:'16.1%',pct21:'71%',pos:'21.8'},{rank:11,dom:'MLB-HAIR_DRYER_AND_FLAT_IRON_HOLDERS',aparic:'27',pct5:'3.7%',pct21:'70.4%',pos:'26.7'},{rank:12,dom:'MLB-UPS_BATTERIES',aparic:'37',pct5:'8.1%',pct21:'70.3%',pos:'24.1'},{rank:13,dom:'MLB-MODULAR_PLUGS',aparic:'66',pct5:'7.6%',pct21:'69.7%',pos:'26.3'},{rank:14,dom:'MLB-COLANDERS',aparic:'217',pct5:'15.7%',pct21:'69.6%',pos:'23.6'},{rank:15,dom:'MLB-MOTOR_STARTERS',aparic:'476',pct5:'6.1%',pct21:'69.5%',pos:'30'},{rank:16,dom:'MLB-AUDIO_AMPLIFIERS',aparic:'25',pct5:'4%',pct21:'68%',pos:'24.2'},{rank:17,dom:'MLB-WASHING_MACHINE_MOTORS',aparic:'85',pct5:'7.1%',pct21:'67.1%',pos:'24.2'},{rank:18,dom:'MLB-REFRIGERATORS_AND_FREEZERS_DOOR_HANDLES',aparic:'71',pct5:'11.3%',pct21:'66.2%',pos:'23.2'},{rank:19,dom:'MLB-OTHER_VEHICLE_DRUM_BRAKE_WHEEL_CYLINDERS',aparic:'99',pct5:'13.1%',pct21:'65.7%',pos:'19.2'},{rank:20,dom:'MLB-PARTY_BRACELETS_AND_NECKLACES',aparic:'64',pct5:'7.8%',pct21:'65.6%',pos:'21.3'},{rank:21,dom:'MLB-DOORBELLS',aparic:'54',pct5:'14.8%',pct21:'64.8%',pos:'24.4'},{rank:22,dom:'MLB-VIDEOKE_TRANSFER_KITS',aparic:'31',pct5:'12.9%',pct21:'64.5%',pos:'23.3'},{rank:23,dom:'MLB-RAMEKINS',aparic:'58',pct5:'22.4%',pct21:'63.8%',pos:'20.8'},{rank:24,dom:'MLB-PARTY_SUPPLY_KITS',aparic:'55',pct5:'12.7%',pct21:'63.6%',pos:'21.1'},{rank:25,dom:'MLB-HAIR_ROLLERS',aparic:'30',pct5:'13.3%',pct21:'63.3%',pos:'22.8'},{rank:26,dom:'MLB-SWEET_PREMIXES',aparic:'91',pct5:'7.7%',pct21:'62.6%',pos:'24.2'},{rank:27,dom:'MLB-LINGERIE_SETS',aparic:'72',pct5:'9.7%',pct21:'62.5%',pos:'18.7'},{rank:28,dom:'MLB-WASHING_AND_DRYER_MACHINE_BEARINGS',aparic:'21',pct5:'0%',pct21:'61.9%',pos:'31.3'},{rank:29,dom:'MLB-HAIR_REMOVAL_KITS',aparic:'102',pct5:'9.8%',pct21:'61.8%',pos:'23.1'},{rank:30,dom:'MLB-DISPOSABLE_CUPS',aparic:'244',pct5:'11.5%',pct21:'61.1%',pos:'23.5'}];
+
+// Add top5 absolute to sellers and domains
+sellersData.forEach(function(r){r.top5abs=Math.round(parseFloat(r.pct5)/100*parseInt(r.aparic));});
+topData.forEach(function(r){r.top5abs=Math.round(parseFloat(r.pct5)/100*parseInt(r.aparic));});
+botData.forEach(function(r){r.top5abs=Math.round(parseFloat(r.pct5)/100*parseInt(r.aparic));});
+
+var sellersSortDir={aparic:-1,top5abs:-1,pct:-1};
+function renderSellers(data){
+  var tb=document.getElementById('tbody-sellers'); tb.innerHTML='';
+  data.forEach(function(r,i){
+    var bg=i<5?'#d4edda':i<15?'#f9fbe7':'#fff';
+    tb.innerHTML+='<tr style="background:'+bg+'"><td>'+(i+1)+'</td><td>'+r.nome+'</td><td style="text-align:right">'+parseInt(r.aparic).toLocaleString('es')+'</td><td style="text-align:right;font-weight:700;color:#1a7a3a">'+r.top5abs.toLocaleString('es')+'</td><td style="text-align:center;color:#1a7a3a">'+r.pct5+'</td><td style="text-align:center">'+r.pos+'</td></tr>';
+  });
+}
+function sortSellers(col){
+  sellersSortDir[col]*=-1;
+  var sorted=sellersData.slice().sort(function(a,b){
+    var va=col==='aparic'?parseInt(a.aparic):col==='top5abs'?a.top5abs:parseFloat(a.pct5);
+    var vb=col==='aparic'?parseInt(b.aparic):col==='top5abs'?b.top5abs:parseFloat(b.pct5);
+    return (va-vb)*sellersSortDir[col];
+  });
+  renderSellers(sorted);
+}
+renderSellers(sellersData);
+
+var domSortDir={top:{aparic:-1,top5abs:-1,pct5:-1,pct21:1},bot:{aparic:-1,top5abs:-1,pct5:-1,pct21:1}};
+function renderDom(which, data){
+  var tb=document.getElementById('tbody-'+which); tb.innerHTML='';
+  var colors=which==='top'?['#d4edda','#f9fbe7']:['#fde8e8','#fff8f0'];
+  data.forEach(function(r,i){
+    var bg=i<5?colors[0]:i<15?colors[1]:'#fff';
+    tb.innerHTML+='<tr style="background:'+bg+'"><td>'+(i+1)+'</td><td>'+r.dom+'</td><td style="text-align:right">'+parseInt(r.aparic).toLocaleString('es')+'</td><td style="text-align:right;font-weight:700;color:#1a7a3a">'+r.top5abs.toLocaleString('es')+'</td><td style="text-align:center">'+r.pct5+'</td><td style="text-align:center">'+r.pct21+'</td><td style="text-align:center">'+r.pos+'</td></tr>';
+  });
+}
+function sortDom(which,col){
+  domSortDir[which][col]*=-1;
+  var src=which==='top'?topData:botData;
+  var sorted=src.slice().sort(function(a,b){
+    var va=col==='aparic'?parseInt(a.aparic):col==='top5abs'?a.top5abs:col==='pct5'?parseFloat(a.pct5):parseFloat(a.pct21);
+    var vb=col==='aparic'?parseInt(b.aparic):col==='top5abs'?b.top5abs:col==='pct5'?parseFloat(b.pct5):parseFloat(b.pct21);
+    return (va-vb)*domSortDir[which][col];
+  });
+  renderDom(which,sorted);
+}
+renderDom('top',topData);
+renderDom('bot',botData);
+</script>
+</body>
+</html>
