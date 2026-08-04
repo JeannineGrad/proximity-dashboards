@@ -243,23 +243,23 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div style="font-size:8px;color:#bbb;text-align:center;margin-top:-4px">Fuente: DM_SHP_TRACKS_VIP_CONVERTION · sellers optineados · Lun-Vie</div>
       </div>
 
-      <!-- Fila 2: VIPs + CVR evolutivo -->
+      <!-- Fila 2: VIPs + Búsqueda→VIP -->
       <div class="card">
         <div class="card-title">VIPs instant por semana</div>
         <canvas id="chartVips"></canvas>
         <div class="note">VIPs con promesa instant · sellers optineados MLB · Jun-Jul 2026</div>
       </div>
       <div class="card">
+        <div class="card-title">Búsqueda instant → VIP click · tasa por semana</div>
+        <canvas id="chartVipSellers"></canvas>
+        <div class="note">VIPs instant (sellers optineados) ÷ búsquedas con instant (MLB total) · subestimado porque VIPs no incluye todos los sellers instant</div>
+      </div>
+
+      <!-- Fila 3: CVR + Ordenes -->
+      <div class="card">
         <div class="card-title">CVR instant por semana (VIP → orden)</div>
         <canvas id="chartCvr"></canvas>
         <div class="note">Conversion rate instant · % de VIPs que generan orden</div>
-      </div>
-
-      <!-- Fila 3: Sellers + Ordenes -->
-      <div class="card">
-        <div class="card-title">Sellers con VIPs instant · por semana</div>
-        <canvas id="chartVipSellers"></canvas>
-        <div class="note">Sellers unicos con VIPs de promesa instant en zona</div>
       </div>
       <div class="card">
         <div class="card-title">Ordenes desde VIPs instant · por semana</div>
@@ -371,8 +371,37 @@ new Chart(document.getElementById('chartCvr'),{
   }}]
 });
 
+// Búsqueda instant → VIP click · tasa semanal
+var searchData = [11430,28272,40941,34285,53006,54654,76450,99031];
+var vipRatio = searchData.map(function(s,i){ return Math.round(vipsData[i]/s*1000)/10; });
+new Chart(document.getElementById('chartVipSellers'),{
+  type:'line',
+  data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],datasets:[{
+    data:vipRatio,
+    borderColor:'#1565c0',backgroundColor:'rgba(21,101,192,0.07)',
+    pointBackgroundColor:'#1565c0',pointRadius:5,tension:0.3,fill:true
+  }]},
+  options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
+    scales:{
+      y:{beginAtZero:true,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }
+  },
+  plugins:[{id:'ratioLabels',afterDatasetsDraw:function(chart){
+    var ctx=chart.ctx;
+    chart.getDatasetMeta(0).data.forEach(function(pt,i){
+      ctx.save();
+      ctx.fillStyle='#1565c0';
+      ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';
+      ctx.textAlign='center';
+      ctx.fillText(vipRatio[i]+'%',pt.x,pt.y-8);
+      ctx.restore();
+    });
+  }}]
+});
+
 // Placeholder charts for VIPs tab (pendiente datos)
-['chartVipSellers','chartOrders','chartCvrComp'].forEach(function(id){
+['chartOrders','chartCvrComp'].forEach(function(id){
   var el=document.getElementById(id);
   if(!el)return;
   new Chart(el,{type:'bar',data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],
