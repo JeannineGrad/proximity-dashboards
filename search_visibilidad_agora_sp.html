@@ -180,7 +180,7 @@ table.dt tr:hover td { background:#f0f4ff !important }
             </thead>
             <tbody>
               <tr style="background:#e8f5e9">
-                <td style="padding:5px 8px;font-weight:600">Top 5</td>
+                <td style="padding:5px 8px;font-weight:600">Pos 1–5</td>
                 <td style="padding:5px 8px;text-align:right;color:#1a7a3a;font-weight:700">4,59%</td>
                 <td style="padding:5px 8px;text-align:right">3,23%</td>
                 <td style="padding:5px 8px;text-align:right;color:#1a7a3a;font-weight:700">28,67%</td>
@@ -189,7 +189,7 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:right;color:#888">9.499</td>
               </tr>
               <tr>
-                <td style="padding:5px 8px;font-weight:600">Top 10</td>
+                <td style="padding:5px 8px;font-weight:600">Pos 6–10</td>
                 <td style="padding:5px 8px;text-align:right">1,70%</td>
                 <td style="padding:5px 8px;text-align:right">1,68%</td>
                 <td style="padding:5px 8px;text-align:right;color:#1a7a3a;font-weight:700">28,48%</td>
@@ -198,7 +198,7 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:right;color:#888">8.877</td>
               </tr>
               <tr style="background:#f9f9f9">
-                <td style="padding:5px 8px;font-weight:600">Top 20</td>
+                <td style="padding:5px 8px;font-weight:600">Pos 11–20</td>
                 <td style="padding:5px 8px;text-align:right">1,07%</td>
                 <td style="padding:5px 8px;text-align:right">1,14%</td>
                 <td style="padding:5px 8px;text-align:right;color:#1a7a3a;font-weight:700">21,91%</td>
@@ -663,12 +663,34 @@ buildWeekly21Section();
 
 // WIP: CTR y CVR por posición · instant vs no-instant · 31 Jul 2026
 (function(){
-  var labels = ['Top 5','Top 10','Top 20','Pos 21+'];
-  var ctrInst =    [4.59, 1.70, 1.07, 0.49];
-  var ctrNoInst =  [3.23, 1.68, 1.14, 0.80];
-  var cvrInst =    [28.67, 28.48, 21.91, 29.10];
-  var cvrNoInst =  [14.73, 12.76, 11.29, 10.62];
+  var labels = ['Pos 1–5','Pos 6–10','Pos 11–20','Pos 21+'];
+  var ctrInst =   [4.59, 1.70, 1.07, 0.49];
+  var ctrNoInst = [3.23, 1.68, 1.14, 0.80];
+  var cvrInst =   [28.67, 28.48, 21.91, 29.10];
+  var cvrNoInst = [14.73, 12.76, 11.29, 10.62];
   var INST = 'rgba(26,122,58,0.85)', NO_INST = 'rgba(180,180,180,0.7)';
+
+  var datalabelsPlugin = {
+    id:'datalabels',
+    afterDatasetsDraw: function(chart) {
+      var ctx = chart.ctx;
+      chart.data.datasets.forEach(function(ds, di) {
+        var meta = chart.getDatasetMeta(di);
+        if (meta.hidden) return;
+        meta.data.forEach(function(bar, i) {
+          var val = ds.data[i];
+          if (!val && val !== 0) return;
+          ctx.save();
+          ctx.font = '600 9px Segoe UI,Arial,sans-serif';
+          ctx.fillStyle = '#333';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          ctx.fillText(val.toFixed(val < 2 ? 2 : 1) + '%', bar.x, bar.y - 2);
+          ctx.restore();
+        });
+      });
+    }
+  };
 
   new Chart(document.getElementById('chartCtrPos'), {
     type:'bar',
@@ -681,12 +703,14 @@ buildWeekly21Section();
     },
     options:{
       responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:18}},
       plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
       scales:{
         x:{ticks:{font:{size:9}}},
         y:{ticks:{font:{size:9},callback:function(v){return v+'%'}},title:{display:true,text:'CTR (%)',font:{size:9}}}
       }
-    }
+    },
+    plugins:[datalabelsPlugin]
   });
 
   new Chart(document.getElementById('chartCvrPos'), {
@@ -700,12 +724,14 @@ buildWeekly21Section();
     },
     options:{
       responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:18}},
       plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
       scales:{
         x:{ticks:{font:{size:9}}},
         y:{ticks:{font:{size:9},callback:function(v){return v+'%'}},title:{display:true,text:'CVR VIP→Orden (%)',font:{size:9}}}
       }
-    }
+    },
+    plugins:[datalabelsPlugin]
   });
 })();
 
