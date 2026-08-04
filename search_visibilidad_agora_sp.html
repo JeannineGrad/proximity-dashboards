@@ -336,112 +336,75 @@ table.dt tr:hover td { background:#f0f4ff !important }
 </div>
 
 <script>
+// Datos VIPs · definidos globalmente para uso en ratio
+var vipsData = [1280,2071,3152,2857,4030,6080,6436,7599];
+var vipsWow  = [null,'+62%','+52%','-9%','+41%','+51%','+6%','+18%'];
+var vipsChartsReady = false;
+
 function showTab(name){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
   document.getElementById('panel-'+name).classList.add('active');
   var m={charts:0,vips:1,sellers:2,topdoms:3,botdoms:4};
   document.querySelectorAll('.tab')[m[name]].classList.add('active');
+  // Inicializar gráficos de VIPs la primera vez que se abre el tab
+  if(name==='vips' && !vipsChartsReady){ initVipsCharts(); vipsChartsReady=true; }
 }
-// Datos VIPs instant · MLB total · Jun-Jul 2026
-var vipsData = [1280,2071,3152,2857,4030,6080,6436,7599];
-var vipsWow  = [null,'+62%','+52%','-9%','+41%','+51%','+6%','+18%'];
 
-// CVR instant por semana · datos reales
-var cvrData = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01];
-new Chart(document.getElementById('chartCvr'),{
-  type:'line',
-  data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],datasets:[{
-    data:cvrData,
-    borderColor:'#1a7a3a',backgroundColor:'rgba(26,122,58,0.08)',
-    pointBackgroundColor:'#1a7a3a',pointRadius:5,tension:0.3,fill:true
-  }]},
-  options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
-    scales:{
-      y:{beginAtZero:true,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}},
-      x:{ticks:{font:{size:9}},grid:{display:false}}
-    }
-  },
-  plugins:[{id:'cvrLabels',afterDatasetsDraw:function(chart){
-    var ctx=chart.ctx;
-    chart.getDatasetMeta(0).data.forEach(function(pt,i){
-      ctx.save();
-      ctx.fillStyle='#1a7a3a';
-      ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';
-      ctx.textAlign='center';
-      ctx.fillText(cvrData[i]+'%',pt.x,pt.y-8);
-      ctx.restore();
-    });
-  }}]
-});
+function initVipsCharts(){
+  var wkLabels = ['W24','W25','W26','W27','W28','W29','W30','W31'];
 
-// Búsqueda instant → VIP click · tasa semanal
-var searchData = [11430,28272,40941,34285,53006,54654,76450,99031];
-var vipRatio = searchData.map(function(s,i){ return Math.round(vipsData[i]/s*1000)/10; });
-new Chart(document.getElementById('chartVipSellers'),{
-  type:'line',
-  data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],datasets:[{
-    data:vipRatio,
-    borderColor:'#1565c0',backgroundColor:'rgba(21,101,192,0.07)',
-    pointBackgroundColor:'#1565c0',pointRadius:5,tension:0.3,fill:true
-  }]},
-  options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
-    scales:{
-      y:{beginAtZero:true,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}},
-      x:{ticks:{font:{size:9}},grid:{display:false}}
-    }
-  },
-  plugins:[{id:'ratioLabels',afterDatasetsDraw:function(chart){
-    var ctx=chart.ctx;
-    chart.getDatasetMeta(0).data.forEach(function(pt,i){
-      ctx.save();
-      ctx.fillStyle='#1565c0';
-      ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';
-      ctx.textAlign='center';
-      ctx.fillText(vipRatio[i]+'%',pt.x,pt.y-8);
-      ctx.restore();
-    });
-  }}]
-});
+  // VIPs por semana
+  new Chart(document.getElementById('chartVips'),{
+    type:'bar',
+    data:{labels:wkLabels,datasets:[{data:vipsData,backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
+    options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
+      scales:{y:{beginAtZero:true,ticks:{callback:function(v){return v>=1000?Math.round(v/1000)+'K':v},font:{size:9}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}},
+    plugins:[{id:'vipsLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      chart.getDatasetMeta(0).data.forEach(function(bar,i){
+        var v=vipsData[i]; ctx.save();
+        ctx.fillStyle='#1a2a4a'; ctx.font='bold 8.5px Segoe UI,Arial,sans-serif'; ctx.textAlign='center';
+        ctx.fillText(v>=1000?(v/1000).toFixed(1)+'K':v,bar.x,bar.y-16);
+        if(vipsWow[i]){ctx.fillStyle=vipsWow[i].startsWith('-')?'#c0392b':'#1a7a3a';ctx.font='bold 8px Segoe UI,Arial,sans-serif';ctx.fillText(vipsWow[i],bar.x,bar.y-5);}
+        ctx.restore();
+      });
+    }}]
+  });
 
-// Placeholder charts for VIPs tab (pendiente datos)
-['chartOrders','chartCvrComp'].forEach(function(id){
-  var el=document.getElementById(id);
-  if(!el)return;
-  new Chart(el,{type:'bar',data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],
-    datasets:[{data:[null,null,null,null,null,null,null,null],backgroundColor:'rgba(26,122,58,0.3)'}]},
-    options:{responsive:true,plugins:{legend:{display:false}},
-      scales:{y:{beginAtZero:true,ticks:{font:{size:9}}},x:{ticks:{font:{size:9}}}}}});
-});
+  // Búsqueda → VIP ratio
+  var searchD = [11430,28272,40941,34285,53006,54654,76450,99031];
+  var vipRatio = searchD.map(function(s,i){ return Math.round(vipsData[i]/s*1000)/10; });
+  new Chart(document.getElementById('chartVipSellers'),{
+    type:'line',
+    data:{labels:wkLabels,datasets:[{data:vipRatio,borderColor:'#1565c0',backgroundColor:'rgba(21,101,192,0.07)',pointBackgroundColor:'#1565c0',pointRadius:5,tension:0.3,fill:true}]},
+    options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
+      scales:{y:{beginAtZero:true,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}},
+    plugins:[{id:'ratioLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx; var d=vipRatio;
+      chart.getDatasetMeta(0).data.forEach(function(pt,i){ctx.save();ctx.fillStyle='#1565c0';ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';ctx.textAlign='center';ctx.fillText(d[i]+'%',pt.x,pt.y-8);ctx.restore();});
+    }}]
+  });
 
-// VIPs instant por semana · datos reales
-new Chart(document.getElementById('chartVips'),{
-  type:'bar',
-  data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],datasets:[{data:vipsData,backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
-  options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
-    scales:{
-      y:{beginAtZero:true,ticks:{callback:function(v){return v>=1000?Math.round(v/1000)+'K':v},font:{size:9}},grid:{color:'#eee'}},
-      x:{ticks:{font:{size:9}},grid:{display:false}}
-    }
-  },
-  plugins:[{id:'vipsLabels',afterDatasetsDraw:function(chart){
-    var ctx=chart.ctx;
-    chart.getDatasetMeta(0).data.forEach(function(bar,i){
-      var v=vipsData[i];
-      ctx.save();
-      ctx.fillStyle='#1a2a4a';
-      ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';
-      ctx.textAlign='center';
-      ctx.fillText(v>=1000?(v/1000).toFixed(1)+'K':v, bar.x, bar.y-16);
-      if(vipsWow[i]){
-        ctx.fillStyle=vipsWow[i].startsWith('-')?'#c0392b':'#1a7a3a';
-        ctx.font='bold 8px Segoe UI,Arial,sans-serif';
-        ctx.fillText(vipsWow[i], bar.x, bar.y-5);
-      }
-      ctx.restore();
-    });
-  }}]
-});
+  // CVR VIP → orden
+  var cvrD = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01];
+  new Chart(document.getElementById('chartCvr'),{
+    type:'line',
+    data:{labels:wkLabels,datasets:[{data:cvrD,borderColor:'#1a7a3a',backgroundColor:'rgba(26,122,58,0.08)',pointBackgroundColor:'#1a7a3a',pointRadius:5,tension:0.3,fill:true}]},
+    options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
+      scales:{y:{beginAtZero:true,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}},
+    plugins:[{id:'cvrLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      chart.getDatasetMeta(0).data.forEach(function(pt,i){ctx.save();ctx.fillStyle='#1a7a3a';ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';ctx.textAlign='center';ctx.fillText(cvrD[i]+'%',pt.x,pt.y-8);ctx.restore();});
+    }}]
+  });
+
+  // Placeholders pendientes
+  ['chartOrders','chartCvrComp'].forEach(function(id){
+    var el=document.getElementById(id); if(!el)return;
+    new Chart(el,{type:'bar',data:{labels:wkLabels,datasets:[{data:[null,null,null,null,null,null,null,null],backgroundColor:'rgba(26,122,58,0.3)'}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{font:{size:9}}},x:{ticks:{font:{size:9}}}}}});
+  });
+}
 var sw=['W24','W25','W26','W27','W28','W29','W30','W31'];
 var wowPct=[null,'+147%','+45%','-16%','+55%','+3%','+40%','+30%'];
 new Chart(document.getElementById('chartInstant'),{
