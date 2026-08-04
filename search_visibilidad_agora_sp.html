@@ -358,7 +358,7 @@ var vipsData = [1028,1288,2645,2364,3458,5426,5519,6189];
 var vipsWow  = [null,'+25%','+105%','-11%','+46%','+57%','+2%','+12%'];
 new Chart(document.getElementById('chartVips'),{
   type:'bar',
-  data:{labels:sw,datasets:[{data:vipsData,backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
+  data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],datasets:[{data:vipsData,backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
   options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
     scales:{
       y:{beginAtZero:true,ticks:{callback:function(v){return v>=1000?Math.round(v/1000)+'K':v},font:{size:9}},grid:{color:'#eee'}},
