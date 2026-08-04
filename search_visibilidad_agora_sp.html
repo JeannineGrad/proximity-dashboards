@@ -236,18 +236,18 @@ table.dt tr:hover td { background:#f0f4ff !important }
       <!-- KPIs -->
       <div class="card full">
         <div class="kpi-row">
-          <div class="kpi green"><div class="kpi-val" id="kv-vips">—</div><div class="kpi-lbl">VIPs instant W31</div></div>
-          <div class="kpi"><div class="kpi-val" id="kv-cvr">—</div><div class="kpi-lbl">CVR VIP → orden W31</div></div>
-          <div class="kpi"><div class="kpi-val" id="kv-orders">—</div><div class="kpi-lbl">Ordenes desde instant W31</div></div>
+          <div class="kpi green"><div class="kpi-val">6.189</div><div class="kpi-lbl">VIPs instant W31</div><div class="kpi-sub">semana 8 jun a 31 jul 2026</div></div>
+          <div class="kpi"><div class="kpi-val">6,82%</div><div class="kpi-lbl">CVR VIP → orden W31</div></div>
+          <div class="kpi"><div class="kpi-val">422</div><div class="kpi-lbl">Ordenes desde VIPs instant W31</div></div>
         </div>
-        <div style="font-size:8px;color:#bbb;text-align:center;margin-top:-4px">Pendiente datos · correr queries de VIPs</div>
+        <div style="font-size:8px;color:#bbb;text-align:center;margin-top:-4px">Fuente: DM_SHP_TRACKS_VIP_CONVERTION · sellers optineados · Lun-Vie</div>
       </div>
 
       <!-- Fila 2: VIPs + CVR evolutivo -->
       <div class="card">
         <div class="card-title">VIPs instant por semana</div>
         <canvas id="chartVips"></canvas>
-        <div class="note">VIPs con promesa instant · zona optima · Jun-Jul 2026</div>
+        <div class="note">VIPs con promesa instant · sellers optineados MLB · Jun-Jul 2026</div>
       </div>
       <div class="card">
         <div class="card-title">CVR instant por semana (VIP → orden)</div>
@@ -343,14 +343,45 @@ function showTab(name){
   var m={charts:0,vips:1,sellers:2,topdoms:3,botdoms:4};
   document.querySelectorAll('.tab')[m[name]].classList.add('active');
 }
-// Placeholder charts for VIPs tab
-['chartVips','chartCvr','chartVipSellers','chartOrders','chartCvrComp'].forEach(function(id){
+// Placeholder charts for VIPs tab (pendiente datos)
+['chartCvr','chartVipSellers','chartOrders','chartCvrComp'].forEach(function(id){
   var el=document.getElementById(id);
   if(!el)return;
   new Chart(el,{type:'bar',data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],
     datasets:[{data:[null,null,null,null,null,null,null,null],backgroundColor:'rgba(26,122,58,0.3)'}]},
     options:{responsive:true,plugins:{legend:{display:false}},
       scales:{y:{beginAtZero:true,ticks:{font:{size:9}}},x:{ticks:{font:{size:9}}}}}});
+});
+
+// VIPs instant por semana · datos reales
+var vipsData = [1028,1288,2645,2364,3458,5426,5519,6189];
+var vipsWow  = [null,'+25%','+105%','-11%','+46%','+57%','+2%','+12%'];
+new Chart(document.getElementById('chartVips'),{
+  type:'bar',
+  data:{labels:sw,datasets:[{data:vipsData,backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
+  options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
+    scales:{
+      y:{beginAtZero:true,ticks:{callback:function(v){return v>=1000?Math.round(v/1000)+'K':v},font:{size:9}},grid:{color:'#eee'}},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }
+  },
+  plugins:[{id:'vipsLabels',afterDatasetsDraw:function(chart){
+    var ctx=chart.ctx;
+    chart.getDatasetMeta(0).data.forEach(function(bar,i){
+      var v=vipsData[i];
+      ctx.save();
+      ctx.fillStyle='#1a2a4a';
+      ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';
+      ctx.textAlign='center';
+      ctx.fillText(v>=1000?(v/1000).toFixed(1)+'K':v, bar.x, bar.y-16);
+      if(vipsWow[i]){
+        ctx.fillStyle=vipsWow[i].startsWith('-')?'#c0392b':'#1a7a3a';
+        ctx.font='bold 8px Segoe UI,Arial,sans-serif';
+        ctx.fillText(vipsWow[i], bar.x, bar.y-5);
+      }
+      ctx.restore();
+    });
+  }}]
 });
 var sw=['W24','W25','W26','W27','W28','W29','W30','W31'];
 var wowPct=[null,'+147%','+45%','-16%','+55%','+3%','+40%','+30%'];
