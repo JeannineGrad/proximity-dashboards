@@ -236,9 +236,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
       <!-- KPIs -->
       <div class="card full">
         <div class="kpi-row">
-          <div class="kpi green"><div class="kpi-val">6.189</div><div class="kpi-lbl">VIPs instant W31</div><div class="kpi-sub">semana 8 jun a 31 jul 2026</div></div>
-          <div class="kpi"><div class="kpi-val">6,82%</div><div class="kpi-lbl">CVR VIP → orden W31</div></div>
-          <div class="kpi"><div class="kpi-val">422</div><div class="kpi-lbl">Ordenes desde VIPs instant W31</div></div>
+          <div class="kpi green"><div class="kpi-val">7.599</div><div class="kpi-lbl">VIPs instant W31</div><div class="kpi-sub">semana 8 jun a 31 jul 2026</div></div>
+          <div class="kpi"><div class="kpi-val">7,01%</div><div class="kpi-lbl">CVR VIP → orden W31</div></div>
+          <div class="kpi"><div class="kpi-val">533</div><div class="kpi-lbl">Ordenes desde VIPs instant W31</div></div>
         </div>
         <div style="font-size:8px;color:#bbb;text-align:center;margin-top:-4px">Fuente: DM_SHP_TRACKS_VIP_CONVERTION · sellers optineados · Lun-Vie</div>
       </div>
@@ -252,7 +252,7 @@ table.dt tr:hover td { background:#f0f4ff !important }
       <div class="card">
         <div class="card-title">Búsqueda instant → VIP click · tasa por semana</div>
         <canvas id="chartVipSellers"></canvas>
-        <div class="note">VIPs instant (sellers optineados) ÷ búsquedas con instant (MLB total) · subestimado porque VIPs no incluye todos los sellers instant</div>
+        <div class="note">VIPs instant (MLB total) ÷ búsquedas con instant (MLB total) · Jun-Jul 2026</div>
       </div>
 
       <!-- Fila 3: CVR + Ordenes -->
@@ -344,7 +344,7 @@ function showTab(name){
   document.querySelectorAll('.tab')[m[name]].classList.add('active');
 }
 // CVR instant por semana · datos reales
-var cvrData = [4.09,7.69,7.33,9.48,7.23,6.58,5.85,6.82];
+var cvrData = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01];
 new Chart(document.getElementById('chartCvr'),{
   type:'line',
   data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],datasets:[{
@@ -411,8 +411,8 @@ new Chart(document.getElementById('chartVipSellers'),{
 });
 
 // VIPs instant por semana · datos reales
-var vipsData = [1028,1288,2645,2364,3458,5426,5519,6189];
-var vipsWow  = [null,'+25%','+105%','-11%','+46%','+57%','+2%','+12%'];
+var vipsData = [1280,2071,3152,2857,4030,6080,6436,7599];
+var vipsWow  = [null,'+62%','+52%','-9%','+41%','+51%','+6%','+18%'];
 new Chart(document.getElementById('chartVips'),{
   type:'bar',
   data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],datasets:[{data:vipsData,backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
