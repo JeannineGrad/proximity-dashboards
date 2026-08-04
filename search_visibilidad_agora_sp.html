@@ -437,26 +437,45 @@ function initVipsCharts(){
     }}]
   });
 
-  // CVR comparativo por método · datos reales W24-W31
+  // CVR comparativo por método · barras agrupadas · datos reales W24-W31
+  var cvrComp = {
+    instant:  [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01],
+    sameday:  [5.29,4.92,5.30,6.40,5.69,5.85,5.87,5.77],
+    nextday:  [5.24,5.10,4.90,5.79,5.82,5.63,5.08,5.10],
+    standard: [2.17,2.22,2.12,2.39,2.43,2.25,2.18,2.33]
+  };
   new Chart(document.getElementById('chartCvrComp'),{
-    type:'line',
+    type:'bar',
     data:{
       labels:wkLabels,
       datasets:[
-        {label:'Instant',       data:[4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01], borderColor:'#1a7a3a', backgroundColor:'transparent', pointBackgroundColor:'#1a7a3a', pointRadius:4, tension:0.3, borderWidth:2.5},
-        {label:'Same day',      data:[5.29,4.92,5.30,6.40,5.69,5.85,5.87,5.77], borderColor:'#1565c0', backgroundColor:'transparent', pointBackgroundColor:'#1565c0', pointRadius:4, tension:0.3, borderDash:[4,3], borderWidth:1.5},
-        {label:'Next day',      data:[5.24,5.10,4.90,5.79,5.82,5.63,5.08,5.10], borderColor:'#f59e0b', backgroundColor:'transparent', pointBackgroundColor:'#f59e0b', pointRadius:4, tension:0.3, borderDash:[4,3], borderWidth:1.5},
-        {label:'Standard',      data:[2.17,2.22,2.12,2.39,2.43,2.25,2.18,2.33], borderColor:'#ccc',    backgroundColor:'transparent', pointBackgroundColor:'#ccc',    pointRadius:3, tension:0.3, borderDash:[2,4], borderWidth:1}
+        {label:'Instant',  data:cvrComp.instant,  backgroundColor:'rgba(26,122,58,0.85)',  borderRadius:3},
+        {label:'Same day', data:cvrComp.sameday,  backgroundColor:'rgba(21,101,192,0.7)',  borderRadius:3},
+        {label:'Next day', data:cvrComp.nextday,  backgroundColor:'rgba(245,158,11,0.7)',  borderRadius:3},
+        {label:'Standard', data:cvrComp.standard, backgroundColor:'rgba(180,180,180,0.6)', borderRadius:3}
       ]
     },
     options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:12,usePointStyle:true}}},
+      responsive:true, maintainAspectRatio:false, layout:{padding:{top:16}},
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
       scales:{
-        y:{beginAtZero:true, ticks:{callback:function(v){return v+'%'},font:{size:9}}, grid:{color:'#eee'}},
-        x:{ticks:{font:{size:9}}, grid:{display:false}}
+        x:{ticks:{font:{size:9}}, grid:{display:false}},
+        y:{beginAtZero:true, ticks:{callback:function(v){return v+'%'}, font:{size:9}}, grid:{color:'#eee'}}
       }
-    }
+    },
+    plugins:[{id:'cvrCompLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      chart.data.datasets.forEach(function(ds,di){
+        var meta=chart.getDatasetMeta(di);
+        if(meta.hidden) return;
+        meta.data.forEach(function(bar,i){
+          ctx.save();
+          ctx.fillStyle='#444'; ctx.font='bold 7px Segoe UI,Arial,sans-serif'; ctx.textAlign='center';
+          ctx.fillText(ds.data[i]+'%', bar.x, bar.y-3);
+          ctx.restore();
+        });
+      });
+    }}]
   });
 }
 var sw=['W24','W25','W26','W27','W28','W29','W30','W31'];
