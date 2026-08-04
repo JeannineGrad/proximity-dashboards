@@ -343,6 +343,10 @@ function showTab(name){
   var m={charts:0,vips:1,sellers:2,topdoms:3,botdoms:4};
   document.querySelectorAll('.tab')[m[name]].classList.add('active');
 }
+// Datos VIPs instant · MLB total · Jun-Jul 2026
+var vipsData = [1280,2071,3152,2857,4030,6080,6436,7599];
+var vipsWow  = [null,'+62%','+52%','-9%','+41%','+51%','+6%','+18%'];
+
 // CVR instant por semana · datos reales
 var cvrData = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01];
 new Chart(document.getElementById('chartCvr'),{
@@ -411,8 +415,6 @@ new Chart(document.getElementById('chartVipSellers'),{
 });
 
 // VIPs instant por semana · datos reales
-var vipsData = [1280,2071,3152,2857,4030,6080,6436,7599];
-var vipsWow  = [null,'+62%','+52%','-9%','+41%','+51%','+6%','+18%'];
 new Chart(document.getElementById('chartVips'),{
   type:'bar',
   data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],datasets:[{data:vipsData,backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
