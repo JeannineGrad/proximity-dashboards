@@ -262,9 +262,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div class="note">Conversion rate instant · % de VIPs que generan orden</div>
       </div>
       <div class="card">
-        <div class="card-title">Ordenes desde VIPs instant · por semana</div>
+        <div class="card-title">Competencia de promesas · quién gana la orden</div>
         <canvas id="chartOrders"></canvas>
-        <div class="note">Ordenes generadas desde VIPs con promesa instant</div>
+        <div class="note">VIPs con instant + otro método disponible · share de órdenes por método ganador · W24–W31</div>
       </div>
 
       <!-- Fila 4: CVR comparativo por método -->
@@ -399,9 +399,43 @@ function initVipsCharts(){
     }}]
   });
 
-  // Placeholder ordenes
-  var elOrd=document.getElementById('chartOrders'); if(elOrd)
-    new Chart(elOrd,{type:'bar',data:{labels:wkLabels,datasets:[{data:[null,null,null,null,null,null,null,null],backgroundColor:'rgba(26,122,58,0.3)'}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{font:{size:9}}},x:{ticks:{font:{size:9}}}}}});
+  // Competencia de promesas · quién gana la orden cuando instant compite
+  // Datos: VIPs con instant + otro método · órdenes por método ganador
+  var compInstant  = [10, 40, 65,  51,  64, 115,  82, 143];
+  var compSameday  = [ 2, 12, 26,  15,  53,  48,  64,  79];
+  var compNextday  = [ 1, 10, 18,  38,  20,  33,  35,  42];
+  var compOtros    = [ 1,  6,  4,   8,  15,  15,  19,  17];
+  var compTotals   = compInstant.map(function(v,i){return v+compSameday[i]+compNextday[i]+compOtros[i];});
+  new Chart(document.getElementById('chartOrders'),{
+    type:'bar',
+    data:{
+      labels:wkLabels,
+      datasets:[
+        {label:'Instant',   data:compInstant, backgroundColor:'rgba(26,122,58,0.85)', borderRadius:0},
+        {label:'Same day',  data:compSameday, backgroundColor:'rgba(21,101,192,0.75)', borderRadius:0},
+        {label:'Next day',  data:compNextday, backgroundColor:'rgba(245,158,11,0.75)', borderRadius:0},
+        {label:'Otros',     data:compOtros,   backgroundColor:'rgba(180,180,180,0.6)', borderRadius:0}
+      ]
+    },
+    options:{
+      responsive:true, layout:{padding:{top:22}},
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
+      scales:{
+        x:{stacked:true, ticks:{font:{size:9}}, grid:{display:false}},
+        y:{stacked:true, beginAtZero:true, ticks:{font:{size:9}}, grid:{color:'#eee'}}
+      }
+    },
+    plugins:[{id:'compLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      chart.getDatasetMeta(0).data.forEach(function(bar,i){
+        ctx.save();
+        ctx.fillStyle='#333'; ctx.font='bold 8px Segoe UI,Arial,sans-serif'; ctx.textAlign='center';
+        var pct=Math.round(compInstant[i]/compTotals[i]*100);
+        ctx.fillText(pct+'% inst · '+compTotals[i]+' ord total', bar.x, bar.y-8);
+        ctx.restore();
+      });
+    }}]
+  });
 
   // CVR comparativo por método · datos reales W24-W31
   new Chart(document.getElementById('chartCvrComp'),{
