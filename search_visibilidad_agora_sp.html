@@ -399,39 +399,41 @@ function initVipsCharts(){
     }}]
   });
 
-  // Competencia de promesas · quién gana la orden cuando instant compite
-  // Datos: VIPs con instant + otro método · órdenes por método ganador
-  var compInstant  = [10, 40, 65,  51,  64, 115,  82, 143];
-  var compSameday  = [ 2, 12, 26,  15,  53,  48,  64,  79];
-  var compNextday  = [ 1, 10, 18,  38,  20,  33,  35,  42];
-  var compOtros    = [ 1,  6,  4,   8,  15,  15,  19,  17];
-  var compTotals   = compInstant.map(function(v,i){return v+compSameday[i]+compNextday[i]+compOtros[i];});
+  // Competencia de promesas · share % de órdenes por método ganador
+  var compRaw = {
+    instant: [10, 40, 65,  51,  64, 115,  82, 143],
+    sameday: [ 2, 12, 26,  15,  53,  48,  64,  79],
+    nextday: [ 1, 10, 18,  38,  20,  33,  35,  42],
+    otros:   [ 1,  6,  4,   8,  15,  15,  19,  17]
+  };
+  var compTot = compRaw.instant.map(function(v,i){ return v+compRaw.sameday[i]+compRaw.nextday[i]+compRaw.otros[i]; });
+  function pct100(arr){ return arr.map(function(v,i){ return Math.round(v/compTot[i]*100); }); }
   new Chart(document.getElementById('chartOrders'),{
     type:'bar',
     data:{
       labels:wkLabels,
       datasets:[
-        {label:'Instant',   data:compInstant, backgroundColor:'rgba(26,122,58,0.85)', borderRadius:0},
-        {label:'Same day',  data:compSameday, backgroundColor:'rgba(21,101,192,0.75)', borderRadius:0},
-        {label:'Next day',  data:compNextday, backgroundColor:'rgba(245,158,11,0.75)', borderRadius:0},
-        {label:'Otros',     data:compOtros,   backgroundColor:'rgba(180,180,180,0.6)', borderRadius:0}
+        {label:'Instant',  data:pct100(compRaw.instant), backgroundColor:'rgba(26,122,58,0.85)'},
+        {label:'Same day', data:pct100(compRaw.sameday), backgroundColor:'rgba(21,101,192,0.75)'},
+        {label:'Next day', data:pct100(compRaw.nextday), backgroundColor:'rgba(245,158,11,0.75)'},
+        {label:'Otros',    data:pct100(compRaw.otros),   backgroundColor:'rgba(180,180,180,0.6)'}
       ]
     },
     options:{
-      responsive:true, layout:{padding:{top:22}},
-      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
+      responsive:true, layout:{padding:{top:18}},
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}},
+               tooltip:{callbacks:{label:function(ctx){ return ctx.dataset.label+': '+ctx.parsed.y+'% ('+compRaw[ctx.dataset.label.toLowerCase().replace(' ','')][ctx.dataIndex]+' ord)'; }}}},
       scales:{
         x:{stacked:true, ticks:{font:{size:9}}, grid:{display:false}},
-        y:{stacked:true, beginAtZero:true, ticks:{font:{size:9}}, grid:{color:'#eee'}}
+        y:{stacked:true, max:100, ticks:{callback:function(v){return v+'%'}, font:{size:9}}, grid:{color:'#eee'}}
       }
     },
-    plugins:[{id:'compLabels',afterDatasetsDraw:function(chart){
+    plugins:[{id:'compTop',afterDatasetsDraw:function(chart){
       var ctx=chart.ctx;
       chart.getDatasetMeta(0).data.forEach(function(bar,i){
         ctx.save();
         ctx.fillStyle='#333'; ctx.font='bold 8px Segoe UI,Arial,sans-serif'; ctx.textAlign='center';
-        var pct=Math.round(compInstant[i]/compTotals[i]*100);
-        ctx.fillText(pct+'% inst · '+compTotals[i]+' ord total', bar.x, bar.y-8);
+        ctx.fillText(compTot[i]+' ord', bar.x, chart.scales.y.getPixelForValue(100)-6);
         ctx.restore();
       });
     }}]
