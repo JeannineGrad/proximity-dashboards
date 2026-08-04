@@ -139,6 +139,86 @@ table.dt tr:hover td { background:#f0f4ff !important }
       </div>
 
       <div id="dist-table-wrap" style="display:none"></div><div id="weekly-breakdown" style="display:none"></div><div id="weekly-breakdown-21" style="display:none"></div>
+
+      <!-- WIP: CONVERSIÓN POR POSICIÓN -->
+      <div style="margin-top:18px;border-top:2px dashed #f59e0b;padding-top:14px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <span style="background:#f59e0b;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.5px">WIP</span>
+          <span style="font-size:12px;font-weight:700;color:#1a2a4a">Impacto en Conversión · Instant vs No-instant por Posición en SERP</span>
+          <span style="font-size:10px;color:#aaa;margin-left:auto">31 Jul 2026 · POSITION_BASE_FLAGGED · más fechas pendientes</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+          <!-- CTR chart -->
+          <div style="background:#fff;border:1px solid #e8e8e8;border-radius:8px;padding:12px">
+            <div style="font-size:10px;font-weight:700;color:#555;margin-bottom:8px">CTR (impresión → VIP) por posición</div>
+            <canvas id="chartCtrPos" height="160"></canvas>
+            <div style="font-size:9px;color:#888;margin-top:6px">Instant vence solo en top 5 (+42%). A partir de top 10, paridad.</div>
+          </div>
+          <!-- CVR chart -->
+          <div style="background:#fff;border:1px solid #e8e8e8;border-radius:8px;padding:12px">
+            <div style="font-size:10px;font-weight:700;color:#555;margin-bottom:8px">CVR sobre VIP (VIP → orden) por posición</div>
+            <canvas id="chartCvrPos" height="160"></canvas>
+            <div style="font-size:9px;color:#1a7a3a;margin-top:6px;font-weight:600">Instant convierte ~2× más en TODAS las posiciones sin excepción.</div>
+          </div>
+        </div>
+
+        <!-- Tabla resumen -->
+        <div style="background:#fffdf5;border:1px solid #f59e0b33;border-radius:8px;padding:10px">
+          <table style="width:100%;border-collapse:collapse;font-size:10px">
+            <thead>
+              <tr style="background:#1a2a4a;color:#fff">
+                <th style="padding:5px 8px;text-align:left">Posición</th>
+                <th style="padding:5px 8px;text-align:right">CTR Instant</th>
+                <th style="padding:5px 8px;text-align:right">CTR No-instant</th>
+                <th style="padding:5px 8px;text-align:right">CVR/VIP Instant</th>
+                <th style="padding:5px 8px;text-align:right">CVR/VIP No-inst</th>
+                <th style="padding:5px 8px;text-align:right">Ratio CVR</th>
+                <th style="padding:5px 8px;text-align:right">Impres. Instant</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#e8f5e9">
+                <td style="padding:5px 8px;font-weight:600">Top 5</td>
+                <td style="padding:5px 8px;text-align:right;color:#1a7a3a;font-weight:700">4,59%</td>
+                <td style="padding:5px 8px;text-align:right">3,23%</td>
+                <td style="padding:5px 8px;text-align:right;color:#1a7a3a;font-weight:700">28,67%</td>
+                <td style="padding:5px 8px;text-align:right">14,73%</td>
+                <td style="padding:5px 8px;text-align:right;font-weight:700;color:#1a7a3a">1,95×</td>
+                <td style="padding:5px 8px;text-align:right;color:#888">9.499</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 8px;font-weight:600">Top 10</td>
+                <td style="padding:5px 8px;text-align:right">1,70%</td>
+                <td style="padding:5px 8px;text-align:right">1,68%</td>
+                <td style="padding:5px 8px;text-align:right;color:#1a7a3a;font-weight:700">28,48%</td>
+                <td style="padding:5px 8px;text-align:right">12,76%</td>
+                <td style="padding:5px 8px;text-align:right;font-weight:700;color:#1a7a3a">2,23×</td>
+                <td style="padding:5px 8px;text-align:right;color:#888">8.877</td>
+              </tr>
+              <tr style="background:#f9f9f9">
+                <td style="padding:5px 8px;font-weight:600">Top 20</td>
+                <td style="padding:5px 8px;text-align:right">1,07%</td>
+                <td style="padding:5px 8px;text-align:right">1,14%</td>
+                <td style="padding:5px 8px;text-align:right;color:#1a7a3a;font-weight:700">21,91%</td>
+                <td style="padding:5px 8px;text-align:right">11,29%</td>
+                <td style="padding:5px 8px;text-align:right;font-weight:700;color:#1a7a3a">1,94×</td>
+                <td style="padding:5px 8px;text-align:right;color:#888">16.689</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 8px;font-weight:600">Pos 21+</td>
+                <td style="padding:5px 8px;text-align:right">0,49%</td>
+                <td style="padding:5px 8px;text-align:right">0,80%</td>
+                <td style="padding:5px 8px;text-align:right;color:#1a7a3a;font-weight:700">29,10%</td>
+                <td style="padding:5px 8px;text-align:right">10,62%</td>
+                <td style="padding:5px 8px;text-align:right;font-weight:700;color:#1a7a3a">2,74×</td>
+                <td style="padding:5px 8px;text-align:right;color:#888">27.312</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -579,6 +659,54 @@ function buildWeekly21Section(){
                    buildTable(weekly21Doms,'Dominio','#c0392b','Top 5 dominios en posicion 21+ · por semana');
 }
 buildWeekly21Section();
+})();
+
+// WIP: CTR y CVR por posición · instant vs no-instant · 31 Jul 2026
+(function(){
+  var labels = ['Top 5','Top 10','Top 20','Pos 21+'];
+  var ctrInst =    [4.59, 1.70, 1.07, 0.49];
+  var ctrNoInst =  [3.23, 1.68, 1.14, 0.80];
+  var cvrInst =    [28.67, 28.48, 21.91, 29.10];
+  var cvrNoInst =  [14.73, 12.76, 11.29, 10.62];
+  var INST = 'rgba(26,122,58,0.85)', NO_INST = 'rgba(180,180,180,0.7)';
+
+  new Chart(document.getElementById('chartCtrPos'), {
+    type:'bar',
+    data:{
+      labels:labels,
+      datasets:[
+        {label:'Instant',data:ctrInst,backgroundColor:INST,borderRadius:4},
+        {label:'No-instant',data:ctrNoInst,backgroundColor:NO_INST,borderRadius:4}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
+      scales:{
+        x:{ticks:{font:{size:9}}},
+        y:{ticks:{font:{size:9},callback:function(v){return v+'%'}},title:{display:true,text:'CTR (%)',font:{size:9}}}
+      }
+    }
+  });
+
+  new Chart(document.getElementById('chartCvrPos'), {
+    type:'bar',
+    data:{
+      labels:labels,
+      datasets:[
+        {label:'Instant',data:cvrInst,backgroundColor:INST,borderRadius:4},
+        {label:'No-instant',data:cvrNoInst,backgroundColor:NO_INST,borderRadius:4}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
+      scales:{
+        x:{ticks:{font:{size:9}}},
+        y:{ticks:{font:{size:9},callback:function(v){return v+'%'}},title:{display:true,text:'CVR VIP→Orden (%)',font:{size:9}}}
+      }
+    }
+  });
 })();
 
 var sellersData = [{rank:1,nome:'LINA LINGERIE LTDA',aparic:'2043',pct5:'30.3%',pos:'14'},{rank:2,nome:'GIRL COMERCIO DE VESTUARIO STORE LTDA',aparic:'3330',pct5:'27.8%',pos:'15.3'},{rank:3,nome:'ANGEL  ELETRONICOS & INFORMATICA LTDA',aparic:'29221',pct5:'26.6%',pos:'16.3'},{rank:4,nome:'RCA HOME TECH LTDA',aparic:'22976',pct5:'26.3%',pos:'16.5'},{rank:5,nome:'GRUPO EX',aparic:'2135',pct5:'26.1%',pos:'15.7'},{rank:6,nome:'C.B. COMERCIO DE PRESENTES LTDA',aparic:'8779',pct5:'24.2%',pos:'16.1'},{rank:7,nome:'STILLUS HOME',aparic:'3701',pct5:'23.6%',pos:'16.9'},{rank:8,nome:'NEW STORE MIX',aparic:'4429',pct5:'23.5%',pos:'15.2'},{rank:9,nome:'57.591.290 HERITO DOS SANTOS',aparic:'5685',pct5:'23.3%',pos:'17.5'},{rank:10,nome:'KOMPRA LOGO LTDA',aparic:'4382',pct5:'22.5%',pos:'17.6'},{rank:11,nome:'WOMAN VILLAGE FASHION',aparic:'35694',pct5:'22.2%',pos:'16.4'},{rank:12,nome:'KAVOD BRASIL',aparic:'140',pct5:'21.4%',pos:'17.7'},{rank:13,nome:'ENJOY PETS LTDA',aparic:'11411',pct5:'21.4%',pos:'16.9'},{rank:14,nome:'PARAMAR COMERCIO DE PARAFUSOS E PECAS LTDA',aparic:'20034',pct5:'20.5%',pos:'17.3'},{rank:15,nome:'KAUANE SILVA SANTOS ARTIGOS DO VESTUARIO',aparic:'3006',pct5:'20.5%',pos:'16.3'},{rank:16,nome:'LONG COMERCIO ONLINE LTDA',aparic:'7584',pct5:'20.4%',pos:'17.6'},{rank:17,nome:'SOPRA BALAO ARTIGOS PARA FESTAS E BRINQUEDOS LTDA.',aparic:'8157',pct5:'20%',pos:'17.9'},{rank:18,nome:'COMPRA CERTA COMERCIAL LTDA',aparic:'14271',pct5:'19.7%',pos:'16.5'},{rank:19,nome:'PRECOLANDIA',aparic:'154908',pct5:'19.6%',pos:'17.5'},{rank:20,nome:'CASA DAS GRIFFES STORE',aparic:'37281',pct5:'19.3%',pos:'17.5'},{rank:21,nome:'LUCKY FESTA',aparic:'2748',pct5:'19.1%',pos:'18.6'},{rank:22,nome:'M&R SHOP COMERCIO VAREJISTA DE ACESSORIOS LTDA',aparic:'4097',pct5:'18.8%',pos:'17.4'},{rank:23,nome:'MODA 2023',aparic:'27821',pct5:'18.8%',pos:'17.2'},{rank:24,nome:'GR DO BRASIL LTDA',aparic:'5266',pct5:'18.6%',pos:'17.5'},{rank:25,nome:'ABEX IMPORTACAO E DISTRIBUICAO DE PECAS LTDA',aparic:'15189',pct5:'18.4%',pos:'18'},{rank:26,nome:'HERANCA DISTRIBUIDORA',aparic:'3713',pct5:'17.7%',pos:'17.1'},{rank:27,nome:'L.S LOCAL SURF COMERCIO E CONFECCAO LTDA',aparic:'7262',pct5:'17.4%',pos:'17.4'},{rank:28,nome:'VERE COMERCIAL DISTRIBUIDORA',aparic:'5172',pct5:'17.3%',pos:'18.2'},{rank:29,nome:'BRASILPHONE',aparic:'27195',pct5:'17%',pos:'18.2'},{rank:30,nome:'BLUE MONKEY',aparic:'59676',pct5:'16.9%',pos:'19.2'}];
