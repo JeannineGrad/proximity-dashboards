@@ -343,8 +343,36 @@ function showTab(name){
   var m={charts:0,vips:1,sellers:2,topdoms:3,botdoms:4};
   document.querySelectorAll('.tab')[m[name]].classList.add('active');
 }
+// CVR instant por semana · datos reales
+var cvrData = [4.09,7.69,7.33,9.48,7.23,6.58,5.85,6.82];
+new Chart(document.getElementById('chartCvr'),{
+  type:'line',
+  data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],datasets:[{
+    data:cvrData,
+    borderColor:'#1a7a3a',backgroundColor:'rgba(26,122,58,0.08)',
+    pointBackgroundColor:'#1a7a3a',pointRadius:5,tension:0.3,fill:true
+  }]},
+  options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
+    scales:{
+      y:{beginAtZero:true,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}},
+      x:{ticks:{font:{size:9}},grid:{display:false}}
+    }
+  },
+  plugins:[{id:'cvrLabels',afterDatasetsDraw:function(chart){
+    var ctx=chart.ctx;
+    chart.getDatasetMeta(0).data.forEach(function(pt,i){
+      ctx.save();
+      ctx.fillStyle='#1a7a3a';
+      ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';
+      ctx.textAlign='center';
+      ctx.fillText(cvrData[i]+'%',pt.x,pt.y-8);
+      ctx.restore();
+    });
+  }}]
+});
+
 // Placeholder charts for VIPs tab (pendiente datos)
-['chartCvr','chartVipSellers','chartOrders','chartCvrComp'].forEach(function(id){
+['chartVipSellers','chartOrders','chartCvrComp'].forEach(function(id){
   var el=document.getElementById(id);
   if(!el)return;
   new Chart(el,{type:'bar',data:{labels:['W24','W25','W26','W27','W28','W29','W30','W31'],
