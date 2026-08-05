@@ -723,17 +723,17 @@ var distAbs={
 };
 var distTotals=[43931,66645,101890,75074,128735,127468,176937,247946];
 new Chart(document.getElementById('chartDist'),{type:'bar',data:{labels:sw,datasets:[
-  {label:'Pos 1-5', data:[17.4,17.4,17.1,17.2,17.2,19.5,15.7,15.2],backgroundColor:'#1a7a3a',borderWidth:0},
-  {label:'Pos 6-10',data:[16.9,16.8,15.4,14.9,14.3,16.0,14.0,14.1],backgroundColor:'#a3d977',borderWidth:0},
-  {label:'Pos 11-15',data:[13.9,13.2,12.9,12.7,12.9,13.4,12.3,12.3],backgroundColor:'#f9c74f',borderWidth:0},
+  {label:'Pos 21+',  data:[37.2,36.0,38.7,38.9,40.1,37.1,43.7,44.0],backgroundColor:'#e63946',borderWidth:0},
   {label:'Pos 16-20',data:[14.6,16.6,15.9,16.3,15.6,14.1,14.3,14.3],backgroundColor:'#f77f00',borderWidth:0},
-  {label:'Pos 21+',data:[37.2,36.0,38.7,38.9,40.1,37.1,43.7,44.0],backgroundColor:'#e63946',borderWidth:0}
-]},options:{responsive:true,plugins:{legend:{position:'right',labels:{font:{size:9},boxWidth:12}},tooltip:{callbacks:{label:function(ctx){var abs=distAbs['p'+(ctx.datasetIndex+1)][ctx.dataIndex];return ctx.dataset.label+': '+ctx.parsed.y+'% ('+abs.toLocaleString('es')+' aparic.)';}}}},scales:{x:{stacked:true,ticks:{font:{size:9}},grid:{display:false}},y:{stacked:true,max:100,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}}}},
+  {label:'Pos 11-15',data:[13.9,13.2,12.9,12.7,12.9,13.4,12.3,12.3],backgroundColor:'#f9c74f',borderWidth:0},
+  {label:'Pos 6-10', data:[16.9,16.8,15.4,14.9,14.3,16.0,14.0,14.1],backgroundColor:'#a3d977',borderWidth:0},
+  {label:'Pos 1-5',  data:[17.4,17.4,17.1,17.2,17.2,19.5,15.7,15.2],backgroundColor:'#1a7a3a',borderWidth:0}
+]},options:{responsive:true,plugins:{legend:{position:'right',labels:{font:{size:9},boxWidth:12}},tooltip:{callbacks:{label:function(ctx){var keys=['p5','p4','p3','p2','p1'];var abs=distAbs[keys[ctx.datasetIndex]][ctx.dataIndex];return ctx.dataset.label+': '+ctx.parsed.y+'% ('+abs.toLocaleString('es')+' aparic.)';}}}},scales:{x:{stacked:true,ticks:{font:{size:9}},grid:{display:false}},y:{stacked:true,max:100,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}}}},
 plugins:[{id:'distLabels',afterDatasetsDraw:function(chart){
   var ctx=chart.ctx;
   chart.data.datasets.forEach(function(ds,di){
     var meta=chart.getDatasetMeta(di);
-    var txtColor=di<=1?'#fff':(di===2?'#333':'#fff');
+    var txtColor=(di===2||di===3)?'#333':'#fff';
     meta.data.forEach(function(bar,i){
       var v=ds.data[i];
       if(v<10)return;
