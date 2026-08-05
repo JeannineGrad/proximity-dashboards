@@ -631,28 +631,51 @@ makeShareChart('chartShareZona', zonaData, '#1a7a3a', function(v){return (+v).to
 
 // CTR instant por rango de posición · W24-W31
 (function(){
-  var labels = sw;
+  var d15  = [7.51,6.00,5.87,5.51,5.58,5.91,6.56,7.07];
+  var d610 = [2.33,2.36,2.21,2.48,2.22,2.24,2.37,3.18];
+  var d1115= [1.40,1.51,1.57,1.70,1.80,1.29,1.76,2.35];
+  var d1620= [1.18,1.13,1.32,1.12,1.31,1.38,1.48,1.49];
+  var d21  = [0.63,0.56,0.51,0.69,0.93,0.61,0.72,0.75];
+  var dtot = [2.31,2.03,1.96,1.99,2.09,2.10,2.11,2.38];
+
+  var base = {backgroundColor:'transparent',pointRadius:4,tension:0.3,fill:false};
   var datasets = [
-    {label:'Pos 1-5',   data:[7.51,6.00,5.87,5.51,5.58,5.91,6.56,7.07], borderColor:'#1a7a3a', pointBackgroundColor:'#1a7a3a', borderWidth:2.5},
-    {label:'Pos 6-10',  data:[2.33,2.36,2.21,2.48,2.22,2.24,2.37,3.18], borderColor:'#4caf50', pointBackgroundColor:'#4caf50', borderWidth:2},
-    {label:'Pos 11-15', data:[1.40,1.51,1.57,1.70,1.80,1.29,1.76,2.35], borderColor:'#f59e0b', pointBackgroundColor:'#f59e0b', borderWidth:2},
-    {label:'Pos 16-20', data:[1.18,1.13,1.32,1.12,1.31,1.38,1.48,1.49], borderColor:'#ef4444', pointBackgroundColor:'#ef4444', borderWidth:2},
-    {label:'Pos 21+',   data:[0.63,0.56,0.51,0.69,0.93,0.61,0.72,0.75], borderColor:'#9ca3af', pointBackgroundColor:'#9ca3af', borderWidth:1.5},
-    {label:'Total pond.',data:[2.31,2.03,1.96,1.99,2.09,2.10,2.11,2.38], borderColor:'#1a2a4a', pointBackgroundColor:'#1a2a4a', borderWidth:2, borderDash:[5,3]}
-  ].map(function(d){ return Object.assign({backgroundColor:'transparent',pointRadius:4,tension:0.3,fill:false},d); });
+    Object.assign({},base,{label:'Pos 1-5',   data:d15,  borderColor:'#1a7a3a',pointBackgroundColor:'#1a7a3a',borderWidth:2.5}),
+    Object.assign({},base,{label:'Pos 6-10',  data:d610, borderColor:'#a3d977',pointBackgroundColor:'#a3d977',borderWidth:2}),
+    Object.assign({},base,{label:'Pos 11-15', data:d1115,borderColor:'#f9c74f',pointBackgroundColor:'#f9c74f',borderWidth:2}),
+    Object.assign({},base,{label:'Pos 16-20', data:d1620,borderColor:'#f77f00',pointBackgroundColor:'#f77f00',borderWidth:2}),
+    Object.assign({},base,{label:'Pos 21+',   data:d21,  borderColor:'#e63946',pointBackgroundColor:'#e63946',borderWidth:1.5}),
+    Object.assign({},base,{label:'Total pond.',data:dtot, borderColor:'#1a2a4a',pointBackgroundColor:'#1a2a4a',borderWidth:2,borderDash:[5,3]})
+  ];
 
   new Chart(document.getElementById('chartCtrEvol'),{
     type:'line',
-    data:{labels:labels, datasets:datasets},
+    data:{labels:sw, datasets:datasets},
     options:{
-      responsive:true, maintainAspectRatio:false, layout:{padding:{top:8}},
+      responsive:true, maintainAspectRatio:false, layout:{padding:{top:20}},
       plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10,usePointStyle:true}}},
       scales:{
-        y:{beginAtZero:true, ticks:{callback:function(v){return v+'%'},font:{size:9}}, grid:{color:'#eee'},
-           title:{display:true,text:'CTR (%)',font:{size:8},color:'#888'}},
-        x:{ticks:{font:{size:9}}, grid:{display:false}}
+        y:{beginAtZero:true,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}},
+        x:{ticks:{font:{size:9}},grid:{display:false}}
       }
-    }
+    },
+    plugins:[{id:'ctrEvolLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      // Etiquetas Pos 1-5 (dataset 0)
+      chart.getDatasetMeta(0).data.forEach(function(pt,i){
+        ctx.save();
+        ctx.fillStyle='#1a7a3a';ctx.font='bold 8px Segoe UI,Arial';ctx.textAlign='center';
+        ctx.fillText(d15[i]+'%',pt.x,pt.y-8);
+        ctx.restore();
+      });
+      // Etiquetas Total ponderado (dataset 5)
+      chart.getDatasetMeta(5).data.forEach(function(pt,i){
+        ctx.save();
+        ctx.fillStyle='#1a2a4a';ctx.font='bold 7.5px Segoe UI,Arial';ctx.textAlign='center';
+        ctx.fillText(dtot[i]+'%',pt.x,pt.y+14);
+        ctx.restore();
+      });
+    }}]
   });
 })();
 
