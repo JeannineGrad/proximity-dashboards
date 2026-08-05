@@ -108,19 +108,19 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div class="note">% de sellers que acumulan el 80% de las apariciones instant · entre 40-45% semana a semana</div>
       </div>
 
-      <!-- FILA 4: Posicion + Distribución -->
-      <div class="card"><div class="card-title">Posicion media del primer resultado instant</div><canvas id="chartPos"></canvas><div class="note">Promedio de posicion minima instant por busqueda · metodologia equipo Search</div></div>
+      <!-- FILA 4: Posicion media — ancho completo -->
+      <div class="card full"><div class="card-title">Posicion media del primer resultado instant</div><canvas id="chartPos" style="max-height:160px"></canvas><div class="note">Promedio de posicion minima instant por busqueda · metodologia equipo Search</div></div>
+
+      <!-- FILA 5: Distribución + CTR por posición -->
       <div class="card">
         <div class="card-title">Distribucion por rango de posicion (%)</div>
         <canvas id="chartDist"></canvas>
         <div class="note">% de apariciones por rango · Pos 21+ crece de 37% a 44%</div>
       </div>
-
-      <!-- FILA 5: CTR instant por rango de posición -->
-      <div class="card full">
-        <div class="card-title">CTR por rango de posición · impresión instant → VIP click · W24–W31</div>
-        <canvas id="chartCtrPos" style="max-height:180px"></canvas>
-        <div class="note">% de apariciones instant en cada rango que derivaron en click al VIP · línea oscura = promedio ponderado total · fuente: BT_SEARCH_2_0 step_search + step_vip · join por FRAGMENT_TRACKING_ID</div>
+      <div class="card">
+        <div class="card-title">CTR por rango de posición · impresión → VIP click · W24–W31</div>
+        <canvas id="chartCtrPos"></canvas>
+        <div class="note">% de apariciones instant que derivaron en VIP click · línea oscura = promedio ponderado · FRAGMENT_TRACKING_ID join</div>
       </div>
 
       <!-- FILA 6: Densidad instant en SERP -->
