@@ -116,7 +116,14 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div class="note">% de apariciones por rango · Pos 21+ crece de 37% a 44%</div>
       </div>
 
-      <!-- FILA 5: Densidad instant en SERP -->
+      <!-- FILA 5: CTR instant por rango de posición -->
+      <div class="card full">
+        <div class="card-title">CTR por rango de posición · impresión instant → VIP click · W24–W31</div>
+        <canvas id="chartCtrPos" style="max-height:180px"></canvas>
+        <div class="note">% de apariciones instant en cada rango que derivaron en click al VIP · línea oscura = promedio ponderado total · fuente: BT_SEARCH_2_0 step_search + step_vip · join por FRAGMENT_TRACKING_ID</div>
+      </div>
+
+      <!-- FILA 6: Densidad instant en SERP -->
       <div class="card full">
         <div class="card-title">Densidad de resultados Agora en los primeros 20 resultados de search · W31</div>
         <div style="display:flex;gap:20px;align-items:flex-start">
@@ -621,6 +628,33 @@ function makeShareChart(id,data,color,fmtFn){
 
 makeShareChart('chartShare', shareData, '#1a2a4a', function(v){return (+v).toFixed(3)+'%';});
 makeShareChart('chartShareZona', zonaData, '#1a7a3a', function(v){return (+v).toFixed(2)+'%';});
+
+// CTR instant por rango de posición · W24-W31
+(function(){
+  var labels = sw;
+  var datasets = [
+    {label:'Pos 1-5',   data:[7.51,6.00,5.87,5.51,5.58,5.91,6.56,7.07], borderColor:'#1a7a3a', pointBackgroundColor:'#1a7a3a', borderWidth:2.5},
+    {label:'Pos 6-10',  data:[2.33,2.36,2.21,2.48,2.22,2.24,2.37,3.18], borderColor:'#4caf50', pointBackgroundColor:'#4caf50', borderWidth:2},
+    {label:'Pos 11-15', data:[1.40,1.51,1.57,1.70,1.80,1.29,1.76,2.35], borderColor:'#f59e0b', pointBackgroundColor:'#f59e0b', borderWidth:2},
+    {label:'Pos 16-20', data:[1.18,1.13,1.32,1.12,1.31,1.38,1.48,1.49], borderColor:'#ef4444', pointBackgroundColor:'#ef4444', borderWidth:2},
+    {label:'Pos 21+',   data:[0.63,0.56,0.51,0.69,0.93,0.61,0.72,0.75], borderColor:'#9ca3af', pointBackgroundColor:'#9ca3af', borderWidth:1.5},
+    {label:'Total pond.',data:[2.31,2.03,1.96,1.99,2.09,2.10,2.11,2.38], borderColor:'#1a2a4a', pointBackgroundColor:'#1a2a4a', borderWidth:2, borderDash:[5,3]}
+  ].map(function(d){ return Object.assign({backgroundColor:'transparent',pointRadius:4,tension:0.3,fill:false},d); });
+
+  new Chart(document.getElementById('chartCtrPos'),{
+    type:'line',
+    data:{labels:labels, datasets:datasets},
+    options:{
+      responsive:true, maintainAspectRatio:false, layout:{padding:{top:8}},
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10,usePointStyle:true}}},
+      scales:{
+        y:{beginAtZero:true, ticks:{callback:function(v){return v+'%'},font:{size:9}}, grid:{color:'#eee'},
+           title:{display:true,text:'CTR (%)',font:{size:8},color:'#888'}},
+        x:{ticks:{font:{size:9}}, grid:{display:false}}
+      }
+    }
+  });
+})();
 
 // Densidad instant en SERP (W31 only for now)
 new Chart(document.getElementById('chartDensidad'),{
