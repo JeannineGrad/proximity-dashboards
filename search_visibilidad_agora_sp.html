@@ -83,7 +83,18 @@ table.dt tr:hover td { background:#f0f4ff !important }
       </div>
       <!-- FILA 2: Instant + Penetración -->
       <div class="card"><div class="card-title">Busquedas instant por semana</div><canvas id="chartInstant"></canvas><div class="note">Busquedas unicas (tracking_id) con al menos 1 resultado instant · MLB total</div></div>
-      <div class="card"><div class="card-title">Penetracion busquedas instant</div><canvas id="chartShare"></canvas><div class="note">Línea oscura: share instant / total MLB (eje izq) · Línea verde: instant / total en zona SP (eje der, proxy por CEPs — puede no capturar el 100% de la zona real) · fuente: BT_SEARCH_2_0_step_search_v7</div></div>
+      <div class="card" style="display:flex;flex-direction:column;gap:6px">
+        <div>
+          <div class="card-title">Penetración · MLB total</div>
+          <canvas id="chartShare" style="max-height:88px"></canvas>
+          <div class="note">Instant / total búsquedas MLB · fuente: equipo Search</div>
+        </div>
+        <div style="border-top:1px solid #eee;padding-top:6px">
+          <div class="card-title">Penetración · Zona SP (proxy CEPs)</div>
+          <canvas id="chartShareZona" style="max-height:88px"></canvas>
+          <div class="note">Instant / total búsquedas desde CEPs de la zona · puede no capturar el 100% de la zona real</div>
+        </div>
+      </div>
 
       <!-- FILA 3: Sellers + Pareto -->
       <div class="card">
@@ -584,51 +595,32 @@ new Chart(document.getElementById('chartPareto'),{
 // Share % = instant / total MLB
 var shareData=[0.0025,0.0062,0.0092,0.0091,0.0128,0.0121,0.0176,0.0233];
 var zonaData=[0.19,0.44,0.59,0.54,0.85,0.97,1.36,1.75];
-new Chart(document.getElementById('chartShare'),{
-  type:'line',
-  data:{labels:sw,datasets:[
-    {
-      label:'MLB total (eje izq)',
-      data:shareData,
-      borderColor:'#1a2a4a',backgroundColor:'rgba(26,42,74,0.05)',
-      pointBackgroundColor:'#1a2a4a',pointRadius:4,tension:0.3,fill:true,
-      yAxisID:'y'
+
+function makeShareChart(id,data,color,fmtFn){
+  return new Chart(document.getElementById(id),{
+    type:'line',
+    data:{labels:sw,datasets:[{data:data,borderColor:color,
+      backgroundColor:color.replace(')',',0.07)').replace('rgb','rgba'),
+      pointBackgroundColor:color,pointRadius:4,tension:0.3,fill:true}]},
+    options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:16}},
+      plugins:{legend:{display:false}},
+      scales:{
+        y:{beginAtZero:true,ticks:{callback:function(v){return fmtFn(v)},font:{size:8}},grid:{color:'#eee'}},
+        x:{ticks:{font:{size:8}},grid:{display:false}}
+      }
     },
-    {
-      label:'Zona SP · proxy CEPs (eje der)',
-      data:zonaData,
-      borderColor:'#1a7a3a',backgroundColor:'rgba(26,122,58,0.05)',
-      pointBackgroundColor:'#1a7a3a',pointRadius:4,tension:0.3,fill:false,
-      borderDash:[4,3],yAxisID:'y1'
-    }
-  ]},
-  options:{
-    responsive:true,layout:{padding:{top:22}},
-    plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
-    scales:{
-      y:{beginAtZero:true,position:'left',
-         ticks:{callback:function(v){return v.toFixed(3)+'%'},font:{size:8}},
-         grid:{color:'#eee'},title:{display:true,text:'MLB',font:{size:8},color:'#1a2a4a'}},
-      y1:{beginAtZero:true,position:'right',
-          ticks:{callback:function(v){return v.toFixed(2)+'%'},font:{size:8}},
-          grid:{drawOnChartArea:false},title:{display:true,text:'Zona SP',font:{size:8},color:'#1a7a3a'}},
-      x:{ticks:{font:{size:9}},grid:{display:false}}
-    }
-  },
-  plugins:[{id:'shareLabels',afterDatasetsDraw:function(chart){
-    var ctx=chart.ctx;
-    // Labels MLB
-    chart.getDatasetMeta(0).data.forEach(function(pt,i){
-      ctx.save();ctx.fillStyle='#1a2a4a';ctx.font='bold 7.5px Segoe UI,Arial';ctx.textAlign='center';
-      ctx.fillText(shareData[i].toFixed(3)+'%',pt.x,pt.y-7);ctx.restore();
-    });
-    // Labels Zona
-    chart.getDatasetMeta(1).data.forEach(function(pt,i){
-      ctx.save();ctx.fillStyle='#1a7a3a';ctx.font='bold 7.5px Segoe UI,Arial';ctx.textAlign='center';
-      ctx.fillText(zonaData[i].toFixed(2)+'%',pt.x,pt.y-7);ctx.restore();
-    });
-  }}]
-});
+    plugins:[{id:'lbl_'+id,afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      chart.getDatasetMeta(0).data.forEach(function(pt,i){
+        ctx.save();ctx.fillStyle=color;ctx.font='bold 7.5px Segoe UI,Arial';
+        ctx.textAlign='center';ctx.fillText(fmtFn(data[i]),pt.x,pt.y-6);ctx.restore();
+      });
+    }}]
+  });
+}
+
+makeShareChart('chartShare', shareData, '#1a2a4a', function(v){return (+v).toFixed(3)+'%';});
+makeShareChart('chartShareZona', zonaData, '#1a7a3a', function(v){return (+v).toFixed(2)+'%';});
 
 // Densidad instant en SERP (W31 only for now)
 new Chart(document.getElementById('chartDensidad'),{
