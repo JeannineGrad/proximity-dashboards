@@ -119,7 +119,7 @@ table.dt tr:hover td { background:#f0f4ff !important }
       </div>
       <div class="card">
         <div class="card-title">CTR por rango de posición · impresión → VIP click · W24–W31</div>
-        <canvas id="chartCtrPos"></canvas>
+        <canvas id="chartCtrEvol"></canvas>
         <div class="note">% de apariciones instant que derivaron en VIP click · línea oscura = promedio ponderado · FRAGMENT_TRACKING_ID join</div>
       </div>
 
@@ -641,7 +641,7 @@ makeShareChart('chartShareZona', zonaData, '#1a7a3a', function(v){return (+v).to
     {label:'Total pond.',data:[2.31,2.03,1.96,1.99,2.09,2.10,2.11,2.38], borderColor:'#1a2a4a', pointBackgroundColor:'#1a2a4a', borderWidth:2, borderDash:[5,3]}
   ].map(function(d){ return Object.assign({backgroundColor:'transparent',pointRadius:4,tension:0.3,fill:false},d); });
 
-  new Chart(document.getElementById('chartCtrPos'),{
+  new Chart(document.getElementById('chartCtrEvol'),{
     type:'line',
     data:{labels:labels, datasets:datasets},
     options:{
