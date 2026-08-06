@@ -275,9 +275,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div class="note">VIPs con promesa instant · sellers optineados MLB · Jun-Jul 2026</div>
       </div>
       <div class="card">
-        <div class="card-title">Búsqueda instant → VIP click · tasa por semana</div>
+        <div class="card-title">Share VIPs instant / total VIPs zona SP</div>
         <canvas id="chartVipSellers"></canvas>
-        <div class="note">VIPs instant (MLB total) ÷ búsquedas con instant (MLB total) · Jun-Jul 2026</div>
+        <div class="note">% de todas las visitas a VIPs desde la zona SP que mostraron promesa instant · proxy: PROMISE_DESTINATION_ZIPCODE · Jun-Jul 2026</div>
       </div>
 
       <!-- Fila 3: CVR + Ordenes -->
@@ -397,17 +397,17 @@ function initVipsCharts(){
     }}]
   });
 
-  // Búsqueda → VIP ratio
-  var searchD = [11430,28272,40941,34285,53006,54654,76450,99031];
-  var vipRatio = searchD.map(function(s,i){ return Math.round(vipsData[i]/s*1000)/10; });
+  // Share VIPs instant / total VIPs zona SP
+  var vipShareZona = [0.005,0.011,0.012,0.012,0.016,0.028,0.029,0.056];
+  var vipShareWow  = [null,'+120%','+9%','0%','+33%','+75%','+4%','+93%'];
   new Chart(document.getElementById('chartVipSellers'),{
     type:'line',
-    data:{labels:wkLabels,datasets:[{data:vipRatio,borderColor:'#1565c0',backgroundColor:'rgba(21,101,192,0.07)',pointBackgroundColor:'#1565c0',pointRadius:5,tension:0.3,fill:true}]},
+    data:{labels:wkLabels,datasets:[{data:vipShareZona,borderColor:'#1565c0',backgroundColor:'rgba(21,101,192,0.07)',pointBackgroundColor:'#1565c0',pointRadius:5,tension:0.3,fill:true}]},
     options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},
-      scales:{y:{beginAtZero:true,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}},
-    plugins:[{id:'ratioLabels',afterDatasetsDraw:function(chart){
-      var ctx=chart.ctx; var d=vipRatio;
-      chart.getDatasetMeta(0).data.forEach(function(pt,i){ctx.save();ctx.fillStyle='#1565c0';ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';ctx.textAlign='center';ctx.fillText(d[i]+'%',pt.x,pt.y-8);ctx.restore();});
+      scales:{y:{beginAtZero:true,ticks:{callback:function(v){return v.toFixed(3)+'%'},font:{size:9}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}},
+    plugins:[{id:'vipShareLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx; var d=vipShareZona;
+      chart.getDatasetMeta(0).data.forEach(function(pt,i){ctx.save();ctx.fillStyle='#1565c0';ctx.font='bold 8px Segoe UI,Arial,sans-serif';ctx.textAlign='center';ctx.fillText(d[i].toFixed(3)+'%',pt.x,pt.y-16);if(vipShareWow[i]){ctx.fillStyle=vipShareWow[i].startsWith('-')?'#c0392b':'#1a7a3a';ctx.font='bold 7.5px Segoe UI,Arial';ctx.fillText(vipShareWow[i],pt.x,pt.y-6);}ctx.restore();});
     }}]
   });
 
