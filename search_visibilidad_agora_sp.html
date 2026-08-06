@@ -126,7 +126,7 @@ table.dt tr:hover td { background:#f0f4ff !important }
       <!-- FILA 6: Share instant en top 10 zona SP -->
       <div class="card full">
         <div class="card-title">Share instant en posiciones 1–10 · zona SP · W24–W31</div>
-        <canvas id="chartShareTop10" height="160"></canvas>
+        <canvas id="chartShareTop10" height="160" width="900"></canvas>
         <div class="note">% de impresiones en pos 1–10 desde zona SP que son instant · fuente: BT_SEARCH_2_0_step_search_v7 · CEPs zona · excluye 9/7 (sin operación Agora)</div>
       </div>
 
@@ -699,7 +699,7 @@ makeShareChart('chartShareZona', zonaData, '#1a7a3a', function(v){return (+v).to
       backgroundColor:'rgba(26,122,58,0.75)',
       borderRadius:4
     }]},
-    options:{responsive:true,layout:{padding:{top:20}},
+    options:{responsive:false,layout:{padding:{top:20}},
       plugins:{legend:{display:false}},
       scales:{
         y:{beginAtZero:true,ticks:{callback:function(v){return v.toFixed(3)+'%'},font:{size:9}},grid:{color:'#eee'}},
