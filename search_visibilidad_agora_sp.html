@@ -123,7 +123,14 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div class="note">% de apariciones instant que derivaron en VIP click · línea oscura = promedio ponderado · FRAGMENT_TRACKING_ID join</div>
       </div>
 
-      <!-- FILA 6: Densidad instant en SERP -->
+      <!-- FILA 6: Share instant en top 10 zona SP -->
+      <div class="card full">
+        <div class="card-title">Share instant en posiciones 1–10 · zona SP · W24–W31</div>
+        <canvas id="chartShareTop10" style="max-height:160px"></canvas>
+        <div class="note">% de impresiones en pos 1–10 desde zona SP que son instant · fuente: BT_SEARCH_2_0_step_search_v7 · CEPs zona · excluye 9/7 (sin operación Agora)</div>
+      </div>
+
+      <!-- FILA 7: Densidad instant en SERP -->
       <div class="card full">
         <div class="card-title">Densidad de resultados Agora en los primeros 20 resultados de search · W31</div>
         <div style="display:flex;gap:20px;align-items:flex-start">
@@ -675,6 +682,41 @@ makeShareChart('chartShareZona', zonaData, '#1a7a3a', function(v){return (+v).to
         ctx.save();
         ctx.fillStyle='#1a2a4a';ctx.font='bold 7.5px Segoe UI,Arial';ctx.textAlign='center';
         ctx.fillText(dtot[i]+'%',pt.x,pt.y+14);
+        ctx.restore();
+      });
+    }}]
+  });
+})();
+
+// Share instant en top 10 zona SP · W24-W31
+(function(){
+  var shareTop10 = [0.026,0.049,0.061,0.055,0.100,0.108,0.126,0.158];
+  var wow = [null,'+88%','+24%','-10%','+82%','+8%','+17%','+25%'];
+  new Chart(document.getElementById('chartShareTop10'),{
+    type:'bar',
+    data:{labels:sw, datasets:[{
+      data:shareTop10,
+      backgroundColor:'rgba(26,122,58,0.75)',
+      borderRadius:4
+    }]},
+    options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:20}},
+      plugins:{legend:{display:false}},
+      scales:{
+        y:{beginAtZero:true,ticks:{callback:function(v){return v.toFixed(3)+'%'},font:{size:9}},grid:{color:'#eee'}},
+        x:{ticks:{font:{size:9}},grid:{display:false}}
+      }
+    },
+    plugins:[{id:'shareTop10Labels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      chart.getDatasetMeta(0).data.forEach(function(bar,i){
+        ctx.save();
+        ctx.fillStyle='#1a2a4a';ctx.font='bold 8px Segoe UI,Arial';ctx.textAlign='center';
+        ctx.fillText(shareTop10[i].toFixed(3)+'%',bar.x,bar.y-14);
+        if(wow[i]){
+          ctx.fillStyle=wow[i].startsWith('-')?'#c0392b':'#1a7a3a';
+          ctx.font='bold 7.5px Segoe UI,Arial';
+          ctx.fillText(wow[i],bar.x,bar.y-4);
+        }
         ctx.restore();
       });
     }}]
