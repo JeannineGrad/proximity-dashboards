@@ -85,14 +85,14 @@ table.dt tr:hover td { background:#f0f4ff !important }
       <div class="card"><div class="card-title">Busquedas instant por semana</div><canvas id="chartInstant"></canvas><div class="note">Busquedas unicas (tracking_id) con al menos 1 resultado instant · MLB total</div></div>
       <div class="card" style="display:flex;flex-direction:column;gap:6px">
         <div>
-          <div class="card-title">Penetración · MLB total</div>
+          <div class="card-title">Penetración · Zona SP · búsquedas con al menos 1 resultado instant (cualquier posición)</div>
           <canvas id="chartShare" style="max-height:88px"></canvas>
-          <div class="note">Instant / total búsquedas MLB · fuente: equipo Search</div>
+          <div class="note">Búsquedas desde CEPs zona SP con al menos 1 resultado instant (cualquier posición) / total búsquedas zona · proxy por zipcode de búsqueda · puede no capturar el 100% de la zona real</div>
         </div>
         <div style="border-top:1px solid #eee;padding-top:6px">
-          <div class="card-title">Penetración · Zona SP (proxy CEPs)</div>
+          <div class="card-title">Penetración · Zona SP · búsquedas con instant en posiciones 1–10</div>
           <canvas id="chartShareZona" style="max-height:88px"></canvas>
-          <div class="note">Instant / total búsquedas desde CEPs de la zona · puede no capturar el 100% de la zona real</div>
+          <div class="note">Búsquedas desde CEPs zona SP donde instant aparece en pos 1–10 / total búsquedas zona · mismo denominador que el gráfico de arriba</div>
         </div>
       </div>
 
@@ -698,8 +698,11 @@ function makeShareChart(id,data,color,fmtFn){
   });
 }
 
-makeShareChart('chartShare', shareData, '#1a2a4a', function(v){return (+v).toFixed(3)+'%';});
-makeShareChart('chartShareZona', zonaData, '#1a7a3a', function(v){return (+v).toFixed(2)+'%';});
+// Zona SP · cualquier posición (reemplaza MLB arriba)
+makeShareChart('chartShare', zonaData, '#1a7a3a', function(v){return (+v).toFixed(2)+'%';});
+// Zona SP · top 10 (nuevo abajo)
+var zonaTop10Data = [0.11,0.22,0.27,0.24,0.38,0.48,0.60,0.76];
+makeShareChart('chartShareZona', zonaTop10Data, '#1565c0', function(v){return (+v).toFixed(2)+'%';});
 
 // CTR instant por rango de posición · W24-W31
 (function(){
