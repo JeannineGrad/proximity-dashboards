@@ -96,18 +96,6 @@ table.dt tr:hover td { background:#f0f4ff !important }
         </div>
       </div>
 
-      <!-- FILA 3: Sellers + Pareto -->
-      <div class="card">
-        <div class="card-title">Sellers con visibilidad instant · por semana</div>
-        <canvas id="chartSellers"></canvas>
-        <div class="note">Sellers unicos con al menos 1 aparicion instant en search · MLB total</div>
-      </div>
-      <div class="card">
-        <div class="card-title">Concentracion · sellers que hacen el 80% de apariciones</div>
-        <canvas id="chartPareto"></canvas>
-        <div class="note">% de sellers que acumulan el 80% de las apariciones instant · entre 40-45% semana a semana</div>
-      </div>
-
       <!-- FILA 4: Posicion media — ancho completo -->
       <div class="card full"><div class="card-title">Posicion media del primer resultado instant</div><canvas id="chartPos" style="max-height:160px"></canvas><div class="note">Promedio de posicion minima instant por busqueda · metodologia equipo Search</div></div>
 
@@ -303,6 +291,18 @@ table.dt tr:hover td { background:#f0f4ff !important }
   </div>
 
   <div id="panel-sellers" class="panel">
+    <div class="body" style="margin-bottom:0;padding-bottom:8px">
+      <div class="card">
+        <div class="card-title">Sellers con visibilidad instant · por semana</div>
+        <canvas id="chartSellers"></canvas>
+        <div class="note">Sellers unicos con al menos 1 aparicion instant en search · MLB total</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Concentracion · sellers que hacen el 80% de apariciones</div>
+        <canvas id="chartPareto"></canvas>
+        <div class="note">% de sellers que acumulan el 80% de las apariciones instant · entre 40-45% semana a semana</div>
+      </div>
+    </div>
     <div class="tpanel">
       <div class="tpanel-title">Sellers optineados · apariciones en search instant · Jun-Jul 2026</div>
       <div style="font-size:8px;color:#aaa;margin-bottom:8px">Click en el encabezado de una columna para ordenar</div>
