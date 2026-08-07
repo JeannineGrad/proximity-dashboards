@@ -117,38 +117,6 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div class="note">% de impresiones en pos 1–10 desde zona SP que son instant · fuente: BT_SEARCH_2_0_step_search_v7 · CEPs zona · excluye 9/7 (sin operación Agora)</div>
       </div>
 
-      <!-- FILA 7: Densidad instant en SERP -->
-      <div class="card full">
-        <div class="card-title">Densidad de resultados Agora en los primeros 20 resultados de search · W31</div>
-        <div style="display:flex;gap:20px;align-items:flex-start">
-          <div style="flex:0 0 320px">
-            <canvas id="chartDensidad" style="max-height:180px"></canvas>
-          </div>
-          <div style="flex:1;padding-top:8px">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div style="background:#e8f5e9;border-radius:8px;padding:10px 14px;border:2px solid #1a7a3a">
-                <div style="font-size:18px;font-weight:900;color:#1a7a3a">66,3%</div>
-                <div style="font-size:8px;color:#888;margin-top:2px">busquedas con al menos 1 Agora en top 20</div>
-              </div>
-              <div style="background:#fde8e8;border-radius:8px;padding:10px 14px;border:1px solid #f5c6c6">
-                <div style="font-size:18px;font-weight:900;color:#c0392b">33,7%</div>
-                <div style="font-size:8px;color:#888;margin-top:2px">busquedas sin Agora en top 20 (instant debajo pos 20)</div>
-              </div>
-              <div style="background:#e8f5e9;border-radius:8px;padding:10px 14px;border:1px solid #a5d6a7;border-left:3px solid #1a7a3a">
-                <div style="font-size:7px;color:#1a7a3a;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">de ese 66,3%</div>
-                <div style="font-size:18px;font-weight:900;color:#1a5e20">~2,4</div>
-                <div style="font-size:8px;color:#888;margin-top:2px">resultados Agora promedio en top 20</div>
-              </div>
-              <div style="background:#e8f5e9;border-radius:8px;padding:10px 14px;border:1px solid #a5d6a7;border-left:3px solid #1a7a3a">
-                <div style="font-size:7px;color:#1a7a3a;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">de ese 66,3%</div>
-                <div style="font-size:18px;font-weight:900;color:#1a5e20">~10,6%</div>
-                <div style="font-size:8px;color:#888;margin-top:2px">de los primeros 20 resultados son Agora</div>
-              </div>
-            </div>
-            <div style="font-size:7.5px;color:#bbb;margin-top:10px;font-style:italic">W31 (27-31 jul) · busquedas MLB con al menos 1 resultado instant</div>
-          </div>
-        </div>
-      </div>
 
       <div id="dist-table-wrap" style="display:none"></div><div id="weekly-breakdown" style="display:none"></div><div id="weekly-breakdown-21" style="display:none"></div>
     </div>
@@ -257,24 +225,20 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div class="note">% de todas las visitas a VIPs desde la zona SP que mostraron promesa instant · proxy: PROMISE_DESTINATION_ZIPCODE · Jun-Jul 2026</div>
       </div>
 
-      <!-- Fila 3: CVR + Ordenes -->
+      <!-- Fila 3: CVR + CVR comparativo -->
       <div class="card">
         <div class="card-title">CVR instant por semana (VIP → orden)</div>
         <canvas id="chartCvr"></canvas>
         <div class="note">Conversion rate instant · % de VIPs que generan orden</div>
       </div>
       <div class="card">
-        <div class="card-title">Competencia de promesas · quién gana la orden</div>
-        <canvas id="chartOrders"></canvas>
-        <div class="note">VIPs con instant + otro método disponible · share de órdenes por método ganador · W24–W31</div>
+        <div class="card-title">CVR instant vs no-instant · mismos ítems · todos los sellers instant · evolución semanal (VIP → orden)</div>
+        <canvas id="chartCvrComp"></canvas>
+        <div class="note">Todos los sellers MLB · mismos ítems · instant vs no-instant para el mismo ítem · Jun-Jul 2026</div>
       </div>
 
-      <!-- Fila 4: CVR comparativo por método -->
-      <div class="card full">
-        <div class="card-title">CVR instant vs no-instant · mismos ítems · todos los sellers instant · evolución semanal (VIP → orden)</div>
-        <canvas id="chartCvrComp" style="max-height:160px"></canvas>
-        <div class="note">Todos los sellers MLB · mismos ítems · instant = VIPs donde el ítem mostró promesa instant · no-instant = VIPs del mismo ítem con otra promesa de envío · el CVR instant coincide con el gráfico de línea de arriba (mismo universo) · Jun-Jul 2026</div>
-        <div style="margin-top:12px;overflow-x:auto">
+      <!-- Tabla CVR detalle -->
+      <div class="card full"><div style="overflow-x:auto">
           <table style="width:100%;border-collapse:collapse;font-size:9px">
             <thead>
               <tr style="background:#1a2a4a;color:#fff">
@@ -336,8 +300,7 @@ table.dt tr:hover td { background:#f0f4ff !important }
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
+        </div></div>
 
     </div>
   </div>
