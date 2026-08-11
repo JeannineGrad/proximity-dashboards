@@ -342,8 +342,8 @@ function initVipsCharts(){
   });
 
   // Share VIPs instant / total VIPs zona SP
-  var vipShareZona = [0.005,0.011,0.012,0.012,0.016,0.028,0.029,0.056];
-  var vipShareWow  = [null,'+120%','+9%','0%','+33%','+75%','+4%','+93%'];
+  var vipShareZona = [0.005,0.011,0.012,0.012,0.016,0.028,0.029,0.056,0.051];
+  var vipShareWow  = [null,'+120%','+9%','0%','+33%','+75%','+4%','+93%','-9%'];
   new Chart(document.getElementById('chartVipSellers'),{
     type:'line',
     data:{labels:wkLabels,datasets:[{data:vipShareZona,borderColor:'#1565c0',backgroundColor:'rgba(21,101,192,0.07)',pointBackgroundColor:'#1565c0',pointRadius:5,tension:0.3,fill:true}]},
