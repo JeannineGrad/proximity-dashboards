@@ -105,9 +105,10 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div class="note">% de apariciones instant que derivaron en VIP click · línea oscura = promedio ponderado · FRAGMENT_TRACKING_ID join</div>
       </div>
       <div class="card">
-        <div class="card-title">CTR instant vs no-instant · W31 · búsquedas con instant <span style="background:#f59e0b;color:#fff;font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;margin-left:6px">En validación</span></div>
-        <canvas id="chartCtrComparativo" style="max-height:200px"></canvas>
-        <div class="note">Dentro de búsquedas que mostraron al menos 1 resultado instant · instant gana solo en Pos 1-5 · AMPLA con dedup · W31</div>
+        <div class="card-title">CTR instant vs no-instant · por rango de posición · W30–W32</div>
+        <canvas id="chartCtrComparativo" style="max-height:260px"></canvas>
+        <div class="note">Universo: búsquedas MLB con al menos 1 resultado instant · Fuente: POSITION_BASE_FLAGGED · Lun-Vie</div>
+        <table id="tblCtrComp" style="width:100%;border-collapse:collapse;font-size:9px;margin-top:10px"></table>
       </div>
 
       <!-- FILA 6: Share instant en top 10 zona SP -->
@@ -814,27 +815,105 @@ buildWeekly21Section();
 })();
 
 // CTR instant vs no-instant · todas las posiciones en 1 gráfico · W31
-new Chart(document.getElementById('chartCtrComparativo'),{
-  type:'bar',
-  data:{labels:['Pos 1–5','Pos 6–10','Pos 11–15','Pos 16–20','Pos 21+'],datasets:[
-    {label:'Instant',   data:[3.47,1.52,1.06,0.76,0.49],backgroundColor:'rgba(26,122,58,0.85)',borderRadius:4},
-    {label:'No-instant',data:[3.24,1.81,1.18,0.98,0.64],backgroundColor:'rgba(180,180,180,0.7)',borderRadius:4}
-  ]},
-  options:{responsive:true,layout:{padding:{top:18}},
-    plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
-    scales:{x:{ticks:{font:{size:9}},grid:{display:false}},y:{beginAtZero:true,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}}}},
-  plugins:[{id:'ctrCompLabels',afterDatasetsDraw:function(chart){
-    var ctx=chart.ctx;
-    chart.data.datasets.forEach(function(ds,di){
-      var meta=chart.getDatasetMeta(di); if(meta.hidden)return;
-      meta.data.forEach(function(bar,i){
-        ctx.save();ctx.font='bold 8px Segoe UI,Arial';
-        ctx.fillStyle=di===0?'#1a7a3a':'#666';
-        ctx.textAlign='center';ctx.fillText(ds.data[i]+'%',bar.x,bar.y-3);ctx.restore();
+// CTR comparativo W32 · POSITION_BASE_FLAGGED
+(function(){
+  var inst32   = [4.49,1.90,1.31,1.00,0.59];
+  var noInst32 = [4.12,2.31,1.55,1.24,0.72];
+  new Chart(document.getElementById('chartCtrComparativo'),{
+    type:'bar',
+    data:{labels:['Pos 1–5','Pos 6–10','Pos 11–15','Pos 16–20','Pos 21+'],datasets:[
+      {label:'Instant (W32)',   data:inst32,  backgroundColor:'rgba(26,122,58,0.85)',borderRadius:4},
+      {label:'No-instant (W32)',data:noInst32,backgroundColor:'rgba(180,180,180,0.65)',borderRadius:4}
+    ]},
+    options:{responsive:true,layout:{padding:{top:50,bottom:6}},
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
+      scales:{x:{ticks:{font:{size:9}},grid:{display:false}},
+              y:{beginAtZero:true,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}}}},
+    plugins:[{id:'ctrCompLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      // Valores dentro de barras
+      chart.data.datasets.forEach(function(ds,di){
+        var meta=chart.getDatasetMeta(di);
+        meta.data.forEach(function(bar,i){
+          ctx.save();
+          var barH=bar.base-bar.y;
+          ctx.font='bold 9px Segoe UI,Arial'; ctx.textAlign='center';
+          if(barH>20){ctx.fillStyle='#fff';ctx.textBaseline='top';ctx.fillText(ds.data[i]+'%',bar.x,bar.y+5);}
+          else{ctx.fillStyle=di===0?'#1a7a3a':'#555';ctx.textBaseline='bottom';ctx.fillText(ds.data[i]+'%',bar.x,bar.y-2);}
+          ctx.restore();
+        });
       });
-    });
-  }}]
-});
+      // Delta arriba
+      var m0=chart.getDatasetMeta(0), m1=chart.getDatasetMeta(1);
+      inst32.forEach(function(v,i){
+        var b0=m0.data[i],b1=m1.data[i];
+        var mx=(b0.x+b1.x)/2, topY=Math.min(b0.y,b1.y)-34;
+        var pp=(v-noInst32[i]).toFixed(2);
+        var pct=Math.round((v/noInst32[i]-1)*100);
+        var pos=pct>0; var clr=pos?'#1a7a3a':'#c0392b'; var sign=pos?'+':'';
+        ctx.save();
+        ctx.font='bold 8.5px Segoe UI,Arial';
+        var l1=sign+pp+'pp', l2=sign+pct+'%';
+        var w=Math.max(ctx.measureText(l1).width,ctx.measureText(l2).width)+8;
+        ctx.fillStyle=pos?'rgba(26,122,58,0.1)':'rgba(192,57,43,0.1)';
+        ctx.beginPath();ctx.roundRect(mx-w/2,topY-2,w,26,3);ctx.fill();
+        ctx.strokeStyle=clr;ctx.lineWidth=0.8;
+        ctx.beginPath();ctx.roundRect(mx-w/2,topY-2,w,26,3);ctx.stroke();
+        ctx.fillStyle=clr;ctx.textAlign='center';ctx.textBaseline='top';
+        ctx.fillText(l1,mx,topY+1);
+        ctx.font='8px Segoe UI,Arial';ctx.fillText(l2,mx,topY+12);
+        ctx.restore();
+      });
+    }}]
+  });
+  // Tabla W30 / W31 / W32
+  var tbl=document.getElementById('tblCtrComp');
+  var rows=[
+    ['Pos 1–5 ✅','4,46%','4,26%','+0,20','+5%','4,74%','4,17%','+0,57','+14%','4,49%','4,12%','+0,37','+9%','1,64','4,57',true],
+    ['Pos 6–10',  '1,62%','2,29%','-0,67','-29%','2,02%','2,33%','-0,31','-13%','1,90%','2,31%','-0,41','-18%','1,73','4,62',false],
+    ['Pos 11–15', '1,15%','1,50%','-0,35','-23%','1,43%','1,56%','-0,13','-8%', '1,31%','1,55%','-0,24','-15%','1,67','4,66',false],
+    ['Pos 16–20', '0,95%','1,24%','-0,29','-23%','0,97%','1,26%','-0,29','-23%','1,00%','1,24%','-0,24','-19%','1,68','4,59',false],
+    ['Pos 21+',   '0,54%','0,68%','-0,14','-21%','0,54%','0,70%','-0,16','-23%','0,59%','0,72%','-0,13','-18%','2,45','18,02',false]
+  ];
+  var GRN='#f0faf4',RED='#fdecea',BLU='#f0f0fa',HDR='#1a2a4a';
+  var h='<thead><tr style="background:'+HDR+';color:#fff;font-size:8.5px">';
+  h+='<th style="padding:4px 6px;text-align:left">Posición</th>';
+  h+='<th colspan="4" style="padding:4px 6px;border-left:2px solid #4a5a7a">W30 · CTR</th>';
+  h+='<th colspan="4" style="padding:4px 6px;border-left:2px solid #4a5a7a">W31 · CTR</th>';
+  h+='<th colspan="4" style="padding:4px 6px;border-left:2px solid #4a5a7a">W32 · CTR</th>';
+  h+='<th colspan="2" style="padding:4px 6px;border-left:2px solid #4a5a7a;background:#2a3060">W32 Impr/búsq</th>';
+  h+='</tr><tr style="background:#2a3a5a;color:#ccc;font-size:8px">';
+  h+='<th></th>';
+  ['W30','W31','W32'].forEach(function(w,wi){h+='<th style="padding:3px 5px;border-left:2px solid #4a5a7a">Inst</th><th>No-inst</th><th>Δ pp</th><th>Δ %</th>';});
+  h+='<th style="padding:3px 5px;border-left:2px solid #4a5a7a">Instant</th><th>No-inst</th>';
+  h+='</tr></thead><tbody>';
+  rows.forEach(function(r){
+    var win=r[14];
+    h+='<tr>';
+    h+='<td style="padding:4px 6px;font-weight:600;font-size:8.5px">'+r[0]+'</td>';
+    // W30
+    var c30=r[3].startsWith('-')?RED:GRN;
+    h+='<td style="padding:3px 5px;border-left:2px solid #ccc;background:'+GRN+';font-weight:700;color:#1a7a3a;font-size:8px">'+r[1]+'</td>';
+    h+='<td style="font-size:8px">'+r[2]+'</td>';
+    h+='<td style="font-size:8px;color:'+(r[3].startsWith('-')?'#c0392b':'#1a7a3a')+';font-weight:700">'+r[3]+'</td>';
+    h+='<td style="font-size:8px;color:'+(r[4].startsWith('-')?'#c0392b':'#1a7a3a')+';font-weight:700">'+r[4]+'</td>';
+    // W31
+    h+='<td style="padding:3px 5px;border-left:2px solid #ccc;background:'+GRN+';font-weight:700;color:#1a7a3a;font-size:8px">'+r[5]+'</td>';
+    h+='<td style="font-size:8px">'+r[6]+'</td>';
+    h+='<td style="font-size:8px;color:'+(r[7].startsWith('-')?'#c0392b':'#1a7a3a')+';font-weight:700">'+r[7]+'</td>';
+    h+='<td style="font-size:8px;color:'+(r[8].startsWith('-')?'#c0392b':'#1a7a3a')+';font-weight:700">'+r[8]+'</td>';
+    // W32
+    h+='<td style="padding:3px 5px;border-left:2px solid #ccc;background:'+GRN+';font-weight:700;color:#1a7a3a;font-size:8px">'+r[9]+'</td>';
+    h+='<td style="font-size:8px">'+r[10]+'</td>';
+    h+='<td style="font-size:8px;color:'+(r[11].startsWith('-')?'#c0392b':'#1a7a3a')+';font-weight:700">'+r[11]+'</td>';
+    h+='<td style="font-size:8px;color:'+(r[12].startsWith('-')?'#c0392b':'#1a7a3a')+';font-weight:700">'+r[12]+'</td>';
+    // Impr/búsq
+    h+='<td style="padding:3px 5px;border-left:2px solid #4a5a7a;background:'+BLU+';font-weight:700;font-size:8px">'+r[13]+'</td>';
+    h+='<td style="background:'+BLU+';font-size:8px;color:'+(parseFloat(r[14].replace(',','.'))>10?'#c0392b':'#333')+';font-weight:'+(parseFloat(r[14].replace(',','.'))>10?'700':'400')+'">'+r[14]+'</td>';
+    h+='</tr>';
+  });
+  tbl.innerHTML=h+'</tbody>';
+})();
 
 var sellersData = [{rank:1,nome:'LINA LINGERIE LTDA',aparic:'2043',pct5:'30.3%',pos:'14'},{rank:2,nome:'GIRL COMERCIO DE VESTUARIO STORE LTDA',aparic:'3330',pct5:'27.8%',pos:'15.3'},{rank:3,nome:'ANGEL  ELETRONICOS & INFORMATICA LTDA',aparic:'29221',pct5:'26.6%',pos:'16.3'},{rank:4,nome:'RCA HOME TECH LTDA',aparic:'22976',pct5:'26.3%',pos:'16.5'},{rank:5,nome:'GRUPO EX',aparic:'2135',pct5:'26.1%',pos:'15.7'},{rank:6,nome:'C.B. COMERCIO DE PRESENTES LTDA',aparic:'8779',pct5:'24.2%',pos:'16.1'},{rank:7,nome:'STILLUS HOME',aparic:'3701',pct5:'23.6%',pos:'16.9'},{rank:8,nome:'NEW STORE MIX',aparic:'4429',pct5:'23.5%',pos:'15.2'},{rank:9,nome:'57.591.290 HERITO DOS SANTOS',aparic:'5685',pct5:'23.3%',pos:'17.5'},{rank:10,nome:'KOMPRA LOGO LTDA',aparic:'4382',pct5:'22.5%',pos:'17.6'},{rank:11,nome:'WOMAN VILLAGE FASHION',aparic:'35694',pct5:'22.2%',pos:'16.4'},{rank:12,nome:'KAVOD BRASIL',aparic:'140',pct5:'21.4%',pos:'17.7'},{rank:13,nome:'ENJOY PETS LTDA',aparic:'11411',pct5:'21.4%',pos:'16.9'},{rank:14,nome:'PARAMAR COMERCIO DE PARAFUSOS E PECAS LTDA',aparic:'20034',pct5:'20.5%',pos:'17.3'},{rank:15,nome:'KAUANE SILVA SANTOS ARTIGOS DO VESTUARIO',aparic:'3006',pct5:'20.5%',pos:'16.3'},{rank:16,nome:'LONG COMERCIO ONLINE LTDA',aparic:'7584',pct5:'20.4%',pos:'17.6'},{rank:17,nome:'SOPRA BALAO ARTIGOS PARA FESTAS E BRINQUEDOS LTDA.',aparic:'8157',pct5:'20%',pos:'17.9'},{rank:18,nome:'COMPRA CERTA COMERCIAL LTDA',aparic:'14271',pct5:'19.7%',pos:'16.5'},{rank:19,nome:'PRECOLANDIA',aparic:'154908',pct5:'19.6%',pos:'17.5'},{rank:20,nome:'CASA DAS GRIFFES STORE',aparic:'37281',pct5:'19.3%',pos:'17.5'},{rank:21,nome:'LUCKY FESTA',aparic:'2748',pct5:'19.1%',pos:'18.6'},{rank:22,nome:'M&R SHOP COMERCIO VAREJISTA DE ACESSORIOS LTDA',aparic:'4097',pct5:'18.8%',pos:'17.4'},{rank:23,nome:'MODA 2023',aparic:'27821',pct5:'18.8%',pos:'17.2'},{rank:24,nome:'GR DO BRASIL LTDA',aparic:'5266',pct5:'18.6%',pos:'17.5'},{rank:25,nome:'ABEX IMPORTACAO E DISTRIBUICAO DE PECAS LTDA',aparic:'15189',pct5:'18.4%',pos:'18'},{rank:26,nome:'HERANCA DISTRIBUIDORA',aparic:'3713',pct5:'17.7%',pos:'17.1'},{rank:27,nome:'L.S LOCAL SURF COMERCIO E CONFECCAO LTDA',aparic:'7262',pct5:'17.4%',pos:'17.4'},{rank:28,nome:'VERE COMERCIAL DISTRIBUIDORA',aparic:'5172',pct5:'17.3%',pos:'18.2'},{rank:29,nome:'BRASILPHONE',aparic:'27195',pct5:'17%',pos:'18.2'},{rank:30,nome:'BLUE MONKEY',aparic:'59676',pct5:'16.9%',pos:'19.2'}];
 var topData = [{rank:1,dom:'MLB-KITCHEN_MANUAL_SQUEEZERS',aparic:'208',pct5:'68.3%',pct21:'23.6%',pos:'10.4'},{rank:2,dom:'MLB-POPCORN_MACHINES',aparic:'33',pct5:'60.6%',pct21:'12.1%',pos:'7.9'},{rank:3,dom:'MLB-FOOTBALL_BALLS',aparic:'43',pct5:'60.5%',pct21:'2.3%',pos:'6.3'},{rank:4,dom:'MLB-PAJAMAS',aparic:'38',pct5:'60.5%',pct21:'13.2%',pos:'9.1'},{rank:5,dom:'MLB-VEHICLE_REFLECTIVE_TAPES',aparic:'31',pct5:'58.1%',pct21:'12.9%',pos:'9.7'},{rank:6,dom:'MLB-FISHING_ROD_CASES',aparic:'28',pct5:'57.1%',pct21:'17.9%',pos:'9.7'},{rank:7,dom:'MLB-CAKE_TOPPERS',aparic:'39',pct5:'56.4%',pct21:'20.5%',pos:'11'},{rank:8,dom:'MLB-PORTABLE_HANGING_SCALES',aparic:'29',pct5:'55.2%',pct21:'24.1%',pos:'13.9'},{rank:9,dom:'MLB-PUNCHING_BAGS',aparic:'24',pct5:'54.2%',pct21:'25%',pos:'10.9'},{rank:10,dom:'MLB-MOTORCYCLE_RAIN_SUITS',aparic:'34',pct5:'52.9%',pct21:'38.2%',pos:'13.4'},{rank:11,dom:'MLB-VEHICLE_ENGINE_COOLANT_THERMOSTAT_HOUSINGS',aparic:'25',pct5:'52%',pct21:'28%',pos:'10.6'},{rank:12,dom:'MLB-TOASTERS',aparic:'137',pct5:'51.8%',pct21:'19.7%',pos:'10.9'},{rank:13,dom:'MLB-PADLOCKS',aparic:'35',pct5:'51.4%',pct21:'17.1%',pos:'9.6'},{rank:14,dom:'MLB-JUMP_ROPES',aparic:'245',pct5:'49.4%',pct21:'17.1%',pos:'11.4'},{rank:15,dom:'MLB-CUTTING_PLIERS',aparic:'60',pct5:'48.3%',pct21:'11.7%',pos:'9.3'},{rank:16,dom:'MLB-WRENCHES',aparic:'27',pct5:'48.1%',pct21:'33.3%',pos:'16.7'},{rank:17,dom:'MLB-PC_THERMAL_COMPOUND_PASTES',aparic:'25',pct5:'48%',pct21:'12%',pos:'9.6'},{rank:18,dom:'MLB-SOFT_DRINKS',aparic:'21',pct5:'47.6%',pct21:'33.3%',pos:'17.8'},{rank:19,dom:'MLB-VEHICLE_BRAKE_FLUIDS',aparic:'301',pct5:'47.2%',pct21:'6%',pos:'7.7'},{rank:20,dom:'MLB-BALLOON_STICKS',aparic:'93',pct5:'46.2%',pct21:'20.4%',pos:'9.5'},{rank:21,dom:'MLB-BROOMS',aparic:'33',pct5:'45.5%',pct21:'36.4%',pos:'15'},{rank:22,dom:'MLB-INFANTS_HARNESSES_AND_WRIST_LEASHES',aparic:'20',pct5:'45%',pct21:'25%',pos:'12.6'},{rank:23,dom:'MLB-TRAVEL_PILLOWS',aparic:'127',pct5:'44.9%',pct21:'22%',pos:'12.6'},{rank:24,dom:'MLB-POP_FILTERS',aparic:'29',pct5:'44.8%',pct21:'13.8%',pos:'9.5'},{rank:25,dom:'MLB-BLENDER_JARS',aparic:'27',pct5:'44.4%',pct21:'33.3%',pos:'13.6'},{rank:26,dom:'MLB-CAT_HOUSES',aparic:'94',pct5:'43.6%',pct21:'31.9%',pos:'14.1'},{rank:27,dom:'MLB-SWIMWEAR',aparic:'1444',pct5:'43.5%',pct21:'19.1%',pos:'11.7'},{rank:28,dom:'MLB-AUDIO_AND_VIDEO_OPTICAL_LASER_LENSES',aparic:'30',pct5:'43.3%',pct21:'26.7%',pos:'14.1'},{rank:29,dom:'MLB-MINERAL_WATERS',aparic:'54',pct5:'42.6%',pct21:'29.6%',pos:'16.9'},{rank:30,dom:'MLB-SPORT_AND_MEDICAL_BANDAGES',aparic:'301',pct5:'42.5%',pct21:'27.2%',pos:'12.8'}];
