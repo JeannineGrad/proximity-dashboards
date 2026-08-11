@@ -603,8 +603,8 @@ makeShareChart('chartShareZona', zonaTop10Data, '#1565c0', function(v){return (+
 })();
 
 // Share instant en top 10 zona SP · W24-W31
-var shareTop10Data=[0.026,0.049,0.061,0.055,0.100,0.108,0.126,0.158];
-var shareTop10Wow=[null,'+88%','+24%','-10%','+82%','+8%','+17%','+25%'];
+var shareTop10Data=[0.026,0.049,0.061,0.055,0.100,0.108,0.126,0.158,null];
+var shareTop10Wow=[null,'+88%','+24%','-10%','+82%','+8%','+17%','+25%',null];
 new Chart(document.getElementById('chartShareTop10'),{
   type:'bar',
   data:{labels:sw,datasets:[{data:shareTop10Data,backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
@@ -614,7 +614,7 @@ new Chart(document.getElementById('chartShareTop10'),{
     chart.getDatasetMeta(0).data.forEach(function(bar,i){
       ctx.save();
       ctx.fillStyle='#1a2a4a';ctx.font='bold 8px Segoe UI,Arial';ctx.textAlign='center';
-      ctx.fillText(shareTop10Data[i].toFixed(3)+'%',bar.x,bar.y-14);
+      if(shareTop10Data[i]!=null){ctx.fillText(shareTop10Data[i].toFixed(3)+'%',bar.x,bar.y-14);}
       if(shareTop10Wow[i]){ctx.fillStyle=shareTop10Wow[i].startsWith('-')?'#c0392b':'#1a7a3a';ctx.font='bold 7.5px Segoe UI,Arial';ctx.fillText(shareTop10Wow[i],bar.x,bar.y-4);}
       ctx.restore();
     });
