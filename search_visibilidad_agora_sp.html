@@ -235,9 +235,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
 
       <!-- CVR por tipo de promesa -->
       <div class="card full" style="margin-top:12px">
-        <div class="card-title">CVR por tipo de promesa · mismos ítems · misma zona de entrega (CEPs con instant) · W24–W32</div>
-        <div style="height:200px"><canvas id="chartCvrTipo"></canvas></div>
-        <div class="note">Universo: mismos ítems (sellers Agora) · mismos CEPs de entrega donde ocurrió al menos 1 VIP instant · Lun-Vie · MLB</div>
+        <div class="card-title">CVR instant vs no-instant total · por tipo de promesa · mismos ítems · misma zona (CEPs con instant) · W24–W32</div>
+        <div style="height:220px"><canvas id="chartCvrTipo"></canvas></div>
+        <div class="note">Todos los sellers MLB · mismos ítems · mismos CEPs de entrega donde ocurrió al menos 1 VIP instant · Jun-Ago 2026</div>
         <div style="margin-top:12px;overflow-x:auto">
           <table style="width:100%;border-collapse:collapse;font-size:9px;min-width:700px">
             <thead>
@@ -1189,31 +1189,44 @@ renderSellers(sellersData);
 
 // CVR por tipo de promesa · W24-W32
 (function(){
-  var wk = ['W24','W25','W26','W27','W28','W29','W30','W31','W32'];
-  var instant   = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01,7.39];
-  var same_day  = [6.02,5.99,5.34,6.29,5.68,5.97,5.66,6.27,6.66];
-  var next_day  = [4.79,4.69,4.23,5.48,4.72,4.86,4.73,5.07,5.28];
-  var otros     = [3.49,2.97,3.23,3.33,3.28,3.14,3.23,2.76,3.31];
-  var no_inst   = [4.72,4.51,4.21,5.18,4.53,4.84,4.73,5.01,5.44];
-  var base = {pointRadius:4,tension:0.3,fill:false,backgroundColor:'transparent'};
+  var wk      = ['W24','W25','W26','W27','W28','W29','W30','W31','W32'];
+  var instant = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01,7.39];
+  var no_inst = [4.72,4.51,4.21,5.18,4.53,4.84,4.73,5.01,5.44];
+  var varPct  = ['~0%','+51%','+64%','+71%','+59%','+42%','+29%','+40%','+36%'];
+
   new Chart(document.getElementById('chartCvrTipo'),{
-    type:'line',
+    type:'bar',
     data:{labels:wk,datasets:[
-      Object.assign({},base,{label:'Instant',   data:instant, borderColor:'#1a7a3a',pointBackgroundColor:'#1a7a3a',borderWidth:2.5}),
-      Object.assign({},base,{label:'Same day',  data:same_day,borderColor:'#1565c0',pointBackgroundColor:'#1565c0',borderWidth:2}),
-      Object.assign({},base,{label:'Next day',  data:next_day,borderColor:'#f59e0b',pointBackgroundColor:'#f59e0b',borderWidth:2}),
-      Object.assign({},base,{label:'Otros',     data:otros,   borderColor:'#aaa',pointBackgroundColor:'#aaa',borderWidth:1.5,borderDash:[4,3]}),
-      Object.assign({},base,{label:'No-instant total',data:no_inst,borderColor:'#c0392b',pointBackgroundColor:'#c0392b',borderWidth:2,borderDash:[6,3]})
+      {label:'Instant',    data:instant, backgroundColor:'rgba(26,122,58,0.85)',borderRadius:3},
+      {label:'No-instant total',data:no_inst,backgroundColor:'rgba(180,180,180,0.7)', borderRadius:3}
     ]},
     options:{
-      responsive:true,maintainAspectRatio:false,layout:{padding:{top:16}},
-      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:12,usePointStyle:true}},
-        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},
+      responsive:true,maintainAspectRatio:false,layout:{padding:{top:20}},
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
       scales:{
-        y:{beginAtZero:false,min:2,max:10,ticks:{callback:v=>v+'%',font:{size:9}},grid:{color:'#eee'}},
-        x:{ticks:{font:{size:9}},grid:{display:false}}
+        x:{ticks:{font:{size:9}},grid:{display:false}},
+        y:{beginAtZero:true,ticks:{callback:v=>v+'%',font:{size:9}},grid:{color:'#eee'}}
       }
-    }
+    },
+    plugins:[{id:'cvrTipoLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      chart.data.datasets.forEach(function(ds,di){
+        var meta=chart.getDatasetMeta(di); if(meta.hidden)return;
+        meta.data.forEach(function(bar,i){
+          ctx.save();
+          ctx.fillStyle=di===0?'#1a7a3a':'#666';
+          ctx.font='bold 7.5px Segoe UI,Arial';
+          ctx.textAlign='center';
+          ctx.fillText(ds.data[i]+'%',bar.x,bar.y-3);
+          if(di===0){
+            ctx.fillStyle='#1a7a3a';
+            ctx.font='bold 8px Segoe UI,Arial';
+            ctx.fillText(varPct[i],bar.x,bar.y-13);
+          }
+          ctx.restore();
+        });
+      });
+    }}]
   });
 })();
 
