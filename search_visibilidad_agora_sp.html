@@ -233,6 +233,142 @@ table.dt tr:hover td { background:#f0f4ff !important }
 
       </div>
 
+      <!-- CVR por tipo de promesa -->
+      <div class="card full" style="margin-top:12px">
+        <div class="card-title">CVR por tipo de promesa · mismos ítems · misma zona de entrega (CEPs con instant) · W24–W32</div>
+        <div style="height:200px"><canvas id="chartCvrTipo"></canvas></div>
+        <div class="note">Universo: mismos ítems (sellers Agora) · mismos CEPs de entrega donde ocurrió al menos 1 VIP instant · Lun-Vie · MLB</div>
+        <div style="margin-top:12px;overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:9px;min-width:700px">
+            <thead>
+              <tr style="background:#1a2a4a;color:#fff">
+                <th style="padding:5px 8px;text-align:left;min-width:120px">Tipo de promesa</th>
+                <th style="padding:5px 8px;text-align:center">W24</th>
+                <th style="padding:5px 8px;text-align:center">W25</th>
+                <th style="padding:5px 8px;text-align:center">W26</th>
+                <th style="padding:5px 8px;text-align:center">W27</th>
+                <th style="padding:5px 8px;text-align:center">W28</th>
+                <th style="padding:5px 8px;text-align:center">W29</th>
+                <th style="padding:5px 8px;text-align:center">W30</th>
+                <th style="padding:5px 8px;text-align:center">W31</th>
+                <th style="padding:5px 8px;text-align:center;background:#1a3a2a">W32</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#e8f5e9">
+                <td style="padding:5px 8px;font-weight:700;color:#1a7a3a">Instant</td>
+                <td style="padding:5px 8px;text-align:center;color:#888">4,69%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,81%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,92%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">8,86%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">7,22%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,88%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,09%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">7,01%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#d4edda">7,39%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 8px;font-weight:600;color:#555">Same day</td>
+                <td style="padding:5px 8px;text-align:center">6,02%</td>
+                <td style="padding:5px 8px;text-align:center">5,99%</td>
+                <td style="padding:5px 8px;text-align:center">5,34%</td>
+                <td style="padding:5px 8px;text-align:center">6,29%</td>
+                <td style="padding:5px 8px;text-align:center">5,68%</td>
+                <td style="padding:5px 8px;text-align:center">5,97%</td>
+                <td style="padding:5px 8px;text-align:center">5,66%</td>
+                <td style="padding:5px 8px;text-align:center">6,27%</td>
+                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">6,66%</td>
+              </tr>
+              <tr style="background:#fafafa">
+                <td style="padding:5px 8px;font-weight:600;color:#555">Next day</td>
+                <td style="padding:5px 8px;text-align:center">4,79%</td>
+                <td style="padding:5px 8px;text-align:center">4,69%</td>
+                <td style="padding:5px 8px;text-align:center">4,23%</td>
+                <td style="padding:5px 8px;text-align:center">5,48%</td>
+                <td style="padding:5px 8px;text-align:center">4,72%</td>
+                <td style="padding:5px 8px;text-align:center">4,86%</td>
+                <td style="padding:5px 8px;text-align:center">4,73%</td>
+                <td style="padding:5px 8px;text-align:center">5,07%</td>
+                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">5,28%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 8px;font-weight:600;color:#555">Otros</td>
+                <td style="padding:5px 8px;text-align:center">3,49%</td>
+                <td style="padding:5px 8px;text-align:center">2,97%</td>
+                <td style="padding:5px 8px;text-align:center">3,23%</td>
+                <td style="padding:5px 8px;text-align:center">3,33%</td>
+                <td style="padding:5px 8px;text-align:center">3,28%</td>
+                <td style="padding:5px 8px;text-align:center">3,14%</td>
+                <td style="padding:5px 8px;text-align:center">3,23%</td>
+                <td style="padding:5px 8px;text-align:center">2,76%</td>
+                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">3,31%</td>
+              </tr>
+              <tr style="background:#f0f4fa">
+                <td style="padding:5px 8px;font-weight:700;color:#1a2a4a">No-instant total</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">4,72%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">4,51%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">4,21%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">5,18%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">4,53%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">4,84%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">4,73%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">5,01%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;background:#e8eef8">5,44%</td>
+              </tr>
+              <tr><td colspan="10" style="padding:4px 0;background:#f8f8f8"></td></tr>
+              <tr style="background:#f5f6f8">
+                <td style="padding:5px 8px;font-weight:600;font-size:8.5px">Inst vs Same day</td>
+                <td style="padding:5px 8px;text-align:center;color:#c0392b;font-weight:700">-22%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+14%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+30%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+41%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+27%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+15%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+8%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+12%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+11%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 8px;font-weight:600;font-size:8.5px">Inst vs Next day</td>
+                <td style="padding:5px 8px;text-align:center;color:#c0392b;font-weight:700">-2%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+45%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+64%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+62%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+53%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+42%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+29%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+38%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+40%</td>
+              </tr>
+              <tr style="background:#f5f6f8">
+                <td style="padding:5px 8px;font-weight:600;font-size:8.5px">Inst vs Otros</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+34%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+129%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+114%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+166%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+120%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+119%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+89%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+154%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+123%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 8px;font-weight:700;font-size:8.5px;color:#1a2a4a">Inst vs No-instant total</td>
+                <td style="padding:5px 8px;text-align:center;color:#888;font-weight:700">~0%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+51%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+64%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+71%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+59%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+42%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+29%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+40%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+36%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -1050,6 +1186,36 @@ function sortSellers(col){
   renderSellers(sorted);
 }
 renderSellers(sellersData);
+
+// CVR por tipo de promesa · W24-W32
+(function(){
+  var wk = ['W24','W25','W26','W27','W28','W29','W30','W31','W32'];
+  var instant   = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01,7.39];
+  var same_day  = [6.02,5.99,5.34,6.29,5.68,5.97,5.66,6.27,6.66];
+  var next_day  = [4.79,4.69,4.23,5.48,4.72,4.86,4.73,5.07,5.28];
+  var otros     = [3.49,2.97,3.23,3.33,3.28,3.14,3.23,2.76,3.31];
+  var no_inst   = [4.72,4.51,4.21,5.18,4.53,4.84,4.73,5.01,5.44];
+  var base = {pointRadius:4,tension:0.3,fill:false,backgroundColor:'transparent'};
+  new Chart(document.getElementById('chartCvrTipo'),{
+    type:'line',
+    data:{labels:wk,datasets:[
+      Object.assign({},base,{label:'Instant',   data:instant, borderColor:'#1a7a3a',pointBackgroundColor:'#1a7a3a',borderWidth:2.5}),
+      Object.assign({},base,{label:'Same day',  data:same_day,borderColor:'#1565c0',pointBackgroundColor:'#1565c0',borderWidth:2}),
+      Object.assign({},base,{label:'Next day',  data:next_day,borderColor:'#f59e0b',pointBackgroundColor:'#f59e0b',borderWidth:2}),
+      Object.assign({},base,{label:'Otros',     data:otros,   borderColor:'#aaa',pointBackgroundColor:'#aaa',borderWidth:1.5,borderDash:[4,3]}),
+      Object.assign({},base,{label:'No-instant total',data:no_inst,borderColor:'#c0392b',pointBackgroundColor:'#c0392b',borderWidth:2,borderDash:[6,3]})
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,layout:{padding:{top:16}},
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:12,usePointStyle:true}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},
+      scales:{
+        y:{beginAtZero:false,min:2,max:10,ticks:{callback:v=>v+'%',font:{size:9}},grid:{color:'#eee'}},
+        x:{ticks:{font:{size:9}},grid:{display:false}}
+      }
+    }
+  });
+})();
 
 var domSortDir={top:{aparic:-1,top5abs:-1,pct5:-1,pct21:1},bot:{aparic:-1,top5abs:-1,pct5:-1,pct21:1}};
 function renderDom(which, data){
