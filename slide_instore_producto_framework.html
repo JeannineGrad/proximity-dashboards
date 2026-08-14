@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#eef0f5;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.slide{width:1100px;background:#fff;border-radius:14px;box-shadow:0 12px 48px rgba(0,0,0,.14);overflow:hidden;display:flex;flex-direction:column}
+
+/* HEADER */
+.hdr{background:#1a2a4a;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.hdr-title{font-size:15px;font-weight:900;color:#fff}
+.hdr-sub{font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:1px}
+
+/* TOP — GAP CARDS */
+.top{padding:18px 24px 12px;border-bottom:1px solid #e8eaef}
+.section-label{font-size:9px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.gap-row{display:flex;gap:8px;align-items:stretch}
+.gap-card{flex:1;border-radius:8px;padding:12px 14px;border:1.5px solid #e0e4ec}
+.gap-card.today{background:#f0f4ff;border-color:#b8c8e8}
+.gap-card.target{background:#fff;border-color:#e0e4ec}
+.gc-label{font-size:8px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.gc-orders{font-size:22px;font-weight:900;color:#1a2a4a;line-height:1.1}
+.gc-orders span{font-size:9.5px;font-weight:400;color:#888;margin-left:2px}
+.gc-vs{font-size:9.5px;font-weight:700;color:#1565c0;margin-top:2px}
+.mix-row{display:flex;gap:3px;margin-top:7px}
+.mix-pill{flex:1;border-radius:3px;padding:3px 4px;text-align:center;font-size:8px;font-weight:700}
+.mix-new{background:#dbeafe;color:#1e40af}
+.mix-rep{background:#d1fae5;color:#065f46}
+.mix-res{background:#fef3c7;color:#92400e}
+.freq-row{display:flex;gap:3px;margin-top:5px}
+.freq-cell{flex:1;text-align:center;font-size:7.5px;color:#666}
+.freq-cell strong{display:block;font-size:10.5px;font-weight:800;color:#1a2a4a}
+.gap-arrow{display:flex;align-items:center;justify-content:center;padding:0 2px;flex-shrink:0}
+.gap-arrow span{font-size:20px;color:#d0d6e0}
+.seg-row{display:flex;gap:4px;margin-top:8px;align-items:stretch}
+.seg-col{flex:1;display:flex;flex-direction:column;align-items:stretch;gap:3px}
+.seg-freq{text-align:center;font-size:12px;font-weight:800;color:#1a2a4a;padding:3px 0;background:#f8f9fb;border-radius:3px}
+.seg-total{border-left:1px solid #e0e4ec;padding-left:4px;flex:0 0 auto;width:38px}
+.seg-total-lbl{font-size:7.5px;font-weight:700;color:#888;text-transform:uppercase;text-align:center;background:#f0f2f6;border-radius:3px;padding:3px 4px}
+.total-freq{color:#1565c0;background:#e8f0fb}
+
+.insight{background:#fff8e6;border-radius:6px;padding:7px 12px;margin-top:10px;font-size:9.5px;color:#7a5500;line-height:1.5}
+.insight strong{color:#c06000}
+
+/* BOTTOM — FRAMEWORK */
+.bottom{padding:14px 24px 16px;flex:1}
+.fw-row{display:flex;gap:10px;height:100%}
+.fw-step{flex:1;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column}
+.fw-step.s1{background:#eef2ff;border-top:4px solid #4f46e5}
+.fw-step.s2{background:#fef3c7;border-top:4px solid #f59e0b}
+.fw-step.s3{background:#d1fae5;border-top:4px solid #10b981}
+.fw-step.s4{background:#fce7f3;border-top:4px solid #ec4899}
+.fw-num{font-size:8px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+.fw-name{font-size:12px;font-weight:900;color:#1a2a4a;margin-bottom:5px;line-height:1.2}
+.fw-desc{font-size:9px;color:#555;line-height:1.55;flex:1}
+.fw-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.tag{font-size:7.5px;background:rgba(0,0,0,.07);border-radius:3px;padding:2px 6px;color:#444;font-weight:600}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div>
+      <div class="hdr-title">Instant Instore MLA · Targets</div>
+      <div class="hdr-sub">Mesa cross producto × marketing × negocio · Agosto 2026</div>
+    </div>
+    <div style="font-size:9px;color:rgba(255,255,255,.35)">Targets preliminares</div>
+  </div>
+
+  <!-- TOP: GAP CARDS -->
+  <div class="top">
+    <div class="section-label">Dónde estamos y a dónde tenemos que llegar</div>
+    <div class="gap-row">
+
+      <!-- HOY -->
+      <div class="gap-card today">
+        <div class="gc-label">Hoy · Jul-26</div>
+        <div class="gc-orders">5.307 <span>órdenes/mes</span></div>
+        <div class="gc-vs" style="color:#888">4.246 buyers · 137.617 sesiones · CVR 3,86%</div>
+        <div class="seg-row">
+          <div class="seg-col">
+            <div class="mix-pill mix-new">New 57%</div>
+            <div class="seg-freq">1,09</div>
+          </div>
+          <div class="seg-col">
+            <div class="mix-pill mix-rep">Rep 22%</div>
+            <div class="seg-freq">1,72</div>
+          </div>
+          <div class="seg-col">
+            <div class="mix-pill mix-res">Res 21%</div>
+            <div class="seg-freq">1,19</div>
+          </div>
+          <div class="seg-col seg-total">
+            <div class="seg-total-lbl">Total</div>
+            <div class="seg-freq total-freq">1,25</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gap-arrow"><span>→</span></div>
+
+      <!-- DIC 26 -->
+      <div class="gap-card target">
+        <div class="gc-label">Dic-26 · Success Criteria</div>
+        <div class="gc-orders">22.940 <span>órdenes/mes</span></div>
+        <div class="gc-vs">16.818 buyers · 611.733 sesiones · CVR 3,75%</div>
+        <div class="seg-row">
+          <div class="seg-col">
+            <div class="mix-pill mix-new">New 51%</div>
+            <div class="seg-freq">1,15</div>
+          </div>
+          <div class="seg-col">
+            <div class="mix-pill mix-rep">Rep 30%</div>
+            <div class="seg-freq">1,80</div>
+          </div>
+          <div class="seg-col">
+            <div class="mix-pill mix-res">Res 19%</div>
+            <div class="seg-freq">1,25</div>
+          </div>
+          <div class="seg-col seg-total">
+            <div class="seg-total-lbl">Total</div>
+            <div class="seg-freq total-freq">1,36</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gap-arrow"><span>→</span></div>
+
+      <!-- MAR 27 -->
+      <div class="gap-card target">
+        <div class="gc-label">Mar-27 · Success Criteria</div>
+        <div class="gc-orders">86.800 <span>órdenes/mes</span></div>
+        <div class="gc-vs">59.928 buyers · 1.736.000 sesiones · CVR 5,00%</div>
+        <div class="seg-row">
+          <div class="seg-col">
+            <div class="mix-pill mix-new">New 46%</div>
+            <div class="seg-freq">1,20</div>
+          </div>
+          <div class="seg-col">
+            <div class="mix-pill mix-rep">Rep 35%</div>
+            <div class="seg-freq">1,85</div>
+          </div>
+          <div class="seg-col">
+            <div class="mix-pill mix-res">Res 19%</div>
+            <div class="seg-freq">1,31</div>
+          </div>
+          <div class="seg-col seg-total">
+            <div class="seg-total-lbl">Total</div>
+            <div class="seg-freq total-freq">1,45</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gap-arrow"><span>→</span></div>
+
+      <!-- DIC 27 -->
+      <div class="gap-card target">
+        <div class="gc-label">Dic-27 · Meta anual</div>
+        <div class="gc-orders">178.405 <span>órdenes/mes</span></div>
+        <div class="gc-vs">92.294 buyers · 1.982.278 sesiones · CVR 9,00%</div>
+        <div class="seg-row">
+          <div class="seg-col">
+            <div class="mix-pill mix-new">New 35%</div>
+            <div class="seg-freq">1,50</div>
+          </div>
+          <div class="seg-col">
+            <div class="mix-pill mix-rep">Rep 45%</div>
+            <div class="seg-freq">2,40</div>
+          </div>
+          <div class="seg-col">
+            <div class="mix-pill mix-res">Res 20%</div>
+            <div class="seg-freq">1,64</div>
+          </div>
+          <div class="seg-col seg-total">
+            <div class="seg-total-lbl">Total</div>
+            <div class="seg-freq total-freq">1,93</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- BOTTOM: FRAMEWORK -->
+  <div class="bottom">
+    <div class="section-label">Framework de activación — propuesta mesa cross producto × marketing × negocio</div>
+    <div class="fw-row">
+
+      <div class="fw-step s1">
+        <div class="fw-num">① </div>
+        <div class="fw-name">Awareness &<br>Consideration</div>
+        <div class="fw-desc">Dar a conocer Instant Instore a buyers potenciales en la zona. Visibilidad in-app y activación de canales propios.</div>
+      </div>
+
+      <div class="fw-step s2">
+        <div class="fw-num">②</div>
+        <div class="fw-name">Trial</div>
+        <div class="fw-desc">Primera compra. Bajar la barrera de entrada. Identificar segmentos con mayor propensión a probar el canal.</div>
+      </div>
+
+      <div class="fw-step s3">
+        <div class="fw-num">③</div>
+        <div class="fw-name">Retención /<br>Onboarding</div>
+        <div class="fw-desc">Hasta 5 compras en los primeros 90 días. Acompañar al buyer para que desarrolle el hábito y quede "onboarded".</div>
+      </div>
+
+      <div class="fw-step s4">
+        <div class="fw-num">④</div>
+        <div class="fw-name">Frecuencia +<br>Cross-sell</div>
+        <div class="fw-desc">Buyer habitual → más veces. Aprovechar sinergias con Food, Groceries y otros negocios de quick commerce.</div>
+      </div>
+
+      <div class="fw-step" style="background:#fef2f2;border-top:4px solid #dc2626">
+        <div class="fw-num">⑤</div>
+        <div class="fw-name">Recovery +<br>Prevención de churn</div>
+        <div class="fw-desc">Detectar señales de riesgo antes del churn y recuperar buyers con mala experiencia. Actuar sobre el momento justo.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

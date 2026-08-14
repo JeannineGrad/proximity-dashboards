@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#eef0f5;padding:24px}
+.doc{max-width:900px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.12);overflow:hidden}
+.hdr{background:#1a2a4a;padding:18px 28px}
+.hdr-title{font-size:16px;font-weight:900;color:#fff}
+.hdr-sub{font-size:10px;color:rgba(255,255,255,.45);margin-top:4px}
+.body{padding:24px 28px}
+
+/* SETUP BOX */
+.setup{background:#f5f6f8;border-radius:8px;padding:14px 18px;margin-bottom:22px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.setup-item{}
+.setup-label{font-size:8px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.setup-value{font-size:11px;color:#1a2a4a;font-weight:600;line-height:1.4}
+
+/* SECTION */
+.section{margin-bottom:22px}
+.section-title{font-size:10px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid #e8eaef;padding-bottom:6px;margin-bottom:12px}
+
+/* FINDING GRID */
+.findings{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.finding{border-radius:8px;padding:12px 14px}
+.finding.green{background:#e8f5e9;border-left:4px solid #00a650}
+.finding.red{background:#fdecea;border-left:4px solid #c0392b}
+.finding.blue{background:#e3f2fd;border-left:4px solid #1565c0}
+.finding.orange{background:#fff3e0;border-left:4px solid #f59e0b}
+.finding.navy{background:#e8eaf6;border-left:4px solid #1a2a4a}
+.finding-title{font-size:10px;font-weight:800;color:#1a2a4a;margin-bottom:5px}
+.finding-body{font-size:9.5px;color:#444;line-height:1.6}
+.finding-body strong{color:#1a2a4a}
+.num-green{color:#00a650;font-weight:800}
+.num-red{color:#c0392b;font-weight:800}
+.num-blue{color:#1565c0;font-weight:800}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:9.5px;margin-top:8px}
+th{background:#1a2a4a;color:#fff;padding:6px 10px;text-align:center;font-weight:700;font-size:9px}
+th:first-child{text-align:left}
+td{padding:6px 10px;text-align:center;border-bottom:1px solid #f0f0f0}
+td:first-child{text-align:left;font-weight:600}
+tr.total-row td{background:#f5f6f8;font-weight:700}
+tr.instant-row td{background:#e8f5e9}
+.pos{color:#00a650;font-weight:700}
+.neg{color:#c0392b;font-weight:700}
+
+/* CONCLUSION */
+.conclusion{background:#1a2a4a;border-radius:8px;padding:16px 20px;margin-top:4px}
+.conclusion-title{font-size:10px;font-weight:800;color:#FFE600;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.conclusion-items{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.conclusion-item{font-size:9.5px;color:#fff;line-height:1.6;padding-left:12px;border-left:2px solid #FFE600}
+.conclusion-item strong{color:#FFE600}
+
+/* NOTE */
+.note{font-size:8px;color:#aaa;margin-top:14px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="hdr">
+    <div class="hdr-title">Análisis Instant Instore SP — Resumen ejecutivo</div>
+    <div class="hdr-sub">Impacto del lanzamiento de instant en ventas de sellers optineados · Zona SP · MLA</div>
+  </div>
+
+  <div class="body">
+
+    <!-- SETUP -->
+    <div class="setup">
+      <div class="setup-item">
+        <div class="setup-label">Universo analizado</div>
+        <div class="setup-value">62 sellers optineados en Agora SP · todos con ventas previas en Brasil y en la zona</div>
+      </div>
+      <div class="setup-item">
+        <div class="setup-label">Períodos comparados (lunes a viernes)</div>
+        <div class="setup-value">Pre: 1 abr – 7 jun 2026 (48 días hábiles)<br>Post: 8 jun – 13 ago 2026 (49 días hábiles)</div>
+      </div>
+      <div class="setup-item">
+        <div class="setup-label">Definición de zona</div>
+        <div class="setup-value">CEPs donde ocurrió al menos 1 VIP con promesa instant (dinámico — cubre toda el área real de entrega Agora)</div>
+      </div>
+    </div>
+
+    <!-- CONTEXTO DE MERCADO -->
+    <div class="section">
+      <div class="section-title">① Contexto de mercado — SP total (todos los sellers MLB)</div>
+      <div class="findings">
+        <div class="finding blue">
+          <div class="finding-title">Hay estacionalidad en Q3</div>
+          <div class="finding-body">
+            El mercado total de SP cayó <strong class="num-red">-3,1%</strong> en órdenes (abr-may vs jun-ago).<br>
+            VIPs crecieron <strong class="num-green">+14,5%</strong> pero la conversión cayó de 3,62% a 3,06%.<br>
+            → El mercado tiene más tráfico pero convierte menos en Q3.
+          </div>
+        </div>
+        <div class="finding orange">
+          <div class="finding-title">Los sellers Agora cayeron 4x más que el mercado</div>
+          <div class="finding-body">
+            Sellers Agora (total Brasil): <strong class="num-red">-12,9%</strong> en órdenes<br>
+            Mercado SP total: <strong class="num-red">-3,1%</strong> en órdenes<br>
+            → ~3pp explicado por estacionalidad, ~10pp por factores específicos de estos sellers o sus categorías.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESEMPEÑO EN LA ZONA -->
+    <div class="section">
+      <div class="section-title">② Desempeño en la zona — sellers optineados</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Tipo de envío</th>
+            <th>Órdenes zona PRE</th>
+            <th>Órdenes zona POST</th>
+            <th>Δ zona</th>
+            <th>Órdenes total BR PRE</th>
+            <th>Órdenes total BR POST</th>
+            <th>Δ Brasil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="instant-row">
+            <td>Instant (nuevo)</td>
+            <td>0</td>
+            <td>3.173</td>
+            <td class="pos">nuevo canal</td>
+            <td>0</td>
+            <td>3.172</td>
+            <td class="pos">nuevo canal</td>
+          </tr>
+          <tr>
+            <td>Same day</td>
+            <td>6.047</td>
+            <td>5.609</td>
+            <td class="neg">-7%</td>
+            <td>45.776</td>
+            <td>41.232</td>
+            <td class="neg">-10%</td>
+          </tr>
+          <tr>
+            <td>Next day</td>
+            <td>9.804</td>
+            <td>9.049</td>
+            <td class="neg">-8%</td>
+            <td>149.621</td>
+            <td>133.459</td>
+            <td class="neg">-11%</td>
+          </tr>
+          <tr>
+            <td>Otros</td>
+            <td>3.221</td>
+            <td>1.684</td>
+            <td class="neg">-48%</td>
+            <td>432.638</td>
+            <td>369.334</td>
+            <td class="neg">-15%</td>
+          </tr>
+          <tr class="total-row">
+            <td>TOTAL</td>
+            <td>19.072</td>
+            <td>19.515</td>
+            <td class="pos">+2,3%</td>
+            <td>627.935</td>
+            <td>547.198</td>
+            <td class="neg">-12,9%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CVR -->
+    <div class="section">
+      <div class="section-title">③ Conversión en la zona por tipo de promesa</div>
+      <div class="findings">
+        <div class="finding green">
+          <div class="finding-title">Instant tiene el mejor CVR de todos los métodos</div>
+          <div class="finding-body">
+            Instant: <strong class="num-green">5,43%</strong> · Same day: 1,74% · Next day: 1,37% · Otros: 1,02%<br>
+            Instant convierte <strong>3x más</strong> que same_day y <strong>4x más</strong> que next_day en la misma zona.<br>
+            CVR total zona se mantuvo estable: 1,79% pre → 1,78% post (flat).
+          </div>
+        </div>
+        <div class="finding navy">
+          <div class="finding-title">Instant vs no-instant · evolución W24–W32</div>
+          <div class="finding-body">
+            Instant gana consistentemente en CVR desde W25 en adelante.<br>
+            <strong>vs same_day:</strong> +11% a +56% según semana<br>
+            <strong>vs next_day:</strong> +34% a +82% según semana<br>
+            <strong>vs no-instant total (zona):</strong> ~+36% W32
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCLUSIONES -->
+    <div class="conclusion">
+      <div class="conclusion-title">Conclusiones clave</div>
+      <div class="conclusion-items">
+        <div class="conclusion-item">
+          <strong>Instant está generando incrementalidad en la zona</strong> — +443 órdenes netas (+2,3%) a pesar de que el mercado cae. Sin instant, la zona habría caído -14% (solo con métodos tradicionales).
+        </div>
+        <div class="conclusion-item">
+          <strong>La caída en Brasil es 4x más grande que el mercado</strong> — parte es estacional (-3,1% mercado) pero los sellers Agora tienen una caída adicional de ~10pp que puede estar relacionada con categorías o perfil de seller.
+        </div>
+        <div class="conclusion-item">
+          <strong>Instant tiene el mejor CVR del mercado en la zona</strong> — 5,43% vs 1,74% same_day. En las búsquedas con instant en pos 1-5 el CTR es +14% vs no-instant.
+        </div>
+        <div class="conclusion-item">
+          <strong>El volumen instant sigue siendo chico</strong> — 3.173 órdenes sobre 19.515 totales en zona (16%). El crecimiento requiere más sellers, más ítems con instant, y mejor posicionamiento en search.
+        </div>
+      </div>
+    </div>
+
+    <div class="note">Fuente: DM_SHP_TRACKS_VIP_CONVERTION · POSITION_BASE_FLAGGED · SBOX_SHIPPINGPRODCORE · MLB · Lunes a viernes · Períodos comparables (48-49 días hábiles) · Zona: CEPs con al menos 1 VIP instant (definición dinámica)</div>
+
+  </div>
+</div>
+</body>
+</html>

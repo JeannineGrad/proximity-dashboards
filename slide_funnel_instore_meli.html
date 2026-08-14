@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#eef0f5;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:16px}
+.slide{width:1100px;height:620px;background:#fff;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.14);overflow:hidden;display:flex;flex-direction:column}
+
+.hdr{background:#1a2a4a;padding:11px 22px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.hdr-title{font-size:14px;font-weight:900;color:#fff}
+.meli-badge{background:#FFE600;color:#1a2a4a;font-size:10px;font-weight:900;padding:3px 10px;border-radius:4px;letter-spacing:.5px}
+
+.body{flex:1;display:flex;flex-direction:column;padding:14px 50px 14px 36px;gap:6px;overflow:hidden}
+
+/* WHO/USERS header row */
+.who-row{display:flex;gap:10px;flex-shrink:0}
+.who-funnel-spacer{width:160px;flex-shrink:0;font-size:8px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:1px;text-align:center;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px}
+.who-cols{flex:1;display:flex;flex-direction:column;gap:3px}
+.who-label{text-align:center;font-size:8.5px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:1.2px}
+.who-headers{display:flex;gap:5px}
+.ucol{flex:1;background:#f0f2f6;border-radius:6px;padding:7px 4px;text-align:center}
+.ucol .ut{font-size:9.5px;font-weight:800;color:#1a2a4a;text-transform:uppercase;letter-spacing:.4px}
+.ucol .us{font-size:7.5px;color:#888;margin-top:2px}
+
+/* MAIN GRID */
+.main-grid{
+  flex:1;
+  display:grid;
+  grid-template-columns:160px 1fr 1fr 1fr 1fr;
+  grid-template-rows:1fr 1fr 1fr 1fr;
+  gap:6px 10px;
+}
+
+/* FUNNEL STAGES */
+.fs{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:10px;gap:3px;text-align:center}
+.fs .icon{font-size:15px}
+.fs-aw  {background:#e63946;clip-path:polygon(0% 0,100% 0,93% 100%,7% 100%)}
+.fs-co  {background:#2d9cdb;clip-path:polygon(7% 0,93% 0,86% 100%,14% 100%)}
+.fs-cv  {background:#f59e0b;clip-path:polygon(14% 0,86% 0,79% 100%,21% 100%)}
+.fs-lo  {background:#00a650;clip-path:polygon(21% 0,79% 0,72% 100%,28% 100%)}
+
+/* ACTION CARDS */
+.ac{border-radius:6px;padding:6px 8px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.3px;line-height:1.35}
+
+/* Awareness */
+.aw-n  {background:#c0392b;color:#fff}
+.aw-h  {background:#e63946;color:#fff}
+.aw-l  {background:#ffeaec;color:#7b0010;border:1px solid #e6394625}
+
+/* Consideration */
+.co-n  {background:#1565c0;color:#fff}
+.co-h  {background:#2d9cdb;color:#fff}
+.co-l  {background:#e8f4fd;color:#1a4a6e;border:1px solid #2d9cdb25}
+
+/* Conversion */
+.cv-h  {background:#f59e0b;color:#fff}
+.cv-l  {background:#fff8e0;color:#7a4f00;border:1px solid #f59e0b25}
+
+/* Loyalty */
+.lo-h  {background:#00a650;color:#fff}
+/* Reactivacion churned */
+.re-h  {background:#6c3483;color:#fff}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="hdr">
+    <div class="hdr-title">Full Funnel Strategy</div>
+  </div>
+
+  <div class="body">
+
+    <!-- WHO / USERS -->
+    <div class="who-row">
+      <div class="who-funnel-spacer">Full Funnel Strategy</div>
+      <div class="who-cols">
+        <div class="who-label">WHO / USERS</div>
+        <div class="who-headers">
+          <div class="ucol"><div class="ut">NEW</div></div>
+          <div class="ucol"><div class="ut">ACTIVE</div></div>
+          <div class="ucol"><div class="ut">AT RISK</div><div class="us">30–90 días</div></div>
+          <div class="ucol"><div class="ut">CHURNED</div><div class="us">+90 días</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="main-grid">
+
+      <!-- FUNNEL (col 1) -->
+      <div class="fs fs-aw"  style="grid-column:1;grid-row:1"><span class="icon">📣</span><span>Awareness</span></div>
+      <div class="fs fs-co"  style="grid-column:1;grid-row:2"><span class="icon">💡</span><span>Consideration</span></div>
+      <div class="fs fs-cv"  style="grid-column:1;grid-row:3"><span class="icon">🛒</span><span>Conversion</span></div>
+      <div class="fs fs-lo"  style="grid-column:1;grid-row:4"><span class="icon">❤️</span><span>Loyalty</span></div>
+
+      <!-- AWARENESS: Plan Comunicación 360 span ALL user cols -->
+      <div class="ac aw-h" style="grid-column:2/6;grid-row:1">Plan de Comunicación 360</div>
+
+      <!-- NEW col (col 2): Plan Adquisición spans Consideration + Conversion -->
+      <div class="ac aw-n" style="grid-column:2;grid-row:2/4">Plan Adquisición</div>
+
+      <!-- CONSIDERATION + CONVERSION -->
+      <!-- ACTIVE (col 3): consideration gris -->
+      <div style="grid-column:3;grid-row:2;background:#f0f2f6;border-radius:6px"></div>
+      <!-- AT RISK (col 4): abarca consideration + conversion -->
+      <div class="ac co-h" style="grid-column:4;grid-row:2/4">Plan Prevención Churn</div>
+      <!-- CHURNED (col 5): abarca consideration + conversion -->
+      <div class="ac re-h" style="grid-column:5;grid-row:2/4">Plan Reactivación</div>
+      <!-- ACTIVE conversion (col 3) -->
+      <div class="ac cv-h" style="grid-column:3;grid-row:3">Plan Onboarding</div>
+
+      <!-- LOYALTY: solo ACTIVE, resto gris -->
+      <div style="grid-column:2;grid-row:4;background:#f0f2f6;border-radius:6px"></div>
+      <div class="ac lo-h" style="grid-column:3;grid-row:4">Plan Fidelización + Cross-sell</div>
+      <div style="grid-column:4;grid-row:4;background:#f0f2f6;border-radius:6px"></div>
+      <div style="grid-column:5;grid-row:4;background:#f0f2f6;border-radius:6px"></div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
