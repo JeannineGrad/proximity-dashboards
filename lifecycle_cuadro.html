@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Lifecycle Quick Commerce</title>
+<style>
+:root{
+  --navy:#1a2a4a; --yellow:#FFE600;
+  --bg:#f5f6f8; --card:#ffffff; --border:#e5e7eb;
+  --muted:#6b7280;
+}
+html *{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1f2430}
+.doc-hdr{background:var(--navy);padding:20px 44px}
+.doc-hdr .tag{font-size:10px;font-weight:800;letter-spacing:1.2px;color:var(--yellow);text-transform:uppercase}
+.doc-hdr .title{font-size:18px;font-weight:800;color:#fff;margin-top:4px}
+.main{max-width:1040px;margin:0 auto;padding:32px 44px 60px}
+
+.walk-hdr{display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px}
+.walk-hdr h2{font-size:13px;font-weight:800;color:var(--navy);margin:0;text-transform:uppercase;letter-spacing:.5px}
+.step-nav{display:none}
+
+.diagram{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.diagram svg{width:100%;height:auto;display:block}
+.sd-dim{opacity:1}
+.sd-active{opacity:1}
+.sd-normal{opacity:1}
+
+.flat-step{background:var(--card);border:1px solid var(--border);border-left:4px solid #059669;border-radius:0 8px 8px 0;padding:12px 16px;margin-top:10px}
+.flat-step h4{font-size:12.5px;font-weight:800;color:var(--navy);margin:0 0 8px}
+.flat-step ul{margin:0;padding-left:18px}
+.flat-step li{font-size:12px;color:#2b2f38;line-height:1.55;margin-bottom:4px}
+.flat-step li:last-child{margin-bottom:0}
+
+.legend-row{display:flex;gap:16px;flex-wrap:wrap;margin:12px 2px 0;font-size:10px;color:var(--muted)}
+.legend-row span{display:inline-flex;align-items:center;gap:6px}
+.legend-swatch{width:20px;height:0;border-top:2px solid #8a8f98;display:inline-block}
+.legend-swatch.dash{border-top-style:dashed}
+
+h1.h1{font-size:20px;font-weight:900;margin:0 0 4px;color:var(--navy)}
+.sub{color:var(--muted);font-size:13px;margin:0 0 18px;line-height:1.55}
+h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;padding-top:20px;border-top:2px solid var(--border)}
+
+.pill{display:inline-block;padding:1px 7px;border-radius:10px;font-weight:800;font-size:10.5px;white-space:nowrap}
+.pill-green{background:#e6f7f3;color:#065f46;border:1px solid #059669}
+.pill-orange{background:#fff7ed;color:#9a5b06;border:1px solid #d97706}
+.pill-red{background:#fef2f2;color:#7f1d1d;border:1px solid #b91c1c}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.card h4{margin:0 0 6px;font-size:12.5px;color:var(--navy);display:flex;align-items:center;gap:6px}
+.card p{font-size:12px;color:#3a3f4d;margin:0;line-height:1.55}
+.callout{border-radius:8px;padding:11px 15px;font-size:12px;line-height:1.55;margin:12px 0;display:flex;gap:8px}
+.callout.amber{background:#fff8e1;border:1px solid #f2d675;color:#7a5b00}
+.callout b{font-weight:800}
+
+.matrix{width:100%;border-collapse:collapse;margin:16px 0;table-layout:fixed}
+.matrix th,.matrix td{border:1px solid var(--border);text-align:center;vertical-align:middle}
+.matrix thead th{background:#f5f6f8;color:var(--navy);font-size:11.5px;font-weight:800;padding:10px 8px}
+.matrix .thr{display:block;font-size:9.5px;font-weight:700;color:var(--muted);margin-top:3px}
+.matrix tbody th{background:#fbfcfe;color:var(--navy);font-size:12px;font-weight:800;padding:10px 10px;text-align:left;white-space:nowrap}
+.matrix tbody th.sub-vertical{padding-left:26px;font-size:10.5px;font-weight:600;color:var(--muted);font-style:italic}
+.matrix td.cell{height:56px;padding:6px}
+.matrix td.cell.empty{background:#f2f4f7}
+.matrix td.cell.active{background:#eafaf3;border:1.5px solid #059669;border-radius:8px;cursor:pointer;transition:filter .15s}
+.matrix td.cell.active:hover{filter:brightness(0.96)}
+.matrix td.cell.active .thr{color:#065f46}
+.matrix tr.qc-row th,.matrix tr.qc-row td{border-top:2px solid var(--navy)}
+.matrix tr.qc-row th{background:var(--navy);color:#fff}
+</style>
+</head>
+<body>
+<div class="doc-hdr">
+  <div class="tag">Quick Commerce</div>
+  <div class="title">Buyer Growth</div>
+</div>
+<div class="main">
+
+<h1 class="h1">Lifecycle Quick Commerce</h1>
+<p class="sub">Cuadro de navegación + journeys en su estadio más desplegado (sin pasos interactivos). Cada casillero activo del cuadro lleva directo a la sección del journey correspondiente.</p>
+<div style="overflow-x:auto">    <table class="matrix">
+      <colgroup>
+        <col style="width:150px">
+        <col style="width:21.25%"><col style="width:21.25%"><col style="width:21.25%"><col style="width:21.25%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th style="background:var(--card)"></th>
+          <th>Trial</th>
+          <th>Onboarding</th>
+          <th>Cross-sell</th>
+          <th>Churn</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="group-row">
+          <th>Groceries</th>
+          <td class="cell empty" data-cell="trial-groceries"></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+        </tr>
+        <tr>
+          <th class="sub-vertical">Instore</th>
+          <td class="cell empty"></td>
+          <td class="cell active" data-cell="onb-instore" onclick="document.getElementById('anchor-onboarding-instore').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">5 tx · 90d</span><span class="thr">Ver journey →</span></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+        </tr>
+        <tr>
+          <th class="sub-vertical">Darkstore</th>
+          <td class="cell empty" data-cell="trial-darkstore"></td>
+          <td class="cell active" onclick="document.getElementById('anchor-onboarding-darkstore').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">5 tx · 90d</span><span class="thr">Ver journey →</span></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+        </tr>
+        <tr>
+          <th>GM</th>
+          <td class="cell empty"></td>
+          <td class="cell active" data-cell="onb-gm" onclick="document.getElementById('anchor-onboarding-gm').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">2 tx · 60d</span><span class="thr">Ver journey →</span></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+        </tr>
+        <tr>
+          <th>Pharma</th>
+          <td class="cell empty"></td>
+          <td class="cell empty" data-cell="onb-pharma"><span class="thr">2 tx · 60d</span></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+        </tr>
+        <tr class="qc-row">
+          <th>Quick Commerce</th>
+          <td class="cell empty"></td>
+          <td class="cell empty"><span class="thr">5 tx · 90d · 2+ verticales</span></td>
+          <td class="cell empty"></td>
+          <td class="cell empty"></td>
+        </tr>
+      </tbody>
+    </table></div>
+<h2 class="h2" id="anchor-onboarding-instore">Onboarding Instore</h2>
+  <div class="card">
+    <h4>🎯 Objetivo del journey</h4>
+    <p>Lograr usuarios <b>Graduados</b> de la vertical en un máximo de 90 días. A medida que un usuario alcanza el nivel de transaccionalidad necesario, pasa de inmediato al flujo de Graduado. Y al revés: si en el primer corte no logra ni una transacción adicional, se lo saca directo de este journey y se lo deriva a otra vertical.</p>
+  </div>
+
+  <div class="walk-hdr">
+    <h2>Journey: Período de Onboarding</h2>
+    <div class="step-nav" id="stepNav"></div>
+  </div>
+
+  <div class="callout amber" style="margin:0 0 12px">
+    <span>📐</span>
+    <div>
+      <b>Máximo 1 descuento</b> por usuario en el período de onboarding — nunca antes de la 2ª transacción. Acorde al lineamiento de inversión del P&L de Instore: muy light en incentivos.<br>
+      <b>Cada corte</b> (día 45 / 65 / 90) decide: ¿sigo intentando que llegue a la 5ª, o ya lo derivo a Cross-sell?
+    </div>
+  </div><div class="diagram">
+    <svg viewBox="0 0 1360 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey Instore">
+      <defs><marker id="a1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:15px;font-weight:800}.t2{font-size:12.5px;font-weight:700}.lb{font-size:10px;fill:#8a8f98}.cplbl{font-size:12px;font-weight:800;fill:#1a2a4a}</style>
+
+      <!-- STEP 1: Nuevo -> Activacion -->
+      <g id="step-1" class="sd-normal">
+        <rect x="20" y="195" width="90" height="50" rx="9" fill="#fff" stroke="#c7ccd4" stroke-width="1.4"/>
+        <text x="65" y="213" text-anchor="middle" class="f t2" fill="#4b5160">Trial</text>
+        <text x="65" y="226" text-anchor="middle" class="f lb">(1era Tx en</text>
+        <text x="65" y="237" text-anchor="middle" class="f lb">la vertical)</text>
+        <path d="M110,220 L130,220" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a1)"/>
+        <rect x="130" y="55" width="150" height="330" rx="10" fill="#fbfcfe" stroke="#c7ccd4" stroke-width="1.4" stroke-dasharray="5,4"/>
+        <text x="205" y="215" text-anchor="middle" class="f t1" fill="#1a2a4a">Activación</text>
+        <text x="205" y="232" text-anchor="middle" class="f lb">pool de pushes, sin incentivo</text>
+        <line x1="145" y1="240" x2="265" y2="240" stroke="#d97706" stroke-width="1.2" stroke-dasharray="3,3"/>
+        <text x="205" y="257" text-anchor="middle" class="f lb" fill="#9a5b06">día 14, sin 2ª tx →</text>
+        <text x="205" y="272" text-anchor="middle" class="f t2" fill="#9a5b06">gancho: descuento/oferta</text>
+        <text x="205" y="285" text-anchor="middle" class="f t2" fill="#9a5b06">del partner</text>
+        <text x="205" y="300" text-anchor="middle" class="f lb">(sin costo propio, más fuerte</text>
+        <text x="205" y="312" text-anchor="middle" class="f lb">que el genérico)</text>
+        <path d="M280,220 L305,220" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a1)"/>
+      </g>
+
+      <!-- STEP 2: Dia 30, se abre en caminos segun transacciones (menos 0-1) -->
+      <g id="step-2" class="sd-normal">
+        <polygon points="305,220 335,195 365,220 335,245" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+        <text x="335" y="185" text-anchor="middle" class="f cplbl">🔍 Día 45</text>
+        <path d="M365,220 L400,220" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+
+        <path d="M400,220 L440,80" stroke="#059669" stroke-width="1.7" fill="none"/>
+        <text x="405" y="145" class="f t2" fill="#059669">5+</text>
+        <path d="M440,80 L1000,80" stroke="#059669" stroke-width="1.7" fill="none" marker-end="url(#a1)"/>
+
+        <path d="M400,220 L440,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <text x="405" y="180" class="f t2" fill="#4b5160">4</text>
+        <path d="M440,150 L635,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <path d="M520,150 L560,80" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <circle cx="470" cy="150" r="10" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.3"/>
+        <text x="470" y="154" text-anchor="middle" font-size="9">🏠</text>
+
+        <path d="M400,220 L440,220" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
+        <text x="405" y="212" class="f t2" fill="#7c3aed">3</text>
+        <path d="M440,220 L635,220" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
+        <path d="M520,220 L560,150" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
+        <path d="M520,220 L565,80" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
+        <circle cx="470" cy="220" r="10" fill="#f3ecfd" stroke="#7c3aed" stroke-width="1.3"/>
+        <text x="470" y="224" text-anchor="middle" font-size="9">🏠</text>
+
+        <path d="M400,220 L440,290" stroke="#2563eb" stroke-width="1.6" fill="none"/>
+        <text x="405" y="260" class="f t2" fill="#1d4ed8">2</text>
+        <path d="M440,290 L459,290" stroke="#2563eb" stroke-width="1.6" fill="none"/>
+        <circle cx="470" cy="290" r="11" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="470" y="294" text-anchor="middle" font-size="10">💰</text>
+        <path d="M481,290 L635,290" stroke="#2563eb" stroke-width="1.6" fill="none"/>
+        <path d="M520,290 L560,220" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+        <path d="M520,290 L560,150" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+        <path d="M520,290 L565,80" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+
+        <path d="M400,220 L440,360" stroke="#b91c1c" stroke-width="1.6" fill="none"/>
+        <text x="405" y="330" class="f t2" fill="#7f1d1d">1</text>
+        <path d="M440,360 L1000,360" stroke="#b91c1c" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a1)"/>
+        <rect x="1000" y="340" width="150" height="40" rx="9" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.4"/>
+        <text x="1075" y="365" text-anchor="middle" class="f t1" fill="#7f1d1d">No activó</text>
+        <path d="M1150,360 L1180,360" stroke="#b91c1c" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a1)"/>
+
+        <rect x="1000" y="60" width="150" height="40" rx="9" fill="#e6f7f3" stroke="#059669" stroke-width="1.5"/>
+        <text x="1075" y="85" text-anchor="middle" class="f t1" fill="#065f46">🏆 Graduado</text>
+        <path d="M1150,80 L1180,80" stroke="#059669" stroke-width="1.7" fill="none" marker-end="url(#a1)"/>
+
+        <rect x="1180" y="55" width="150" height="330" rx="12" fill="#eafaf3" stroke="#059669" stroke-width="1.6"/>
+        <text x="1255" y="210" text-anchor="middle" class="f t1" fill="#065f46">Cross-sell</text>
+        <text x="1255" y="228" text-anchor="middle" class="f lb">otra vertical QC</text>
+        <text x="1255" y="244" text-anchor="middle" class="f lb">(único destino final,</text>
+        <text x="1255" y="257" text-anchor="middle" class="f lb">cualquiera sea el estadio)</text>
+      </g>
+
+      <!-- STEP 3: Dia 60, segundo corte -->
+      <g id="step-3" class="sd-dim">
+        <rect x="635" y="135" width="30" height="170" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="650" y="128" text-anchor="middle" class="f cplbl">🔍 Día 65</text>
+        <polygon points="640,150 650,143 660,150 650,157" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="640,220 650,213 660,220 650,227" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="640,290 650,283 660,290 650,297" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+
+        <path d="M665,150 L835,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <path d="M760,150 L800,80" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <circle cx="710" cy="150" r="10" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.3"/>
+        <text x="710" y="154" text-anchor="middle" font-size="9">🏠</text>
+
+        <path d="M665,220 L699,220" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
+        <circle cx="710" cy="220" r="11" fill="#f3ecfd" stroke="#7c3aed" stroke-width="1.4"/>
+        <text x="710" y="224" text-anchor="middle" font-size="8">🏠💰</text>
+        <path d="M721,220 L835,220" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
+        <path d="M760,220 L800,150" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
+        <path d="M760,220 L805,80" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
+
+        <path d="M665,290 L1075,290 L1075,240" stroke="#d97706" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a1)"/>
+
+        <rect x="1000" y="200" width="150" height="40" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.4"/>
+        <text x="1075" y="225" text-anchor="middle" class="f t1" fill="#9a5b06">No graduado</text>
+        <path d="M1150,220 L1180,220" stroke="#d97706" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a1)"/>
+      </g>
+
+      <!-- STEP 4: Dia 90, corte final -->
+      <g id="step-4" class="sd-dim">
+        <rect x="835" y="135" width="30" height="100" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="850" y="128" text-anchor="middle" class="f cplbl">🔍 Día 90 (final)</text>
+        <polygon points="840,150 850,143 860,150 850,157" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="840,220 850,213 860,220 850,227" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+
+        <path d="M865,150 L920,80" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <path d="M865,150 L905,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <circle cx="905" cy="150" r="11" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="905" y="154" text-anchor="middle" font-size="9">🏠💰</text>
+        <path d="M915,150 L945,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <text x="945" y="122" text-anchor="middle" class="f cplbl">🔍 +15d</text>
+        <circle cx="945" cy="150" r="11" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+        <path d="M955,144 L1000,124" stroke="#059669" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a1)"/>
+        <path d="M955,156 L1075,156 L1075,200" stroke="#d97706" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a1)"/>
+
+        <rect x="1000" y="105" width="150" height="38" rx="9" fill="#eafaf3" stroke="#059669" stroke-width="1.4" stroke-dasharray="4,3"/>
+        <text x="1075" y="128" text-anchor="middle" class="f t2" fill="#065f46">⏳ Graduado tardío</text>
+        <path d="M1150,124 L1180,124" stroke="#059669" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a1)"/>
+
+        <path d="M865,220 L920,80" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
+        <path d="M865,220 L1000,220" stroke="#d97706" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a1)"/>
+      </g>
+
+    </svg></div>
+<div id="flat-onb-instore"></div>
+  <div class="legend-row">
+    <span><span class="legend-swatch"></span> Sigue en carrera hacia Graduado</span>
+    <span><span class="legend-swatch dash"></span> Sale del journey (a un estadio final)</span>
+  </div><h2 class="h2" id="anchor-graduado-instore">Graduado y Graduado Tardío Instore</h2>
+<div class="diagram">
+    <svg viewBox="0 0 1200 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey Graduado">
+      <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11.5px;font-weight:700}.lb{font-size:9.5px;fill:#8a8f98}.cplbl{font-size:12px;font-weight:800;fill:#1a2a4a}</style>
+
+      <!-- STEP G1: Graduado -> se abren 2 caminos EN PARALELO: pool organico + monitoreo de cadencia -->
+      <g id="step-g1" class="sd-normal">
+        <rect x="15" y="145" width="115" height="60" rx="9" fill="#e6f7f3" stroke="#059669" stroke-width="1.5"/>
+        <text x="72" y="170" text-anchor="middle" class="f t2" fill="#065f46">🏆 Graduado</text>
+        <text x="72" y="185" text-anchor="middle" class="f lb" fill="#065f46">⏳ Graduado tardío</text>
+        <path d="M130,160 L150,82" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a2)"/>
+        <path d="M130,190 L150,203" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a2)"/>
+        <rect x="150" y="50" width="150" height="65" rx="10" fill="#fbfcfe" stroke="#c7ccd4" stroke-width="1.4" stroke-dasharray="5,4"/>
+        <text x="225" y="72" text-anchor="middle" class="f t2" fill="#1a2a4a">Pushes vertical</text>
+        <text x="225" y="88" text-anchor="middle" class="f lb">categorías/ocasiones</text>
+        <text x="225" y="100" text-anchor="middle" class="f lb">dentro de Instore</text>
+        <path d="M300,64 Q317,42 335,64" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a2)"/>
+        <path d="M335,101 Q317,123 300,101" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a2)"/>
+        <rect x="335" y="50" width="155" height="65" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.4" stroke-dasharray="5,4"/>
+        <text x="412" y="72" text-anchor="middle" class="f t2" fill="#065f46">Pushes cross-sell</text>
+        <text x="412" y="88" text-anchor="middle" class="f lb">prueba otras verticales QC</text>
+        <text x="412" y="100" text-anchor="middle" class="f lb">sin incentivo</text>
+        <path d="M490,82 L1150,82" stroke="#8a8f98" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a2)"/>
+        <text x="820" y="68" text-anchor="middle" class="f lb">se van intercalando, en paralelo durante todo el journey</text>
+      </g>
+
+      <!-- STEP G2: calculo de cadencia personal (corre en paralelo al pool) -->
+      <g id="step-g2" class="sd-dim">
+        <rect x="150" y="175" width="210" height="60" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="255" y="200" text-anchor="middle" class="f t2" fill="#1d4ed8">📐 Cadencia personal</text>
+        <text x="255" y="216" text-anchor="middle" class="f lb">días hasta graduarse ÷ 4</text>
+        <text x="255" y="228" text-anchor="middle" class="f lb">fija, no se recalcula</text>
+        <path d="M360,205 L395,205" stroke="#8a8f98" stroke-width="1.4" fill="none" marker-end="url(#a2)"/>
+      </g>
+
+      <!-- STEP G3: Alarma 1 (dia C) -->
+      <g id="step-g3" class="sd-dim">
+        <circle cx="412" cy="205" r="13" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+        <text x="412" y="184" text-anchor="middle" class="f cplbl">🔔 Alarma 1 · día C</text>
+        <path d="M425,197 L465,168" stroke="#2563eb" stroke-width="1.6" fill="none" marker-end="url(#a2)"/>
+        <path d="M425,213 L465,242" stroke="#8a8f98" stroke-width="1.6" fill="none" marker-end="url(#a2)"/>
+        <rect x="475" y="140" width="150" height="50" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="550" y="162" text-anchor="middle" class="f t2" fill="#1d4ed8">💰 Cupón grande</text>
+        <text x="550" y="177" text-anchor="middle" class="f lb" fill="#1d4ed8">alto valor</text>
+        <rect x="475" y="220" width="150" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="550" y="242" text-anchor="middle" class="f t2" fill="#4b5160">🚚 Envío gratis</text>
+        <text x="550" y="257" text-anchor="middle" class="f lb">bajo/medio valor</text>
+        <path d="M625,165 L660,165" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+        <path d="M625,245 L660,245" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M550,138 L550,88" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a2)"/>
+        <text x="560" y="112" text-anchor="start" class="f lb" fill="#059669">✅ si reacciona → pool</text>
+      </g>
+
+      <!-- STEP G4: Alarma 2 (dia 2C) -->
+      <g id="step-g4" class="sd-dim">
+        <text x="673" y="142" text-anchor="middle" class="f cplbl">🔔 Alarma 2 · día 2C</text>
+        <rect x="660" y="150" width="26" height="110" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <polygon points="663,165 673,158 683,165 673,172" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="663,245 673,238 683,245 673,252" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <path d="M686,165 L726,165" stroke="#2563eb" stroke-width="1.6" fill="none" marker-end="url(#a2)"/>
+        <path d="M686,245 L726,245" stroke="#8a8f98" stroke-width="1.6" fill="none" marker-end="url(#a2)"/>
+        <rect x="736" y="140" width="180" height="50" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="826" y="162" text-anchor="middle" class="f t2" fill="#1d4ed8">🚚+💰 Combinado</text>
+        <text x="826" y="177" text-anchor="middle" class="f lb" fill="#1d4ed8">alto valor</text>
+        <rect x="736" y="220" width="180" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="826" y="242" text-anchor="middle" class="f t2" fill="#4b5160">💰 Cupón chico</text>
+        <text x="826" y="257" text-anchor="middle" class="f lb">bajo/medio valor</text>
+        <path d="M916,165 L950,165" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M916,245 L950,245" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M826,138 L826,88" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a2)"/>
+        <text x="836" y="112" text-anchor="start" class="f lb" fill="#059669">✅ si reacciona → pool</text>
+      </g>
+
+      <!-- STEP G5: Alarma 3 (dia 3C), churn a evaluar -->
+      <g id="step-g5" class="sd-dim">
+        <text x="963" y="142" text-anchor="middle" class="f cplbl">🔔 Alarma 3 · día 3C</text>
+        <rect x="950" y="150" width="26" height="110" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <polygon points="953,165 963,158 973,165 963,172" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="953,245 963,238 973,245 963,252" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <path d="M976,165 L1020,195" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a2)"/>
+        <path d="M976,245 L1020,215" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a2)"/>
+        <rect x="1030" y="180" width="140" height="50" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="1.6" stroke-dasharray="5,4"/>
+        <text x="1100" y="203" text-anchor="middle" class="f t2" fill="#9a5b06">Churn</text>
+        <text x="1100" y="219" text-anchor="middle" class="f lb" fill="#9a5b06">🔁 tras detox → pool</text>
+        <text x="1100" y="245" text-anchor="middle" class="f lb">trial light (a definir),</text>
+        <text x="1100" y="257" text-anchor="middle" class="f lb">no se da por perdido para siempre</text>
+      </g>
+    </svg></div>
+<div id="flat-grad-instore"></div>
+  <div class="callout amber"><span>📋</span><div>Falta definir con data real: el percentil de NMV (y la ventana de período) que separa alto valor de bajo/medio valor.</div></div>
+
+  <div class="walk-hdr">
+    <h2>Journey: No Graduado Instore</h2>
+    <div class="step-nav" id="stepNavNG"></div>
+  </div><div class="diagram">
+    <svg viewBox="0 0 1630 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey No Graduado">
+      <defs><marker id="a4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11.5px;font-weight:700}.lb{font-size:9.5px;fill:#8a8f98}.cplbl{font-size:12px;font-weight:800;fill:#1a2a4a}</style>
+
+      <!-- STEP NG1: No Graduado -> gate migro a Darkstore? -> Sigue en Darkstore -->
+      <g id="step-ng1" class="sd-normal">
+        <rect x="20" y="150" width="140" height="45" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.4"/>
+        <text x="90" y="177" text-anchor="middle" class="f t2" fill="#9a5b06">No graduado</text>
+        <path d="M90,195 L90,219" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a4)"/>
+        <polygon points="64,245 90,219 116,245 90,271" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+        <text x="100" y="211" text-anchor="start" class="f cplbl">¿Migró a Darkstore?</text>
+        <path d="M116,245 L300,245 L300,45 L350,45" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a4)"/>
+        <text x="185" y="238" text-anchor="middle" class="f lb" fill="#059669">sí</text>
+        <rect x="350" y="15" width="220" height="55" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <text x="460" y="38" text-anchor="middle" class="f t2" fill="#065f46">🏠 Sigue en Darkstore</text>
+        <text x="460" y="53" text-anchor="middle" class="f lb">no es pérdida — mismo objetivo QC</text>
+      </g>
+
+      <!-- STEP NG2: no migro -> gate ya se le ofrecio Darkstore antes? -->
+      <g id="step-ng2" class="sd-dim">
+        <path d="M90,271 L90,319" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a4)"/>
+        <text x="105" y="264" text-anchor="start" class="f lb">no</text>
+        <polygon points="64,345 90,319 116,345 90,371" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+        <text x="100" y="311" text-anchor="start" class="f cplbl">¿Ya se ofreció Darkstore?</text>
+      </g>
+
+      <!-- STEP NG3: nunca (linea 2) -> primer intento Darkstore; ya ofrecido (lineas 3/4) sigue de largo -->
+      <g id="step-ng3" class="sd-dim">
+        <path d="M90,371 L90,405" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a4)"/>
+        <text x="105" y="393" text-anchor="start" class="f lb">nunca (línea 2)</text>
+        <rect x="15" y="405" width="175" height="55" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="102" y="427" text-anchor="middle" class="f t2" fill="#4b5160">🏠💰 Intento Cross-sell</text>
+        <text x="102" y="442" text-anchor="middle" class="f lb">a Darkstore</text>
+        <path d="M190,432 L340,432 L340,60 L350,60" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a4)"/>
+        <text x="250" y="425" text-anchor="middle" class="f lb" fill="#059669">migra</text>
+      </g>
+
+      <!-- STEP NG4: converge (ya ofrecido + no migro) -> misma entrada dual del journey de Graduado -->
+      <g id="step-ng4" class="sd-dim">
+        <path d="M116,345 L270,345 L270,175 L556,175" stroke="#8a8f98" stroke-width="1.4" fill="none" marker-end="url(#a4)"/>
+        <text x="180" y="338" text-anchor="middle" class="f lb">ya se ofreció (líneas 3/4)</text>
+        <path d="M102,460 L310,460 L310,190 L556,190" stroke="#8a8f98" stroke-width="1.4" fill="none" marker-end="url(#a4)"/>
+        <text x="220" y="453" text-anchor="middle" class="f lb">no migra</text>
+        <circle cx="562" cy="181" r="4" fill="#1a2a4a"/>
+        <path d="M568,175 L596,84" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a4)"/>
+        <path d="M568,192 L596,203" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a4)"/>
+        <rect x="590" y="50" width="150" height="65" rx="10" fill="#fbfcfe" stroke="#c7ccd4" stroke-width="1.4" stroke-dasharray="5,4"/>
+        <text x="665" y="72" text-anchor="middle" class="f t2" fill="#1a2a4a">Pushes vertical</text>
+        <text x="665" y="88" text-anchor="middle" class="f lb">categorías/ocasiones</text>
+        <text x="665" y="100" text-anchor="middle" class="f lb">dentro de Instore</text>
+        <path d="M740,64 Q757,42 775,64" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a4)"/>
+        <path d="M775,101 Q757,123 740,101" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a4)"/>
+        <rect x="775" y="50" width="155" height="65" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.4" stroke-dasharray="5,4"/>
+        <text x="852" y="72" text-anchor="middle" class="f t2" fill="#065f46">Pushes cross-sell</text>
+        <text x="852" y="88" text-anchor="middle" class="f lb">prueba otras verticales QC</text>
+        <text x="852" y="100" text-anchor="middle" class="f lb">sin incentivo</text>
+        <path d="M930,82 L1590,82" stroke="#8a8f98" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a4)"/>
+        <text x="1260" y="68" text-anchor="middle" class="f lb">se van intercalando, en paralelo durante todo el journey</text>
+      </g>
+
+      <!-- STEP NG5: cadencia personal (corre en paralelo al pool) -->
+      <g id="step-ng5" class="sd-dim">
+        <rect x="590" y="175" width="210" height="60" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="695" y="200" text-anchor="middle" class="f t2" fill="#1d4ed8">📐 Cadencia personal</text>
+        <text x="695" y="216" text-anchor="middle" class="f lb">días hasta graduarse ÷ 4</text>
+        <text x="695" y="228" text-anchor="middle" class="f lb">fija, no se recalcula</text>
+        <path d="M800,205 L835,205" stroke="#8a8f98" stroke-width="1.4" fill="none" marker-end="url(#a4)"/>
+      </g>
+
+      <!-- STEP NG6: Alarma 1 (dia C) -->
+      <g id="step-ng6" class="sd-dim">
+        <circle cx="852" cy="205" r="13" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+        <text x="852" y="184" text-anchor="middle" class="f cplbl">🔔 Alarma 1 · día C</text>
+        <path d="M865,197 L905,168" stroke="#2563eb" stroke-width="1.6" fill="none" marker-end="url(#a4)"/>
+        <path d="M865,213 L905,242" stroke="#8a8f98" stroke-width="1.6" fill="none" marker-end="url(#a4)"/>
+        <rect x="915" y="140" width="150" height="50" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="990" y="162" text-anchor="middle" class="f t2" fill="#1d4ed8">💰 Cupón grande</text>
+        <text x="990" y="177" text-anchor="middle" class="f lb" fill="#1d4ed8">alto valor</text>
+        <rect x="915" y="220" width="150" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="990" y="242" text-anchor="middle" class="f t2" fill="#4b5160">🚚 Envío gratis</text>
+        <text x="990" y="257" text-anchor="middle" class="f lb">bajo/medio valor</text>
+        <path d="M1065,165 L1100,165" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+        <path d="M1065,245 L1100,245" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M990,138 L990,88" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a4)"/>
+        <text x="1000" y="112" text-anchor="start" class="f lb" fill="#059669">✅ si reacciona → pool</text>
+      </g>
+
+      <!-- STEP NG7: Alarma 2 (dia 2C) -->
+      <g id="step-ng7" class="sd-dim">
+        <text x="1113" y="142" text-anchor="middle" class="f cplbl">🔔 Alarma 2 · día 2C</text>
+        <rect x="1100" y="150" width="26" height="110" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <polygon points="1103,165 1113,158 1123,165 1113,172" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="1103,245 1113,238 1123,245 1113,252" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <path d="M1126,165 L1166,165" stroke="#2563eb" stroke-width="1.6" fill="none" marker-end="url(#a4)"/>
+        <path d="M1126,245 L1166,245" stroke="#8a8f98" stroke-width="1.6" fill="none" marker-end="url(#a4)"/>
+        <rect x="1176" y="140" width="180" height="50" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="1266" y="162" text-anchor="middle" class="f t2" fill="#1d4ed8">🚚+💰 Combinado</text>
+        <text x="1266" y="177" text-anchor="middle" class="f lb" fill="#1d4ed8">alto valor</text>
+        <rect x="1176" y="220" width="180" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="1266" y="242" text-anchor="middle" class="f t2" fill="#4b5160">💰 Cupón chico</text>
+        <text x="1266" y="257" text-anchor="middle" class="f lb">bajo/medio valor</text>
+        <path d="M1356,165 L1390,165" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M1356,245 L1390,245" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M1266,138 L1266,88" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a4)"/>
+        <text x="1276" y="112" text-anchor="start" class="f lb" fill="#059669">✅ si reacciona → pool</text>
+      </g>
+
+      <!-- STEP NG8: Alarma 3 (dia 3C), Churn -->
+      <g id="step-ng8" class="sd-dim">
+        <text x="1403" y="142" text-anchor="middle" class="f cplbl">🔔 Alarma 3 · día 3C</text>
+        <rect x="1390" y="150" width="26" height="110" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <polygon points="1393,165 1403,158 1413,165 1403,172" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="1393,245 1403,238 1413,245 1403,252" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <path d="M1416,165 L1460,195" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a4)"/>
+        <path d="M1416,245 L1460,215" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a4)"/>
+        <rect x="1470" y="180" width="140" height="50" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="1.6" stroke-dasharray="5,4"/>
+        <text x="1540" y="203" text-anchor="middle" class="f t2" fill="#9a5b06">Churn</text>
+        <text x="1540" y="219" text-anchor="middle" class="f lb" fill="#9a5b06">🔁 tras detox → pool</text>
+        <text x="1540" y="245" text-anchor="middle" class="f lb">trial light (a definir),</text>
+        <text x="1540" y="257" text-anchor="middle" class="f lb">no se da por perdido para siempre</text>
+      </g>
+    </svg></div>
+<div id="flat-ng-instore"></div>
+<h2 class="h2" id="anchor-onboarding-darkstore">Onboarding Darkstore</h2>
+  <div class="card">
+    <h4>🎯 Objetivo del journey</h4>
+    <p>Lograr usuarios <b>Graduados</b> de la vertical en un máximo de 90 días. A medida que un usuario alcanza el nivel de transaccionalidad necesario, pasa de inmediato al flujo de Graduado. Y al revés: si en el primer corte no logra ni una transacción adicional, se lo saca directo de este journey y se lo deriva a otra vertical.</p>
+  </div>
+
+  <div class="callout amber" style="margin:0 0 12px">
+    <span>⚠️</span>
+    <div>
+      <b>Diferencia clave vs. Instore:</b> acá no diseñamos incentivos que empujen puntualmente hacia Instore — ni durante el onboarding ni ya Graduado. Si un usuario de Darkstore prueba Instore, tiene que ser espontáneo. El cross-sell diseñado (con o sin plata) apunta genérico a Food/GM/Pharma.
+    </div>
+  </div>
+
+  <div class="walk-hdr">
+    <h2>Journey: Período de Onboarding</h2>
+    <div class="step-nav" id="stepNavDS"></div>
+  </div>
+
+  <div class="callout amber" style="margin:0 0 12px">
+    <span>📐</span>
+    <div>
+      <b>Máximo 1 descuento</b> por usuario en el período de onboarding — nunca antes de la 2ª transacción. Mismo lineamiento liviano en incentivos que en Instore.<br>
+      <b>Cada corte</b> (día 45 / 65 / 90) decide: ¿sigo intentando que llegue a la 5ª, o ya lo derivo a Cross-sell?
+    </div>
+  </div><div class="diagram">
+    <svg viewBox="0 0 1360 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey Darkstore">
+      <defs><marker id="a5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:15px;font-weight:800}.t2{font-size:12.5px;font-weight:700}.lb{font-size:10px;fill:#8a8f98}.cplbl{font-size:12px;font-weight:800;fill:#1a2a4a}</style>
+
+      <!-- STEP DS1: Nuevo -> Activacion -->
+      <g id="step-ds1" class="sd-normal">
+        <rect x="20" y="195" width="90" height="50" rx="9" fill="#fff" stroke="#c7ccd4" stroke-width="1.4"/>
+        <text x="65" y="213" text-anchor="middle" class="f t2" fill="#4b5160">Trial</text>
+        <text x="65" y="226" text-anchor="middle" class="f lb">(1era Tx en</text>
+        <text x="65" y="237" text-anchor="middle" class="f lb">la vertical)</text>
+        <path d="M110,220 L130,220" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a5)"/>
+        <rect x="130" y="55" width="150" height="330" rx="10" fill="#fbfcfe" stroke="#c7ccd4" stroke-width="1.4" stroke-dasharray="5,4"/>
+        <text x="205" y="215" text-anchor="middle" class="f t1" fill="#1a2a4a">Activación</text>
+        <text x="205" y="232" text-anchor="middle" class="f lb">pool de pushes, sin incentivo</text>
+        <line x1="145" y1="240" x2="265" y2="240" stroke="#d97706" stroke-width="1.2" stroke-dasharray="3,3"/>
+        <text x="205" y="257" text-anchor="middle" class="f lb" fill="#9a5b06">día 14, sin 2ª tx →</text>
+        <text x="205" y="272" text-anchor="middle" class="f t2" fill="#9a5b06">gancho: descuento/oferta</text>
+        <text x="205" y="285" text-anchor="middle" class="f t2" fill="#9a5b06">del partner</text>
+        <text x="205" y="300" text-anchor="middle" class="f lb">(sin costo propio, más fuerte</text>
+        <text x="205" y="312" text-anchor="middle" class="f lb">que el genérico)</text>
+        <path d="M280,220 L305,220" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a5)"/>
+      </g>
+
+      <!-- STEP DS2: Dia 45, se abre en caminos segun transacciones -->
+      <g id="step-ds2" class="sd-normal">
+        <polygon points="305,220 335,195 365,220 335,245" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+        <text x="335" y="185" text-anchor="middle" class="f cplbl">🔍 Día 45</text>
+        <path d="M365,220 L400,220" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+
+        <path d="M400,220 L440,80" stroke="#059669" stroke-width="1.7" fill="none"/>
+        <text x="405" y="145" class="f t2" fill="#059669">5+</text>
+        <path d="M440,80 L1000,80" stroke="#059669" stroke-width="1.7" fill="none" marker-end="url(#a5)"/>
+
+        <path d="M400,220 L440,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <text x="405" y="180" class="f t2" fill="#4b5160">4</text>
+        <path d="M440,150 L635,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <path d="M520,150 L560,80" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <circle cx="470" cy="150" r="10" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.3"/>
+        <text x="470" y="154" text-anchor="middle" font-size="9">🔀</text>
+
+        <path d="M400,220 L440,220" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
+        <text x="405" y="212" class="f t2" fill="#7c3aed">3</text>
+        <path d="M440,220 L635,220" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
+        <path d="M520,220 L560,150" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
+        <path d="M520,220 L565,80" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
+        <circle cx="470" cy="220" r="10" fill="#f3ecfd" stroke="#7c3aed" stroke-width="1.3"/>
+        <text x="470" y="224" text-anchor="middle" font-size="9">🔀</text>
+
+        <path d="M400,220 L440,290" stroke="#2563eb" stroke-width="1.6" fill="none"/>
+        <text x="405" y="260" class="f t2" fill="#1d4ed8">2</text>
+        <path d="M440,290 L459,290" stroke="#2563eb" stroke-width="1.6" fill="none"/>
+        <circle cx="470" cy="290" r="11" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="470" y="294" text-anchor="middle" font-size="10">💰</text>
+        <path d="M481,290 L635,290" stroke="#2563eb" stroke-width="1.6" fill="none"/>
+        <path d="M520,290 L560,220" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+        <path d="M520,290 L560,150" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+        <path d="M520,290 L565,80" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+
+        <path d="M400,220 L440,360" stroke="#b91c1c" stroke-width="1.6" fill="none"/>
+        <text x="405" y="330" class="f t2" fill="#7f1d1d">1</text>
+        <path d="M440,360 L1000,360" stroke="#b91c1c" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+        <rect x="1000" y="340" width="150" height="40" rx="9" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.4"/>
+        <text x="1075" y="365" text-anchor="middle" class="f t1" fill="#7f1d1d">No activó</text>
+        <path d="M1150,360 L1180,360" stroke="#b91c1c" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+
+        <rect x="1000" y="60" width="150" height="40" rx="9" fill="#e6f7f3" stroke="#059669" stroke-width="1.5"/>
+        <text x="1075" y="85" text-anchor="middle" class="f t1" fill="#065f46">🏆 Graduado</text>
+        <path d="M1150,80 L1180,80" stroke="#059669" stroke-width="1.7" fill="none" marker-end="url(#a5)"/>
+
+        <rect x="1180" y="55" width="150" height="330" rx="12" fill="#eafaf3" stroke="#059669" stroke-width="1.6"/>
+        <text x="1255" y="210" text-anchor="middle" class="f t1" fill="#065f46">Cross-sell</text>
+        <text x="1255" y="228" text-anchor="middle" class="f lb">otra vertical QC</text>
+        <text x="1255" y="244" text-anchor="middle" class="f lb">(único destino final,</text>
+        <text x="1255" y="257" text-anchor="middle" class="f lb">cualquiera sea el estadio)</text>
+      </g>
+
+      <!-- STEP DS3: Dia 65, segundo corte -->
+      <g id="step-ds3" class="sd-dim">
+        <rect x="635" y="135" width="30" height="170" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="650" y="128" text-anchor="middle" class="f cplbl">🔍 Día 65</text>
+        <polygon points="640,150 650,143 660,150 650,157" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="640,220 650,213 660,220 650,227" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="640,290 650,283 660,290 650,297" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+
+        <path d="M665,150 L835,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <path d="M760,150 L800,80" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <circle cx="710" cy="150" r="10" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.3"/>
+        <text x="710" y="154" text-anchor="middle" font-size="9">🔀</text>
+
+        <path d="M665,220 L699,220" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
+        <circle cx="710" cy="220" r="11" fill="#f3ecfd" stroke="#7c3aed" stroke-width="1.4"/>
+        <text x="710" y="224" text-anchor="middle" font-size="8">🔀💰</text>
+        <path d="M721,220 L835,220" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
+        <path d="M760,220 L800,150" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
+        <path d="M760,220 L805,80" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
+
+        <path d="M665,290 L1075,290 L1075,240" stroke="#d97706" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+
+        <rect x="1000" y="200" width="150" height="40" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.4"/>
+        <text x="1075" y="225" text-anchor="middle" class="f t1" fill="#9a5b06">No graduado</text>
+        <path d="M1150,220 L1180,220" stroke="#d97706" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+      </g>
+
+      <!-- STEP DS4: Dia 90, corte final -->
+      <g id="step-ds4" class="sd-dim">
+        <rect x="835" y="135" width="30" height="100" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="850" y="128" text-anchor="middle" class="f cplbl">🔍 Día 90 (final)</text>
+        <polygon points="840,150 850,143 860,150 850,157" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="840,220 850,213 860,220 850,227" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+
+        <path d="M865,150 L920,80" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <path d="M865,150 L905,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <circle cx="905" cy="150" r="11" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="905" y="154" text-anchor="middle" font-size="9">🔀💰</text>
+        <path d="M915,150 L945,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+        <text x="945" y="122" text-anchor="middle" class="f cplbl">🔍 +15d</text>
+        <circle cx="945" cy="150" r="11" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+        <path d="M955,144 L1000,124" stroke="#059669" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+        <path d="M955,156 L1075,156 L1075,200" stroke="#d97706" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+
+        <rect x="1000" y="105" width="150" height="38" rx="9" fill="#eafaf3" stroke="#059669" stroke-width="1.4" stroke-dasharray="4,3"/>
+        <text x="1075" y="128" text-anchor="middle" class="f t2" fill="#065f46">⏳ Graduado tardío</text>
+        <path d="M1150,124 L1180,124" stroke="#059669" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+
+        <path d="M865,220 L920,80" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
+        <path d="M865,220 L1000,220" stroke="#d97706" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+      </g>
+
+    </svg></div>
+<div id="flat-onb-darkstore"></div>
+  <div class="legend-row">
+    <span><span class="legend-swatch"></span> Sigue en carrera hacia Graduado</span>
+    <span><span class="legend-swatch dash"></span> Sale del journey (a un estadio final)</span>
+  </div><h2 class="h2" id="anchor-graduado-darkstore">Graduado y Graduado Tardío Darkstore</h2>
+<div class="diagram">
+    <svg viewBox="0 0 1200 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey Graduado Darkstore">
+      <defs><marker id="a6" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11.5px;font-weight:700}.lb{font-size:9.5px;fill:#8a8f98}.cplbl{font-size:12px;font-weight:800;fill:#1a2a4a}</style>
+
+      <!-- STEP DSG1: Graduado -> se abren 2 caminos EN PARALELO -->
+      <g id="step-dsg1" class="sd-normal">
+        <rect x="15" y="145" width="115" height="60" rx="9" fill="#e6f7f3" stroke="#059669" stroke-width="1.5"/>
+        <text x="72" y="170" text-anchor="middle" class="f t2" fill="#065f46">🏆 Graduado</text>
+        <text x="72" y="185" text-anchor="middle" class="f lb" fill="#065f46">⏳ Graduado tardío</text>
+        <path d="M130,160 L150,82" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a6)"/>
+        <path d="M130,190 L150,203" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a6)"/>
+        <rect x="150" y="50" width="150" height="65" rx="10" fill="#fbfcfe" stroke="#c7ccd4" stroke-width="1.4" stroke-dasharray="5,4"/>
+        <text x="225" y="72" text-anchor="middle" class="f t2" fill="#1a2a4a">Pushes vertical</text>
+        <text x="225" y="88" text-anchor="middle" class="f lb">categorías/ocasiones</text>
+        <text x="225" y="100" text-anchor="middle" class="f lb">dentro de Darkstore</text>
+        <path d="M300,64 Q317,42 335,64" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a6)"/>
+        <path d="M335,101 Q317,123 300,101" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a6)"/>
+        <rect x="335" y="50" width="155" height="65" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.4" stroke-dasharray="5,4"/>
+        <text x="412" y="72" text-anchor="middle" class="f t2" fill="#065f46">Pushes cross-sell</text>
+        <text x="412" y="88" text-anchor="middle" class="f lb">Food / GM / Pharma</text>
+        <text x="412" y="100" text-anchor="middle" class="f lb">nunca Instore, sin incentivo</text>
+        <path d="M490,82 L1150,82" stroke="#8a8f98" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+        <text x="820" y="68" text-anchor="middle" class="f lb">se van intercalando, en paralelo durante todo el journey</text>
+      </g>
+
+      <!-- STEP DSG2: cadencia personal -->
+      <g id="step-dsg2" class="sd-dim">
+        <rect x="150" y="175" width="210" height="60" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="255" y="200" text-anchor="middle" class="f t2" fill="#1d4ed8">📐 Cadencia personal</text>
+        <text x="255" y="216" text-anchor="middle" class="f lb">días hasta graduarse ÷ 4</text>
+        <text x="255" y="228" text-anchor="middle" class="f lb">fija, no se recalcula</text>
+        <path d="M360,205 L395,205" stroke="#8a8f98" stroke-width="1.4" fill="none" marker-end="url(#a6)"/>
+      </g>
+
+      <!-- STEP DSG3: Alarma 1 (dia C) -->
+      <g id="step-dsg3" class="sd-dim">
+        <circle cx="412" cy="205" r="13" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+        <text x="412" y="184" text-anchor="middle" class="f cplbl">🔔 Alarma 1 · día C</text>
+        <path d="M425,197 L465,168" stroke="#2563eb" stroke-width="1.6" fill="none" marker-end="url(#a6)"/>
+        <path d="M425,213 L465,242" stroke="#8a8f98" stroke-width="1.6" fill="none" marker-end="url(#a6)"/>
+        <rect x="475" y="140" width="150" height="50" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="550" y="162" text-anchor="middle" class="f t2" fill="#1d4ed8">💰 Cupón grande</text>
+        <text x="550" y="177" text-anchor="middle" class="f lb" fill="#1d4ed8">alto valor</text>
+        <rect x="475" y="220" width="150" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="550" y="242" text-anchor="middle" class="f t2" fill="#4b5160">🚚 Envío gratis</text>
+        <text x="550" y="257" text-anchor="middle" class="f lb">bajo/medio valor</text>
+        <path d="M625,165 L660,165" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+        <path d="M625,245 L660,245" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M550,138 L550,88" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+        <text x="560" y="112" text-anchor="start" class="f lb" fill="#059669">✅ si reacciona → pool</text>
+      </g>
+
+      <!-- STEP DSG4: Alarma 2 (dia 2C) -->
+      <g id="step-dsg4" class="sd-dim">
+        <text x="673" y="142" text-anchor="middle" class="f cplbl">🔔 Alarma 2 · día 2C</text>
+        <rect x="660" y="150" width="26" height="110" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <polygon points="663,165 673,158 683,165 673,172" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="663,245 673,238 683,245 673,252" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <path d="M686,165 L726,165" stroke="#2563eb" stroke-width="1.6" fill="none" marker-end="url(#a6)"/>
+        <path d="M686,245 L726,245" stroke="#8a8f98" stroke-width="1.6" fill="none" marker-end="url(#a6)"/>
+        <rect x="736" y="140" width="180" height="50" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="826" y="162" text-anchor="middle" class="f t2" fill="#1d4ed8">🚚+💰 Combinado</text>
+        <text x="826" y="177" text-anchor="middle" class="f lb" fill="#1d4ed8">alto valor</text>
+        <rect x="736" y="220" width="180" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="826" y="242" text-anchor="middle" class="f t2" fill="#4b5160">💰 Cupón chico</text>
+        <text x="826" y="257" text-anchor="middle" class="f lb">bajo/medio valor</text>
+        <path d="M916,165 L950,165" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M916,245 L950,245" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M826,138 L826,88" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+        <text x="836" y="112" text-anchor="start" class="f lb" fill="#059669">✅ si reacciona → pool</text>
+      </g>
+
+      <!-- STEP DSG5: Alarma 3 (dia 3C), Churn -->
+      <g id="step-dsg5" class="sd-dim">
+        <text x="963" y="142" text-anchor="middle" class="f cplbl">🔔 Alarma 3 · día 3C</text>
+        <rect x="950" y="150" width="26" height="110" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <polygon points="953,165 963,158 973,165 963,172" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="953,245 963,238 973,245 963,252" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <path d="M976,165 L1020,195" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+        <path d="M976,245 L1020,215" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+        <rect x="1030" y="180" width="140" height="50" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="1.6" stroke-dasharray="5,4"/>
+        <text x="1100" y="203" text-anchor="middle" class="f t2" fill="#9a5b06">Churn</text>
+        <text x="1100" y="219" text-anchor="middle" class="f lb" fill="#9a5b06">🔁 tras detox → pool</text>
+        <text x="1100" y="245" text-anchor="middle" class="f lb">trial light (a definir),</text>
+        <text x="1100" y="257" text-anchor="middle" class="f lb">no se da por perdido para siempre</text>
+      </g>
+    </svg></div>
+<div id="flat-grad-darkstore"></div>
+  <div class="walk-hdr">
+    <h2>Journey: No Graduado Darkstore</h2>
+    <div class="step-nav" id="stepNavDSNG"></div>
+  </div><div class="diagram">
+    <svg viewBox="0 0 1630 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey No Graduado Darkstore">
+      <defs><marker id="a7" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11.5px;font-weight:700}.lb{font-size:9.5px;fill:#8a8f98}.cplbl{font-size:12px;font-weight:800;fill:#1a2a4a}</style>
+
+      <!-- STEP DSNG1: No Graduado -> gate migro espontaneo a otra vertical? -->
+      <g id="step-dsng1" class="sd-normal">
+        <rect x="20" y="150" width="140" height="45" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.4"/>
+        <text x="90" y="177" text-anchor="middle" class="f t2" fill="#9a5b06">No graduado</text>
+        <path d="M90,195 L90,219" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a7)"/>
+        <polygon points="64,245 90,219 116,245 90,271" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+        <text x="100" y="211" text-anchor="start" class="f cplbl">¿Migró espontáneo</text>
+        <text x="100" y="225" text-anchor="start" class="f cplbl">a otra vertical?</text>
+        <path d="M116,245 L300,245 L300,45 L350,45" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a7)"/>
+        <text x="185" y="238" text-anchor="middle" class="f lb" fill="#059669">sí</text>
+        <rect x="350" y="15" width="215" height="55" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <text x="457" y="38" text-anchor="middle" class="f t2" fill="#065f46">🔀 Sigue en esa vertical</text>
+        <text x="457" y="53" text-anchor="middle" class="f lb">no es pérdida — incluye Instore</text>
+      </g>
+
+      <!-- STEP DSNG2: no migro -> entra directo al tratamiento sostenido -->
+      <g id="step-dsng2" class="sd-dim">
+        <path d="M90,271 L90,340 L556,340 L556,190" stroke="#8a8f98" stroke-width="1.4" fill="none" marker-end="url(#a7)"/>
+        <text x="300" y="333" text-anchor="middle" class="f lb">no — no hay un "intento puntual" que probar: pasa directo al mismo tratamiento que Graduado</text>
+        <circle cx="562" cy="181" r="4" fill="#1a2a4a"/>
+        <path d="M568,175 L596,84" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a7)"/>
+        <path d="M568,192 L596,203" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a7)"/>
+        <rect x="590" y="50" width="150" height="65" rx="10" fill="#fbfcfe" stroke="#c7ccd4" stroke-width="1.4" stroke-dasharray="5,4"/>
+        <text x="665" y="72" text-anchor="middle" class="f t2" fill="#1a2a4a">Pushes vertical</text>
+        <text x="665" y="88" text-anchor="middle" class="f lb">categorías/ocasiones</text>
+        <text x="665" y="100" text-anchor="middle" class="f lb">dentro de Darkstore</text>
+        <path d="M740,64 Q757,42 775,64" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a7)"/>
+        <path d="M775,101 Q757,123 740,101" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a7)"/>
+        <rect x="775" y="50" width="155" height="65" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.4" stroke-dasharray="5,4"/>
+        <text x="852" y="72" text-anchor="middle" class="f t2" fill="#065f46">Pushes cross-sell</text>
+        <text x="852" y="88" text-anchor="middle" class="f lb">Food / GM / Pharma</text>
+        <text x="852" y="100" text-anchor="middle" class="f lb">nunca Instore, sin incentivo</text>
+        <path d="M930,82 L1150,82" stroke="#8a8f98" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a7)"/>
+      </g>
+
+      <!-- STEP DSNG3: cadencia personal -->
+      <g id="step-dsng3" class="sd-dim">
+        <rect x="590" y="175" width="210" height="60" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="695" y="200" text-anchor="middle" class="f t2" fill="#1d4ed8">📐 Cadencia personal</text>
+        <text x="695" y="216" text-anchor="middle" class="f lb">días hasta graduarse ÷ 4</text>
+        <text x="695" y="228" text-anchor="middle" class="f lb">fija, no se recalcula</text>
+        <path d="M800,205 L835,205" stroke="#8a8f98" stroke-width="1.4" fill="none" marker-end="url(#a7)"/>
+      </g>
+
+      <!-- STEP DSNG4: Alarma 1 (dia C) -->
+      <g id="step-dsng4" class="sd-dim">
+        <circle cx="852" cy="205" r="13" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+        <text x="852" y="184" text-anchor="middle" class="f cplbl">🔔 Alarma 1 · día C</text>
+        <path d="M865,197 L905,168" stroke="#2563eb" stroke-width="1.6" fill="none" marker-end="url(#a7)"/>
+        <path d="M865,213 L905,242" stroke="#8a8f98" stroke-width="1.6" fill="none" marker-end="url(#a7)"/>
+        <rect x="915" y="140" width="150" height="50" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="990" y="162" text-anchor="middle" class="f t2" fill="#1d4ed8">💰 Cupón grande</text>
+        <text x="990" y="177" text-anchor="middle" class="f lb" fill="#1d4ed8">alto valor</text>
+        <rect x="915" y="220" width="150" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="990" y="242" text-anchor="middle" class="f t2" fill="#4b5160">🚚 Envío gratis</text>
+        <text x="990" y="257" text-anchor="middle" class="f lb">bajo/medio valor</text>
+        <path d="M1065,165 L1100,165" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+        <path d="M1065,245 L1100,245" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M990,138 L990,88" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a7)"/>
+        <text x="1000" y="112" text-anchor="start" class="f lb" fill="#059669">✅ si reacciona → pool</text>
+      </g>
+
+      <!-- STEP DSNG5: Alarma 2 (dia 2C) -->
+      <g id="step-dsng5" class="sd-dim">
+        <text x="1113" y="142" text-anchor="middle" class="f cplbl">🔔 Alarma 2 · día 2C</text>
+        <rect x="1100" y="150" width="26" height="110" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <polygon points="1103,165 1113,158 1123,165 1113,172" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="1103,245 1113,238 1123,245 1113,252" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <path d="M1126,165 L1166,165" stroke="#2563eb" stroke-width="1.6" fill="none" marker-end="url(#a7)"/>
+        <path d="M1126,245 L1166,245" stroke="#8a8f98" stroke-width="1.6" fill="none" marker-end="url(#a7)"/>
+        <rect x="1176" y="140" width="180" height="50" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+        <text x="1266" y="162" text-anchor="middle" class="f t2" fill="#1d4ed8">🚚+💰 Combinado</text>
+        <text x="1266" y="177" text-anchor="middle" class="f lb" fill="#1d4ed8">alto valor</text>
+        <rect x="1176" y="220" width="180" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+        <text x="1266" y="242" text-anchor="middle" class="f t2" fill="#4b5160">💰 Cupón chico</text>
+        <text x="1266" y="257" text-anchor="middle" class="f lb">bajo/medio valor</text>
+        <path d="M1356,165 L1390,165" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M1356,245 L1390,245" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+        <path d="M1266,138 L1266,88" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a7)"/>
+        <text x="1276" y="112" text-anchor="start" class="f lb" fill="#059669">✅ si reacciona → pool</text>
+      </g>
+
+      <!-- STEP DSNG6: Alarma 3 (dia 3C), Churn -->
+      <g id="step-dsng6" class="sd-dim">
+        <text x="1403" y="142" text-anchor="middle" class="f cplbl">🔔 Alarma 3 · día 3C</text>
+        <rect x="1390" y="150" width="26" height="110" fill="#e7ecf3" stroke="#c7ccd4" stroke-width="1" stroke-dasharray="3,3"/>
+        <polygon points="1393,165 1403,158 1413,165 1403,172" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <polygon points="1393,245 1403,238 1413,245 1403,252" fill="#fff" stroke="#1a2a4a" stroke-width="1.3"/>
+        <path d="M1416,165 L1460,195" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a7)"/>
+        <path d="M1416,245 L1460,215" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a7)"/>
+        <rect x="1470" y="180" width="140" height="50" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="1.6" stroke-dasharray="5,4"/>
+        <text x="1540" y="203" text-anchor="middle" class="f t2" fill="#9a5b06">Churn</text>
+        <text x="1540" y="219" text-anchor="middle" class="f lb" fill="#9a5b06">🔁 tras detox → pool</text>
+        <text x="1540" y="245" text-anchor="middle" class="f lb">trial light (a definir),</text>
+        <text x="1540" y="257" text-anchor="middle" class="f lb">no se da por perdido para siempre</text>
+      </g>
+    </svg></div>
+<div id="flat-ng-darkstore"></div>
+<h2 class="h2" id="anchor-onboarding-gm">Onboarding GM (preliminar)</h2>
+    <div class="card">
+      <h4>🎯 Objetivo del journey</h4>
+      <p>2 transacciones en 60 días — sin incentivo económico. El foco es aprovechar el awareness reciente de la entrega instant para mostrarle otras verticales con esa misma propuesta de valor.</p>
+    </div>
+
+    <div class="walk-hdr" id="anchor-onboarding-gm">
+      <h2>Journey: Onboarding GM (preliminar)</h2>
+      <div class="step-nav" id="stepNavGM"></div>
+    </div>
+
+    <div class="callout amber" style="margin:0 0 12px">
+      <span>📐</span>
+      <div>El objetivo propio de GM (2tx en 60 días) es sin incentivo económico. El cross-sell a las verticales de alta frecuencia arranca a los pocos días de la 1ª compra en GM (ej. día 5-7, a definir) — no espera al checkpoint del día 45, pero tampoco es literalmente desde el día 1. En el día 45 se evalúa si conviene sumarle un incentivo liviano (ej. free shipping) al objetivo propio de GM.</div>
+    </div><div class="diagram">
+      <svg viewBox="0 0 1150 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey GM">
+        <defs><marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+        <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11.5px;font-weight:700}.lb{font-size:9.5px;fill:#8a8f98}.cplbl{font-size:12px;font-weight:800;fill:#1a2a4a}</style>
+
+        <!-- STEP GM1: Nuevo -> se abre en 2 caminos (2+ resuelve ya; 1 sigue): pool GM propio + pool cross-sell con arranque demorado -->
+        <g id="step-gm1" class="sd-normal">
+          <rect x="20" y="140" width="100" height="50" rx="9" fill="#fff" stroke="#c7ccd4" stroke-width="1.4"/>
+          <text x="70" y="162" text-anchor="middle" class="f t2" fill="#4b5160">Trial</text>
+          <text x="70" y="177" text-anchor="middle" class="f lb">(1era Tx en la vertical)</text>
+          <path d="M120,165 L150,165" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+          <path d="M150,165 L190,60" stroke="#059669" stroke-width="1.6" fill="none" stroke-dasharray="4,3"/>
+          <text x="155" y="115" class="f lb" fill="#059669">si llega a 2 tx,</text>
+          <text x="155" y="128" class="f lb" fill="#059669">en cualquier momento</text>
+          <path d="M190,60 L950,60" stroke="#059669" stroke-width="1.7" fill="none" marker-end="url(#a3)"/>
+          <rect x="950" y="38" width="140" height="44" rx="9" fill="#e6f7f3" stroke="#059669" stroke-width="1.5"/>
+          <text x="1020" y="65" text-anchor="middle" class="f t2" fill="#065f46">🏆 Graduado GM</text>
+
+          <path d="M150,165 L190,165" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a3)"/>
+          <rect x="190" y="140" width="150" height="50" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.4"/>
+          <text x="265" y="160" text-anchor="middle" class="f t2" fill="#1d4ed8">🔄 Pool GM</text>
+          <text x="265" y="176" text-anchor="middle" class="f lb" fill="#1d4ed8">empuja a la 2ª, sin incentivo</text>
+
+          <path d="M150,178 L170,178 L170,235 L190,235" stroke="#8a8f98" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a3)"/>
+          <text x="178" y="210" text-anchor="middle" class="f lb">a los pocos</text>
+          <text x="178" y="222" text-anchor="middle" class="f lb">días (día 5-7)</text>
+          <rect x="190" y="210" width="220" height="50" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.4"/>
+          <text x="300" y="230" text-anchor="middle" class="f t2" fill="#065f46">🔀 Pool Cross-sell</text>
+          <text x="300" y="246" text-anchor="middle" class="f lb" fill="#065f46">Groceries/Food — arranca demorado, no día 1</text>
+          <path d="M410,235 L950,235" stroke="#8a8f98" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a3)"/>
+        </g>
+
+        <!-- STEP GM2: dia 45, checkpoint de incentivo -->
+        <g id="step-gm2" class="sd-dim">
+          <path d="M340,165 L440,165" stroke="#8a8f98" stroke-width="1.4" fill="none"/>
+          <text x="460" y="128" text-anchor="middle" class="f cplbl">🔍 Día 45</text>
+          <circle cx="460" cy="165" r="13" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+          <path d="M470,155 L520,70" stroke="#059669" stroke-width="1.6" fill="none" stroke-dasharray="4,3"/>
+          <text x="460" y="197" text-anchor="middle" class="f t2" fill="#9a5b06">¿incentivo?</text>
+          <text x="460" y="212" text-anchor="middle" class="f lb">ej. free shipping</text>
+          <path d="M473,165 L510,165" stroke="#8a8f98" stroke-width="1.4" fill="none" marker-end="url(#a3)"/>
+        </g>
+
+        <!-- STEP GM3: dia 60, checkpoint final -->
+        <g id="step-gm3" class="sd-dim">
+          <text x="540" y="128" text-anchor="middle" class="f cplbl">🔍 Día 60</text>
+          <circle cx="540" cy="165" r="13" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+          <path d="M550,155 L600,70" stroke="#059669" stroke-width="1.6" fill="none" stroke-dasharray="4,3"/>
+          <path d="M550,175 L950,175" stroke="#d97706" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a3)"/>
+          <rect x="950" y="152" width="140" height="44" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.4"/>
+          <text x="1020" y="179" text-anchor="middle" class="f t2" fill="#9a5b06">No graduado GM</text>
+        </g>
+      </svg></div>
+<div id="flat-onb-gm"></div>
+</div>
+<script>
+var steps = [
+  { id:'step-1', label:'1', color:'green',
+    title:'Paso 1 — Nuevo → Activación',
+    que:['Cada 7-10 días, push sin incentivo económico.','Gancho rotativo: momento del día, día de semana, ocasión especial, oferta del partner, genérico.','A partir del día 14, si todavía no hizo la 2ª transacción, el gancho deja de rotar parejo: pasa a ser específicamente descuento u oferta de producto del partner — no insume plata propia, pero es un empujón más fuerte que la comunicación genérica de value prop u ocasiones de compra.'] },
+  { id:'step-2', label:'2', color:'green',
+    title:'Paso 2 — Día 45: primer corte',
+    que:['Se evalúan las transacciones y el camino se abre en 5.','Nunca hizo otra compra → <span class="pill pill-red">No activó</span> → <span class="pill pill-green">Cross-sell</span>.','Ya llegó a 5+ → <span class="pill pill-green">Graduado</span> → <span class="pill pill-green">Cross-sell</span>.','💰 Llegó a 2 → incentivo económico para empujarlo a la 3ª.','🏠 Viene con 3 o 4 → estímulo de comunicación a Darkstore.'] },
+  { id:'step-3', label:'3', color:'green',
+    title:'Paso 3 — Día 65: segundo corte',
+    que:['Sigue en 2, no usó el descuento → <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.','🏠💰 Llegó a 3 sin descuento previo → lo recibe ahora, específico a Darkstore.','🏠 Viene con 4 → estímulo de comunicación a Darkstore.'] },
+  { id:'step-4', label:'4', color:'green',
+    title:'Paso 4 — Día 90: corte final',
+    que:['Llegó a 5+ → Journey <span class="pill pill-green">Graduado</span>.','Se quedó en 3 (ya recibió su descuento antes) → Journey <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.','🏠💰 Se quedó en 4 y nunca recibió incentivo → incentivo Darkstore + 15 días extra.','Si en esos 15 días llega a 5 → <span class="pill pill-green">⏳ Graduado tardío</span> → <span class="pill pill-green">Cross-sell</span>. Si no → Journey <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.'] }
+];var stepsG = [
+  { id:'step-g1', label:'1', color:'green',
+    title:'Paso 1 — Graduado (o Graduado tardío) → se abren 2 caminos en paralelo',
+    que:['Este journey arranca igual para el <span class="pill pill-green">Graduado</span> normal y para el <span class="pill pill-green">Graduado</span> tardío del onboarding — a partir de acá el tratamiento es el mismo.','El pool orgánico se intercala entre dos tipos de push, sin incentivo: pushes de vertical (nuevas categorías/ocasiones dentro de Instore) y pushes de <span class="pill pill-green">Cross-sell</span> (probando distintas otras verticales QC).','No hace falta esperar a una alarma para empezar a probar cross-sell — arranca desde que se gradúa.','Al mismo tiempo — no después — arranca el monitoreo de alarmas por cadencia.','Frecuencia e intercalado de los envíos a definir.'] },
+  { id:'step-g2', label:'2', color:'green',
+    title:'Paso 2 — Cadencia personal (corre en paralelo)',
+    que:['Al momento de graduarse, se calcula la cadencia propia del usuario: días hasta graduarse ÷ 4.','No es un promedio general — cada usuario se gradúa a distinta velocidad, y esa velocidad es su primera señal de comportamiento normal.','Esa cadencia queda fija de por vida: no se recalcula. Si se recalculara hacia abajo, una caída progresiva parecería "nuevo comportamiento" en vez de la alarma que en realidad es.'] },
+  { id:'step-g3', label:'3', color:'red',
+    title:'Paso 3 — Alarma 1: día C',
+    que:['El usuario no volvió a comprar dentro de su propia cadencia (día C desde su última compra).','Se segmenta por valor (NMV, no frecuencia — la frecuencia ya está en la cadencia): percentil de NMV en un último período, ventana a definir.','💰 Alto valor → cupón grande.','🚚 Bajo/medio valor → envío gratis.','✅ Si reacciona y vuelve a comprar → vuelve a la línea de arriba (pool de pushes vertical/cross-sell), no sigue escalando alarmas.'] },
+  { id:'step-g4', label:'4', color:'red',
+    title:'Paso 4 — Alarma 2: día 2C',
+    que:['Segunda cadencia incumplida seguida: riesgo mayor.','🚚💰 Alto valor → combinado (envío gratis + cupón).','💰 Bajo/medio valor → cupón chico.','✅ Si reacciona → mismo criterio: vuelve al pool de pushes, se corta la escalada.'] },
+  { id:'step-g5', label:'5', color:'red',
+    title:'Paso 5 — Alarma 3: día 3C',
+    que:['Tercera cadencia incumplida: es Churn.','🔁 No se da por perdido para siempre: después de un período de detox (a definir), vuelve al pool de adquisición como si fuera un usuario nuevo.','Sería un trial light si ya consumió incentivos antes — mecánica concreta a definir.'] }
+];var stepsNG = [
+  { id:'step-ng1', label:'1', color:'green',
+    title:'Paso 1 — No graduado → ¿migró a Darkstore?',
+    que:['Antes de asumir que es una pérdida, hay que chequear si el usuario ya está activo en el onboarding de Darkstore.','🏠 Si migró → se lo deja tranquilo, sigue su journey ahí. No cuenta como pérdida — el objetivo de Cross-sell ya se cumplió.'] },
+  { id:'step-ng2', label:'2', color:'green',
+    title:'Paso 2 — Si no migró: ¿ya se le había ofrecido Darkstore?',
+    que:['Depende de por qué línea llegó a <span class="pill pill-orange">No graduado</span>.','Línea 3 y línea 4 ya recibieron un incentivo de Darkstore con plata durante el onboarding y no migraron — insistir con lo mismo no tiene sentido.','Línea 2 (nunca pasó de 2 transacciones) nunca recibió ningún estímulo de Darkstore.'] },
+  { id:'step-ng3', label:'3', color:'red',
+    title:'Paso 3 — Línea 2: primer intento real a Darkstore',
+    que:['🏠💰 Único caso donde vale la pena un primer intento de Cross-sell a Darkstore — todavía no se probó.','Si migra → mismo destino que el paso 1: sigue en Darkstore.','Si no migra → mismo tratamiento que líneas 3 y 4 (paso siguiente).'] },
+  { id:'step-ng4', label:'4', color:'red',
+    title:'Paso 4 — Todos convergen: pool intercalado',
+    que:['Ya sea que Darkstore no funcionó ahora (línea 2) o que ya había fallado antes (líneas 3 y 4), todos entran al mismo tratamiento que un <span class="pill pill-green">Graduado</span>.','Pool orgánico intercalado, sin incentivo: pushes de vertical (categorías/ocasiones dentro de Instore) y pushes de <span class="pill pill-green">Cross-sell</span> (otras verticales QC).','Arranca en paralelo con el monitoreo de alarmas por cadencia — no antes ni después.'] },
+  { id:'step-ng5', label:'5', color:'red',
+    title:'Paso 5 — Cadencia personal (corre en paralelo)',
+    que:['Se toma la cadencia que ya tenía calculada de referencia: días hasta graduarse ÷ 4 (o el equivalente si nunca llegó a graduarse, a definir).','Fija, no se recalcula — igual que en el journey de Graduado.'] },
+  { id:'step-ng6', label:'6', color:'red',
+    title:'Paso 6 — Alarma 1: día C',
+    que:['No compró dentro de su cadencia.','Se segmenta por valor (percentil de NMV en un último período, ventana a definir).','💰 Alto valor → cupón grande.','🚚 Bajo/medio valor → envío gratis.','✅ Si reacciona → vuelve a la línea de arriba (pool de pushes vertical/cross-sell), no sigue escalando.'] },
+  { id:'step-ng7', label:'7', color:'red',
+    title:'Paso 7 — Alarma 2: día 2C',
+    que:['Segunda cadencia incumplida seguida.','🚚+💰 Alto valor → combinado.','💰 Bajo/medio valor → cupón chico.','✅ Si reacciona → mismo criterio, se corta la escalada.'] },
+  { id:'step-ng8', label:'8', color:'red',
+    title:'Paso 8 — Alarma 3: día 3C',
+    que:['Tercera cadencia incumplida: es Churn.','🔁 No se da por perdido para siempre: después de un período de detox (a definir), vuelve al pool de adquisición como si fuera un usuario nuevo.','Sería un trial light si ya consumió incentivos antes — mecánica concreta a definir.'] }
+];var stepsDS = [
+  { id:'step-ds1', label:'1', color:'green',
+    title:'Paso 1 — Nuevo → Activación',
+    que:['Cada 7-10 días, push sin incentivo económico.','Gancho rotativo: momento del día, día de semana, ocasión especial, oferta del partner, genérico.','A partir del día 14, si todavía no hizo la 2ª transacción, el gancho deja de rotar parejo: pasa a ser específicamente descuento u oferta de producto del partner — no insume plata propia, pero es un empujón más fuerte que la comunicación genérica de value prop u ocasiones de compra.'] },
+  { id:'step-ds2', label:'2', color:'green',
+    title:'Paso 2 — Día 45: primer corte',
+    que:['Se evalúan las transacciones y el camino se abre en 5.','Nunca hizo otra compra → <span class="pill pill-red">No activó</span> → <span class="pill pill-green">Cross-sell</span>.','Ya llegó a 5+ → <span class="pill pill-green">Graduado</span> → <span class="pill pill-green">Cross-sell</span>.','💰 Llegó a 2 → incentivo económico para empujarlo a la 3ª, específico para usar en Darkstore.','🔀 Viene con 3 o 4 → estímulo de comunicación genérico a otra vertical (Food/GM/Pharma) — nunca a Instore.'] },
+  { id:'step-ds3', label:'3', color:'green',
+    title:'Paso 3 — Día 65: segundo corte',
+    que:['Sigue en 2, no usó el descuento → <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.','🔀💰 Llegó a 3 sin descuento previo → lo recibe ahora, genérico a Food/GM/Pharma.','🔀 Viene con 4 → estímulo de comunicación genérico, nunca a Instore.'] },
+  { id:'step-ds4', label:'4', color:'green',
+    title:'Paso 4 — Día 90: corte final',
+    que:['Llegó a 5+ → Journey <span class="pill pill-green">Graduado</span>.','Se quedó en 3 (ya recibió su descuento antes) → Journey <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.','🔀💰 Se quedó en 4 y nunca recibió incentivo → incentivo genérico (Food/GM/Pharma) + 15 días extra.','Si en esos 15 días llega a 5 → <span class="pill pill-green">⏳ Graduado tardío</span> → <span class="pill pill-green">Cross-sell</span>. Si no → Journey <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.'] }
+];var stepsDSG = [
+  { id:'step-dsg1', label:'1', color:'green',
+    title:'Paso 1 — Graduado (o Graduado tardío) → se abren 2 caminos en paralelo',
+    que:['Este journey arranca igual para el <span class="pill pill-green">Graduado</span> normal y para el <span class="pill pill-green">Graduado</span> tardío del onboarding — a partir de acá el tratamiento es el mismo.','El pool orgánico se intercala entre dos tipos de push, sin incentivo: pushes de vertical (categorías/ocasiones dentro de Darkstore) y pushes de <span class="pill pill-green">Cross-sell</span> (Food/GM/Pharma — nunca Instore a propósito, salvo que el usuario lo pruebe por su cuenta).','No hace falta esperar a una alarma para empezar a probar cross-sell — arranca desde que se gradúa.','Al mismo tiempo — no después — arranca el monitoreo de alarmas por cadencia.','Frecuencia e intercalado de los envíos a definir.'] },
+  { id:'step-dsg2', label:'2', color:'green',
+    title:'Paso 2 — Cadencia personal (corre en paralelo)',
+    que:['Al momento de graduarse, se calcula la cadencia propia del usuario: días hasta graduarse ÷ 4.','No es un promedio general — cada usuario se gradúa a distinta velocidad, y esa velocidad es su primera señal de comportamiento normal.','Esa cadencia queda fija de por vida: no se recalcula.'] },
+  { id:'step-dsg3', label:'3', color:'red',
+    title:'Paso 3 — Alarma 1: día C',
+    que:['El usuario no volvió a comprar dentro de su propia cadencia (día C desde su última compra).','Se segmenta por valor (NMV, no frecuencia — la frecuencia ya está en la cadencia): percentil de NMV en un último período, ventana a definir.','💰 Alto valor → cupón grande.','🚚 Bajo/medio valor → envío gratis.','✅ Si reacciona y vuelve a comprar → vuelve a la línea de arriba (pool de pushes vertical/cross-sell), no sigue escalando alarmas.'] },
+  { id:'step-dsg4', label:'4', color:'red',
+    title:'Paso 4 — Alarma 2: día 2C',
+    que:['Segunda cadencia incumplida seguida: riesgo mayor.','🚚💰 Alto valor → combinado (envío gratis + cupón).','💰 Bajo/medio valor → cupón chico.','✅ Si reacciona → mismo criterio: vuelve al pool de pushes, se corta la escalada.'] },
+  { id:'step-dsg5', label:'5', color:'red',
+    title:'Paso 5 — Alarma 3: día 3C',
+    que:['Tercera cadencia incumplida: es Churn.','🔁 No se da por perdido para siempre: después de un período de detox (a definir), vuelve al pool de adquisición como si fuera un usuario nuevo.','Sería un trial light si ya consumió incentivos antes — mecánica concreta a definir.'] }
+];var stepsDSNG = [
+  { id:'step-dsng1', label:'1', color:'green',
+    title:'Paso 1 — No graduado → ¿migró espontáneamente a otra vertical?',
+    que:['A diferencia de Instore, acá no hay un cross-sell "más cercano" diseñado — el chequeo es amplio: ¿el usuario ya está activo en otra vertical (incluido Instore) por su cuenta?','🔀 Si migró → se lo deja tranquilo, sigue ese journey. No cuenta como pérdida — el objetivo de Cross-sell ya se cumplió.'] },
+  { id:'step-dsng2', label:'2', color:'green',
+    title:'Paso 2 — Si no migró: mismo tratamiento que Graduado',
+    que:['No hay un "primer intento puntual" que probar como con Instore→Darkstore — el cross-sell durante el onboarding ya fue genérico a Food/GM/Pharma.','Pool orgánico intercalado, sin incentivo: pushes de vertical (categorías/ocasiones dentro de Darkstore) y pushes de <span class="pill pill-green">Cross-sell</span> (Food/GM/Pharma, nunca Instore a propósito).','Arranca en paralelo con el monitoreo de alarmas por cadencia.'] },
+  { id:'step-dsng3', label:'3', color:'red',
+    title:'Paso 3 — Cadencia personal (corre en paralelo)',
+    que:['Se toma la cadencia calculada en el onboarding: días hasta graduarse ÷ 4 (o el equivalente si nunca llegó a graduarse, a definir).','Fija, no se recalcula.'] },
+  { id:'step-dsng4', label:'4', color:'red',
+    title:'Paso 4 — Alarma 1: día C',
+    que:['No compró dentro de su cadencia.','Se segmenta por valor (percentil de NMV en un último período, ventana a definir).','💰 Alto valor → cupón grande.','🚚 Bajo/medio valor → envío gratis.','✅ Si reacciona → vuelve a la línea de arriba (pool de pushes vertical/cross-sell), no sigue escalando.'] },
+  { id:'step-dsng5', label:'5', color:'red',
+    title:'Paso 5 — Alarma 2: día 2C',
+    que:['Segunda cadencia incumplida seguida.','🚚💰 Alto valor → combinado.','💰 Bajo/medio valor → cupón chico.','✅ Si reacciona → mismo criterio, se corta la escalada.'] },
+  { id:'step-dsng6', label:'6', color:'red',
+    title:'Paso 6 — Alarma 3: día 3C',
+    que:['Tercera cadencia incumplida: es Churn.','🔁 No se da por perdido para siempre: después de un período de detox (a definir), vuelve al pool de adquisición como si fuera un usuario nuevo.','Sería un trial light si ya consumió incentivos antes — mecánica concreta a definir.'] }
+];var stepsGM = [
+  { id:'step-gm1', label:'1', color:'green',
+    title:'Paso 1 — Nuevo → se abren 2 pools, con arranque distinto',
+    que:['Igual que en Instore: llega a la 2ª transacción en cualquier momento → <span class="pill pill-green">Graduado GM</span> ya mismo, sin esperar al día 60.','🔄 Pool GM arranca de inmediato: empuja la 2ª transacción propia, sin incentivo económico.','🔀 Pool de <span class="pill pill-green">Cross-sell</span> a Groceries/Food arranca recién a los pocos días de la 1ª compra (ej. día 5-7, a definir) — ni el día 1 ni recién en el día 45.'] },
+  { id:'step-gm2', label:'2', color:'green',
+    title:'Paso 2 — Día 45: ¿hace falta un incentivo?',
+    que:['Checkpoint intermedio para quien todavía sigue en 1.','Si llegó a la 2ª acá → <span class="pill pill-green">Graduado GM</span>.','🚚 Si no → se evalúa sumar un incentivo liviano (ej. free shipping) al objetivo propio de GM.'] },
+  { id:'step-gm3', label:'3', color:'green',
+    title:'Paso 3 — Día 60: checkpoint final de GM',
+    que:['Última chance: llegó a 2 tx → <span class="pill pill-green">Graduado GM</span>.','Sigue en 1 → <span class="pill pill-orange">No graduado GM</span>.','En cualquier caso, el <span class="pill pill-green">Cross-sell</span> a Groceries y Food ya está en curso desde los primeros días, en paralelo al objetivo propio de GM.'] }
+];
+function renderFlat(containerId, arr){
+  var el = document.getElementById(containerId);
+  if (!el || !arr) return;
+  el.innerHTML = arr.map(function(s){
+    return '<div class="flat-step"><h4>' + s.title + '</h4><ul>' + s.que.map(function(b){ return '<li>' + b + '</li>'; }).join('') + '</ul></div>';
+  }).join('');
+}
+renderFlat('flat-onb-instore', steps);
+renderFlat('flat-grad-instore', stepsG);
+renderFlat('flat-ng-instore', stepsNG);
+renderFlat('flat-onb-darkstore', stepsDS);
+renderFlat('flat-grad-darkstore', stepsDSG);
+renderFlat('flat-ng-darkstore', stepsDSNG);
+renderFlat('flat-onb-gm', stepsGM);
+</script></body></html>
