@@ -876,7 +876,7 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
 
     <div class="callout amber" style="margin:0 0 12px">
       <span>📐</span>
-      <div><b>Día 1:</b> arranca el Pool GM — mensajes sobre el método instant (value prop de la entrega rápida) + empuje a la 2ª transacción propia, sin incentivo económico. <b>Día 5-7 (a definir):</b> arranca, en paralelo y por separado, el Pool de Cross-sell a las verticales de alta frecuencia — no espera al checkpoint del día 45, pero tampoco es desde el día 1. En el día 45 se evalúa si conviene sumarle un incentivo liviano (ej. free shipping) al objetivo propio de GM.</div>
+      <div><b>Día 1:</b> arranca el Pool GM — mensajes sobre el método instant (value prop de la entrega rápida) + empuje a la 2ª transacción propia, sin incentivo económico. <b>Día 5-7 (a definir):</b> arranca, en paralelo y por separado, el Pool de Cross-sell con una rotación clara: 2 intentos a Groceries (alta frecuencia) → Pharma → vuelve a GM, y cicla — sigue probando aun después de <span class="pill pill-green">Graduado GM</span>, hasta que el usuario use alguna otra vertical. En el día 45 se evalúa si conviene sumarle un incentivo liviano (ej. free shipping) al objetivo propio de GM.</div>
     </div><div class="diagram">
       <svg viewBox="0 0 1150 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey GM">
         <defs><marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
@@ -914,8 +914,8 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
           <text x="178" y="210" text-anchor="middle" class="f lb">a los pocos</text>
           <text x="178" y="222" text-anchor="middle" class="f lb">días (día 5-7)</text>
           <rect x="190" y="210" width="220" height="50" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.4"/>
-          <text x="300" y="228" text-anchor="middle" class="f t2" fill="#065f46">🔀 Pool Cross-sell</text>
-          <text x="300" y="242" text-anchor="middle" class="f lb" fill="#065f46">Groceries/Food</text>
+          <text x="300" y="228" text-anchor="middle" class="f t2" fill="#065f46">🔀 Pool Cross-sell (rotación)</text>
+          <text x="300" y="242" text-anchor="middle" class="f lb" fill="#065f46">2x Groceries → Pharma → vuelve a GM</text>
           <text x="300" y="254" text-anchor="middle" class="f lb" fill="#065f46">arranca día 5-7, no día 1</text>
           <path d="M410,235 L950,235" stroke="#059669" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a3)"/>
           <line x1="490" y1="229" x2="490" y2="241" stroke="#059669" stroke-width="1.3"/>
@@ -944,6 +944,14 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
           <path d="M550,175 L950,175" stroke="#d97706" stroke-width="1.6" fill="none" stroke-dasharray="4,3" marker-end="url(#a3)"/>
           <rect x="950" y="152" width="140" height="44" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.4"/>
           <text x="1020" y="179" text-anchor="middle" class="f t2" fill="#9a5b06">No graduado GM</text>
+        </g>
+
+        <!-- STEP GM4: post-Graduado GM, la rotacion de cross-sell sigue -->
+        <g id="step-gm4" class="sd-dim">
+          <rect x="950" y="90" width="190" height="50" rx="9" fill="#fbfcfe" stroke="#c7ccd4" stroke-width="1.4" stroke-dasharray="4,3"/>
+          <text x="1045" y="106" text-anchor="middle" class="f t2" fill="#1a2a4a">🔄 Tras Graduado GM</text>
+          <text x="1045" y="120" text-anchor="middle" class="f lb">sigue rotando verticales sin usar</text>
+          <text x="1045" y="132" text-anchor="middle" class="f lb">usa 1 → esa journey (GM: mantenim.)</text>
         </g>
       </svg></div>
 <div id="flat-onb-gm"></div>
@@ -1054,13 +1062,16 @@ var steps = [
 ];var stepsGM = [
   { id:'step-gm1', label:'1', color:'green',
     title:'Paso 1 — Nuevo → se abren 2 pools, con arranque distinto',
-    que:['Igual que en Instore: llega a la 2ª transacción en cualquier momento → <span class="pill pill-green">Graduado GM</span> ya mismo, sin esperar al día 60.','🔄 Pool GM arranca día 1: mensajes sobre el método instant (value prop de la entrega rápida) + empuje a la 2ª transacción propia, sin incentivo económico. Cadencia propia a definir.','🔀 Pool de <span class="pill pill-green">Cross-sell</span> a Groceries/Food arranca recién a los pocos días de la 1ª compra (ej. día 5-7, a definir) — no compite con el pool GM, tiene su propia cadencia.'] },
+    que:['Igual que en Instore: llega a la 2ª transacción en cualquier momento → <span class="pill pill-green">Graduado GM</span> ya mismo, sin esperar al día 60.','🔄 Pool GM arranca día 1: mensajes sobre el método instant (value prop de la entrega rápida) + empuje a la 2ª transacción propia, sin incentivo económico. Cadencia propia a definir.','🔀 Pool de <span class="pill pill-green">Cross-sell</span> arranca a los pocos días (ej. día 5-7, a definir) con una rotación clara: primero 2 intentos a Groceries (alta frecuencia), después Pharma, después vuelve a intentar reenganchar con GM — y cicla.'] },
   { id:'step-gm2', label:'2', color:'green',
     title:'Paso 2 — Día 45: ¿hace falta un incentivo?',
     que:['Checkpoint intermedio para quien todavía sigue en 1.','Si llegó a la 2ª acá → <span class="pill pill-green">Graduado GM</span>.','🚚 Si no → se evalúa sumar un incentivo liviano (ej. free shipping) al objetivo propio de GM.'] },
   { id:'step-gm3', label:'3', color:'green',
     title:'Paso 3 — Día 60: checkpoint final de GM',
-    que:['Última chance: llegó a 2 tx → <span class="pill pill-green">Graduado GM</span>.','Sigue en 1 → <span class="pill pill-orange">No graduado GM</span>.','En cualquier caso, el <span class="pill pill-green">Cross-sell</span> a Groceries y Food ya está en curso desde los primeros días, en paralelo al objetivo propio de GM.'] }
+    que:['Última chance: llegó a 2 tx → <span class="pill pill-green">Graduado GM</span>.','Sigue en 1 → <span class="pill pill-orange">No graduado GM</span>.','En cualquier caso, el <span class="pill pill-green">Cross-sell</span> con su rotación (Groceries → Pharma → GM) ya está en curso desde los primeros días, en paralelo al objetivo propio de GM.'] },
+  { id:'step-gm4', label:'4', color:'green',
+    title:'Paso 4 — Tras Graduado GM: la rotación sigue',
+    que:['Llegar a <span class="pill pill-green">Graduado GM</span> no apaga el cross-sell: la misma rotación (Groceries → Pharma → GM) continúa probando las verticales que el usuario todavía no usó.','En cuanto empieza a usar alguna de esas verticales — por la rotación o de forma espontánea — pasa a tener también el journey propio de esa vertical.','El journey de GM, mientras tanto, queda en un flujo de mantenimiento (liviano, sin forzar más cross-sell hacia lo que ya se logró).'] }
 ];
 function renderFlat(containerId, arr){
   var el = document.getElementById(containerId);
