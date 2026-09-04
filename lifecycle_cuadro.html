@@ -112,22 +112,20 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 .pal-detail-grid b{color:var(--navy)}
 .pal-detail-grid .full{grid-column:1/-1}
 
-/* --- FULL FUNNEL SLIDE --- */
-.ff-wrap{display:flex;justify-content:center;padding:10px 0 30px}
-.ff-slide{width:1100px;height:620px;background:#fff;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.14);overflow:hidden;display:flex;flex-direction:column;font-family:'Segoe UI',Arial,sans-serif}
-.ff-hdr{background:#1a2a4a;padding:11px 22px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.ff-hdr-title{font-size:14px;font-weight:900;color:#fff}
-.ff-body{flex:1;display:flex;flex-direction:column;padding:14px 50px 14px 36px;gap:6px;overflow:hidden}
+/* --- FULL FUNNEL --- */
+.ff-wrap{margin:10px 0 20px}
+.ff-slide{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;font-family:inherit}
+.ff-body{display:flex;flex-direction:column;gap:10px}
 .ff-who-row{display:flex;gap:10px;flex-shrink:0}
-.ff-who-funnel-spacer{width:160px;flex-shrink:0;font-size:8px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:1px;text-align:center;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px}
+.ff-who-funnel-spacer{width:140px;flex-shrink:0;font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;text-align:center;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px}
 .ff-who-cols{flex:1;display:flex;flex-direction:column;gap:3px}
-.ff-who-label{text-align:center;font-size:8.5px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:1.2px}
+.ff-who-label{text-align:center;font-size:9.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px}
 .ff-who-headers{display:flex;gap:5px}
-.ff-ucol{flex:1;background:#f0f2f6;border-radius:6px;padding:7px 4px;text-align:center}
-.ff-ucol .ff-ut{font-size:9.5px;font-weight:800;color:#1a2a4a;text-transform:uppercase;letter-spacing:.4px}
-.ff-ucol .ff-us{font-size:7.5px;color:#888;margin-top:2px}
-.ff-main-grid{flex:1;display:grid;grid-template-columns:160px 1fr 1fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr 1fr;gap:6px 10px}
-.ff-fs{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:10px;gap:3px;text-align:center}
+.ff-ucol{flex:1;background:#f2f4f7;border-radius:6px;padding:8px 4px;text-align:center}
+.ff-ucol .ff-ut{font-size:10.5px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.4px}
+.ff-ucol .ff-us{font-size:8.5px;color:var(--muted);margin-top:2px}
+.ff-main-grid{display:grid;grid-template-columns:140px 1fr 1fr 1fr 1fr;grid-auto-rows:minmax(64px,auto);gap:8px 10px}
+.ff-fs{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:11px;gap:3px;text-align:center}
 .ff-fs .ff-icon{font-size:15px}
 .ff-fs-aw{background:#e63946;clip-path:polygon(0% 0,100% 0,93% 100%,7% 100%)}
 .ff-fs-co{background:#2d9cdb;clip-path:polygon(7% 0,93% 0,86% 100%,14% 100%)}
@@ -137,7 +135,15 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 .ff-ac-levers{flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;gap:4px;padding:6px 14px}
 .ff-lever-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .ff-lever-group-label{font-size:6.5px;font-weight:900;opacity:.8;letter-spacing:.4px;text-transform:uppercase;background:rgba(255,255,255,.25);padding:2px 5px;border-radius:4px;flex-shrink:0}
-.ff-lever-tag{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.18);border-radius:10px;padding:3px 8px;font-size:7.5px;font-weight:700;text-transform:none;letter-spacing:0;white-space:nowrap}
+.ff-lever-tag{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.18);border-radius:10px;padding:3px 8px;font-size:7.5px;font-weight:700;text-transform:none;letter-spacing:0;white-space:nowrap;cursor:pointer;transition:background .12s}
+.ff-lever-tag:hover{background:rgba(255,255,255,.32)}
+.ff-lever-tag.active{background:#fff;color:#1a2a4a}
+.ff-lever-detail{margin:14px 0 0;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px;display:none}
+.ff-lever-detail.open{display:block}
+.ff-lever-detail-title{font-size:13px;font-weight:900;color:var(--navy);margin-bottom:8px}
+.ff-lever-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;font-size:11px;color:#3a3f4d}
+.ff-lever-detail-grid b{color:var(--navy)}
+.ff-lever-detail-grid .full{grid-column:1/-1}
 .ff-aw-n{background:#c0392b;color:#fff}
 .ff-aw-h{background:#e63946;color:#fff}
 .ff-aw-l{background:#ffeaec;color:#7b0010;border:1px solid #e6394625}
@@ -940,10 +946,6 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 <div class="ff-wrap">
   <div class="ff-slide">
 
-    <div class="ff-hdr">
-      <div class="ff-hdr-title">Full Funnel Strategy</div>
-    </div>
-
     <div class="ff-body">
 
       <div class="ff-who-row">
@@ -969,18 +971,18 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
         <div class="ff-ac ff-aw-h ff-ac-levers" style="grid-column:2/6;grid-row:1">
           <div class="ff-lever-group">
             <span class="ff-lever-group-label">In-app</span>
-            <span class="ff-lever-tag">🎡 Main Slider</span>
-            <span class="ff-lever-tag">🔍 Discovery</span>
-            <span class="ff-lever-tag">⚡ Quick Access</span>
-            <span class="ff-lever-tag">💦 Splash</span>
+            <span class="ff-lever-tag" data-lever="main-slider">🎡 Main Slider</span>
+            <span class="ff-lever-tag" data-lever="discovery">🔍 Discovery</span>
+            <span class="ff-lever-tag" data-lever="quick-access">⚡ Quick Access</span>
+            <span class="ff-lever-tag" data-lever="splash">💦 Splash</span>
           </div>
           <div class="ff-lever-group">
             <span class="ff-lever-group-label">Off-app</span>
-            <span class="ff-lever-tag">📺 Vía pública</span>
-            <span class="ff-lever-tag">🎯 POM</span>
-            <span class="ff-lever-tag">🎒 Mochilas riders</span>
-            <span class="ff-lever-tag">🛍️ Bolsas Instore/Darkstore</span>
-            <span class="ff-lever-tag">🦺 Pecheras pickers Instore</span>
+            <span class="ff-lever-tag" data-lever="via-publica">📺 Vía pública</span>
+            <span class="ff-lever-tag" data-lever="pom">🎯 POM</span>
+            <span class="ff-lever-tag" data-lever="mochilas-riders">🎒 Mochilas riders</span>
+            <span class="ff-lever-tag" data-lever="bolsas">🛍️ Bolsas Instore/Darkstore</span>
+            <span class="ff-lever-tag" data-lever="pecheras">🦺 Pecheras pickers Instore</span>
           </div>
         </div>
 
@@ -1000,6 +1002,11 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
     </div>
 
   </div>
+</div>
+
+<div class="ff-lever-detail" id="ffLeverDetail">
+  <div class="ff-lever-detail-title" id="ffLeverDetailTitle"></div>
+  <div class="ff-lever-detail-grid" id="ffLeverDetailGrid"></div>
 </div>
 
 </div>
@@ -1239,6 +1246,40 @@ document.querySelectorAll('.doctabbtn').forEach(function(btn){
     btn.classList.add('active');
     document.getElementById(btn.dataset.doctab).classList.add('active');
     window.scrollTo(0,0);
+  });
+});
+</script>
+<script>
+var FF_LEVER_DATA = {
+  'main-slider':     { nombre:'Main Slider', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'discovery':       { nombre:'Discovery', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'quick-access':    { nombre:'Quick Access', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'splash':          { nombre:'Splash', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'via-publica':     { nombre:'Vía pública', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'pom':             { nombre:'POM', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'mochilas-riders': { nombre:'Mochilas riders', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'bolsas':          { nombre:'Bolsas Instore/Darkstore', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'pecheras':        { nombre:'Pecheras pickers Instore', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' }
+};
+
+document.querySelectorAll('.ff-lever-tag[data-lever]').forEach(function(tag){
+  tag.addEventListener('click', function(){
+    var key = tag.dataset.lever;
+    var d = FF_LEVER_DATA[key];
+    if (!d) return;
+    var wasActive = tag.classList.contains('active');
+    document.querySelectorAll('.ff-lever-tag').forEach(function(t){ t.classList.remove('active'); });
+    var detail = document.getElementById('ffLeverDetail');
+    if (wasActive) { detail.classList.remove('open'); return; }
+    tag.classList.add('active');
+    document.getElementById('ffLeverDetailTitle').textContent = d.nombre;
+    document.getElementById('ffLeverDetailGrid').innerHTML =
+      '<div><b>Gestión:</b> ' + d.gestion + '</div>' +
+      '<div><b>Segmentable:</b> ' + d.segmentable + '</div>' +
+      '<div><b>Incentivo económico:</b> ' + d.incentivo + '</div>' +
+      '<div><b>Inversión MeLi:</b> ' + d.inversion + '</div>' +
+      '<div class="full"><b>Restricciones:</b> ' + d.restricciones + '</div>';
+    detail.classList.add('open');
   });
 });
 </script>
