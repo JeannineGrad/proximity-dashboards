@@ -126,7 +126,7 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
         <tr>
           <th>Pharma</th>
           <td class="cell empty"></td>
-          <td class="cell empty" colspan="2" data-cell="onb-pharma"><span class="thr">2 tx · 60d</span><span class="thr">Onboarding + Cross-sell (en paralelo)</span></td>
+          <td class="cell active" colspan="2" data-cell="onb-pharma" onclick="document.getElementById('anchor-onboarding-pharma').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">2 tx · 60d</span><span class="thr">Onboarding + Cross-sell (en paralelo)</span><span class="thr">Ver journey (preliminar) →</span></td>
           <td class="cell empty"></td>
         </tr>
         <tr class="qc-row">
@@ -669,11 +669,6 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
       <p>2 transacciones en 60 días — sin incentivo económico. El foco es aprovechar el awareness reciente de la entrega instant para mostrarle otras verticales con esa misma propuesta de valor.</p>
     </div>
 
-    <div class="walk-hdr" id="anchor-onboarding-gm">
-      <h2>Onboarding GM (preliminar)</h2>
-      <div class="step-nav" id="stepNavGM"></div>
-    </div>
-
     <div class="callout amber" style="margin:0 0 12px">
       <span>📐</span>
       <div>Una sola línea de tiempo, desde el Trial hasta Graduado o No graduado, alternando los mensajes: <b>día 2</b> Groceries, <b>día 9</b> Groceries otra vez (🏠💰 incentivo a Darkstore), <b>día 16</b> vuelve a GM orgánico — y cicla. El cross-sell de GM apunta solo a Groceries — el salto a Pharma lo hace Groceries, no GM directamente (hipótesis: Pharma es más parecido en necesidad a Groceries que GM a Pharma). Desde cualquier punto de la línea, llegar a 2 tx manda directo a <span class="pill pill-green">Graduado GM</span>; convertir en Groceries manda al journey propio de esa vertical. La cadencia sigue corriendo incluso después de <span class="pill pill-green">Graduado GM</span>, hasta que el usuario use Groceries. En el día 45 se evalúa si conviene sumar un incentivo liviano (ej. free shipping) al objetivo propio de GM.</div>
@@ -744,6 +739,73 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
         </g>
       </svg></div>
 <div id="flat-onb-gm"></div>
+<h2 class="h2" id="anchor-onboarding-pharma">Onboarding Pharma (preliminar)</h2>
+    <div class="callout amber" style="margin:0 0 12px">
+      <span>📐</span>
+      <div>Base tomada del esquema de GM (misma lógica de baja frecuencia, 2 tx · 60d) — a validar con el equipo de Pharma. Una sola línea de tiempo, desde el Trial hasta Graduado o No graduado, alternando los mensajes: <b>día 2</b> Groceries, <b>día 9</b> Groceries otra vez (🏠💰 incentivo a Darkstore), <b>día 16</b> vuelve a Pharma orgánico — y cicla. El cross-sell de Pharma apunta a Groceries, igual que GM — misma hipótesis (Pharma y GM son verticales de baja frecuencia que se apoyan en Groceries como puente, no directamente entre sí). Desde cualquier punto de la línea, llegar a 2 tx manda directo a <span class="pill pill-green">Graduado Pharma</span>; convertir en Groceries manda al journey propio de esa vertical. La cadencia sigue corriendo incluso después de <span class="pill pill-green">Graduado Pharma</span>, hasta que el usuario use Groceries. En el día 45 se evalúa si conviene sumar un incentivo liviano al objetivo propio de Pharma.</div>
+    </div><div class="diagram">
+      <svg viewBox="0 0 1200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey Pharma">
+        <defs><marker id="a6" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+        <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11px;font-weight:700}.lb{font-size:9px;fill:#8a8f98}.cplbl{font-size:11px;font-weight:800;fill:#1a2a4a}</style>
+
+        <g id="step-ph1" class="sd-normal">
+          <rect x="20" y="178" width="90" height="42" rx="9" fill="#fff" stroke="#c7ccd4" stroke-width="1.4"/>
+          <text x="65" y="196" text-anchor="middle" class="f t2" fill="#4b5160">Trial</text>
+          <text x="65" y="210" text-anchor="middle" class="f lb">(1era Tx Pharma)</text>
+          <path d="M110,199 L1010,199" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
+
+          <rect x="1010" y="118" width="150" height="46" rx="9" fill="#e6f7f3" stroke="#059669" stroke-width="1.5"/>
+          <text x="1085" y="140" text-anchor="middle" class="f t2" fill="#065f46">🏆 Graduado Pharma</text>
+          <text x="1085" y="153" text-anchor="middle" class="f lb" fill="#065f46">2 tx, en cualquier momento</text>
+
+          <rect x="1010" y="178" width="150" height="42" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.4"/>
+          <text x="1085" y="196" text-anchor="middle" class="f t2" fill="#9a5b06">No graduado Pharma</text>
+          <text x="1085" y="210" text-anchor="middle" class="f lb" fill="#9a5b06">nunca llegó a 2 tx</text>
+
+          <circle cx="210" cy="199" r="12" fill="#eafaf3" stroke="#059669" stroke-width="1.6"/>
+          <text x="210" y="172" text-anchor="middle" class="f cplbl">día 2</text>
+          <text x="210" y="184" text-anchor="middle" class="f lb">Groceries</text>
+          <path d="M210,187 L210,108 L1010,141" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+          <text x="210" y="222" text-anchor="middle" class="f lb" fill="#2563eb">si convierte, SUMA ese journey</text>
+          <text x="210" y="233" text-anchor="middle" class="f lb" fill="#2563eb">y ADEMÁS sigue el de Pharma</text>
+        </g>
+
+        <g id="step-ph2" class="sd-dim">
+          <circle cx="360" cy="199" r="12" fill="#eafaf3" stroke="#059669" stroke-width="1.6"/>
+          <text x="360" y="167" text-anchor="middle" class="f cplbl">día 9</text>
+          <text x="360" y="179" text-anchor="middle" class="f lb">🏠💰 Groceries</text>
+          <text x="360" y="190" text-anchor="middle" class="f lb">(incentivo a Darkstore)</text>
+          <path d="M360,187 L360,108 L1010,141" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+        </g>
+
+        <g id="step-ph3" class="sd-dim">
+          <circle cx="510" cy="199" r="12" fill="#eef4ff" stroke="#2563eb" stroke-width="1.6"/>
+          <text x="510" y="172" text-anchor="middle" class="f cplbl">día 16</text>
+          <text x="510" y="184" text-anchor="middle" class="f lb">Pharma orgánico</text>
+          <path d="M510,187 L510,108 L1010,141" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+        </g>
+
+        <g id="step-ph4" class="sd-dim">
+          <circle cx="810" cy="199" r="12" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+          <text x="810" y="172" text-anchor="middle" class="f cplbl">día 45</text>
+          <text x="810" y="184" text-anchor="middle" class="f lb">¿incentivo liviano?</text>
+          <path d="M810,187 L810,108 L1010,141" stroke="#059669" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+
+          <circle cx="940" cy="199" r="12" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
+          <text x="940" y="172" text-anchor="middle" class="f cplbl">día 60</text>
+          <text x="940" y="184" text-anchor="middle" class="f lb">checkpoint final</text>
+          <path d="M940,187 L960,150 L1010,145" stroke="#059669" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+        </g>
+
+        <g id="step-ph5" class="sd-dim">
+          <rect x="950" y="30" width="220" height="60" rx="9" fill="#fbfcfe" stroke="#c7ccd4" stroke-width="1.4" stroke-dasharray="4,3"/>
+          <text x="1060" y="48" text-anchor="middle" class="f t2" fill="#1a2a4a">🔄 Tras Graduado Pharma</text>
+          <text x="1060" y="62" text-anchor="middle" class="f lb">sigue la misma cadencia (2/9/16)</text>
+          <text x="1060" y="74" text-anchor="middle" class="f lb">usa Groceries → esa journey; Pharma: mantenimiento</text>
+        </g>
+      </svg></div>
+<div id="flat-onb-pharma"></div>
+<div class="callout amber"><span>📋</span><div>Esto es una base para tener algo armado — falta validar con el equipo de Pharma si el mismo esquema de GM (cadencia 2/9/16, incentivo a Darkstore en el día 9) aplica igual, o si Pharma necesita su propia lógica.</div></div>
 </div>
 <script>
 var steps = [
@@ -829,6 +891,22 @@ var steps = [
   { id:'step-gm5', label:'5', color:'green',
     title:'Paso 5 — Tras Graduado GM: la cadencia sigue',
     que:['Llegar a <span class="pill pill-green">Graduado GM</span> no apaga el cross-sell: la misma cadencia (día 2 Groceries → día 9 Groceries+Darkstore → día 16 GM) sigue probando hasta que use Groceries.','En cuanto empieza a usar Groceries — por la cadencia o de forma espontánea — pasa a tener también el journey propio de Groceries, y desde ahí es Groceries quien eventualmente cross-sellea a Pharma.','El journey de GM, mientras tanto, queda en un flujo de mantenimiento (liviano, sin forzar más cross-sell hacia lo que ya se logró).'] }
+];var stepsPH = [
+  { id:'step-ph1', label:'1', color:'green',
+    title:'Paso 1 — Trial → línea única, día 2: Groceries',
+    que:['Una sola línea de tiempo desde el Trial hasta <span class="pill pill-green">Graduado Pharma</span> o <span class="pill pill-orange">No graduado Pharma</span> — no son pools paralelos, son puntos sobre la misma línea.','Desde cualquier punto de esta línea, si llega a la 2ª transacción → sube directo a <span class="pill pill-green">Graduado Pharma</span>, sin esperar al día 60.','Día 2: primer mensaje de <span class="pill pill-green">Cross-sell</span>, a Groceries, sin incentivo.','Si convierte en Groceries, no se corta nada: se SUMA el journey propio de esa vertical. Pharma sigue igual — su propia línea de re-enganche y el resto de la cadencia de cross-sell continúan corriendo en paralelo.'] },
+  { id:'step-ph2', label:'2', color:'green',
+    title:'Paso 2 — Día 9: Groceries otra vez, con incentivo a Darkstore',
+    que:['Si no convirtió en el día 2, se reintenta Groceries.','🏠💰 Esta vez con incentivo económico específico a Darkstore (no a Instore).','Si convierte acá, mismo criterio: se suma el journey de Darkstore, sin cortar la línea de Pharma.'] },
+  { id:'step-ph3', label:'3', color:'green',
+    title:'Paso 3 — Día 16: vuelve a Pharma orgánico',
+    que:['Si tampoco convirtió en Groceries, se vuelve a intentar re-enganchar con Pharma mismo para la 2ª transacción propia.','El cross-sell de Pharma apunta a Groceries, igual que GM — misma hipótesis de fondo (Pharma y GM son de baja frecuencia y se apoyan en Groceries como puente, no entre sí).','Desde acá, si llega a 2 tx → <span class="pill pill-green">Graduado Pharma</span>. Después del día 16 la cadencia cicla: vuelve a día 2 (Groceries) y se repite.'] },
+  { id:'step-ph4', label:'4', color:'green',
+    title:'Paso 4 — Día 45 y día 60: checkpoints propios de Pharma',
+    que:['Día 45: checkpoint intermedio — se evalúa si conviene sumar un incentivo liviano al objetivo propio de Pharma.','Día 60: última chance. Si nunca llegó a 2 tx en toda la línea → <span class="pill pill-orange">No graduado Pharma</span>.'] },
+  { id:'step-ph5', label:'5', color:'green',
+    title:'Paso 5 — Tras Graduado Pharma: la cadencia sigue',
+    que:['Llegar a <span class="pill pill-green">Graduado Pharma</span> no apaga el cross-sell: la misma cadencia (día 2 Groceries → día 9 Groceries+Darkstore → día 16 Pharma) sigue probando hasta que use Groceries.','En cuanto empieza a usar Groceries — por la cadencia o de forma espontánea — pasa a tener también el journey propio de Groceries.','El journey de Pharma, mientras tanto, queda en un flujo de mantenimiento (liviano, sin forzar más cross-sell hacia lo que ya se logró).','🧪 Base tomada 1:1 del esquema de GM — falta validar con el equipo de Pharma si la cadencia y el incentivo a Darkstore en el día 9 aplican igual, o si necesita su propia lógica.'] }
 ];
 function renderFlat(containerId, arr){
   var el = document.getElementById(containerId);
@@ -842,4 +920,5 @@ renderFlat('flat-onb-darkstore', stepsDS);
 renderFlat('flat-grad-groceries', stepsG);
 renderFlat('flat-ng-groceries', stepsNG);
 renderFlat('flat-onb-gm', stepsGM);
+renderFlat('flat-onb-pharma', stepsPH);
 </script></body></html>
