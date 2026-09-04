@@ -248,7 +248,7 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
 
         <path d="M665,220 L699,220" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
         <circle cx="710" cy="220" r="11" fill="#f3ecfd" stroke="#7c3aed" stroke-width="1.4"/>
-        <text x="710" y="224" text-anchor="middle" font-size="8">🔀💰</text>
+        <text x="710" y="224" text-anchor="middle" font-size="10">💰</text>
         <path d="M721,220 L835,220" stroke="#7c3aed" stroke-width="1.6" fill="none"/>
         <path d="M760,220 L800,150" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
         <path d="M760,220 L805,80" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
@@ -270,7 +270,7 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
         <path d="M865,150 L920,80" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
         <path d="M865,150 L905,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
         <circle cx="905" cy="150" r="11" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
-        <text x="905" y="154" text-anchor="middle" font-size="9">🔀💰</text>
+        <text x="905" y="154" text-anchor="middle" font-size="10">💰</text>
         <path d="M915,150 L945,150" stroke="#8a8f98" stroke-width="1.6" fill="none"/>
         <text x="945" y="122" text-anchor="middle" class="f cplbl">🔍 +15d</text>
         <circle cx="945" cy="150" r="11" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
@@ -1010,10 +1010,10 @@ var steps = [
     que:['Se evalúan las transacciones y el camino se abre en 5.','Nunca hizo otra compra → <span class="pill pill-red">No activó</span> → <span class="pill pill-green">Cross-sell</span>.','Ya llegó a 5+ → <span class="pill pill-green">Graduado</span> → <span class="pill pill-green">Cross-sell</span>.','💰 Llegó a 2 → incentivo económico para empujarlo a la 3ª, específico para usar en Darkstore.','🔀 Viene con 3 o 4 → estímulo comunicacional a Instore, sin incentivo económico.'] },
   { id:'step-ds3', label:'3', color:'green',
     title:'Paso 3 — Día 65: segundo corte',
-    que:['Sigue en 2, no usó el descuento → <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.','🔀💰 Llegó a 3 sin descuento previo → lo recibe ahora, genérico a Food/GM/Pharma.','🔀 Viene con 4 → estímulo de comunicación, puede incluir Instore (sin plata) o Food/GM/Pharma.'] },
+    que:['Sigue en 2, no usó el descuento → <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.','💰 Llegó a 3 sin descuento previo → lo recibe ahora, específico para usar en Darkstore.','🔀 Viene con 4 → estímulo comunicacional a Instore, sin incentivo económico.'] },
   { id:'step-ds4', label:'4', color:'green',
     title:'Paso 4 — Día 90: corte final',
-    que:['Llegó a 5+ → Journey <span class="pill pill-green">Graduado</span>.','Se quedó en 3 (ya recibió su descuento antes) → Journey <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.','🔀💰 Se quedó en 4 y nunca recibió incentivo → incentivo genérico (Food/GM/Pharma) + 15 días extra.','Si en esos 15 días llega a 5 → <span class="pill pill-green">⏳ Graduado tardío</span> → <span class="pill pill-green">Cross-sell</span>. Si no → Journey <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.'] }
+    que:['Llegó a 5+ → Journey <span class="pill pill-green">Graduado</span>.','Se quedó en 3 (ya recibió su descuento antes) → Journey <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.','💰 Se quedó en 4 y nunca recibió incentivo → incentivo específico para usar en Darkstore + 15 días extra.','Si en esos 15 días llega a 5 → <span class="pill pill-green">⏳ Graduado tardío</span> → <span class="pill pill-green">Cross-sell</span>. Si no → Journey <span class="pill pill-orange">No graduado</span> → <span class="pill pill-green">Cross-sell</span>.'] }
 ];var stepsDSG = [
   { id:'step-dsg1', label:'1', color:'green',
     title:'Paso 1 — Graduado (o Graduado tardío) → se abren 2 caminos en paralelo',
@@ -1036,7 +1036,7 @@ var steps = [
     que:['A diferencia de Instore, acá no hay un cross-sell "más cercano" diseñado — el chequeo es amplio: ¿el usuario ya está activo en otra vertical (incluido Instore) por su cuenta?','🔀 Si migró → se lo deja tranquilo, sigue ese journey. No cuenta como pérdida — el objetivo de Cross-sell ya se cumplió.'] },
   { id:'step-dsng2', label:'2', color:'green',
     title:'Paso 2 — Si no migró: mismo tratamiento que Graduado',
-    que:['No hay un "primer intento puntual" que probar como con Instore→Darkstore — el cross-sell durante el onboarding ya fue genérico a Food/GM/Pharma.','Pool orgánico intercalado, sin incentivo: pushes de vertical (categorías/ocasiones dentro de Darkstore) y pushes de <span class="pill pill-green">Cross-sell</span> (todas las verticales, incluyendo Instore sin plata — el incentivo con plata solo va a Food/GM/Pharma).','Arranca en paralelo con el monitoreo de alarmas por cadencia.'] },
+    que:['No hay un "primer intento puntual" que probar como con Instore→Darkstore — durante el onboarding, el estímulo comunicacional (sin plata) ya fue a Instore, y el económico siempre fue a Darkstore mismo.','Pool orgánico intercalado, sin incentivo: pushes de vertical (categorías/ocasiones dentro de Darkstore) y pushes de <span class="pill pill-green">Cross-sell</span> (todas las verticales, incluyendo Instore sin plata — el incentivo con plata solo va a Food/GM/Pharma).','Arranca en paralelo con el monitoreo de alarmas por cadencia.'] },
   { id:'step-dsng3', label:'3', color:'red',
     title:'Paso 3 — Cadencia personal (corre en paralelo)',
     que:['Se toma la cadencia calculada en el onboarding: días hasta graduarse ÷ 4 (o el equivalente si nunca llegó a graduarse, a definir).','Fija, no se recalcula.'] },
