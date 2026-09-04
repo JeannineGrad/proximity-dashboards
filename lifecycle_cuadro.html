@@ -134,7 +134,9 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 .ff-fs-cv{background:#f59e0b;clip-path:polygon(14% 0,86% 0,79% 100%,21% 100%)}
 .ff-fs-lo{background:#00a650;clip-path:polygon(21% 0,79% 0,72% 100%,28% 100%)}
 .ff-ac{border-radius:6px;padding:6px 8px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.3px;line-height:1.35}
-.ff-ac-levers{flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:center;text-align:left;gap:5px 10px;padding:6px 14px}
+.ff-ac-levers{flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;gap:4px;padding:6px 14px}
+.ff-lever-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ff-lever-group-label{font-size:6.5px;font-weight:900;opacity:.8;letter-spacing:.4px;text-transform:uppercase;background:rgba(255,255,255,.25);padding:2px 5px;border-radius:4px;flex-shrink:0}
 .ff-lever-tag{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.18);border-radius:10px;padding:3px 8px;font-size:7.5px;font-weight:700;text-transform:none;letter-spacing:0;white-space:nowrap}
 .ff-aw-n{background:#c0392b;color:#fff}
 .ff-aw-h{background:#e63946;color:#fff}
@@ -965,11 +967,21 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
         <div class="ff-fs ff-fs-lo" style="grid-column:1;grid-row:4"><span class="ff-icon">❤️</span><span>Loyalty</span></div>
 
         <div class="ff-ac ff-aw-h ff-ac-levers" style="grid-column:2/6;grid-row:1">
-          <span class="ff-lever-tag">📺 Vía pública</span>
-          <span class="ff-lever-tag">🎯 POM</span>
-          <span class="ff-lever-tag">🎒 Mochilas riders</span>
-          <span class="ff-lever-tag">🛍️ Bolsas Instore/Darkstore</span>
-          <span class="ff-lever-tag">🦺 Pecheras pickers Instore</span>
+          <div class="ff-lever-group">
+            <span class="ff-lever-group-label">In-app</span>
+            <span class="ff-lever-tag">🎡 Main Slider</span>
+            <span class="ff-lever-tag">🔍 Discovery</span>
+            <span class="ff-lever-tag">⚡ Quick Access</span>
+            <span class="ff-lever-tag">💦 Splash</span>
+          </div>
+          <div class="ff-lever-group">
+            <span class="ff-lever-group-label">Off-app</span>
+            <span class="ff-lever-tag">📺 Vía pública</span>
+            <span class="ff-lever-tag">🎯 POM</span>
+            <span class="ff-lever-tag">🎒 Mochilas riders</span>
+            <span class="ff-lever-tag">🛍️ Bolsas Instore/Darkstore</span>
+            <span class="ff-lever-tag">🦺 Pecheras pickers Instore</span>
+          </div>
         </div>
 
         <div class="ff-ac ff-aw-n" style="grid-column:2;grid-row:2/4">Plan Adquisición</div>
