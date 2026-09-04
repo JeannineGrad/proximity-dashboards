@@ -138,12 +138,17 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 .ff-lever-tag{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.18);border-radius:10px;padding:3px 8px;font-size:7.5px;font-weight:700;text-transform:none;letter-spacing:0;white-space:nowrap;cursor:pointer;transition:background .12s}
 .ff-lever-tag:hover{background:rgba(255,255,255,.32)}
 .ff-lever-tag.active{background:#fff;color:#1a2a4a}
-.ff-lever-detail{margin:14px 0 0;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px;display:none}
+.ff-lever-detail{margin:14px 0 0;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:none}
 .ff-lever-detail.open{display:block}
-.ff-lever-detail-title{font-size:13px;font-weight:900;color:var(--navy);margin-bottom:8px}
-.ff-lever-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;font-size:11px;color:#3a3f4d}
-.ff-lever-detail-grid b{color:var(--navy)}
-.ff-lever-detail-grid .full{grid-column:1/-1}
+.ff-lever-detail-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ff-lever-detail-title{font-size:14px;font-weight:900;color:var(--navy)}
+.ff-lever-detail-close{cursor:pointer;color:var(--muted);font-size:13px;line-height:1;padding:3px 7px;border-radius:6px}
+.ff-lever-detail-close:hover{background:#f2f4f7;color:var(--navy)}
+.ff-lever-detail-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.ff-detail-chip{background:#f8f9fb;border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:11.5px;color:#2b2f38;min-width:110px}
+.ff-detail-chip b{display:block;font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.ff-lever-detail-restr{background:#f8f9fb;border-left:3px solid var(--navy);border-radius:0 8px 8px 0;padding:9px 13px;font-size:11.5px;color:#2b2f38;line-height:1.55}
+.ff-lever-detail-restr b{color:var(--navy)}
 .ff-aw-n{background:#c0392b;color:#fff}
 .ff-aw-h{background:#e63946;color:#fff}
 .ff-aw-l{background:#ffeaec;color:#7b0010;border:1px solid #e6394625}
@@ -988,7 +993,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
         <div class="ff-ac ff-aw-n ff-ac-levers" style="grid-column:2;grid-row:2/4">
           <div class="ff-lever-group">
             <span class="ff-lever-tag" data-lever="rabbit-hole">🐇 Rabbit hole</span>
-            <span class="ff-lever-tag" data-lever="cupon-carrito">🛒 Cupón carrito abandonado</span>
+            <span class="ff-lever-tag" data-lever="push-notification">🔔 Push notification</span>
           </div>
         </div>
 
@@ -998,7 +1003,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
         <div class="ff-ac ff-cv-h ff-ac-levers" style="grid-column:3;grid-row:3">
           <div class="ff-lever-group">
             <span class="ff-lever-tag" data-lever="rabbit-hole">🐇 Rabbit hole</span>
-            <span class="ff-lever-tag" data-lever="cupon-carrito">🛒 Cupón carrito abandonado</span>
+            <span class="ff-lever-tag" data-lever="push-notification">🔔 Push notification</span>
           </div>
         </div>
 
@@ -1014,8 +1019,12 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 </div>
 
 <div class="ff-lever-detail" id="ffLeverDetail">
-  <div class="ff-lever-detail-title" id="ffLeverDetailTitle"></div>
-  <div class="ff-lever-detail-grid" id="ffLeverDetailGrid"></div>
+  <div class="ff-lever-detail-hdr">
+    <div class="ff-lever-detail-title" id="ffLeverDetailTitle"></div>
+    <span class="ff-lever-detail-close" id="ffLeverDetailClose">✕</span>
+  </div>
+  <div class="ff-lever-detail-badges" id="ffLeverDetailBadges"></div>
+  <div class="ff-lever-detail-restr" id="ffLeverDetailRestr"></div>
 </div>
 
 </div>
@@ -1270,7 +1279,7 @@ var FF_LEVER_DATA = {
   'bolsas':          { nombre:'Bolsas Instore/Darkstore', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
   'pecheras':        { nombre:'Pecheras pickers Instore', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
   'rabbit-hole':     { nombre:'Rabbit hole', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'cupon-carrito':   { nombre:'Cupón carrito abandonado', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' }
+  'push-notification': { nombre:'Push notification', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' }
 };
 
 document.querySelectorAll('.ff-lever-tag[data-lever]').forEach(function(tag){
@@ -1284,14 +1293,18 @@ document.querySelectorAll('.ff-lever-tag[data-lever]').forEach(function(tag){
     if (wasActive) { detail.classList.remove('open'); return; }
     tag.classList.add('active');
     document.getElementById('ffLeverDetailTitle').textContent = d.nombre;
-    document.getElementById('ffLeverDetailGrid').innerHTML =
-      '<div><b>Gestión:</b> ' + d.gestion + '</div>' +
-      '<div><b>Segmentable:</b> ' + d.segmentable + '</div>' +
-      '<div><b>Incentivo económico:</b> ' + d.incentivo + '</div>' +
-      '<div><b>Inversión MeLi:</b> ' + d.inversion + '</div>' +
-      '<div class="full"><b>Restricciones:</b> ' + d.restricciones + '</div>';
+    document.getElementById('ffLeverDetailBadges').innerHTML =
+      '<div class="ff-detail-chip"><b>Gestión</b>' + d.gestion + '</div>' +
+      '<div class="ff-detail-chip"><b>Segmentable</b>' + d.segmentable + '</div>' +
+      '<div class="ff-detail-chip"><b>Incentivo económico</b>' + d.incentivo + '</div>' +
+      '<div class="ff-detail-chip"><b>Inversión MeLi</b>' + d.inversion + '</div>';
+    document.getElementById('ffLeverDetailRestr').innerHTML = '<b>Restricciones:</b> ' + d.restricciones;
     detail.classList.add('open');
   });
+});
+document.getElementById('ffLeverDetailClose').addEventListener('click', function(){
+  document.getElementById('ffLeverDetail').classList.remove('open');
+  document.querySelectorAll('.ff-lever-tag').forEach(function(t){ t.classList.remove('active'); });
 });
 </script>
 </body></html>
