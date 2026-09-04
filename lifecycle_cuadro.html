@@ -144,11 +144,6 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
     <p>Lograr usuarios <b>Graduados de Groceries</b> en un máximo de 90 días. El objetivo (5 tx en 90 días) es a nivel Groceries — suma transacciones de Instore y Darkstore combinadas, no exclusivas de esta vertical. El punto de entrada (dónde fue la 1ª compra) define qué journey ve el usuario, pero la evaluación de transaccionalidad es conjunta. A medida que alcanza el nivel necesario, pasa de inmediato al flujo de Graduado Groceries. Y al revés: si en el primer corte no logra ni una transacción adicional, se lo saca directo de este journey y se lo deriva a otra vertical.</p>
   </div>
 
-  <div class="walk-hdr">
-    <h2>Journey: Período de Onboarding</h2>
-    <div class="step-nav" id="stepNavDS"></div>
-  </div>
-
   <div class="callout amber" style="margin:0 0 12px">
     <span>📐</span>
     <div>
@@ -298,11 +293,6 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
     <p>Lograr usuarios <b>Graduados de Groceries</b> en un máximo de 90 días. El objetivo (5 tx en 90 días) es a nivel Groceries — suma transacciones de Instore y Darkstore combinadas, no exclusivas de esta vertical. El punto de entrada (dónde fue la 1ª compra) define qué journey ve el usuario, pero la evaluación de transaccionalidad es conjunta. A medida que alcanza el nivel necesario, pasa de inmediato al flujo de Graduado Groceries. Y al revés: si en el primer corte no logra ni una transacción adicional, se lo saca directo de este journey y se lo deriva a otra vertical.</p>
   </div>
 
-  <div class="walk-hdr">
-    <h2>Journey: Período de Onboarding</h2>
-    <div class="step-nav" id="stepNav"></div>
-  </div>
-
   <div class="callout amber" style="margin:0 0 12px">
     <span>📐</span>
     <div>
@@ -445,12 +435,13 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
     <span><span class="legend-swatch"></span> Sigue en carrera hacia Graduado</span>
     <span><span class="legend-swatch dash"></span> Sale del journey (a un estadio final)</span>
   </div>
+  <h2 class="h2" id="anchor-graduado-groceries">Graduado y No Graduado Groceries</h2>
   <div class="card">
     <h4>🎯 Un solo journey para las dos entradas</h4>
     <p>Una vez resuelto el onboarding (por Instore o por Darkstore), el tratamiento de acá en adelante es el mismo — porque la evaluación (5 tx en 90 días) ya fue a nivel Groceries combinado. Por eso <b>Graduado</b> y <b>No Graduado</b> viven acá, en un solo lugar, sin importar el punto de entrada.</p>
     <p><b>Hito secundario — Graduado Darkstore:</b> si la Graduación Groceries se completa antes del día 90, no termina ahí. Se mira cuántas de esas 5 tx ya fueron de Darkstore, y se sigue empujando (dentro del mismo pool, sin crear una línea aparte) hasta el día 90 tratando de llegar a 5 tx de Darkstore en total — contando las que ya hizo para graduarse de Groceries.</p>
   </div>
-<h2 class="h2" id="anchor-graduado-groceries">Cross-sell: Graduado y Graduado Tardío Groceries</h2>
+  <div class="walk-hdr"><h2>Cross-sell: Graduado y Graduado Tardío Groceries</h2></div>
 <div class="diagram">
     <svg viewBox="0 0 1200 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey Graduado">
       <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
