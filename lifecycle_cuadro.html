@@ -66,6 +66,44 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
 .matrix td.cell.active .thr{color:#065f46}
 .matrix tr.qc-row th,.matrix tr.qc-row td{border-top:2px solid var(--navy)}
 .matrix tr.qc-row th{background:var(--navy);color:#fff}
+
+/* --- PALANCAS --- */
+table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 0 0 1px var(--border)}
+.pal-table th,.pal-table td{padding:8px 9px;border-bottom:1px solid var(--border);text-align:left;vertical-align:middle}
+.pal-table thead th{background:#f8f9fb;font-size:10px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);font-weight:800;white-space:nowrap}
+.pal-table tbody tr.pal-lever-row{cursor:pointer}
+.pal-table tbody tr.pal-lever-row:hover{background:#fafbfc}
+.pal-lever-name{font-weight:700;color:var(--navy)}
+.pal-stages-cell{display:flex;flex-direction:column;gap:3px}
+.pal-stage-chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:var(--navy);white-space:nowrap}
+.pal-stage-dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+.pal-filterbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.pal-filter-chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--navy);background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;transition:border-color .12s,background .12s}
+.pal-filter-chip:hover{border-color:#c7ccd4}
+.pal-filter-chip.on{background:#f0f4fa;border-color:var(--chip-color,#1a2a4a)}
+.pal-filter-chip .pal-stage-dot{width:8px;height:8px}
+.pal-filter-clear{font-size:10.5px;color:var(--muted);text-decoration:underline;cursor:pointer;align-self:center}
+.pal-chan-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.pal-chan-app{background:#eef4ff;color:#1d4ed8}
+.pal-chan-off{background:#f3ecfd;color:#6d28d9}
+.pal-chan-both{background:#eafaf3;color:#065f46}
+.pal-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:3px}
+.pal-dot.yes{background:#059669}
+.pal-dot.no{background:#d7dbe1}
+.pal-vbadges,.pal-sbadges{display:flex;gap:3px;flex-wrap:wrap}
+.pal-vb,.pal-sb{font-size:9px;font-weight:700;padding:1px 5px;border-radius:5px;background:#f2f4f7;color:#8a8f98}
+.pal-vb.on{background:#e6f7f3;color:#065f46}
+.pal-sb.on{background:#eef4ff;color:#1d4ed8}
+.pal-seg-tag{font-size:10px;font-weight:700}
+.pal-seg-audiencia{color:#1d4ed8}
+.pal-seg-usuario{color:#065f46}
+.pal-seg-no{color:#8a8f98}
+.pal-table tr.pal-detail{display:none;background:#fbfcfe}
+.pal-table tr.pal-detail.open{display:table-row}
+.pal-detail td{padding:10px 14px;border-bottom:1px solid var(--border)}
+.pal-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;font-size:11.5px}
+.pal-detail-grid b{color:var(--navy)}
+.pal-detail-grid .full{grid-column:1/-1}
 </style>
 </head>
 <body>
@@ -806,6 +844,33 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
       </svg></div>
 <div id="flat-onb-pharma"></div>
 <div class="callout amber"><span>📋</span><div>Esto es una base para tener algo armado — falta validar con el equipo de Pharma si el mismo esquema de GM (cadencia 2/9/16, incentivo a Darkstore en el día 9) aplica igual, o si Pharma necesita su propia lógica.</div></div>
+
+<h2 class="h2" id="anchor-palancas">🎛️ Mapa de Repertorio de Palancas de Demanda</h2>
+<p class="sub">In-app y off-app · esqueleto conceptual — estructura + palancas de ejemplo, todavía no es el repertorio real.</p>
+<div class="callout amber"><span>⚠️</span><div>ESQUELETO — las palancas de esta tabla son ejemplos ficticios para probar la estructura. Falta cargar el repertorio real.</div></div>
+
+<div class="card">
+  <h4>🎯 Cómo leer el mapa</h4>
+  <p>Cada fila es una palanca de generación de demanda. La columna <b>Etapa</b> indica en qué momento del funnel aplica (misma taxonomía que las secciones anteriores: Awareness / Trial / Onboarding / Recurrencia / Reactivación) — una palanca puede aplicar a más de una etapa, sin repetir la fila. Click en una fila para ver el detalle completo (gestión y restricciones). Filtrá por etapa con los chips de abajo.</p>
+</div>
+
+<div class="pal-filterbar" id="palFilterbar"></div>
+
+<table class="pal-table" id="palTabla">
+  <thead>
+    <tr>
+      <th style="width:17%">Palanca</th>
+      <th>Etapa de funnel</th>
+      <th>Canal</th>
+      <th>Segmentable</th>
+      <th>💰 Incentivo buyer</th>
+      <th>💵 Inversión MeLi</th>
+      <th>Vertical</th>
+      <th>Site</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
 </div>
 <script>
 var steps = [
@@ -921,4 +986,143 @@ renderFlat('flat-grad-groceries', stepsG);
 renderFlat('flat-ng-groceries', stepsNG);
 renderFlat('flat-onb-gm', stepsGM);
 renderFlat('flat-onb-pharma', stepsPH);
-</script></body></html>
+</script>
+<script>
+(function(){
+  var STAGE_META = {
+    awareness:    { label:'Awareness',    color:'#64748b' },
+    trial:        { label:'Trial',        color:'#2563eb' },
+    onboarding:   { label:'Onboarding',   color:'#7c3aed' },
+    recurrencia:  { label:'Recurrencia',  color:'#059669' },
+    reactivacion: { label:'Reactivación', color:'#d97706' }
+  };
+  var STAGE_ORDER = ['awareness','trial','onboarding','recurrencia','reactivacion'];
+
+  // ---- DATA DE EJEMPLO (dummy) — reemplazar por el repertorio real ----
+  var LEVERS = [
+    { name:'Pauta off-app (paid media)', stages:['awareness'], channel:'off', gestion:'Marketing / Media', segmentable:'audiencia',
+      incentivo:false, inversion:true, restricciones:'Requiere presupuesto de media aprobado por campaña.',
+      vert:{food:true,instore:true,darkstore:true,gm:true,pharma:true}, site:{mla:true,mlb:true} },
+    { name:'Banner Home genérico', stages:['awareness'], channel:'app', gestion:'Growth Proximity', segmentable:'no',
+      incentivo:false, inversion:false, restricciones:'Sujeto a disponibilidad de espacio en Home (prioriza otras iniciativas de la compañía).',
+      vert:{food:true,instore:true,darkstore:true,gm:false,pharma:false}, site:{mla:true,mlb:true} },
+    { name:'Cupón de bienvenida (welcome)', stages:['trial'], channel:'app', gestion:'Growth Proximity', segmentable:'usuario',
+      incentivo:true, inversion:true, restricciones:'1 sola vez por usuario de por vida en la vertical.',
+      vert:{food:true,instore:true,darkstore:true,gm:false,pharma:false}, site:{mla:true,mlb:false} },
+    { name:'POM (Programa Oferta MeLi)', stages:['trial','recurrencia'], channel:'app', gestion:'Comercial / Marketing', segmentable:'audiencia',
+      incentivo:true, inversion:true, restricciones:'Requiere audiencia mínima y una inversión mínima por campaña (a día de hoy).',
+      vert:{food:true,instore:false,darkstore:false,gm:false,pharma:false}, site:{mla:true,mlb:true} },
+    { name:'Envío gratis 2ª compra', stages:['onboarding'], channel:'app', gestion:'Growth Proximity', segmentable:'usuario',
+      incentivo:true, inversion:true, restricciones:'Máximo 1 por usuario durante el período de onboarding.',
+      vert:{food:false,instore:true,darkstore:true,gm:false,pharma:false}, site:{mla:true,mlb:false} },
+    { name:'Push recurrencia (cadencia personal)', stages:['recurrencia'], channel:'app', gestion:'Growth Proximity', segmentable:'usuario',
+      incentivo:false, inversion:false, restricciones:'Sin restricción específica — cadencia calculada por usuario.',
+      vert:{food:true,instore:true,darkstore:true,gm:true,pharma:true}, site:{mla:true,mlb:true} },
+    { name:'Banner cross-sell en checkout', stages:['recurrencia'], channel:'app', gestion:'Growth Proximity', segmentable:'audiencia',
+      incentivo:false, inversion:false, restricciones:'Espacio compartido con otras iniciativas de cross-sell de la plataforma.',
+      vert:{food:true,instore:true,darkstore:true,gm:false,pharma:false}, site:{mla:true,mlb:true} },
+    { name:'Cupón de reactivación (win-back)', stages:['reactivacion'], channel:'app', gestion:'Growth Proximity', segmentable:'usuario',
+      incentivo:true, inversion:true, restricciones:'Solo aplica tras período de detox definido (a confirmar duración).',
+      vert:{food:true,instore:true,darkstore:true,gm:false,pharma:false}, site:{mla:true,mlb:false} },
+    { name:'CRM off-app (email / SMS)', stages:['awareness','recurrencia','reactivacion'], channel:'off', gestion:'CRM central', segmentable:'usuario',
+      incentivo:false, inversion:true, restricciones:'Depende de calendario y prioridad del equipo central de CRM.',
+      vert:{food:true,instore:true,darkstore:true,gm:true,pharma:true}, site:{mla:true,mlb:true} }
+  ];
+
+  var VERT_LABELS = { food:'Food', instore:'Instore', darkstore:'Darkstore', gm:'GM', pharma:'Pharma' };
+  var SITE_LABELS = { mla:'MLA', mlb:'MLB' };
+
+  function channelBadge(ch){
+    if (ch === 'app') return '<span class="pal-chan-badge pal-chan-app">📱 In-app</span>';
+    if (ch === 'off') return '<span class="pal-chan-badge pal-chan-off">📡 Off-app</span>';
+    return '<span class="pal-chan-badge pal-chan-both">📱📡 Ambos</span>';
+  }
+  function segTag(seg){
+    if (seg === 'usuario') return '<span class="pal-seg-tag pal-seg-usuario">👤 Usuario</span>';
+    if (seg === 'audiencia') return '<span class="pal-seg-tag pal-seg-audiencia">👥 Audiencia</span>';
+    return '<span class="pal-seg-tag pal-seg-no">— No</span>';
+  }
+  function palDot(v){ return '<span class="pal-dot ' + (v ? 'yes' : 'no') + '"></span>' + (v ? 'Sí' : 'No'); }
+  function badgeRow(map, labels, cls){
+    return '<div class="' + cls + '">' + Object.keys(labels).map(function(k){
+      return '<span class="' + (cls === 'pal-vbadges' ? 'pal-vb' : 'pal-sb') + (map[k] ? ' on' : '') + '">' + labels[k] + '</span>';
+    }).join('') + '</div>';
+  }
+  function stagesCell(stages){
+    return '<div class="pal-stages-cell">' + stages.map(function(sk){
+      var m = STAGE_META[sk];
+      return '<span class="pal-stage-chip"><span class="pal-stage-dot" style="background:' + m.color + '"></span>' + m.label + '</span>';
+    }).join('') + '</div>';
+  }
+
+  var tbody = document.querySelector('#palTabla tbody');
+  LEVERS.forEach(function(l){
+    var tr = document.createElement('tr');
+    tr.className = 'pal-lever-row';
+    tr.dataset.stages = l.stages.join(',');
+    tr.innerHTML =
+      '<td><span class="pal-lever-name">' + l.name + '</span></td>' +
+      '<td>' + stagesCell(l.stages) + '</td>' +
+      '<td>' + channelBadge(l.channel) + '</td>' +
+      '<td>' + segTag(l.segmentable) + '</td>' +
+      '<td>' + palDot(l.incentivo) + '</td>' +
+      '<td>' + palDot(l.inversion) + '</td>' +
+      '<td>' + badgeRow(l.vert, VERT_LABELS, 'pal-vbadges') + '</td>' +
+      '<td>' + badgeRow(l.site, SITE_LABELS, 'pal-sbadges') + '</td>';
+    tbody.appendChild(tr);
+
+    var detailTr = document.createElement('tr');
+    detailTr.className = 'pal-detail';
+    detailTr.innerHTML = '<td colspan="8"><div class="pal-detail-grid">' +
+      '<div><b>Gestión:</b> ' + l.gestion + '</div>' +
+      '<div class="full"><b>Restricciones:</b> ' + l.restricciones + '</div>' +
+      '</div></td>';
+    tbody.appendChild(detailTr);
+
+    tr.addEventListener('click', function(){
+      detailTr.classList.toggle('open');
+    });
+  });
+
+  // Barra de filtro por etapa
+  var activeFilters = [];
+  var filterbar = document.getElementById('palFilterbar');
+  STAGE_ORDER.forEach(function(sk){
+    var m = STAGE_META[sk];
+    var chip = document.createElement('div');
+    chip.className = 'pal-filter-chip';
+    chip.style.setProperty('--chip-color', m.color);
+    chip.innerHTML = '<span class="pal-stage-dot" style="background:' + m.color + '"></span>' + m.label;
+    chip.addEventListener('click', function(){
+      var idx = activeFilters.indexOf(sk);
+      if (idx === -1) { activeFilters.push(sk); chip.classList.add('on'); }
+      else { activeFilters.splice(idx, 1); chip.classList.remove('on'); }
+      applyFilter();
+    });
+    filterbar.appendChild(chip);
+  });
+  var clearBtn = document.createElement('span');
+  clearBtn.className = 'pal-filter-clear';
+  clearBtn.textContent = 'Limpiar filtro';
+  clearBtn.addEventListener('click', function(){
+    activeFilters = [];
+    filterbar.querySelectorAll('.pal-filter-chip').forEach(function(c){ c.classList.remove('on'); });
+    applyFilter();
+  });
+  filterbar.appendChild(clearBtn);
+
+  function applyFilter(){
+    document.querySelectorAll('#palTabla tbody tr.pal-lever-row').forEach(function(row){
+      var stages = row.dataset.stages.split(',');
+      var visible = activeFilters.length === 0 || stages.some(function(s){ return activeFilters.indexOf(s) !== -1; });
+      row.style.display = visible ? '' : 'none';
+      var next = row.nextElementSibling;
+      if (next && next.classList.contains('pal-detail')) {
+        if (!visible) next.classList.remove('open');
+        next.style.display = visible ? '' : 'none';
+      }
+    });
+  }
+})();
+</script>
+</body></html>
