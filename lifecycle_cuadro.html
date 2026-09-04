@@ -1022,35 +1022,7 @@ renderFlat('flat-onb-pharma', stepsPH);
   var STAGE_ORDER = ['awareness','trial','onboarding','recurrencia','reactivacion'];
 
   // ---- DATA DE EJEMPLO (dummy) — reemplazar por el repertorio real ----
-  var LEVERS = [
-    { name:'Pauta off-app (paid media)', stages:['awareness'], channel:'off', gestion:'Marketing / Media', segmentable:'audiencia',
-      incentivo:false, inversion:true, restricciones:'Requiere presupuesto de media aprobado por campaña.',
-      vert:{food:true,instore:true,darkstore:true,gm:true,pharma:true}, site:{mla:true,mlb:true} },
-    { name:'Banner Home genérico', stages:['awareness'], channel:'app', gestion:'Growth Proximity', segmentable:'no',
-      incentivo:false, inversion:false, restricciones:'Sujeto a disponibilidad de espacio en Home (prioriza otras iniciativas de la compañía).',
-      vert:{food:true,instore:true,darkstore:true,gm:false,pharma:false}, site:{mla:true,mlb:true} },
-    { name:'Cupón de bienvenida (welcome)', stages:['trial'], channel:'app', gestion:'Growth Proximity', segmentable:'usuario',
-      incentivo:true, inversion:true, restricciones:'1 sola vez por usuario de por vida en la vertical.',
-      vert:{food:true,instore:true,darkstore:true,gm:false,pharma:false}, site:{mla:true,mlb:false} },
-    { name:'POM (Programa Oferta MeLi)', stages:['trial','recurrencia'], channel:'app', gestion:'Comercial / Marketing', segmentable:'audiencia',
-      incentivo:true, inversion:true, restricciones:'Requiere audiencia mínima y una inversión mínima por campaña (a día de hoy).',
-      vert:{food:true,instore:false,darkstore:false,gm:false,pharma:false}, site:{mla:true,mlb:true} },
-    { name:'Envío gratis 2ª compra', stages:['onboarding'], channel:'app', gestion:'Growth Proximity', segmentable:'usuario',
-      incentivo:true, inversion:true, restricciones:'Máximo 1 por usuario durante el período de onboarding.',
-      vert:{food:false,instore:true,darkstore:true,gm:false,pharma:false}, site:{mla:true,mlb:false} },
-    { name:'Push recurrencia (cadencia personal)', stages:['recurrencia'], channel:'app', gestion:'Growth Proximity', segmentable:'usuario',
-      incentivo:false, inversion:false, restricciones:'Sin restricción específica — cadencia calculada por usuario.',
-      vert:{food:true,instore:true,darkstore:true,gm:true,pharma:true}, site:{mla:true,mlb:true} },
-    { name:'Banner cross-sell en checkout', stages:['recurrencia'], channel:'app', gestion:'Growth Proximity', segmentable:'audiencia',
-      incentivo:false, inversion:false, restricciones:'Espacio compartido con otras iniciativas de cross-sell de la plataforma.',
-      vert:{food:true,instore:true,darkstore:true,gm:false,pharma:false}, site:{mla:true,mlb:true} },
-    { name:'Cupón de reactivación (win-back)', stages:['reactivacion'], channel:'app', gestion:'Growth Proximity', segmentable:'usuario',
-      incentivo:true, inversion:true, restricciones:'Solo aplica tras período de detox definido (a confirmar duración).',
-      vert:{food:true,instore:true,darkstore:true,gm:false,pharma:false}, site:{mla:true,mlb:false} },
-    { name:'CRM off-app (email / SMS)', stages:['awareness','recurrencia','reactivacion'], channel:'off', gestion:'CRM central', segmentable:'usuario',
-      incentivo:false, inversion:true, restricciones:'Depende de calendario y prioridad del equipo central de CRM.',
-      vert:{food:true,instore:true,darkstore:true,gm:true,pharma:true}, site:{mla:true,mlb:true} }
-  ];
+  var LEVERS = [];
 
   var VERT_LABELS = { food:'Food', instore:'Instore', darkstore:'Darkstore', gm:'GM', pharma:'Pharma' };
   var SITE_LABELS = { mla:'MLA', mlb:'MLB' };
