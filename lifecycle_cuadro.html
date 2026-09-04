@@ -446,6 +446,7 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
   <div class="card">
     <h4>🎯 Un solo journey para las dos entradas</h4>
     <p>Una vez resuelto el onboarding (por Instore o por Darkstore), el tratamiento de acá en adelante es el mismo — porque la evaluación (5 tx en 90 días) ya fue a nivel Groceries combinado. Por eso <b>Graduado</b> y <b>No Graduado</b> viven acá, en un solo lugar, sin importar el punto de entrada.</p>
+    <p><b>Hito secundario — Graduado Darkstore:</b> si la Graduación Groceries se completa antes del día 90, no termina ahí. Se mira cuántas de esas 5 tx ya fueron de Darkstore, y se sigue empujando (dentro del mismo pool, sin crear una línea aparte) hasta el día 90 tratando de llegar a 5 tx de Darkstore en total — contando las que ya hizo para graduarse de Groceries.</p>
   </div>
 <h2 class="h2" id="anchor-graduado-groceries">Cross-sell: Graduado y Graduado Tardío Groceries</h2>
 <div class="diagram">
@@ -468,7 +469,7 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
         <path d="M335,101 Q317,123 300,101" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a2)"/>
         <rect x="335" y="50" width="155" height="65" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.4" stroke-dasharray="5,4"/>
         <text x="412" y="72" text-anchor="middle" class="f t2" fill="#065f46">Pushes cross-sell</text>
-        <text x="412" y="88" text-anchor="middle" class="f lb">prueba otras verticales QC</text>
+        <text x="412" y="88" text-anchor="middle" class="f lb">a Pharma</text>
         <text x="412" y="100" text-anchor="middle" class="f lb">sin incentivo</text>
         <path d="M490,82 L1150,82" stroke="#8a8f98" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a2)"/>
         <text x="820" y="68" text-anchor="middle" class="f lb">se van intercalando, en paralelo durante todo el journey</text>
@@ -599,7 +600,7 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
         <path d="M775,101 Q757,123 740,101" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a4)"/>
         <rect x="775" y="50" width="155" height="65" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.4" stroke-dasharray="5,4"/>
         <text x="852" y="72" text-anchor="middle" class="f t2" fill="#065f46">Pushes cross-sell</text>
-        <text x="852" y="88" text-anchor="middle" class="f lb">prueba otras verticales QC</text>
+        <text x="852" y="88" text-anchor="middle" class="f lb">a Pharma</text>
         <text x="852" y="100" text-anchor="middle" class="f lb">sin incentivo</text>
         <path d="M930,82 L1590,82" stroke="#8a8f98" stroke-width="1.3" fill="none" stroke-dasharray="4,3" marker-end="url(#a4)"/>
         <text x="1260" y="68" text-anchor="middle" class="f lb">se van intercalando, en paralelo durante todo el journey</text>
@@ -682,7 +683,7 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
 
     <div class="callout amber" style="margin:0 0 12px">
       <span>📐</span>
-      <div>Una sola línea de tiempo, desde el Trial hasta Graduado o No graduado, alternando los mensajes: <b>día 2</b> Groceries, <b>día 9</b> Groceries otra vez (🏠💰 incentivo a Darkstore), <b>día 16</b> Pharma, <b>día 23</b> vuelve a GM orgánico — y cicla. Desde cualquier punto de la línea, llegar a 2 tx manda directo a <span class="pill pill-green">Graduado GM</span>; convertir en Groceries o Pharma manda al journey propio de esa vertical. La cadencia sigue corriendo incluso después de <span class="pill pill-green">Graduado GM</span>, hasta que el usuario use alguna otra vertical. En el día 45 se evalúa si conviene sumar un incentivo liviano (ej. free shipping) al objetivo propio de GM.</div>
+      <div>Una sola línea de tiempo, desde el Trial hasta Graduado o No graduado, alternando los mensajes: <b>día 2</b> Groceries, <b>día 9</b> Groceries otra vez (🏠💰 incentivo a Darkstore), <b>día 16</b> vuelve a GM orgánico — y cicla. El cross-sell de GM apunta solo a Groceries — el salto a Pharma lo hace Groceries, no GM directamente (hipótesis: Pharma es más parecido en necesidad a Groceries que GM a Pharma). Desde cualquier punto de la línea, llegar a 2 tx manda directo a <span class="pill pill-green">Graduado GM</span>; convertir en Groceries manda al journey propio de esa vertical. La cadencia sigue corriendo incluso después de <span class="pill pill-green">Graduado GM</span>, hasta que el usuario use Groceries. En el día 45 se evalúa si conviene sumar un incentivo liviano (ej. free shipping) al objetivo propio de GM.</div>
     </div><div class="diagram">
       <svg viewBox="0 0 1200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey GM">
         <defs><marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
@@ -720,24 +721,16 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
           <path d="M360,187 L360,108 L1010,141" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a3)"/>
         </g>
 
-        <!-- dia 16: Pharma -->
+        <!-- dia 16: vuelve a GM organico (ya no cross-sell directo a Pharma; ese salto lo hace Groceries) -->
         <g id="step-gm3" class="sd-dim">
-          <circle cx="510" cy="199" r="12" fill="#eafaf3" stroke="#059669" stroke-width="1.6"/>
+          <circle cx="510" cy="199" r="12" fill="#eef4ff" stroke="#2563eb" stroke-width="1.6"/>
           <text x="510" y="172" text-anchor="middle" class="f cplbl">día 16</text>
-          <text x="510" y="184" text-anchor="middle" class="f lb">Pharma</text>
+          <text x="510" y="184" text-anchor="middle" class="f lb">GM orgánico</text>
           <path d="M510,187 L510,108 L1010,141" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a3)"/>
         </g>
 
-        <!-- dia 23: vuelve a GM organico (sin baja a otra vertical) -->
-        <g id="step-gm4" class="sd-dim">
-          <circle cx="660" cy="199" r="12" fill="#eef4ff" stroke="#2563eb" stroke-width="1.6"/>
-          <text x="660" y="172" text-anchor="middle" class="f cplbl">día 23</text>
-          <text x="660" y="184" text-anchor="middle" class="f lb">GM orgánico</text>
-          <path d="M660,187 L660,108 L1010,141" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a3)"/>
-        </g>
-
         <!-- dia 45 y dia 60: checkpoints propios de GM, termina en No Graduado si nunca llego a 2tx -->
-        <g id="step-gm5" class="sd-dim">
+        <g id="step-gm4" class="sd-dim">
           <circle cx="810" cy="199" r="12" fill="#fff" stroke="#1a2a4a" stroke-width="1.6"/>
           <text x="810" y="172" text-anchor="middle" class="f cplbl">día 45</text>
           <text x="810" y="184" text-anchor="middle" class="f lb">¿incentivo liviano?</text>
@@ -750,10 +743,10 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
         </g>
 
         <!-- post-Graduado GM: la cadencia de cross-sell sigue -->
-        <g id="step-gm6" class="sd-dim">
+        <g id="step-gm5" class="sd-dim">
           <rect x="950" y="30" width="220" height="60" rx="9" fill="#fbfcfe" stroke="#c7ccd4" stroke-width="1.4" stroke-dasharray="4,3"/>
           <text x="1060" y="48" text-anchor="middle" class="f t2" fill="#1a2a4a">🔄 Tras Graduado GM</text>
-          <text x="1060" y="62" text-anchor="middle" class="f lb">sigue la misma cadencia (2/9/16/23)</text>
+          <text x="1060" y="62" text-anchor="middle" class="f lb">sigue la misma cadencia (2/9/16)</text>
           <text x="1060" y="74" text-anchor="middle" class="f lb">usa 1 → esa journey; GM: mantenimiento</text>
         </g>
       </svg></div>
@@ -776,7 +769,7 @@ var steps = [
 ];var stepsG = [
   { id:'step-g1', label:'1', color:'green',
     title:'Paso 1 — Graduado (o Graduado tardío) → se abren 2 caminos en paralelo',
-    que:['Journey único para <span class="pill pill-green">Graduado Groceries</span> (y Graduado tardío), sin importar si el punto de entrada fue Instore o Darkstore — la evaluación ya fue a nivel Groceries combinado, así que el tratamiento de acá en adelante también lo es.','El pool orgánico se intercala entre dos tipos de push, sin incentivo: pushes de vertical (nuevas categorías/ocasiones dentro de Groceries) y pushes de <span class="pill pill-green">Cross-sell</span> (probando distintas otras verticales QC).','No hace falta esperar a una alarma para empezar a probar cross-sell — arranca desde que se gradúa.','Al mismo tiempo — no después — arranca el monitoreo de alarmas por cadencia.','Frecuencia e intercalado de los envíos a definir.'] },
+    que:['Journey único para <span class="pill pill-green">Graduado Groceries</span> (y Graduado tardío), sin importar si el punto de entrada fue Instore o Darkstore — la evaluación ya fue a nivel Groceries combinado, así que el tratamiento de acá en adelante también lo es.','El pool orgánico se intercala entre dos tipos de push, sin incentivo: pushes de vertical (nuevas categorías/ocasiones dentro de Groceries) y pushes de <span class="pill pill-green">Cross-sell</span> a Pharma — hipótesis: Pharma es más parecido en necesidad a Groceries que GM a Pharma, por eso es el siguiente salto natural.','No hace falta esperar a una alarma para empezar a probar cross-sell — arranca desde que se gradúa.','Al mismo tiempo — no después — arranca el monitoreo de alarmas por cadencia.','Frecuencia e intercalado de los envíos a definir.','🎯 Hito secundario — Graduado Darkstore: si la graduación Groceries llegó antes del día 90, se cuenta cuántas de las 5 tx ya fueron de Darkstore, y el mismo pool sigue empujando hasta el día 90 para llegar a 5 tx de Darkstore en total (contando las ya hechas).'] },
   { id:'step-g2', label:'2', color:'green',
     title:'Paso 2 — Cadencia personal (corre en paralelo)',
     que:['Al momento de graduarse, se calcula la cadencia propia del usuario: días hasta graduarse ÷ 4.','No es un promedio general — cada usuario se gradúa a distinta velocidad, y esa velocidad es su primera señal de comportamiento normal.','Esa cadencia queda fija de por vida: no se recalcula. Si se recalculara hacia abajo, una caída progresiva parecería "nuevo comportamiento" en vez de la alarma que en realidad es.'] },
@@ -801,7 +794,7 @@ var steps = [
     que:['🏠💰 Único caso donde vale la pena un primer intento de Cross-sell con plata — todavía no se probó.','Si migra → mismo destino que el paso 1: sigue en esa vertical.','Si no migra → mismo tratamiento que el resto (paso siguiente).'] },
   { id:'step-ng4', label:'4', color:'red',
     title:'Paso 4 — Todos convergen: pool intercalado',
-    que:['Ya sea que el intento a Darkstore no funcionó ahora (entrada Instore, línea 2), que ya había fallado antes (entrada Instore, líneas 3/4), o que la entrada fue Darkstore (donde nunca hubo intento pendiente), todos entran al mismo tratamiento que un <span class="pill pill-green">Graduado</span>.','Pool orgánico intercalado, sin incentivo: pushes de vertical (categorías/ocasiones dentro de Groceries) y pushes de <span class="pill pill-green">Cross-sell</span> (otras verticales QC).','Arranca en paralelo con el monitoreo de alarmas por cadencia — no antes ni después.'] },
+    que:['Ya sea que el intento a Darkstore no funcionó ahora (entrada Instore, línea 2), que ya había fallado antes (entrada Instore, líneas 3/4), o que la entrada fue Darkstore (donde nunca hubo intento pendiente), todos entran al mismo tratamiento que un <span class="pill pill-green">Graduado</span>.','Pool orgánico intercalado, sin incentivo: pushes de vertical (categorías/ocasiones dentro de Groceries) y pushes de <span class="pill pill-green">Cross-sell</span> a Pharma.','Arranca en paralelo con el monitoreo de alarmas por cadencia — no antes ni después.'] },
   { id:'step-ng5', label:'5', color:'red',
     title:'Paso 5 — Cadencia personal (corre en paralelo)',
     que:['Se toma la cadencia que ya tenía calculada de referencia: días hasta graduarse ÷ 4 (o el equivalente si nunca llegó a graduarse, a definir).','Fija, no se recalcula — igual que en el journey de Graduado.'] },
@@ -835,17 +828,14 @@ var steps = [
     title:'Paso 2 — Día 9: Groceries otra vez, con incentivo a Darkstore',
     que:['Si no convirtió en el día 2, se reintenta Groceries.','🏠💰 Esta vez con incentivo económico específico a Darkstore (no a Instore).','Si convierte acá, mismo criterio: se suma el journey de Darkstore, sin cortar la línea de GM.'] },
   { id:'step-gm3', label:'3', color:'green',
-    title:'Paso 3 — Día 16: Pharma',
-    que:['Si tampoco convirtió en Groceries, se prueba Pharma.','Si convierte en Pharma, se suma ese journey también — la línea de GM sigue.','La cadencia de cross-sell sigue probando lo que todavía no se usó.'] },
+    title:'Paso 3 — Día 16: vuelve a GM orgánico',
+    que:['Si tampoco convirtió en Groceries, se vuelve a intentar re-enganchar con GM mismo para la 2ª transacción propia.','El cross-sell de GM apunta solo a Groceries — no hay salto directo a Pharma desde acá (ese salto lo hace Groceries una vez graduado, no GM).','Desde acá, si llega a 2 tx → <span class="pill pill-green">Graduado GM</span>. Después del día 16 la cadencia cicla: vuelve a día 2 (Groceries) y se repite.'] },
   { id:'step-gm4', label:'4', color:'green',
-    title:'Paso 4 — Día 23: vuelve a GM orgánico',
-    que:['Se vuelve a intentar re-enganchar con GM mismo para la 2ª transacción propia — esto nunca se apaga, converta o no en otras verticales.','Desde acá, si llega a 2 tx → <span class="pill pill-green">Graduado GM</span>.','Después del día 23 la cadencia cicla: vuelve a día 2 (Groceries) y se repite.'] },
-  { id:'step-gm5', label:'5', color:'green',
-    title:'Paso 5 — Día 45 y día 60: checkpoints propios de GM',
+    title:'Paso 4 — Día 45 y día 60: checkpoints propios de GM',
     que:['Día 45: checkpoint intermedio — se evalúa si conviene sumar un incentivo liviano (ej. free shipping) al objetivo propio de GM.','Día 60: última chance. Si nunca llegó a 2 tx en toda la línea → <span class="pill pill-orange">No graduado GM</span>.'] },
-  { id:'step-gm6', label:'6', color:'green',
-    title:'Paso 6 — Tras Graduado GM: la cadencia sigue',
-    que:['Llegar a <span class="pill pill-green">Graduado GM</span> no apaga el cross-sell: la misma cadencia (día 2 Groceries → día 9 Groceries+Darkstore → día 16 Pharma → día 23 GM) sigue probando las verticales que el usuario todavía no usó.','En cuanto empieza a usar alguna de esas verticales — por la cadencia o de forma espontánea — pasa a tener también el journey propio de esa vertical.','El journey de GM, mientras tanto, queda en un flujo de mantenimiento (liviano, sin forzar más cross-sell hacia lo que ya se logró).'] }
+  { id:'step-gm5', label:'5', color:'green',
+    title:'Paso 5 — Tras Graduado GM: la cadencia sigue',
+    que:['Llegar a <span class="pill pill-green">Graduado GM</span> no apaga el cross-sell: la misma cadencia (día 2 Groceries → día 9 Groceries+Darkstore → día 16 GM) sigue probando hasta que use Groceries.','En cuanto empieza a usar Groceries — por la cadencia o de forma espontánea — pasa a tener también el journey propio de Groceries, y desde ahí es Groceries quien eventualmente cross-sellea a Pharma.','El journey de GM, mientras tanto, queda en un flujo de mantenimiento (liviano, sin forzar más cross-sell hacia lo que ya se logró).'] }
 ];
 function renderFlat(containerId, arr){
   var el = document.getElementById(containerId);
