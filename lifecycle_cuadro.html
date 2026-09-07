@@ -333,7 +333,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 
         <rect x="1180" y="55" width="150" height="330" rx="12" fill="#eafaf3" stroke="#059669" stroke-width="1.6"/>
         <text x="1255" y="210" text-anchor="middle" class="f t1" fill="#065f46">Cross-sell</text>
-        <text x="1255" y="228" text-anchor="middle" class="f lb">otra vertical QC</text>
+        <text x="1255" y="228" text-anchor="middle" class="f lb">a Pharma</text>
         <text x="1255" y="244" text-anchor="middle" class="f lb">(único destino final,</text>
         <text x="1255" y="257" text-anchor="middle" class="f lb">cualquiera sea el estadio)</text>
       </g>
@@ -482,7 +482,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 
         <rect x="1180" y="55" width="150" height="330" rx="12" fill="#eafaf3" stroke="#059669" stroke-width="1.6"/>
         <text x="1255" y="210" text-anchor="middle" class="f t1" fill="#065f46">Cross-sell</text>
-        <text x="1255" y="228" text-anchor="middle" class="f lb">otra vertical QC</text>
+        <text x="1255" y="228" text-anchor="middle" class="f lb">a Pharma</text>
         <text x="1255" y="244" text-anchor="middle" class="f lb">(único destino final,</text>
         <text x="1255" y="257" text-anchor="middle" class="f lb">cualquiera sea el estadio)</text>
       </g>
@@ -672,7 +672,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
         <path d="M90,271 L90,319" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a4)"/>
         <text x="105" y="264" text-anchor="start" class="f lb">no</text>
         <polygon points="64,345 90,319 116,345 90,371" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-        <text x="100" y="311" text-anchor="start" class="f cplbl">Entrada Instore, ¿ya se ofreció Darkstore?</text>
+        <text x="100" y="311" text-anchor="start" class="f cplbl">Entrada Instore, ¿ya se ofreció o usó Darkstore?</text>
       </g>
 
       <!-- STEP NG3: entrada Instore, nunca (linea 2) -> primer intento Darkstore -->
@@ -802,6 +802,8 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
           <rect x="1010" y="178" width="150" height="42" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.4"/>
           <text x="1085" y="196" text-anchor="middle" class="f t2" fill="#9a5b06">No graduado GM</text>
           <text x="1085" y="210" text-anchor="middle" class="f lb" fill="#9a5b06">nunca llegó a 2 tx</text>
+          <path d="M1085,220 L1085,238" stroke="#d97706" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a3)"/>
+          <text x="1085" y="250" text-anchor="middle" class="f lb" fill="#9a5b06">Cross-sell → Groceries</text>
 
           <circle cx="210" cy="199" r="12" fill="#eafaf3" stroke="#059669" stroke-width="1.6"/>
           <text x="210" y="172" text-anchor="middle" class="f cplbl">día 2</text>
@@ -872,6 +874,8 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
           <rect x="1010" y="178" width="150" height="42" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.4"/>
           <text x="1085" y="196" text-anchor="middle" class="f t2" fill="#9a5b06">No graduado Pharma</text>
           <text x="1085" y="210" text-anchor="middle" class="f lb" fill="#9a5b06">nunca llegó a 2 tx</text>
+          <path d="M1085,220 L1085,238" stroke="#d97706" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+          <text x="1085" y="250" text-anchor="middle" class="f lb" fill="#9a5b06">Cross-sell → Groceries</text>
 
           <circle cx="210" cy="199" r="12" fill="#eafaf3" stroke="#059669" stroke-width="1.6"/>
           <text x="210" y="172" text-anchor="middle" class="f cplbl">día 2</text>
@@ -1082,11 +1086,11 @@ var steps = [
     title:'Paso 1 — No graduado Groceries → ¿migró a Food/GM/Pharma?',
     que:['Antes de asumir que es una pérdida, hay que chequear si el usuario ya está activo en el onboarding de otra vertical fuera de Groceries (Food, GM o Pharma).','🔀 Si migró → se SUMA el journey de esa vertical, pero Groceries no lo suelta: sigue exactamente el mismo tratamiento (pool + cadencia + alarmas) tratando de recuperarlo también acá — migrar no cierra el objetivo de Groceries.'] },
   { id:'step-ng2', label:'2', color:'green',
-    title:'Paso 2 — Si no migró: ¿entrada Instore, ya se le había ofrecido Darkstore?',
-    que:['Solo aplica si el punto de entrada fue Instore — ahí depende de por qué línea llegó a <span class="pill pill-orange">No graduado</span>: línea 3 y línea 4 ya recibieron un incentivo de Darkstore con plata durante el onboarding y no migraron; línea 2 (nunca pasó de 2 transacciones) nunca lo recibió.','Si el punto de entrada fue Darkstore, esto no aplica — Instore nunca recibe plata (regla fija), así que no hay intento pendiente.'] },
+    title:'Paso 2 — Si no migró: ¿entrada Instore, ya se le había ofrecido o usó Darkstore?',
+    que:['Solo aplica si el punto de entrada fue Instore. Primero se chequea si ya compró alguna vez en Darkstore de forma orgánica (sin haber recibido el push) — si es así, no tiene sentido un "primer intento", pasa directo al pool (paso siguiente).','Si nunca usó Darkstore, depende de por qué línea llegó a <span class="pill pill-orange">No graduado</span>: las tres (línea 2, 3 y 4) ya recibieron al menos un incentivo económico a Darkstore durante el onboarding, sin usarlo para graduarse — línea 2 lo recibió apenas llegó a la 2ª transacción (día 45) y no volvió a comprar; línea 3 y línea 4 lo recibieron más tarde (día 65, o vía Graduado tardío) y tampoco alcanzó.','Si el punto de entrada fue Darkstore, esto no aplica — Instore nunca recibe plata (regla fija), así que no hay incentivo previo que reconsiderar.'] },
   { id:'step-ng3', label:'3', color:'red',
-    title:'Paso 3 — Entrada Instore, línea 2: primer intento real a Darkstore',
-    que:['🏠💰 Único caso donde vale la pena un primer intento de Cross-sell con plata — todavía no se probó.','Si migra → mismo destino que el paso 1: sigue en esa vertical.','Si no migra → mismo tratamiento que el resto (paso siguiente).'] },
+    title:'Paso 3 — Entrada Instore, línea 2: reintento a Darkstore',
+    que:['🏠💰 Único caso donde vale la pena un reintento con plata: nunca usó Darkstore y su único incentivo fue muy temprano (recién al llegar a la 2ª transacción, día 45) — vale la pena una segunda chance, con mejor timing/contexto que el primer intento.','Líneas 3 y 4 ya tuvieron su intento más tardío (día 65 o Graduado tardío) y tampoco funcionó — no se repite, pasan directo al paso siguiente.','Si migra → mismo destino que el paso 1: sigue en esa vertical.','Si no migra → mismo tratamiento que el resto (paso siguiente).'] },
   { id:'step-ng4', label:'4', color:'red',
     title:'Paso 4 — Todos convergen: pool intercalado',
     que:['Ya sea que haya migrado a otra vertical (se suma ese journey, pero acá sigue igual), que el intento a Darkstore no funcionó ahora (entrada Instore, línea 2), que ya había fallado antes (entrada Instore, líneas 3/4), o que la entrada fue Darkstore (donde nunca hubo intento pendiente), todos entran al mismo tratamiento que un <span class="pill pill-green">Graduado</span>.','Pool orgánico intercalado, sin incentivo: pushes de vertical (categorías/ocasiones dentro de Groceries) y pushes de <span class="pill pill-green">Cross-sell</span> a Pharma.'] },
@@ -1127,7 +1131,7 @@ var steps = [
     que:['Si tampoco convirtió en Groceries, se vuelve a intentar re-enganchar con GM mismo para la 2ª transacción propia.','El cross-sell de GM apunta solo a Groceries — no hay salto directo a Pharma desde acá (ese salto lo hace Groceries una vez graduado, no GM).','Desde acá, si llega a 2 tx → <span class="pill pill-green">Graduado GM</span>. Después del día 16 la cadencia cicla: vuelve a día 2 (Groceries) y se repite.'] },
   { id:'step-gm4', label:'4', color:'green',
     title:'Paso 4 — Día 45 y día 60: checkpoints propios de GM',
-    que:['Día 45: checkpoint intermedio — se evalúa si conviene sumar un incentivo liviano (ej. free shipping) al objetivo propio de GM.','Día 60: última chance. Si nunca llegó a 2 tx en toda la línea → <span class="pill pill-orange">No graduado GM</span>.'] },
+    que:['Día 45: checkpoint intermedio — se evalúa si conviene sumar un incentivo liviano (ej. free shipping) al objetivo propio de GM.','Día 60: última chance. Si nunca llegó a 2 tx en toda la línea → <span class="pill pill-orange">No graduado GM</span> → <span class="pill pill-green">Cross-sell</span> a Groceries (mismo destino que ya venía probando la cadencia, no queda sin salida).'] },
   { id:'step-gm5', label:'5', color:'green',
     title:'Paso 5 — Tras Graduado GM: la cadencia sigue',
     que:['Llegar a <span class="pill pill-green">Graduado GM</span> no apaga el cross-sell: la misma cadencia (día 2 Groceries → día 9 Groceries+Darkstore → día 16 GM) sigue probando hasta que use Groceries.','En cuanto empieza a usar Groceries — por la cadencia o de forma espontánea — pasa a tener también el journey propio de Groceries, y desde ahí es Groceries quien eventualmente cross-sellea a Pharma.','El journey de GM, mientras tanto, queda en un flujo de mantenimiento (liviano, sin forzar más cross-sell hacia lo que ya se logró).'] }
@@ -1143,7 +1147,7 @@ var steps = [
     que:['Si tampoco convirtió en Groceries, se vuelve a intentar re-enganchar con Pharma mismo para la 2ª transacción propia.','El cross-sell de Pharma apunta a Groceries, igual que GM — misma hipótesis de fondo (Pharma y GM son de baja frecuencia y se apoyan en Groceries como puente, no entre sí).','Desde acá, si llega a 2 tx → <span class="pill pill-green">Graduado Pharma</span>. Después del día 16 la cadencia cicla: vuelve a día 2 (Groceries) y se repite.'] },
   { id:'step-ph4', label:'4', color:'green',
     title:'Paso 4 — Día 45 y día 60: checkpoints propios de Pharma',
-    que:['Día 45: checkpoint intermedio — se evalúa si conviene sumar un incentivo liviano al objetivo propio de Pharma.','Día 60: última chance. Si nunca llegó a 2 tx en toda la línea → <span class="pill pill-orange">No graduado Pharma</span>.'] },
+    que:['Día 45: checkpoint intermedio — se evalúa si conviene sumar un incentivo liviano al objetivo propio de Pharma.','Día 60: última chance. Si nunca llegó a 2 tx en toda la línea → <span class="pill pill-orange">No graduado Pharma</span> → <span class="pill pill-green">Cross-sell</span> a Groceries (mismo destino que ya venía probando la cadencia, no queda sin salida).'] },
   { id:'step-ph5', label:'5', color:'green',
     title:'Paso 5 — Tras Graduado Pharma: la cadencia sigue',
     que:['Llegar a <span class="pill pill-green">Graduado Pharma</span> no apaga el cross-sell: la misma cadencia (día 2 Groceries → día 9 Groceries+Darkstore → día 16 Pharma) sigue probando hasta que use Groceries.','En cuanto empieza a usar Groceries — por la cadencia o de forma espontánea — pasa a tener también el journey propio de Groceries.','El journey de Pharma, mientras tanto, queda en un flujo de mantenimiento (liviano, sin forzar más cross-sell hacia lo que ya se logró).','🧪 Base tomada 1:1 del esquema de GM — falta validar con el equipo de Pharma si la cadencia y el incentivo a Darkstore en el día 9 aplican igual, o si necesita su propia lógica.'] }
