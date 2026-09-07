@@ -662,8 +662,9 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
         <path d="M116,245 L300,245 L300,45 L350,45" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a4)"/>
         <text x="185" y="238" text-anchor="middle" class="f lb" fill="#059669">sí</text>
         <rect x="350" y="15" width="220" height="55" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.5" stroke-dasharray="5,4"/>
-        <text x="460" y="38" text-anchor="middle" class="f t2" fill="#065f46">🔀 Sigue en esa vertical</text>
-        <text x="460" y="53" text-anchor="middle" class="f lb">no es pérdida — mismo objetivo QC</text>
+        <text x="460" y="35" text-anchor="middle" class="f t2" fill="#065f46">🔀 SUMA ese journey</text>
+        <text x="460" y="50" text-anchor="middle" class="f lb">Groceries sigue igual, no lo suelta</text>
+        <path d="M460,70 L460,181 L556,181" stroke="#059669" stroke-width="1.4" fill="none" stroke-dasharray="4,3" marker-end="url(#a4)"/>
       </g>
 
       <!-- STEP NG2: no migro -> gate entrada Instore, ya se le ofrecio Darkstore antes? -->
@@ -1079,7 +1080,7 @@ var steps = [
 ];var stepsNG = [
   { id:'step-ng1', label:'1', color:'green',
     title:'Paso 1 — No graduado Groceries → ¿migró a Food/GM/Pharma?',
-    que:['Antes de asumir que es una pérdida, hay que chequear si el usuario ya está activo en el onboarding de otra vertical fuera de Groceries (Food, GM o Pharma).','🔀 Si migró → se lo deja tranquilo, sigue su journey ahí. No cuenta como pérdida — el objetivo de Cross-sell ya se cumplió.'] },
+    que:['Antes de asumir que es una pérdida, hay que chequear si el usuario ya está activo en el onboarding de otra vertical fuera de Groceries (Food, GM o Pharma).','🔀 Si migró → se SUMA el journey de esa vertical, pero Groceries no lo suelta: sigue exactamente el mismo tratamiento (pool + cadencia + alarmas) tratando de recuperarlo también acá — migrar no cierra el objetivo de Groceries.'] },
   { id:'step-ng2', label:'2', color:'green',
     title:'Paso 2 — Si no migró: ¿entrada Instore, ya se le había ofrecido Darkstore?',
     que:['Solo aplica si el punto de entrada fue Instore — ahí depende de por qué línea llegó a <span class="pill pill-orange">No graduado</span>: línea 3 y línea 4 ya recibieron un incentivo de Darkstore con plata durante el onboarding y no migraron; línea 2 (nunca pasó de 2 transacciones) nunca lo recibió.','Si el punto de entrada fue Darkstore, esto no aplica — Instore nunca recibe plata (regla fija), así que no hay intento pendiente.'] },
@@ -1088,7 +1089,7 @@ var steps = [
     que:['🏠💰 Único caso donde vale la pena un primer intento de Cross-sell con plata — todavía no se probó.','Si migra → mismo destino que el paso 1: sigue en esa vertical.','Si no migra → mismo tratamiento que el resto (paso siguiente).'] },
   { id:'step-ng4', label:'4', color:'red',
     title:'Paso 4 — Todos convergen: pool intercalado',
-    que:['Ya sea que el intento a Darkstore no funcionó ahora (entrada Instore, línea 2), que ya había fallado antes (entrada Instore, líneas 3/4), o que la entrada fue Darkstore (donde nunca hubo intento pendiente), todos entran al mismo tratamiento que un <span class="pill pill-green">Graduado</span>.','Pool orgánico intercalado, sin incentivo: pushes de vertical (categorías/ocasiones dentro de Groceries) y pushes de <span class="pill pill-green">Cross-sell</span> a Pharma.'] },
+    que:['Ya sea que haya migrado a otra vertical (se suma ese journey, pero acá sigue igual), que el intento a Darkstore no funcionó ahora (entrada Instore, línea 2), que ya había fallado antes (entrada Instore, líneas 3/4), o que la entrada fue Darkstore (donde nunca hubo intento pendiente), todos entran al mismo tratamiento que un <span class="pill pill-green">Graduado</span>.','Pool orgánico intercalado, sin incentivo: pushes de vertical (categorías/ocasiones dentro de Groceries) y pushes de <span class="pill pill-green">Cross-sell</span> a Pharma.'] },
   { id:'step-ng5', label:'5', color:'red',
     title:'Paso 5 — Cadencia personal (corre en paralelo)',
     que:['Se toma la cadencia que ya tenía calculada de referencia: días hasta graduarse ÷ 4 (o el equivalente si nunca llegó a graduarse, a definir).','Fija, no se recalcula — igual que en el journey de Graduado.'] },
