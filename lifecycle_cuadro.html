@@ -199,6 +199,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 .ff-lever-list-row:last-child{border-bottom:none}
 .ff-lever-list-name{font-weight:700;color:var(--navy)}
 .ff-lever-list-ctx{font-size:10.5px;font-weight:700;color:var(--muted);white-space:nowrap;text-align:right}
+.ff-lever-list-group{padding:7px 16px;background:#eef0f5;font-size:10px;font-weight:800;color:#556;text-transform:uppercase;letter-spacing:.5px}
 .ff-aw-n{background:#c0392b;color:#fff}
 .ff-aw-h{background:#e63946;color:#fff}
 .ff-aw-l{background:#ffeaec;color:#7b0010;border:1px solid #e6394625}
@@ -1108,7 +1109,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 </div>
 
 <h3 style="font-size:13px;font-weight:800;color:var(--navy);margin:24px 0 4px">📋 Guía de canales disponibles</h3>
-<p style="font-size:12px;color:var(--muted);margin:0 0 14px">Todo lo que fuimos sumando — se puede usar en distintos momentos del funnel, con distintos estímulos e inversión según la vertical y la audiencia.</p>
+<p style="font-size:12px;color:var(--muted);margin:0 0 14px">Click en un canal para ver el detalle.</p>
 
 <div class="ff-lever-list open" id="ffLeverList"></div>
 
@@ -1345,28 +1346,39 @@ document.querySelectorAll('.doctabbtn').forEach(function(btn){
 </script>
 <script>
 var FF_LEVER_DATA = {
-  'search-organico': { nombre:'Search orgánico', icon:'🔎', contexto:'On-app ML · Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'main-slider':     { nombre:'MS Posición 1', icon:'🎡', contexto:'On-app ML · Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'discovery':       { nombre:'Discovery banner', icon:'🔍', contexto:'On-app ML · Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'quick-access':    { nombre:'Quick Access', icon:'⚡', contexto:'On-app ML · Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'coachmark':       { nombre:'Coachmark', icon:'💡', contexto:'On-app ML · Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'splash':          { nombre:'Splash Screen', icon:'💦', contexto:'On-app ML · Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'home-mp':         { nombre:'Home MP', icon:'🏠', contexto:'On-app MP · Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'via-publica':     { nombre:'Vía pública', icon:'📺', contexto:'Off-app · Paid Media', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'pom':             { nombre:'POM', icon:'🎯', contexto:'Off-app · Paid Media', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'influencers':     { nombre:'Influencers', icon:'🌟', contexto:'Off-app · Paid Media', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'affiliates':      { nombre:'Affiliates', icon:'🔗', contexto:'Off-app · Paid Media', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'mochilas-riders': { nombre:'Mochilas riders', icon:'🎒', contexto:'Off-app · Merchandising', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'bolsas':          { nombre:'Bolsas Instore/Darkstore', icon:'🛍️', contexto:'Off-app · Merchandising', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'pecheras':        { nombre:'Pecheras pickers Instore', icon:'🦺', contexto:'Off-app · Merchandising', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
-  'rabbit-hole':     { nombre:'Rabbit hole', icon:'🐇', contexto:'On-app ML · Consideration/Conversion', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'search-organico': { nombre:'Search orgánico', icon:'🔎', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'main-slider':     { nombre:'MS Posición 1', icon:'🎡', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'discovery':       { nombre:'Discovery banner', icon:'🔍', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'quick-access':    { nombre:'Quick Access', icon:'⚡', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'coachmark':       { nombre:'Coachmark', icon:'💡', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'splash':          { nombre:'Splash Screen', icon:'💦', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'home-mp':         { nombre:'Home MP', icon:'🏠', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'via-publica':     { nombre:'Vía pública', icon:'📺', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'pom':             { nombre:'POM', icon:'🎯', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'influencers':     { nombre:'Influencers', icon:'🌟', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'affiliates':      { nombre:'Affiliates', icon:'🔗', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'mochilas-riders': { nombre:'Mochilas riders', icon:'🎒', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'bolsas':          { nombre:'Bolsas Instore/Darkstore', icon:'🛍️', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'pecheras':        { nombre:'Pecheras pickers Instore', icon:'🦺', contexto:'Awareness', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
+  'rabbit-hole':     { nombre:'Rabbit hole', icon:'🐇', contexto:'Consideration/Conversion', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' },
   'push-notification': { nombre:'Push notifications', icon:'🔔', contexto:'On-app ML · Consideration/Conversion', gestion:'a definir', segmentable:'a definir', incentivo:'a definir', inversion:'a definir', restricciones:'a definir' }
 };
 
+var FF_LEVER_GROUPS = [
+  { label:'ON-APP ML', keys:['search-organico','main-slider','discovery','quick-access','coachmark','splash','rabbit-hole','push-notification'] },
+  { label:'ON-APP MP', keys:['home-mp'] },
+  { label:'OFF-APP · PAID MEDIA', keys:['via-publica','pom','influencers','affiliates'] },
+  { label:'OFF-APP · MERCHANDISING', keys:['mochilas-riders','bolsas','pecheras'] }
+];
+
 var ffLeverList = document.getElementById('ffLeverList');
-ffLeverList.innerHTML = Object.keys(FF_LEVER_DATA).map(function(key){
-  var d = FF_LEVER_DATA[key];
-  return '<div class="ff-lever-list-row ff-lever-tag" data-lever="' + key + '" style="cursor:pointer"><span class="ff-lever-list-name">' + d.icon + ' ' + d.nombre + '</span><span class="ff-lever-list-ctx">' + d.contexto + '</span></div>';
+ffLeverList.innerHTML = FF_LEVER_GROUPS.map(function(g){
+  var rows = g.keys.map(function(key){
+    var d = FF_LEVER_DATA[key];
+    if (!d) return '';
+    return '<div class="ff-lever-list-row ff-lever-tag" data-lever="' + key + '" style="cursor:pointer"><span class="ff-lever-list-name">' + d.icon + ' ' + d.nombre + '</span><span class="ff-lever-list-ctx">' + d.contexto + '</span></div>';
+  }).join('');
+  return '<div class="ff-lever-list-group">' + g.label + '</div>' + rows;
 }).join('');
 
 document.querySelectorAll('.ff-lever-tag[data-lever]').forEach(function(tag){
