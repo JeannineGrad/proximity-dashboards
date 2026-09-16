@@ -602,8 +602,8 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <!-- STEP G2: gate, solo No Graduado -> ya se ofrecio o uso Darkstore? -->
       <g id="step-g2" class="sd-dim">
         <polygon points="340,271 365,246 390,271 365,296" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-        <text x="365" y="205" text-anchor="middle" class="f cplbl">Entrada Instore, ¿ya se</text>
-        <text x="365" y="218" text-anchor="middle" class="f cplbl">ofreció o usó Darkstore?</text>
+        <text x="240" y="250" text-anchor="middle" class="f cplbl" style="font-size:9.5px">Entrada Instore, ¿ya se ofreció</text>
+        <text x="240" y="262" text-anchor="middle" class="f cplbl" style="font-size:9.5px">o usó Darkstore?</text>
         <path d="M390,271 L680,271" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a2)"/>
         <text x="535" y="264" text-anchor="middle" class="f lb">sí (líneas 3/4) — ya tuvo su intento, no se repite</text>
         <path d="M365,296 L365,357 L490,357" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a2)"/>
@@ -1025,7 +1025,7 @@ var steps = [
 ];var stepsG = [
   { id:'step-g1', label:'1', color:'green',
     title:'Paso 1 — Dos entradas, un solo motor',
-    que:['Journey único para todo lo que pasa después de resolver el onboarding, sin importar el resultado: si se gradúa (o gradúa tarde) entra directo al motor compartido (paso 4); si no se gradúa, primero pasa por un chequeo corto (paso 2) y después entra exactamente al mismo motor.','El motor (pool + cadencia + alarmas) es idéntico en los dos casos — no hay un tratamiento "de segunda" para quien no se graduó, solo un paso previo específico de esa rampa de entrada.','🎯 Hito secundario — Graduado Darkstore: si la Graduación Groceries llegó antes del día 90, se cuenta cuántas de las 5 tx ya fueron de Darkstore, y el mismo pool sigue empujando hasta el día 90 para llegar a 5 tx de Darkstore en total (contando las ya hechas).'] },
+    que:['Journey único para todo lo que pasa después de resolver el onboarding, sin importar el resultado: si se gradúa (o gradúa tarde) entra directo al motor compartido (paso 4); si no se gradúa, primero pasa por un chequeo corto (paso 2) y después entra exactamente al mismo motor.','El motor (pool + cadencia personal) es idéntico en los dos casos — no hay un tratamiento "de segunda" para quien no se graduó, solo un paso previo específico de esa rampa de entrada. Si la cadencia se incumple, ambos caen en el mismo journey de <span class="pill pill-red">Prevención de Churn</span> (aparte).','📊 Buckets de frecuencia mensual post-graduación (mismos umbrales que la data real de Instore Argentina): <b>Casual</b> = 1 compra/mes → prioridad subir frecuencia en la categoría. <b>Core</b> = 2-3/mes → prioridad adopción de Fresh. <b>Power</b> = 4-5/mes y <b>Super Power</b> = 6+/mes → prioridad Cross-sell.','🎯 Hito secundario — Graduado Darkstore: si la Graduación Groceries llegó antes del día 90, se cuenta cuántas de las 5 tx ya fueron de Darkstore, y el mismo pool sigue empujando hasta el día 90 para llegar a 5 tx de Darkstore en total (contando las ya hechas).'] },
   { id:'step-g2', label:'2', color:'green',
     title:'Paso 2 — Solo No Graduado: ¿ya se ofreció o usó Darkstore?',
     que:['Solo aplica si el punto de entrada fue Instore. Si ya compró en Darkstore de forma orgánica (sin haber recibido el push), no tiene sentido un reintento — pasa directo al motor.','Si nunca usó Darkstore: línea 2 (se quedó en 2 tx) recibió su único incentivo muy temprano, día 45, y no lo usó → vale la pena un reintento (paso siguiente). Líneas 3 y 4 ya tuvieron un intento más tardío (día 65 o Graduado tardío) que tampoco funcionó → van directo al motor, sin reintento.','Si el punto de entrada fue Darkstore, esto no aplica — Instore nunca recibe plata (regla fija).'] },
