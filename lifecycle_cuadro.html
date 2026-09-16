@@ -104,6 +104,7 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
 .matrix{width:100%;border-collapse:collapse;margin:16px 0;table-layout:fixed}
 .matrix th,.matrix td{border:1px solid var(--border);text-align:center;vertical-align:middle}
 .matrix thead th{background:#f5f6f8;color:var(--navy);font-size:11.5px;font-weight:800;padding:10px 8px}
+.matrix thead th .col-def{display:block;font-size:9px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;margin-top:3px}
 .matrix .thr{display:block;font-size:9.5px;font-weight:700;color:var(--muted);margin-top:3px}
 .matrix tbody th{background:#fbfcfe;color:var(--navy);font-size:12px;font-weight:800;padding:10px 10px;text-align:left;white-space:nowrap}
 .matrix tbody th.sub-vertical{padding-left:26px;font-size:10.5px;font-weight:600;color:var(--muted);font-style:italic}
@@ -242,10 +243,10 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <thead>
         <tr>
           <th style="background:var(--card)"></th>
-          <th>Trial</th>
-          <th>Onboarding</th>
-          <th>Frecuencia / Cross-sell</th>
-          <th>Churn</th>
+          <th>Trial<span class="col-def">1ª compra en la vertical</span></th>
+          <th>Onboarding<span class="col-def">Llegar a la graduación</span></th>
+          <th>Frecuencia / Cross-sell<span class="col-def">Post-graduación: subir frecuencia y cruzar verticales</span></th>
+          <th>Churn<span class="col-def">Prevención de caída de frecuencia</span></th>
         </tr>
       </thead>
       <tbody>
