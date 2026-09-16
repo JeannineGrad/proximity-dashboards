@@ -250,19 +250,21 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <tbody>
         <tr class="group-row">
           <th>Groceries</th>
-          <td class="cell active" rowspan="3" onclick="goToTrial('groceries')"><span class="thr">Awareness → Consideration → Conversión</span><span class="thr">canales, audiencia, estímulo, presupuesto</span><span class="thr">Ver Trial →</span></td>
+          <td class="cell empty"></td>
           <td class="cell empty"><span class="thr">🥇 Objetivo principal Groceries:</span><span class="thr">5 tx · 90d</span></td>
           <td class="cell empty"></td>
           <td class="cell empty"></td>
         </tr>
         <tr>
           <th class="sub-vertical">Darkstore</th>
+          <td class="cell active" onclick="goToTrial('darkstore')"><span class="thr">Awareness → Consideration → Conversión</span><span class="thr">Ver Trial →</span></td>
           <td class="cell active" onclick="document.getElementById('anchor-onboarding-darkstore').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">Ver journey (punto de entrada Darkstore) →</span><span class="thr">🥈 objetivo secundario de Groceries: 5 tx · 90d</span></td>
           <td class="cell active" rowspan="2" onclick="document.getElementById('anchor-graduado-groceries').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">Graduado / No graduado Groceries</span><span class="thr">(único, para ambas entradas)</span><span class="thr">clusters Casual/Core/Power/Super Power</span><span class="thr">Ver journey →</span></td>
           <td class="cell active" rowspan="2" onclick="document.getElementById('anchor-churn-groceries').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">Prevención de Churn</span><span class="thr">(alarmas 1/2/3, único para ambas entradas)</span><span class="thr">Ver journey →</span></td>
         </tr>
         <tr>
           <th class="sub-vertical">Instore</th>
+          <td class="cell active" onclick="goToTrial('instore')"><span class="thr">Awareness → Consideration → Conversión</span><span class="thr">Ver Trial →</span></td>
           <td class="cell active" data-cell="onb-instore" onclick="document.getElementById('anchor-onboarding-instore').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">Ver journey (punto de entrada Instore) →</span><span class="thr">🥉 objetivo terciario de Groceries: 5 tx · 90d</span></td>
         </tr>
         <tr>
@@ -294,12 +296,13 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
 
   <div class="vtabbar">
-    <button class="vtabbtn active" data-vtab="vtab-groceries">Groceries (Instore + Darkstore)</button>
+    <button class="vtabbtn active" data-vtab="vtab-instore">Instore</button>
+    <button class="vtabbtn" data-vtab="vtab-darkstore">Darkstore</button>
     <button class="vtabbtn" data-vtab="vtab-gm">GM</button>
     <button class="vtabbtn" data-vtab="vtab-pharma">Pharma</button>
   </div>
 
-  <div class="vtab-panel active" id="vtab-groceries">
+  <div class="vtab-panel active" id="vtab-instore">
     <div class="ch2-steps">
       <div class="ch2-step c1">
         <h5>🎯 1. Audiencias</h5>
@@ -313,11 +316,32 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       </div>
     </div>
     <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (Oct-Nov-Dic)</span></div>
-    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Canales</span><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">OFF-APP Merchandising</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
-    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Acción</span><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span><span class="ch2-legend2-lbl" style="margin-left:14px">Estímulo</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
-      <tbody id="ch2-body-groceries"></tbody>
+      <tbody id="ch2-body-instore"></tbody>
+    </table>
+  </div>
+  <div class="vtab-panel" id="vtab-darkstore">
+    <div class="ch2-steps">
+      <div class="ch2-step c1">
+        <h5>🎯 1. Audiencias</h5>
+        <p>Identificar los segmentos clave a los que comunicar, según su relación actual con la vertical y con ML, y su ubicación respecto de la zona de influencia (radio de cobertura de entrega, distinta a la de Instore). Compradores actuales, usuarios ML sin comprar la vertical (residentes o no en la zona), no usuarios ML.</p>
+        <p class="ej">Ej. Darkstore: a definir — zona de cobertura propia (distinta a la de las tiendas físicas Instore), pendiente segmentos.</p>
+      </div>
+      <div class="ch2-step c3">
+        <h5>📊 2. Métricas base y targets</h5>
+        <p>Cuantificar cada audiencia con la mejor fuente disponible, y definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
+        <p class="ej">Ej. Darkstore: a definir — sin data base de población/audiencia ni objetivo de compras/CVR todavía.</p>
+      </div>
+    </div>
+    <div class="callout amber" style="margin:0 0 14px"><span>💰</span><div>Darkstore tiene mayor disposición a invertir que Instore — el plan de medios/presupuesto puede ser más agresivo, no necesariamente espejo del de Instore.</div></div>
+    <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (Oct-Nov-Dic)</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
+    <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div><b>Ejemplo de output</b> — misma estructura que armamos para Instore. <a href="#" onclick="goToTrial('instore');return false;">Ver tabla Instore →</a></div></div>
+    <table class="ch2-table">
+      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
+      <tbody id="ch2-body-darkstore"></tbody>
     </table>
   </div>
   <div class="vtab-panel" id="vtab-gm">
@@ -334,8 +358,8 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       </div>
     </div>
     <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (Oct-Nov-Dic)</span></div>
-    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Canales</span><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
-    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Acción</span><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span><span class="ch2-legend2-lbl" style="margin-left:14px">Estímulo</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
+    <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div><b>Ejemplo de output</b> — misma estructura que armamos para Instore. <a href="#" onclick="goToTrial('instore');return false;">Ver tabla Instore →</a></div></div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
       <tbody id="ch2-body-gm"></tbody>
@@ -355,8 +379,8 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       </div>
     </div>
     <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (Oct-Nov-Dic)</span></div>
-    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Canales</span><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
-    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Acción</span><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span><span class="ch2-legend2-lbl" style="margin-left:14px">Estímulo</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
+    <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div><b>Ejemplo de output</b> — misma estructura que armamos para Instore. <a href="#" onclick="goToTrial('instore');return false;">Ver tabla Instore →</a></div></div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
       <tbody id="ch2-body-pharma"></tbody>
@@ -1401,7 +1425,7 @@ function ch2Group(nombre){ return { group:true, nombre:nombre }; }
 function ch2Row(canal, metrica){ return { canal:canal, audiencia:'a definir', estimulo:'a definir', metrica:metrica, presupuesto:'$ a definir' }; }
 
 var CH2_DATA = {
-  groceries: [
+  instore: [
     ch2Group('ON-APP ML'),
     ch2Row('Search orgánico', '~ sesiones/mes · ~ CVR'),
     ch2Row('MS Posición 1', '~ sesiones/mes · ~ CVR'),
@@ -1422,6 +1446,25 @@ var CH2_DATA = {
     ch2Row('Mochilas', '~ impresiones/mes'),
     ch2Row('Bolsas', '~ impresiones/mes'),
     ch2Row('Pecheras', '~ impresiones/mes')
+  ],
+  darkstore: [
+    ch2Group('ON-APP ML'),
+    ch2Row('Search orgánico', '~ sesiones/mes · ~ CVR'),
+    ch2Row('MS Posición 1', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Quick Access', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Push notifications', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Splash Screen', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Discovery banner', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Rabbit hole banner', '~ sesiones/mes · ~ CVR'),
+    ch2Group('ON-APP MP'),
+    ch2Row('Home MP — a definir', '~ sesiones/mes · ~ CVR'),
+    ch2Group('OFF-APP · PAID MEDIA'),
+    ch2Row('Vía pública', '~ impresiones/mes'),
+    ch2Row('Influencers', '~ impresiones/mes · ~ sesiones/mes'),
+    ch2Row('Affiliates', '~ sesiones/mes · ~ CVR'),
+    ch2Group('OFF-APP · MERCHANDISING'),
+    ch2Row('Mochilas riders', '~ impresiones/mes'),
+    ch2Row('Bolsas', '~ impresiones/mes')
   ],
   gm: [
     ch2Group('ON-APP ML'),
@@ -1467,7 +1510,7 @@ function ch2Render(vertical){
   }).join('');
   body.dataset.rendered = '1';
 }
-['groceries','gm','pharma'].forEach(ch2Render);
+['instore','darkstore','gm','pharma'].forEach(ch2Render);
 
 function goToTrial(vertical){
   document.querySelectorAll('.vtabbtn').forEach(function(b){ b.classList.remove('active'); });
