@@ -67,7 +67,7 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .ff-grid.focus-new { grid-template-columns:120px 4fr 0.4fr 0.4fr 0.4fr; grid-template-rows:36px 110px 1.4fr 1.4fr 44px; }
 .ff-label.grayed { background:#c7cbd6 !important; color:#8a90a3; }
 .ff-cell.grayed { background:#e4e6ec !important; }
-.plan-detail { display:flex; flex-direction:column; height:100%; width:100%; padding:8px 14px; color:#fff; text-align:left; }
+.plan-detail { display:flex; flex-direction:column; height:100%; width:100%; padding:6px 12px; color:#fff; text-align:left; }
 .plan-detail-title { font-size:13px; font-weight:800; margin-bottom:8px; }
 .plan-detail-split { display:flex; gap:16px; flex:1; }
 .plan-detail-col { flex:1; display:flex; flex-direction:column; gap:6px; }
@@ -79,18 +79,18 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .plan-detail-list { display:flex; flex-direction:column; gap:2px; }
 .plan-detail-item { display:flex; justify-content:space-between; align-items:center; gap:6px; font-size:8px; font-weight:700; color:#444; background:#eef0f5; border-radius:4px; padding:3px 7px; }
 .plan-detail-item .ch-val { font-size:7.5px; font-weight:600; color:#aaa; font-style:italic; white-space:nowrap; }
-.ch-legend { display:flex; align-items:center; gap:6px; margin-bottom:8px; padding-bottom:8px; border-bottom:1px solid #eee; }
-.ch-legend-lbl { font-size:8px; font-weight:800; color:#999; text-transform:uppercase; letter-spacing:.5px; margin-right:2px; }
-.ch-chip { font-size:8px; font-weight:700; color:#556; background:#eef0f5; border-radius:10px; padding:3px 9px; white-space:nowrap; }
+.ch-legend { display:flex; align-items:center; gap:5px; margin-bottom:4px; padding-bottom:4px; border-bottom:1px solid #eee; }
+.ch-legend-lbl { font-size:7px; font-weight:800; color:#999; text-transform:uppercase; letter-spacing:.5px; margin-right:2px; }
+.ch-chip { font-size:7px; font-weight:700; color:#556; background:#eef0f5; border-radius:9px; padding:2px 7px; white-space:nowrap; }
 .ch-table { width:100%; border-collapse:collapse; table-layout:fixed; }
-.ch-table th { text-align:left; font-size:8px; font-weight:800; color:#aaa; text-transform:uppercase; letter-spacing:.4px; border-bottom:1px solid #e2e4ea; padding:3px 8px 6px; }
-.ch-table th.ch-tl-hdr { text-align:center; width:70px; }
-.ch-group-row td { background:#e9ebf2; font-size:8.5px; font-weight:800; color:#556; text-transform:uppercase; letter-spacing:.5px; padding:6px 8px; border-top:3px solid #d3d7e2; }
+.ch-table th { text-align:left; font-size:7px; font-weight:800; color:#aaa; text-transform:uppercase; letter-spacing:.4px; border-bottom:1px solid #e2e4ea; padding:2px 8px 3px; }
+.ch-table th.ch-tl-hdr { text-align:center; width:56px; }
+.ch-group-row td { background:#e9ebf2; font-size:7.5px; font-weight:800; color:#556; text-transform:uppercase; letter-spacing:.5px; padding:3px 8px; border-top:2px solid #d3d7e2; }
 .ch-group-row:first-child td { border-top:none; }
-.ch-table td { padding:5px 8px; border-bottom:1px solid #f2f3f6; color:#444; font-size:9px; font-weight:700; }
-.ch-metric { font-size:8px; font-weight:600; color:#999; font-style:italic; white-space:nowrap; }
+.ch-table td { padding:2px 8px; border-bottom:1px solid #f2f3f6; color:#444; font-size:7.5px; font-weight:700; }
+.ch-metric { font-size:7px; font-weight:600; color:#999; font-style:italic; white-space:nowrap; }
 .ch-tl-cell { text-align:center; border-left:1px solid #f2f3f6; }
-.ch-tl-dot { width:10px; height:10px; border-radius:50%; background:#e2e4ea; display:inline-block; }
+.ch-tl-dot { width:7px; height:7px; border-radius:50%; background:#e2e4ea; display:inline-block; }
 .ff-corner { }
 .ff-colhdr { background:#eef0f5; border-radius:5px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
 .ff-colhdr .who-title { font-size:9px; font-weight:800; color:#8a90a3; letter-spacing:.5px; }
@@ -327,28 +327,29 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
                 <th>Canal</th>
                 <th>Estímulo</th>
                 <th>Métrica</th>
+                <th>Presupuesto / Mes</th>
                 <th class="ch-tl-hdr">Oct</th>
                 <th class="ch-tl-hdr">Nov</th>
                 <th class="ch-tl-hdr">Dic</th>
               </tr>
             </thead>
             <tbody>
-              <tr class="ch-group-row"><td colspan="6">ON-APP ML</td></tr>
-              <tr><td>MS Posición 1</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr><td>Quick Access</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr><td>Push notifications</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr><td>Splash Screen</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr><td>Discovery banner</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr><td>Rabbit hole banner</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr class="ch-group-row"><td colspan="6">ON-APP MP</td></tr>
-              <tr><td>Home MP — a definir</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr class="ch-group-row"><td colspan="6">OFF-APP · PAID MEDIA</td></tr>
-              <tr><td>Vía pública</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr><td>POM</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes · ~ sesiones/mes</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr class="ch-group-row"><td colspan="6">OFF-APP · MERCHANDISING</td></tr>
-              <tr><td>Mochilas</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr><td>Bolsas</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
-              <tr><td>Pecheras</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr class="ch-group-row"><td colspan="7">ON-APP ML</td></tr>
+              <tr><td>MS Posición 1</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Quick Access</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Push notifications</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Splash Screen</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Discovery banner</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Rabbit hole banner</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr class="ch-group-row"><td colspan="7">ON-APP MP</td></tr>
+              <tr><td>Home MP — a definir</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr class="ch-group-row"><td colspan="7">OFF-APP · PAID MEDIA</td></tr>
+              <tr><td>Vía pública</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>POM</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes · ~ sesiones/mes</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr class="ch-group-row"><td colspan="7">OFF-APP · MERCHANDISING</td></tr>
+              <tr><td>Mochilas</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Bolsas</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Pecheras</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-metric">$ a definir</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
             </tbody>
           </table>
         </div>
