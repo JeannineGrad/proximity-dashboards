@@ -1369,7 +1369,7 @@ ffLeverList.innerHTML = FF_LEVER_GROUPS.map(function(g){
   var rows = g.keys.map(function(key){
     var d = FF_LEVER_DATA[key];
     if (!d) return '';
-    return '<div class="ff-lever-list-row"><span class="ff-lever-list-name">' + d.icon + ' ' + d.nombre + '</span><span class="ff-lever-list-ctx">' + d.contexto + '</span></div>';
+    return '<div class="ff-lever-list-row"><span class="ff-lever-list-name">' + d.icon + ' ' + d.nombre + '</span></div>';
   }).join('');
   return '<div class="ff-lever-list-group">' + g.label + '</div>' + rows;
 }).join('');
