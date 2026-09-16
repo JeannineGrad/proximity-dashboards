@@ -40,6 +40,12 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans
 .ch2-metric{font-size:11px;font-weight:600;color:var(--muted);font-style:italic}
 .ch2-tl-cell{text-align:center}
 .ch2-tl-dot{width:9px;height:9px;border-radius:50%;background:#e2e4ea;display:inline-block}
+.ch2-concept{background:#f8f9fc;border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:14px}
+.ch2-concept h5{margin:0 0 8px;font-size:11px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.4px}
+.ch2-concept ol,.ch2-concept ul{margin:0;padding-left:18px;font-size:12.5px;color:#333;line-height:1.5}
+.ch2-concept li{margin-bottom:2px}
+.ch2-concept-row{margin-bottom:14px}
+.ch2-concept-row:last-child{margin-bottom:0}
 
 .walk-hdr{display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px}
 .walk-hdr h2{font-size:13px;font-weight:800;color:var(--navy);margin:0;text-transform:uppercase;letter-spacing:.5px}
@@ -278,28 +284,118 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
 
   <div class="vtab-panel active" id="vtab-groceries">
-    <div class="ch2-legend"><span class="ch2-legend-lbl">Estímulos</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <div class="ch2-concept">
+      <div class="ch2-concept-row">
+        <h5>Audiencias a definir</h5>
+        <ol>
+          <li>Pagadores QR MP en tiendas físicas Carrefour, con app ML</li>
+          <li>Pagadores QR MP en tiendas físicas Carrefour, sin app ML</li>
+          <li>Compradores Instore/Darkstore actuales (ever)</li>
+          <li>Audiencia ML con residencia en la zona de cobertura</li>
+          <li>Resto de audiencia ML en la zona (circula, no reside)</li>
+          <li>No usuarios ML en la zona</li>
+        </ol>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Canales disponibles</h5>
+        <div class="ch2-legend"><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">Search orgánico</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">OFF-APP Merchandising</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Tipos de acción</h5>
+        <div class="ch2-legend"><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span></div>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Tipos de estímulo</h5>
+        <div class="ch2-legend"><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+      </div>
+    </div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
       <tbody id="ch2-body-groceries"></tbody>
     </table>
   </div>
   <div class="vtab-panel" id="vtab-gm">
-    <div class="ch2-legend"><span class="ch2-legend-lbl">Estímulos</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <div class="ch2-concept">
+      <div class="ch2-concept-row">
+        <h5>Audiencias a definir</h5>
+        <ol>
+          <li>Compradores GM actuales (ever)</li>
+          <li>Audiencia ML con residencia en la zona de cobertura</li>
+          <li>Resto de audiencia ML en la zona (circula, no reside)</li>
+          <li>No usuarios ML en la zona</li>
+        </ol>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Canales disponibles</h5>
+        <div class="ch2-legend"><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">Search orgánico</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Tipos de acción</h5>
+        <div class="ch2-legend"><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span></div>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Tipos de estímulo</h5>
+        <div class="ch2-legend"><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+      </div>
+    </div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
       <tbody id="ch2-body-gm"></tbody>
     </table>
   </div>
   <div class="vtab-panel" id="vtab-pharma">
-    <div class="ch2-legend"><span class="ch2-legend-lbl">Estímulos</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <div class="ch2-concept">
+      <div class="ch2-concept-row">
+        <h5>Audiencias a definir</h5>
+        <ol>
+          <li>Compradores Pharma actuales (ever)</li>
+          <li>Audiencia ML con residencia en la zona de cobertura</li>
+          <li>Resto de audiencia ML en la zona (circula, no reside)</li>
+          <li>No usuarios ML en la zona</li>
+        </ol>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Canales disponibles</h5>
+        <div class="ch2-legend"><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">Search orgánico</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Tipos de acción</h5>
+        <div class="ch2-legend"><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span></div>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Tipos de estímulo</h5>
+        <div class="ch2-legend"><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+      </div>
+    </div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
       <tbody id="ch2-body-pharma"></tbody>
     </table>
   </div>
   <div class="vtab-panel" id="vtab-qc">
-    <div class="ch2-legend"><span class="ch2-legend-lbl">Estímulos</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <div class="ch2-concept">
+      <div class="ch2-concept-row">
+        <h5>Audiencias a definir</h5>
+        <ol>
+          <li>Usuarios activos en 2+ verticales actualmente</li>
+          <li>Audiencia ML con residencia en la zona de cobertura</li>
+          <li>Resto de audiencia ML en la zona (circula, no reside)</li>
+          <li>No usuarios ML en la zona</li>
+        </ol>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Canales disponibles</h5>
+        <div class="ch2-legend"><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">Search orgánico</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Tipos de acción</h5>
+        <div class="ch2-legend"><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span></div>
+      </div>
+      <div class="ch2-concept-row">
+        <h5>Tipos de estímulo</h5>
+        <div class="ch2-legend"><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+      </div>
+    </div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
       <tbody id="ch2-body-qc"></tbody>
@@ -1345,6 +1441,8 @@ function ch2Row(canal, metrica){ return { canal:canal, audiencia:'a definir', es
 
 var CH2_DATA = {
   groceries: [
+    ch2Group('SEARCH'),
+    ch2Row('Search orgánico', '~ sesiones/mes · ~ CVR'),
     ch2Group('ON-APP ML'),
     ch2Row('MS Posición 1', '~ sesiones/mes · ~ CVR'),
     ch2Row('Quick Access', '~ sesiones/mes · ~ CVR'),
@@ -1366,6 +1464,8 @@ var CH2_DATA = {
     ch2Row('Pecheras', '~ impresiones/mes')
   ],
   gm: [
+    ch2Group('SEARCH'),
+    ch2Row('Search orgánico', '~ sesiones/mes · ~ CVR'),
     ch2Group('ON-APP ML'),
     ch2Row('MS Posición 1', '~ sesiones/mes · ~ CVR'),
     ch2Row('Quick Access', '~ sesiones/mes · ~ CVR'),
@@ -1380,6 +1480,8 @@ var CH2_DATA = {
     ch2Row('Affiliates', '~ sesiones/mes · ~ CVR')
   ],
   pharma: [
+    ch2Group('SEARCH'),
+    ch2Row('Search orgánico', '~ sesiones/mes · ~ CVR'),
     ch2Group('ON-APP ML'),
     ch2Row('MS Posición 1', '~ sesiones/mes · ~ CVR'),
     ch2Row('Quick Access', '~ sesiones/mes · ~ CVR'),
@@ -1394,6 +1496,8 @@ var CH2_DATA = {
     ch2Row('Affiliates', '~ sesiones/mes · ~ CVR')
   ],
   qc: [
+    ch2Group('SEARCH'),
+    ch2Row('Search orgánico', '~ sesiones/mes · ~ CVR'),
     ch2Group('ON-APP ML'),
     ch2Row('MS Posición 1', '~ sesiones/mes · ~ CVR'),
     ch2Row('Quick Access', '~ sesiones/mes · ~ CVR'),
