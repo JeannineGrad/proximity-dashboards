@@ -1109,18 +1109,8 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 </div>
 
 <h3 style="font-size:13px;font-weight:800;color:var(--navy);margin:24px 0 4px">📋 Guía de canales disponibles</h3>
-<p style="font-size:12px;color:var(--muted);margin:0 0 14px">Click en un canal para ver el detalle.</p>
 
 <div class="ff-lever-list open" id="ffLeverList"></div>
-
-<div class="ff-lever-detail" id="ffLeverDetail">
-  <div class="ff-lever-detail-hdr">
-    <div class="ff-lever-detail-title" id="ffLeverDetailTitle"></div>
-    <span class="ff-lever-detail-close" id="ffLeverDetailClose">✕</span>
-  </div>
-  <div class="ff-lever-detail-badges" id="ffLeverDetailBadges"></div>
-  <div class="ff-lever-detail-restr" id="ffLeverDetailRestr"></div>
-</div>
 
 </div>
 <!-- /doctab-funnel -->
@@ -1376,35 +1366,10 @@ ffLeverList.innerHTML = FF_LEVER_GROUPS.map(function(g){
   var rows = g.keys.map(function(key){
     var d = FF_LEVER_DATA[key];
     if (!d) return '';
-    return '<div class="ff-lever-list-row ff-lever-tag" data-lever="' + key + '" style="cursor:pointer"><span class="ff-lever-list-name">' + d.icon + ' ' + d.nombre + '</span><span class="ff-lever-list-ctx">' + d.contexto + '</span></div>';
+    return '<div class="ff-lever-list-row"><span class="ff-lever-list-name">' + d.icon + ' ' + d.nombre + '</span><span class="ff-lever-list-ctx">' + d.contexto + '</span></div>';
   }).join('');
   return '<div class="ff-lever-list-group">' + g.label + '</div>' + rows;
 }).join('');
-
-document.querySelectorAll('.ff-lever-tag[data-lever]').forEach(function(tag){
-  tag.addEventListener('click', function(){
-    var key = tag.dataset.lever;
-    var d = FF_LEVER_DATA[key];
-    if (!d) return;
-    var wasActive = tag.classList.contains('active');
-    document.querySelectorAll('.ff-lever-tag').forEach(function(t){ t.classList.remove('active'); });
-    var detail = document.getElementById('ffLeverDetail');
-    if (wasActive) { detail.classList.remove('open'); return; }
-    tag.classList.add('active');
-    document.getElementById('ffLeverDetailTitle').textContent = d.nombre;
-    document.getElementById('ffLeverDetailBadges').innerHTML =
-      '<div class="ff-detail-chip"><b>Gestión</b>' + d.gestion + '</div>' +
-      '<div class="ff-detail-chip"><b>Segmentable</b>' + d.segmentable + '</div>' +
-      '<div class="ff-detail-chip"><b>Incentivo económico</b>' + d.incentivo + '</div>' +
-      '<div class="ff-detail-chip"><b>Inversión MeLi</b>' + d.inversion + '</div>';
-    document.getElementById('ffLeverDetailRestr').innerHTML = '<b>Restricciones:</b> ' + d.restricciones;
-    detail.classList.add('open');
-  });
-});
-document.getElementById('ffLeverDetailClose').addEventListener('click', function(){
-  document.getElementById('ffLeverDetail').classList.remove('open');
-  document.querySelectorAll('.ff-lever-tag').forEach(function(t){ t.classList.remove('active'); });
-});
 </script>
 <script>
 // Trial por vertical: canal / audiencia / estimulo / metrica, agrupados
