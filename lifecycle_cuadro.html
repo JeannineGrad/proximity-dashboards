@@ -54,6 +54,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans
 .ch2-step li{margin-bottom:2px}
 .ch2-step p{margin:0;font-size:11.5px;color:#333;line-height:1.55}
 .ch2-step .num{font-size:11.5px;font-weight:600;color:var(--muted);font-style:italic}
+.ch2-step .ej{font-size:11px;font-style:italic;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)}
 .ch2-step.c1{border-top-color:#2E86DE}.ch2-step.c1 h5{color:#2E86DE}
 .ch2-step.c2{border-top-color:#F5A623}.ch2-step.c2 h5{color:#c07f0c}
 .ch2-step.c3{border-top-color:#16A085}.ch2-step.c3 h5{color:#0f7d68}
@@ -300,32 +301,23 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
     <div class="ch2-steps">
       <div class="ch2-step c2">
         <h5>📍 1. Zona de influencia</h5>
-        <p>Radio <b>4,5 km</b> alrededor de las 4 tiendas físicas (Vicente López, Villa Urquiza, Scalabrini Ortiz, Caballito).</p>
-        <p style="margin-top:6px">Población estimada: <b>~2,6 M</b> (INDEC 2022 por densidad, sin doble conteo entre radios).</p>
+        <p>Definir el área geográfica donde la vertical puede generar demanda (radio de locales físicos, zona de entrega, alcance de un CD) — es la base para dimensionar población potencial.</p>
+        <p class="ej">Ej. Instore: radio 4,5 km alrededor de las tiendas físicas → ~2,6 M hab. (INDEC 2022, sin doble conteo).</p>
       </div>
       <div class="ch2-step c1">
         <h5>🎯 2. Audiencias</h5>
-        <ol>
-          <li>Pagadores QR MP Carrefour, con app ML</li>
-          <li>Pagadores QR MP Carrefour, sin app ML</li>
-          <li>Compradores Instore/Darkstore actuales (ever)</li>
-          <li>Audiencia ML con residencia en zona</li>
-          <li>Resto de audiencia ML en zona (circula, no reside)</li>
-          <li>No usuarios ML en la zona</li>
-        </ol>
+        <p>Identificar los segmentos clave dentro de esa zona según su relación actual con la vertical y con ML: compradores actuales, usuarios ML sin comprar la vertical (residentes o no), no usuarios ML.</p>
+        <p class="ej">Ej. Instore: pagadores QR MP con/sin app ML, compradores actuales, audiencia ML residente/no residente en zona, no usuarios ML.</p>
       </div>
       <div class="ch2-step c3">
         <h5>📊 3. Métricas base</h5>
-        <ul>
-          <li>Población zona: <b>~2,6 M</b></li>
-          <li>Audiencia ML: <b>~3,0 M</b> <span class="num">(criterio de armado a definir)</span></li>
-          <li>Compradores QR MP Carrefour: <b>~0,36-0,46 M</b></li>
-        </ul>
+        <p>Cuantificar cada audiencia con la mejor fuente disponible (censos, data propia, cruces con terceros) para dimensionar el potencial real de cada segmento.</p>
+        <p class="ej">Ej. Instore: población ~2,6 M · audiencia ML ~3,0 M · compradores QR MP ~0,36-0,46 M.</p>
       </div>
       <div class="ch2-step c4">
         <h5>📈 4. Volumen necesario</h5>
-        <p>Sesiones necesarias: <b>~0,37 M/mes</b></p>
-        <p style="margin-top:6px">Para <b>15.000 compras</b> en dic-26, con CVR objetivo <b>4,02%</b> (base 3,65% + 10% mejora de modelo).</p>
+        <p>A partir del objetivo de negocio (compras/mes) y la tasa de conversión esperada, calcular cuántas sesiones hay que generar por canal.</p>
+        <p class="ej">Ej. Instore: 15.000 compras dic-26 con CVR 4,02% → ~0,37 M sesiones/mes necesarias.</p>
       </div>
     </div>
     <div class="ch2-legend2"><span class="ch2-legend2-lbl">Canales</span><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">OFF-APP Merchandising</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
@@ -337,26 +329,25 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
   <div class="vtab-panel" id="vtab-gm">
     <div class="ch2-steps">
-      <div class="ch2-step c1">
+      <div class="ch2-step c2">
         <h5>📍 1. Zona de influencia</h5>
-        <p>A definir — pendiente criterio de radio/cobertura para GM (sin locales físicos propios como Instore).</p>
+        <p>Definir el área geográfica donde la vertical puede generar demanda (radio de locales físicos, zona de entrega, alcance de un CD) — es la base para dimensionar población potencial.</p>
+        <p class="ej">Ej. GM: a definir — sin locales físicos propios como Instore, pendiente criterio de radio/cobertura.</p>
       </div>
       <div class="ch2-step c1">
         <h5>🎯 2. Audiencias</h5>
-        <ol>
-          <li>Compradores GM actuales (ever)</li>
-          <li>Audiencia ML con residencia en zona</li>
-          <li>Resto de audiencia ML en zona (circula, no reside)</li>
-          <li>No usuarios ML en la zona</li>
-        </ol>
+        <p>Identificar los segmentos clave dentro de esa zona según su relación actual con la vertical y con ML: compradores actuales, usuarios ML sin comprar la vertical (residentes o no), no usuarios ML.</p>
+        <p class="ej">Ej. GM: compradores GM actuales, audiencia ML residente/no residente en zona, no usuarios ML.</p>
       </div>
       <div class="ch2-step c3">
         <h5>📊 3. Métricas base</h5>
-        <p>A definir — sin data base de población/audiencia todavía para GM.</p>
+        <p>Cuantificar cada audiencia con la mejor fuente disponible (censos, data propia, cruces con terceros) para dimensionar el potencial real de cada segmento.</p>
+        <p class="ej">Ej. GM: a definir — sin data base de población/audiencia todavía.</p>
       </div>
       <div class="ch2-step c4">
         <h5>📈 4. Volumen necesario</h5>
-        <p>A definir — pendiente objetivo de compras y CVR estimado para calcular sesiones necesarias.</p>
+        <p>A partir del objetivo de negocio (compras/mes) y la tasa de conversión esperada, calcular cuántas sesiones hay que generar por canal.</p>
+        <p class="ej">Ej. GM: a definir — pendiente objetivo de compras y CVR estimado.</p>
       </div>
     </div>
     <div class="ch2-legend2"><span class="ch2-legend2-lbl">Canales</span><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
@@ -370,24 +361,23 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
     <div class="ch2-steps">
       <div class="ch2-step c2">
         <h5>📍 1. Zona de influencia</h5>
-        <p>A definir — pendiente criterio de radio/cobertura para Pharma.</p>
+        <p>Definir el área geográfica donde la vertical puede generar demanda (radio de locales físicos, zona de entrega, alcance de un CD) — es la base para dimensionar población potencial.</p>
+        <p class="ej">Ej. Pharma: a definir — pendiente criterio de radio/cobertura.</p>
       </div>
       <div class="ch2-step c1">
         <h5>🎯 2. Audiencias</h5>
-        <ol>
-          <li>Compradores Pharma actuales (ever)</li>
-          <li>Audiencia ML con residencia en zona</li>
-          <li>Resto de audiencia ML en zona (circula, no reside)</li>
-          <li>No usuarios ML en la zona</li>
-        </ol>
+        <p>Identificar los segmentos clave dentro de esa zona según su relación actual con la vertical y con ML: compradores actuales, usuarios ML sin comprar la vertical (residentes o no), no usuarios ML.</p>
+        <p class="ej">Ej. Pharma: compradores Pharma actuales, audiencia ML residente/no residente en zona, no usuarios ML.</p>
       </div>
       <div class="ch2-step c3">
         <h5>📊 3. Métricas base</h5>
-        <p>A definir — sin data base de población/audiencia todavía para Pharma.</p>
+        <p>Cuantificar cada audiencia con la mejor fuente disponible (censos, data propia, cruces con terceros) para dimensionar el potencial real de cada segmento.</p>
+        <p class="ej">Ej. Pharma: a definir — sin data base de población/audiencia todavía.</p>
       </div>
       <div class="ch2-step c4">
         <h5>📈 4. Volumen necesario</h5>
-        <p>A definir — pendiente objetivo de compras y CVR estimado para calcular sesiones necesarias.</p>
+        <p>A partir del objetivo de negocio (compras/mes) y la tasa de conversión esperada, calcular cuántas sesiones hay que generar por canal.</p>
+        <p class="ej">Ej. Pharma: a definir — pendiente objetivo de compras y CVR estimado.</p>
       </div>
     </div>
     <div class="ch2-legend2"><span class="ch2-legend2-lbl">Canales</span><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
