@@ -47,6 +47,20 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans
 .ch2-concept-row{margin-bottom:14px}
 .ch2-concept-row:last-child{margin-bottom:0}
 
+.ch2-steps{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:stretch}
+.ch2-step{flex:1 1 220px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px 16px;border-top:4px solid #ccc}
+.ch2-step h5{margin:0 0 8px;font-size:12px;font-weight:800;display:flex;align-items:center;gap:6px;letter-spacing:.2px}
+.ch2-step ol,.ch2-step ul{margin:0;padding-left:16px;font-size:11.5px;color:#333;line-height:1.55}
+.ch2-step li{margin-bottom:2px}
+.ch2-step p{margin:0;font-size:11.5px;color:#333;line-height:1.55}
+.ch2-step .num{font-size:11.5px;font-weight:600;color:var(--muted);font-style:italic}
+.ch2-step.c1{border-top-color:#2E86DE}.ch2-step.c1 h5{color:#2E86DE}
+.ch2-step.c2{border-top-color:#F5A623}.ch2-step.c2 h5{color:#c07f0c}
+.ch2-step.c3{border-top-color:#16A085}.ch2-step.c3 h5{color:#0f7d68}
+.ch2-step.c4{border-top-color:#8E44AD}.ch2-step.c4 h5{color:#8E44AD}
+.ch2-legend2{display:flex;align-items:center;gap:6px;margin:0 0 14px;flex-wrap:wrap}
+.ch2-legend2-lbl{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-right:2px}
+
 .walk-hdr{display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px}
 .walk-hdr h2{font-size:13px;font-weight:800;color:var(--navy);margin:0;text-transform:uppercase;letter-spacing:.5px}
 .step-nav{display:none}
@@ -273,7 +287,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 <h2 class="h2" id="anchor-trial">Trial — Generación de demanda por vertical</h2>
   <div class="card">
     <h4>🎯 Objetivo de esta sección</h4>
-    <p>Antes del onboarding: qué canales generan Awareness → Consideration → Conversión (1ª compra) en cada vertical.</p>
+    <p>Generación de tráfico que logre la 1ª compra: qué canales generan Awareness → Consideration → Conversión en cada vertical.</p>
   </div>
 
   <div class="vtabbar">
@@ -284,118 +298,132 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
 
   <div class="vtab-panel active" id="vtab-groceries">
-    <div class="ch2-concept">
-      <div class="ch2-concept-row">
-        <h5>Audiencias a definir</h5>
+    <div class="ch2-steps">
+      <div class="ch2-step c1">
+        <h5>🎯 1. Audiencias</h5>
         <ol>
-          <li>Pagadores QR MP en tiendas físicas Carrefour, con app ML</li>
-          <li>Pagadores QR MP en tiendas físicas Carrefour, sin app ML</li>
+          <li>Pagadores QR MP Carrefour, con app ML</li>
+          <li>Pagadores QR MP Carrefour, sin app ML</li>
           <li>Compradores Instore/Darkstore actuales (ever)</li>
-          <li>Audiencia ML con residencia en la zona de cobertura</li>
-          <li>Resto de audiencia ML en la zona (circula, no reside)</li>
+          <li>Audiencia ML con residencia en zona</li>
+          <li>Resto de audiencia ML en zona (circula, no reside)</li>
           <li>No usuarios ML en la zona</li>
         </ol>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Canales disponibles</h5>
-        <div class="ch2-legend"><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">OFF-APP Merchandising</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+      <div class="ch2-step c2">
+        <h5>📍 2. Zona de influencia</h5>
+        <p>Radio <b>4,5 km</b> alrededor de las 4 tiendas físicas (Vicente López, Villa Urquiza, Scalabrini Ortiz, Caballito).</p>
+        <p style="margin-top:6px">Población estimada: <b>~2,6 M</b> (INDEC 2022 por densidad, sin doble conteo entre radios).</p>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Tipos de acción</h5>
-        <div class="ch2-legend"><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span></div>
+      <div class="ch2-step c3">
+        <h5>📊 3. Métricas base</h5>
+        <ul>
+          <li>Población zona: <b>~2,6 M</b></li>
+          <li>Audiencia ML: <b>~3,0 M</b> <span class="num">(criterio de armado a definir)</span></li>
+          <li>Compradores QR MP Carrefour: <b>~0,36-0,46 M</b></li>
+        </ul>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Tipos de estímulo</h5>
-        <div class="ch2-legend"><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+      <div class="ch2-step c4">
+        <h5>📈 4. Volumen necesario</h5>
+        <p>Sesiones necesarias: <b>~0,37 M/mes</b></p>
+        <p style="margin-top:6px">Para <b>15.000 compras</b> en dic-26, con CVR objetivo <b>4,02%</b> (base 3,65% + 10% mejora de modelo).</p>
       </div>
     </div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Canales</span><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">OFF-APP Merchandising</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Acción</span><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span><span class="ch2-legend2-lbl" style="margin-left:14px">Estímulo</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
       <tbody id="ch2-body-groceries"></tbody>
     </table>
   </div>
   <div class="vtab-panel" id="vtab-gm">
-    <div class="ch2-concept">
-      <div class="ch2-concept-row">
-        <h5>Audiencias a definir</h5>
+    <div class="ch2-steps">
+      <div class="ch2-step c1">
+        <h5>🎯 1. Audiencias</h5>
         <ol>
           <li>Compradores GM actuales (ever)</li>
-          <li>Audiencia ML con residencia en la zona de cobertura</li>
-          <li>Resto de audiencia ML en la zona (circula, no reside)</li>
+          <li>Audiencia ML con residencia en zona</li>
+          <li>Resto de audiencia ML en zona (circula, no reside)</li>
           <li>No usuarios ML en la zona</li>
         </ol>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Canales disponibles</h5>
-        <div class="ch2-legend"><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+      <div class="ch2-step c2">
+        <h5>📍 2. Zona de influencia</h5>
+        <p>A definir — pendiente criterio de radio/cobertura para GM (sin locales físicos propios como Instore).</p>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Tipos de acción</h5>
-        <div class="ch2-legend"><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span></div>
+      <div class="ch2-step c3">
+        <h5>📊 3. Métricas base</h5>
+        <p>A definir — sin data base de población/audiencia todavía para GM.</p>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Tipos de estímulo</h5>
-        <div class="ch2-legend"><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+      <div class="ch2-step c4">
+        <h5>📈 4. Volumen necesario</h5>
+        <p>A definir — pendiente objetivo de compras y CVR estimado para calcular sesiones necesarias.</p>
       </div>
     </div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Canales</span><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Acción</span><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span><span class="ch2-legend2-lbl" style="margin-left:14px">Estímulo</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
       <tbody id="ch2-body-gm"></tbody>
     </table>
   </div>
   <div class="vtab-panel" id="vtab-pharma">
-    <div class="ch2-concept">
-      <div class="ch2-concept-row">
-        <h5>Audiencias a definir</h5>
+    <div class="ch2-steps">
+      <div class="ch2-step c1">
+        <h5>🎯 1. Audiencias</h5>
         <ol>
           <li>Compradores Pharma actuales (ever)</li>
-          <li>Audiencia ML con residencia en la zona de cobertura</li>
-          <li>Resto de audiencia ML en la zona (circula, no reside)</li>
+          <li>Audiencia ML con residencia en zona</li>
+          <li>Resto de audiencia ML en zona (circula, no reside)</li>
           <li>No usuarios ML en la zona</li>
         </ol>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Canales disponibles</h5>
-        <div class="ch2-legend"><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+      <div class="ch2-step c2">
+        <h5>📍 2. Zona de influencia</h5>
+        <p>A definir — pendiente criterio de radio/cobertura para Pharma.</p>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Tipos de acción</h5>
-        <div class="ch2-legend"><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span></div>
+      <div class="ch2-step c3">
+        <h5>📊 3. Métricas base</h5>
+        <p>A definir — sin data base de población/audiencia todavía para Pharma.</p>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Tipos de estímulo</h5>
-        <div class="ch2-legend"><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+      <div class="ch2-step c4">
+        <h5>📈 4. Volumen necesario</h5>
+        <p>A definir — pendiente objetivo de compras y CVR estimado para calcular sesiones necesarias.</p>
       </div>
     </div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Canales</span><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">OFF-APP Paid Media</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Acción</span><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span><span class="ch2-legend2-lbl" style="margin-left:14px">Estímulo</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
       <tbody id="ch2-body-pharma"></tbody>
     </table>
   </div>
   <div class="vtab-panel" id="vtab-qc">
-    <div class="ch2-concept">
-      <div class="ch2-concept-row">
-        <h5>Audiencias a definir</h5>
+    <div class="ch2-steps">
+      <div class="ch2-step c1">
+        <h5>🎯 1. Audiencias</h5>
         <ol>
           <li>Usuarios activos en 2+ verticales actualmente</li>
-          <li>Audiencia ML con residencia en la zona de cobertura</li>
-          <li>Resto de audiencia ML en la zona (circula, no reside)</li>
+          <li>Audiencia ML con residencia en zona</li>
+          <li>Resto de audiencia ML en zona (circula, no reside)</li>
           <li>No usuarios ML en la zona</li>
         </ol>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Canales disponibles</h5>
-        <div class="ch2-legend"><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+      <div class="ch2-step c2">
+        <h5>📍 2. Zona de influencia</h5>
+        <p>A definir — depende de la superposición de zonas de las verticales que componen Quick Commerce.</p>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Tipos de acción</h5>
-        <div class="ch2-legend"><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span></div>
+      <div class="ch2-step c3">
+        <h5>📊 3. Métricas base</h5>
+        <p>A definir — sin data base todavía para Quick Commerce.</p>
       </div>
-      <div class="ch2-concept-row">
-        <h5>Tipos de estímulo</h5>
-        <div class="ch2-legend"><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+      <div class="ch2-step c4">
+        <h5>📈 4. Volumen necesario</h5>
+        <p>A definir — pendiente objetivo de compras y CVR estimado.</p>
       </div>
     </div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Canales</span><span class="ch2-chip">ON-APP ML</span><span class="ch2-chip">ON-APP MP</span><span class="ch2-chip">Influencers</span><span class="ch2-chip">Affiliates</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Acción</span><span class="ch2-chip">Comunicación</span><span class="ch2-chip">Incentivo económico</span><span class="ch2-chip">Descubribilidad / producto</span><span class="ch2-legend2-lbl" style="margin-left:14px">Estímulo</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
     <table class="ch2-table">
       <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
       <tbody id="ch2-body-qc"></tbody>
