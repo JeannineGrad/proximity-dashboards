@@ -23,6 +23,24 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans
 .doctab-panel{display:none}
 .doctab-panel.active{display:block}
 
+.vtabbar{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap}
+.vtabbtn{background:#eef0f5;border:none;padding:7px 14px;font-size:12px;font-weight:800;color:var(--muted);cursor:pointer;border-radius:6px;font-family:inherit}
+.vtabbtn:hover{color:var(--navy)}
+.vtabbtn.active{background:var(--navy);color:#fff}
+.vtab-panel{display:none}
+.vtab-panel.active{display:block}
+.ch2-legend{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.ch2-legend-lbl{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-right:2px}
+.ch2-chip{font-size:11px;font-weight:700;color:#556;background:#eef0f5;border-radius:10px;padding:3px 10px}
+.ch2-table{width:100%;border-collapse:collapse}
+.ch2-table th{text-align:left;font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid var(--border);padding:6px 10px}
+.ch2-table th.ch2-tl{text-align:center;width:56px}
+.ch2-group td{background:#eef0f5;font-size:10.5px;font-weight:800;color:#556;text-transform:uppercase;letter-spacing:.5px;padding:6px 10px}
+.ch2-table td{padding:7px 10px;border-bottom:1px solid var(--border);color:#333;font-size:12px}
+.ch2-metric{font-size:11px;font-weight:600;color:var(--muted);font-style:italic}
+.ch2-tl-cell{text-align:center}
+.ch2-tl-dot{width:9px;height:9px;border-radius:50%;background:#e2e4ea;display:inline-block}
+
 .walk-hdr{display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px}
 .walk-hdr h2{font-size:13px;font-weight:800;color:var(--navy);margin:0;text-transform:uppercase;letter-spacing:.5px}
 .step-nav{display:none}
@@ -209,44 +227,85 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <tbody>
         <tr class="group-row">
           <th>Groceries</th>
-          <td class="cell empty" data-cell="trial-groceries"></td>
+          <td class="cell active" rowspan="3" onclick="goToTrial('groceries')"><span class="thr">Awareness → Consideration → Conversión</span><span class="thr">canales, audiencia, estímulo, presupuesto</span><span class="thr">Ver Trial →</span></td>
           <td class="cell empty"><span class="thr">🥇 Objetivo principal Groceries:</span><span class="thr">5 tx · 90d</span></td>
           <td class="cell empty"></td>
           <td class="cell empty"></td>
         </tr>
         <tr>
           <th class="sub-vertical">Darkstore</th>
-          <td class="cell empty" data-cell="trial-darkstore"></td>
           <td class="cell active" onclick="document.getElementById('anchor-onboarding-darkstore').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">Ver journey (punto de entrada Darkstore) →</span><span class="thr">🥈 objetivo secundario de Groceries: 5 tx · 90d</span></td>
           <td class="cell active" rowspan="2" onclick="document.getElementById('anchor-graduado-groceries').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">Graduado / No graduado Groceries</span><span class="thr">(único, para ambas entradas)</span><span class="thr">clusters Casual/Core/Power/Super Power</span><span class="thr">Ver journey →</span></td>
           <td class="cell active" rowspan="2" onclick="document.getElementById('anchor-churn-groceries').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">Prevención de Churn</span><span class="thr">(alarmas 1/2/3, único para ambas entradas)</span><span class="thr">Ver journey →</span></td>
         </tr>
         <tr>
           <th class="sub-vertical">Instore</th>
-          <td class="cell empty"></td>
           <td class="cell active" data-cell="onb-instore" onclick="document.getElementById('anchor-onboarding-instore').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">Ver journey (punto de entrada Instore) →</span><span class="thr">🥉 objetivo terciario de Groceries: 5 tx · 90d</span></td>
         </tr>
         <tr>
           <th>GM</th>
-          <td class="cell empty"></td>
+          <td class="cell active" onclick="goToTrial('gm')"><span class="thr">Awareness → Consideration → Conversión</span><span class="thr">Ver Trial →</span></td>
           <td class="cell active" colspan="2" data-cell="onb-gm" onclick="document.getElementById('anchor-onboarding-gm').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">2 tx · 60d</span><span class="thr">Onboarding + Cross-sell (en paralelo)</span><span class="thr">Ver journey →</span></td>
           <td class="cell empty"></td>
         </tr>
         <tr>
           <th>Pharma</th>
-          <td class="cell empty"></td>
+          <td class="cell active" onclick="goToTrial('pharma')"><span class="thr">Awareness → Consideration → Conversión</span><span class="thr">Ver Trial →</span></td>
           <td class="cell active" colspan="2" data-cell="onb-pharma" onclick="document.getElementById('anchor-onboarding-pharma').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">2 tx · 60d</span><span class="thr">Onboarding + Cross-sell (en paralelo)</span><span class="thr">Ver journey →</span></td>
           <td class="cell empty"></td>
         </tr>
         <tr class="qc-row">
           <th>Quick Commerce</th>
-          <td class="cell empty"></td>
+          <td class="cell active" onclick="goToTrial('qc')"><span class="thr">Awareness → Consideration → Conversión</span><span class="thr">Ver Trial →</span></td>
           <td class="cell empty"><span class="thr">5 tx · 90d · 2+ verticales</span></td>
           <td class="cell empty"></td>
           <td class="cell empty"></td>
         </tr>
       </tbody>
     </table></div>
+
+<h2 class="h2" id="anchor-trial">Trial — Generación de demanda por vertical</h2>
+  <div class="card">
+    <h4>🎯 Objetivo de esta sección</h4>
+    <p>Antes del onboarding: qué canales generan Awareness → Consideration → Conversión (1ª compra) en cada vertical. Misma estructura que usamos en el deck de Instore (canal, audiencia, estímulo, métrica, presupuesto/mes, timeline oct-dic) — acá parametrizada por vertical para poder navegarla sin duplicar todo el documento.</p>
+  </div>
+
+  <div class="vtabbar">
+    <button class="vtabbtn active" data-vtab="vtab-groceries">Groceries (Instore + Darkstore)</button>
+    <button class="vtabbtn" data-vtab="vtab-gm">GM</button>
+    <button class="vtabbtn" data-vtab="vtab-pharma">Pharma</button>
+    <button class="vtabbtn" data-vtab="vtab-qc">Quick Commerce</button>
+  </div>
+
+  <div class="vtab-panel active" id="vtab-groceries">
+    <div class="ch2-legend"><span class="ch2-legend-lbl">Estímulos</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <table class="ch2-table">
+      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
+      <tbody id="ch2-body-groceries"></tbody>
+    </table>
+  </div>
+  <div class="vtab-panel" id="vtab-gm">
+    <div class="ch2-legend"><span class="ch2-legend-lbl">Estímulos</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <table class="ch2-table">
+      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
+      <tbody id="ch2-body-gm"></tbody>
+    </table>
+  </div>
+  <div class="vtab-panel" id="vtab-pharma">
+    <div class="ch2-legend"><span class="ch2-legend-lbl">Estímulos</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <table class="ch2-table">
+      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
+      <tbody id="ch2-body-pharma"></tbody>
+    </table>
+  </div>
+  <div class="vtab-panel" id="vtab-qc">
+    <div class="ch2-legend"><span class="ch2-legend-lbl">Estímulos</span><span class="ch2-chip">Paid by MeLi</span><span class="ch2-chip">Paid by 3P</span><span class="ch2-chip">Orgánico</span><span class="ch2-chip">Medios de pago</span></div>
+    <table class="ch2-table">
+      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
+      <tbody id="ch2-body-qc"></tbody>
+    </table>
+  </div>
+
 <h2 class="h2" id="anchor-onboarding-darkstore">Onboarding Groceries: entrada Darkstore</h2>
   <div class="card">
     <h4>🎯 Objetivo del journey</h4>
@@ -1277,6 +1336,104 @@ document.querySelectorAll('.ff-lever-tag[data-lever]').forEach(function(tag){
 document.getElementById('ffLeverDetailClose').addEventListener('click', function(){
   document.getElementById('ffLeverDetail').classList.remove('open');
   document.querySelectorAll('.ff-lever-tag').forEach(function(t){ t.classList.remove('active'); });
+});
+</script>
+<script>
+// Trial por vertical: canal / audiencia / estimulo / metrica, agrupados
+function ch2Group(nombre){ return { group:true, nombre:nombre }; }
+function ch2Row(canal, metrica){ return { canal:canal, audiencia:'a definir', estimulo:'a definir', metrica:metrica, presupuesto:'$ a definir' }; }
+
+var CH2_DATA = {
+  groceries: [
+    ch2Group('ON-APP ML'),
+    ch2Row('MS Posición 1', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Quick Access', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Coachmark', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Push notifications', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Splash Screen', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Discovery banner', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Rabbit hole banner', '~ sesiones/mes · ~ CVR'),
+    ch2Group('ON-APP MP'),
+    ch2Row('Home MP — a definir', '~ sesiones/mes · ~ CVR'),
+    ch2Group('OFF-APP · PAID MEDIA'),
+    ch2Row('Vía pública', '~ impresiones/mes'),
+    ch2Row('POM', '~ impresiones/mes · ~ sesiones/mes'),
+    ch2Row('Influencers', '~ impresiones/mes · ~ sesiones/mes'),
+    ch2Row('Affiliates', '~ sesiones/mes · ~ CVR'),
+    ch2Group('OFF-APP · MERCHANDISING'),
+    ch2Row('Mochilas', '~ impresiones/mes'),
+    ch2Row('Bolsas', '~ impresiones/mes'),
+    ch2Row('Pecheras', '~ impresiones/mes')
+  ],
+  gm: [
+    ch2Group('ON-APP ML'),
+    ch2Row('MS Posición 1', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Quick Access', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Push notifications', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Splash Screen', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Discovery banner', '~ sesiones/mes · ~ CVR'),
+    ch2Group('ON-APP MP'),
+    ch2Row('Home MP — a definir', '~ sesiones/mes · ~ CVR'),
+    ch2Group('OFF-APP · PAID MEDIA'),
+    ch2Row('Vía pública', '~ impresiones/mes'),
+    ch2Row('Influencers', '~ impresiones/mes · ~ sesiones/mes'),
+    ch2Row('Affiliates', '~ sesiones/mes · ~ CVR')
+  ],
+  pharma: [
+    ch2Group('ON-APP ML'),
+    ch2Row('MS Posición 1', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Quick Access', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Push notifications', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Splash Screen', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Discovery banner', '~ sesiones/mes · ~ CVR'),
+    ch2Group('ON-APP MP'),
+    ch2Row('Home MP — a definir', '~ sesiones/mes · ~ CVR'),
+    ch2Group('OFF-APP · PAID MEDIA'),
+    ch2Row('Vía pública', '~ impresiones/mes'),
+    ch2Row('Influencers', '~ impresiones/mes · ~ sesiones/mes'),
+    ch2Row('Affiliates', '~ sesiones/mes · ~ CVR')
+  ],
+  qc: [
+    ch2Group('ON-APP ML'),
+    ch2Row('MS Posición 1', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Quick Access', '~ sesiones/mes · ~ CVR'),
+    ch2Row('Push notifications', '~ sesiones/mes · ~ CVR'),
+    ch2Group('ON-APP MP'),
+    ch2Row('Home MP — a definir', '~ sesiones/mes · ~ CVR'),
+    ch2Group('OFF-APP · PAID MEDIA'),
+    ch2Row('Influencers', '~ impresiones/mes · ~ sesiones/mes'),
+    ch2Row('Affiliates', '~ sesiones/mes · ~ CVR')
+  ]
+};
+
+function ch2Render(vertical){
+  var body = document.getElementById('ch2-body-' + vertical);
+  if (!body || body.dataset.rendered) return;
+  var rows = CH2_DATA[vertical] || [];
+  body.innerHTML = rows.map(function(r){
+    if (r.group) return '<tr class="ch2-group"><td colspan="8">' + r.nombre + '</td></tr>';
+    return '<tr><td>' + r.canal + '</td><td class="ch2-metric">' + r.audiencia + '</td><td class="ch2-metric">' + r.estimulo + '</td>' +
+      '<td class="ch2-metric">' + r.metrica + '</td><td class="ch2-metric">' + r.presupuesto + '</td>' +
+      '<td class="ch2-tl-cell"><span class="ch2-tl-dot"></span></td><td class="ch2-tl-cell"><span class="ch2-tl-dot"></span></td><td class="ch2-tl-cell"><span class="ch2-tl-dot"></span></td></tr>';
+  }).join('');
+  body.dataset.rendered = '1';
+}
+['groceries','gm','pharma','qc'].forEach(ch2Render);
+
+function goToTrial(vertical){
+  document.querySelectorAll('.vtabbtn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.vtab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelector('.vtabbtn[data-vtab="vtab-' + vertical + '"]').classList.add('active');
+  document.getElementById('vtab-' + vertical).classList.add('active');
+  document.getElementById('anchor-trial').scrollIntoView({behavior:'smooth', block:'start'});
+}
+document.querySelectorAll('.vtabbtn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.vtabbtn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.vtab-panel').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.vtab).classList.add('active');
+  });
 });
 </script>
 </body></html>
