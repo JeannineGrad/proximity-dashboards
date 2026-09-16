@@ -105,6 +105,7 @@ h2.h2{font-size:15px;font-weight:900;color:var(--navy);margin:36px 0 12px;paddin
 .matrix th,.matrix td{border:1px solid var(--border);text-align:center;vertical-align:middle}
 .matrix thead th{background:#f5f6f8;color:var(--navy);font-size:11.5px;font-weight:800;padding:10px 8px}
 .matrix thead th .col-def{display:block;font-size:9px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;margin-top:3px}
+.matrix tbody th .row-def{display:block;font-size:9px;font-weight:600;color:var(--muted);margin-top:2px}
 .matrix .thr{display:block;font-size:9.5px;font-weight:700;color:var(--muted);margin-top:3px}
 .matrix tbody th{background:#fbfcfe;color:var(--navy);font-size:12px;font-weight:800;padding:10px 10px;text-align:left;white-space:nowrap}
 .matrix tbody th.sub-vertical{padding-left:26px;font-size:10.5px;font-weight:600;color:var(--muted);font-style:italic}
@@ -251,7 +252,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       </thead>
       <tbody>
         <tr class="group-row">
-          <th>Groceries</th>
+          <th>Groceries<span class="row-def">Vertical de alta frecuencia</span></th>
           <td class="cell empty"></td>
           <td class="cell empty"><span class="thr">🥇 Objetivo principal Groceries:</span><span class="thr">5 tx · 90d</span></td>
           <td class="cell empty"></td>
@@ -270,13 +271,13 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
           <td class="cell active" data-cell="onb-instore" onclick="document.getElementById('anchor-onboarding-instore').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">🏪 Ver journey →</span></td>
         </tr>
         <tr>
-          <th>GM</th>
+          <th>GM<span class="row-def">Vertical de baja frecuencia</span></th>
           <td class="cell active" onclick="goToTrial('gm')"><span class="thr">🎯 Ver Trial →</span></td>
           <td class="cell active" colspan="2" data-cell="onb-gm" onclick="document.getElementById('anchor-onboarding-gm').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">🔁 Ver journey →</span></td>
           <td class="cell empty"></td>
         </tr>
         <tr>
-          <th>Pharma</th>
+          <th>Pharma<span class="row-def">Vertical de baja frecuencia</span></th>
           <td class="cell active" onclick="goToTrial('pharma')"><span class="thr">🎯 Ver Trial →</span></td>
           <td class="cell active" colspan="2" data-cell="onb-pharma" onclick="document.getElementById('anchor-onboarding-pharma').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">🔁 Ver journey →</span></td>
           <td class="cell empty"></td>
@@ -306,15 +307,15 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 
   <div class="vtab-panel active" id="vtab-instore">
     <div class="ch2-steps">
-      <div class="ch2-step c1">
-        <h5>🎯 1. Audiencias</h5>
-        <p>Identificar los segmentos clave a los que comunicar, según su relación actual con la vertical y con ML, y su ubicación respecto de la zona de influencia (radio de locales físicos, zona de entrega, etc.): compradores actuales, usuarios ML sin comprar la vertical (residentes o no en la zona), no usuarios ML.</p>
-        <p class="ej">Ej. Instore (radio 4,5 km alrededor de tiendas físicas, ~2,6 M hab.): pagadores QR MP con/sin app ML, compradores actuales, audiencia ML residente/no residente en zona, no usuarios ML.</p>
-      </div>
       <div class="ch2-step c3">
-        <h5>📊 2. Métricas base y targets</h5>
+        <h5>📊 1. Métricas base y targets</h5>
         <p>Cuantificar cada audiencia con la mejor fuente disponible, y definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
         <p class="ej">Ej. Instore: población ~2,6 M · audiencia ML ~3,0 M · compradores QR MP ~0,36-0,46 M. Target: 15.000 compras dic-26 con CVR 4,02% → ~0,37 M sesiones/mes necesarias.</p>
+      </div>
+      <div class="ch2-step c1">
+        <h5>🎯 2. Audiencias</h5>
+        <p>Identificar los segmentos clave a los que comunicar, según su relación actual con la vertical y con ML, y su ubicación respecto de la zona de influencia (radio de locales físicos, zona de entrega, etc.): compradores actuales, usuarios ML sin comprar la vertical (residentes o no en la zona), no usuarios ML.</p>
+        <p class="ej">Ej. Instore (radio 4,5 km alrededor de tiendas físicas, ~2,6 M hab.): pagadores QR MP con/sin app ML, compradores actuales, audiencia ML residente/no residente en zona, no usuarios ML.</p>
       </div>
     </div>
     <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
@@ -326,15 +327,15 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
   <div class="vtab-panel" id="vtab-darkstore">
     <div class="ch2-steps">
-      <div class="ch2-step c1">
-        <h5>🎯 1. Audiencias</h5>
-        <p>Identificar los segmentos clave a los que comunicar, según su relación actual con la vertical y con ML, y su ubicación respecto de la zona de influencia (radio de cobertura de entrega, distinta a la de Instore). Compradores actuales, usuarios ML sin comprar la vertical (residentes o no en la zona), no usuarios ML.</p>
-        <p class="ej">Ej. Darkstore: a definir — zona de cobertura propia (distinta a la de las tiendas físicas Instore), pendiente segmentos.</p>
-      </div>
       <div class="ch2-step c3">
-        <h5>📊 2. Métricas base y targets</h5>
+        <h5>📊 1. Métricas base y targets</h5>
         <p>Cuantificar cada audiencia con la mejor fuente disponible, y definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
         <p class="ej">Ej. Darkstore: a definir — sin data base de población/audiencia ni objetivo de compras/CVR todavía.</p>
+      </div>
+      <div class="ch2-step c1">
+        <h5>🎯 2. Audiencias</h5>
+        <p>Identificar los segmentos clave a los que comunicar, según su relación actual con la vertical y con ML, y su ubicación respecto de la zona de influencia (radio de cobertura de entrega, distinta a la de Instore). Compradores actuales, usuarios ML sin comprar la vertical (residentes o no en la zona), no usuarios ML.</p>
+        <p class="ej">Ej. Darkstore: a definir — zona de cobertura propia (distinta a la de las tiendas físicas Instore), pendiente segmentos.</p>
       </div>
     </div>
     <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
@@ -347,15 +348,15 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
   <div class="vtab-panel" id="vtab-gm">
     <div class="ch2-steps">
-      <div class="ch2-step c1">
-        <h5>🎯 1. Audiencias</h5>
-        <p>Identificar los segmentos clave a los que comunicar, según su relación actual con la vertical y con ML, y su ubicación respecto de la zona de influencia (radio de locales físicos, zona de entrega, etc.): compradores actuales, usuarios ML sin comprar la vertical (residentes o no en la zona), no usuarios ML.</p>
-        <p class="ej">Ej. GM: a definir — sin locales físicos propios como Instore, pendiente criterio de zona/cobertura y de segmentos.</p>
-      </div>
       <div class="ch2-step c3">
-        <h5>📊 2. Métricas base y targets</h5>
+        <h5>📊 1. Métricas base y targets</h5>
         <p>Cuantificar cada audiencia con la mejor fuente disponible, y definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
         <p class="ej">Ej. GM: a definir — sin data base de población/audiencia ni objetivo de compras/CVR todavía.</p>
+      </div>
+      <div class="ch2-step c1">
+        <h5>🎯 2. Audiencias</h5>
+        <p>Identificar los segmentos clave a los que comunicar, según su relación actual con la vertical y con ML, y su ubicación respecto de la zona de influencia (radio de locales físicos, zona de entrega, etc.): compradores actuales, usuarios ML sin comprar la vertical (residentes o no en la zona), no usuarios ML.</p>
+        <p class="ej">Ej. GM: a definir — sin locales físicos propios como Instore, pendiente criterio de zona/cobertura y de segmentos.</p>
       </div>
     </div>
     <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
@@ -368,15 +369,15 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
   <div class="vtab-panel" id="vtab-pharma">
     <div class="ch2-steps">
-      <div class="ch2-step c1">
-        <h5>🎯 1. Audiencias</h5>
-        <p>Identificar los segmentos clave a los que comunicar, según su relación actual con la vertical y con ML, y su ubicación respecto de la zona de influencia (radio de locales físicos, zona de entrega, etc.): compradores actuales, usuarios ML sin comprar la vertical (residentes o no en la zona), no usuarios ML.</p>
-        <p class="ej">Ej. Pharma: a definir — pendiente criterio de zona/cobertura y de segmentos.</p>
-      </div>
       <div class="ch2-step c3">
-        <h5>📊 2. Métricas base y targets</h5>
+        <h5>📊 1. Métricas base y targets</h5>
         <p>Cuantificar cada audiencia con la mejor fuente disponible, y definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
         <p class="ej">Ej. Pharma: a definir — sin data base de población/audiencia ni objetivo de compras/CVR todavía.</p>
+      </div>
+      <div class="ch2-step c1">
+        <h5>🎯 2. Audiencias</h5>
+        <p>Identificar los segmentos clave a los que comunicar, según su relación actual con la vertical y con ML, y su ubicación respecto de la zona de influencia (radio de locales físicos, zona de entrega, etc.): compradores actuales, usuarios ML sin comprar la vertical (residentes o no en la zona), no usuarios ML.</p>
+        <p class="ej">Ej. Pharma: a definir — pendiente criterio de zona/cobertura y de segmentos.</p>
       </div>
     </div>
     <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
