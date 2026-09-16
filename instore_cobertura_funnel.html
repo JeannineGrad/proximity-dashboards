@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Instore MLA — Cobertura y Funnel</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; gap:14px; padding:20px; }
+.slide { width:1100px; height:620px; background:#fff; border-radius:0; box-shadow:0 8px 48px rgba(0,0,0,.5); overflow:hidden; position:relative; display:none; }
+.slide.active { display:block; }
+.slide::before,.slide::after { content:''; position:absolute; left:0; right:0; height:6px; background:#FFB700; z-index:10; }
+.slide::before { top:0; } .slide::after { bottom:0; }
+.si { padding:26px 40px 22px; height:100%; display:flex; flex-direction:column; }
+.snum { position:absolute; top:12px; right:18px; font-size:10px; color:#bbb; font-weight:700; }
+.stitle { font-size:21px; font-weight:800; color:#1a2454; line-height:1.15; }
+.ssub { font-size:11px; color:#888; font-style:italic; margin-top:4px; }
+.sdiv { height:2px; background:#e8eaf2; margin:10px 0 14px; }
+.body { flex:1; display:flex; gap:20px; min-height:0; }
+
+/* MAP */
+.map-area { flex:0 0 620px; background:#f5f6fa; border:1px solid #dadfea; border-radius:6px; position:relative; overflow:hidden; }
+.map-caption { position:absolute; bottom:10px; left:12px; font-size:9.5px; color:#999; font-style:italic; }
+
+/* SIDE BOX */
+.side-box { flex:1; display:flex; flex-direction:column; gap:10px; }
+.side-hdr { background:#1a2454; color:#fff; font-size:13px; font-weight:700; padding:10px 14px; border-radius:6px; }
+.metric { background:#f8f9fc; border:1px solid #e8eaf2; border-radius:6px; padding:10px 14px; border-left:5px solid #1a2454; }
+.metric.b1 { border-left-color:#FFB700; } .metric.b2 { border-left-color:#4DC3E8; } .metric.b3 { border-left-color:#00a878; }
+.metric .lbl { font-size:10.5px; color:#666; }
+.metric .val { font-size:22px; font-weight:900; color:#1a2454; margin-top:2px; }
+.metric-note { font-size:9px; font-style:italic; color:#999; margin-top:4px; }
+.dummy-warn { font-size:9.5px; font-style:italic; color:#c0392b; margin-top:auto; padding-top:6px; }
+
+/* FUNNEL */
+.funnel-wrap { flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:8px; padding:4px 60px; }
+.f-row { display:flex; align-items:center; gap:14px; }
+.f-bar { height:64px; border-radius:6px; display:flex; flex-direction:column; justify-content:center; padding:0 20px; color:#fff; }
+.f-bar .f-lbl { font-size:12px; font-weight:700; }
+.f-bar .f-val { font-size:24px; font-weight:900; line-height:1.1; }
+.f-bar .f-note { font-size:8.5px; font-style:italic; opacity:.9; }
+.f-pct { width:56px; text-align:center; font-size:12px; font-weight:800; color:#888; flex-shrink:0; }
+.funnel-note { font-size:9.5px; font-style:italic; color:#c0392b; margin-top:8px; }
+.f-pair { position:relative; display:flex; flex-direction:column; justify-content:space-between; }
+.f-arrow-chip { position:absolute; background:#1a2454; color:#fff; font-size:11px; font-weight:800; padding:5px 12px; border-radius:14px; white-space:nowrap; }
+
+/* SLIDE 2: columna de referencia (gris) a la izquierda del funnel */
+.slide2-body { display:flex; gap:18px; flex:1; min-height:0; }
+.ref-col { flex:0 0 190px; display:flex; flex-direction:column; justify-content:space-between; padding:4px 0; }
+.ref-metric { background:#eceef2; border:1px solid #dcdfe6; border-radius:6px; padding:10px 12px; display:flex; flex-direction:column; justify-content:center; height:100%; }
+.ref-metric .lbl { font-size:10px; color:#888; }
+.ref-metric .val { font-size:19px; font-weight:900; color:#666; margin-top:2px; }
+.ref-metric .ref-x { font-size:11px; font-style:italic; color:#999; margin-top:3px; }
+.ref-spacer { visibility:hidden; }
+.ref-pair { display:flex; flex-direction:column; justify-content:space-between; }
+.f-seg-bar { display:flex; height:64px; border-radius:6px; overflow:hidden; }
+.f-seg { flex:1; display:flex; align-items:center; justify-content:center; text-align:center; padding:4px 6px; color:#fff; font-size:8px; font-weight:700; line-height:1.25; border-right:2px solid rgba(255,255,255,.35); }
+.f-seg:last-child { border-right:none; }
+.aud-bracket { position:relative; height:14px; margin-bottom:1px; }
+.aud-bracket-line { position:absolute; left:0; right:0; top:7px; height:2px; background:#aab0bf; }
+.aud-bracket-line::before, .aud-bracket-line::after { content:''; position:absolute; top:0; width:2px; height:7px; background:#aab0bf; }
+.aud-bracket-line::before { left:0; }
+.aud-bracket-line::after { right:0; }
+.aud-bracket-label { position:absolute; left:50%; top:-7px; transform:translateX(-50%); background:#fff; padding:0 8px; font-size:9px; font-weight:800; color:#777; white-space:nowrap; }
+
+/* SLIDE 3 v3: matriz funnel x estado de usuario */
+.ff-grid { flex:1; display:grid; grid-template-columns:120px repeat(4,1fr); grid-template-rows:36px 84px 1fr 1fr 1fr; gap:6px; min-height:0; }
+.ff-grid.focus-new { grid-template-columns:120px 4fr 0.4fr 0.4fr 0.4fr; grid-template-rows:36px 110px 1.4fr 1.4fr 44px; }
+.ff-label.grayed { background:#c7cbd6 !important; color:#8a90a3; }
+.ff-cell.grayed { background:#e4e6ec !important; }
+.plan-detail { display:flex; flex-direction:column; height:100%; width:100%; padding:8px 14px; color:#fff; text-align:left; }
+.plan-detail-title { font-size:13px; font-weight:800; margin-bottom:8px; }
+.plan-detail-split { display:flex; gap:16px; flex:1; }
+.plan-detail-col { flex:1; display:flex; flex-direction:column; gap:6px; }
+.plan-detail-col-hdr { font-size:9px; font-weight:800; opacity:.85; letter-spacing:.6px; border-bottom:1px solid rgba(255,255,255,.3); padding-bottom:3px; }
+.plan-detail-chips { display:flex; flex-wrap:wrap; gap:5px; }
+.plan-detail-subhdr { font-size:7.5px; font-weight:800; opacity:.75; margin-top:3px; }
+.plan-detail-subgroup:first-child .plan-detail-subhdr { margin-top:0; }
+.ff-chip.light { background:#eef0f5; color:#444; }
+.plan-detail-list { display:flex; flex-direction:column; gap:2px; }
+.plan-detail-item { display:flex; justify-content:space-between; align-items:center; gap:6px; font-size:8px; font-weight:700; color:#444; background:#eef0f5; border-radius:4px; padding:3px 7px; }
+.plan-detail-item .ch-val { font-size:7.5px; font-weight:600; color:#aaa; font-style:italic; white-space:nowrap; }
+.ch-legend { display:flex; align-items:center; gap:6px; margin-bottom:8px; padding-bottom:8px; border-bottom:1px solid #eee; }
+.ch-legend-lbl { font-size:8px; font-weight:800; color:#999; text-transform:uppercase; letter-spacing:.5px; margin-right:2px; }
+.ch-chip { font-size:8px; font-weight:700; color:#556; background:#eef0f5; border-radius:10px; padding:3px 9px; white-space:nowrap; }
+.ch-table { width:100%; border-collapse:collapse; table-layout:fixed; }
+.ch-table th { text-align:left; font-size:8px; font-weight:800; color:#aaa; text-transform:uppercase; letter-spacing:.4px; border-bottom:1px solid #e2e4ea; padding:3px 8px 6px; }
+.ch-table th.ch-tl-hdr { text-align:center; width:70px; }
+.ch-group-row td { background:#e9ebf2; font-size:8.5px; font-weight:800; color:#556; text-transform:uppercase; letter-spacing:.5px; padding:6px 8px; border-top:3px solid #d3d7e2; }
+.ch-group-row:first-child td { border-top:none; }
+.ch-table td { padding:5px 8px; border-bottom:1px solid #f2f3f6; color:#444; font-size:9px; font-weight:700; }
+.ch-metric { font-size:8px; font-weight:600; color:#999; font-style:italic; white-space:nowrap; }
+.ch-tl-cell { text-align:center; border-left:1px solid #f2f3f6; }
+.ch-tl-dot { width:10px; height:10px; border-radius:50%; background:#e2e4ea; display:inline-block; }
+.ff-corner { }
+.ff-colhdr { background:#eef0f5; border-radius:5px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.ff-colhdr .who-title { font-size:9px; font-weight:800; color:#8a90a3; letter-spacing:.5px; }
+.ff-colhdr .status { font-size:13px; font-weight:800; color:#1a2454; }
+.ff-colhdr .status-sub { font-size:8.5px; color:#999; }
+.ff-label { border-radius:5px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:13px; text-align:center; padding:4px; }
+.ff-cell { border-radius:5px; padding:8px; display:flex; flex-wrap:wrap; align-content:center; justify-content:center; gap:5px; }
+.ff-cell.empty { background:#eef0f5; }
+.ff-cell.plan { display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:12px; text-align:center; }
+.ff-chip { background:rgba(255,255,255,.22); color:#fff; font-size:8.5px; font-weight:700; padding:4px 9px; border-radius:10px; white-space:nowrap; }
+.ff-chip-group { display:flex; flex-direction:column; gap:4px; align-items:center; }
+.ff-chip-row { display:flex; gap:5px; flex-wrap:wrap; justify-content:center; }
+.ff-chip-tag { font-size:7px; font-weight:800; color:rgba(255,255,255,.75); align-self:center; margin-right:2px; }
+
+/* MATRIX (slide 3) */
+.matrix-wrap { flex:1; display:flex; flex-direction:column; gap:8px; }
+.matrix { flex:1; display:grid; grid-template-columns:110px repeat(3,1fr); grid-template-rows:36px repeat(2,1fr); gap:8px; }
+.mx-corner { }
+.mx-colhdr { background:#1a2454; color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; border-radius:5px; text-align:center; padding:0 6px; }
+.mx-rowhdr { background:#1a2454; color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; border-radius:5px; text-align:center; }
+.mx-cell { background:#f8f9fc; border:1px solid #e8eaf2; border-radius:6px; padding:10px 12px; display:flex; flex-direction:column; gap:4px; }
+.mx-cell.na { background:#f4f4f4; color:#bbb; align-items:center; justify-content:center; font-size:11px; font-style:italic; }
+.mx-cell .chip { background:#eef1f8; color:#1a2454; font-size:10.5px; font-weight:600; padding:3px 8px; border-radius:10px; display:inline-block; width:fit-content; }
+.mx-cell.pagados .chip { background:#fff4d9; color:#7d5a00; }
+.mx-cell.terceros .chip { background:#fdecea; color:#c0392b; }
+.mx-cell.organico .chip { background:#e6f7f0; color:#0f7a5c; }
+.matrix-legend { display:flex; gap:18px; font-size:10px; color:#888; }
+.matrix-legend span { display:flex; align-items:center; gap:5px; }
+.legend-dot { width:9px; height:9px; border-radius:2px; }
+
+/* SLIDE 3 v2: funnel awareness->loyalty + medios/estímulos */
+.awt-body { display:flex; gap:18px; flex:1; min-height:0; }
+.awt-funnel { flex:0 0 170px; display:flex; flex-direction:column; justify-content:space-between; padding:2px 0; }
+.awt-funnel-bar { border-radius:6px; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12.5px; height:100%; }
+.awt-table { flex:1; display:flex; flex-direction:column; justify-content:space-between; }
+.awt-row { display:flex; align-items:stretch; gap:10px; height:100%; }
+.awt-channels { flex:0 0 175px; background:#f8f9fc; border:1px solid #e8eaf2; border-radius:6px; padding:8px 12px; font-size:10.5px; color:#444; display:flex; align-items:center; }
+.awt-stim { flex:1; border-radius:6px; padding:6px 12px; font-size:10.5px; display:flex; flex-direction:column; justify-content:center; gap:2px; }
+.awt-stim.ml { background:#fff4d9; color:#7d5a00; }
+.awt-stim.tp { background:#fdecea; color:#c0392b; }
+.awt-stim.org { background:#e6f7f0; color:#0f7a5c; }
+.awt-stim .stim-hdr { font-size:8px; font-weight:800; text-transform:uppercase; opacity:.7; }
+.awt-colhdrs { display:flex; gap:10px; margin-bottom:8px; }
+.awt-colhdrs .hdr-channels { flex:0 0 175px; }
+.awt-colhdrs .hdr-stim { flex:1; }
+.awt-col-title { font-size:10px; font-weight:800; color:#1a2454; text-align:center; text-transform:uppercase; letter-spacing:.4px; }
+
+#nav { display:flex; align-items:center; gap:20px; user-select:none; }
+.nav-btn { background:rgba(26,36,84,.12); border:none; color:#1a2454; width:40px; height:40px; border-radius:50%; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.nav-btn:disabled { opacity:.25; }
+#nav-dots { display:flex; gap:8px; }
+.ndot { width:8px; height:8px; border-radius:50%; background:rgba(26,36,84,.2); cursor:pointer; }
+.ndot.active { background:#FFB700; }
+#nav-label { color:#888; font-size:12px; min-width:44px; text-align:center; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: MAPA DE COBERTURA -->
+<div class="slide active">
+  <div class="si">
+    <span class="snum">1</span>
+    <div class="stitle">Instore MLA — Ubicación de tiendas y radio de cobertura (4,5 km)</div>
+    <div class="sdiv"></div>
+    <div class="body">
+      <div class="map-area">
+        <img src="mapa_cobertura_instore.png" alt="Mapa de cobertura instore MLA" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">
+      </div>
+      <div class="side-box">
+        <div class="side-hdr">Población y usuarios en el radio de cobertura</div>
+        <div class="metric">
+          <div class="lbl">Población total (real — INDEC 2022, sin doble conteo de solapes)</div>
+          <div class="val">~2,6 M</div>
+          <div class="metric-note">Estimado con densidad poblacional (INDEC 2022) × área de cobertura, sin duplicar zonas donde se superponen los radios de las tiendas</div>
+        </div>
+        <div class="metric b2">
+          <div class="lbl">Compradores QR MP en tiendas físicas Carrefour</div>
+          <div class="val">~0,36 M – 0,46 M</div>
+          <div class="metric-note">0,36 M en los últimos 180 días · 0,46 M en los últimos 360 días</div>
+          <div class="metric-note">Pendiente: cruzar contra audiencia ML para saber cuántos ya son usuarios ML y cuántos son MP puro</div>
+        </div>
+        <div class="metric b1">
+          <div class="lbl">Audiencia ML</div>
+          <div class="val">~3,0 M</div>
+          <div class="metric-note">Pendiente: entender criterios usados para el armado de esta audiencia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: FUNNEL -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">2</span>
+    <div class="stitle">Funnel de audiencia — de población a órdenes</div>
+    <div class="ssub">Instore MLA</div>
+    <div class="sdiv"></div>
+    <div class="slide2-body">
+      <div class="ref-col">
+        <div class="ref-spacer" style="height:64px"></div>
+        <div class="ref-spacer" style="height:64px"></div>
+        <div class="ref-pair" style="height:250px">
+          <div class="ref-spacer" style="height:64px"></div>
+          <div class="ref-metric" style="height:64px">
+            <div class="lbl">Sesiones jul-26</div>
+            <div class="val">137.569</div>
+            <div class="ref-x">2,7x a dic-26</div>
+          </div>
+          <div class="ref-metric" style="height:64px">
+            <div class="lbl">Compras jul-26</div>
+            <div class="val">5.312</div>
+            <div class="ref-x">2,8x a dic-26</div>
+          </div>
+        </div>
+      </div>
+      <div class="funnel-wrap">
+      <div class="f-row">
+        <div class="f-bar" style="width:100%;background:#1a2454">
+          <div class="f-lbl">Población</div>
+          <div class="f-val">2,6 M</div>
+        </div>
+        <div class="f-pct"></div>
+      </div>
+      <div class="f-row">
+        <div style="width:76%">
+          <div class="aud-bracket">
+            <div class="aud-bracket-line"></div>
+            <div class="aud-bracket-label">Audiencia Target</div>
+          </div>
+          <div class="f-seg-bar">
+            <div class="f-seg" style="background:#2e5c8a">MP QR Carrefour<br>+ app ML</div>
+            <div class="f-seg" style="background:#4DC3E8">MP QR Carrefour<br>sin app ML</div>
+            <div class="f-seg" style="background:#00a878">Compradores instore<br>modelo actual (ever)</div>
+            <div class="f-seg" style="background:#FFB700; color:#1a2454">Audiencia ML<br>residencia en zona</div>
+            <div class="f-seg" style="background:#FFE9A8; color:#7d5a00">Resto<br>audiencia ML en zona</div>
+            <div class="f-seg" style="background:#7ec9c3">No compradores ML<br>en la zona</div>
+          </div>
+        </div>
+        <div class="f-pct"></div>
+      </div>
+      <div class="f-pair" style="height:250px">
+        <div class="f-row" style="margin:0">
+          <div class="f-bar" style="width:64%;background:#4da6ff">
+            <div class="f-lbl">Impresiones</div>
+            <div class="f-val">A definir</div>
+          </div>
+        </div>
+        <div class="f-row" style="margin:0">
+          <div class="f-bar" style="width:60%;background:#7ec9c3">
+            <div class="f-lbl">Sesiones necesarias — target dic-26</div>
+            <div class="f-val">0,37 M</div>
+          </div>
+        </div>
+        <div class="f-row" style="margin:0">
+          <div class="f-bar" style="width:60%;background:#00a878">
+            <div class="f-lbl">Órdenes — target dic-26</div>
+            <div class="f-val">15.000</div>
+          </div>
+        </div>
+        <svg style="position:absolute;top:0;left:0;width:692px;height:250px;pointer-events:none" viewBox="0 0 692 250">
+          <path d="M 443 32 C 580 32, 580 130, 415 130" fill="none" stroke="#cfd4e0" stroke-width="2.5"/>
+          <polygon points="415,130 432,123 432,137" fill="#cfd4e0"/>
+          <path d="M 415 130 C 540 130, 540 228, 415 228" fill="none" stroke="#cfd4e0" stroke-width="2.5"/>
+          <polygon points="415,228 432,221 432,235" fill="#cfd4e0"/>
+        </svg>
+        <div class="f-arrow-chip" style="left:566px; top:67px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; padding:0; font-size:15px;">?</div>
+        <div class="f-arrow-chip" style="left:430px; top:166px;">Conversión 4,02% (3,65% + 10% de mejora)</div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: MATRIZ DE MEDIOS -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">3</span>
+    <div class="stitle">Full Funnel Strategy — instore MLA</div>
+    <div class="ssub">Instore MLA</div>
+    <div class="sdiv"></div>
+    <div class="ff-grid">
+      <div class="ff-corner"></div>
+      <div class="ff-colhdr"><div class="status">NEW</div></div>
+      <div class="ff-colhdr"><div class="status">ACTIVE</div></div>
+      <div class="ff-colhdr"><div class="status">AT RISK</div></div>
+      <div class="ff-colhdr"><div class="status">CHURNED</div></div>
+
+      <div class="ff-label" style="background:#e74c3c; grid-row:2; grid-column:1">Awareness</div>
+      <div class="ff-cell plan" style="background:#e74c3c; grid-row:2; grid-column:2">PLAN DE COMUNICACIÓN 360</div>
+      <div class="ff-cell empty" style="grid-row:2; grid-column:3"></div>
+      <div class="ff-cell empty" style="grid-row:2; grid-column:4"></div>
+      <div class="ff-cell empty" style="grid-row:2; grid-column:5"></div>
+
+      <div class="ff-label" style="background:#2E86DE; grid-row:3; grid-column:1">Consideration</div>
+      <div class="ff-cell plan" style="background:#C0392B; grid-row:3/5; grid-column:2">PLAN ADQUISICIÓN</div>
+      <div class="ff-cell empty" style="grid-row:3; grid-column:3"></div>
+      <div class="ff-cell plan" style="background:#2E86DE; grid-row:3/5; grid-column:4">PLAN PREVENCIÓN CHURN</div>
+      <div class="ff-cell plan" style="background:#8E44AD; grid-row:3/5; grid-column:5">PLAN REACTIVACIÓN</div>
+
+      <div class="ff-label" style="background:#F5A623; grid-row:4; grid-column:1">Conversión / Trial</div>
+      <div class="ff-cell plan" style="background:#F5A623; grid-row:4; grid-column:3">PLAN ONBOARDING</div>
+
+      <div class="ff-label" style="background:#16A085; grid-row:5; grid-column:1">Loyalty</div>
+      <div class="ff-cell empty" style="grid-row:5; grid-column:2"></div>
+      <div class="ff-cell plan" style="background:#16A085; grid-row:5; grid-column:3">PLAN FIDELIZACIÓN + CROSS-SELL</div>
+      <div class="ff-cell empty" style="grid-row:5; grid-column:4"></div>
+      <div class="ff-cell empty" style="grid-row:5; grid-column:5"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: ZOOM A NEW (Awareness / Consideration / Conversion-Trial) -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">4</span>
+    <div class="stitle">Full Funnel Strategy — foco en New (Awareness, Consideration, Conversión/Trial)</div>
+    <div class="ssub">Instore MLA</div>
+    <div class="sdiv"></div>
+    <div class="ff-grid focus-new">
+      <div class="ff-corner"></div>
+      <div class="ff-colhdr"><div class="status">NEW</div></div>
+      <div class="ff-colhdr"><div class="status" style="color:#aab0bf">ACTIVE</div></div>
+      <div class="ff-colhdr"><div class="status" style="color:#aab0bf">AT RISK</div></div>
+      <div class="ff-colhdr"><div class="status" style="color:#aab0bf">CHURNED</div></div>
+
+      <div class="ff-label" style="background:#e74c3c; grid-row:2; grid-column:1">Awareness</div>
+      <div class="ff-cell" style="background:#fff; border-top:4px solid #e74c3c; grid-row:2/6; grid-column:2/6; padding:0; align-content:stretch; overflow:auto">
+        <div class="plan-detail" style="color:#333">
+          <div class="ch-legend"><span class="ch-legend-lbl">Estímulos</span><span class="ch-chip">Paid by MeLi</span><span class="ch-chip">Paid by 3P</span><span class="ch-chip">Orgánico</span><span class="ch-chip">Medios de pago</span></div>
+          <table class="ch-table">
+            <thead>
+              <tr>
+                <th>Canal</th>
+                <th>Estímulo</th>
+                <th>Métrica</th>
+                <th class="ch-tl-hdr">Oct</th>
+                <th class="ch-tl-hdr">Nov</th>
+                <th class="ch-tl-hdr">Dic</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="ch-group-row"><td colspan="6">ON-APP ML</td></tr>
+              <tr><td>MS Posición 1</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Quick Access</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Push notifications</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Splash Screen</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Discovery banner</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Rabbit hole banner</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr class="ch-group-row"><td colspan="6">ON-APP MP</td></tr>
+              <tr><td>Home MP — a definir</td><td class="ch-metric">a definir</td><td class="ch-metric">~ sesiones/mes · ~ CVR</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr class="ch-group-row"><td colspan="6">OFF-APP · PAID MEDIA</td></tr>
+              <tr><td>Vía pública</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>POM</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes · ~ sesiones/mes</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr class="ch-group-row"><td colspan="6">OFF-APP · MERCHANDISING</td></tr>
+              <tr><td>Mochilas</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Bolsas</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+              <tr><td>Pecheras</td><td class="ch-metric">a definir</td><td class="ch-metric">~ impresiones/mes</td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td><td class="ch-tl-cell"><span class="ch-tl-dot"></span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="ff-label" style="background:#2E86DE; grid-row:3; grid-column:1">Consideration</div>
+
+      <div class="ff-label" style="background:#F5A623; grid-row:4; grid-column:1">Conversión / Trial</div>
+
+      <div class="ff-label grayed" style="grid-row:5; grid-column:1">Loyalty</div>
+    </div>
+  </div>
+</div>
+
+<div id="nav">
+  <button class="nav-btn" id="btn-prev" onclick="go(-1)">&#8592;</button>
+  <div id="nav-dots"></div>
+  <button class="nav-btn" id="btn-next" onclick="go(1)">&#8594;</button>
+  <span id="nav-label">1 / 4</span>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dotsC=document.getElementById('nav-dots');
+const lbl=document.getElementById('nav-label');
+let cur=0;
+slides.forEach((_,i)=>{const d=document.createElement('div');d.className='ndot'+(i===0?' active':'');d.onclick=()=>goTo(i);dotsC.appendChild(d);});
+function goTo(n){slides[cur].classList.remove('active');dotsC.children[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');dotsC.children[cur].classList.add('active');lbl.textContent=(cur+1)+' / '+slides.length;document.getElementById('btn-prev').disabled=cur===0;document.getElementById('btn-next').disabled=cur===slides.length-1;}
+function go(d){if(cur+d>=0&&cur+d<slides.length)goTo(cur+d);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
+document.getElementById('btn-prev').disabled=true;
+</script>
+</body>
+</html>
