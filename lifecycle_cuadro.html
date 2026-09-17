@@ -292,101 +292,69 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       </tbody>
     </table></div>
 
-<h2 class="h2" id="anchor-trial">Trial — Generación de demanda por vertical</h2>
+<h2 class="h2" id="anchor-trial">Trial — Cadencia de generación de demanda</h2>
   <div class="card">
     <h4>🎯 Objetivo de esta sección</h4>
-    <p>Generación de tráfico que logre la 1ª compra: qué canales generan Awareness → Consideration → Conversión en cada vertical.</p>
+    <p>Diseño de la cadencia de envíos (push/CRM) para lograr la 1ª compra de la audiencia <b>Never buyer</b> de cada vertical en su zona — qué se manda, con qué frecuencia y en qué orden de incentivo.</p>
   </div>
+  <div class="callout amber" style="margin:0 0 12px">
+    <span>📐</span>
+    <div>2 push por semana, escalando el incentivo <b>de menos a más</b> a medida que no reacciona: primero <b>value prop</b> (sin incentivo), después <b>envío gratis</b>, y recién al final <b>cupón de 1ª compra</b> — evita quemar el incentivo más fuerte de entrada. Si compra en cualquier ronda, pasa a Onboarding. El detalle de canal/audiencia/estímulo de cada vertical vive en <a href="#" onclick="document.querySelectorAll('.doctabbtn').forEach(function(b){b.classList.remove('active')});document.querySelectorAll('.doctab-panel').forEach(function(p){p.classList.remove('active')});document.querySelector('.doctabbtn[data-doctab=\'doctab-funnel\']').classList.add('active');document.getElementById('doctab-funnel').classList.add('active');window.scrollTo(0,0);return false;">🎛️ Palancas disponibles →</a></div>
+  </div>
+  <div class="diagram">
+    <svg viewBox="0 0 1150 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — Never Buyer">
+      <defs><marker id="a8" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11px;font-weight:700}.lb{font-size:9px;fill:#8a8f98}.cplbl{font-size:11px;font-weight:800;fill:#1a2a4a}</style>
 
-  <div class="vtabbar">
-    <button class="vtabbtn active" data-vtab="vtab-instore">Instore</button>
-    <button class="vtabbtn" data-vtab="vtab-darkstore">Darkstore</button>
-    <button class="vtabbtn" data-vtab="vtab-gm">GM</button>
-    <button class="vtabbtn" data-vtab="vtab-pharma">Pharma</button>
-  </div>
+      <rect x="10" y="100" width="130" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+      <text x="75" y="121" text-anchor="middle" class="f t2" fill="#4b5160">Never buyer</text>
+      <text x="75" y="134" text-anchor="middle" class="f lb">en la zona</text>
+      <path d="M140,125 L165,125" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
 
-  <div class="vtab-panel active" id="vtab-instore">
-    <div class="ch2-steps">
-      <div class="ch2-step c3">
-        <h5>📊 1. Métricas base y targets</h5>
-        <p>Definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
-        <p class="ej">Ej. Instore: compras necesarias dic-26: 15.000 · tasa de conversión objetivo: 4,02% · sesiones necesarias: ~0,37 M/mes · sesiones actuales (jul-26): 137.569.</p>
-      </div>
-      <div class="ch2-step c1">
-        <h5>🎯 2. Audiencias</h5>
-        <p>Identificar los segmentos clave a los que comunicar.</p>
-        <p class="ej">Ej. Instore CABA: MP QR Carrefour con app ML · MP QR Carrefour sin app ML · Compradores instore modelo actual (ever) · Audiencia ML con residencia en zona · Resto audiencia ML en zona · No compradores ML en la zona.</p>
-      </div>
-    </div>
-    <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
-    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
-    <table class="ch2-table">
-      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
-      <tbody id="ch2-body-instore"></tbody>
-    </table>
+      <rect x="165" y="70" width="220" height="110" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="275" y="92" text-anchor="middle" class="f cplbl">Semana 1-2</text>
+      <text x="275" y="112" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana</text>
+      <text x="275" y="128" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop</text>
+      <text x="275" y="144" text-anchor="middle" class="f lb">sin incentivo</text>
+      <text x="275" y="160" text-anchor="middle" class="f lb">(institucional / awareness)</text>
+      <path d="M385,125 L410,125" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+      <polygon points="410,125 432,102 454,125 432,148" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="432" y="90" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M432,102 L432,60 L700,60" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <text x="470" y="52" text-anchor="middle" class="f lb" fill="#065f46">sí → Onboarding</text>
+      <path d="M454,125 L475,125" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <text x="465" y="140" text-anchor="middle" class="f lb">no</text>
+
+      <rect x="475" y="70" width="220" height="110" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
+      <text x="585" y="92" text-anchor="middle" class="f cplbl">Semana 3-4</text>
+      <text x="585" y="112" text-anchor="middle" class="f t2" fill="#065f46">🚚 2 push/semana</text>
+      <text x="585" y="128" text-anchor="middle" class="f t2" fill="#065f46">Envío gratis</text>
+      <text x="585" y="144" text-anchor="middle" class="f lb">incentivo liviano</text>
+      <path d="M695,125 L720,125" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+      <polygon points="720,125 742,102 764,125 742,148" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="742" y="90" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M742,102 L742,60 L700,60" stroke="#059669" stroke-width="1.5" fill="none"/>
+      <path d="M764,125 L785,125" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <text x="775" y="140" text-anchor="middle" class="f lb">no</text>
+
+      <rect x="785" y="70" width="220" height="110" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="895" y="92" text-anchor="middle" class="f cplbl">Semana 5-6</text>
+      <text x="895" y="112" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ 2 push/semana</text>
+      <text x="895" y="128" text-anchor="middle" class="f t2" fill="#9a5b06">Cupón 1ª compra</text>
+      <text x="895" y="144" text-anchor="middle" class="f lb">incentivo mayor</text>
+
+      <rect x="700" y="25" width="150" height="34" rx="8" fill="#e6f7f3" stroke="#059669" stroke-width="1.4"/>
+      <text x="775" y="47" text-anchor="middle" class="f t2" fill="#065f46">🏆 Onboarding</text>
+
+      <path d="M895,180 L895,205" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a8)"/>
+      <rect x="785" y="205" width="220" height="45" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
+      <text x="895" y="223" text-anchor="middle" class="f t2" fill="#7f1d1d">⏸ Si no reacciona:</text>
+      <text x="895" y="238" text-anchor="middle" class="f lb" fill="#7f1d1d">pausa / pool de mantenimiento (a definir)</text>
+    </svg>
   </div>
-  <div class="vtab-panel" id="vtab-darkstore">
-    <div class="ch2-steps">
-      <div class="ch2-step c3">
-        <h5>📊 1. Métricas base y targets</h5>
-        <p>Definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
-        <p class="ej">Ej. Darkstore: compras necesarias mes X: a definir · tasa de conversión: a definir · sesiones necesarias: a definir · sesiones actuales: a definir.</p>
-      </div>
-      <div class="ch2-step c1">
-        <h5>🎯 2. Audiencias</h5>
-        <p>Identificar los segmentos clave a los que comunicar.</p>
-        <p class="ej">Ej. Darkstore: a definir — zona de cobertura propia (distinta a la de las tiendas físicas Instore), pendiente segmentos.</p>
-      </div>
-    </div>
-    <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
-    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
-    <table class="ch2-table">
-      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
-      <tbody id="ch2-body-darkstore"></tbody>
-    </table>
-  </div>
-  <div class="vtab-panel" id="vtab-gm">
-    <div class="ch2-steps">
-      <div class="ch2-step c3">
-        <h5>📊 1. Métricas base y targets</h5>
-        <p>Definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
-        <p class="ej">Ej. GM: compras necesarias mes X: a definir · tasa de conversión: a definir · sesiones necesarias: a definir · sesiones actuales: a definir.</p>
-      </div>
-      <div class="ch2-step c1">
-        <h5>🎯 2. Audiencias</h5>
-        <p>Identificar los segmentos clave a los que comunicar.</p>
-        <p class="ej">Ej. GM: a definir — sin locales físicos propios como Instore, pendiente criterio de zona/cobertura y de segmentos.</p>
-      </div>
-    </div>
-    <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
-    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
-    <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div><b>Ejemplo de output</b> — misma estructura que armamos para Instore. <a href="#" onclick="goToTrial('instore');return false;">Ver tabla Instore →</a></div></div>
-    <table class="ch2-table">
-      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
-      <tbody id="ch2-body-gm"></tbody>
-    </table>
-  </div>
-  <div class="vtab-panel" id="vtab-pharma">
-    <div class="ch2-steps">
-      <div class="ch2-step c3">
-        <h5>📊 1. Métricas base y targets</h5>
-        <p>Definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
-        <p class="ej">Ej. Pharma: compras necesarias mes X: a definir · tasa de conversión: a definir · sesiones necesarias: a definir · sesiones actuales: a definir.</p>
-      </div>
-      <div class="ch2-step c1">
-        <h5>🎯 2. Audiencias</h5>
-        <p>Identificar los segmentos clave a los que comunicar.</p>
-        <p class="ej">Ej. Pharma: a definir — pendiente criterio de zona/cobertura y de segmentos.</p>
-      </div>
-    </div>
-    <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
-    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
-    <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div><b>Ejemplo de output</b> — misma estructura que armamos para Instore. <a href="#" onclick="goToTrial('instore');return false;">Ver tabla Instore →</a></div></div>
-    <table class="ch2-table">
-      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
-      <tbody id="ch2-body-pharma"></tbody>
-    </table>
-  </div>
+  <div class="callout" style="margin:12px 0 0;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div><b>Ej. Darkstore</b> — mismo orden ascendente que el resto: value prop → envío gratis → cupón de 1ª compra.</div></div>
 
 <h2 class="h2" id="anchor-onboarding-darkstore">Onboarding Groceries: entrada Darkstore</h2>
   <div class="card">
@@ -1116,6 +1084,102 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 
 <div class="ff-lever-list open" id="ffLeverList"></div>
 
+<h2 class="h2" id="anchor-plan-comunicacion" style="margin-top:28px">🗺️ Plan de comunicación por vertical</h2>
+  <div class="card">
+    <h4>🎯 Objetivo de esta sección</h4>
+    <p>Armado del plan: métricas base, audiencias objetivo, y selección de canales/estímulos/inversión para lograr la 1ª compra en cada vertical.</p>
+  </div>
+
+  <div class="vtabbar">
+    <button class="vtabbtn active" data-vtab="vtab-instore">Instore</button>
+    <button class="vtabbtn" data-vtab="vtab-darkstore">Darkstore</button>
+    <button class="vtabbtn" data-vtab="vtab-gm">GM</button>
+    <button class="vtabbtn" data-vtab="vtab-pharma">Pharma</button>
+  </div>
+
+  <div class="vtab-panel active" id="vtab-instore">
+    <div class="ch2-steps">
+      <div class="ch2-step c3">
+        <h5>📊 1. Métricas base y targets</h5>
+        <p>Definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
+        <p class="ej">Ej. Instore: compras necesarias dic-26: 15.000 · tasa de conversión objetivo: 4,02% · sesiones necesarias: ~0,37 M/mes · sesiones actuales (jul-26): 137.569.</p>
+      </div>
+      <div class="ch2-step c1">
+        <h5>🎯 2. Audiencias</h5>
+        <p>Identificar los segmentos clave a los que comunicar.</p>
+        <p class="ej">Ej. Instore CABA: MP QR Carrefour con app ML · MP QR Carrefour sin app ML · Compradores instore modelo actual (ever) · Audiencia ML con residencia en zona · Resto audiencia ML en zona · No compradores ML en la zona.</p>
+      </div>
+    </div>
+    <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
+    <table class="ch2-table">
+      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
+      <tbody id="ch2-body-instore"></tbody>
+    </table>
+  </div>
+  <div class="vtab-panel" id="vtab-darkstore">
+    <div class="ch2-steps">
+      <div class="ch2-step c3">
+        <h5>📊 1. Métricas base y targets</h5>
+        <p>Definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
+        <p class="ej">Ej. Darkstore: compras necesarias mes X: a definir · tasa de conversión: a definir · sesiones necesarias: a definir · sesiones actuales: a definir.</p>
+      </div>
+      <div class="ch2-step c1">
+        <h5>🎯 2. Audiencias</h5>
+        <p>Identificar los segmentos clave a los que comunicar.</p>
+        <p class="ej">Ej. Darkstore: a definir — zona de cobertura propia (distinta a la de las tiendas físicas Instore), pendiente segmentos.</p>
+      </div>
+    </div>
+    <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
+    <table class="ch2-table">
+      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
+      <tbody id="ch2-body-darkstore"></tbody>
+    </table>
+  </div>
+  <div class="vtab-panel" id="vtab-gm">
+    <div class="ch2-steps">
+      <div class="ch2-step c3">
+        <h5>📊 1. Métricas base y targets</h5>
+        <p>Definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
+        <p class="ej">Ej. GM: compras necesarias mes X: a definir · tasa de conversión: a definir · sesiones necesarias: a definir · sesiones actuales: a definir.</p>
+      </div>
+      <div class="ch2-step c1">
+        <h5>🎯 2. Audiencias</h5>
+        <p>Identificar los segmentos clave a los que comunicar.</p>
+        <p class="ej">Ej. GM: a definir — sin locales físicos propios como Instore, pendiente criterio de zona/cobertura y de segmentos.</p>
+      </div>
+    </div>
+    <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
+    <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div><b>Ejemplo de output</b> — misma estructura que armamos para Instore. <a href="#" onclick="goToTrial('instore');return false;">Ver tabla Instore →</a></div></div>
+    <table class="ch2-table">
+      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
+      <tbody id="ch2-body-gm"></tbody>
+    </table>
+  </div>
+  <div class="vtab-panel" id="vtab-pharma">
+    <div class="ch2-steps">
+      <div class="ch2-step c3">
+        <h5>📊 1. Métricas base y targets</h5>
+        <p>Definir el objetivo de negocio (compras/mes) y CVR esperado para calcular cuántas sesiones hay que generar.</p>
+        <p class="ej">Ej. Pharma: compras necesarias mes X: a definir · tasa de conversión: a definir · sesiones necesarias: a definir · sesiones actuales: a definir.</p>
+      </div>
+      <div class="ch2-step c1">
+        <h5>🎯 2. Audiencias</h5>
+        <p>Identificar los segmentos clave a los que comunicar.</p>
+        <p class="ej">Ej. Pharma: a definir — pendiente criterio de zona/cobertura y de segmentos.</p>
+      </div>
+    </div>
+    <div class="ch2-plan-hdr">🗺️ 3. Plan detallado<span>Selección de medios, estímulos, inversión e impacto estimados para cada audiencia, con su temporalidad (ej. Oct-Nov-Dic, a ajustar según el período real de cada plan)</span></div>
+    <div class="ch2-legend2"><span class="ch2-legend2-lbl">Estímulos</span><span class="ch2-chip">🏷️ Paid by MeLi</span><span class="ch2-chip">🤝 Paid by 3P</span><span class="ch2-chip">🌱 Orgánico</span><span class="ch2-chip">💳 Medios de pago</span></div>
+    <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div><b>Ejemplo de output</b> — misma estructura que armamos para Instore. <a href="#" onclick="goToTrial('instore');return false;">Ver tabla Instore →</a></div></div>
+    <table class="ch2-table">
+      <thead><tr><th>Canal</th><th>Audiencia</th><th>Estímulo</th><th>Métrica</th><th>Presupuesto / Mes</th><th class="ch2-tl">Oct</th><th class="ch2-tl">Nov</th><th class="ch2-tl">Dic</th></tr></thead>
+      <tbody id="ch2-body-pharma"></tbody>
+    </table>
+  </div>
+
 </div>
 <!-- /doctab-funnel -->
 
@@ -1469,11 +1533,15 @@ function ch2Render(vertical){
 ['instore','darkstore','gm','pharma'].forEach(ch2Render);
 
 function goToTrial(vertical){
+  document.querySelectorAll('.doctabbtn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.doctab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelector('.doctabbtn[data-doctab="doctab-funnel"]').classList.add('active');
+  document.getElementById('doctab-funnel').classList.add('active');
   document.querySelectorAll('.vtabbtn').forEach(function(b){ b.classList.remove('active'); });
   document.querySelectorAll('.vtab-panel').forEach(function(p){ p.classList.remove('active'); });
   document.querySelector('.vtabbtn[data-vtab="vtab-' + vertical + '"]').classList.add('active');
   document.getElementById('vtab-' + vertical).classList.add('active');
-  document.getElementById('anchor-trial').scrollIntoView({behavior:'smooth', block:'start'});
+  window.scrollTo(0,0);
 }
 document.querySelectorAll('.vtabbtn').forEach(function(btn){
   btn.addEventListener('click', function(){
