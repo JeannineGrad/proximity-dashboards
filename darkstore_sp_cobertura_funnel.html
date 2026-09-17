@@ -483,14 +483,7 @@ function initEditing(state) {
   });
 
   if (SYNC_URL) {
-    showToast('Conectado — los cambios se comparten con todos');
-    // Revisa cada 10s si alguien mas hizo cambios, y los aplica sin pisar lo que estás escribiendo ahora
-    setInterval(() => {
-      if (document.activeElement && document.activeElement.isContentEditable) return;
-      fetchSharedState((remote) => {
-        if (JSON.stringify(remote) !== JSON.stringify(syncState)) location.reload();
-      });
-    }, 10000);
+    showToast('Conectado — los cambios se comparten con todos (recargá para ver cambios de otros)');
   }
 }
 
