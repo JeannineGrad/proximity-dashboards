@@ -324,107 +324,236 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
 
   <div class="tsel-panel active" id="tsel-combo">
   <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div>El envío gratis en Darkstore es un beneficio de <b>Meli+</b> — sin Meli+ no hay envío gratis, ni en Darkstore ni en Instore. Por eso se separa por Meli+, y el primer mensaje es la <b>value prop completa de Groceries</b> (menciona ambos servicios), no la de uno puntual.</div></div>
-  <div class="cadence-group">
-    <div class="cadence-hdr" style="color:#1d4ed8">🅼 MELI+ (ya tiene envío gratis siempre)</div>
-    <table class="cadence-table">
-      <thead><tr><th>Semana</th><th>Impacto 1</th><th>Impacto 2</th></tr></thead>
-      <tbody>
-        <tr><td class="week">Semana 1</td>
-          <td><span class="imp-main">📣 Value prop Groceries</span><span class="imp-note">+ ya tenés envío gratis — se apalanca desde el 1er envío</span></td>
-          <td><span class="imp-main">🤝 Oferta partner</span></td>
-        </tr>
-        <tr><td class="week">Semana 2</td>
-          <td><span class="imp-main">🎟️ Cupón 1ª compra</span><span class="imp-note">salta envío gratis: ya lo tiene</span></td>
-          <td><span class="imp-main">🔔 Recordatorio</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="diagram">
+    <svg viewBox="0 0 830 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — zona combinada Darkstore + Instore">
+      <defs><marker id="a8" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:12px;font-weight:800}.t2{font-size:10.5px;font-weight:700}.lb{font-size:8.5px;fill:#8a8f98}.cplbl{font-size:9px;font-weight:800;fill:#8a8f98}</style>
 
-  <div class="cadence-group">
-    <div class="cadence-hdr" style="color:#4b5160">🚫 RESTO (sin Meli+, sin envío gratis)</div>
-    <table class="cadence-table">
-      <thead><tr><th>Semana</th><th>Impacto 1</th><th>Impacto 2</th></tr></thead>
-      <tbody>
-        <tr><td class="week">Semana 1</td>
-          <td><span class="imp-main">📣 Value prop Groceries</span><span class="imp-note">sin incentivo</span></td>
-          <td><span class="imp-main">🤝 Oferta partner</span><span class="imp-note">sin incentivo</span></td>
-        </tr>
-        <tr><td class="week">Semana 2</td>
-          <td><span class="imp-main">🚚 Envío gratis</span><span class="imp-note">incentivo liviano (puntual)</span></td>
-          <td><span class="imp-main">🔔 Recordatorio</span></td>
-        </tr>
-        <tr><td class="week">Semana 3</td>
-          <td><span class="imp-main">🎟️ Cupón 1ª compra</span><span class="imp-note">incentivo mayor</span></td>
-          <td><span class="imp-main">🔔 Recordatorio</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="cadence-note">Si compra en cualquier impacto → <b style="color:#065f46">🏆 Onboarding</b> · si no reacciona a la semana 3 → <b style="color:#7f1d1d">⏸ pausa / pool (a definir)</b></div>
+      <rect x="10" y="147" width="80" height="60" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+      <text x="50" y="173" text-anchor="middle" class="f t2" fill="#4b5160">Never</text>
+      <text x="50" y="186" text-anchor="middle" class="f lb">buyer combinada</text>
+      <path d="M90,162 L100,162 L100,89" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <path d="M90,192 L100,192 L100,265" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+
+      <!-- FILA MELI+ -->
+      <text x="327" y="8" text-anchor="middle" class="f t1" fill="#1d4ed8">🅼 MELI+</text>
+      <path d="M100,26 L100,20 L320,20 L320,26" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="210" y="16" text-anchor="middle" class="f lb" style="font-weight:700">Semana 1</text>
+      <path d="M335,26 L335,20 L555,20 L555,26" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="445" y="16" text-anchor="middle" class="f lb" style="font-weight:700">Semana 2</text>
+
+      <rect x="100" y="44" width="105" height="90" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="152" y="66" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="152" y="84" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 Value prop</text>
+      <text x="152" y="100" text-anchor="middle" class="f lb">+ envío gratis</text>
+      <path d="M205,89 L215,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a8)"/>
+
+      <rect x="215" y="44" width="105" height="90" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="267" y="66" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="267" y="84" text-anchor="middle" class="f t2" fill="#1d4ed8">🤝 Partner</text>
+      <text x="267" y="100" text-anchor="middle" class="f lb">oferta especial</text>
+      <path d="M320,89 L335,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a8)"/>
+
+      <rect x="335" y="44" width="105" height="90" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="387" y="66" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="387" y="84" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ Cupón</text>
+      <text x="387" y="100" text-anchor="middle" class="f lb">1ª compra</text>
+      <path d="M440,89 L450,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a8)"/>
+
+      <rect x="450" y="44" width="105" height="90" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="502" y="66" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="502" y="84" text-anchor="middle" class="f t2" fill="#9a5b06">🔔 Recordatorio</text>
+
+      <!-- FILA RESTO -->
+      <text x="445" y="180" text-anchor="middle" class="f t1" fill="#4b5160">🚫 RESTO (sin envío gratis)</text>
+      <path d="M100,198 L100,192 L320,192 L320,198" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="210" y="188" text-anchor="middle" class="f lb" style="font-weight:700">Semana 1</text>
+      <path d="M335,198 L335,192 L555,192 L555,198" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="445" y="188" text-anchor="middle" class="f lb" style="font-weight:700">Semana 2</text>
+      <path d="M570,198 L570,192 L790,192 L790,198" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="680" y="188" text-anchor="middle" class="f lb" style="font-weight:700">Semana 3</text>
+
+      <rect x="100" y="216" width="105" height="90" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="152" y="238" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="152" y="256" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 Value prop</text>
+      <text x="152" y="272" text-anchor="middle" class="f lb">sin incentivo</text>
+      <path d="M205,261 L215,261" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a8)"/>
+
+      <rect x="215" y="216" width="105" height="90" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="267" y="238" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="267" y="256" text-anchor="middle" class="f t2" fill="#1d4ed8">🤝 Partner</text>
+      <text x="267" y="272" text-anchor="middle" class="f lb">sin incentivo</text>
+      <path d="M320,261 L335,261" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a8)"/>
+
+      <rect x="335" y="216" width="105" height="90" rx="9" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
+      <text x="387" y="238" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="387" y="256" text-anchor="middle" class="f t2" fill="#065f46">🚚 Envío gratis</text>
+      <text x="387" y="272" text-anchor="middle" class="f lb">liviano, puntual</text>
+      <path d="M440,261 L450,261" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a8)"/>
+
+      <rect x="450" y="216" width="105" height="90" rx="9" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
+      <text x="502" y="238" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="502" y="256" text-anchor="middle" class="f t2" fill="#065f46">🔔 Recordatorio</text>
+      <path d="M555,261 L570,261" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a8)"/>
+
+      <rect x="570" y="216" width="105" height="90" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="622" y="238" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="622" y="256" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ Cupón</text>
+      <text x="622" y="272" text-anchor="middle" class="f lb">incentivo mayor</text>
+      <path d="M675,261 L685,261" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a8)"/>
+
+      <rect x="685" y="216" width="105" height="90" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="737" y="238" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="737" y="256" text-anchor="middle" class="f t2" fill="#9a5b06">🔔 Recordatorio</text>
+
+      <text x="445" y="335" text-anchor="middle" class="f lb">Si compra en cualquier impacto → <tspan fill="#065f46" font-weight="700">🏆 Onboarding</tspan> · si no reacciona a la semana 3 → <tspan fill="#7f1d1d" font-weight="700">⏸ pausa (a definir)</tspan></text>
+    </svg>
   </div>
   </div>
 
   <div class="tsel-panel" id="tsel-instore">
   <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div>En una zona con solo Instore (sin Darkstore), un único flujo de 3 semanas escalando el incentivo — value prop, luego envío gratis, y recién al final cupón de 1ª compra.</div></div>
-  <table class="cadence-table">
-    <thead><tr><th>Semana</th><th>Impacto 1</th><th>Impacto 2</th></tr></thead>
-    <tbody>
-      <tr><td class="week">Semana 1</td>
-        <td><span class="imp-main">📣 Value prop</span><span class="imp-note">sin incentivo</span></td>
-        <td><span class="imp-main">🤝 Oferta partner</span><span class="imp-note">sin incentivo</span></td>
-      </tr>
-      <tr><td class="week">Semana 2</td>
-        <td><span class="imp-main">🚚 Envío gratis</span><span class="imp-note">incentivo liviano</span></td>
-        <td><span class="imp-main">🔔 Recordatorio</span></td>
-      </tr>
-      <tr><td class="week">Semana 3</td>
-        <td><span class="imp-main">🎟️ Cupón 1ª compra</span><span class="imp-note">incentivo mayor</span></td>
-        <td><span class="imp-main">🔔 Recordatorio</span></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="cadence-note">Si compra en cualquier impacto → <b style="color:#065f46">🏆 Onboarding</b> · si no reacciona a la semana 3 → <b style="color:#7f1d1d">⏸ pausa / pool (a definir)</b></div>
+  <div class="diagram">
+    <svg viewBox="0 0 830 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — zona con solo Instore">
+      <defs><marker id="a11" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t2{font-size:10.5px;font-weight:700}.lb{font-size:8.5px;fill:#8a8f98}.cplbl{font-size:9px;font-weight:800;fill:#8a8f98}</style>
+
+      <rect x="10" y="44" width="80" height="90" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+      <text x="50" y="84" text-anchor="middle" class="f t2" fill="#4b5160">Never</text>
+      <text x="50" y="97" text-anchor="middle" class="f lb">buyer Instore</text>
+      <path d="M90,89 L100,89" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a11)"/>
+
+      <path d="M100,26 L100,20 L320,20 L320,26" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="210" y="16" text-anchor="middle" class="f lb" style="font-weight:700">Semana 1</text>
+      <path d="M335,26 L335,20 L555,20 L555,26" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="445" y="16" text-anchor="middle" class="f lb" style="font-weight:700">Semana 2</text>
+      <path d="M570,26 L570,20 L790,20 L790,26" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="680" y="16" text-anchor="middle" class="f lb" style="font-weight:700">Semana 3</text>
+
+      <rect x="100" y="44" width="105" height="90" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="152" y="66" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="152" y="84" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 Value prop</text>
+      <text x="152" y="100" text-anchor="middle" class="f lb">sin incentivo</text>
+      <path d="M205,89 L215,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a11)"/>
+
+      <rect x="215" y="44" width="105" height="90" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="267" y="66" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="267" y="84" text-anchor="middle" class="f t2" fill="#1d4ed8">🤝 Partner</text>
+      <text x="267" y="100" text-anchor="middle" class="f lb">sin incentivo</text>
+      <path d="M320,89 L335,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a11)"/>
+
+      <rect x="335" y="44" width="105" height="90" rx="9" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
+      <text x="387" y="66" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="387" y="84" text-anchor="middle" class="f t2" fill="#065f46">🚚 Envío gratis</text>
+      <text x="387" y="100" text-anchor="middle" class="f lb">liviano</text>
+      <path d="M440,89 L450,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a11)"/>
+
+      <rect x="450" y="44" width="105" height="90" rx="9" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
+      <text x="502" y="66" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="502" y="84" text-anchor="middle" class="f t2" fill="#065f46">🔔 Recordatorio</text>
+      <path d="M555,89 L570,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a11)"/>
+
+      <rect x="570" y="44" width="105" height="90" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="622" y="66" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="622" y="84" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ Cupón</text>
+      <text x="622" y="100" text-anchor="middle" class="f lb">incentivo mayor</text>
+      <path d="M675,89 L685,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a11)"/>
+
+      <rect x="685" y="44" width="105" height="90" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="737" y="66" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="737" y="84" text-anchor="middle" class="f t2" fill="#9a5b06">🔔 Recordatorio</text>
+
+      <text x="445" y="165" text-anchor="middle" class="f lb">Si compra en cualquier impacto → <tspan fill="#065f46" font-weight="700">🏆 Onboarding</tspan> · si no reacciona a la semana 3 → <tspan fill="#7f1d1d" font-weight="700">⏸ pausa / pool (a definir)</tspan></text>
+    </svg>
+  </div>
   </div>
 
   <div class="tsel-panel" id="tsel-darkstore">
   <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div>El envío gratis en Darkstore es un beneficio de <b>Meli+</b> — sin Meli+ no hay envío gratis, ni en Darkstore ni en Instore. Por eso se separa por Meli+ también acá.</div></div>
-  <div class="cadence-group">
-    <div class="cadence-hdr" style="color:#1d4ed8">🅼 MELI+ (ya tiene envío gratis siempre)</div>
-    <table class="cadence-table">
-      <thead><tr><th>Semana</th><th>Impacto 1</th><th>Impacto 2</th></tr></thead>
-      <tbody>
-        <tr><td class="week">Semana 1</td>
-          <td><span class="imp-main">📣 Value prop Darkstore</span><span class="imp-note">+ ya tenés envío gratis — se apalanca desde el 1er envío</span></td>
-          <td><span class="imp-main">🤝 Oferta partner</span></td>
-        </tr>
-        <tr><td class="week">Semana 2</td>
-          <td><span class="imp-main">🎟️ Cupón 1ª compra</span><span class="imp-note">salta envío gratis: ya lo tiene</span></td>
-          <td><span class="imp-main">🔔 Recordatorio</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="diagram">
+    <svg viewBox="0 0 830 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — zona con solo Darkstore">
+      <defs><marker id="a9" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:12px;font-weight:800}.t2{font-size:10.5px;font-weight:700}.lb{font-size:8.5px;fill:#8a8f98}.cplbl{font-size:9px;font-weight:800;fill:#8a8f98}</style>
 
-  <div class="cadence-group">
-    <div class="cadence-hdr" style="color:#4b5160">🚫 RESTO (sin Meli+, sin envío gratis)</div>
-    <table class="cadence-table">
-      <thead><tr><th>Semana</th><th>Impacto 1</th><th>Impacto 2</th></tr></thead>
-      <tbody>
-        <tr><td class="week">Semana 1</td>
-          <td><span class="imp-main">📣 Value prop Darkstore</span><span class="imp-note">sin incentivo</span></td>
-          <td><span class="imp-main">🤝 Oferta partner</span><span class="imp-note">sin incentivo</span></td>
-        </tr>
-        <tr><td class="week">Semana 2</td>
-          <td><span class="imp-main">🚚 Envío gratis</span><span class="imp-note">incentivo liviano (puntual)</span></td>
-          <td><span class="imp-main">🔔 Recordatorio</span></td>
-        </tr>
-        <tr><td class="week">Semana 3</td>
-          <td><span class="imp-main">🎟️ Cupón 1ª compra</span><span class="imp-note">incentivo mayor</span></td>
-          <td><span class="imp-main">🔔 Recordatorio</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="cadence-note">Si compra en cualquier impacto → <b style="color:#065f46">🏆 Onboarding</b> · si no reacciona a la semana 3 → <b style="color:#7f1d1d">⏸ pausa / pool (a definir)</b></div>
+      <rect x="10" y="147" width="80" height="60" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+      <text x="50" y="173" text-anchor="middle" class="f t2" fill="#4b5160">Never</text>
+      <text x="50" y="186" text-anchor="middle" class="f lb">buyer Darkstore</text>
+      <path d="M90,162 L100,162 L100,89" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a9)"/>
+      <path d="M90,192 L100,192 L100,265" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a9)"/>
+
+      <!-- FILA MELI+ -->
+      <text x="327" y="8" text-anchor="middle" class="f t1" fill="#1d4ed8">🅼 MELI+</text>
+      <path d="M100,26 L100,20 L320,20 L320,26" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="210" y="16" text-anchor="middle" class="f lb" style="font-weight:700">Semana 1</text>
+      <path d="M335,26 L335,20 L555,20 L555,26" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="445" y="16" text-anchor="middle" class="f lb" style="font-weight:700">Semana 2</text>
+
+      <rect x="100" y="44" width="105" height="90" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="152" y="66" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="152" y="84" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 Value prop</text>
+      <text x="152" y="100" text-anchor="middle" class="f lb">+ envío gratis</text>
+      <path d="M205,89 L215,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a9)"/>
+
+      <rect x="215" y="44" width="105" height="90" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="267" y="66" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="267" y="84" text-anchor="middle" class="f t2" fill="#1d4ed8">🤝 Partner</text>
+      <text x="267" y="100" text-anchor="middle" class="f lb">oferta especial</text>
+      <path d="M320,89 L335,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a9)"/>
+
+      <rect x="335" y="44" width="105" height="90" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="387" y="66" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="387" y="84" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ Cupón</text>
+      <text x="387" y="100" text-anchor="middle" class="f lb">1ª compra</text>
+      <path d="M440,89 L450,89" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a9)"/>
+
+      <rect x="450" y="44" width="105" height="90" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="502" y="66" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="502" y="84" text-anchor="middle" class="f t2" fill="#9a5b06">🔔 Recordatorio</text>
+
+      <!-- FILA RESTO -->
+      <text x="445" y="180" text-anchor="middle" class="f t1" fill="#4b5160">🚫 RESTO (sin envío gratis)</text>
+      <path d="M100,198 L100,192 L320,192 L320,198" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="210" y="188" text-anchor="middle" class="f lb" style="font-weight:700">Semana 1</text>
+      <path d="M335,198 L335,192 L555,192 L555,198" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="445" y="188" text-anchor="middle" class="f lb" style="font-weight:700">Semana 2</text>
+      <path d="M570,198 L570,192 L790,192 L790,198" stroke="#8a8f98" stroke-width="1.1" fill="none"/>
+      <text x="680" y="188" text-anchor="middle" class="f lb" style="font-weight:700">Semana 3</text>
+
+      <rect x="100" y="216" width="105" height="90" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="152" y="238" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="152" y="256" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 Value prop</text>
+      <text x="152" y="272" text-anchor="middle" class="f lb">sin incentivo</text>
+      <path d="M205,261 L215,261" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a9)"/>
+
+      <rect x="215" y="216" width="105" height="90" rx="9" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="267" y="238" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="267" y="256" text-anchor="middle" class="f t2" fill="#1d4ed8">🤝 Partner</text>
+      <text x="267" y="272" text-anchor="middle" class="f lb">sin incentivo</text>
+      <path d="M320,261 L335,261" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a9)"/>
+
+      <rect x="335" y="216" width="105" height="90" rx="9" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
+      <text x="387" y="238" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="387" y="256" text-anchor="middle" class="f t2" fill="#065f46">🚚 Envío gratis</text>
+      <text x="387" y="272" text-anchor="middle" class="f lb">liviano, puntual</text>
+      <path d="M440,261 L450,261" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a9)"/>
+
+      <rect x="450" y="216" width="105" height="90" rx="9" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
+      <text x="502" y="238" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="502" y="256" text-anchor="middle" class="f t2" fill="#065f46">🔔 Recordatorio</text>
+      <path d="M555,261 L570,261" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a9)"/>
+
+      <rect x="570" y="216" width="105" height="90" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="622" y="238" text-anchor="middle" class="f cplbl">IMPACTO 1</text>
+      <text x="622" y="256" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ Cupón</text>
+      <text x="622" y="272" text-anchor="middle" class="f lb">incentivo mayor</text>
+      <path d="M675,261 L685,261" stroke="#8a8f98" stroke-width="1.3" fill="none" marker-end="url(#a9)"/>
+
+      <rect x="685" y="216" width="105" height="90" rx="9" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="737" y="238" text-anchor="middle" class="f cplbl">IMPACTO 2</text>
+      <text x="737" y="256" text-anchor="middle" class="f t2" fill="#9a5b06">🔔 Recordatorio</text>
+
+      <text x="445" y="335" text-anchor="middle" class="f lb">Si compra en cualquier impacto → <tspan fill="#065f46" font-weight="700">🏆 Onboarding</tspan> · si no reacciona a la semana 3 → <tspan fill="#7f1d1d" font-weight="700">⏸ pausa (a definir)</tspan></text>
+    </svg>
   </div>
   </div>
 
