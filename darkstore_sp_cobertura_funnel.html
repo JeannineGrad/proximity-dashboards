@@ -120,6 +120,17 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .ndot { width:8px; height:8px; border-radius:50%; background:rgba(26,36,84,.2); cursor:pointer; }
 .ndot.active { background:#FFB700; }
 #nav-label { color:#888; font-size:12px; min-width:44px; text-align:center; }
+
+.editable { outline:1px dashed transparent; border-radius:3px; }
+.editable:hover { outline-color:#4DC3E8; cursor:text; }
+.editable:focus { outline:1.5px solid #1a2454; outline-style:solid; background:#fffbe0; }
+#edit-toolbar { position:fixed; top:14px; right:18px; display:flex; gap:8px; z-index:50; }
+.edit-btn { background:#1a2454; color:#fff; border:none; font-size:11px; font-weight:700; padding:8px 12px; border-radius:6px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.2); }
+.edit-btn:hover { background:#2a3570; }
+.edit-btn.reset { background:#c0392b; }
+.edit-btn.reset:hover { background:#a93226; }
+#edit-toast { position:fixed; top:60px; right:18px; background:#00a878; color:#fff; font-size:11px; font-weight:700; padding:7px 12px; border-radius:6px; z-index:50; opacity:0; transition:opacity .25s; pointer-events:none; }
+#edit-toast.show { opacity:1; }
 </style>
 </head>
 <body>
@@ -345,6 +356,12 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
   <span id="nav-label">1 / 4</span>
 </div>
 
+<div id="edit-toolbar">
+  <button class="edit-btn" id="btn-copy">📋 Copiar valores editados</button>
+  <button class="edit-btn reset" id="btn-reset">↺ Restaurar original</button>
+</div>
+<div id="edit-toast">¡Copiado!</div>
+
 <script>
 const slides=[...document.querySelectorAll('.slide')];
 const dotsC=document.getElementById('nav-dots');
@@ -355,6 +372,41 @@ function goTo(n){slides[cur].classList.remove('active');dotsC.children[cur].clas
 function go(d){if(cur+d>=0&&cur+d<slides.length)goTo(cur+d);}
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
 document.getElementById('btn-prev').disabled=true;
+
+// --- Edición inline con autoguardado local (localStorage) ---
+(function(){
+  const STORAGE_KEY = 'darkstoreSP_funnel_edits_v1';
+  const EDITABLE_SELECTOR = '.metric .lbl, .metric .val, .metric .metric-note, .side-hdr, .dummy-warn, .ref-metric .lbl, .ref-metric .val, .ref-metric .ref-x, .f-bar .f-lbl, .f-bar .f-val, .f-bar .f-note, .f-seg, .f-arrow-chip, .map-caption, .ch-c-audiencia.ch-metric, .ch-c-est.ch-metric, .ch-c-metric.ch-metric, .ch-c-budget.ch-metric';
+  const els = Array.from(document.querySelectorAll(EDITABLE_SELECTOR));
+  const originals = els.map(el => el.innerHTML);
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { saved = {}; }
+
+  els.forEach((el, i) => {
+    el.setAttribute('contenteditable', 'true');
+    el.classList.add('editable');
+    if (saved[i] !== undefined) el.innerHTML = saved[i];
+    el.addEventListener('input', () => {
+      saved[i] = el.innerHTML;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+    });
+  });
+
+  const toast = document.getElementById('edit-toast');
+  function showToast(msg){ toast.textContent = msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 1600); }
+
+  document.getElementById('btn-copy').addEventListener('click', () => {
+    const lines = els.map(el => el.textContent.trim()).filter(t => t.length).join('\n');
+    navigator.clipboard.writeText(lines).then(() => showToast('¡Copiado! Pegalo en el chat')).catch(() => showToast('No se pudo copiar'));
+  });
+
+  document.getElementById('btn-reset').addEventListener('click', () => {
+    if (!confirm('¿Restaurar todos los valores originales? Se pierden los cambios guardados en este navegador.')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    els.forEach((el, i) => el.innerHTML = originals[i]);
+    showToast('Restaurado');
+  });
+})();
 </script>
 </body>
 </html>
