@@ -358,9 +358,16 @@ document.getElementById('btn-prev').disabled=true;
 
 // --- Edición inline con autoguardado local (localStorage) ---
 (function(){
-  const STORAGE_KEY = 'darkstoreSP_funnel_edits_v1';
-  const EDITABLE_SELECTOR = '.metric .lbl, .metric .val, .metric .metric-note, .side-hdr, .dummy-warn, .ref-metric .lbl, .ref-metric .val, .ref-metric .ref-x, .f-bar .f-lbl, .f-bar .f-val, .f-bar .f-note, .f-seg, .f-arrow-chip, .map-caption, .ch-c-audiencia.ch-metric, .ch-c-est.ch-metric, .ch-c-metric.ch-metric, .ch-c-budget.ch-metric';
-  const els = Array.from(document.querySelectorAll(EDITABLE_SELECTOR));
+  const STORAGE_KEY = 'darkstoreSP_funnel_edits_v2';
+  function isEditableLeaf(el) {
+    if (el.closest('#edit-toolbar, #nav')) return false;
+    const tag = el.tagName;
+    if (tag === 'SVG' || tag === 'IMG' || tag === 'BR' || tag === 'SCRIPT' || tag === 'STYLE') return false;
+    const kids = Array.from(el.children);
+    if (!kids.every(c => c.tagName === 'BR')) return false;
+    return el.textContent.trim().length > 0;
+  }
+  const els = Array.from(document.querySelectorAll('.slide *')).filter(isEditableLeaf);
   const originals = els.map(el => el.innerHTML);
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { saved = {}; }
