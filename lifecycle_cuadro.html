@@ -308,42 +308,43 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
 
   <div class="vtabbar">
-    <button class="tsel-btn active" data-tsel="tsel-instore">Solo Instore</button>
+    <button class="tsel-btn active" data-tsel="tsel-combo">Darkstore + Instore</button>
+    <button class="tsel-btn" data-tsel="tsel-instore">Solo Instore</button>
     <button class="tsel-btn" data-tsel="tsel-darkstore">Solo Darkstore</button>
-    <button class="tsel-btn" data-tsel="tsel-combo">Darkstore + Instore</button>
   </div>
 
-  <div class="tsel-panel active" id="tsel-instore">
+  <div class="tsel-panel active" id="tsel-combo">
+  <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div>Cuando conviven Darkstore e Instore en la misma zona, el primer mensaje es la <b>value prop completa de Groceries</b> (menciona ambos servicios) — y se separa entre quienes ya tienen envío gratis siempre (Meli+, o vía Darkstore) y el resto.</div></div>
   <div class="diagram">
-    <svg viewBox="0 0 1150 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — Never Buyer, por Meli+">
+    <svg viewBox="0 0 1150 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — zona combinada Darkstore + Instore">
       <defs><marker id="a8" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
       <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11px;font-weight:700}.lb{font-size:9px;fill:#8a8f98}.cplbl{font-size:11px;font-weight:800;fill:#1a2a4a}</style>
 
       <rect x="10" y="190" width="130" height="60" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
       <text x="75" y="216" text-anchor="middle" class="f t2" fill="#4b5160">Never buyer</text>
-      <text x="75" y="230" text-anchor="middle" class="f lb">en la zona</text>
+      <text x="75" y="230" text-anchor="middle" class="f lb">zona combinada</text>
       <path d="M140,220 L150,220" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
 
       <polygon points="150,220 175,195 200,220 175,245" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="175" y="176" text-anchor="middle" class="f cplbl" style="font-size:9.5px">¿Ya tiene envío</text>
-      <text x="175" y="187" text-anchor="middle" class="f cplbl" style="font-size:9.5px">gratis siempre?</text>
+      <text x="130" y="205" text-anchor="end" class="f cplbl" style="font-size:9.5px">¿Ya tiene envío</text>
+      <text x="130" y="217" text-anchor="end" class="f cplbl" style="font-size:9.5px">gratis siempre?</text>
       <path d="M175,195 L175,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
       <text x="230" y="160" text-anchor="middle" class="f t2" fill="#1d4ed8">sí — Meli+ o Darkstore</text>
       <path d="M175,245 L175,325" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
       <text x="225" y="290" text-anchor="middle" class="f t2" fill="#4b5160">no — resto</text>
 
-      <!-- FILA MELI+ -->
+      <!-- FILA MELI+ / DARKSTORE -->
       <text x="280" y="48" text-anchor="middle" class="f t1" fill="#1d4ed8" style="font-size:11px">🅼 MELI+ / DARKSTORE</text>
       <rect x="175" y="60" width="210" height="110" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
       <text x="280" y="82" text-anchor="middle" class="f cplbl">Semana 1-2</text>
       <text x="280" y="102" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana</text>
-      <text x="280" y="118" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop</text>
-      <text x="280" y="134" text-anchor="middle" class="f lb">+ ya tenés envío gratis (Meli+)</text>
+      <text x="280" y="118" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop Groceries</text>
+      <text x="280" y="134" text-anchor="middle" class="f lb">+ ya tenés envío gratis</text>
       <text x="280" y="148" text-anchor="middle" class="f lb">se apalanca desde el inicio</text>
       <path d="M385,115 L410,115" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
 
       <polygon points="410,115 432,92 454,115 432,138" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="432" y="82" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <text x="395" y="100" text-anchor="middle" class="f cplbl">¿Compró?</text>
       <path d="M432,92 L432,27 L565,27" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
       <path d="M454,115 L475,115" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
       <text x="465" y="130" text-anchor="middle" class="f lb">no</text>
@@ -356,7 +357,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <path d="M685,115 L710,115" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
 
       <polygon points="710,115 732,92 754,115 732,138" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="732" y="82" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <text x="695" y="100" text-anchor="middle" class="f cplbl">¿Compró?</text>
       <path d="M732,92 L732,27 L705,27" stroke="#059669" stroke-width="1.5" fill="none"/>
       <path d="M732,138 L732,193" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a8)"/>
 
@@ -365,17 +366,17 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <rect x="655" y="193" width="210" height="38" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
       <text x="760" y="216" text-anchor="middle" class="f lb" fill="#7f1d1d">⏸ pausa / pool (a definir)</text>
 
-      <!-- FILA NO MELI+ -->
+      <!-- FILA RESTO -->
       <text x="270" y="258" text-anchor="middle" class="f t1" fill="#4b5160" style="font-size:11px">🚫 RESTO (sin envío gratis)</text>
       <rect x="175" y="270" width="190" height="110" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
       <text x="270" y="292" text-anchor="middle" class="f cplbl">Semana 1-2</text>
       <text x="270" y="312" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana</text>
-      <text x="270" y="328" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop</text>
+      <text x="270" y="328" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop Groceries</text>
       <text x="270" y="344" text-anchor="middle" class="f lb">sin incentivo</text>
       <path d="M365,325 L378,325" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
 
       <polygon points="378,325 400,302 422,325 400,348" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="400" y="292" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <text x="363" y="312" text-anchor="middle" class="f cplbl">¿Compró?</text>
       <path d="M400,302 L400,258 L565,258" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
       <path d="M422,325 L443,325" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
       <text x="432" y="340" text-anchor="middle" class="f lb">no</text>
@@ -388,7 +389,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <path d="M633,325 L646,325" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
 
       <polygon points="646,325 668,302 690,325 668,348" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="668" y="292" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <text x="631" y="312" text-anchor="middle" class="f cplbl">¿Compró?</text>
       <path d="M668,302 L668,258 L565,258" stroke="#059669" stroke-width="1.5" fill="none"/>
       <path d="M690,325 L711,325" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
       <text x="700" y="340" text-anchor="middle" class="f lb">no</text>
@@ -400,9 +401,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <text x="806" y="344" text-anchor="middle" class="f lb">incentivo mayor</text>
 
       <polygon points="901,325 923,302 945,325 923,348" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="923" y="292" text-anchor="middle" class="f cplbl">¿Compró?</text>
-      <path d="M806,380 L806,380" stroke="none"/>
-      <path d="M901,325 L901,325" stroke="none"/>
+      <text x="886" y="312" text-anchor="middle" class="f cplbl">¿Compró?</text>
       <path d="M923,302 L923,258 L705,258" stroke="#059669" stroke-width="1.5" fill="none"/>
       <path d="M923,348 L923,395" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a8)"/>
 
@@ -410,6 +409,63 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <text x="635" y="262" text-anchor="middle" class="f t2" fill="#065f46">🏆 Onboarding</text>
       <rect x="818" y="395" width="220" height="38" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
       <text x="928" y="418" text-anchor="middle" class="f lb" fill="#7f1d1d">⏸ pausa / pool (a definir)</text>
+    </svg>
+  </div>
+  </div>
+
+  <div class="tsel-panel" id="tsel-instore">
+  <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div>En una zona con solo Instore (sin Darkstore), un único flujo de 3 semanas escalando el incentivo — value prop, luego envío gratis, y recién al final cupón de 1ª compra.</div></div>
+  <div class="diagram">
+    <svg viewBox="0 0 1050 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — zona con solo Instore">
+      <defs><marker id="a11" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11px;font-weight:700}.lb{font-size:9px;fill:#8a8f98}.cplbl{font-size:11px;font-weight:800;fill:#1a2a4a}</style>
+
+      <rect x="10" y="85" width="120" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+      <text x="70" y="106" text-anchor="middle" class="f t2" fill="#4b5160">Never buyer</text>
+      <text x="70" y="119" text-anchor="middle" class="f lb">en zona Instore</text>
+      <path d="M130,110 L150,110" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a11)"/>
+
+      <rect x="150" y="45" width="190" height="130" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="245" y="68" text-anchor="middle" class="f cplbl">Semana 1-2</text>
+      <text x="245" y="88" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana</text>
+      <text x="245" y="104" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop</text>
+      <text x="245" y="120" text-anchor="middle" class="f lb">sin incentivo</text>
+      <path d="M340,110 L362,110" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+      <polygon points="362,110 384,87 406,110 384,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="347" y="100" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M384,87 L384,27 L520,27" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a11)"/>
+      <path d="M406,110 L428,110" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a11)"/>
+      <text x="417" y="125" text-anchor="middle" class="f lb">no</text>
+
+      <rect x="428" y="45" width="190" height="130" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
+      <text x="523" y="68" text-anchor="middle" class="f cplbl">Semana 3-4</text>
+      <text x="523" y="88" text-anchor="middle" class="f t2" fill="#065f46">🚚 2 push/semana</text>
+      <text x="523" y="104" text-anchor="middle" class="f t2" fill="#065f46">Envío gratis</text>
+      <text x="523" y="120" text-anchor="middle" class="f lb">incentivo liviano</text>
+      <path d="M618,110 L640,110" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+      <polygon points="640,110 662,87 684,110 662,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="625" y="100" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M662,87 L662,27 L520,27" stroke="#059669" stroke-width="1.5" fill="none"/>
+      <path d="M684,110 L706,110" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a11)"/>
+      <text x="695" y="125" text-anchor="middle" class="f lb">no</text>
+
+      <rect x="706" y="45" width="190" height="130" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="801" y="68" text-anchor="middle" class="f cplbl">Semana 5-6</text>
+      <text x="801" y="88" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ 2 push/semana</text>
+      <text x="801" y="104" text-anchor="middle" class="f t2" fill="#9a5b06">Cupón 1ª compra</text>
+      <text x="801" y="120" text-anchor="middle" class="f lb">incentivo mayor</text>
+
+      <polygon points="896,110 918,87 940,110 918,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="881" y="100" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M918,87 L918,27 L520,27" stroke="#059669" stroke-width="1.5" fill="none"/>
+      <path d="M918,133 L918,178" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a11)"/>
+
+      <rect x="450" y="8" width="140" height="34" rx="8" fill="#e6f7f3" stroke="#059669" stroke-width="1.4"/>
+      <text x="520" y="30" text-anchor="middle" class="f t2" fill="#065f46">🏆 Onboarding</text>
+      <rect x="789" y="178" width="220" height="38" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
+      <text x="899" y="201" text-anchor="middle" class="f lb" fill="#7f1d1d">⏸ pausa / pool (a definir)</text>
     </svg>
   </div>
   </div>
@@ -435,7 +491,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <path d="M380,110 L405,110" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
 
       <polygon points="405,110 428,87 451,110 428,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="428" y="77" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <text x="390" y="100" text-anchor="middle" class="f cplbl">¿Compró?</text>
       <path d="M428,87 L428,32 L555,32" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a9)"/>
       <path d="M451,110 L476,110" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a9)"/>
       <text x="463" y="125" text-anchor="middle" class="f lb">no</text>
@@ -448,55 +504,9 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <path d="M706,110 L731,110" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
 
       <polygon points="731,110 754,87 777,110 754,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="754" y="77" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <text x="716" y="100" text-anchor="middle" class="f cplbl">¿Compró?</text>
       <path d="M754,87 L754,32 L695,32" stroke="#059669" stroke-width="1.5" fill="none"/>
       <path d="M754,133 L754,178" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a9)"/>
-
-      <rect x="555" y="15" width="140" height="34" rx="8" fill="#e6f7f3" stroke="#059669" stroke-width="1.4"/>
-      <text x="625" y="37" text-anchor="middle" class="f t2" fill="#065f46">🏆 Onboarding</text>
-      <rect x="644" y="178" width="220" height="38" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
-      <text x="754" y="201" text-anchor="middle" class="f lb" fill="#7f1d1d">⏸ pausa / pool (a definir)</text>
-    </svg>
-  </div>
-  </div>
-
-  <div class="tsel-panel" id="tsel-combo">
-  <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div>Cuando conviven Darkstore e Instore en la misma zona, el envío gratis de Darkstore ya cubre a <b>toda</b> la audiencia — mismo flujo de una sola rama que Darkstore solo, pero el primer mensaje es la <b>value prop completa de Groceries</b> (menciona ambos servicios), no la de un servicio puntual.</div></div>
-  <div class="diagram">
-    <svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — zona con Darkstore e Instore">
-      <defs><marker id="a10" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
-      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11px;font-weight:700}.lb{font-size:9px;fill:#8a8f98}.cplbl{font-size:11px;font-weight:800;fill:#1a2a4a}</style>
-
-      <rect x="10" y="85" width="120" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
-      <text x="70" y="106" text-anchor="middle" class="f t2" fill="#4b5160">Never buyer</text>
-      <text x="70" y="119" text-anchor="middle" class="f lb">zona combinada</text>
-      <path d="M130,110 L150,110" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a10)"/>
-
-      <rect x="150" y="45" width="230" height="130" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
-      <text x="265" y="68" text-anchor="middle" class="f cplbl">Semana 1-2</text>
-      <text x="265" y="88" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana</text>
-      <text x="265" y="104" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop Groceries</text>
-      <text x="265" y="120" text-anchor="middle" class="f lb">(Instore + Darkstore) + envío gratis</text>
-      <text x="265" y="134" text-anchor="middle" class="f lb">se apalanca desde el inicio</text>
-      <path d="M380,110 L405,110" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
-
-      <polygon points="405,110 428,87 451,110 428,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="428" y="77" text-anchor="middle" class="f cplbl">¿Compró?</text>
-      <path d="M428,87 L428,32 L555,32" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a10)"/>
-      <path d="M451,110 L476,110" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a10)"/>
-      <text x="463" y="125" text-anchor="middle" class="f lb">no</text>
-
-      <rect x="476" y="45" width="230" height="130" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
-      <text x="591" y="68" text-anchor="middle" class="f cplbl">Semana 3-4</text>
-      <text x="591" y="88" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ 2 push/semana</text>
-      <text x="591" y="104" text-anchor="middle" class="f t2" fill="#9a5b06">Cupón 1ª compra</text>
-      <text x="591" y="120" text-anchor="middle" class="f lb">salta envío gratis: ya lo tiene</text>
-      <path d="M706,110 L731,110" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
-
-      <polygon points="731,110 754,87 777,110 754,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="754" y="77" text-anchor="middle" class="f cplbl">¿Compró?</text>
-      <path d="M754,87 L754,32 L695,32" stroke="#059669" stroke-width="1.5" fill="none"/>
-      <path d="M754,133 L754,178" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a10)"/>
 
       <rect x="555" y="15" width="140" height="34" rx="8" fill="#e6f7f3" stroke="#059669" stroke-width="1.4"/>
       <text x="625" y="37" text-anchor="middle" class="f t2" fill="#065f46">🏆 Onboarding</text>
