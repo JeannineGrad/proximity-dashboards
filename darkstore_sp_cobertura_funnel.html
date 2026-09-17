@@ -383,21 +383,50 @@ function saveLocalState(state) {
 function fetchSharedState(cb) {
   if (!SYNC_URL) { cb(loadLocalState()); return; }
   const cbName = '__syncCb' + (jsonpCounter++);
-  window[cbName] = function(data) {
+  let done = false;
+  const finish = (data) => {
+    if (done) return;
+    done = true;
     delete window[cbName];
-    script.remove();
+    if (script.parentNode) script.remove();
     cb(data || {});
   };
+  window[cbName] = finish;
   const script = document.createElement('script');
   script.src = SYNC_URL + '?callback=' + cbName + '&t=' + Date.now();
-  script.onerror = function(){ showToast('No se pudo conectar al servidor compartido, usando copia local'); cb(loadLocalState()); };
+  script.onerror = function(){ finish(loadLocalState()); };
   document.body.appendChild(script);
+  setTimeout(() => {
+    if (!done) { showToast('No se pudo conectar al servidor compartido, usando copia local'); finish(loadLocalState()); }
+  }, 4000);
 }
 
 function pushSharedState(state) {
   saveLocalState(state); // siempre guarda copia local tambien, por las dudas
   if (!SYNC_URL) return;
-  fetch(SYNC_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'text/plain;charset=UTF-8'}, body: JSON.stringify(state) }).catch(()=>{});
+  // Se usa un formulario oculto (no fetch) porque Apps Script redirige el POST
+  // internamente y fetch pierde el metodo POST en esa redireccion.
+  let iframe = document.getElementById('sync-iframe');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.name = 'sync-iframe';
+    iframe.id = 'sync-iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = SYNC_URL;
+  form.target = 'sync-iframe';
+  form.style.display = 'none';
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'payload';
+  input.value = JSON.stringify(state);
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+  form.remove();
 }
 
 function delSeg(btn) {
