@@ -364,55 +364,89 @@ function go(d){if(cur+d>=0&&cur+d<slides.length)goTo(cur+d);}
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
 document.getElementById('btn-prev').disabled=true;
 
-// --- Segmentos de audiencia: borrar y persistir ---
-const SEG_STORAGE_KEY = 'darkstoreSP_deleted_segs';
+// --- Sincronizacion compartida (Google Apps Script) con fallback a localStorage ---
+// Pegar aca la URL /exec del Apps Script una vez desplegada (ver instrucciones que te paso aparte).
+// Mientras esté vacía, funciona igual que antes: guardado solo en este navegador.
+const SYNC_URL = '';
+
+const LOCAL_STORAGE_KEY = 'darkstoreSP_funnel_state_v3';
+let syncState = { edits: {}, deletedSegs: [] };
+let jsonpCounter = 0;
+
+function loadLocalState() {
+  try { return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '{}'); } catch(e) { return {}; }
+}
+function saveLocalState(state) {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+}
+
+function fetchSharedState(cb) {
+  if (!SYNC_URL) { cb(loadLocalState()); return; }
+  const cbName = '__syncCb' + (jsonpCounter++);
+  window[cbName] = function(data) {
+    delete window[cbName];
+    script.remove();
+    cb(data || {});
+  };
+  const script = document.createElement('script');
+  script.src = SYNC_URL + '?callback=' + cbName + '&t=' + Date.now();
+  script.onerror = function(){ showToast('No se pudo conectar al servidor compartido, usando copia local'); cb(loadLocalState()); };
+  document.body.appendChild(script);
+}
+
+function pushSharedState(state) {
+  saveLocalState(state); // siempre guarda copia local tambien, por las dudas
+  if (!SYNC_URL) return;
+  fetch(SYNC_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'text/plain;charset=UTF-8'}, body: JSON.stringify(state) }).catch(()=>{});
+}
+
 function delSeg(btn) {
   const wrap = btn.closest('.f-seg-wrap');
   if (!wrap) return;
   const id = wrap.dataset.segId;
   wrap.remove();
-  let deleted = [];
-  try { deleted = JSON.parse(localStorage.getItem(SEG_STORAGE_KEY) || '[]'); } catch(e) { deleted = []; }
-  if (!deleted.includes(id)) { deleted.push(id); localStorage.setItem(SEG_STORAGE_KEY, JSON.stringify(deleted)); }
+  if (!syncState.deletedSegs) syncState.deletedSegs = [];
+  if (!syncState.deletedSegs.includes(id)) syncState.deletedSegs.push(id);
+  pushSharedState(syncState);
 }
-(function(){
-  try {
-    const deletedSegs = JSON.parse(localStorage.getItem(SEG_STORAGE_KEY) || '[]');
-    deletedSegs.forEach(id => {
-      const w = document.querySelector('.f-seg-wrap[data-seg-id="'+id+'"]');
-      if (w) w.remove();
-    });
-  } catch(e) {}
-})();
 
-// --- Edición inline con autoguardado local (localStorage) ---
-(function(){
-  const STORAGE_KEY = 'darkstoreSP_funnel_edits_v2';
-  function isEditableLeaf(el) {
-    if (el.closest('#edit-toolbar, #nav')) return false;
-    const tag = el.tagName;
-    if (tag === 'SVG' || tag === 'IMG' || tag === 'BR' || tag === 'SCRIPT' || tag === 'STYLE') return false;
-    const kids = Array.from(el.children);
-    if (!kids.every(c => c.tagName === 'BR')) return false;
-    return el.textContent.trim().length > 0;
-  }
+function applyDeletedSegs(deletedSegs) {
+  (deletedSegs || []).forEach(id => {
+    const w = document.querySelector('.f-seg-wrap[data-seg-id="'+id+'"]');
+    if (w) w.remove();
+  });
+}
+
+function isEditableLeaf(el) {
+  if (el.closest('#edit-toolbar, #nav')) return false;
+  const tag = el.tagName;
+  if (tag === 'SVG' || tag === 'IMG' || tag === 'BR' || tag === 'SCRIPT' || tag === 'STYLE') return false;
+  const kids = Array.from(el.children);
+  if (!kids.every(c => c.tagName === 'BR')) return false;
+  return el.textContent.trim().length > 0;
+}
+
+const toast = document.getElementById('edit-toast');
+function showToast(msg){ toast.textContent = msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 1800); }
+
+let originals = [];
+
+function initEditing(state) {
+  syncState = { edits: state.edits || {}, deletedSegs: state.deletedSegs || [] };
+  applyDeletedSegs(syncState.deletedSegs);
+
   const els = Array.from(document.querySelectorAll('.slide *')).filter(isEditableLeaf);
-  const originals = els.map(el => el.innerHTML);
-  let saved = {};
-  try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { saved = {}; }
+  originals = els.map(el => el.innerHTML);
 
   els.forEach((el, i) => {
     el.setAttribute('contenteditable', 'true');
     el.classList.add('editable');
-    if (saved[i] !== undefined) el.innerHTML = saved[i];
+    if (syncState.edits[i] !== undefined) el.innerHTML = syncState.edits[i];
     el.addEventListener('input', () => {
-      saved[i] = el.innerHTML;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+      syncState.edits[i] = el.innerHTML;
+      pushSharedState(syncState);
     });
   });
-
-  const toast = document.getElementById('edit-toast');
-  function showToast(msg){ toast.textContent = msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 1600); }
 
   document.getElementById('btn-copy').addEventListener('click', () => {
     const lines = els.map(el => el.textContent.trim()).filter(t => t.length).join('\n');
@@ -420,12 +454,25 @@ function delSeg(btn) {
   });
 
   document.getElementById('btn-reset').addEventListener('click', () => {
-    if (!confirm('¿Restaurar todos los valores originales (incluye segmentos borrados)? Se pierden los cambios guardados en este navegador.')) return;
-    localStorage.removeItem(STORAGE_KEY);
-    localStorage.removeItem(SEG_STORAGE_KEY);
+    if (!confirm('¿Restaurar todos los valores originales (incluye segmentos borrados)? Esto afecta a todos si está conectado el servidor compartido.')) return;
+    syncState = { edits: {}, deletedSegs: [] };
+    pushSharedState(syncState);
     location.reload();
   });
-})();
+
+  if (SYNC_URL) {
+    showToast('Conectado — los cambios se comparten con todos');
+    // Revisa cada 10s si alguien mas hizo cambios, y los aplica sin pisar lo que estás escribiendo ahora
+    setInterval(() => {
+      if (document.activeElement && document.activeElement.isContentEditable) return;
+      fetchSharedState((remote) => {
+        if (JSON.stringify(remote) !== JSON.stringify(syncState)) location.reload();
+      });
+    }, 10000);
+  }
+}
+
+fetchSharedState(initEditing);
 </script>
 </body>
 </html>
