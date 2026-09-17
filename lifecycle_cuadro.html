@@ -29,6 +29,11 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans
 .vtabbtn.active{background:var(--navy);color:#fff}
 .vtab-panel{display:none}
 .vtab-panel.active{display:block}
+.tsel-btn{background:#eef0f5;border:none;padding:7px 14px;font-size:12px;font-weight:800;color:var(--muted);cursor:pointer;border-radius:6px;font-family:inherit}
+.tsel-btn:hover{color:var(--navy)}
+.tsel-btn.active{background:var(--navy);color:#fff}
+.tsel-panel{display:none}
+.tsel-panel.active{display:block}
 .ch2-legend{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
 .ch2-legend-lbl{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-right:2px}
 .ch2-chip{font-size:11px;font-weight:700;color:#556;background:#eef0f5;border-radius:10px;padding:3px 10px}
@@ -299,8 +304,16 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
   <div class="callout amber" style="margin:0 0 12px">
     <span>📐</span>
-    <div>2 push por semana, escalando el incentivo <b>de menos a más</b> a medida que no reacciona. Se separa entre quienes <b>ya tienen envío gratis siempre</b> (usuarios Meli+ en cualquier vertical, y toda la audiencia de Darkstore — ahí el envío gratis es del servicio, no depende de ser Meli+) y el resto: para el primer grupo se apalanca ese beneficio desde el primer mensaje en vez de guardarlo como paso intermedio, y se salta directo al cupón si no reaccionan. Si compra en cualquier ronda, pasa a Onboarding.</div>
+    <div>Groceries tiene 3 flujos según qué haya en la zona: <b>solo Instore</b>, <b>solo Darkstore</b>, o <b>ambas</b>. La diferencia clave es el envío gratis: en Instore solo lo tienen los <b>Meli+</b>, mientras que en Darkstore es siempre así (esté o no combinado con Instore) — por eso el flujo de Darkstore (solo o combinado) es de una sola rama, y solo el de Instore se separa por Meli+. Cuando conviven las dos, el primer mensaje es la <b>value prop completa de Groceries</b>, no la de un servicio puntual. 2 push por semana, escalando el incentivo de menos a más si no reacciona; si compra en cualquier ronda, pasa a Onboarding.</div>
   </div>
+
+  <div class="vtabbar">
+    <button class="tsel-btn active" data-tsel="tsel-instore">Solo Instore</button>
+    <button class="tsel-btn" data-tsel="tsel-darkstore">Solo Darkstore</button>
+    <button class="tsel-btn" data-tsel="tsel-combo">Darkstore + Instore</button>
+  </div>
+
+  <div class="tsel-panel active" id="tsel-instore">
   <div class="diagram">
     <svg viewBox="0 0 1150 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — Never Buyer, por Meli+">
       <defs><marker id="a8" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
@@ -398,6 +411,99 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
       <rect x="818" y="395" width="220" height="38" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
       <text x="928" y="418" text-anchor="middle" class="f lb" fill="#7f1d1d">⏸ pausa / pool (a definir)</text>
     </svg>
+  </div>
+  </div>
+
+  <div class="tsel-panel" id="tsel-darkstore">
+  <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div>En una zona con solo Darkstore, <b>toda</b> la audiencia ya tiene envío gratis siempre (es del servicio, no depende de ser Meli+) — un único flujo para todos, sin separar por Meli+.</div></div>
+  <div class="diagram">
+    <svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — zona con solo Darkstore">
+      <defs><marker id="a9" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11px;font-weight:700}.lb{font-size:9px;fill:#8a8f98}.cplbl{font-size:11px;font-weight:800;fill:#1a2a4a}</style>
+
+      <rect x="10" y="85" width="120" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+      <text x="70" y="106" text-anchor="middle" class="f t2" fill="#4b5160">Never buyer</text>
+      <text x="70" y="119" text-anchor="middle" class="f lb">en zona Darkstore</text>
+      <path d="M130,110 L150,110" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a9)"/>
+
+      <rect x="150" y="45" width="230" height="130" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="265" y="68" text-anchor="middle" class="f cplbl">Semana 1-2</text>
+      <text x="265" y="88" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana</text>
+      <text x="265" y="104" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop Darkstore</text>
+      <text x="265" y="120" text-anchor="middle" class="f lb">+ envío gratis siempre</text>
+      <text x="265" y="134" text-anchor="middle" class="f lb">se apalanca desde el inicio</text>
+      <path d="M380,110 L405,110" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+      <polygon points="405,110 428,87 451,110 428,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="428" y="77" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M428,87 L428,32 L555,32" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a9)"/>
+      <path d="M451,110 L476,110" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a9)"/>
+      <text x="463" y="125" text-anchor="middle" class="f lb">no</text>
+
+      <rect x="476" y="45" width="230" height="130" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="591" y="68" text-anchor="middle" class="f cplbl">Semana 3-4</text>
+      <text x="591" y="88" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ 2 push/semana</text>
+      <text x="591" y="104" text-anchor="middle" class="f t2" fill="#9a5b06">Cupón 1ª compra</text>
+      <text x="591" y="120" text-anchor="middle" class="f lb">salta envío gratis: ya lo tiene</text>
+      <path d="M706,110 L731,110" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+      <polygon points="731,110 754,87 777,110 754,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="754" y="77" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M754,87 L754,32 L695,32" stroke="#059669" stroke-width="1.5" fill="none"/>
+      <path d="M754,133 L754,178" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a9)"/>
+
+      <rect x="555" y="15" width="140" height="34" rx="8" fill="#e6f7f3" stroke="#059669" stroke-width="1.4"/>
+      <text x="625" y="37" text-anchor="middle" class="f t2" fill="#065f46">🏆 Onboarding</text>
+      <rect x="644" y="178" width="220" height="38" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
+      <text x="754" y="201" text-anchor="middle" class="f lb" fill="#7f1d1d">⏸ pausa / pool (a definir)</text>
+    </svg>
+  </div>
+  </div>
+
+  <div class="tsel-panel" id="tsel-combo">
+  <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div>Cuando conviven Darkstore e Instore en la misma zona, el envío gratis de Darkstore ya cubre a <b>toda</b> la audiencia — mismo flujo de una sola rama que Darkstore solo, pero el primer mensaje es la <b>value prop completa de Groceries</b> (menciona ambos servicios), no la de un servicio puntual.</div></div>
+  <div class="diagram">
+    <svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — zona con Darkstore e Instore">
+      <defs><marker id="a10" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
+      <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11px;font-weight:700}.lb{font-size:9px;fill:#8a8f98}.cplbl{font-size:11px;font-weight:800;fill:#1a2a4a}</style>
+
+      <rect x="10" y="85" width="120" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+      <text x="70" y="106" text-anchor="middle" class="f t2" fill="#4b5160">Never buyer</text>
+      <text x="70" y="119" text-anchor="middle" class="f lb">zona combinada</text>
+      <path d="M130,110 L150,110" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a10)"/>
+
+      <rect x="150" y="45" width="230" height="130" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="265" y="68" text-anchor="middle" class="f cplbl">Semana 1-2</text>
+      <text x="265" y="88" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana</text>
+      <text x="265" y="104" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop Groceries</text>
+      <text x="265" y="120" text-anchor="middle" class="f lb">(Instore + Darkstore) + envío gratis</text>
+      <text x="265" y="134" text-anchor="middle" class="f lb">se apalanca desde el inicio</text>
+      <path d="M380,110 L405,110" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+      <polygon points="405,110 428,87 451,110 428,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="428" y="77" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M428,87 L428,32 L555,32" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a10)"/>
+      <path d="M451,110 L476,110" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a10)"/>
+      <text x="463" y="125" text-anchor="middle" class="f lb">no</text>
+
+      <rect x="476" y="45" width="230" height="130" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="591" y="68" text-anchor="middle" class="f cplbl">Semana 3-4</text>
+      <text x="591" y="88" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ 2 push/semana</text>
+      <text x="591" y="104" text-anchor="middle" class="f t2" fill="#9a5b06">Cupón 1ª compra</text>
+      <text x="591" y="120" text-anchor="middle" class="f lb">salta envío gratis: ya lo tiene</text>
+      <path d="M706,110 L731,110" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+      <polygon points="731,110 754,87 777,110 754,133" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="754" y="77" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M754,87 L754,32 L695,32" stroke="#059669" stroke-width="1.5" fill="none"/>
+      <path d="M754,133 L754,178" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a10)"/>
+
+      <rect x="555" y="15" width="140" height="34" rx="8" fill="#e6f7f3" stroke="#059669" stroke-width="1.4"/>
+      <text x="625" y="37" text-anchor="middle" class="f t2" fill="#065f46">🏆 Onboarding</text>
+      <rect x="644" y="178" width="220" height="38" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
+      <text x="754" y="201" text-anchor="middle" class="f lb" fill="#7f1d1d">⏸ pausa / pool (a definir)</text>
+    </svg>
+  </div>
   </div>
 
 <h2 class="h2" id="anchor-onboarding-darkstore">Onboarding Groceries: entrada Darkstore</h2>
@@ -1593,6 +1699,14 @@ document.querySelectorAll('.vtabbtn').forEach(function(btn){
     document.querySelectorAll('.vtab-panel').forEach(function(p){ p.classList.remove('active'); });
     btn.classList.add('active');
     document.getElementById(btn.dataset.vtab).classList.add('active');
+  });
+});
+document.querySelectorAll('.tsel-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tsel-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tsel-panel').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tsel).classList.add('active');
   });
 });
 </script>
