@@ -63,7 +63,7 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .aud-bracket-label { position:absolute; left:50%; top:-7px; transform:translateX(-50%); background:#fff; padding:0 8px; font-size:9px; font-weight:800; color:#777; white-space:nowrap; }
 
 /* SLIDE 3 v3: matriz funnel x estado de usuario */
-.ff-grid { flex:1; display:grid; grid-template-columns:120px repeat(4,1fr); grid-template-rows:36px 84px 1fr 1fr 1fr; gap:6px; min-height:0; }
+.ff-grid { flex:1; display:grid; grid-template-columns:120px repeat(4,1fr); grid-template-rows:36px 84px 0.5fr 0.5fr 1fr 1fr; gap:6px; min-height:0; }
 .ff-grid.focus-new { grid-template-columns:120px 4fr 0.4fr 0.4fr 0.4fr; grid-template-rows:30px 100px 1.4fr 1.4fr 28px; gap:4px; }
 .ff-label.grayed { background:#c7cbd6 !important; color:#8a90a3; }
 .ff-cell.grayed { background:#e4e6ec !important; }
@@ -293,20 +293,21 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
       <div class="ff-cell empty" style="grid-row:2; grid-column:4"></div>
       <div class="ff-cell empty" style="grid-row:2; grid-column:5"></div>
 
-      <div class="ff-label" style="background:#2E86DE; grid-row:3; grid-column:1">Consideration</div>
-      <div class="ff-cell plan" style="background:#C0392B; grid-row:3/5; grid-column:2">PLAN ADQUISICIÓN</div>
-      <div class="ff-cell empty" style="grid-row:3; grid-column:3"></div>
-      <div class="ff-cell plan" style="background:#2E86DE; grid-row:3/5; grid-column:4">PLAN PREVENCIÓN CHURN</div>
-      <div class="ff-cell plan" style="background:#8E44AD; grid-row:3/5; grid-column:5">PLAN REACTIVACIÓN</div>
+      <div class="ff-label" style="background:#2E86DE; grid-row:3/5; grid-column:1">Consideration</div>
+      <div class="ff-cell plan" style="background:#C0392B; grid-row:3/6; grid-column:2">PLAN ADQUISICIÓN</div>
+      <div class="ff-cell plan" style="background:#e74c3c; grid-row:3; grid-column:3/6">PLAN DE COMUNICACIÓN 360</div>
+      <div class="ff-cell empty" style="grid-row:4; grid-column:3"></div>
+      <div class="ff-cell plan" style="background:#2E86DE; grid-row:4/6; grid-column:4">PLAN PREVENCIÓN CHURN</div>
+      <div class="ff-cell plan" style="background:#8E44AD; grid-row:4/6; grid-column:5">PLAN REACTIVACIÓN</div>
 
-      <div class="ff-label" style="background:#F5A623; grid-row:4; grid-column:1">Conversión / Trial</div>
-      <div class="ff-cell plan" style="background:#F5A623; grid-row:4; grid-column:3">PLAN ONBOARDING</div>
+      <div class="ff-label" style="background:#F5A623; grid-row:5; grid-column:1">Conversión / Trial</div>
+      <div class="ff-cell plan" style="background:#F5A623; grid-row:5; grid-column:3">PLAN ONBOARDING</div>
 
-      <div class="ff-label" style="background:#16A085; grid-row:5; grid-column:1">Loyalty</div>
-      <div class="ff-cell empty" style="grid-row:5; grid-column:2"></div>
-      <div class="ff-cell plan" style="background:#16A085; grid-row:5; grid-column:3">PLAN FIDELIZACIÓN + CROSS-SELL</div>
-      <div class="ff-cell empty" style="grid-row:5; grid-column:4"></div>
-      <div class="ff-cell empty" style="grid-row:5; grid-column:5"></div>
+      <div class="ff-label" style="background:#16A085; grid-row:6; grid-column:1">Loyalty</div>
+      <div class="ff-cell empty" style="grid-row:6; grid-column:2"></div>
+      <div class="ff-cell plan" style="background:#16A085; grid-row:6; grid-column:3">PLAN FIDELIZACIÓN + CROSS-SELL</div>
+      <div class="ff-cell empty" style="grid-row:6; grid-column:4"></div>
+      <div class="ff-cell empty" style="grid-row:6; grid-column:5"></div>
     </div>
   </div>
 </div>
