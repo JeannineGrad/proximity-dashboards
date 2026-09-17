@@ -299,62 +299,107 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
   <div class="callout amber" style="margin:0 0 12px">
     <span>📐</span>
-    <div>2 push por semana, escalando el incentivo <b>de menos a más</b> a medida que no reacciona: primero <b>value prop</b> (sin incentivo), después <b>envío gratis</b>, y recién al final <b>cupón de 1ª compra</b> — evita quemar el incentivo más fuerte de entrada. Si compra en cualquier ronda, pasa a Onboarding. El detalle de canal/audiencia/estímulo de cada vertical vive en <a href="#" onclick="document.querySelectorAll('.doctabbtn').forEach(function(b){b.classList.remove('active')});document.querySelectorAll('.doctab-panel').forEach(function(p){p.classList.remove('active')});document.querySelector('.doctabbtn[data-doctab=\'doctab-funnel\']').classList.add('active');document.getElementById('doctab-funnel').classList.add('active');window.scrollTo(0,0);return false;">🎛️ Palancas disponibles →</a></div>
+    <div>2 push por semana, escalando el incentivo <b>de menos a más</b> a medida que no reacciona. Se separa entre quienes <b>ya tienen envío gratis siempre</b> (usuarios Meli+ en cualquier vertical, y toda la audiencia de Darkstore — ahí el envío gratis es del servicio, no depende de ser Meli+) y el resto: para el primer grupo se apalanca ese beneficio desde el primer mensaje en vez de guardarlo como paso intermedio, y se salta directo al cupón si no reaccionan. Si compra en cualquier ronda, pasa a Onboarding. El detalle de canal/audiencia/estímulo de cada vertical vive en <a href="#" onclick="document.querySelectorAll('.doctabbtn').forEach(function(b){b.classList.remove('active')});document.querySelectorAll('.doctab-panel').forEach(function(p){p.classList.remove('active')});document.querySelector('.doctabbtn[data-doctab=\'doctab-funnel\']').classList.add('active');document.getElementById('doctab-funnel').classList.add('active');window.scrollTo(0,0);return false;">🎛️ Palancas disponibles →</a></div>
   </div>
   <div class="diagram">
-    <svg viewBox="0 0 1150 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — Never Buyer">
+    <svg viewBox="0 0 1150 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — Never Buyer, por Meli+">
       <defs><marker id="a8" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
       <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11px;font-weight:700}.lb{font-size:9px;fill:#8a8f98}.cplbl{font-size:11px;font-weight:800;fill:#1a2a4a}</style>
 
-      <rect x="10" y="100" width="130" height="50" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
-      <text x="75" y="121" text-anchor="middle" class="f t2" fill="#4b5160">Never buyer</text>
-      <text x="75" y="134" text-anchor="middle" class="f lb">en la zona</text>
-      <path d="M140,125 L165,125" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <rect x="10" y="190" width="130" height="60" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+      <text x="75" y="216" text-anchor="middle" class="f t2" fill="#4b5160">Never buyer</text>
+      <text x="75" y="230" text-anchor="middle" class="f lb">en la zona</text>
+      <path d="M140,220 L150,220" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
 
-      <rect x="165" y="70" width="220" height="110" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
-      <text x="275" y="92" text-anchor="middle" class="f cplbl">Semana 1-2</text>
-      <text x="275" y="112" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana</text>
-      <text x="275" y="128" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop</text>
-      <text x="275" y="144" text-anchor="middle" class="f lb">sin incentivo</text>
-      <text x="275" y="160" text-anchor="middle" class="f lb">(institucional / awareness)</text>
-      <path d="M385,125 L410,125" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+      <polygon points="150,220 175,195 200,220 175,245" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="175" y="176" text-anchor="middle" class="f cplbl" style="font-size:9.5px">¿Ya tiene envío</text>
+      <text x="175" y="187" text-anchor="middle" class="f cplbl" style="font-size:9.5px">gratis siempre?</text>
+      <path d="M175,195 L175,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <text x="230" y="160" text-anchor="middle" class="f t2" fill="#1d4ed8">sí — Meli+ o Darkstore</text>
+      <path d="M175,245 L175,325" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <text x="225" y="290" text-anchor="middle" class="f t2" fill="#4b5160">no — resto</text>
 
-      <polygon points="410,125 432,102 454,125 432,148" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="432" y="90" text-anchor="middle" class="f cplbl">¿Compró?</text>
-      <path d="M432,102 L432,60 L700,60" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
-      <text x="470" y="52" text-anchor="middle" class="f lb" fill="#065f46">sí → Onboarding</text>
-      <path d="M454,125 L475,125" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
-      <text x="465" y="140" text-anchor="middle" class="f lb">no</text>
+      <!-- FILA MELI+ -->
+      <text x="280" y="48" text-anchor="middle" class="f t1" fill="#1d4ed8" style="font-size:11px">🅼 MELI+ / DARKSTORE</text>
+      <rect x="175" y="60" width="210" height="110" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="280" y="82" text-anchor="middle" class="f cplbl">Semana 1-2</text>
+      <text x="280" y="102" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana</text>
+      <text x="280" y="118" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop</text>
+      <text x="280" y="134" text-anchor="middle" class="f lb">+ ya tenés envío gratis (Meli+)</text>
+      <text x="280" y="148" text-anchor="middle" class="f lb">se apalanca desde el inicio</text>
+      <path d="M385,115 L410,115" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
 
-      <rect x="475" y="70" width="220" height="110" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
-      <text x="585" y="92" text-anchor="middle" class="f cplbl">Semana 3-4</text>
-      <text x="585" y="112" text-anchor="middle" class="f t2" fill="#065f46">🚚 2 push/semana</text>
-      <text x="585" y="128" text-anchor="middle" class="f t2" fill="#065f46">Envío gratis</text>
-      <text x="585" y="144" text-anchor="middle" class="f lb">incentivo liviano</text>
-      <path d="M695,125 L720,125" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+      <polygon points="410,115 432,92 454,115 432,138" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="432" y="82" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M432,92 L432,27 L565,27" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <path d="M454,115 L475,115" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <text x="465" y="130" text-anchor="middle" class="f lb">no</text>
 
-      <polygon points="720,125 742,102 764,125 742,148" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
-      <text x="742" y="90" text-anchor="middle" class="f cplbl">¿Compró?</text>
-      <path d="M742,102 L742,60 L700,60" stroke="#059669" stroke-width="1.5" fill="none"/>
-      <path d="M764,125 L785,125" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
-      <text x="775" y="140" text-anchor="middle" class="f lb">no</text>
+      <rect x="475" y="60" width="210" height="110" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="580" y="82" text-anchor="middle" class="f cplbl">Semana 3-4</text>
+      <text x="580" y="102" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ 2 push/semana</text>
+      <text x="580" y="118" text-anchor="middle" class="f t2" fill="#9a5b06">Cupón 1ª compra</text>
+      <text x="580" y="134" text-anchor="middle" class="f lb">salta envío gratis: ya lo tiene</text>
+      <path d="M685,115 L710,115" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
 
-      <rect x="785" y="70" width="220" height="110" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
-      <text x="895" y="92" text-anchor="middle" class="f cplbl">Semana 5-6</text>
-      <text x="895" y="112" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ 2 push/semana</text>
-      <text x="895" y="128" text-anchor="middle" class="f t2" fill="#9a5b06">Cupón 1ª compra</text>
-      <text x="895" y="144" text-anchor="middle" class="f lb">incentivo mayor</text>
+      <polygon points="710,115 732,92 754,115 732,138" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="732" y="82" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M732,92 L732,27 L705,27" stroke="#059669" stroke-width="1.5" fill="none"/>
+      <path d="M732,138 L732,193" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a8)"/>
 
-      <rect x="700" y="25" width="150" height="34" rx="8" fill="#e6f7f3" stroke="#059669" stroke-width="1.4"/>
-      <text x="775" y="47" text-anchor="middle" class="f t2" fill="#065f46">🏆 Onboarding</text>
+      <rect x="565" y="10" width="140" height="34" rx="8" fill="#e6f7f3" stroke="#059669" stroke-width="1.4"/>
+      <text x="635" y="31" text-anchor="middle" class="f t2" fill="#065f46">🏆 Onboarding</text>
+      <rect x="655" y="193" width="210" height="38" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
+      <text x="760" y="216" text-anchor="middle" class="f lb" fill="#7f1d1d">⏸ pausa / pool (a definir)</text>
 
-      <path d="M895,180 L895,205" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a8)"/>
-      <rect x="785" y="205" width="220" height="45" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
-      <text x="895" y="223" text-anchor="middle" class="f t2" fill="#7f1d1d">⏸ Si no reacciona:</text>
-      <text x="895" y="238" text-anchor="middle" class="f lb" fill="#7f1d1d">pausa / pool de mantenimiento (a definir)</text>
+      <!-- FILA NO MELI+ -->
+      <text x="270" y="258" text-anchor="middle" class="f t1" fill="#4b5160" style="font-size:11px">🚫 RESTO (sin envío gratis)</text>
+      <rect x="175" y="270" width="190" height="110" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="270" y="292" text-anchor="middle" class="f cplbl">Semana 1-2</text>
+      <text x="270" y="312" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana</text>
+      <text x="270" y="328" text-anchor="middle" class="f t2" fill="#1d4ed8">Value prop</text>
+      <text x="270" y="344" text-anchor="middle" class="f lb">sin incentivo</text>
+      <path d="M365,325 L378,325" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+      <polygon points="378,325 400,302 422,325 400,348" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="400" y="292" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M400,302 L400,258 L565,258" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <path d="M422,325 L443,325" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <text x="432" y="340" text-anchor="middle" class="f lb">no</text>
+
+      <rect x="443" y="270" width="190" height="110" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
+      <text x="538" y="292" text-anchor="middle" class="f cplbl">Semana 3-4</text>
+      <text x="538" y="312" text-anchor="middle" class="f t2" fill="#065f46">🚚 2 push/semana</text>
+      <text x="538" y="328" text-anchor="middle" class="f t2" fill="#065f46">Envío gratis</text>
+      <text x="538" y="344" text-anchor="middle" class="f lb">incentivo liviano</text>
+      <path d="M633,325 L646,325" stroke="#8a8f98" stroke-width="1.5" fill="none"/>
+
+      <polygon points="646,325 668,302 690,325 668,348" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="668" y="292" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M668,302 L668,258 L565,258" stroke="#059669" stroke-width="1.5" fill="none"/>
+      <path d="M690,325 L711,325" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <text x="700" y="340" text-anchor="middle" class="f lb">no</text>
+
+      <rect x="711" y="270" width="190" height="110" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="806" y="292" text-anchor="middle" class="f cplbl">Semana 5-6</text>
+      <text x="806" y="312" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ 2 push/semana</text>
+      <text x="806" y="328" text-anchor="middle" class="f t2" fill="#9a5b06">Cupón 1ª compra</text>
+      <text x="806" y="344" text-anchor="middle" class="f lb">incentivo mayor</text>
+
+      <polygon points="901,325 923,302 945,325 923,348" fill="#fff" stroke="#1a2a4a" stroke-width="1.5"/>
+      <text x="923" y="292" text-anchor="middle" class="f cplbl">¿Compró?</text>
+      <path d="M806,380 L806,380" stroke="none"/>
+      <path d="M901,325 L901,325" stroke="none"/>
+      <path d="M923,302 L923,258 L705,258" stroke="#059669" stroke-width="1.5" fill="none"/>
+      <path d="M923,348 L923,395" stroke="#d97706" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#a8)"/>
+
+      <rect x="565" y="241" width="140" height="34" rx="8" fill="#e6f7f3" stroke="#059669" stroke-width="1.4"/>
+      <text x="635" y="262" text-anchor="middle" class="f t2" fill="#065f46">🏆 Onboarding</text>
+      <rect x="818" y="395" width="220" height="38" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4,3"/>
+      <text x="928" y="418" text-anchor="middle" class="f lb" fill="#7f1d1d">⏸ pausa / pool (a definir)</text>
     </svg>
   </div>
-  <div class="callout" style="margin:12px 0 0;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div><b>Ej. Darkstore</b> — mismo orden ascendente que el resto: value prop → envío gratis → cupón de 1ª compra.</div></div>
+  <div class="callout" style="margin:12px 0 0;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div><b>Ej. Darkstore</b> — toda la audiencia (sea o no Meli+) entra por la fila de arriba, porque en Darkstore el envío gratis es siempre así, no depende de la suscripción: arranca mencionándolo y va directo a cupón si no reacciona. En Instore/GM/Pharma solo los Meli+ entran por esa fila; el resto sigue las 3 semanas completas de la fila de abajo.</div></div>
 
 <h2 class="h2" id="anchor-onboarding-darkstore">Onboarding Groceries: entrada Darkstore</h2>
   <div class="card">
