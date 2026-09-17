@@ -304,7 +304,7 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
   <div class="callout amber" style="margin:0 0 12px">
     <span>📐</span>
-    <div>Groceries tiene 3 flujos según qué haya en la zona: <b>solo Instore</b>, <b>solo Darkstore</b>, o <b>ambas</b>. La diferencia clave es el envío gratis: en Instore solo lo tienen los <b>Meli+</b>, mientras que en Darkstore es siempre así (esté o no combinado con Instore) — por eso el flujo de Darkstore (solo o combinado) es de una sola rama, y solo el de Instore se separa por Meli+. Cuando conviven las dos, el primer mensaje es la <b>value prop completa de Groceries</b>, no la de un servicio puntual. 2 push por semana, escalando el incentivo de menos a más si no reacciona; si compra en cualquier ronda, pasa a Onboarding.</div>
+    <div>Groceries tiene 3 flujos según qué haya en la zona: <b>solo Instore</b>, <b>solo Darkstore</b>, o <b>ambas</b>. La diferencia clave es el envío gratis: en <b>Darkstore es siempre gratis</b> (para todos, esté o no combinado con Instore), mientras que en <b>Instore nunca es gratis</b> (ni siquiera para Meli+ — ese beneficio no aplica ahí). Por eso el flujo de Darkstore (solo o combinado) es de una sola rama que apalanca el envío gratis desde el inicio, y el de Instore es la única escalada completa de 3 semanas. 2 push por semana; si compra en cualquier ronda, pasa a Onboarding.</div>
   </div>
 
   <div class="vtabbar">
@@ -314,58 +314,30 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
   </div>
 
   <div class="tsel-panel active" id="tsel-combo">
-  <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div>Cuando conviven Darkstore e Instore en la misma zona, el primer mensaje es la <b>value prop completa de Groceries</b> (menciona ambos servicios) — y se separa entre quienes ya tienen envío gratis siempre (Meli+, o vía Darkstore) y el resto.</div></div>
+  <div class="callout" style="margin:0 0 12px;background:#f8f9fc;border-color:var(--border)"><span>📋</span><div>Cuando conviven Darkstore e Instore en la misma zona, <b>toda</b> la audiencia ya tiene acceso a envío gratis vía Darkstore (no depende de ser Meli+ ni de ningún atributo del usuario, depende solo de que el servicio esté disponible ahí) — un único flujo para todos, con el primer mensaje siendo la <b>value prop completa de Groceries</b> (menciona ambos servicios), no la de uno puntual.</div></div>
   <div class="diagram">
-    <svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — zona combinada Darkstore + Instore">
+    <svg viewBox="0 0 700 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cadencia de Trial — zona combinada Darkstore + Instore">
       <defs><marker id="a8" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8a8f98"/></marker></defs>
       <style>.f{font-family:-apple-system,'Segoe UI',Arial,sans-serif}.t1{font-size:14px;font-weight:800}.t2{font-size:11px;font-weight:700}.lb{font-size:9px;fill:#8a8f98}.cplbl{font-size:11px;font-weight:800;fill:#1a2a4a}</style>
 
-      <rect x="10" y="140" width="110" height="55" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
-      <text x="65" y="163" text-anchor="middle" class="f t2" fill="#4b5160">Never buyer</text>
-      <text x="65" y="177" text-anchor="middle" class="f lb">zona combinada</text>
-      <text x="65" y="118" text-anchor="middle" class="f cplbl" style="font-size:9.5px">¿Ya tiene envío</text>
-      <text x="65" y="130" text-anchor="middle" class="f cplbl" style="font-size:9.5px">gratis siempre?</text>
+      <rect x="10" y="45" width="100" height="90" rx="9" fill="#f2f4f7" stroke="#8a8f98" stroke-width="1.4"/>
+      <text x="60" y="86" text-anchor="middle" class="f t2" fill="#4b5160">Never buyer</text>
+      <text x="60" y="99" text-anchor="middle" class="f lb">zona combinada</text>
+      <path d="M110,90 L130,90" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
 
-      <path d="M120,150 L150,150 L150,90 L172,90" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
-      <path d="M120,175 L150,175 L150,240 L172,240" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <rect x="130" y="45" width="260" height="90" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="260" y="67" text-anchor="middle" class="f cplbl">Semana 1-2</text>
+      <text x="260" y="85" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 Value prop Groceries</text>
+      <text x="260" y="99" text-anchor="middle" class="f lb">+ envío gratis vía Darkstore — se apalanca desde el inicio</text>
+      <path d="M390,90 L410,90" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
 
-      <!-- FILA MELI+ / DARKSTORE -->
-      <text x="280" y="32" text-anchor="middle" class="f t1" fill="#1d4ed8" style="font-size:11px">🅼 MELI+ / DARKSTORE</text>
-      <rect x="175" y="45" width="210" height="90" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
-      <text x="280" y="67" text-anchor="middle" class="f cplbl">Semana 1-2</text>
-      <text x="280" y="85" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 2 push/semana · Value prop Groceries</text>
-      <text x="280" y="99" text-anchor="middle" class="f lb">+ ya tenés envío gratis — se apalanca desde el inicio</text>
-      <path d="M385,90 L405,90" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
+      <rect x="410" y="45" width="260" height="90" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+      <text x="540" y="67" text-anchor="middle" class="f cplbl">Semana 3-4</text>
+      <text x="540" y="85" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ Cupón 1ª compra</text>
+      <text x="540" y="99" text-anchor="middle" class="f lb">salta envío gratis: ya lo tiene</text>
 
-      <rect x="405" y="45" width="210" height="90" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
-      <text x="510" y="67" text-anchor="middle" class="f cplbl">Semana 3-4</text>
-      <text x="510" y="85" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ 2 push/semana · Cupón 1ª compra</text>
-      <text x="510" y="99" text-anchor="middle" class="f lb">salta envío gratis: ya lo tiene</text>
-
-      <text x="280" y="155" text-anchor="middle" class="f lb">Si compra en cualquier semana → <tspan fill="#065f46" font-weight="700">🏆 Onboarding</tspan></text>
-      <text x="280" y="168" text-anchor="middle" class="f lb">Si no reacciona → <tspan fill="#7f1d1d" font-weight="700">⏸ pausa / pool (a definir)</tspan></text>
-
-      <!-- FILA RESTO -->
-      <text x="270" y="202" text-anchor="middle" class="f t1" fill="#4b5160" style="font-size:11px">🚫 RESTO (sin envío gratis)</text>
-      <rect x="175" y="215" width="180" height="90" rx="10" fill="#eef4ff" stroke="#2563eb" stroke-width="1.5"/>
-      <text x="265" y="237" text-anchor="middle" class="f cplbl">Semana 1-2</text>
-      <text x="265" y="255" text-anchor="middle" class="f t2" fill="#1d4ed8">📣 Value prop Groceries</text>
-      <text x="265" y="269" text-anchor="middle" class="f lb">sin incentivo</text>
-      <path d="M355,260 L375,260" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
-
-      <rect x="375" y="215" width="180" height="90" rx="10" fill="#eafaf3" stroke="#059669" stroke-width="1.5"/>
-      <text x="465" y="237" text-anchor="middle" class="f cplbl">Semana 3-4</text>
-      <text x="465" y="255" text-anchor="middle" class="f t2" fill="#065f46">🚚 Envío gratis</text>
-      <text x="465" y="269" text-anchor="middle" class="f lb">incentivo liviano</text>
-      <path d="M555,260 L575,260" stroke="#8a8f98" stroke-width="1.5" fill="none" marker-end="url(#a8)"/>
-
-      <rect x="575" y="215" width="180" height="90" rx="10" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
-      <text x="665" y="237" text-anchor="middle" class="f cplbl">Semana 5-6</text>
-      <text x="665" y="255" text-anchor="middle" class="f t2" fill="#9a5b06">🎟️ Cupón 1ª compra</text>
-      <text x="665" y="269" text-anchor="middle" class="f lb">incentivo mayor</text>
-
-      <text x="465" y="325" text-anchor="middle" class="f lb">Si compra en cualquier semana → <tspan fill="#065f46" font-weight="700">🏆 Onboarding</tspan></text>
-      <text x="465" y="338" text-anchor="middle" class="f lb">Si no reacciona a la semana 5-6 → <tspan fill="#7f1d1d" font-weight="700">⏸ pausa / pool (a definir)</tspan></text>
+      <text x="350" y="160" text-anchor="middle" class="f lb">2 push/semana en cada etapa. Si compra en cualquier semana → <tspan fill="#065f46" font-weight="700">🏆 Onboarding</tspan></text>
+      <text x="350" y="174" text-anchor="middle" class="f lb">Si no reacciona → <tspan fill="#7f1d1d" font-weight="700">⏸ pausa / pool (a definir)</tspan></text>
     </svg>
   </div>
   </div>
