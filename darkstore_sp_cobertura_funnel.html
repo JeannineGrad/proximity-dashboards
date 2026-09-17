@@ -398,35 +398,28 @@ function fetchSharedState(cb) {
   document.body.appendChild(script);
   setTimeout(() => {
     if (!done) { showToast('No se pudo conectar al servidor compartido, usando copia local'); finish(loadLocalState()); }
-  }, 4000);
+  }, 9000);
 }
 
 function pushSharedState(state) {
   saveLocalState(state); // siempre guarda copia local tambien, por las dudas
   if (!SYNC_URL) return;
-  // Se usa un formulario oculto (no fetch) porque Apps Script redirige el POST
-  // internamente y fetch pierde el metodo POST en esa redireccion.
-  let iframe = document.getElementById('sync-iframe');
-  if (!iframe) {
-    iframe = document.createElement('iframe');
-    iframe.name = 'sync-iframe';
-    iframe.id = 'sync-iframe';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-  }
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = SYNC_URL;
-  form.target = 'sync-iframe';
-  form.style.display = 'none';
-  const input = document.createElement('input');
-  input.type = 'hidden';
-  input.name = 'payload';
-  input.value = JSON.stringify(state);
-  form.appendChild(input);
-  document.body.appendChild(form);
-  form.submit();
-  form.remove();
+  // Se guarda con el mismo mecanismo GET/JSONP que la lectura (evita el problema
+  // de Apps Script perdiendo el metodo POST en su redireccion interna).
+  const cbName = '__syncSave' + (jsonpCounter++);
+  let done = false;
+  const finish = () => {
+    if (done) return;
+    done = true;
+    delete window[cbName];
+    if (script.parentNode) script.remove();
+  };
+  window[cbName] = finish;
+  const script = document.createElement('script');
+  script.src = SYNC_URL + '?action=save&payload=' + encodeURIComponent(JSON.stringify(state)) + '&callback=' + cbName + '&t=' + Date.now();
+  script.onerror = finish;
+  document.body.appendChild(script);
+  setTimeout(finish, 9000);
 }
 
 function delSeg(btn) {
