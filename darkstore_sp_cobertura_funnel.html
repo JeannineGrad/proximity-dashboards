@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Darkstore MLB — São Paulo — Cobertura y Funnel</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; gap:14px; padding:20px; }
+.slide { width:1100px; height:620px; background:#fff; border-radius:0; box-shadow:0 8px 48px rgba(0,0,0,.5); overflow:hidden; position:relative; display:none; }
+.slide.active { display:block; }
+.slide::before,.slide::after { content:''; position:absolute; left:0; right:0; height:6px; background:#FFB700; z-index:10; }
+.slide::before { top:0; } .slide::after { bottom:0; }
+.si { padding:26px 40px 22px; height:100%; display:flex; flex-direction:column; }
+.snum { position:absolute; top:12px; right:18px; font-size:10px; color:#bbb; font-weight:700; }
+.stitle { font-size:21px; font-weight:800; color:#1a2454; line-height:1.15; }
+.ssub { font-size:11px; color:#888; font-style:italic; margin-top:4px; }
+.sdiv { height:2px; background:#e8eaf2; margin:10px 0 14px; }
+.body { flex:1; display:flex; gap:20px; min-height:0; }
+
+/* MAP */
+.map-area { flex:0 0 620px; background:#f5f6fa; border:1px solid #dadfea; border-radius:6px; position:relative; overflow:hidden; }
+.map-caption { position:absolute; bottom:10px; left:12px; font-size:9.5px; color:#999; font-style:italic; }
+
+/* SIDE BOX */
+.side-box { flex:1; display:flex; flex-direction:column; gap:10px; }
+.side-hdr { background:#1a2454; color:#fff; font-size:13px; font-weight:700; padding:10px 14px; border-radius:6px; }
+.metric { background:#f8f9fc; border:1px solid #e8eaf2; border-radius:6px; padding:10px 14px; border-left:5px solid #1a2454; }
+.metric.b1 { border-left-color:#FFB700; } .metric.b2 { border-left-color:#4DC3E8; } .metric.b3 { border-left-color:#00a878; }
+.metric .lbl { font-size:10.5px; color:#666; }
+.metric .val { font-size:22px; font-weight:900; color:#1a2454; margin-top:2px; }
+.metric-note { font-size:9px; font-style:italic; color:#999; margin-top:4px; }
+.dummy-warn { font-size:9.5px; font-style:italic; color:#c0392b; margin-top:auto; padding-top:6px; }
+
+/* FUNNEL */
+.funnel-wrap { flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:8px; padding:4px 60px; }
+.f-row { display:flex; align-items:center; gap:14px; }
+.f-bar { height:64px; border-radius:6px; display:flex; flex-direction:column; justify-content:center; padding:0 20px; color:#fff; }
+.f-bar .f-lbl { font-size:12px; font-weight:700; }
+.f-bar .f-val { font-size:24px; font-weight:900; line-height:1.1; }
+.f-bar .f-note { font-size:8.5px; font-style:italic; opacity:.9; }
+.f-pct { width:56px; text-align:center; font-size:12px; font-weight:800; color:#888; flex-shrink:0; }
+.funnel-note { font-size:9.5px; font-style:italic; color:#c0392b; margin-top:8px; }
+.f-pair { position:relative; display:flex; flex-direction:column; justify-content:space-between; }
+.f-arrow-chip { position:absolute; background:#1a2454; color:#fff; font-size:11px; font-weight:800; padding:5px 12px; border-radius:14px; white-space:nowrap; }
+
+/* SLIDE 2: columna de referencia (gris) a la izquierda del funnel */
+.slide2-body { display:flex; gap:18px; flex:1; min-height:0; }
+.ref-col { flex:0 0 190px; display:flex; flex-direction:column; justify-content:space-between; padding:4px 0; }
+.ref-metric { background:#eceef2; border:1px solid #dcdfe6; border-radius:6px; padding:10px 12px; display:flex; flex-direction:column; justify-content:center; height:100%; }
+.ref-metric .lbl { font-size:10px; color:#888; }
+.ref-metric .val { font-size:19px; font-weight:900; color:#666; margin-top:2px; }
+.ref-metric .ref-x { font-size:11px; font-style:italic; color:#999; margin-top:3px; }
+.ref-spacer { visibility:hidden; }
+.ref-pair { display:flex; flex-direction:column; justify-content:space-between; }
+.f-seg-bar { display:flex; height:64px; border-radius:6px; overflow:hidden; }
+.f-seg { flex:1; display:flex; align-items:center; justify-content:center; text-align:center; padding:4px 6px; color:#fff; font-size:8px; font-weight:700; line-height:1.25; border-right:2px solid rgba(255,255,255,.35); }
+.f-seg:last-child { border-right:none; }
+.aud-bracket { position:relative; height:14px; margin-bottom:1px; }
+.aud-bracket-line { position:absolute; left:0; right:0; top:7px; height:2px; background:#aab0bf; }
+.aud-bracket-line::before, .aud-bracket-line::after { content:''; position:absolute; top:0; width:2px; height:7px; background:#aab0bf; }
+.aud-bracket-line::before { left:0; }
+.aud-bracket-line::after { right:0; }
+.aud-bracket-label { position:absolute; left:50%; top:-7px; transform:translateX(-50%); background:#fff; padding:0 8px; font-size:9px; font-weight:800; color:#777; white-space:nowrap; }
+
+/* SLIDE 3 v3: matriz funnel x estado de usuario */
+.ff-grid { flex:1; display:grid; grid-template-columns:120px repeat(4,1fr); grid-template-rows:36px 84px 0.5fr 0.5fr 1fr 1fr; gap:6px; min-height:0; }
+.ff-grid.focus-new { grid-template-columns:120px 4fr 0.4fr 0.4fr 0.4fr; grid-template-rows:30px 100px 1.4fr 1.4fr 28px; gap:4px; }
+.ff-label.grayed { background:#c7cbd6 !important; color:#8a90a3; }
+.ff-cell.grayed { background:#e4e6ec !important; }
+.plan-detail { display:flex; flex-direction:column; height:100%; width:100%; padding:5px 10px; color:#fff; text-align:left; }
+.plan-detail-title { font-size:13px; font-weight:800; margin-bottom:8px; }
+.plan-detail-split { display:flex; gap:16px; flex:1; }
+.plan-detail-col { flex:1; display:flex; flex-direction:column; gap:6px; }
+.plan-detail-col-hdr { font-size:9px; font-weight:800; opacity:.85; letter-spacing:.6px; border-bottom:1px solid rgba(255,255,255,.3); padding-bottom:3px; }
+.plan-detail-chips { display:flex; flex-wrap:wrap; gap:5px; }
+.plan-detail-subhdr { font-size:7.5px; font-weight:800; opacity:.75; margin-top:3px; }
+.plan-detail-subgroup:first-child .plan-detail-subhdr { margin-top:0; }
+.ff-chip.light { background:#eef0f5; color:#444; }
+.plan-detail-list { display:flex; flex-direction:column; gap:2px; }
+.plan-detail-item { display:flex; justify-content:space-between; align-items:center; gap:6px; font-size:8px; font-weight:700; color:#444; background:#eef0f5; border-radius:4px; padding:3px 7px; }
+.plan-detail-item .ch-val { font-size:7.5px; font-weight:600; color:#aaa; font-style:italic; white-space:nowrap; }
+.ch-legend { display:flex; align-items:center; gap:5px; flex:0 0 auto; margin-bottom:4px; padding-bottom:4px; border-bottom:1px solid #eee; }
+.ch-legend-lbl { font-size:8px; font-weight:800; color:#999; text-transform:uppercase; letter-spacing:.5px; margin-right:2px; }
+.ch-chip { font-size:8px; font-weight:700; color:#556; background:#eef0f5; border-radius:9px; padding:2px 8px; white-space:nowrap; }
+.ch-table { width:100%; flex:1; display:flex; flex-direction:column; min-height:0; }
+.ch-row { display:flex; align-items:center; min-height:0; overflow:hidden; }
+.ch-row.ch-head { flex:0.9; border-bottom:1px solid #e2e4ea; }
+.ch-row.ch-head .ch-c { font-size:8px; font-weight:800; color:#aaa; text-transform:uppercase; letter-spacing:.4px; }
+.ch-row.ch-group { flex:0.65; background:#e9ebf2; border-top:2px solid #d3d7e2; }
+.ch-row.ch-group:first-child { border-top:none; }
+.ch-row.ch-group .ch-c-full { font-size:8.5px; font-weight:800; color:#556; text-transform:uppercase; letter-spacing:.5px; }
+.ch-row.ch-data { flex:1.2; border-bottom:1px solid #f2f3f6; }
+.ch-row.ch-data .ch-c-canal { font-size:9.5px; font-weight:700; color:#444; }
+.ch-c { padding:0 8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+.ch-c-canal { flex:2; }
+.ch-c-audiencia { flex:1.5; }
+.ch-c-est, .ch-c-budget { flex:1.3; }
+.ch-c-metric { flex:1.9; }
+.ch-metric { font-size:9px; font-weight:600; color:#999; font-style:italic; }
+.ch-c-tl { flex:0 0 52px; text-align:center; border-left:1px solid #f2f3f6; padding:0; }
+.ch-tl-dot { width:8px; height:8px; border-radius:50%; background:#e2e4ea; display:inline-block; }
+.ff-corner { }
+.ff-colhdr { background:#eef0f5; border-radius:5px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.ff-colhdr .who-title { font-size:9px; font-weight:800; color:#8a90a3; letter-spacing:.5px; }
+.ff-colhdr .status { font-size:13px; font-weight:800; color:#1a2454; }
+.ff-colhdr .status-sub { font-size:8.5px; color:#999; }
+.ff-label { border-radius:5px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:13px; text-align:center; padding:4px; }
+.ff-cell { border-radius:5px; padding:8px; display:flex; flex-wrap:wrap; align-content:center; justify-content:center; gap:5px; }
+.ff-cell.empty { background:#eef0f5; }
+.ff-cell.plan { display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:12px; text-align:center; }
+.ff-chip { background:rgba(255,255,255,.22); color:#fff; font-size:8.5px; font-weight:700; padding:4px 9px; border-radius:10px; white-space:nowrap; }
+.ff-chip-group { display:flex; flex-direction:column; gap:4px; align-items:center; }
+.ff-chip-row { display:flex; gap:5px; flex-wrap:wrap; justify-content:center; }
+.ff-chip-tag { font-size:7px; font-weight:800; color:rgba(255,255,255,.75); align-self:center; margin-right:2px; }
+
+#nav { display:flex; align-items:center; gap:20px; user-select:none; }
+.nav-btn { background:rgba(26,36,84,.12); border:none; color:#1a2454; width:40px; height:40px; border-radius:50%; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.nav-btn:disabled { opacity:.25; }
+#nav-dots { display:flex; gap:8px; }
+.ndot { width:8px; height:8px; border-radius:50%; background:rgba(26,36,84,.2); cursor:pointer; }
+.ndot.active { background:#FFB700; }
+#nav-label { color:#888; font-size:12px; min-width:44px; text-align:center; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: MAPA DE COBERTURA -->
+<div class="slide active">
+  <div class="si">
+    <span class="snum">1</span>
+    <div class="stitle">Darkstore MLB — Zonas confirmadas y radio de cobertura (São Paulo)</div>
+    <div class="ssub">Pinheiros · Morumbi · Ipiranga · Limão — apertura Dic-26</div>
+    <div class="sdiv"></div>
+    <div class="body">
+      <div class="map-area">
+        <img src="mapa_cobertura_darkstore_sp.png" alt="Mapa de cobertura Darkstore São Paulo" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">
+        <div class="map-caption">4 zonas confirmadas — Pinheiros, Morumbi, Ipiranga, Limão. No incluye zonas de expansión futura (Launch 5–10)</div>
+      </div>
+      <div class="side-box">
+        <div class="side-hdr">Población y usuarios en las 4 zonas (São Paulo)</div>
+        <div class="metric">
+          <div class="lbl">Población total (radio de cobertura, sin doble conteo de solapes)</div>
+          <div class="val">Pendiente</div>
+          <div class="metric-note">Falta fuente demográfica real (equivalente a INDEC para Argentina) — a definir con IBGE, cruzado con el radio de cobertura de cada zona</div>
+        </div>
+        <div class="metric b1">
+          <div class="lbl">Compradores Meli en la zona</div>
+          <div class="val">Pendiente</div>
+          <div class="metric-note">Audiencia general de Mercado Libre (compradores activos) dentro del radio de cobertura de las 4 zonas</div>
+        </div>
+        <div class="metric b2">
+          <div class="lbl">Compradores Meli-Supermercado en la zona</div>
+          <div class="val">Pendiente</div>
+          <div class="metric-note">Compradores que ya compran en la vertical Supermercado dentro de Mercado Libre — audiencia más "caliente" para el Trial de Darkstore</div>
+        </div>
+        <div class="dummy-warn">Valores pendientes de query BQ con centro + radio de cada zona (Pinheiros, Morumbi, Ipiranga, Limão)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: FUNNEL -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">2</span>
+    <div class="stitle">Funnel de audiencia — de compradores potenciales a órdenes</div>
+    <div class="ssub">Darkstore MLB — São Paulo (Groceries, 4 zonas)</div>
+    <div class="sdiv"></div>
+    <div class="slide2-body">
+      <div class="ref-col">
+        <div class="ref-spacer" style="height:64px"></div>
+        <div class="ref-spacer" style="height:64px"></div>
+        <div class="ref-pair" style="height:250px">
+          <div class="ref-spacer" style="height:64px"></div>
+          <div class="ref-metric" style="height:64px">
+            <div class="lbl">Compradores mes 1 (apertura, Dic-26)</div>
+            <div class="val">17.587</div>
+            <div class="ref-x">6,9x a mes 12</div>
+          </div>
+          <div class="ref-metric" style="height:64px">
+            <div class="lbl">Órdenes mes 1 (apertura, Dic-26)</div>
+            <div class="val">19.345</div>
+            <div class="ref-x">10,0x a mes 12</div>
+          </div>
+        </div>
+      </div>
+      <div class="funnel-wrap">
+      <div class="f-row">
+        <div class="f-bar" style="width:100%;background:#1a2454">
+          <div class="f-lbl">Compradores potenciales en la zona</div>
+          <div class="f-val">0,97 M</div>
+        </div>
+        <div class="f-pct"></div>
+      </div>
+      <div class="f-row">
+        <div style="width:76%">
+          <div class="aud-bracket">
+            <div class="aud-bracket-line"></div>
+            <div class="aud-bracket-label">Audiencia segmentada</div>
+          </div>
+          <div class="f-seg-bar">
+            <div class="f-seg" style="background:#FFB700; color:#1a2454">Meli+ en la zona<br>~150 mil (15%) · envío gratis desde el día 1</div>
+            <div class="f-seg" style="background:#7ec9c3">No Meli+ en la zona<br>~824 mil (85%) · sin envío gratis</div>
+          </div>
+        </div>
+        <div class="f-pct"></div>
+      </div>
+      <div class="f-pair" style="height:250px">
+        <div class="f-row" style="margin:0">
+          <div class="f-bar" style="width:64%;background:#4da6ff">
+            <div class="f-lbl">Impresiones</div>
+            <div class="f-val">A definir</div>
+          </div>
+        </div>
+        <div class="f-row" style="margin:0">
+          <div class="f-bar" style="width:60%;background:#7ec9c3">
+            <div class="f-lbl">Sesiones necesarias</div>
+            <div class="f-val" style="font-size:19px">A definir</div>
+          </div>
+        </div>
+        <div class="f-row" style="margin:0">
+          <div class="f-bar" style="width:60%;background:#00a878">
+            <div class="f-lbl">Órdenes — target mes 12 (Nov-27)</div>
+            <div class="f-val" style="font-size:19px">~192.600</div>
+            <div class="f-note">Groceries, suma de las 4 zonas — GM y Pharma cruzan más adelante según calendario de lanzamiento por zona</div>
+          </div>
+        </div>
+        <svg style="position:absolute;top:0;left:0;width:692px;height:250px;pointer-events:none" viewBox="0 0 692 250">
+          <path d="M 443 32 C 580 32, 580 130, 415 130" fill="none" stroke="#cfd4e0" stroke-width="2.5"/>
+          <polygon points="415,130 432,123 432,137" fill="#cfd4e0"/>
+          <path d="M 415 130 C 540 130, 540 228, 415 228" fill="none" stroke="#cfd4e0" stroke-width="2.5"/>
+          <polygon points="415,228 432,221 432,235" fill="#cfd4e0"/>
+        </svg>
+        <div class="f-arrow-chip" style="left:566px; top:67px; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; padding:0; font-size:15px;">?</div>
+        <div class="f-arrow-chip" style="left:430px; top:166px;">Conversión a definir</div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: MATRIZ DE MEDIOS -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">3</span>
+    <div class="stitle">Full Funnel Strategy</div>
+    <div class="ssub">Darkstore MLB — São Paulo</div>
+    <div class="sdiv"></div>
+    <div class="ff-grid">
+      <div class="ff-corner"></div>
+      <div class="ff-colhdr"><div class="status">NEW</div></div>
+      <div class="ff-colhdr"><div class="status">ACTIVE</div></div>
+      <div class="ff-colhdr"><div class="status">AT RISK</div></div>
+      <div class="ff-colhdr"><div class="status">CHURNED</div></div>
+
+      <div class="ff-label" style="background:#e74c3c; grid-row:2; grid-column:1">Awareness</div>
+      <div class="ff-cell plan" style="background:#e74c3c; grid-row:2; grid-column:2">PLAN DE COMUNICACIÓN 360</div>
+      <div class="ff-cell empty" style="grid-row:2; grid-column:3"></div>
+      <div class="ff-cell empty" style="grid-row:2; grid-column:4"></div>
+      <div class="ff-cell empty" style="grid-row:2; grid-column:5"></div>
+
+      <div class="ff-label" style="background:#2E86DE; grid-row:3/5; grid-column:1">Consideration</div>
+      <div class="ff-cell plan" style="background:#C0392B; grid-row:3/6; grid-column:2">PLAN ADQUISICIÓN</div>
+      <div class="ff-cell plan" style="background:#e74c3c; grid-row:3; grid-column:3/6">PLAN DE COMUNICACIÓN 360</div>
+      <div class="ff-cell empty" style="grid-row:4; grid-column:3"></div>
+      <div class="ff-cell plan" style="background:#2E86DE; grid-row:4/6; grid-column:4">PLAN PREVENCIÓN CHURN</div>
+      <div class="ff-cell plan" style="background:#8E44AD; grid-row:4/6; grid-column:5">PLAN REACTIVACIÓN</div>
+
+      <div class="ff-label" style="background:#F5A623; grid-row:5; grid-column:1">Conversión / Trial</div>
+      <div class="ff-cell plan" style="background:#F5A623; grid-row:5; grid-column:3">PLAN ONBOARDING</div>
+
+      <div class="ff-label" style="background:#16A085; grid-row:6; grid-column:1">Loyalty</div>
+      <div class="ff-cell empty" style="grid-row:6; grid-column:2"></div>
+      <div class="ff-cell plan" style="background:#16A085; grid-row:6; grid-column:3">PLAN FIDELIZACIÓN + CROSS-SELL</div>
+      <div class="ff-cell empty" style="grid-row:6; grid-column:4"></div>
+      <div class="ff-cell empty" style="grid-row:6; grid-column:5"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: ZOOM A NEW (Awareness / Consideration / Conversion-Trial) -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">4</span>
+    <div class="stitle">Full Funnel Strategy — foco en New (Awareness, Consideration, Conversión/Trial)</div>
+    <div class="ssub">Darkstore MLB — São Paulo</div>
+    <div class="sdiv"></div>
+    <div class="ff-grid focus-new">
+      <div class="ff-corner"></div>
+      <div class="ff-colhdr"><div class="status">NEW</div></div>
+      <div class="ff-colhdr"><div class="status" style="color:#aab0bf">ACTIVE</div></div>
+      <div class="ff-colhdr"><div class="status" style="color:#aab0bf">AT RISK</div></div>
+      <div class="ff-colhdr"><div class="status" style="color:#aab0bf">CHURNED</div></div>
+
+      <div class="ff-label" style="background:#e74c3c; grid-row:2; grid-column:1">Awareness</div>
+      <div class="ff-cell" style="background:#fff; border-top:4px solid #e74c3c; grid-row:2/6; grid-column:2/6; padding:0; align-content:stretch; overflow:auto">
+        <div class="plan-detail" style="color:#333">
+          <div class="ch-legend"><span class="ch-legend-lbl">Estímulos</span><span class="ch-chip">Paid by MeLi</span><span class="ch-chip">Paid by 3P</span><span class="ch-chip">Orgánico</span><span class="ch-chip">Medios de pago</span></div>
+          <div class="ch-table">
+            <div class="ch-row ch-head">
+              <div class="ch-c ch-c-canal">Canal</div>
+              <div class="ch-c ch-c-audiencia">Audiencia</div>
+              <div class="ch-c ch-c-est">Estímulo</div>
+              <div class="ch-c ch-c-metric">Métrica</div>
+              <div class="ch-c ch-c-budget">Presupuesto / Mes</div>
+              <div class="ch-c ch-c-tl">Dic</div>
+              <div class="ch-c ch-c-tl">Ene</div>
+              <div class="ch-c ch-c-tl">Feb</div>
+            </div>
+            <div class="ch-row ch-group"><div class="ch-c ch-c-full">ON-APP ML</div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">MS Posición 1</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ sesiones/mes · ~ CVR</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Quick Access</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ sesiones/mes · ~ CVR</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Push notifications</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ sesiones/mes · ~ CVR</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Splash Screen</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ sesiones/mes · ~ CVR</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Discovery banner</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ sesiones/mes · ~ CVR</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Rabbit hole banner</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ sesiones/mes · ~ CVR</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Coachmark</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ sesiones/mes · ~ CVR</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-group"><div class="ch-c ch-c-full">ON-APP MP</div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Home MP — a definir</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ sesiones/mes · ~ CVR</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-group"><div class="ch-c ch-c-full">OFF-APP · PAID MEDIA</div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Vía pública</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ impresiones/mes</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">POM</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ impresiones/mes · ~ sesiones/mes</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Influencers</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ impresiones/mes · ~ sesiones/mes</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Affiliates</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ sesiones/mes · ~ CVR</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-group"><div class="ch-c ch-c-full">OFF-APP · MERCHANDISING</div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Mochilas</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ impresiones/mes</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Bolsas</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ impresiones/mes</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+            <div class="ch-row ch-data"><div class="ch-c ch-c-canal">Pecheras</div><div class="ch-c ch-c-audiencia ch-metric">a definir</div><div class="ch-c ch-c-est ch-metric">a definir</div><div class="ch-c ch-c-metric ch-metric">~ impresiones/mes</div><div class="ch-c ch-c-budget ch-metric">$ a definir</div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div><div class="ch-c ch-c-tl"><span class="ch-tl-dot"></span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="ff-label" style="background:#2E86DE; grid-row:3; grid-column:1">Consideration</div>
+
+      <div class="ff-label" style="background:#F5A623; grid-row:4; grid-column:1">Conversión / Trial</div>
+
+      <div class="ff-label grayed" style="grid-row:5; grid-column:1">Loyalty</div>
+    </div>
+  </div>
+</div>
+
+<div id="nav">
+  <button class="nav-btn" id="btn-prev" onclick="go(-1)">&#8592;</button>
+  <div id="nav-dots"></div>
+  <button class="nav-btn" id="btn-next" onclick="go(1)">&#8594;</button>
+  <span id="nav-label">1 / 4</span>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dotsC=document.getElementById('nav-dots');
+const lbl=document.getElementById('nav-label');
+let cur=0;
+slides.forEach((_,i)=>{const d=document.createElement('div');d.className='ndot'+(i===0?' active':'');d.onclick=()=>goTo(i);dotsC.appendChild(d);});
+function goTo(n){slides[cur].classList.remove('active');dotsC.children[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');dotsC.children[cur].classList.add('active');lbl.textContent=(cur+1)+' / '+slides.length;document.getElementById('btn-prev').disabled=cur===0;document.getElementById('btn-next').disabled=cur===slides.length-1;}
+function go(d){if(cur+d>=0&&cur+d<slides.length)goTo(cur+d);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
+document.getElementById('btn-prev').disabled=true;
+</script>
+</body>
+</html>
