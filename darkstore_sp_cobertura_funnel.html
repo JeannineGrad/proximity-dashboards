@@ -53,8 +53,12 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .ref-spacer { visibility:hidden; }
 .ref-pair { display:flex; flex-direction:column; justify-content:space-between; }
 .f-seg-bar { display:flex; height:64px; border-radius:6px; overflow:hidden; }
-.f-seg { flex:1; display:flex; align-items:center; justify-content:center; text-align:center; padding:4px 6px; color:#fff; font-size:8px; font-weight:700; line-height:1.25; border-right:2px solid rgba(255,255,255,.35); }
-.f-seg:last-child { border-right:none; }
+.f-seg-wrap { flex:1; position:relative; display:flex; border-right:2px solid rgba(255,255,255,.35); }
+.f-seg-wrap:last-child { border-right:none; }
+.f-seg { flex:1; display:flex; align-items:center; justify-content:center; text-align:center; padding:4px 6px; color:#fff; font-size:8px; font-weight:700; line-height:1.25; }
+.f-seg-del { position:absolute; top:2px; right:2px; width:14px; height:14px; border-radius:50%; border:none; background:rgba(0,0,0,.25); color:#fff; font-size:10px; line-height:14px; padding:0; cursor:pointer; opacity:0; transition:opacity .15s; z-index:5; }
+.f-seg-wrap:hover .f-seg-del { opacity:1; }
+.f-seg-del:hover { background:rgba(0,0,0,.55); }
 .aud-bracket { position:relative; height:14px; margin-bottom:1px; }
 .aud-bracket-line { position:absolute; left:0; right:0; top:7px; height:2px; background:#aab0bf; }
 .aud-bracket-line::before, .aud-bracket-line::after { content:''; position:absolute; top:0; width:2px; height:7px; background:#aab0bf; }
@@ -193,8 +197,12 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
             <div class="aud-bracket-label">Audiencia segmentada</div>
           </div>
           <div class="f-seg-bar">
-            <div class="f-seg" style="background:#FFB700; color:#1a2454">Meli+ en la zona<br>~150 mil (15%) · envío gratis desde el día 1</div>
-            <div class="f-seg" style="background:#7ec9c3">No Meli+ en la zona<br>~824 mil (85%) · sin envío gratis</div>
+            <div class="f-seg-wrap" data-seg-id="0"><button class="f-seg-del" onclick="delSeg(this)" title="Borrar segmento">×</button><div class="f-seg" style="background:#FFB700; color:#1a2454">Meli+ en la zona<br>~150 mil (15%) · envío gratis desde el día 1</div></div>
+            <div class="f-seg-wrap" data-seg-id="1"><button class="f-seg-del" onclick="delSeg(this)" title="Borrar segmento">×</button><div class="f-seg" style="background:#7ec9c3">No Meli+ en la zona<br>~824 mil (85%) · sin envío gratis</div></div>
+            <div class="f-seg-wrap" data-seg-id="2"><button class="f-seg-del" onclick="delSeg(this)" title="Borrar segmento">×</button><div class="f-seg" style="background:#2e5c8a">Audiencia A<br>a definir</div></div>
+            <div class="f-seg-wrap" data-seg-id="3"><button class="f-seg-del" onclick="delSeg(this)" title="Borrar segmento">×</button><div class="f-seg" style="background:#4DC3E8">Audiencia B<br>a definir</div></div>
+            <div class="f-seg-wrap" data-seg-id="4"><button class="f-seg-del" onclick="delSeg(this)" title="Borrar segmento">×</button><div class="f-seg" style="background:#8E44AD">Audiencia C<br>a definir</div></div>
+            <div class="f-seg-wrap" data-seg-id="5"><button class="f-seg-del" onclick="delSeg(this)" title="Borrar segmento">×</button><div class="f-seg" style="background:#aab0bf">Audiencia D<br>a definir</div></div>
           </div>
         </div>
         <div class="f-pct"></div>
@@ -356,6 +364,27 @@ function go(d){if(cur+d>=0&&cur+d<slides.length)goTo(cur+d);}
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
 document.getElementById('btn-prev').disabled=true;
 
+// --- Segmentos de audiencia: borrar y persistir ---
+const SEG_STORAGE_KEY = 'darkstoreSP_deleted_segs';
+function delSeg(btn) {
+  const wrap = btn.closest('.f-seg-wrap');
+  if (!wrap) return;
+  const id = wrap.dataset.segId;
+  wrap.remove();
+  let deleted = [];
+  try { deleted = JSON.parse(localStorage.getItem(SEG_STORAGE_KEY) || '[]'); } catch(e) { deleted = []; }
+  if (!deleted.includes(id)) { deleted.push(id); localStorage.setItem(SEG_STORAGE_KEY, JSON.stringify(deleted)); }
+}
+(function(){
+  try {
+    const deletedSegs = JSON.parse(localStorage.getItem(SEG_STORAGE_KEY) || '[]');
+    deletedSegs.forEach(id => {
+      const w = document.querySelector('.f-seg-wrap[data-seg-id="'+id+'"]');
+      if (w) w.remove();
+    });
+  } catch(e) {}
+})();
+
 // --- Edición inline con autoguardado local (localStorage) ---
 (function(){
   const STORAGE_KEY = 'darkstoreSP_funnel_edits_v2';
@@ -391,10 +420,10 @@ document.getElementById('btn-prev').disabled=true;
   });
 
   document.getElementById('btn-reset').addEventListener('click', () => {
-    if (!confirm('¿Restaurar todos los valores originales? Se pierden los cambios guardados en este navegador.')) return;
+    if (!confirm('¿Restaurar todos los valores originales (incluye segmentos borrados)? Se pierden los cambios guardados en este navegador.')) return;
     localStorage.removeItem(STORAGE_KEY);
-    els.forEach((el, i) => el.innerHTML = originals[i]);
-    showToast('Restaurado');
+    localStorage.removeItem(SEG_STORAGE_KEY);
+    location.reload();
   });
 })();
 </script>
