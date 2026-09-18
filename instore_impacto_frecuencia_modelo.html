@@ -44,9 +44,10 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .stock-seg { display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:800; text-shadow:0 1px 2px rgba(0,0,0,.4); }
 
 .mini-legend { display:flex; flex-direction:column; gap:5px; width:100%; }
-.mini-item { display:flex; align-items:center; gap:7px; font-size:10.5px; color:#444; }
-.mini-dot { width:10px; height:10px; border-radius:3px; flex:none; }
+.mini-item { display:flex; align-items:flex-start; gap:7px; font-size:10.5px; color:#444; line-height:1.4; }
+.mini-dot { width:10px; height:10px; border-radius:3px; flex:none; margin-top:3px; }
 .mini-item b { color:#1a2454; }
+.mini-text { flex:1; }
 
 .note-box { margin-top:8px; background:#f8f9fc; border:1px solid #e8eaf2; border-radius:8px; padding:8px 12px; font-size:9.5px; color:#555; line-height:1.3; }
 
@@ -263,9 +264,9 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
           </div>
         </div>
         <div class="mini-legend">
-          <div class="mini-item"><div class="mini-dot" style="background:#4DC3E8;"></div><b>New:</b>&nbsp;1ª compra ever en el mes.</div>
-          <div class="mini-item"><div class="mini-dot" style="background:#2E86DE;"></div><b>Repeat:</b>&nbsp;compró este mes y también el anterior.</div>
-          <div class="mini-item"><div class="mini-dot" style="background:#7B61FF;"></div><b>Resurrected:</b>&nbsp;ya había comprado antes, pero no el mes pasado.</div>
+          <div class="mini-item"><div class="mini-dot" style="background:#4DC3E8;"></div><span class="mini-text"><b>New:</b> 1ª compra ever en el mes.</span></div>
+          <div class="mini-item"><div class="mini-dot" style="background:#2E86DE;"></div><span class="mini-text"><b>Repeat:</b> compró este mes y también el anterior.</span></div>
+          <div class="mini-item"><div class="mini-dot" style="background:#7B61FF;"></div><span class="mini-text"><b>Resurrected:</b> ya había comprado antes, pero no el mes pasado.</span></div>
         </div>
       </div>
 
@@ -288,9 +289,9 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
           </div>
         </div>
         <div class="mini-legend">
-          <div class="mini-item"><div class="mini-dot" style="background:#FFB700;"></div><b>En Onboarding:</b>&nbsp;compró antes (hace menos de 90 días) y volvió a comprar. Su ventana de definición no cerró todavía.</div>
-          <div class="mini-item"><div class="mini-dot" style="background:#00a878;"></div><b>Graduados:</b>&nbsp;cerró su ventana de 90 días y llegó a 5+ compras. Se abre en Casual/Core/Power/Super Power.</div>
-          <div class="mini-item"><div class="mini-dot" style="background:#8a90a3;"></div><b>No Graduados:</b>&nbsp;cerró su ventana de 90 días y NO llegó a 5+ compras.</div>
+          <div class="mini-item"><div class="mini-dot" style="background:#FFB700;"></div><span class="mini-text"><b>En Onboarding:</b> compró antes (hace menos de 90 días) y volvió a comprar. Su ventana de definición no cerró todavía.</span></div>
+          <div class="mini-item"><div class="mini-dot" style="background:#00a878;"></div><span class="mini-text"><b>Graduados:</b> cerró su ventana de 90 días y llegó a 5+ compras. Se abre en Casual/Core/Power/Super Power.</span></div>
+          <div class="mini-item"><div class="mini-dot" style="background:#8a90a3;"></div><span class="mini-text"><b>No Graduados:</b> cerró su ventana de 90 días y NO llegó a 5+ compras.</span></div>
         </div>
       </div>
     </div>
