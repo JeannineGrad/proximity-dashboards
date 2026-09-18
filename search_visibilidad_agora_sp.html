@@ -1127,7 +1127,26 @@ new Chart(document.getElementById('chartDistMonthly'),{type:'bar',data:{labels:m
   var keys=['p5','p4','p3','p2','p1'];
   var abs=monthlyDist[keys[ctx.datasetIndex]][ctx.dataIndex];
   return ctx.dataset.label+': '+ctx.parsed.y+'% ('+abs.toLocaleString('es')+' aparic.)';
-}}}},scales:{x:{stacked:true,ticks:{font:{size:9}},grid:{display:false}},y:{stacked:true,max:100,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}}}}});
+}}}},scales:{x:{stacked:true,ticks:{font:{size:9}},grid:{display:false}},y:{stacked:true,max:100,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}}}},
+plugins:[{id:'distLabelsMonthly',afterDatasetsDraw:function(chart){
+  var ctx=chart.ctx;
+  chart.data.datasets.forEach(function(ds,di){
+    var meta=chart.getDatasetMeta(di);
+    var txtColor=(di===2||di===3)?'#333':'#fff';
+    meta.data.forEach(function(bar,i){
+      var v=ds.data[i];
+      if(v<10)return;
+      var h=bar.base-bar.y;
+      if(h<14)return;
+      ctx.save();
+      ctx.fillStyle=txtColor;
+      ctx.font='bold 8px Segoe UI,Arial,sans-serif';
+      ctx.textAlign='center';
+      ctx.fillText(v+'%',bar.x,bar.y+h/2+3);
+      ctx.restore();
+    });
+  });
+}}]});
 
 // Penetracion zona SP mensual: any + top10, dos lineas
 var monthlyAnyPct = [0.40,1.08,2.24,3.45];
@@ -1145,7 +1164,23 @@ new Chart(document.getElementById('chartShareZonaMonthly'),{type:'line',data:{la
     return ctx.dataset.label+': '+ctx.parsed.y.toFixed(2)+'% ('+abs.toLocaleString('es')+' busquedas)';
   }}}},
   scales:{y:{beginAtZero:true,ticks:{callback:function(v){return (+v).toFixed(2)+'%'},font:{size:8}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}
-}});
+},
+plugins:[{id:'monthlyShareLabels',afterDatasetsDraw:function(chart){
+  var ctx=chart.ctx;
+  var colors=['#1a7a3a','#1565c0'];
+  chart.data.datasets.forEach(function(ds,di){
+    var meta=chart.getDatasetMeta(di);
+    meta.data.forEach(function(pt,i){
+      ctx.save();
+      ctx.fillStyle=colors[di];
+      ctx.font='bold 8px Segoe UI,Arial,sans-serif';
+      ctx.textAlign='center';
+      var dy = di===0 ? -18 : 12;
+      ctx.fillText(ds.data[i].toFixed(2)+'%',pt.x,pt.y+dy);
+      ctx.restore();
+    });
+  });
+}}]});
 
 // Tabla resumen mensual
 (function(){
