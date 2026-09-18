@@ -1156,7 +1156,15 @@ new Chart(document.getElementById('chartShareZonaMonthly'),{type:'line',data:{la
     {lbl:'Busquedas con instant (top10)', vals:monthlyTop10Abs, fmt:'int'},
     {lbl:'% Top10', vals:monthlyTop10Pct, fmt:'pct'},
     {lbl:'Total impresiones (dist. posicion)', vals:monthlyDistTotals, fmt:'int'},
+    {lbl:'Pos 1-5 — absolutos', vals:monthlyDist.p1, fmt:'int'},
     {lbl:'Pos 1-5 (%)', vals:[17.30,16.51,14.35,13.24], fmt:'pct'},
+    {lbl:'Pos 6-10 — absolutos', vals:monthlyDist.p2, fmt:'int'},
+    {lbl:'Pos 6-10 (%)', vals:[16.02,14.41,13.62,13.36], fmt:'pct'},
+    {lbl:'Pos 11-15 — absolutos', vals:monthlyDist.p3, fmt:'int'},
+    {lbl:'Pos 11-15 (%)', vals:[13.28,12.65,12.60,12.33], fmt:'pct'},
+    {lbl:'Pos 16-20 — absolutos', vals:monthlyDist.p4, fmt:'int'},
+    {lbl:'Pos 16-20 (%)', vals:[15.83,14.73,14.02,13.95], fmt:'pct'},
+    {lbl:'Pos 21+ — absolutos', vals:monthlyDist.p5, fmt:'int'},
     {lbl:'Pos 21+ (%)', vals:[37.56,41.71,45.41,47.12], fmt:'pct'}
   ];
   function fmt(v,f){ return f==='pct' ? (+v).toFixed(2)+'%' : (+v).toLocaleString('es'); }
