@@ -1158,7 +1158,7 @@ var monthlyTotalZona = [3257205,5082829,4011683,2127575];
 new Chart(document.getElementById('chartShareZonaMonthly'),{type:'line',data:{labels:monthLabels,datasets:[
   {label:'Any position', data:monthlyAnyPct, borderColor:'#1a7a3a', backgroundColor:'rgba(26,122,58,0.07)', pointBackgroundColor:'#1a7a3a', pointRadius:4, tension:0.3, fill:true},
   {label:'Top 10', data:monthlyTop10Pct, borderColor:'#1565c0', backgroundColor:'rgba(21,101,192,0.07)', pointBackgroundColor:'#1565c0', pointRadius:4, tension:0.3, fill:true}
-]},options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:16}},
+]},options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:16,right:28,left:4}},
   plugins:{legend:{display:true,position:'bottom',labels:{font:{size:9},boxWidth:10}},tooltip:{callbacks:{label:function(ctx){
     var abs = ctx.datasetIndex===0 ? monthlyAnyAbs[ctx.dataIndex] : monthlyTop10Abs[ctx.dataIndex];
     return ctx.dataset.label+': '+ctx.parsed.y.toFixed(2)+'% ('+abs.toLocaleString('es')+' busquedas)';
@@ -1168,13 +1168,14 @@ new Chart(document.getElementById('chartShareZonaMonthly'),{type:'line',data:{la
 plugins:[{id:'monthlyShareLabels',afterDatasetsDraw:function(chart){
   var ctx=chart.ctx;
   var colors=['#1a7a3a','#1565c0'];
+  var n = chart.data.labels.length;
   chart.data.datasets.forEach(function(ds,di){
     var meta=chart.getDatasetMeta(di);
     meta.data.forEach(function(pt,i){
       ctx.save();
       ctx.fillStyle=colors[di];
       ctx.font='bold 8px Segoe UI,Arial,sans-serif';
-      ctx.textAlign='center';
+      ctx.textAlign = i===n-1 ? 'right' : (i===0 ? 'left' : 'center');
       var dy = di===0 ? -18 : 12;
       ctx.fillText(ds.data[i].toFixed(2)+'%',pt.x,pt.y+dy);
       ctx.restore();
