@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -56,20 +56,19 @@ table.dt tr:hover td { background:#f0f4ff !important }
 </head>
 <body>
 <div class="wrap">
-
   <div class="tabs">
     <div class="tab active" onclick="showTab('charts')">Search · Visibilidad</div>
+    <div class="tab" onclick="showTab('monthly')">Mensual (Jun-Sep)</div>
     <div class="tab" onclick="showTab('vips')">VIPs · Conversion</div>
     <div class="tab" onclick="showTab('sellers')">Sellers <span style="font-size:9px;background:#f59e0b;color:#fff;padding:1px 5px;border-radius:3px;margin-left:4px;font-weight:600">WIP</span></div>
     <div class="tab" onclick="showTab('topdoms')">Dominios mejor posicion <span style="font-size:9px;background:#f59e0b;color:#fff;padding:1px 5px;border-radius:3px;margin-left:4px;font-weight:600">WIP</span></div>
     <div class="tab" onclick="showTab('botdoms')">Dominios peor posicion <span style="font-size:9px;background:#f59e0b;color:#fff;padding:1px 5px;border-radius:3px;margin-left:4px;font-weight:600">WIP</span></div>
     <div class="tab" onclick="showTab('queries')">Queries · Actualización</div>
   </div>
-
   <div id="panel-charts" class="panel active">
     <div class="hdr">
       <div>
-        <div class="hdr-tag">GM Agora SP · Visibilidad en Search · Jun-Jul 2026 · v8</div>
+        <div class="hdr-tag">GM Agora SP · Visibilidad en Search · Jun-Ago 2026 · v9</div>
         <div class="hdr-title">Evolucion de busquedas instant en MercadoLibre Brasil</div>
       </div>
       <div style="font-size:9px;color:rgba(255,255,255,.4)">Fuente: BT_SEARCH_2_0_step_search_v7 · Lun-Vie</div>
@@ -77,33 +76,30 @@ table.dt tr:hover td { background:#f0f4ff !important }
     <div class="body">
       <div class="card full">
         <div class="kpi-row">
-          <div class="kpi green"><div class="kpi-val">111.479</div><div class="kpi-lbl">Busquedas instant W32 (3-7 ago)</div><div class="kpi-sub">semana 8 jun a 7 ago 2026 · +13% vs W31</div></div>
-          <div class="kpi"><div class="kpi-val">1,75%</div><div class="kpi-lbl">Penetración zona SP · W32 · cualquier posición</div><div class="kpi-sub">búsquedas zona con al menos 1 instant · flat vs W31</div></div>
-          <div class="kpi"><div class="kpi-val">0,75%</div><div class="kpi-lbl">Penetración zona SP · W32 · instant en pos 1–10</div><div class="kpi-sub">búsquedas zona con instant visible · -1pp vs W31</div></div>
-          <div class="kpi"><div class="kpi-val">15,9</div><div class="kpi-lbl">Posicion media primer instant W32</div></div>
+          <div class="kpi green"><div class="kpi-val">119.509</div><div class="kpi-lbl">Busquedas instant W34 (17-21 ago)</div><div class="kpi-sub">semana 8 jun a 21 ago 2026 · +24% vs W33</div></div>
+          <div class="kpi"><div class="kpi-val">2,11%</div><div class="kpi-lbl">Penetración zona SP · W34 · cualquier posición</div><div class="kpi-sub">búsquedas zona con al menos 1 instant · +0,47pp vs W33</div></div>
+          <div class="kpi"><div class="kpi-val">0,86%</div><div class="kpi-lbl">Penetración zona SP · W34 · instant en pos 1–10</div><div class="kpi-sub">búsquedas zona con instant visible · +0,16pp vs W33</div></div>
+          <div class="kpi"><div class="kpi-val">16,9</div><div class="kpi-lbl">Posicion media primer instant W34</div></div>
         </div>
       </div>
       <!-- FILA 2: Búsquedas instant absolutos + Penetración zona cualquier posición -->
       <div class="card"><div class="card-title">Busquedas instant por semana</div><canvas id="chartInstant"></canvas><div class="note">Busquedas unicas (tracking_id) con al menos 1 resultado instant · MLB total</div></div>
       <div class="card"><div class="card-title">Penetración · Zona SP · búsquedas con instant (cualquier posición)</div><canvas id="chartShare"></canvas><div class="note">% búsquedas zona SP con al menos 1 resultado instant / total búsquedas zona · proxy CEPs</div></div>
-
       <!-- FILA 3: Búsquedas zona con instant en top 1-10 (absolutos) + Penetración top 1-10 -->
-      <div class="card"><div class="card-title">Búsquedas zona SP con instant en posiciones 1–10 · absolutos</div><canvas id="chartZonaTop10Abs"></canvas><div class="note">Cantidad de búsquedas desde zona donde instant aparece en pos 1–10 · W24–W31</div></div>
+      <div class="card"><div class="card-title">Búsquedas zona SP con instant en posiciones 1–10 · absolutos</div><canvas id="chartZonaTop10Abs"></canvas><div class="note">Cantidad de búsquedas desde zona donde instant aparece en pos 1–10 · W24–W34</div></div>
       <div class="card"><div class="card-title">Penetración · Zona SP · búsquedas con instant en posiciones 1–10</div><canvas id="chartShareZona"></canvas><div class="note">% búsquedas zona SP donde instant aparece en pos 1–10 / total búsquedas zona · mismo denominador</div></div>
-
       <!-- FILA 4: Posición media + Distribución -->
       <div class="card"><div class="card-title">Posicion media del primer resultado instant</div><canvas id="chartPos"></canvas><div class="note">Promedio de posicion minima instant por busqueda · metodologia equipo Search</div></div>
       <div class="card">
         <div class="card-title">Distribucion de impresiones instant en search · por rango de posicion (%)</div>
         <canvas id="chartDist"></canvas>
-        <div class="note">% de apariciones instant en search por rango de posicion · Pos 21+ crece de 37% a 44%</div>
+        <div class="note">% de apariciones instant en search por rango de posicion · Pos 21+ crece de 37% a 46%</div>
       </div>
-
       <!-- FILA 5: CTR por posición + Comparativo instant vs no-instant -->
       <div class="card">
         <div class="card-title">CTR por rango de posición · impresión → VIP click · W24–W31</div>
         <canvas id="chartCtrEvol"></canvas>
-        <div class="note">% de apariciones instant que derivaron en VIP click · línea oscura = promedio ponderado · FRAGMENT_TRACKING_ID join</div>
+        <div class="note">% de apariciones instant que derivaron en VIP click · línea oscura = promedio ponderado · FRAGMENT_TRACKING_ID join · pendiente actualizar W32-W34</div>
       </div>
       <div class="card">
         <div class="card-title">CTR instant vs no-instant · por rango de posición · W30–W32</div>
@@ -111,35 +107,62 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <div class="note">Universo: búsquedas MLB con al menos 1 resultado instant · Fuente: POSITION_BASE_FLAGGED · Lun-Vie</div>
         <table id="tblCtrComp" style="width:100%;border-collapse:collapse;font-size:9px;margin-top:10px"></table>
       </div>
-
-
       <div id="dist-table-wrap" style="display:none"></div><div id="weekly-breakdown" style="display:none"></div><div id="weekly-breakdown-21" style="display:none"></div>
     </div>
-
-
   </div>
-
+  <!-- VISTA MENSUAL PANEL -->
+  <div id="panel-monthly" class="panel">
+    <div class="hdr">
+      <div>
+        <div class="hdr-tag">GM Agora SP · Visibilidad en Search · Vista mensual · Jun-Sep 2026</div>
+        <div class="hdr-title">Evolucion mensual — combina historico semanal (W24-W34) + datos nuevos desde 24-ago</div>
+      </div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4)">Fuente: BT_SEARCH_2_0_step_search_v7 / POSITION_BASE_FLAGGED · Lun-Vie</div>
+    </div>
+    <div class="body">
+      <div class="card full">
+        <div class="kpi-row">
+          <div class="kpi green"><div class="kpi-val">47,1%</div><div class="kpi-lbl">Pos 21+ · Septiembre*</div><div class="kpi-sub">vs 37,6% en Junio</div></div>
+          <div class="kpi"><div class="kpi-val">3,45%</div><div class="kpi-lbl">Penetración zona SP (any) · Septiembre*</div><div class="kpi-sub">vs 0,40% en Junio</div></div>
+          <div class="kpi"><div class="kpi-val">1,64%</div><div class="kpi-lbl">Penetración zona SP (top10) · Septiembre*</div><div class="kpi-sub">vs 0,20% en Junio</div></div>
+          <div class="kpi"><div class="kpi-val">*</div><div class="kpi-lbl">Septiembre parcial</div><div class="kpi-sub">datos del 1 al 17-sep</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Distribucion de impresiones instant en search · por rango de posicion (%) · mensual</div>
+        <canvas id="chartDistMonthly"></canvas>
+        <div class="note">% de apariciones instant en search por rango de posicion, agregado por mes · Pos 21+ crece de 37,6% (jun) a 47,1% (sep*)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Penetración · Zona SP · busquedas con instant · mensual</div>
+        <canvas id="chartShareZonaMonthly"></canvas>
+        <div class="note">% busquedas zona SP con instant (cualquier posicion, y en pos 1-10) / total busquedas zona · mismo denominador</div>
+      </div>
+      <div class="card full">
+        <div class="card-title">Tabla resumen mensual — absolutos y %</div>
+        <div id="monthlyTableWrap"></div>
+      </div>
+    </div>
+  </div>
   <!-- VIPs & CONVERSION PANEL -->
   <div id="panel-vips" class="panel">
     <div class="hdr">
       <div>
-        <div class="hdr-tag">GM Agora SP · VIPs y Conversion · Jun-Jul 2026</div>
+        <div class="hdr-tag">GM Agora SP · VIPs y Conversion · Jun-Ago 2026</div>
         <div class="hdr-title">Evolucion de VIPs instant y conversion en MercadoLibre Brasil</div>
       </div>
       <div style="font-size:9px;color:rgba(255,255,255,.4)">Fuente: DM_SHP_TRACKS_VIP_CONVERTION · Lun-Vie</div>
     </div>
     <div class="body">
-
       <!-- KPIs -->
       <div class="card full">
         <div class="kpi-row">
-          <div class="kpi green"><div class="kpi-val">8.370</div><div class="kpi-lbl">VIPs instant W32 (3-7 ago)</div><div class="kpi-sub">semana 8 jun a 7 ago 2026 · +10% vs W31</div></div>
-          <div class="kpi"><div class="kpi-val">7,34%</div><div class="kpi-lbl">CVR VIP → orden W32 · +5% vs W31</div></div>
-          <div class="kpi"><div class="kpi-val">614</div><div class="kpi-lbl">Ordenes desde VIPs instant W32 · +15% vs W31</div></div>
+          <div class="kpi green"><div class="kpi-val">10.728</div><div class="kpi-lbl">VIPs instant W34 (17-21 ago)</div><div class="kpi-sub">semana 8 jun a 21 ago 2026 · +23% vs W33</div></div>
+          <div class="kpi"><div class="kpi-val">7,98%</div><div class="kpi-lbl">CVR VIP → orden W34 · +20% vs W33</div></div>
+          <div class="kpi"><div class="kpi-val">856</div><div class="kpi-lbl">Ordenes desde VIPs instant W34 · +47% vs W33</div></div>
         </div>
         <div style="font-size:8px;color:#bbb;text-align:center;margin-top:-4px">Fuente: DM_SHP_TRACKS_VIP_CONVERTION · sellers optineados · Lun-Vie</div>
       </div>
-
       <!-- Fila 2: VIPs + Búsqueda→VIP -->
       <div class="card">
         <div class="card-title">VIPs instant por semana</div>
@@ -151,7 +174,6 @@ table.dt tr:hover td { background:#f0f4ff !important }
         <canvas id="chartVipSellers"></canvas>
         <div class="note">% de todas las visitas a VIPs desde la zona SP que mostraron promesa instant · proxy: PROMISE_DESTINATION_ZIPCODE · Jun-Jul 2026</div>
       </div>
-
       <!-- Fila 3: CVR + CVR comparativo -->
       <div class="card full">
         <div class="card-title">CVR instant por semana (VIP → orden)</div>
@@ -175,7 +197,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <th style="padding:5px 8px;text-align:center">W29</th>
                 <th style="padding:5px 8px;text-align:center">W30</th>
                 <th style="padding:5px 8px;text-align:center">W31</th>
-                <th style="padding:5px 8px;text-align:center;background:#1a3a2a">W32</th>
+                <th style="padding:5px 8px;text-align:center">W32</th>
+                <th style="padding:5px 8px;text-align:center">W33</th>
+                <th style="padding:5px 8px;text-align:center;background:#1a3a2a">W34</th>
               </tr>
             </thead>
             <tbody>
@@ -189,7 +213,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,88%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,09%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">7,01%</td>
-                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#d4edda">7,34%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">7,38%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,66%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#d4edda">7,98%</td>
               </tr>
               <tr>
                 <td style="padding:5px 8px;font-weight:600;color:#888">CVR No-instant</td>
@@ -201,7 +227,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center">3,64%</td>
                 <td style="padding:5px 8px;text-align:center">3,37%</td>
                 <td style="padding:5px 8px;text-align:center">3,70%</td>
-                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">4,02%</td>
+                <td style="padding:5px 8px;text-align:center">3,83%</td>
+                <td style="padding:5px 8px;text-align:center">3,47%</td>
+                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">3,63%</td>
               </tr>
               <tr style="background:#f5f6f8">
                 <td style="padding:5px 8px;font-weight:600">Diferencia (pp)</td>
@@ -213,7 +241,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">+3,24</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">+2,72</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">+3,31</td>
-                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#eaf4ea">+3,37</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">+3,55</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">+3,19</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#eaf4ea">+4,35</td>
               </tr>
               <tr>
                 <td style="padding:5px 8px;font-weight:600">Variación %</td>
@@ -225,17 +255,17 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">+89%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">+81%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">+90%</td>
-                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#eaf4ea">+84%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">+93%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">+92%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#eaf4ea">+120%</td>
               </tr>
             </tbody>
           </table>
         </div></div>
-
       </div>
-
       <!-- CVR MLB total por tipo de promesa -->
       <div class="card full" style="margin-top:12px">
-        <div class="card-title">CVR por tipo de promesa · mismos ítems · mismos sellers · MLB total (sin filtro de zona) · W24–W32</div>
+        <div class="card-title">CVR por tipo de promesa · mismos ítems · mismos sellers · MLB total (sin filtro de zona) · W24–W34</div>
         <div class="note">Mismos ítems · mismos sellers · todos los buyers MLB · Jun-Ago 2026</div>
         <div style="margin-top:10px;overflow-x:auto">
           <table style="width:100%;border-collapse:collapse;font-size:9px;min-width:700px">
@@ -246,7 +276,8 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <th style="padding:5px 8px;text-align:center">W26</th><th style="padding:5px 8px;text-align:center">W27</th>
                 <th style="padding:5px 8px;text-align:center">W28</th><th style="padding:5px 8px;text-align:center">W29</th>
                 <th style="padding:5px 8px;text-align:center">W30</th><th style="padding:5px 8px;text-align:center">W31</th>
-                <th style="padding:5px 8px;text-align:center;background:#1a3a2a">W32</th>
+                <th style="padding:5px 8px;text-align:center">W32</th><th style="padding:5px 8px;text-align:center">W33</th>
+                <th style="padding:5px 8px;text-align:center;background:#1a3a2a">W34</th>
               </tr>
             </thead>
             <tbody>
@@ -260,7 +291,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,88%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,09%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">7,01%</td>
-                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#d4edda">7,39%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">7,39%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,66%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#d4edda">7,98%</td>
               </tr>
               <tr>
                 <td style="padding:5px 8px;font-weight:600;color:#555">Same day</td>
@@ -268,7 +301,8 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center">4,94%</td><td style="padding:5px 8px;text-align:center">5,67%</td>
                 <td style="padding:5px 8px;text-align:center">5,39%</td><td style="padding:5px 8px;text-align:center">5,45%</td>
                 <td style="padding:5px 8px;text-align:center">5,06%</td><td style="padding:5px 8px;text-align:center">5,36%</td>
-                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">6,05%</td>
+                <td style="padding:5px 8px;text-align:center">5,86%</td><td style="padding:5px 8px;text-align:center">5,58%</td>
+                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">5,94%</td>
               </tr>
               <tr style="background:#fafafa">
                 <td style="padding:5px 8px;font-weight:600;color:#555">Next day</td>
@@ -276,7 +310,8 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center">4,30%</td><td style="padding:5px 8px;text-align:center">4,88%</td>
                 <td style="padding:5px 8px;text-align:center">4,99%</td><td style="padding:5px 8px;text-align:center">4,96%</td>
                 <td style="padding:5px 8px;text-align:center">4,63%</td><td style="padding:5px 8px;text-align:center">4,76%</td>
-                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">5,50%</td>
+                <td style="padding:5px 8px;text-align:center">5,18%</td><td style="padding:5px 8px;text-align:center">4,91%</td>
+                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">5,09%</td>
               </tr>
               <tr>
                 <td style="padding:5px 8px;font-weight:600;color:#555">Otros</td>
@@ -284,7 +319,8 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center">2,70%</td><td style="padding:5px 8px;text-align:center">3,07%</td>
                 <td style="padding:5px 8px;text-align:center">3,10%</td><td style="padding:5px 8px;text-align:center">3,06%</td>
                 <td style="padding:5px 8px;text-align:center">2,76%</td><td style="padding:5px 8px;text-align:center">3,02%</td>
-                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">3,33%</td>
+                <td style="padding:5px 8px;text-align:center">3,31%</td><td style="padding:5px 8px;text-align:center">2,91%</td>
+                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">2,97%</td>
               </tr>
               <tr style="background:#f0f4fa">
                 <td style="padding:5px 8px;font-weight:700;color:#1a2a4a">No-instant total</td>
@@ -292,9 +328,10 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;font-weight:700">3,18%</td><td style="padding:5px 8px;text-align:center;font-weight:700">3,67%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700">3,57%</td><td style="padding:5px 8px;text-align:center;font-weight:700">3,64%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700">3,37%</td><td style="padding:5px 8px;text-align:center;font-weight:700">3,70%</td>
-                <td style="padding:5px 8px;text-align:center;font-weight:700;background:#e8eef8">4,02%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">3,83%</td><td style="padding:5px 8px;text-align:center;font-weight:700">3,47%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;background:#e8eef8">3,63%</td>
               </tr>
-              <tr><td colspan="10" style="padding:4px 0;background:#f8f8f8"></td></tr>
+              <tr><td colspan="12" style="padding:4px 0;background:#f8f8f8"></td></tr>
               <tr style="background:#f5f6f8">
                 <td style="padding:5px 8px;font-weight:600;font-size:8.5px">Inst vs Same day</td>
                 <td style="padding:5px 8px;text-align:center;color:#c0392b;font-weight:700">-14%</td>
@@ -305,7 +342,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+26%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+20%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+31%</td>
-                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+22%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+26%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+19%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+34%</td>
               </tr>
               <tr>
                 <td style="padding:5px 8px;font-weight:600;font-size:8.5px">Inst vs Next day</td>
@@ -317,7 +356,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+39%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+32%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+47%</td>
-                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+34%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+43%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+36%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+57%</td>
               </tr>
               <tr style="background:#f5f6f8">
                 <td style="padding:5px 8px;font-weight:600;font-size:8.5px">Inst vs Otros</td>
@@ -329,7 +370,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+125%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+121%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+132%</td>
-                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+122%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+123%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+129%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+169%</td>
               </tr>
               <tr>
                 <td style="padding:5px 8px;font-weight:700;font-size:8.5px;color:#1a2a4a">Inst vs No-instant total</td>
@@ -341,16 +384,17 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+89%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+81%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+90%</td>
-                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+84%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+93%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+92%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+120%</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-
       <!-- CVR CEPs proxy zona - al final -->
       <div class="card full" style="margin-top:12px">
-        <div class="card-title">CVR por tipo de promesa · mismos ítems · mismos sellers · CEPs con instant · W24–W32 <span style="background:#f59e0b;color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:6px">Proxy zona</span></div>
+        <div class="card-title">CVR por tipo de promesa · mismos ítems · mismos sellers · CEPs con instant · W24–W34 <span style="background:#f59e0b;color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:6px">Proxy zona</span></div>
         <div style="height:220px"><canvas id="chartCvrTipo"></canvas></div>
         <div class="note">Mismos ítems · mismos sellers · mismos CEPs de entrega donde ocurrió al menos 1 VIP instant · Jun-Ago 2026</div>
         <div style="margin-top:12px;overflow-x:auto">
@@ -366,7 +410,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <th style="padding:5px 8px;text-align:center">W29</th>
                 <th style="padding:5px 8px;text-align:center">W30</th>
                 <th style="padding:5px 8px;text-align:center">W31</th>
-                <th style="padding:5px 8px;text-align:center;background:#1a3a2a">W32</th>
+                <th style="padding:5px 8px;text-align:center">W32</th>
+                <th style="padding:5px 8px;text-align:center">W33</th>
+                <th style="padding:5px 8px;text-align:center;background:#1a3a2a">W34</th>
               </tr>
             </thead>
             <tbody>
@@ -380,7 +426,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,88%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,09%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">7,01%</td>
-                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#d4edda">7,39%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">7,39%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">6,66%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a;background:#d4edda">7,98%</td>
               </tr>
               <tr>
                 <td style="padding:5px 8px;font-weight:600;color:#555">Same day</td>
@@ -392,7 +440,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center">5,97%</td>
                 <td style="padding:5px 8px;text-align:center">5,66%</td>
                 <td style="padding:5px 8px;text-align:center">6,27%</td>
-                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">6,66%</td>
+                <td style="padding:5px 8px;text-align:center">6,31%</td>
+                <td style="padding:5px 8px;text-align:center">6,52%</td>
+                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">6,84%</td>
               </tr>
               <tr style="background:#fafafa">
                 <td style="padding:5px 8px;font-weight:600;color:#555">Next day</td>
@@ -404,7 +454,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center">4,86%</td>
                 <td style="padding:5px 8px;text-align:center">4,73%</td>
                 <td style="padding:5px 8px;text-align:center">5,07%</td>
-                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">5,28%</td>
+                <td style="padding:5px 8px;text-align:center">5,02%</td>
+                <td style="padding:5px 8px;text-align:center">4,83%</td>
+                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">4,98%</td>
               </tr>
               <tr>
                 <td style="padding:5px 8px;font-weight:600;color:#555">Otros</td>
@@ -416,7 +468,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center">3,14%</td>
                 <td style="padding:5px 8px;text-align:center">3,23%</td>
                 <td style="padding:5px 8px;text-align:center">2,76%</td>
-                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">3,31%</td>
+                <td style="padding:5px 8px;text-align:center">3,64%</td>
+                <td style="padding:5px 8px;text-align:center">3,70%</td>
+                <td style="padding:5px 8px;text-align:center;background:#f5f5f5">4,03%</td>
               </tr>
               <tr style="background:#f0f4fa">
                 <td style="padding:5px 8px;font-weight:700;color:#1a2a4a">No-instant total</td>
@@ -428,9 +482,11 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;font-weight:700">4,84%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700">4,73%</td>
                 <td style="padding:5px 8px;text-align:center;font-weight:700">5,01%</td>
-                <td style="padding:5px 8px;text-align:center;font-weight:700;background:#e8eef8">5,44%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">5,13%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700">5,10%</td>
+                <td style="padding:5px 8px;text-align:center;font-weight:700;background:#e8eef8">5,48%</td>
               </tr>
-              <tr><td colspan="10" style="padding:4px 0;background:#f8f8f8"></td></tr>
+              <tr><td colspan="12" style="padding:4px 0;background:#f8f8f8"></td></tr>
               <tr style="background:#f5f6f8">
                 <td style="padding:5px 8px;font-weight:600;font-size:8.5px">Inst vs Same day</td>
                 <td style="padding:5px 8px;text-align:center;color:#c0392b;font-weight:700">-22%</td>
@@ -441,7 +497,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+15%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+8%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+12%</td>
-                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+11%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+17%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+2%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+17%</td>
               </tr>
               <tr>
                 <td style="padding:5px 8px;font-weight:600;font-size:8.5px">Inst vs Next day</td>
@@ -453,7 +511,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+42%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+29%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+38%</td>
-                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+40%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+47%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+38%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+60%</td>
               </tr>
               <tr style="background:#f5f6f8">
                 <td style="padding:5px 8px;font-weight:600;font-size:8.5px">Inst vs Otros</td>
@@ -465,7 +525,9 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+119%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+89%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+154%</td>
-                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+123%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+103%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+80%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+98%</td>
               </tr>
               <tr>
                 <td style="padding:5px 8px;font-weight:700;font-size:8.5px;color:#1a2a4a">Inst vs No-instant total</td>
@@ -477,17 +539,62 @@ table.dt tr:hover td { background:#f0f4ff !important }
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+42%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+29%</td>
                 <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+40%</td>
-                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+36%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+44%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700">+31%</td>
+                <td style="padding:5px 8px;text-align:center;color:#1a7a3a;font-weight:700;background:#eaf4ea">+46%</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-
     </div>
   </div>
-
   <div id="panel-sellers" class="panel">
+    <div class="card full" style="margin-top:12px">
+      <div class="card-title">Altas semanales de sellers optineados + acumulado <span style="background:#f59e0b;color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:6px">W35 en curso</span></div>
+      <div style="height:240px"><canvas id="chartOptinsSemanal"></canvas></div>
+      <div class="note">Fuente: meli-sbox.INSTANTGM.sellers_optineados (fecha_optin) · todas las zonas · W27 sin altas registradas · W35 es semana en curso (parcial)</div>
+    </div>
+    <div class="card full" style="margin-top:12px">
+      <div class="card-title">Mix de canal de optin por semana · Forms / OIM / OIS</div>
+      <div style="height:220px"><canvas id="chartOptinsPorCanal"></canvas></div>
+      <div class="note">El salto de W34-W35 es casi 100% canal OIM (76 y 128 altas respectivamente) · Forms fue el canal dominante hasta W28, después lo tomó OIM/OIS · Bajas: solo 1 optout registrado en todo el período (W28), churn prácticamente nulo</div>
+    </div>
+    <div class="card full" style="margin-top:12px">
+      <div class="card-title">% con ventas por cohorte de optin</div>
+      <div style="margin-top:8px;overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:9px;min-width:600px">
+          <thead>
+            <tr style="background:#1a2a4a;color:#fff">
+              <th style="padding:5px 8px;text-align:left">Cohorte</th>
+              <th style="padding:5px 8px;text-align:center">Sellers</th>
+              <th style="padding:5px 8px;text-align:center">Con ventas</th>
+              <th style="padding:5px 8px;text-align:center">% activación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#e8f5e9"><td style="padding:5px 8px">Forms histórico temprano (08/06-25/06)</td><td style="padding:5px 8px;text-align:center">26</td><td style="padding:5px 8px;text-align:center">25</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">96,2%</td></tr>
+            <tr><td style="padding:5px 8px">OIM histórico (25/06-13/07)</td><td style="padding:5px 8px;text-align:center">22</td><td style="padding:5px 8px;text-align:center">19</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">86,4%</td></tr>
+            <tr style="background:#fafafa"><td style="padding:5px 8px">Forms histórico tardío (06/07-05/08)</td><td style="padding:5px 8px;text-align:center">16</td><td style="padding:5px 8px;text-align:center">14</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#1a7a3a">87,5%</td></tr>
+            <tr><td style="padding:5px 8px">OIS histórico (22/07-14/08)</td><td style="padding:5px 8px;text-align:center">33</td><td style="padding:5px 8px;text-align:center">24</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#c06000">72,7%</td></tr>
+            <tr style="background:#fafafa;color:#aaa"><td style="padding:5px 8px">OIS wave 2026-08-19</td><td style="padding:5px 8px;text-align:center">2</td><td style="padding:5px 8px;text-align:center">2</td><td style="padding:5px 8px;text-align:center">100% (n bajo)</td></tr>
+            <tr style="color:#aaa"><td style="padding:5px 8px">Forms wave 2026-08-23</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">100% (n bajo)</td></tr>
+            <tr style="background:#fafafa;color:#aaa"><td style="padding:5px 8px">OIS wave 2026-08-21</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">100% (n bajo)</td></tr>
+            <tr style="background:#fff3e0"><td style="padding:5px 8px;font-weight:700">OIM wave 2026-08-19</td><td style="padding:5px 8px;text-align:center;font-weight:700">72</td><td style="padding:5px 8px;text-align:center;font-weight:700">50</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#c06000">69,4%</td></tr>
+            <tr style="color:#aaa"><td style="padding:5px 8px">OIM wave 2026-08-21</td><td style="padding:5px 8px;text-align:center">3</td><td style="padding:5px 8px;text-align:center">3</td><td style="padding:5px 8px;text-align:center">100% (n bajo)</td></tr>
+            <tr style="background:#fafafa;color:#aaa"><td style="padding:5px 8px">OIM wave 2026-08-22</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">1</td><td style="padding:5px 8px;text-align:center">100% (n bajo)</td></tr>
+            <tr style="background:#fdecea"><td style="padding:5px 8px;font-weight:700">OIM wave 2026-08-25</td><td style="padding:5px 8px;text-align:center;font-weight:700">121</td><td style="padding:5px 8px;text-align:center;font-weight:700">40</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#c0392b">33,1%</td></tr>
+            <tr style="background:#fafafa"><td style="padding:5px 8px">OIM wave 2026-08-26</td><td style="padding:5px 8px;text-align:center">7</td><td style="padding:5px 8px;text-align:center">3</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#c0392b">42,9%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">El % de activación cae con la antigüedad del cohorte — es esperable (recién optineados no tuvieron tiempo de vender), no necesariamente un problema de calidad del canal. Ojo con la wave OIM del 25/08: son 121 sellers (~40% de todo el universo optineado) con solo 2 días de antigüedad y 33,1% activados — es la cohorte a seguir de cerca la semana que viene.</div>
+    </div>
+    <div class="card full" style="margin-top:12px">
+      <div class="card-title">Curva de activación · % con al menos 1 venta instant, por semana de antigüedad</div>
+      <div style="height:240px"><canvas id="chartCurvaActivacion"></canvas></div>
+      <div class="note">Fuente: DM_SHP_TRACKS_VIP_CONVERTION (primera venta instant) x sellers_optineados (fecha_optin) · solo cuentan sellers que ya llevan esa cantidad de semanas · n cae fuerte después de semana 8 (muestras chicas, leer con cuidado)</div>
+    </div>
     <div class="body" style="margin-bottom:0;padding-bottom:8px">
       <div class="card">
         <div class="card-title">Sellers con visibilidad instant · por semana</div>
@@ -518,7 +625,6 @@ table.dt tr:hover td { background:#f0f4ff !important }
       </table>
     </div>
   </div>
-
   <div id="panel-topdoms" class="panel">
     <div class="tpanel">
       <div class="tpanel-title">Dominios · posicionamiento instant · Jun-Jul 2026</div>
@@ -536,7 +642,6 @@ table.dt tr:hover td { background:#f0f4ff !important }
       </table>
     </div>
   </div>
-
   <!-- PANEL QUERIES -->
   <div id="panel-queries" class="panel">
     <div class="hdr">
@@ -545,36 +650,33 @@ table.dt tr:hover td { background:#f0f4ff !important }
       <div class="hdr-sub">Cambiar las fechas marcadas con ★ · Período recomendado: lunes a viernes de cada semana ISO</div>
     </div>
     <div style="padding:16px 20px;font-family:'Segoe UI',Arial,sans-serif">
-
       <!-- SEARCH -->
-      <div style="font-size:11px;font-weight:800;color:#1a2a4a;text-transform:uppercase;letter-spacing:.8px;margin:0 0 10px">① Search · POSITION_BASE_FLAGGED</div>
-
+      <div style="font-size:11px;font-weight:800;color:#1a2a4a;text-transform:uppercase;letter-spacing:.8px;margin:0 0 10px">① Search · BT_SEARCH_2_0_step_search_v7 (RAW · corrige gaps de POSITION_BASE_FLAGGED)</div>
       <div style="margin-bottom:16px">
         <div style="font-size:10px;font-weight:700;color:#1565c0;margin-bottom:4px">Búsquedas instant MLB + Distribución por rango + Posición media</div>
         <div style="font-size:8.5px;color:#888;margin-bottom:6px">Actualiza: chartInstant · chartDist · chartPos · distAbs · distTotals</div>
         <pre style="background:#f5f6f8;border-radius:6px;padding:10px;font-size:8px;overflow-x:auto;line-height:1.5;border-left:3px solid #1565c0">WITH base AS (
-  SELECT POSITION, TRACKING_ID, FLAG_PROXIMITY,
-    CASE WHEN POSITION&lt;=5  THEN '1-Pos 1-5'
-         WHEN POSITION&lt;=10 THEN '2-Pos 6-10'
-         WHEN POSITION&lt;=15 THEN '3-Pos 11-15'
-         WHEN POSITION&lt;=20 THEN '4-Pos 16-20'
+  SELECT position, tracking_id,
+    CASE WHEN position&lt;=5  THEN '1-Pos 1-5'
+         WHEN position&lt;=10 THEN '2-Pos 6-10'
+         WHEN position&lt;=15 THEN '3-Pos 11-15'
+         WHEN position&lt;=20 THEN '4-Pos 16-20'
          ELSE '5-Pos 21+' END AS rango
-  FROM `meli-bi-data.SBOX_SHIPPINGPRODCORE.POSITION_BASE_FLAGGED`
-  WHERE SITE_ID='MLB' AND FLAG_PROXIMITY=TRUE
-    AND CREATED_DT BETWEEN '★FECHA_INI' AND '★FECHA_FIN'
-    AND EXTRACT(DAYOFWEEK FROM CREATED_DT) BETWEEN 2 AND 6
+  FROM `meli-bi-data.SBOX_SHIPPINGPRODCORE.BT_SEARCH_2_0_step_search_v7`
+  WHERE site_id='MLB' AND method_type='proximity'
+    AND created_dt BETWEEN '★FECHA_INI' AND '★FECHA_FIN'
+    AND EXTRACT(DAYOFWEEK FROM created_dt) BETWEEN 2 AND 6
 )
 SELECT rango,
   COUNT(*) AS impresiones,
-  COUNT(DISTINCT TRACKING_ID) AS busquedas_unicas,
-  ROUND(AVG(POSITION),1) AS posicion_media_rango,
+  COUNT(DISTINCT tracking_id) AS busquedas_unicas,
+  ROUND(AVG(position),1) AS posicion_media_rango,
   ROUND(COUNT(*)*100.0/SUM(COUNT(*)) OVER(),2) AS pct_dist
 FROM base GROUP BY 1 ORDER BY 1</pre>
       </div>
-
       <div style="margin-bottom:16px">
-        <div style="font-size:10px;font-weight:700;color:#1565c0;margin-bottom:4px">CTR instant por rango de posición (evolución semanal)</div>
-        <div style="font-size:8.5px;color:#888;margin-bottom:6px">Actualiza: d15 · d610 · d1115 · d1620 · d21 · dtot</div>
+        <div style="font-size:10px;font-weight:700;color:#1565c0;margin-bottom:4px">CTR instant por rango de posición (evolución semanal) <span style="background:#f59e0b;color:#fff;font-size:8px;font-weight:700;padding:1px 6px;border-radius:3px;margin-left:4px">Pendiente: sin campo de click en la RAW</span></div>
+        <div style="font-size:8.5px;color:#888;margin-bottom:6px">Actualiza: d15 · d610 · d1115 · d1620 · d21 · dtot · aún no migrado a W32-W34 (la tabla RAW no tiene campo de click/VIP; falta definir fuente)</div>
         <pre style="background:#f5f6f8;border-radius:6px;padding:10px;font-size:8px;overflow-x:auto;line-height:1.5;border-left:3px solid #1565c0">WITH con_instant AS (
   SELECT DISTINCT TRACKING_ID
   FROM `meli-bi-data.SBOX_SHIPPINGPRODCORE.POSITION_BASE_FLAGGED`
@@ -598,33 +700,31 @@ WHERE b.SITE_ID='MLB' AND b.FLAG_PROXIMITY=TRUE
   AND EXTRACT(DAYOFWEEK FROM b.CREATED_DT) BETWEEN 2 AND 6
 GROUP BY 1 ORDER BY 1</pre>
       </div>
-
       <div style="margin-bottom:16px">
-        <div style="font-size:10px;font-weight:700;color:#2e7d32;margin-bottom:4px">Penetración zona SP · any pos + top 10 (archivo: query_cobertura_assortment_zona_top10.sql)</div>
+        <div style="font-size:10px;font-weight:700;color:#2e7d32;margin-bottom:4px">Penetración zona SP · any pos + top 10 (archivo: query_update_dashboard_w32_w33_w34.sql, Query 5 · RAW)</div>
         <div style="font-size:8.5px;color:#888;margin-bottom:6px">Actualiza: zonaData · zonaTop10Data · zonaTop10Abs · KPI penetración</div>
-        <pre style="background:#f5f6f8;border-radius:6px;padding:10px;font-size:8px;overflow-x:auto;line-height:1.5;border-left:3px solid #2e7d32">-- Cambiar fechas y correr query_cobertura_assortment_zona_top10.sql
--- AND created_dt BETWEEN '★FECHA_INI' AND '★FECHA_FIN'
+        <pre style="background:#f5f6f8;border-radius:6px;padding:10px;font-size:8px;overflow-x:auto;line-height:1.5;border-left:3px solid #2e7d32">-- Cambiar fechas y correr por semana individual (query es pesada: ~4TB para 19 días)
+-- FROM `meli-bi-data.SBOX_SHIPPINGPRODCORE.BT_SEARCH_2_0_step_search_v7`
+-- WHERE site_id='MLB' AND created_dt BETWEEN '★FECHA_INI' AND '★FECHA_FIN'
+--   AND SAFE_CAST(zipcode AS INT64) IN (lista CEPs zona óptima SP)
 -- Devuelve: pct_any → zonaData | busquedas_con_instant_top10 → zonaTop10Abs
 --           pct_top10 → zonaTop10Data</pre>
       </div>
-
       <div style="margin-bottom:24px">
-        <div style="font-size:10px;font-weight:700;color:#2e7d32;margin-bottom:4px">Posición media del primer resultado instant (archivo: query en este doc)</div>
+        <div style="font-size:10px;font-weight:700;color:#2e7d32;margin-bottom:4px">Posición media del primer resultado instant (archivo: query en este doc · RAW)</div>
         <div style="font-size:8.5px;color:#888;margin-bottom:6px">Actualiza: posData · KPI posición media</div>
         <pre style="background:#f5f6f8;border-radius:6px;padding:10px;font-size:8px;overflow-x:auto;line-height:1.5;border-left:3px solid #2e7d32">SELECT ROUND(AVG(min_pos),1) AS posicion_media
 FROM (
-  SELECT TRACKING_ID, MIN(POSITION) AS min_pos
-  FROM `meli-bi-data.SBOX_SHIPPINGPRODCORE.POSITION_BASE_FLAGGED`
-  WHERE SITE_ID='MLB' AND FLAG_PROXIMITY=TRUE
-    AND CREATED_DT BETWEEN '★FECHA_INI' AND '★FECHA_FIN'
-    AND EXTRACT(DAYOFWEEK FROM CREATED_DT) BETWEEN 2 AND 6
-  GROUP BY TRACKING_ID
+  SELECT tracking_id, MIN(position) AS min_pos
+  FROM `meli-bi-data.SBOX_SHIPPINGPRODCORE.BT_SEARCH_2_0_step_search_v7`
+  WHERE site_id='MLB' AND method_type='proximity'
+    AND created_dt BETWEEN '★FECHA_INI' AND '★FECHA_FIN'
+    AND EXTRACT(DAYOFWEEK FROM created_dt) BETWEEN 2 AND 6
+  GROUP BY tracking_id
 )</pre>
       </div>
-
       <!-- VIPs -->
       <div style="font-size:11px;font-weight:800;color:#1a2a4a;text-transform:uppercase;letter-spacing:.8px;margin:0 0 10px">② VIPs · DM_SHP_TRACKS_VIP_CONVERTION</div>
-
       <div style="margin-bottom:16px">
         <div style="font-size:10px;font-weight:700;color:#c06000;margin-bottom:4px">VIPs instant absolutos + CVR</div>
         <div style="font-size:8.5px;color:#888;margin-bottom:6px">Actualiza: vipsData · cvrD · cvrInstant · KPI VIPs · KPI CVR · KPI órdenes</div>
@@ -638,7 +738,6 @@ WHERE SITE_ID='MLB' AND FLAG_LAST_VIP=TRUE
   AND VIP_DS BETWEEN '★FECHA_INI' AND '★FECHA_FIN'
 GROUP BY 1</pre>
       </div>
-
       <div style="margin-bottom:16px">
         <div style="font-size:10px;font-weight:700;color:#c06000;margin-bottom:4px">Share VIPs instant / total VIPs zona SP (archivo: query_share_vips_instant_zona_semanal.sql)</div>
         <div style="font-size:8.5px;color:#888;margin-bottom:6px">Actualiza: vipShareZona · KPI share zona</div>
@@ -646,7 +745,6 @@ GROUP BY 1</pre>
 -- AND VIP_DS BETWEEN '★FECHA_INI' AND '★FECHA_FIN'
 -- Devuelve: pct_vips_instant → vipShareZona</pre>
       </div>
-
       <div style="margin-bottom:16px">
         <div style="font-size:10px;font-weight:700;color:#c06000;margin-bottom:4px">CVR instant vs no-instant · mismos ítems (archivo: query_cvr_instant_vs_otro_mismos_items.sql)</div>
         <div style="font-size:8.5px;color:#888;margin-bottom:6px">Actualiza: cvrNoInstant · tabla CVR semanal</div>
@@ -654,15 +752,13 @@ GROUP BY 1</pre>
 -- Cambiar VIP_DS BETWEEN '2026-06-08' AND '★FECHA_FIN'
 -- Devuelve CVR instant y no-instant por semana para la tabla comparativa</pre>
       </div>
-
       <div style="background:#fff3e0;border-radius:6px;padding:10px 14px;font-size:8.5px;color:#7a4500;margin-top:8px">
         <strong>Archivos en:</strong> C:\Users\jgradlmuller\Documents\gm_brasil\ ·
-        <strong>Tablas principales:</strong> POSITION_BASE_FLAGGED (SBOX_SHIPPINGPRODCORE) · DM_SHP_TRACKS_VIP_CONVERTION (WHOWNER) ·
+        <strong>Tablas principales:</strong> BT_SEARCH_2_0_step_search_v7 RAW (SBOX_SHIPPINGPRODCORE) — reemplaza a POSITION_BASE_FLAGGED por gaps de datos detectados en semanas W32-W34 · DM_SHP_TRACKS_VIP_CONVERTION (WHOWNER) ·
         <strong>Nota:</strong> filtrar siempre lunes a viernes (DAYOFWEEK entre 2 y 6) · VIP_DS para partición de la tabla de VIPs
       </div>
     </div>
   </div>
-
   <div id="panel-botdoms" class="panel">
     <div class="tpanel">
       <div class="tpanel-title">Dominios · posicionamiento instant · Jun-Jul 2026</div>
@@ -680,28 +776,23 @@ GROUP BY 1</pre>
       </table>
     </div>
   </div>
-
 </div>
-
 <script>
 // Datos VIPs · definidos globalmente para uso en ratio
-var vipsData = [1280,2071,3152,2857,4030,6080,6436,7599,8370];
-var vipsWow  = [null,'+62%','+52%','-9%','+41%','+51%','+6%','+18%','+10%'];
+var vipsData = [1280,2071,3152,2857,4030,6080,6436,7599,8369,8742,10728];
+var vipsWow  = [null,'+62%','+52%','-9%','+41%','+51%','+6%','+18%','+10%','+4%','+23%'];
 var vipsChartsReady = false;
-
 function showTab(name){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
   document.getElementById('panel-'+name).classList.add('active');
-  var m={charts:0,vips:1,sellers:2,topdoms:3,botdoms:4,queries:5};
+  var m={charts:0,monthly:1,vips:2,sellers:3,topdoms:4,botdoms:5,queries:6};
   document.querySelectorAll('.tab')[m[name]].classList.add('active');
   // Inicializar gráficos de VIPs la primera vez que se abre el tab
   if(name==='vips' && !vipsChartsReady){ initVipsCharts(); vipsChartsReady=true; }
 }
-
 function initVipsCharts(){
-  var wkLabels = ['W24','W25','W26','W27','W28','W29','W30','W31','W32'];
-
+  var wkLabels = ['W24','W25','W26','W27','W28','W29','W30','W31','W32','W33','W34'];
   // VIPs por semana
   new Chart(document.getElementById('chartVips'),{
     type:'bar',
@@ -719,10 +810,9 @@ function initVipsCharts(){
       });
     }}]
   });
-
   // Share VIPs instant / total VIPs zona SP
-  var vipShareZona = [0.005,0.011,0.012,0.012,0.016,0.028,0.029,0.056,0.051];
-  var vipShareWow  = [null,'+120%','+9%','0%','+33%','+75%','+4%','+93%','-9%'];
+  var vipShareZona = [0.005,0.011,0.012,0.012,0.016,0.028,0.029,0.056,0.038,0.046,0.087];
+  var vipShareWow  = [null,'+120%','+9%','0%','+33%','+75%','+4%','+93%','-32%','+21%','+89%'];
   new Chart(document.getElementById('chartVipSellers'),{
     type:'line',
     data:{labels:wkLabels,datasets:[{data:vipShareZona,borderColor:'#1565c0',backgroundColor:'rgba(21,101,192,0.07)',pointBackgroundColor:'#1565c0',pointRadius:5,tension:0.3,fill:true}]},
@@ -733,9 +823,8 @@ function initVipsCharts(){
       chart.getDatasetMeta(0).data.forEach(function(pt,i){ctx.save();ctx.fillStyle='#1565c0';ctx.font='bold 8px Segoe UI,Arial,sans-serif';ctx.textAlign='center';ctx.fillText(d[i].toFixed(3)+'%',pt.x,pt.y-16);if(vipShareWow[i]){ctx.fillStyle=vipShareWow[i].startsWith('-')?'#c0392b':'#1a7a3a';ctx.font='bold 7.5px Segoe UI,Arial';ctx.fillText(vipShareWow[i],pt.x,pt.y-6);}ctx.restore();});
     }}]
   });
-
   // CVR VIP → orden
-  var cvrD = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01,7.34];
+  var cvrD = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01,7.38,6.66,7.98];
   new Chart(document.getElementById('chartCvr'),{
     type:'line',
     data:{labels:wkLabels,datasets:[{data:cvrD,borderColor:'#1a7a3a',backgroundColor:'rgba(26,122,58,0.08)',pointBackgroundColor:'#1a7a3a',pointRadius:5,tension:0.3,fill:true}]},
@@ -746,13 +835,11 @@ function initVipsCharts(){
       chart.getDatasetMeta(0).data.forEach(function(pt,i){ctx.save();ctx.fillStyle='#1a7a3a';ctx.font='bold 8.5px Segoe UI,Arial,sans-serif';ctx.textAlign='center';ctx.fillText(cvrD[i]+'%',pt.x,pt.y-8);ctx.restore();});
     }}]
   });
-
   // chartOrders removido del HTML — código eliminado
-
   // CVR instant vs no-instant · mismos sellers · W24-W31
-  var cvrInstant   = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01,7.34];
-  var cvrNoInstant = [3.31,3.25,3.18,3.67,3.57,3.64,3.37,3.70,4.02];
-  var cvrVarPct    = ['+42%','+110%','+118%','+141%','+102%','+89%','+81%','+90%','+84%'];
+  var cvrInstant   = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01,7.38,6.66,7.98];
+  var cvrNoInstant = [3.31,3.25,3.18,3.67,3.57,3.64,3.37,3.70,3.83,3.47,3.63];
+  var cvrVarPct    = ['+42%','+110%','+118%','+141%','+102%','+89%','+81%','+90%','+93%','+92%','+120%'];
   new Chart(document.getElementById('chartCvrComp'),{
     type:'bar',
     data:{
@@ -789,11 +876,11 @@ function initVipsCharts(){
     }}]
   });
 }
-var sw=['W24','W25','W26','W27','W28','W29','W30','W31','W32'];
-var wowPct=[null,'+147%','+45%','-16%','+55%','+3%','+40%','+30%','+13%'];
+var sw=['W24','W25','W26','W27','W28','W29','W30','W31','W32','W33','W34'];
+var wowPct=[null,'+147%','+45%','-16%','+55%','+3%','+40%','+30%','+13%','-13%','+24%'];
 new Chart(document.getElementById('chartInstant'),{
   type:'bar',
-  data:{labels:sw,datasets:[{data:[11430,28272,40941,34285,53006,54654,76450,99031,111479],backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
+  data:{labels:sw,datasets:[{data:[11430,28272,40941,34285,53006,54654,76450,99031,111479,96636,119509],backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4}]},
   options:{responsive:true,layout:{padding:{top:20}},plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:function(v){return v>=1000?Math.round(v/1000)+'K':v},font:{size:9}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}},
   plugins:[{id:'wowLabels',afterDatasetsDraw:function(chart){
     var ctx=chart.ctx;
@@ -809,12 +896,11 @@ new Chart(document.getElementById('chartInstant'),{
     });
   }}]
 });
-var posData=[12.6,13.6,14.5,15.4,15.1,14.3,15.8,15.9,15.9];
+var posData=[12.6,13.6,14.5,15.4,15.1,14.3,15.8,15.9,15.9,16.3,16.9];
 new Chart(document.getElementById('chartPos'),{type:'line',data:{labels:sw,datasets:[{data:posData,borderColor:'#c06000',backgroundColor:'rgba(192,96,0,0.08)',pointBackgroundColor:'#c06000',pointRadius:5,tension:0.3,fill:true}]},options:{responsive:true,layout:{padding:{top:18}},plugins:{legend:{display:false}},scales:{y:{min:8,max:22,ticks:{font:{size:9}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}},plugins:[{id:'posLabels',afterDatasetsDraw:function(chart){var ctx=chart.ctx;chart.getDatasetMeta(0).data.forEach(function(pt,i){ctx.save();ctx.fillStyle='#c06000';ctx.font='bold 8px Segoe UI,Arial';ctx.textAlign='center';ctx.fillText(posData[i],pt.x,pt.y-8);ctx.restore();});}}]});
-
-// Búsquedas zona con instant en top 1-10 · ABSOLUTOS · W24-W31
-var zonaTop10Abs = [1269,2348,2798,2406,4279,4774,5965,7338,7631];
-var zonaTop10AbsWow = [null,'+85%','+19%','-14%','+78%','+12%','+25%','+23%','+4%'];
+// Búsquedas zona con instant en top 1-10 · ABSOLUTOS · W24-W34
+var zonaTop10Abs = [1269,2348,2798,2406,4279,4774,5965,7338,7631,6738,8051];
+var zonaTop10AbsWow = [null,'+85%','+19%','-14%','+78%','+12%','+25%','+23%','+4%','-12%','+19%'];
 new Chart(document.getElementById('chartZonaTop10Abs'),{
   type:'bar',
   data:{labels:sw,datasets:[{data:zonaTop10Abs,backgroundColor:'rgba(21,101,192,0.75)',borderRadius:4}]},
@@ -830,8 +916,6 @@ new Chart(document.getElementById('chartZonaTop10Abs'),{
     });
   }}]
 });
-
-
 new Chart(document.getElementById('chartSellers'),{
   type:'bar',
   data:{labels:sw,datasets:[{
@@ -894,11 +978,102 @@ new Chart(document.getElementById('chartPareto'),{
     });
   }}]
 });
-
+// Altas semanales de sellers optineados + acumulado (fuente: sellers_optineados, fecha_optin)
+(function(){
+  var wkOpt = ['W24','W25','W26','W27','W28','W29','W30','W31','W32','W33','W34','W35'];
+  var nuevos = [5,14,8,0,12,13,3,8,19,15,78,130];
+  var acumulado = [];
+  nuevos.reduce(function(sum,v){ var t=sum+v; acumulado.push(t); return t; }, 0);
+  new Chart(document.getElementById('chartOptinsSemanal'),{
+    data:{labels:wkOpt,datasets:[
+      {type:'bar',label:'Altas nuevas',data:nuevos,backgroundColor:'rgba(26,122,58,0.75)',borderRadius:4,order:2,yAxisID:'y'},
+      {type:'line',label:'Acumulado',data:acumulado,borderColor:'#1a2a4a',backgroundColor:'rgba(26,42,74,0.06)',
+        pointBackgroundColor:'#1a2a4a',pointRadius:4,tension:0.25,fill:false,order:1,yAxisID:'y1'}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,layout:{padding:{top:22}},
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
+      scales:{
+        x:{ticks:{font:{size:9}},grid:{display:false}},
+        y:{position:'left',beginAtZero:true,ticks:{font:{size:9}},grid:{color:'#eee'},
+           title:{display:true,text:'altas nuevas',font:{size:8},color:'#aaa'}},
+        y1:{position:'right',beginAtZero:true,ticks:{font:{size:9}},grid:{display:false},
+           title:{display:true,text:'acumulado',font:{size:8},color:'#aaa'}}
+      }
+    },
+    plugins:[{id:'optinsLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      var barMeta=chart.getDatasetMeta(0);
+      barMeta.data.forEach(function(bar,i){
+        ctx.save();
+        ctx.fillStyle='#1a7a3a';ctx.font='bold 8.5px Segoe UI,Arial';ctx.textAlign='center';
+        ctx.fillText(nuevos[i],bar.x,bar.y-6);
+        ctx.restore();
+      });
+    }}]
+  });
+})();
+// Mix de canal de optin por semana (Forms / OIM / OIS)
+(function(){
+  var wkOpt = ['W24','W25','W26','W27','W28','W29','W30','W31','W32','W33','W34','W35'];
+  var forms = [5,14,7,0,9,0,0,0,8,0,0,0];
+  var oim   = [0,0,1,0,3,13,0,1,3,1,76,128];
+  var ois   = [0,0,0,0,0,0,3,7,8,14,2,2];
+  new Chart(document.getElementById('chartOptinsPorCanal'),{
+    type:'bar',
+    data:{labels:wkOpt,datasets:[
+      {label:'Forms',data:forms,backgroundColor:'rgba(21,101,192,0.8)',stack:'s'},
+      {label:'OIM',data:oim,backgroundColor:'rgba(26,122,58,0.8)',stack:'s'},
+      {label:'OIS',data:ois,backgroundColor:'rgba(192,96,0,0.8)',stack:'s'}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,layout:{padding:{top:10}},
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
+      scales:{
+        x:{stacked:true,ticks:{font:{size:9}},grid:{display:false}},
+        y:{stacked:true,beginAtZero:true,ticks:{font:{size:9}},grid:{color:'#eee'},
+           title:{display:true,text:'altas por canal',font:{size:8},color:'#aaa'}}
+      }
+    }
+  });
+})();
+// Curva de activación: % con venta instant por semana de antigüedad
+(function(){
+  var semanas = [0,1,2,3,4,5,6,7,8,9,10,11];
+  var pct     = [52.8,81.7,90.7,92.7,95.2,98.2,98.1,97.4,96.3,96.3,94.7,100];
+  var n       = [305,175,97,82,63,55,52,39,27,27,19,5];
+  new Chart(document.getElementById('chartCurvaActivacion'),{
+    data:{labels:semanas.map(function(s){return 'Sem '+s;}),datasets:[
+      {type:'bar',label:'Sellers elegibles (n)',data:n,backgroundColor:'rgba(180,180,180,0.5)',borderRadius:3,order:2,yAxisID:'y1'},
+      {type:'line',label:'% activado',data:pct,borderColor:'#1a7a3a',backgroundColor:'rgba(26,122,58,0.08)',
+        pointBackgroundColor:'#1a7a3a',pointRadius:5,tension:0.25,fill:true,order:1,yAxisID:'y'}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,layout:{padding:{top:22}},
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},
+      scales:{
+        x:{ticks:{font:{size:9}},grid:{display:false}},
+        y:{position:'left',min:0,max:105,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'},
+           title:{display:true,text:'% activado',font:{size:8},color:'#aaa'}},
+        y1:{position:'right',beginAtZero:true,ticks:{font:{size:9}},grid:{display:false},
+           title:{display:true,text:'sellers elegibles',font:{size:8},color:'#aaa'}}
+      }
+    },
+    plugins:[{id:'curvaLabels',afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      var lineMeta=chart.getDatasetMeta(1);
+      lineMeta.data.forEach(function(pt,i){
+        ctx.save();
+        ctx.fillStyle='#1a7a3a';ctx.font='bold 8.5px Segoe UI,Arial';ctx.textAlign='center';
+        ctx.fillText(pct[i]+'%',pt.x,pt.y-10);
+        ctx.restore();
+      });
+    }}]
+  });
+})();
 // Share % = instant / total MLB
 var shareData=[0.0025,0.0062,0.0092,0.0091,0.0128,0.0121,0.0176,0.0233];
-var zonaData=[0.19,0.44,0.59,0.54,0.85,0.97,1.36,1.75,1.75];
-
+var zonaData=[0.19,0.44,0.59,0.54,0.85,0.97,1.36,1.75,1.75,1.64,2.11];
 function makeShareChart(id,data,color,fmtFn){
   return new Chart(document.getElementById(id),{
     type:'line',
@@ -921,14 +1096,83 @@ function makeShareChart(id,data,color,fmtFn){
     }}]
   });
 }
-
 // Zona SP · cualquier posición (reemplaza MLB arriba)
 makeShareChart('chartShare', zonaData, '#1a7a3a', function(v){return (+v).toFixed(2)+'%';});
 // Zona SP · top 10 (nuevo abajo)
-var zonaTop10Data = [0.11,0.22,0.27,0.24,0.38,0.48,0.60,0.76,0.75];
+var zonaTop10Data = [0.11,0.22,0.27,0.24,0.38,0.48,0.60,0.76,0.75,0.70,0.86];
 makeShareChart('chartShareZona', zonaTop10Data, '#1565c0', function(v){return (+v).toFixed(2)+'%';});
 
-// CTR instant por rango de posición · W24-W31
+// ===== VISTA MENSUAL (Jun-Sep 2026) =====
+// Combina el historico semanal (W24-W34) con las queries nuevas desde 24-ago.
+// Junio = W24-W26 (8-28 jun) · Julio = W27-W31 (29 jun - 2 ago, mayoria de dias en julio)
+// Agosto = W32-W34 (3-23 ago) + query nueva (24-31 ago) · Septiembre = query nueva (1-17 sep, parcial)
+var monthLabels = ['Junio','Julio','Agosto','Septiembre*'];
+
+var monthlyDist = {
+  p1: [36765,124811,257198,205944],
+  p2: [34044,108953,244016,207887],
+  p3: [28226,95671,225841,191739],
+  p4: [33630,111345,251310,217003],
+  p5: [79801,315380,813702,733072]
+};
+var monthlyDistTotals = [212466,756160,1792067,1555645];
+
+new Chart(document.getElementById('chartDistMonthly'),{type:'bar',data:{labels:monthLabels,datasets:[
+  {label:'Pos 21+',  data:[37.56,41.71,45.41,47.12],backgroundColor:'#e63946',borderWidth:0},
+  {label:'Pos 16-20',data:[15.83,14.73,14.02,13.95],backgroundColor:'#f77f00',borderWidth:0},
+  {label:'Pos 11-15',data:[13.28,12.65,12.60,12.33],backgroundColor:'#f9c74f',borderWidth:0},
+  {label:'Pos 6-10', data:[16.02,14.41,13.62,13.36],backgroundColor:'#a3d977',borderWidth:0},
+  {label:'Pos 1-5',  data:[17.30,16.51,14.35,13.24],backgroundColor:'#1a7a3a',borderWidth:0}
+]},options:{responsive:true,plugins:{legend:{position:'right',labels:{font:{size:9},boxWidth:12}},tooltip:{callbacks:{label:function(ctx){
+  var keys=['p5','p4','p3','p2','p1'];
+  var abs=monthlyDist[keys[ctx.datasetIndex]][ctx.dataIndex];
+  return ctx.dataset.label+': '+ctx.parsed.y+'% ('+abs.toLocaleString('es')+' aparic.)';
+}}}},scales:{x:{stacked:true,ticks:{font:{size:9}},grid:{display:false}},y:{stacked:true,max:100,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}}}}});
+
+// Penetracion zona SP mensual: any + top10, dos lineas
+var monthlyAnyPct = [0.40,1.08,2.24,3.45];
+var monthlyTop10Pct = [0.20,0.49,0.94,1.64];
+var monthlyAnyAbs = [13002,55050,89657,73497];
+var monthlyTop10Abs = [6415,24762,37703,34791];
+var monthlyTotalZona = [3257205,5082829,4011683,2127575];
+
+new Chart(document.getElementById('chartShareZonaMonthly'),{type:'line',data:{labels:monthLabels,datasets:[
+  {label:'Any position', data:monthlyAnyPct, borderColor:'#1a7a3a', backgroundColor:'rgba(26,122,58,0.07)', pointBackgroundColor:'#1a7a3a', pointRadius:4, tension:0.3, fill:true},
+  {label:'Top 10', data:monthlyTop10Pct, borderColor:'#1565c0', backgroundColor:'rgba(21,101,192,0.07)', pointBackgroundColor:'#1565c0', pointRadius:4, tension:0.3, fill:true}
+]},options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:16}},
+  plugins:{legend:{display:true,position:'bottom',labels:{font:{size:9},boxWidth:10}},tooltip:{callbacks:{label:function(ctx){
+    var abs = ctx.datasetIndex===0 ? monthlyAnyAbs[ctx.dataIndex] : monthlyTop10Abs[ctx.dataIndex];
+    return ctx.dataset.label+': '+ctx.parsed.y.toFixed(2)+'% ('+abs.toLocaleString('es')+' busquedas)';
+  }}}},
+  scales:{y:{beginAtZero:true,ticks:{callback:function(v){return (+v).toFixed(2)+'%'},font:{size:8}},grid:{color:'#eee'}},x:{ticks:{font:{size:9}},grid:{display:false}}}
+}});
+
+// Tabla resumen mensual
+(function(){
+  var rows = [
+    {lbl:'Total busquedas zona', vals:monthlyTotalZona, fmt:'int'},
+    {lbl:'Busquedas con instant (any)', vals:monthlyAnyAbs, fmt:'int'},
+    {lbl:'% Any', vals:monthlyAnyPct, fmt:'pct'},
+    {lbl:'Busquedas con instant (top10)', vals:monthlyTop10Abs, fmt:'int'},
+    {lbl:'% Top10', vals:monthlyTop10Pct, fmt:'pct'},
+    {lbl:'Total impresiones (dist. posicion)', vals:monthlyDistTotals, fmt:'int'},
+    {lbl:'Pos 1-5 (%)', vals:[17.30,16.51,14.35,13.24], fmt:'pct'},
+    {lbl:'Pos 21+ (%)', vals:[37.56,41.71,45.41,47.12], fmt:'pct'}
+  ];
+  function fmt(v,f){ return f==='pct' ? (+v).toFixed(2)+'%' : (+v).toLocaleString('es'); }
+  var s = '<table style="width:100%;border-collapse:collapse;font-size:9px"><thead><tr style="background:#f0f2f7">';
+  s += '<th style="padding:5px 8px;text-align:left;font-weight:700;color:#333;border-bottom:2px solid #dde">Metrica</th>';
+  monthLabels.forEach(function(m){ s += '<th style="padding:5px 8px;text-align:center;font-weight:700;color:#333;border-bottom:2px solid #dde">'+m+'</th>'; });
+  s += '</tr></thead><tbody>';
+  rows.forEach(function(r){
+    s += '<tr><td style="padding:4px 8px;color:#555">'+r.lbl+'</td>';
+    r.vals.forEach(function(v){ s += '<td style="padding:4px 8px;text-align:center;color:#333">'+fmt(v,r.fmt)+'</td>'; });
+    s += '</tr>';
+  });
+  s += '</tbody></table>';
+  document.getElementById('monthlyTableWrap').innerHTML = s;
+})();
+// CTR instant por rango de posición · W24-W31 (pendiente actualizar W32-W34)
 (function(){
   // CTR corregido · fuente: BT_SEARCH_2_0_CONVERSION_AMPLA_v5 · dedup por (tracking+item+posición)
   var d15  = [4.46,3.35,3.33,3.23,3.04,3.49,3.31,3.48,4.49];
@@ -938,7 +1182,6 @@ makeShareChart('chartShareZona', zonaTop10Data, '#1565c0', function(v){return (+
   var d21  = [0.61,0.45,0.38,0.52,0.71,0.41,0.50,0.49,0.59];
   // Total ponderado: W24-W31 AMPLA · W32 POSITION_BASE_FLAGGED
   var dtot = [1.58,1.19,1.18,1.20,1.26,1.24,1.11,1.19,1.51];
-
   var base = {backgroundColor:'transparent',pointRadius:4,tension:0.3,fill:false};
   var datasets = [
     Object.assign({},base,{label:'Pos 1-5',   data:d15,  borderColor:'#1a7a3a',pointBackgroundColor:'#1a7a3a',borderWidth:2.5}),
@@ -948,10 +1191,9 @@ makeShareChart('chartShareZona', zonaTop10Data, '#1565c0', function(v){return (+
     Object.assign({},base,{label:'Pos 21+',   data:d21,  borderColor:'#e63946',pointBackgroundColor:'#e63946',borderWidth:1.5}),
     Object.assign({},base,{label:'Total pond.',data:dtot, borderColor:'#1a2a4a',pointBackgroundColor:'#1a2a4a',borderWidth:2,borderDash:[5,3]})
   ];
-
   new Chart(document.getElementById('chartCtrEvol'),{
     type:'line',
-    data:{labels:sw, datasets:datasets},
+    data:{labels:sw.slice(0,9), datasets:datasets},
     options:{
       responsive:true, maintainAspectRatio:false, layout:{padding:{top:20}},
       plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10,usePointStyle:true}}},
@@ -979,8 +1221,6 @@ makeShareChart('chartShareZona', zonaTop10Data, '#1565c0', function(v){return (+
     }}]
   });
 })();
-
-
 // Densidad instant en SERP (W31 only for now)
 new Chart(document.getElementById('chartDensidad'),{
   type:'bar',
@@ -1014,22 +1254,21 @@ new Chart(document.getElementById('chartDensidad'),{
     });
   }}]
 });
-
 // Add labels to position average chart
 var distAbs={
-  p1:[7674,11658,17433,13069,21980,24526,27464,37772,54040],
-  p2:[7376,11013,15655,10970,18188,20080,24768,34947,51517],
-  p3:[6193,8849,13184,9455,16590,17180,21935,30511,44813],
-  p4:[6332,11131,16167,12295,19836,18048,25653,35513,51217],
-  p5:[16356,23994,39451,29285,52141,47634,77117,109203,160195]
+  p1:[7674,11658,17433,13069,21980,24526,27464,37772,64412,53675,63612],
+  p2:[7376,11013,15655,10970,18188,20080,24768,34947,59046,48309,60331],
+  p3:[6193,8849,13184,9455,16590,17180,21935,30511,51980,45563,58332],
+  p4:[6332,11131,16167,12295,19836,18048,25653,35513,59855,49507,63414],
+  p5:[16356,23994,39451,29285,52141,47634,77117,109203,182033,159865,210464]
 };
-var distTotals=[43931,66645,101890,75074,128735,127468,176937,247946,361782];
+var distTotals=[43931,66645,101890,75074,128735,127468,176937,247946,417326,356919,456153];
 new Chart(document.getElementById('chartDist'),{type:'bar',data:{labels:sw,datasets:[
-  {label:'Pos 21+',  data:[37.2,36.0,38.7,38.9,40.1,37.1,43.7,44.0,44.28],backgroundColor:'#e63946',borderWidth:0},
-  {label:'Pos 16-20',data:[14.6,16.6,15.9,16.3,15.6,14.1,14.3,14.3,14.16],backgroundColor:'#f77f00',borderWidth:0},
-  {label:'Pos 11-15',data:[13.9,13.2,12.9,12.7,12.9,13.4,12.3,12.3,12.39],backgroundColor:'#f9c74f',borderWidth:0},
-  {label:'Pos 6-10', data:[16.9,16.8,15.4,14.9,14.3,16.0,14.0,14.1,14.24],backgroundColor:'#a3d977',borderWidth:0},
-  {label:'Pos 1-5',  data:[17.4,17.4,17.1,17.2,17.2,19.5,15.7,15.2,14.94],backgroundColor:'#1a7a3a',borderWidth:0}
+  {label:'Pos 21+',  data:[37.2,36.0,38.7,38.9,40.1,37.1,43.7,44.0,43.62,44.79,46.14],backgroundColor:'#e63946',borderWidth:0},
+  {label:'Pos 16-20',data:[14.6,16.6,15.9,16.3,15.6,14.1,14.3,14.3,14.34,13.87,13.9],backgroundColor:'#f77f00',borderWidth:0},
+  {label:'Pos 11-15',data:[13.9,13.2,12.9,12.7,12.9,13.4,12.3,12.3,12.46,12.77,12.79],backgroundColor:'#f9c74f',borderWidth:0},
+  {label:'Pos 6-10', data:[16.9,16.8,15.4,14.9,14.3,16.0,14.0,14.1,14.15,13.54,13.23],backgroundColor:'#a3d977',borderWidth:0},
+  {label:'Pos 1-5',  data:[17.4,17.4,17.1,17.2,17.2,19.5,15.7,15.2,15.43,15.04,13.95],backgroundColor:'#1a7a3a',borderWidth:0}
 ]},options:{responsive:true,plugins:{legend:{position:'right',labels:{font:{size:9},boxWidth:12}},tooltip:{callbacks:{label:function(ctx){var keys=['p5','p4','p3','p2','p1'];var abs=distAbs[keys[ctx.datasetIndex]][ctx.dataIndex];return ctx.dataset.label+': '+ctx.parsed.y+'% ('+abs.toLocaleString('es')+' aparic.)';}}}},scales:{x:{stacked:true,ticks:{font:{size:9}},grid:{display:false}},y:{stacked:true,max:100,ticks:{callback:function(v){return v+'%'},font:{size:9}},grid:{color:'#eee'}}}},
 plugins:[{id:'distLabels',afterDatasetsDraw:function(chart){
   var ctx=chart.ctx;
@@ -1050,12 +1289,11 @@ plugins:[{id:'distLabels',afterDatasetsDraw:function(chart){
     });
   });
 }}]});
-
 // Distribution table: buckets as rows, weeks as columns
 (function(){
-  var pct={p1:[17.4,17.4,17.1,17.2,17.2,19.5,15.7,15.5],p2:[16.9,16.8,15.4,14.9,14.3,16.0,14.0,14.2],p3:[13.9,13.2,12.9,12.7,12.9,13.4,12.3,12.2],p4:[14.6,16.6,15.9,16.3,15.6,14.1,14.3,14.1],p5:[37.2,36.0,38.7,38.9,40.1,37.1,43.7,44.1]};
+  var pct={p1:[17.4,17.4,17.1,17.2,17.2,19.5,15.7,15.5,15.43,15.04,13.95],p2:[16.9,16.8,15.4,14.9,14.3,16.0,14.0,14.2,14.15,13.54,13.23],p3:[13.9,13.2,12.9,12.7,12.9,13.4,12.3,12.2,12.46,12.77,12.79],p4:[14.6,16.6,15.9,16.3,15.6,14.1,14.3,14.1,14.34,13.87,13.9],p5:[37.2,36.0,38.7,38.9,40.1,37.1,43.7,44.1,43.62,44.79,46.14]};
   var buckets=[{k:'p1',lbl:'Pos 1-5',c:'#1a7a3a'},{k:'p2',lbl:'Pos 6-10',c:'#5a9a10'},{k:'p3',lbl:'Pos 11-15',c:'#c09000'},{k:'p4',lbl:'Pos 16-20',c:'#e07000'},{k:'p5',lbl:'Pos 21+',c:'#c0392b'}];
-  var periods=['8-12 jun','15-19 jun','22-26 jun','29 jun-3 jul','6-10 jul','13-17 jul','20-24 jul','27-31 jul'];
+  var periods=['8-12 jun','15-19 jun','22-26 jun','29 jun-3 jul','6-10 jul','13-17 jul','20-24 jul','27-31 jul','3-7 ago','10-14 ago','17-21 ago'];
   var s='<table style="width:100%;border-collapse:collapse;font-size:8.5px"><thead><tr style="background:#f0f2f7"><th style="padding:5px 8px;text-align:left;font-weight:700;color:#333;border-bottom:2px solid #dde">Posicion</th>';
   sw.forEach(function(w,i){s+='<th style="padding:5px 8px;text-align:center;font-weight:700;color:#1a2a4a;border-bottom:2px solid #dde">'+w+'<br><span style="font-weight:400;color:#aaa;font-size:7.5px">'+periods[i]+'</span></th>';});
   s+='<th style="padding:5px 8px;text-align:right;font-weight:700;color:#555;border-bottom:2px solid #dde">Total</th></tr></thead><tbody>';
@@ -1081,7 +1319,6 @@ var weeklySellers={'2026-W24':[{nome:'SONNIC SOUND CENTER',abs:2165},{nome:'BLUE
 var weeklyDoms={'2026-W24':[{dom:'MLB-SUPPLEMENTS',abs:850},{dom:'MLB-SUITS',abs:446},{dom:'MLB-T_SHIRTS',abs:364},{dom:'MLB-DRESSES',abs:200},{dom:'MLB-JACKETS_AND_COATS',abs:197}],'2026-W25':[{dom:'MLB-SUPPLEMENTS',abs:699},{dom:'MLB-T_SHIRTS',abs:664},{dom:'MLB-FLOOR_CEILING_AND_WALL_LIGHTS',abs:404},{dom:'MLB-JACKETS_AND_COATS',abs:392},{dom:'MLB-TABLE_AND_DESK_LAMPS',abs:368}],'2026-W26':[{dom:'MLB-SUPPLEMENTS',abs:870},{dom:'MLB-TABLE_AND_DESK_LAMPS',abs:548},{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:457},{dom:'MLB-HOSE_ADAPTERS',abs:444},{dom:'MLB-JACKETS_AND_COATS',abs:398}],'2026-W27':[{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:1128},{dom:'MLB-SUPPLEMENTS',abs:856},{dom:'MLB-TABLE_AND_DESK_LAMPS',abs:297},{dom:'MLB-MIRRORS',abs:276},{dom:'MLB-KITCHEN_POTS',abs:275}],'2026-W28':[{dom:'MLB-SNEAKERS',abs:1816},{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:1323},{dom:'MLB-PANTS',abs:926},{dom:'MLB-SUPPLEMENTS',abs:860},{dom:'MLB-SANDALS_AND_CLOGS',abs:759}],'2026-W29':[{dom:'MLB-PANTS',abs:1836},{dom:'MLB-SNEAKERS',abs:1199},{dom:'MLB-SUPPLEMENTS',abs:941},{dom:'MLB-JACKETS_AND_COATS',abs:876},{dom:'MLB-HATS_AND_CAPS',abs:616}],'2026-W30':[{dom:'MLB-SUPPLEMENTS',abs:1790},{dom:'MLB-PANTS',abs:1312},{dom:'MLB-SNEAKERS',abs:1065},{dom:'MLB-T_SHIRTS',abs:811},{dom:'MLB-JACKETS_AND_COATS',abs:580}],'2026-W31':[{dom:'MLB-SUPPLEMENTS',abs:1510},{dom:'MLB-SNEAKERS',abs:881},{dom:'MLB-PANTS',abs:800},{dom:'MLB-T_SHIRTS',abs:526},{dom:'MLB-ELECTRICAL_CABLES',abs:493}],};
 var weekKeys=['2026-W24','2026-W25','2026-W26','2026-W27','2026-W28','2026-W29','2026-W30','2026-W31'];
 var wPeriods=['8-12 jun','15-19 jun','22-26 jun','29jun-3jul','6-10 jul','13-17 jul','20-24 jul','27-31 jul'];
-
 function buildWeeklySection(){
   var wrap=document.getElementById('weekly-breakdown');
   // Sellers table
@@ -1109,7 +1346,6 @@ function buildWeeklySection(){
     s+='</tr>';
   });
   s+='</tbody></table></div>';
-
   // Domains table
   s+='<div style="margin-top:20px"><div style="font-size:10px;font-weight:800;color:#1a2a4a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Top 5 dominios en posicion 1-5 · por semana</div>';
   s+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:8.5px"><thead><tr style="background:#1a2a4a">';
@@ -1139,13 +1375,11 @@ buildWeeklySection();
 // Pos 21+ weekly breakdown
 var weekly21Sellers={'2026-W24':[{nome:'BLUE MONKEY',abs:7362},{nome:'SONNIC SOUND CENTER',abs:5220},{nome:'WOMAN VILLAGE FASHION',abs:1683},{nome:'ENJOY PETS LTDA',abs:558}],'2026-W25':[{nome:'SONNIC SOUND CENTER',abs:8025},{nome:'BLUE MONKEY',abs:3285},{nome:'ROBY LUSTRES',abs:3106},{nome:'WOMAN VILLAGE FASHION',abs:2750},{nome:'PRECOLANDIA',abs:2310}],'2026-W26':[{nome:'PRECOLANDIA',abs:11099},{nome:'SONNIC SOUND CENTER',abs:6259},{nome:'ROBY LUSTRES',abs:3133},{nome:'BLUE MONKEY',abs:2970},{nome:'WOMAN VILLAGE FASHION',abs:2156}],'2026-W27':[{nome:'PRECOLANDIA',abs:8756},{nome:'BRASILPHONE',abs:4202},{nome:'SONNIC SOUND CENTER',abs:2760},{nome:'G3 CONCEPT LTDA',abs:2182},{nome:'BASSI & BORGES LTDA',abs:2024}],'2026-W28':[{nome:'PRECOLANDIA',abs:9135},{nome:'DIGEL',abs:8782},{nome:'CASA DAS GRIFFES STORE',abs:5028},{nome:'BRASILPHONE',abs:4938},{nome:'COMPRA CERTA COMERCIAL LTDA',abs:4674}],'2026-W29':[{nome:'DIGEL',abs:7896},{nome:'PRECOLANDIA',abs:5571},{nome:'SONNIC SOUND CENTER',abs:5501},{nome:'CASA DAS GRIFFES STORE',abs:2698},{nome:'BASSI & BORGES LTDA',abs:2674}],'2026-W30':[{nome:'PRECOLANDIA',abs:12703},{nome:'DIGEL',abs:9735},{nome:'SONNIC SOUND CENTER',abs:6219},{nome:'G3 CONCEPT LTDA',abs:3488},{nome:'THREE C STEP UP',abs:3204}],'2026-W31':[{nome:'PRECOLANDIA',abs:8991},{nome:'DIGEL',abs:8928},{nome:'SONNIC SOUND CENTER',abs:4251},{nome:'G3 CONCEPT LTDA',abs:3555},{nome:'THREE C STEP UP',abs:2852}],};
 var weekly21Doms={'2026-W24':[{dom:'MLB-SUPPLEMENTS',abs:5150},{dom:'MLB-DRESSES',abs:338},{dom:'MLB-T_SHIRTS',abs:328},{dom:'MLB-JACKETS_AND_COATS',abs:318},{dom:'MLB-VEHICLE_SUSPENSION_BALL_JOINTS',abs:313}],'2026-W25':[{dom:'MLB-SUPPLEMENTS',abs:1727},{dom:'MLB-TABLE_AND_DESK_LAMPS',abs:1175},{dom:'MLB-FLOOR_CEILING_AND_WALL_LIGHTS',abs:1163},{dom:'MLB-VEHICLE_SUSPENSION_CONTROL_ARM_BUSHINGS',abs:629},{dom:'MLB-JACKETS_AND_COATS',abs:595}],'2026-W26':[{dom:'MLB-SUPPLEMENTS',abs:2185},{dom:'MLB-FLOOR_CEILING_AND_WALL_LIGHTS',abs:1481},{dom:'MLB-TABLE_AND_DESK_LAMPS',abs:1220},{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:1110},{dom:'MLB-DISHES_PLATES',abs:924}],'2026-W27':[{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:2918},{dom:'MLB-SUPPLEMENTS',abs:1952},{dom:'MLB-DISHES_PLATES',abs:1097},{dom:'MLB-FLOOR_CEILING_AND_WALL_LIGHTS',abs:879},{dom:'MLB-MIRRORS',abs:869}],'2026-W28':[{dom:'MLB-CELLPHONE_CASES_AND_COVERS',abs:3509},{dom:'MLB-SNEAKERS',abs:3255},{dom:'MLB-PANTS',abs:2117},{dom:'MLB-SUPPLEMENTS',abs:1865},{dom:'MLB-ELECTRICAL_CABLES',abs:1789}],'2026-W29':[{dom:'MLB-PANTS',abs:3469},{dom:'MLB-SUPPLEMENTS',abs:1760},{dom:'MLB-ELECTRICAL_CABLES',abs:1624},{dom:'MLB-SNEAKERS',abs:1460},{dom:'MLB-FLOOR_CEILING_AND_WALL_LIGHTS',abs:1434}],'2026-W30':[{dom:'MLB-SUPPLEMENTS',abs:5219},{dom:'MLB-PANTS',abs:4033},{dom:'MLB-ELECTRICAL_CABLES',abs:1895},{dom:'MLB-SURVEILLANCE_CAMERAS',abs:1714},{dom:'MLB-SNEAKERS',abs:1638}],'2026-W31':[{dom:'MLB-SUPPLEMENTS',abs:4279},{dom:'MLB-PANTS',abs:3587},{dom:'MLB-ELECTRICAL_CABLES',abs:1977},{dom:'MLB-MARTIAL_ARTS_AND_BOXING_GLOVES',abs:1641},{dom:'MLB-SURVEILLANCE_CAMERAS',abs:1479}],};
-
 function buildWeekly21Section(){
   var wrap=document.getElementById('weekly-breakdown-21');
   var wLabels={'2026-W24':'W24','2026-W25':'W25','2026-W26':'W26','2026-W27':'W27','2026-W28':'W28','2026-W29':'W29','2026-W30':'W30','2026-W31':'W31'};
   var wPer=['8-12 jun','15-19 jun','22-26 jun','29jun-3jul','6-10 jul','13-17 jul','20-24 jul','27-31 jul'];
   var wk=['2026-W24','2026-W25','2026-W26','2026-W27','2026-W28','2026-W29','2026-W30','2026-W31'];
-
   function buildTable(dataMap, keyField, color, title) {
     var s='<div style="margin-top:20px"><div style="font-size:10px;font-weight:800;color:#1a2a4a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">'+title+'</div>';
     s+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:8.5px"><thead><tr style="background:#c0392b">';
@@ -1166,13 +1400,11 @@ function buildWeekly21Section(){
     s+='</tbody></table></div></div>';
     return s;
   }
-
   wrap.innerHTML = buildTable(weekly21Sellers,'Seller','#c0392b','Top 5 sellers en posicion 21+ · por semana') +
                    buildTable(weekly21Doms,'Dominio','#c0392b','Top 5 dominios en posicion 21+ · por semana');
 }
 buildWeekly21Section();
 })();
-
 // CTR instant vs no-instant · todas las posiciones en 1 gráfico · W31
 // CTR comparativo W32 · POSITION_BASE_FLAGGED
 (function(){
@@ -1273,16 +1505,13 @@ buildWeekly21Section();
   });
   tbl.innerHTML=h+'</tbody>';
 })();
-
 var sellersData = [{rank:1,nome:'LINA LINGERIE LTDA',aparic:'2043',pct5:'30.3%',pos:'14'},{rank:2,nome:'GIRL COMERCIO DE VESTUARIO STORE LTDA',aparic:'3330',pct5:'27.8%',pos:'15.3'},{rank:3,nome:'ANGEL  ELETRONICOS & INFORMATICA LTDA',aparic:'29221',pct5:'26.6%',pos:'16.3'},{rank:4,nome:'RCA HOME TECH LTDA',aparic:'22976',pct5:'26.3%',pos:'16.5'},{rank:5,nome:'GRUPO EX',aparic:'2135',pct5:'26.1%',pos:'15.7'},{rank:6,nome:'C.B. COMERCIO DE PRESENTES LTDA',aparic:'8779',pct5:'24.2%',pos:'16.1'},{rank:7,nome:'STILLUS HOME',aparic:'3701',pct5:'23.6%',pos:'16.9'},{rank:8,nome:'NEW STORE MIX',aparic:'4429',pct5:'23.5%',pos:'15.2'},{rank:9,nome:'57.591.290 HERITO DOS SANTOS',aparic:'5685',pct5:'23.3%',pos:'17.5'},{rank:10,nome:'KOMPRA LOGO LTDA',aparic:'4382',pct5:'22.5%',pos:'17.6'},{rank:11,nome:'WOMAN VILLAGE FASHION',aparic:'35694',pct5:'22.2%',pos:'16.4'},{rank:12,nome:'KAVOD BRASIL',aparic:'140',pct5:'21.4%',pos:'17.7'},{rank:13,nome:'ENJOY PETS LTDA',aparic:'11411',pct5:'21.4%',pos:'16.9'},{rank:14,nome:'PARAMAR COMERCIO DE PARAFUSOS E PECAS LTDA',aparic:'20034',pct5:'20.5%',pos:'17.3'},{rank:15,nome:'KAUANE SILVA SANTOS ARTIGOS DO VESTUARIO',aparic:'3006',pct5:'20.5%',pos:'16.3'},{rank:16,nome:'LONG COMERCIO ONLINE LTDA',aparic:'7584',pct5:'20.4%',pos:'17.6'},{rank:17,nome:'SOPRA BALAO ARTIGOS PARA FESTAS E BRINQUEDOS LTDA.',aparic:'8157',pct5:'20%',pos:'17.9'},{rank:18,nome:'COMPRA CERTA COMERCIAL LTDA',aparic:'14271',pct5:'19.7%',pos:'16.5'},{rank:19,nome:'PRECOLANDIA',aparic:'154908',pct5:'19.6%',pos:'17.5'},{rank:20,nome:'CASA DAS GRIFFES STORE',aparic:'37281',pct5:'19.3%',pos:'17.5'},{rank:21,nome:'LUCKY FESTA',aparic:'2748',pct5:'19.1%',pos:'18.6'},{rank:22,nome:'M&R SHOP COMERCIO VAREJISTA DE ACESSORIOS LTDA',aparic:'4097',pct5:'18.8%',pos:'17.4'},{rank:23,nome:'MODA 2023',aparic:'27821',pct5:'18.8%',pos:'17.2'},{rank:24,nome:'GR DO BRASIL LTDA',aparic:'5266',pct5:'18.6%',pos:'17.5'},{rank:25,nome:'ABEX IMPORTACAO E DISTRIBUICAO DE PECAS LTDA',aparic:'15189',pct5:'18.4%',pos:'18'},{rank:26,nome:'HERANCA DISTRIBUIDORA',aparic:'3713',pct5:'17.7%',pos:'17.1'},{rank:27,nome:'L.S LOCAL SURF COMERCIO E CONFECCAO LTDA',aparic:'7262',pct5:'17.4%',pos:'17.4'},{rank:28,nome:'VERE COMERCIAL DISTRIBUIDORA',aparic:'5172',pct5:'17.3%',pos:'18.2'},{rank:29,nome:'BRASILPHONE',aparic:'27195',pct5:'17%',pos:'18.2'},{rank:30,nome:'BLUE MONKEY',aparic:'59676',pct5:'16.9%',pos:'19.2'}];
 var topData = [{rank:1,dom:'MLB-KITCHEN_MANUAL_SQUEEZERS',aparic:'208',pct5:'68.3%',pct21:'23.6%',pos:'10.4'},{rank:2,dom:'MLB-POPCORN_MACHINES',aparic:'33',pct5:'60.6%',pct21:'12.1%',pos:'7.9'},{rank:3,dom:'MLB-FOOTBALL_BALLS',aparic:'43',pct5:'60.5%',pct21:'2.3%',pos:'6.3'},{rank:4,dom:'MLB-PAJAMAS',aparic:'38',pct5:'60.5%',pct21:'13.2%',pos:'9.1'},{rank:5,dom:'MLB-VEHICLE_REFLECTIVE_TAPES',aparic:'31',pct5:'58.1%',pct21:'12.9%',pos:'9.7'},{rank:6,dom:'MLB-FISHING_ROD_CASES',aparic:'28',pct5:'57.1%',pct21:'17.9%',pos:'9.7'},{rank:7,dom:'MLB-CAKE_TOPPERS',aparic:'39',pct5:'56.4%',pct21:'20.5%',pos:'11'},{rank:8,dom:'MLB-PORTABLE_HANGING_SCALES',aparic:'29',pct5:'55.2%',pct21:'24.1%',pos:'13.9'},{rank:9,dom:'MLB-PUNCHING_BAGS',aparic:'24',pct5:'54.2%',pct21:'25%',pos:'10.9'},{rank:10,dom:'MLB-MOTORCYCLE_RAIN_SUITS',aparic:'34',pct5:'52.9%',pct21:'38.2%',pos:'13.4'},{rank:11,dom:'MLB-VEHICLE_ENGINE_COOLANT_THERMOSTAT_HOUSINGS',aparic:'25',pct5:'52%',pct21:'28%',pos:'10.6'},{rank:12,dom:'MLB-TOASTERS',aparic:'137',pct5:'51.8%',pct21:'19.7%',pos:'10.9'},{rank:13,dom:'MLB-PADLOCKS',aparic:'35',pct5:'51.4%',pct21:'17.1%',pos:'9.6'},{rank:14,dom:'MLB-JUMP_ROPES',aparic:'245',pct5:'49.4%',pct21:'17.1%',pos:'11.4'},{rank:15,dom:'MLB-CUTTING_PLIERS',aparic:'60',pct5:'48.3%',pct21:'11.7%',pos:'9.3'},{rank:16,dom:'MLB-WRENCHES',aparic:'27',pct5:'48.1%',pct21:'33.3%',pos:'16.7'},{rank:17,dom:'MLB-PC_THERMAL_COMPOUND_PASTES',aparic:'25',pct5:'48%',pct21:'12%',pos:'9.6'},{rank:18,dom:'MLB-SOFT_DRINKS',aparic:'21',pct5:'47.6%',pct21:'33.3%',pos:'17.8'},{rank:19,dom:'MLB-VEHICLE_BRAKE_FLUIDS',aparic:'301',pct5:'47.2%',pct21:'6%',pos:'7.7'},{rank:20,dom:'MLB-BALLOON_STICKS',aparic:'93',pct5:'46.2%',pct21:'20.4%',pos:'9.5'},{rank:21,dom:'MLB-BROOMS',aparic:'33',pct5:'45.5%',pct21:'36.4%',pos:'15'},{rank:22,dom:'MLB-INFANTS_HARNESSES_AND_WRIST_LEASHES',aparic:'20',pct5:'45%',pct21:'25%',pos:'12.6'},{rank:23,dom:'MLB-TRAVEL_PILLOWS',aparic:'127',pct5:'44.9%',pct21:'22%',pos:'12.6'},{rank:24,dom:'MLB-POP_FILTERS',aparic:'29',pct5:'44.8%',pct21:'13.8%',pos:'9.5'},{rank:25,dom:'MLB-BLENDER_JARS',aparic:'27',pct5:'44.4%',pct21:'33.3%',pos:'13.6'},{rank:26,dom:'MLB-CAT_HOUSES',aparic:'94',pct5:'43.6%',pct21:'31.9%',pos:'14.1'},{rank:27,dom:'MLB-SWIMWEAR',aparic:'1444',pct5:'43.5%',pct21:'19.1%',pos:'11.7'},{rank:28,dom:'MLB-AUDIO_AND_VIDEO_OPTICAL_LASER_LENSES',aparic:'30',pct5:'43.3%',pct21:'26.7%',pos:'14.1'},{rank:29,dom:'MLB-MINERAL_WATERS',aparic:'54',pct5:'42.6%',pct21:'29.6%',pos:'16.9'},{rank:30,dom:'MLB-SPORT_AND_MEDICAL_BANDAGES',aparic:'301',pct5:'42.5%',pct21:'27.2%',pos:'12.8'}];
 var botData = [{rank:1,dom:'MLB-CHAIR_COVERS',aparic:'28',pct5:'3.6%',pct21:'92.9%',pos:'28'},{rank:2,dom:'MLB-PARTY_GLASSES',aparic:'28',pct5:'7.1%',pct21:'85.7%',pos:'26.5'},{rank:3,dom:'MLB-MOTORCYCLE_SPEEDOMETER_CABLES',aparic:'52',pct5:'7.7%',pct21:'80.8%',pos:'31.7'},{rank:4,dom:'MLB-VEHICLE_FUEL_TANKS',aparic:'85',pct5:'0%',pct21:'78.8%',pos:'31.8'},{rank:5,dom:'MLB-FLASHLIGHTS',aparic:'67',pct5:'9%',pct21:'76.1%',pos:'26.5'},{rank:6,dom:'MLB-WALKIE_TALKIES',aparic:'113',pct5:'13.3%',pct21:'74.3%',pos:'24.2'},{rank:7,dom:'MLB-SHOE_RACKS_AND_CABINETS',aparic:'118',pct5:'10.2%',pct21:'72.9%',pos:'25.3'},{rank:8,dom:'MLB-AIR_CONDITIONER_BLOWER_WHEELS',aparic:'50',pct5:'12%',pct21:'72%',pos:'25.6'},{rank:9,dom:'MLB-MEMORY_CARDS',aparic:'399',pct5:'4.5%',pct21:'71.2%',pos:'26.9'},{rank:10,dom:'MLB-MANUAL_GRAIN_MILLS',aparic:'31',pct5:'16.1%',pct21:'71%',pos:'21.8'},{rank:11,dom:'MLB-HAIR_DRYER_AND_FLAT_IRON_HOLDERS',aparic:'27',pct5:'3.7%',pct21:'70.4%',pos:'26.7'},{rank:12,dom:'MLB-UPS_BATTERIES',aparic:'37',pct5:'8.1%',pct21:'70.3%',pos:'24.1'},{rank:13,dom:'MLB-MODULAR_PLUGS',aparic:'66',pct5:'7.6%',pct21:'69.7%',pos:'26.3'},{rank:14,dom:'MLB-COLANDERS',aparic:'217',pct5:'15.7%',pct21:'69.6%',pos:'23.6'},{rank:15,dom:'MLB-MOTOR_STARTERS',aparic:'476',pct5:'6.1%',pct21:'69.5%',pos:'30'},{rank:16,dom:'MLB-AUDIO_AMPLIFIERS',aparic:'25',pct5:'4%',pct21:'68%',pos:'24.2'},{rank:17,dom:'MLB-WASHING_MACHINE_MOTORS',aparic:'85',pct5:'7.1%',pct21:'67.1%',pos:'24.2'},{rank:18,dom:'MLB-REFRIGERATORS_AND_FREEZERS_DOOR_HANDLES',aparic:'71',pct5:'11.3%',pct21:'66.2%',pos:'23.2'},{rank:19,dom:'MLB-OTHER_VEHICLE_DRUM_BRAKE_WHEEL_CYLINDERS',aparic:'99',pct5:'13.1%',pct21:'65.7%',pos:'19.2'},{rank:20,dom:'MLB-PARTY_BRACELETS_AND_NECKLACES',aparic:'64',pct5:'7.8%',pct21:'65.6%',pos:'21.3'},{rank:21,dom:'MLB-DOORBELLS',aparic:'54',pct5:'14.8%',pct21:'64.8%',pos:'24.4'},{rank:22,dom:'MLB-VIDEOKE_TRANSFER_KITS',aparic:'31',pct5:'12.9%',pct21:'64.5%',pos:'23.3'},{rank:23,dom:'MLB-RAMEKINS',aparic:'58',pct5:'22.4%',pct21:'63.8%',pos:'20.8'},{rank:24,dom:'MLB-PARTY_SUPPLY_KITS',aparic:'55',pct5:'12.7%',pct21:'63.6%',pos:'21.1'},{rank:25,dom:'MLB-HAIR_ROLLERS',aparic:'30',pct5:'13.3%',pct21:'63.3%',pos:'22.8'},{rank:26,dom:'MLB-SWEET_PREMIXES',aparic:'91',pct5:'7.7%',pct21:'62.6%',pos:'24.2'},{rank:27,dom:'MLB-LINGERIE_SETS',aparic:'72',pct5:'9.7%',pct21:'62.5%',pos:'18.7'},{rank:28,dom:'MLB-WASHING_AND_DRYER_MACHINE_BEARINGS',aparic:'21',pct5:'0%',pct21:'61.9%',pos:'31.3'},{rank:29,dom:'MLB-HAIR_REMOVAL_KITS',aparic:'102',pct5:'9.8%',pct21:'61.8%',pos:'23.1'},{rank:30,dom:'MLB-DISPOSABLE_CUPS',aparic:'244',pct5:'11.5%',pct21:'61.1%',pos:'23.5'}];
-
 // Add top5 absolute to sellers and domains
 sellersData.forEach(function(r){r.top5abs=Math.round(parseFloat(r.pct5)/100*parseInt(r.aparic));});
 topData.forEach(function(r){r.top5abs=Math.round(parseFloat(r.pct5)/100*parseInt(r.aparic));});
 botData.forEach(function(r){r.top5abs=Math.round(parseFloat(r.pct5)/100*parseInt(r.aparic));});
-
 var sellersSortDir={aparic:-1,top5abs:-1,pct:-1};
 function renderSellers(data){
   var tb=document.getElementById('tbody-sellers'); tb.innerHTML='';
@@ -1301,14 +1530,12 @@ function sortSellers(col){
   renderSellers(sorted);
 }
 renderSellers(sellersData);
-
 // CVR por tipo de promesa · W24-W32
 (function(){
-  var wk      = ['W24','W25','W26','W27','W28','W29','W30','W31','W32'];
-  var instant = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01,7.39];
-  var no_inst = [4.72,4.51,4.21,5.18,4.53,4.84,4.73,5.01,5.44];
-  var varPct  = ['~0%','+51%','+64%','+71%','+59%','+42%','+29%','+40%','+36%'];
-
+  var wk      = ['W24','W25','W26','W27','W28','W29','W30','W31','W32','W33','W34'];
+  var instant = [4.69,6.81,6.92,8.86,7.22,6.88,6.09,7.01,7.39,6.66,7.98];
+  var no_inst = [4.72,4.51,4.21,5.18,4.53,4.84,4.73,5.01,5.13,5.10,5.48];
+  var varPct  = ['~0%','+51%','+64%','+71%','+59%','+42%','+29%','+40%','+44%','+31%','+46%'];
   new Chart(document.getElementById('chartCvrTipo'),{
     type:'bar',
     data:{labels:wk,datasets:[
@@ -1344,7 +1571,6 @@ renderSellers(sellersData);
     }}]
   });
 })();
-
 var domSortDir={top:{aparic:-1,top5abs:-1,pct5:-1,pct21:1},bot:{aparic:-1,top5abs:-1,pct5:-1,pct21:1}};
 function renderDom(which, data){
   var tb=document.getElementById('tbody-'+which); tb.innerHTML='';
@@ -1369,4 +1595,3 @@ renderDom('bot',botData);
 </script>
 </body>
 </html>
-
