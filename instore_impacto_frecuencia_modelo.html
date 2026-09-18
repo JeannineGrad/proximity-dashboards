@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Quick Commerce Growth Framework</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; gap:14px; padding:20px; }
+.slide { width:1100px; height:620px; background:#fff; overflow:hidden; position:relative; box-shadow:0 8px 48px rgba(0,0,0,.5); display:none; }
+.slide.active { display:block; }
+.slide::before,.slide::after { content:''; position:absolute; left:0; right:0; height:6px; background:#FFB700; z-index:10; }
+.slide::before { top:0; } .slide::after { bottom:0; }
+.si { padding:24px 40px 20px; height:100%; display:flex; flex-direction:column; }
+.snum { position:absolute; top:12px; right:18px; font-size:10px; color:#bbb; font-weight:700; }
+.stitle { font-size:20px; font-weight:800; color:#1a2454; line-height:1.15; }
+.ssub { font-size:11.5px; color:#888; margin-top:3px; }
+.sdiv { height:2px; background:#e8eaf2; margin:10px 0 16px; }
+
+/* SLIDE 1: dos lecturas */
+.split-row { display:flex; gap:0; flex:1; min-height:0; }
+.split-col { flex:1; display:flex; flex-direction:column; align-items:center; padding:0 24px; }
+.split-hdr { font-size:12.5px; font-weight:800; color:#1a2454; text-align:center; margin-bottom:8px; }
+.split-divider { width:2px; background:#e8eaf2; margin:0 4px; position:relative; }
+.mid-arrow { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border:2px solid #FFB700; color:#1a2454; font-size:16px; font-weight:900; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+
+.split-body { display:flex; gap:14px; align-items:flex-start; }
+.stackbar { width:70px; height:170px; border-radius:8px; overflow:hidden; display:flex; flex-direction:column-reverse; box-shadow:0 2px 8px rgba(0,0,0,.08); flex:none; }
+.sseg { width:100%; }
+.seg-stats { display:flex; flex-direction:column; gap:6px; padding-top:2px; }
+.seg-stat-row { display:flex; align-items:baseline; gap:6px; font-size:11px; }
+.seg-stat-dot { width:9px; height:9px; border-radius:3px; flex:none; margin-right:2px; }
+.seg-stat-name { font-weight:800; color:#1a2454; min-width:78px; }
+.seg-stat-pct { font-weight:900; color:#1a2454; }
+.seg-stat-freq { color:#888; font-weight:700; }
+
+.totals-bar { display:flex; justify-content:center; gap:28px; margin-bottom:10px; }
+.totals-chip { background:#f8f9fc; border:1px solid #e8eaf2; border-radius:8px; padding:6px 16px; text-align:center; }
+.totals-chip .tv { font-size:15px; font-weight:900; color:#1a2454; }
+.totals-chip .tl { font-size:8.5px; color:#888; font-weight:700; text-transform:uppercase; letter-spacing:.3px; }
+
+.stock-bar-wrap { margin:0 auto 14px; width:560px; }
+.stock-bar-lbl { font-size:9.5px; color:#888; font-weight:700; text-align:center; margin-bottom:4px; }
+.stock-bar { display:flex; height:26px; border-radius:6px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,.08); }
+.stock-seg { display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:800; text-shadow:0 1px 2px rgba(0,0,0,.4); }
+
+.mini-legend { display:flex; flex-direction:column; gap:5px; width:100%; }
+.mini-item { display:flex; align-items:center; gap:7px; font-size:10.5px; color:#444; }
+.mini-dot { width:10px; height:10px; border-radius:3px; flex:none; }
+.mini-item b { color:#1a2454; }
+
+.note-box { margin-top:8px; background:#f8f9fc; border:1px solid #e8eaf2; border-radius:8px; padding:8px 12px; font-size:9.5px; color:#555; line-height:1.3; }
+
+/* SLIDE 2: evolucion */
+.chart-row { display:flex; gap:26px; justify-content:center; align-items:flex-start; flex:0 0 auto; height:340px; padding:10px 10px 0; }
+.col { display:flex; flex-direction:column; align-items:center; width:225px; }
+.freq-num { font-size:28px; font-weight:900; color:#1a2454; line-height:1; }
+.freq-lbl { font-size:9px; color:#888; font-weight:700; text-transform:uppercase; letter-spacing:.4px; margin-bottom:10px; }
+.bar-body { display:flex; gap:10px; align-items:center; }
+.bar { width:46px; height:190px; border-radius:7px; overflow:hidden; display:flex; flex-direction:column-reverse; box-shadow:0 2px 8px rgba(0,0,0,.08); flex:none; }
+.seg { width:100%; }
+.col-lbl { margin-top:10px; font-size:12.5px; font-weight:800; color:#1a2454; }
+.col-date { font-size:9px; color:#999; }
+.col-stats { font-size:8.5px; color:#666; font-weight:700; margin-top:2px; }
+.arrow { font-size:18px; color:#c7cbe0; align-self:center; margin-top:150px; }
+.mini-stat-row { display:flex; align-items:baseline; gap:5px; font-size:9.5px; }
+.mini-stat-dot { width:8px; height:8px; border-radius:3px; flex:none; }
+.mini-stat-name { font-weight:800; color:#1a2454; min-width:64px; }
+.mini-stat-pct { font-weight:900; color:#1a2454; }
+.mini-stat-freq { color:#888; font-weight:700; }
+.mini-stats-col { display:flex; flex-direction:column; gap:7px; }
+
+.legend-row { display:flex; gap:22px; justify-content:center; margin-top:8px; }
+.leg-item { display:flex; align-items:center; gap:6px; font-size:10px; color:#444; font-weight:600; }
+.leg-dot { width:10px; height:10px; border-radius:3px; }
+
+.organic-note { margin-top:14px; background:#fff8e6; border:1px solid #FFE39B; border-radius:8px; padding:10px 14px; font-size:10.5px; color:#7a5c00; }
+.organic-note b { color:#5c4400; }
+
+/* SLIDE INTRO: que buscamos */
+.intro-statement { font-size:17px; font-weight:700; color:#1a2454; text-align:center; line-height:1.4; margin:14px 40px 26px; }
+.intro-statement b { color:#00a878; }
+.journey-row { display:flex; align-items:stretch; justify-content:center; gap:0; margin-bottom:24px; }
+.journey-step { display:flex; flex-direction:column; align-items:center; width:150px; }
+.journey-box { width:120px; height:54px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:12.5px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+.journey-arrow { display:flex; align-items:center; color:#c7cbe0; font-size:20px; padding:0 4px; }
+.journey-tag { margin-top:8px; font-size:9.5px; color:#666; text-align:center; max-width:130px; line-height:1.3; }
+.journey-sub-row { display:flex; gap:8px; margin-top:8px; }
+.journey-sub { background:#f8f9fc; border:1px solid #e8eaf2; border-radius:5px; padding:4px 6px; font-size:8.5px; font-weight:700; color:#1a2454; text-align:center; }
+
+.goal-row { display:flex; gap:16px; justify-content:center; margin-top:auto; }
+.goal-chip { flex:1; max-width:280px; background:#f8f9fc; border:1px solid #e8eaf2; border-left:5px solid #1a2454; border-radius:8px; padding:12px 16px; }
+.goal-chip.g2 { border-left-color:#FFB700; }
+.goal-chip.g3 { border-left-color:#00a878; }
+.goal-chip h5 { font-size:12px; font-weight:800; color:#1a2454; margin-bottom:4px; }
+.goal-chip p { font-size:10px; color:#555; line-height:1.35; }
+
+/* SLIDE FRAMEWORK: etapas y objetivos (layout vertical + corchete) */
+.fw-wrap { flex:1; display:flex; align-items:center; gap:0; }
+.fw-left { display:flex; flex-direction:column; align-items:center; justify-content:space-between; height:340px; width:190px; flex:none; }
+.macro-step { display:flex; flex-direction:column; align-items:center; }
+.macro-box { width:170px; height:52px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:13px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+.macro-obj { margin-top:6px; font-size:10px; color:#666; text-align:center; font-weight:700; }
+.macro-arrow-v { color:#c7cbe0; font-size:20px; }
+
+.fw-bracket { flex:none; width:60px; height:340px; }
+
+.fw-right { flex:1; display:flex; flex-direction:column; justify-content:space-between; height:340px; }
+.ladder-card { display:flex; align-items:stretch; border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.1); height:72px; }
+.ladder-top { color:#fff; padding:10px 16px; width:150px; flex:none; display:flex; flex-direction:column; justify-content:center; }
+.ladder-top .lt-name { font-size:14px; font-weight:900; }
+.ladder-top .lt-freq { font-size:10.5px; opacity:.9; font-weight:700; }
+.ladder-bottom { background:#f8f9fc; border:1px solid #e8eaf2; border-left:none; padding:10px 16px; flex:1; display:flex; flex-direction:column; justify-content:center; }
+.ladder-bottom .lb-lbl { font-size:8.5px; color:#999; font-weight:700; text-transform:uppercase; letter-spacing:.3px; }
+.ladder-bottom .lb-val { font-size:13px; font-weight:800; color:#1a2454; margin-top:2px; }
+
+/* SLIDE COVER */
+.cover-si { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.cover-kicker { font-size:12px; font-weight:800; color:#FFB700; text-transform:uppercase; letter-spacing:2px; margin-bottom:14px; }
+.cover-title { font-size:38px; font-weight:900; color:#1a2454; line-height:1.15; max-width:800px; }
+.cover-sub { font-size:14px; color:#888; margin-top:18px; }
+.cover-line { width:80px; height:4px; background:#00a878; border-radius:2px; margin-top:24px; }
+
+#nav { display:flex; align-items:center; gap:20px; user-select:none; }
+.nav-btn { background:rgba(26,36,84,.12); border:none; color:#1a2454; width:40px; height:40px; border-radius:50%; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.nav-btn:disabled { opacity:.25; }
+#nav-dots { display:flex; gap:8px; }
+.ndot { width:8px; height:8px; border-radius:50%; background:rgba(26,36,84,.2); cursor:pointer; }
+.ndot.active { background:#FFB700; }
+#nav-label { color:#888; font-size:12px; min-width:44px; text-align:center; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: CARATULA -->
+<div class="slide active">
+  <div class="cover-si">
+    <span class="snum">1</span>
+    <div class="cover-kicker">Growth · Lifecycle</div>
+    <div class="cover-title">Quick Commerce Growth Framework</div>
+    <div class="cover-line"></div>
+    <div class="cover-sub">Retención y frecuencia</div>
+  </div>
+</div>
+
+<!-- SLIDE 2: INTRO + FRAMEWORK -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">2</span>
+    <div class="stitle">¿Qué buscamos con este framework?</div>
+    <div class="sdiv"></div>
+
+    <div class="intro-statement">
+      Entender <b>en qué etapa de maduración</b> está cada buyer para diseñar <b>palancas y estímulos específicos</b> que aseguren su retención, aceleren su frecuencia de compra y sean eficientes en el uso de recursos.
+    </div>
+
+    <div class="fw-wrap">
+      <div class="fw-left">
+        <div class="macro-step">
+          <div class="macro-box" style="background:#2E86DE;">Trial</div>
+          <div class="macro-obj">Activación</div>
+        </div>
+        <div class="macro-arrow-v">&#8595;</div>
+        <div class="macro-step">
+          <div class="macro-box" style="background:#FFB700;">Onboarding</div>
+          <div class="macro-obj">Retención</div>
+        </div>
+        <div class="macro-arrow-v">&#8595;</div>
+        <div class="macro-step">
+          <div class="macro-box" style="background:#00a878;">Graduación</div>
+          <div class="macro-obj">Frecuencia y cross-sell</div>
+        </div>
+      </div>
+
+      <svg class="fw-bracket" viewBox="0 0 60 340" preserveAspectRatio="none">
+        <path d="M0,305 C25,305 25,36 55,36" fill="none" stroke="#c7cbe0" stroke-width="2"/>
+        <path d="M0,305 C25,305 25,125 55,125" fill="none" stroke="#c7cbe0" stroke-width="2"/>
+        <path d="M0,305 C25,305 25,215 55,215" fill="none" stroke="#c7cbe0" stroke-width="2"/>
+        <path d="M0,305 C25,305 25,304 55,304" fill="none" stroke="#c7cbe0" stroke-width="2"/>
+      </svg>
+
+      <div class="fw-right">
+        <div class="ladder-card">
+          <div class="ladder-top" style="background:#BBDFF7;">
+            <div class="lt-name" style="color:#0d1638;">Casual</div>
+            <div class="lt-freq" style="color:#0d1638;">1/mes</div>
+          </div>
+          <div class="ladder-bottom">
+            <div class="lb-lbl">Prioridad</div>
+            <div class="lb-val">Subir frecuencia en la categoría</div>
+          </div>
+        </div>
+        <div class="ladder-card">
+          <div class="ladder-top" style="background:#5B9BD5;">
+            <div class="lt-name">Core</div>
+            <div class="lt-freq">2-3/mes</div>
+          </div>
+          <div class="ladder-bottom">
+            <div class="lb-lbl">Prioridad</div>
+            <div class="lb-val">Adopción de Fresh</div>
+          </div>
+        </div>
+        <div class="ladder-card">
+          <div class="ladder-top" style="background:#2E5FA3;">
+            <div class="lt-name">Power</div>
+            <div class="lt-freq">4-5/mes</div>
+          </div>
+          <div class="ladder-bottom">
+            <div class="lb-lbl">Prioridad</div>
+            <div class="lb-val">Cross-sell entre verticales</div>
+          </div>
+        </div>
+        <div class="ladder-card">
+          <div class="ladder-top" style="background:#17325C;">
+            <div class="lt-name">Super Power</div>
+            <div class="lt-freq">6+/mes</div>
+          </div>
+          <div class="ladder-bottom">
+            <div class="lb-lbl">Prioridad</div>
+            <div class="lb-val">Cross-sell entre verticales</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: HOY, DOS LECTURAS -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">3</span>
+    <div class="stitle">Hoy: la misma base, dos lecturas</div>
+    <div class="ssub">Ejemplo: Groceries MLA · Cohort de 4 tiendas · antes del cambio a instant delivery (ago-26)</div>
+    <div class="sdiv"></div>
+
+    <div class="totals-bar">
+      <div class="totals-chip"><div class="tv">4.823</div><div class="tl">Buyers activos/mes</div></div>
+      <div class="totals-chip"><div class="tv">5.993</div><div class="tl">Órdenes/mes</div></div>
+      <div class="totals-chip"><div class="tv">1,24x</div><div class="tl">Frecuencia blended</div></div>
+      <div class="totals-chip"><div class="tv">25.130</div><div class="tl">Stock ever</div></div>
+    </div>
+
+    <div class="stock-bar-wrap">
+      <div class="stock-bar-lbl">Del stock ever (25.130), cuánto está activo hoy vs. dormido</div>
+      <div class="stock-bar">
+        <div class="stock-seg" style="width:19.2%; background:#00a878;">Activo 19,2%</div>
+        <div class="stock-seg" style="width:80.8%; background:#8a90a3;">Dormido — compró alguna vez pero no este mes (80,8%)</div>
+      </div>
+    </div>
+
+    <div class="split-row">
+      <div class="split-col">
+        <div class="split-hdr">Vista clásica</div>
+        <div class="split-body">
+          <div class="stackbar">
+            <div class="sseg" style="height:57.9%; background:#4DC3E8;"></div>
+            <div class="sseg" style="height:20.7%; background:#2E86DE;"></div>
+            <div class="sseg" style="height:21.2%; background:#7B61FF;"></div>
+          </div>
+          <div class="seg-stats">
+            <div class="seg-stat-row"><div class="seg-stat-dot" style="background:#4DC3E8;"></div><span class="seg-stat-name">New</span><span class="seg-stat-pct">58%</span><span class="seg-stat-freq">· 1,09x</span></div>
+            <div class="seg-stat-row"><div class="seg-stat-dot" style="background:#2E86DE;"></div><span class="seg-stat-name">Repeat</span><span class="seg-stat-pct">21%</span><span class="seg-stat-freq">· 1,75x</span></div>
+            <div class="seg-stat-row"><div class="seg-stat-dot" style="background:#7B61FF;"></div><span class="seg-stat-name">Resurrected</span><span class="seg-stat-pct">21%</span><span class="seg-stat-freq">· 1,16x</span></div>
+          </div>
+        </div>
+        <div class="mini-legend">
+          <div class="mini-item"><div class="mini-dot" style="background:#4DC3E8;"></div><b>New:</b>&nbsp;1ª compra ever en el mes.</div>
+          <div class="mini-item"><div class="mini-dot" style="background:#2E86DE;"></div><b>Repeat:</b>&nbsp;compró este mes y también el anterior.</div>
+          <div class="mini-item"><div class="mini-dot" style="background:#7B61FF;"></div><b>Resurrected:</b>&nbsp;ya había comprado antes, pero no el mes pasado.</div>
+        </div>
+      </div>
+
+      <div class="split-divider"><div class="mid-arrow">&#8594;</div></div>
+
+      <div class="split-col">
+        <div class="split-hdr">Vista propuesta (por maduración)</div>
+        <div class="split-body">
+          <div class="stackbar">
+            <div class="sseg" style="height:57.9%; background:#4DC3E8;"></div>
+            <div class="sseg" style="height:9.6%; background:#FFB700;"></div>
+            <div class="sseg" style="height:5.9%; background:#00a878;"></div>
+            <div class="sseg" style="height:26.4%; background:#8a90a3;"></div>
+          </div>
+          <div class="seg-stats">
+            <div class="seg-stat-row"><div class="seg-stat-dot" style="background:#4DC3E8;"></div><span class="seg-stat-name">New</span><span class="seg-stat-pct">58%</span><span class="seg-stat-freq">· 1,09x</span></div>
+            <div class="seg-stat-row"><div class="seg-stat-dot" style="background:#FFB700;"></div><span class="seg-stat-name">En Onboarding</span><span class="seg-stat-pct">10%</span><span class="seg-stat-freq">· 1,47x</span></div>
+            <div class="seg-stat-row"><div class="seg-stat-dot" style="background:#00a878;"></div><span class="seg-stat-name">Graduados</span><span class="seg-stat-pct">6%</span><span class="seg-stat-freq">· 2,26x</span></div>
+            <div class="seg-stat-row"><div class="seg-stat-dot" style="background:#8a90a3;"></div><span class="seg-stat-name">No Graduados</span><span class="seg-stat-pct">26%</span><span class="seg-stat-freq">· 1,27x</span></div>
+          </div>
+        </div>
+        <div class="mini-legend">
+          <div class="mini-item"><div class="mini-dot" style="background:#FFB700;"></div><b>En Onboarding:</b>&nbsp;compró antes (hace menos de 90 días) y volvió a comprar. Su ventana de definición no cerró todavía.</div>
+          <div class="mini-item"><div class="mini-dot" style="background:#00a878;"></div><b>Graduados:</b>&nbsp;cerró su ventana de 90 días y llegó a 5+ compras. Se abre en Casual/Core/Power/Super Power.</div>
+          <div class="mini-item"><div class="mini-dot" style="background:#8a90a3;"></div><b>No Graduados:</b>&nbsp;cerró su ventana de 90 días y NO llegó a 5+ compras.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <b>¿Cómo se traduce una vista en la otra?</b> Repeat + Resurrected (41,9% de la base) es exactamente lo mismo que Onboarding + Graduados + No Graduados (9,6%+5,9%+26,4%=41,9%) — solo que en vez de mirar "¿compró el mes pasado?", miramos "¿ya pasó su ventana de 90 días desde la 1ª compra, y si pasó, llegó a 5+ compras?". Esta segunda lectura es la que nos permite diseñar palancas específicas por etapa del journey (Trial → Onboarding → Graduación).
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: EVOLUCION ESPERADA -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">4</span>
+    <div class="stitle">Cambio de composición general esperado — impacto en frecuencia</div>
+    <div class="ssub">Ejemplo: Groceries MLA · Maduración del cohort de 4 tiendas (instant delivery) · Composición de la base activa mensual</div>
+    <div class="sdiv"></div>
+
+    <div class="chart-row">
+      <div class="col">
+        <div class="freq-num">1,24x</div>
+        <div class="freq-lbl">Frecuencia hoy</div>
+        <div class="bar-body">
+          <div class="bar">
+            <div class="seg" style="height:57.9%; background:#4DC3E8;"></div>
+            <div class="seg" style="height:9.6%; background:#FFB700;"></div>
+            <div class="seg" style="height:5.9%; background:#00a878;"></div>
+            <div class="seg" style="height:26.4%; background:#8a90a3;"></div>
+          </div>
+          <div class="mini-stats-col">
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#4DC3E8;"></div><span class="mini-stat-name">New</span><span class="mini-stat-pct">58%</span><span class="mini-stat-freq">1,09x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#FFB700;"></div><span class="mini-stat-name">Onboarding</span><span class="mini-stat-pct">10%</span><span class="mini-stat-freq">1,47x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#00a878;"></div><span class="mini-stat-name">Graduados</span><span class="mini-stat-pct">6%</span><span class="mini-stat-freq">2,26x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#8a90a3;"></div><span class="mini-stat-name">No Grad</span><span class="mini-stat-pct">26%</span><span class="mini-stat-freq">1,27x</span></div>
+          </div>
+        </div>
+        <div class="col-lbl">Hoy</div>
+        <div class="col-date">Ago-26 · antes del cambio de modelo</div>
+        <div class="col-stats">4.823 buyers · 5.993 órdenes/mes</div>
+      </div>
+
+      <div class="arrow">&#8594;</div>
+
+      <div class="col">
+        <div class="freq-num">1,60x</div>
+        <div class="freq-lbl">Frecuencia mes 6</div>
+        <div class="bar-body">
+          <div class="bar">
+            <div class="seg" style="height:46%; background:#4DC3E8;"></div>
+            <div class="seg" style="height:9.7%; background:#FFB700;"></div>
+            <div class="seg" style="height:27.3%; background:#00a878;"></div>
+            <div class="seg" style="height:17%; background:#8a90a3;"></div>
+          </div>
+          <div class="mini-stats-col">
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#4DC3E8;"></div><span class="mini-stat-name">New</span><span class="mini-stat-pct">46%</span><span class="mini-stat-freq">1,30x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#FFB700;"></div><span class="mini-stat-name">Onboarding</span><span class="mini-stat-pct">10%</span><span class="mini-stat-freq">1,55x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#00a878;"></div><span class="mini-stat-name">Graduados</span><span class="mini-stat-pct">27%</span><span class="mini-stat-freq">2,25x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#8a90a3;"></div><span class="mini-stat-name">No Grad</span><span class="mini-stat-pct">17%</span><span class="mini-stat-freq">1,38x</span></div>
+          </div>
+        </div>
+        <div class="col-lbl">Mes 6</div>
+        <div class="col-date">desde cambio de modelo</div>
+        <div class="col-stats">15.075 buyers · 24.120 órdenes/mes</div>
+      </div>
+
+      <div class="arrow">&#8594;</div>
+
+      <div class="col">
+        <div class="freq-num">1,96x</div>
+        <div class="freq-lbl">Frecuencia mes 12</div>
+        <div class="bar-body">
+          <div class="bar">
+            <div class="seg" style="height:35%; background:#4DC3E8;"></div>
+            <div class="seg" style="height:9.1%; background:#FFB700;"></div>
+            <div class="seg" style="height:46.3%; background:#00a878;"></div>
+            <div class="seg" style="height:9.7%; background:#8a90a3;"></div>
+          </div>
+          <div class="mini-stats-col">
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#4DC3E8;"></div><span class="mini-stat-name">New</span><span class="mini-stat-pct">35%</span><span class="mini-stat-freq">1,50x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#FFB700;"></div><span class="mini-stat-name">Onboarding</span><span class="mini-stat-pct">9%</span><span class="mini-stat-freq">1,55x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#00a878;"></div><span class="mini-stat-name">Graduados</span><span class="mini-stat-pct">46%</span><span class="mini-stat-freq">2,50x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#8a90a3;"></div><span class="mini-stat-name">No Grad</span><span class="mini-stat-pct">10%</span><span class="mini-stat-freq">1,44x</span></div>
+          </div>
+        </div>
+        <div class="col-lbl">Mes 12</div>
+        <div class="col-date">desde cambio de modelo</div>
+        <div class="col-stats">20.055 buyers · 39.308 órdenes/mes</div>
+      </div>
+    </div>
+
+    <div class="organic-note">
+      <b>Hoy, esta composición es 100% orgánica:</b> no hay intervenciones activas de trial, onboarding ni graduación empujando la conversión entre estados — el 5,9% de Graduados surge naturalmente del comportamiento de compra. El modelo busca acelerar esa conversión diseñando palancas específicas en cada etapa del journey (Trial → Onboarding → Graduación).
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: ZOOM A GRADUADOS -->
+<div class="slide">
+  <div class="si">
+    <span class="snum">5</span>
+    <div class="stitle">Cambio en composición de Graduados esperado</div>
+    <div class="ssub">Ejemplo: Groceries MLA · Graduados (incl. resurrected): Casual / Core / Power / Super Power · Cohort de 4 tiendas</div>
+    <div class="sdiv"></div>
+
+    <div class="chart-row">
+      <div class="col">
+        <div class="freq-num">2,26x</div>
+        <div class="freq-lbl">Frecuencia Graduados</div>
+        <div class="bar-body">
+          <div class="bar">
+            <div class="seg" style="height:40.0%; background:#BBDFF7;"></div>
+            <div class="seg" style="height:46.7%; background:#5B9BD5;"></div>
+            <div class="seg" style="height:8.4%; background:#2E5FA3;"></div>
+            <div class="seg" style="height:5.3%; background:#17325C;"></div>
+          </div>
+          <div class="mini-stats-col">
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#BBDFF7;"></div><span class="mini-stat-name">Casual</span><span class="mini-stat-pct">40%</span><span class="mini-stat-freq">1,00x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#5B9BD5;"></div><span class="mini-stat-name">Core</span><span class="mini-stat-pct">47%</span><span class="mini-stat-freq">2,36x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#2E5FA3;"></div><span class="mini-stat-name">Power</span><span class="mini-stat-pct">8%</span><span class="mini-stat-freq">4,46x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#17325C;"></div><span class="mini-stat-name">Super Power</span><span class="mini-stat-pct">5%</span><span class="mini-stat-freq">7,50x</span></div>
+          </div>
+        </div>
+        <div class="col-lbl">Hoy</div>
+        <div class="col-date">Ago-26 · antes del cambio de modelo</div>
+        <div class="col-stats">285 buyers · 5,9% de la base total</div>
+      </div>
+
+      <div class="arrow">&#8594;</div>
+
+      <div class="col">
+        <div class="freq-num">2,25x</div>
+        <div class="freq-lbl">Frecuencia Graduados</div>
+        <div class="bar-body">
+          <div class="bar">
+            <div class="seg" style="height:40.2%; background:#BBDFF7;"></div>
+            <div class="seg" style="height:49.5%; background:#5B9BD5;"></div>
+            <div class="seg" style="height:6.4%; background:#2E5FA3;"></div>
+            <div class="seg" style="height:3.9%; background:#17325C;"></div>
+          </div>
+          <div class="mini-stats-col">
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#BBDFF7;"></div><span class="mini-stat-name">Casual</span><span class="mini-stat-pct">40%</span><span class="mini-stat-freq">1,00x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#5B9BD5;"></div><span class="mini-stat-name">Core</span><span class="mini-stat-pct">50%</span><span class="mini-stat-freq">2,70x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#2E5FA3;"></div><span class="mini-stat-name">Power</span><span class="mini-stat-pct">6%</span><span class="mini-stat-freq">4,00x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#17325C;"></div><span class="mini-stat-name">Super Power</span><span class="mini-stat-pct">4%</span><span class="mini-stat-freq">6,50x</span></div>
+          </div>
+        </div>
+        <div class="col-lbl">Mes 6</div>
+        <div class="col-date">desde cambio de modelo</div>
+        <div class="col-stats">4.123 buyers · 27,3% de la base total</div>
+      </div>
+
+      <div class="arrow">&#8594;</div>
+
+      <div class="col">
+        <div class="freq-num">2,50x</div>
+        <div class="freq-lbl">Frecuencia Graduados</div>
+        <div class="bar-body">
+          <div class="bar">
+            <div class="seg" style="height:28.8%; background:#BBDFF7;"></div>
+            <div class="seg" style="height:58.6%; background:#5B9BD5;"></div>
+            <div class="seg" style="height:7.8%; background:#2E5FA3;"></div>
+            <div class="seg" style="height:4.9%; background:#17325C;"></div>
+          </div>
+          <div class="mini-stats-col">
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#BBDFF7;"></div><span class="mini-stat-name">Casual</span><span class="mini-stat-pct">29%</span><span class="mini-stat-freq">1,00x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#5B9BD5;"></div><span class="mini-stat-name">Core</span><span class="mini-stat-pct">59%</span><span class="mini-stat-freq">2,70x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#2E5FA3;"></div><span class="mini-stat-name">Power</span><span class="mini-stat-pct">8%</span><span class="mini-stat-freq">4,00x</span></div>
+            <div class="mini-stat-row"><div class="mini-stat-dot" style="background:#17325C;"></div><span class="mini-stat-name">Super Power</span><span class="mini-stat-pct">5%</span><span class="mini-stat-freq">6,50x</span></div>
+          </div>
+        </div>
+        <div class="col-lbl">Mes 12</div>
+        <div class="col-date">desde cambio de modelo</div>
+        <div class="col-stats">9.276 buyers · 46,3% de la base total</div>
+      </div>
+    </div>
+
+    <div class="organic-note">
+      <b>Qué cambia:</b> Casual reduce su participación (40%→29%) mientras Core se vuelve el motor principal (47%→59%) y sube su frecuencia de 2,36x a 2,70x. Power y Super Power moderan levemente su frecuencia (4,46x→4,00x y 7,50x→6,50x): hoy son grupos chicos y muy autoseleccionados; a medida que la base crece por el estímulo de instant delivery, los nuevos buyers que alcanzan estos tiers de alta intensidad no necesariamente repiten la frecuencia extrema de los pocos que los conforman hoy de forma orgánica.
+    </div>
+  </div>
+</div>
+
+<div id="nav">
+  <button class="nav-btn" id="btn-prev" onclick="go(-1)">&#8592;</button>
+  <div id="nav-dots"></div>
+  <button class="nav-btn" id="btn-next" onclick="go(1)">&#8594;</button>
+  <span id="nav-label">1 / 5</span>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dotsC=document.getElementById('nav-dots');
+const lbl=document.getElementById('nav-label');
+let cur=0;
+slides.forEach((_,i)=>{const d=document.createElement('div');d.className='ndot'+(i===0?' active':'');d.onclick=()=>goTo(i);dotsC.appendChild(d);});
+function goTo(n){slides[cur].classList.remove('active');dotsC.children[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');dotsC.children[cur].classList.add('active');lbl.textContent=(cur+1)+' / '+slides.length;document.getElementById('btn-prev').disabled=cur===0;document.getElementById('btn-next').disabled=cur===slides.length-1;}
+function go(d){if(cur+d>=0&&cur+d<slides.length)goTo(cur+d);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
+document.getElementById('btn-prev').disabled=true;
+</script>
+</body>
+</html>
