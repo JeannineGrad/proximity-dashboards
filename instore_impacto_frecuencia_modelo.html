@@ -126,6 +126,15 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .xsell-step .xs-val { font-size:12.5px; font-weight:800; color:#1a2454; margin-top:2px; }
 .xsell-why { flex:none; width:230px; font-size:9.5px; color:#666; line-height:1.3; padding-left:14px; }
 
+.theme-hdr { font-size:12px; font-weight:900; color:#1a2454; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.theme-hdr .th-num { background:#1a2454; color:#fff; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; flex:none; }
+.theme-divider { height:1px; background:#e8eaf2; margin:14px 0; }
+.seg-note { font-size:10.5px; color:#555; line-height:1.4; margin-bottom:10px; }
+.seg-example-row { display:flex; gap:10px; }
+.seg-example { flex:1; background:#f8f9fc; border:1px solid #e8eaf2; border-left:4px solid #7c3aed; border-radius:6px; padding:9px 12px; }
+.seg-example .se-vert { font-size:8.5px; color:#999; font-weight:800; text-transform:uppercase; letter-spacing:.3px; }
+.seg-example .se-val { font-size:10.5px; font-weight:700; color:#1a2454; margin-top:2px; }
+
 /* SLIDES EJEMPLO: timelines simplificados de lifecycle */
 .tl-objective { font-size:12px; font-weight:700; color:#666; text-align:center; margin-bottom:28px; }
 .tl-objective b { color:#1a2454; }
@@ -446,9 +455,11 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 <div class="slide">
   <div class="si">
     <span class="snum">6</span>
-    <div class="stitle">Priorización de cross-sell por vertical</div>
-    <div class="ssub">La secuencia de graduación → cross-sell cambia según por dónde entra el usuario</div>
+    <div class="stitle">Dos temas a resolver al diseñar el framework</div>
+    <div class="ssub">No alcanza con definir las etapas — hay que resolver la priorización entre verticales y la segmentación de audiencias antes de diseñar los journeys</div>
     <div class="sdiv"></div>
+
+    <div class="theme-hdr"><div class="th-num">1</div>Priorización entre verticales de Quick Commerce</div>
 
     <div class="vert-groups">
       <div class="vert-card">
@@ -484,6 +495,16 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
         <div class="xs-val">Maximizar graduación primero, recién después cross-sell</div>
       </div>
       <div class="xsell-why">Ya entró por una vertical de alta frecuencia — conviene consolidar el hábito (graduarlo) antes de dispersar su atención hacia otras verticales.</div>
+    </div>
+
+    <div class="theme-divider"></div>
+
+    <div class="theme-hdr"><div class="th-num">2</div>Segmentación de audiencias</div>
+    <div class="seg-note">Desde Trial en adelante, los estímulos y mensajes no son genéricos — se diseñan según la audiencia clave de cada caso, no una única "value prop" para todos.</div>
+    <div class="seg-example-row">
+      <div class="seg-example"><div class="se-vert">Groceries · Instore</div><div class="se-val">Usuarios del modelo anterior (agendado)</div></div>
+      <div class="seg-example"><div class="se-vert">Groceries · zona</div><div class="se-val">Compradores de QR en supermercados de la zona</div></div>
+      <div class="seg-example"><div class="se-vert">Otras audiencias</div><div class="se-val">etc. — a definir por vertical</div></div>
     </div>
   </div>
 </div>
