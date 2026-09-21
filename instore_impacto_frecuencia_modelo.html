@@ -182,6 +182,29 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .dual-exit { width:100%; background:#fff7ed; border:1px solid #f2d675; border-radius:7px; padding:7px 10px; text-align:center; font-size:9px; color:#7a5b00; font-weight:700; margin-top:6px; }
 .dual-exit b { color:#5c4400; }
 
+/* Post Graduacion v2: flujo horizontal arriba (cross-sell) y abajo (churn) */
+.flow-block { display:flex; flex-direction:column; gap:4px; margin-bottom:10px; }
+.flow-lbl-row { display:flex; align-items:center; gap:8px; }
+.flow-lbl { font-size:11px; font-weight:900; color:#fff; border-radius:6px; padding:4px 12px; }
+.flow-row { display:flex; align-items:center; gap:6px; }
+.flow-node { flex:1; background:#f8f9fc; border:1px solid #e8eaf2; border-radius:7px; padding:8px 8px; text-align:center; }
+.flow-node .fn-lbl { font-size:7.5px; color:#999; font-weight:800; text-transform:uppercase; letter-spacing:.3px; }
+.flow-node .fn-val { font-size:9.5px; font-weight:800; color:#1a2454; margin-top:2px; line-height:1.2; }
+.flow-node.wide { flex:1.4; }
+.flow-dual-node { flex:1.4; display:flex; flex-direction:column; gap:3px; }
+.flow-dual-node .flow-node { padding:5px 8px; }
+.flow-arrow-h { flex:none; color:#c7cbe0; font-size:14px; }
+.flow-connector { display:flex; flex-direction:column; align-items:center; margin:2px 0; }
+.flow-connector .fc-arrow { color:#c7cbe0; font-size:16px; }
+.flow-connector .fc-lbl { font-size:8.5px; color:#7a5b00; font-weight:800; background:#fff7ed; border:1px solid #f2d675; border-radius:10px; padding:2px 10px; }
+
+.pg-wrap { display:flex; align-items:stretch; flex:1; gap:10px; }
+.pg-start-col { flex:none; width:120px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; }
+.pg-start-node { background:#00a878; color:#fff; border-radius:8px; padding:14px 10px; text-align:center; font-weight:900; font-size:12px; width:100%; }
+.pg-parallel-tag { font-size:8.5px; font-weight:800; color:#888; text-align:center; display:flex; flex-direction:column; align-items:center; }
+.pg-bracket { width:16px; height:70px; border:2px solid #c7cbe0; border-right:none; border-radius:8px 0 0 8px; }
+.pg-rows { flex:1; display:flex; flex-direction:column; justify-content:space-around; gap:18px; }
+
 /* SLIDE COVER */
 .cover-si { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
 .cover-kicker { font-size:12px; font-weight:800; color:#FFB700; text-transform:uppercase; letter-spacing:2px; margin-bottom:14px; }
@@ -301,7 +324,7 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
     <div class="ssub">Simplificado — no es el detalle semana a semana del cuadro de cadencia</div>
     <div class="sdiv"></div>
 
-    <div class="tl-objective">Objetivo: <b>lograr la 1ª compra</b> del never buyer — todavía no activó, esto es antes del Día 0</div>
+    <div class="tl-objective">Objetivo: <b>lograr la 1ª compra</b> del never buyer</div>
 
     <div class="trial-flow">
       <div class="trial-start">Never<br>buyer</div>
@@ -376,44 +399,47 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 
     <div class="tl-objective">Objetivo: <b>Frecuencia y cross-sell</b> — y en paralelo, no perder al buyer ya graduado</div>
 
-    <div class="dual-flow">
-      <div class="dual-col">
-        <div class="dual-hdr" style="background:#00a878;">Frecuencia y Cross-sell</div>
-        <div class="dual-body">
-          <div class="dual-step"><div class="ds-lbl">Entrada</div><div class="ds-val">🏆 Graduado (mismo tratamiento sea Graduado a tiempo o tardío)</div></div>
-          <div class="dual-arrow">&#8595;</div>
-          <div class="dual-step"><div class="ds-lbl">Según intensidad</div><div class="ds-val">Casual/Core: subir frecuencia y Fresh · Power/Super Power: cross-sell</div></div>
-          <div class="dual-arrow">&#8595;</div>
-          <div class="dual-pair">
-            <div class="dual-step"><div class="ds-lbl">Push propio</div><div class="ds-val">Categorías dentro de Groceries</div></div>
-            <div class="dual-step"><div class="ds-lbl">Push cross-sell</div><div class="ds-val">A Pharma, sin incentivo</div></div>
-          </div>
-          <div class="dual-arrow">&#8595;</div>
-          <div class="dual-step"><div class="ds-lbl">Cadencia personal</div><div class="ds-val">Fija: días hasta graduarse ÷ 4 — se monitorea que la cumpla</div></div>
-          <div class="dual-exit">Si <b>incumple</b> la cadencia → pasa a Prevención de Churn →</div>
-        </div>
+    <div class="pg-wrap">
+      <div class="pg-start-col">
+        <div class="pg-start-node">🏆 Graduado</div>
+        <div class="pg-bracket"></div>
+        <div class="pg-parallel-tag">▶ en paralelo<br>desde la graduación</div>
       </div>
 
-      <div class="dual-col">
-        <div class="dual-hdr" style="background:#b91c1c;">Prevención de Churn</div>
-        <div class="dual-body">
-          <div class="dual-step"><div class="ds-lbl">Entrada</div><div class="ds-val">📐 Cadencia personal incumplida</div></div>
-          <div class="dual-arrow">&#8595;</div>
-          <div class="dual-pair">
-            <div class="dual-step"><div class="ds-lbl">Alarma 1 · día C</div><div class="ds-val">💰 Cupón grande (alto valor) / 🚚 Envío gratis (bajo-medio)</div></div>
+      <div class="pg-rows">
+        <div class="flow-block">
+          <div class="flow-lbl-row"><div class="flow-lbl" style="background:#00a878;">Frecuencia y Cross-sell</div></div>
+          <div class="flow-row">
+            <div class="flow-node"><div class="fn-lbl">Según intensidad</div><div class="fn-val">Casual/Core: frecuencia + Fresh<br>Power/Super Power: cross-sell</div></div>
+            <div class="flow-arrow-h">&#8594;</div>
+            <div class="flow-dual-node">
+              <div class="flow-node"><div class="fn-lbl">Push propio</div><div class="fn-val">Categorías dentro de Groceries</div></div>
+              <div class="flow-node"><div class="fn-lbl">Push cross-sell</div><div class="fn-val">A Pharma, sin incentivo</div></div>
+            </div>
+            <div class="flow-arrow-h">&#8594;</div>
+            <div class="flow-node wide"><div class="fn-lbl">Cadencia personal</div><div class="fn-val">Fija: días hasta graduarse ÷ 4</div></div>
           </div>
-          <div class="dual-arrow">&#8595;</div>
-          <div class="dual-pair">
-            <div class="dual-step"><div class="ds-lbl">Alarma 2 · día 2C</div><div class="ds-val">🚚+💰 Combinado (alto valor) / 💰 Cupón chico (bajo-medio)</div></div>
+        </div>
+
+        <div class="flow-connector">
+          <div class="fc-arrow">&#8595;</div>
+          <div class="fc-lbl">si incumple la cadencia</div>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-lbl-row"><div class="flow-lbl" style="background:#b91c1c;">Prevención de Churn</div></div>
+          <div class="flow-row">
+            <div class="flow-node"><div class="fn-lbl">Alarma 1 · día C</div><div class="fn-val">💰 Cupón grande (alto valor)<br>🚚 Envío gratis (bajo-medio)</div></div>
+            <div class="flow-arrow-h">&#8594;</div>
+            <div class="flow-node"><div class="fn-lbl">Alarma 2 · día 2C</div><div class="fn-val">🚚+💰 Combinado (alto valor)<br>💰 Cupón chico (bajo-medio)</div></div>
+            <div class="flow-arrow-h">&#8594;</div>
+            <div class="flow-node"><div class="fn-lbl">Alarma 3 · día 3C</div><div class="fn-val">Sin reaccionar → Churn<br>(trial light después)</div></div>
           </div>
-          <div class="dual-arrow">&#8595;</div>
-          <div class="dual-step"><div class="ds-lbl">Alarma 3 · día 3C</div><div class="ds-val">Sin reaccionar → Churn (trial light después, no se da por perdido)</div></div>
-          <div class="dual-exit">Si <b>reacciona</b> en cualquier alarma → vuelve al pool normal</div>
         </div>
       </div>
     </div>
 
-    <div class="tl-ref-note"><b>Referencia:</b> el cross-sell (izquierda) y la prevención de churn (derecha) corren en paralelo desde el momento de la graduación — no son secuenciales.</div>
+    <div class="tl-ref-note"><b>Referencia:</b> si reacciona en cualquier alarma, vuelve al pool normal de arriba — el mecanismo de churn no es secuencial al cross-sell, corre en simultáneo desde el día de graduación.</div>
   </div>
 </div>
 
