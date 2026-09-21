@@ -153,6 +153,18 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .trial-arrow-h { color:#c7cbe0; font-size:14px; flex:none; }
 .trial-end { flex:none; width:130px; text-align:center; background:#00a878; color:#fff; border-radius:8px; padding:12px 8px; font-weight:800; font-size:10.5px; line-height:1.3; }
 
+/* Onboarding: checkpoints multi-momento con branch a cross-sell temprano */
+.grad-grid { display:grid; grid-template-columns:130px 1fr 1fr 1fr 150px; align-items:center; column-gap:6px; }
+.grad-node-start { background:#f2f4f7; border:1px solid #e2e4ea; border-radius:8px; padding:14px 10px; text-align:center; font-size:11px; font-weight:800; color:#4b5160; }
+.grad-cp-wrap { display:flex; flex-direction:column; align-items:center; gap:4px; }
+.grad-cp { width:64px; height:64px; background:#fff; border:2px solid #1a2454; transform:rotate(45deg); display:flex; align-items:center; justify-content:center; }
+.grad-cp span { transform:rotate(-45deg); font-size:9px; font-weight:900; color:#1a2454; text-align:center; line-height:1.15; }
+.grad-node-end { background:#00a878; color:#fff; border-radius:8px; padding:14px 10px; text-align:center; font-size:11.5px; font-weight:800; }
+.grad-conn { height:2px; background:#c7cbe0; }
+.grad-down { display:flex; flex-direction:column; align-items:center; color:#c7cbe0; font-size:16px; padding:4px 0; }
+.grad-exit-box { grid-column:2/5; background:#fff7ed; border:1px solid #f2d675; border-radius:8px; padding:10px 16px; text-align:center; font-size:10.5px; color:#7a5b00; font-weight:700; margin-top:2px; }
+.grad-exit-box b { color:#5c4400; }
+
 /* SLIDE COVER */
 .cover-si { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
 .cover-kicker { font-size:12px; font-weight:800; color:#FFB700; text-transform:uppercase; letter-spacing:2px; margin-bottom:14px; }
@@ -354,47 +366,29 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
     <div class="ssub">Simplificado — no es el detalle semana a semana del cuadro de cadencia</div>
     <div class="sdiv"></div>
 
-    <div class="tl-objective">Objetivo: <b>Retención temprana</b> — llegar a 5+ compras dentro de los 90 días</div>
+    <div class="tl-objective">Objetivo: <b>Retención temprana</b> — llegar a 5+ compras dentro de los 90 días, evaluando en cada corte si seguir empujando o derivar a cross-sell</div>
 
-    <div class="timeline-wrap">
-      <div class="timeline-line"></div>
-      <div class="tl-nodes">
-        <div class="tl-node">
-          <div class="tl-callout-top">
-            <div class="tl-day">Día 0</div>
-            <div class="tl-desc">Entra a la ventana de Onboarding (90 días)</div>
-          </div>
-          <div class="tl-dot" style="background:#FFB700; box-shadow:0 0 0 2px #FFB700;"></div>
-          <div class="tl-callout-bottom"></div>
-        </div>
-        <div class="tl-node">
-          <div class="tl-callout-top"></div>
-          <div class="tl-dot" style="background:#FFB700; box-shadow:0 0 0 2px #FFB700;"></div>
-          <div class="tl-callout-bottom">
-            <div class="tl-day">Compra 2-3</div>
-            <div class="tl-desc">Incentivo de continuidad</div>
-          </div>
-        </div>
-        <div class="tl-node">
-          <div class="tl-callout-top">
-            <div class="tl-day">Compra 4</div>
-            <div class="tl-desc">"Te falta 1 para graduarte" + incentivo puntual</div>
-          </div>
-          <div class="tl-dot" style="background:#FFB700; box-shadow:0 0 0 2px #FFB700;"></div>
-          <div class="tl-callout-bottom"></div>
-        </div>
-        <div class="tl-node">
-          <div class="tl-callout-top"></div>
-          <div class="tl-dot" style="background:#00a878; box-shadow:0 0 0 2px #00a878;"></div>
-          <div class="tl-callout-bottom">
-            <div class="tl-day">Compra 5 (≤ día 90)</div>
-            <div class="tl-desc">Graduación — pasa a Post Graduación</div>
-          </div>
-        </div>
-      </div>
+    <div class="grad-grid">
+      <div class="grad-node-start">1ª compra<br>(entra a Onboarding)</div>
+
+      <div class="grad-cp-wrap"><div class="grad-cp"><span>Día 45</span></div></div>
+      <div class="grad-cp-wrap"><div class="grad-cp"><span>Día 65</span></div></div>
+      <div class="grad-cp-wrap"><div class="grad-cp"><span>Día 90 final</span></div></div>
+
+      <div class="grad-node-end">🏆 Graduado</div>
+
+      <div></div>
+      <div class="grad-down">&#8595;</div>
+      <div class="grad-down">&#8595;</div>
+      <div class="grad-down">&#8595;</div>
+      <div></div>
+
+      <div></div>
+      <div class="grad-exit-box"><b>Cross-sell temprano:</b> si en ese corte el score de llegar a 5 tx es bajo, se lo deriva antes de gastar más incentivo en insistir</div>
+      <div></div>
     </div>
 
-    <div class="tl-ref-note"><b>Referencia:</b> si llega al día 90 sin la 5ª compra, pasa a No Graduado — ese camino tiene su propia táctica de reactivación, no cubierta en este esquema.</div>
+    <div class="tl-ref-note"><b>Referencia:</b> en cada corte se evalúa cuántas transacciones acumuló hasta ahora — a más transacciones, más probabilidad de seguir empujando hacia la graduación; a menos, más probabilidad de derivarlo directo a cross-sell.</div>
   </div>
 </div>
 
