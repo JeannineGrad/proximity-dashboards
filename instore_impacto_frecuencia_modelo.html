@@ -168,6 +168,20 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .grad-exit-box { grid-column:3/6; background:#fff7ed; border:1px solid #f2d675; border-radius:8px; padding:10px 16px; text-align:center; font-size:10.5px; color:#7a5b00; font-weight:700; margin-top:2px; }
 .grad-exit-box b { color:#5c4400; }
 
+/* Post Graduacion + Prevencion de Churn, en paralelo */
+.dual-flow { display:flex; gap:20px; flex:1; }
+.dual-col { flex:1; display:flex; flex-direction:column; }
+.dual-hdr { color:#fff; border-radius:8px 8px 0 0; padding:8px 12px; font-size:12px; font-weight:900; text-align:center; }
+.dual-body { border:1px solid #e8eaf2; border-top:none; border-radius:0 0 8px 8px; padding:12px; display:flex; flex-direction:column; align-items:center; flex:1; }
+.dual-step { width:100%; background:#f8f9fc; border:1px solid #e8eaf2; border-radius:7px; padding:8px 10px; text-align:center; }
+.dual-step .ds-lbl { font-size:8px; color:#999; font-weight:800; text-transform:uppercase; letter-spacing:.3px; }
+.dual-step .ds-val { font-size:10px; font-weight:800; color:#1a2454; margin-top:2px; line-height:1.25; }
+.dual-arrow { color:#c7cbe0; font-size:14px; padding:3px 0; }
+.dual-pair { display:flex; gap:8px; width:100%; }
+.dual-pair .dual-step { flex:1; }
+.dual-exit { width:100%; background:#fff7ed; border:1px solid #f2d675; border-radius:7px; padding:7px 10px; text-align:center; font-size:9px; color:#7a5b00; font-weight:700; margin-top:6px; }
+.dual-exit b { color:#5c4400; }
+
 /* SLIDE COVER */
 .cover-si { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
 .cover-kicker { font-size:12px; font-weight:800; color:#FFB700; text-transform:uppercase; letter-spacing:2px; margin-bottom:14px; }
@@ -356,51 +370,50 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 <div class="slide">
   <div class="si">
     <span class="snum">5</span>
-    <div class="stitle">Ejemplo de lifecycle: Cross-sell</div>
+    <div class="stitle">Ejemplo de lifecycle: Post Graduación</div>
     <div class="ssub">Simplificado — no es el detalle semana a semana del cuadro de cadencia</div>
     <div class="sdiv"></div>
 
-    <div class="tl-objective">Objetivo: <b>Frecuencia y cross-sell</b> — llevar al buyer graduado hacia otra vertical</div>
+    <div class="tl-objective">Objetivo: <b>Frecuencia y cross-sell</b> — y en paralelo, no perder al buyer ya graduado</div>
 
-    <div class="timeline-wrap">
-      <div class="timeline-line"></div>
-      <div class="tl-nodes">
-        <div class="tl-node">
-          <div class="tl-callout-top">
-            <div class="tl-day">Día de graduación</div>
-            <div class="tl-desc">Trigger de cross-sell (banner in-app / notificación)</div>
+    <div class="dual-flow">
+      <div class="dual-col">
+        <div class="dual-hdr" style="background:#00a878;">Frecuencia y Cross-sell</div>
+        <div class="dual-body">
+          <div class="dual-step"><div class="ds-lbl">Entrada</div><div class="ds-val">🏆 Graduado (mismo tratamiento sea Graduado a tiempo o tardío)</div></div>
+          <div class="dual-arrow">&#8595;</div>
+          <div class="dual-step"><div class="ds-lbl">Según intensidad</div><div class="ds-val">Casual/Core: subir frecuencia y Fresh · Power/Super Power: cross-sell</div></div>
+          <div class="dual-arrow">&#8595;</div>
+          <div class="dual-pair">
+            <div class="dual-step"><div class="ds-lbl">Push propio</div><div class="ds-val">Categorías dentro de Groceries</div></div>
+            <div class="dual-step"><div class="ds-lbl">Push cross-sell</div><div class="ds-val">A Pharma, sin incentivo</div></div>
           </div>
-          <div class="tl-dot" style="background:#00a878; box-shadow:0 0 0 2px #00a878;"></div>
-          <div class="tl-callout-bottom"></div>
+          <div class="dual-arrow">&#8595;</div>
+          <div class="dual-step"><div class="ds-lbl">Cadencia personal</div><div class="ds-val">Fija: días hasta graduarse ÷ 4 — se monitorea que la cumpla</div></div>
+          <div class="dual-exit">Si <b>incumple</b> la cadencia → pasa a Prevención de Churn →</div>
         </div>
-        <div class="tl-node">
-          <div class="tl-callout-top"></div>
-          <div class="tl-dot" style="background:#00a878; box-shadow:0 0 0 2px #00a878;"></div>
-          <div class="tl-callout-bottom">
-            <div class="tl-day">Día 3</div>
-            <div class="tl-desc">Oferta con descuento en la vertical complementaria</div>
+      </div>
+
+      <div class="dual-col">
+        <div class="dual-hdr" style="background:#b91c1c;">Prevención de Churn</div>
+        <div class="dual-body">
+          <div class="dual-step"><div class="ds-lbl">Entrada</div><div class="ds-val">📐 Cadencia personal incumplida</div></div>
+          <div class="dual-arrow">&#8595;</div>
+          <div class="dual-pair">
+            <div class="dual-step"><div class="ds-lbl">Alarma 1 · día C</div><div class="ds-val">💰 Cupón grande (alto valor) / 🚚 Envío gratis (bajo-medio)</div></div>
           </div>
-        </div>
-        <div class="tl-node">
-          <div class="tl-callout-top">
-            <div class="tl-day">Día 10</div>
-            <div class="tl-desc">Recordatorio si todavía no convirtió</div>
+          <div class="dual-arrow">&#8595;</div>
+          <div class="dual-pair">
+            <div class="dual-step"><div class="ds-lbl">Alarma 2 · día 2C</div><div class="ds-val">🚚+💰 Combinado (alto valor) / 💰 Cupón chico (bajo-medio)</div></div>
           </div>
-          <div class="tl-dot" style="background:#00a878; box-shadow:0 0 0 2px #00a878;"></div>
-          <div class="tl-callout-bottom"></div>
-        </div>
-        <div class="tl-node">
-          <div class="tl-callout-top"></div>
-          <div class="tl-dot" style="background:#00a878; box-shadow:0 0 0 2px #00a878;"></div>
-          <div class="tl-callout-bottom">
-            <div class="tl-day">Día 20</div>
-            <div class="tl-desc">Segunda oferta con otro ángulo (bundle / cupón mayor)</div>
-          </div>
+          <div class="dual-arrow">&#8595;</div>
+          <div class="dual-step"><div class="ds-lbl">Alarma 3 · día 3C</div><div class="ds-val">Sin reaccionar → Churn (trial light después, no se da por perdido)</div></div>
+          <div class="dual-exit">Si <b>reacciona</b> en cualquier alarma → vuelve al pool normal</div>
         </div>
       </div>
     </div>
 
-    <div class="tl-ref-note"><b>Referencia:</b> la secuencia y el orden de qué vertical se ofrece primero depende de la regla de priorización (ver próxima slide) — este ejemplo asume que ya graduó en Groceries.</div>
+    <div class="tl-ref-note"><b>Referencia:</b> el cross-sell (izquierda) y la prevención de churn (derecha) corren en paralelo desde el momento de la graduación — no son secuenciales.</div>
   </div>
 </div>
 
