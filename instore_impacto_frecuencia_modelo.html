@@ -141,6 +141,18 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
 .tl-ref-note { margin-top:auto; background:#f8f9fc; border:1px solid #e8eaf2; border-radius:8px; padding:10px 14px; font-size:10px; color:#555; line-height:1.35; }
 .tl-ref-note b { color:#1a2454; }
 
+/* Trial: cadencia pre-compra, separada por Meli+ */
+.trial-flow { display:flex; align-items:center; gap:10px; flex:1; }
+.trial-start { flex:none; width:100px; text-align:center; background:#f2f4f7; border:1px solid #e2e4ea; border-radius:8px; padding:12px 8px; font-size:11px; font-weight:800; color:#4b5160; }
+.trial-lanes { flex:1; display:flex; flex-direction:column; gap:16px; }
+.trial-lane { display:flex; align-items:center; gap:8px; }
+.trial-lane-tag { flex:none; width:82px; font-weight:900; font-size:10.5px; text-align:center; border-radius:6px; padding:10px 4px; color:#fff; }
+.trial-impact { flex:1; background:#f8f9fc; border:1px solid #e8eaf2; border-radius:8px; padding:8px 6px; text-align:center; }
+.trial-impact .ti-num { font-size:7.5px; color:#999; font-weight:800; text-transform:uppercase; letter-spacing:.3px; }
+.trial-impact .ti-val { font-size:10px; font-weight:800; color:#1a2454; margin-top:2px; line-height:1.2; }
+.trial-arrow-h { color:#c7cbe0; font-size:14px; flex:none; }
+.trial-end { flex:none; width:130px; text-align:center; background:#00a878; color:#fff; border-radius:8px; padding:12px 8px; font-weight:800; font-size:10.5px; line-height:1.3; }
+
 /* SLIDE COVER */
 .cover-si { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
 .cover-kicker { font-size:12px; font-weight:800; color:#FFB700; text-transform:uppercase; letter-spacing:2px; margin-bottom:14px; }
@@ -306,47 +318,31 @@ body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f2f5; display:flex
     <div class="ssub">Simplificado — no es el detalle semana a semana del cuadro de cadencia</div>
     <div class="sdiv"></div>
 
-    <div class="tl-objective">Objetivo: <b>Activación</b> — lograr que la primera compra se repita antes de que se enfríe</div>
+    <div class="tl-objective">Objetivo: <b>lograr la 1ª compra</b> del never buyer — todavía no activó, esto es antes del Día 0</div>
 
-    <div class="timeline-wrap">
-      <div class="timeline-line"></div>
-      <div class="tl-nodes">
-        <div class="tl-node">
-          <div class="tl-callout-top">
-            <div class="tl-day">Día 0</div>
-            <div class="tl-desc">Primera compra — activación</div>
-          </div>
-          <div class="tl-dot" style="background:#2E86DE; box-shadow:0 0 0 2px #2E86DE;"></div>
-          <div class="tl-callout-bottom"></div>
+    <div class="trial-flow">
+      <div class="trial-start">Never<br>buyer</div>
+      <div class="trial-lanes">
+        <div class="trial-lane">
+          <div class="trial-lane-tag" style="background:#1d4ed8;">🅼 Meli+</div>
+          <div class="trial-impact"><div class="ti-num">Semana 1</div><div class="ti-val">📣 Value prop<br>+ envío gratis</div></div>
+          <div class="trial-arrow-h">&#8594;</div>
+          <div class="trial-impact"><div class="ti-num">Semana 2</div><div class="ti-val">🤝 Promo Partner<br>+ envío gratis</div></div>
         </div>
-        <div class="tl-node">
-          <div class="tl-callout-top"></div>
-          <div class="tl-dot" style="background:#2E86DE; box-shadow:0 0 0 2px #2E86DE;"></div>
-          <div class="tl-callout-bottom">
-            <div class="tl-day">Día 1-2</div>
-            <div class="tl-desc">Push de bienvenida + incentivo para la 2ª compra</div>
-          </div>
-        </div>
-        <div class="tl-node">
-          <div class="tl-callout-top">
-            <div class="tl-day">Día 7</div>
-            <div class="tl-desc">Recordatorio si todavía no volvió a comprar</div>
-          </div>
-          <div class="tl-dot" style="background:#2E86DE; box-shadow:0 0 0 2px #2E86DE;"></div>
-          <div class="tl-callout-bottom"></div>
-        </div>
-        <div class="tl-node">
-          <div class="tl-callout-top"></div>
-          <div class="tl-dot" style="background:#FFB700; box-shadow:0 0 0 2px #FFB700;"></div>
-          <div class="tl-callout-bottom">
-            <div class="tl-day">Día 15</div>
-            <div class="tl-desc">Cierra la ventana de Trial → pasa a Onboarding</div>
-          </div>
+        <div class="trial-lane">
+          <div class="trial-lane-tag" style="background:#8a8f98;">🚫 No Meli+</div>
+          <div class="trial-impact"><div class="ti-num">Semana 1</div><div class="ti-val">📣 Value prop<br>sin incentivo</div></div>
+          <div class="trial-arrow-h">&#8594;</div>
+          <div class="trial-impact"><div class="ti-num">Semana 2</div><div class="ti-val">🚚 Envío gratis<br>puntual</div></div>
+          <div class="trial-arrow-h">&#8594;</div>
+          <div class="trial-impact"><div class="ti-num">Semana 3</div><div class="ti-val">🎟️ Cupón<br>incentivo mayor</div></div>
         </div>
       </div>
+      <div class="trial-arrow-h">&#8594;</div>
+      <div class="trial-end">Primera compra → pasa a Onboarding</div>
     </div>
 
-    <div class="tl-ref-note"><b>Referencia:</b> el detalle real de estímulos por semana (partner, canal, tipo de impacto) vive en el cuadro de cadencia — esto es una versión esquemática para explicar la lógica.</div>
+    <div class="tl-ref-note"><b>Referencia:</b> el envío gratis es un beneficio Meli+, por eso la cadencia se separa por ese criterio. Si no convierte en ninguna semana, hay una pausa y se aprovecha para push de GM/Pharma. El detalle real (2 impactos/semana, 3 variantes según qué hay en la zona) vive en el cuadro de cadencia.</div>
   </div>
 </div>
 
