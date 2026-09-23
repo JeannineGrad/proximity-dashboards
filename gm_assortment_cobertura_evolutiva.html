@@ -22,11 +22,9 @@
   tr.pct-row.units td.value { color: #6b6f8a; }
   td.value { font-variant-numeric: tabular-nums; }
   tr.pct-row.nmv td.value { font-size: 17px; }
-  .arrow-down { color: #c0392b; font-size: 12px; margin-left: 4px; }
   .section-divider td { border-top: 2px solid #1a2454; padding-top: 16px; }
   .footnote { margin-top: 22px; font-size: 12px; color: #888; line-height: 1.5; }
   .footnote b { color: #555; }
-  .callout { margin-top: 14px; background: #fdf1ea; border-left: 4px solid #FFB700; padding: 10px 16px; font-size: 14px; color: #7a4a10; border-radius: 2px; }
 </style>
 </head>
 <body>
@@ -73,7 +71,7 @@
           <td class="value">12,0%</td>
           <td class="value">11,1%</td>
           <td class="value">10,0%</td>
-          <td class="value">8,9%<span class="arrow-down">&#9660;</span></td>
+          <td class="value">8,9%</td>
         </tr>
         <tr class="group-units section-divider">
           <td class="row-label">Unidades total zona (TSI)</td>
@@ -100,13 +98,11 @@
           <td class="value">20,5%</td>
           <td class="value">20,2%</td>
           <td class="value">18,0%</td>
-          <td class="value">15,3%<span class="arrow-down">&#9660;</span></td>
+          <td class="value">15,3%</td>
         </tr>
       </tbody>
     </table>
   </div>
-
-  <div class="callout">La demanda total de la zona crece mes a mes, pero lo que capturan los 5.294 sellers conocidos se mantiene plano o cae — la brecha de assortment se está ampliando, no cerrando.</div>
 
   <div class="footnote"><b>Fuente:</b> BT_ORD_ORDERS (NMV vía ORD_NMV_FLG/ORD_TOTAL_AMOUNT) + BT_SHP_SHIPPING_ITEMS (filtro instant: ≤50cm/lado, suma 3 lados ≤100cm, ≤15kg) + BT_SHP_SHIPMENTS, geolocalizado a los 91 hexágonos H3 res-8 de la Zona Óptima vía jslibs.h3.ST_H3. Universo: todos los sellers que vendieron en la zona, sin filtro de método de envío.</div>
 </div>
