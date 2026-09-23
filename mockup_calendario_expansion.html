@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mockup - Calendario de lanzamientos y expansión</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+  body { width: 1100px; height: 620px; background: #fff; overflow: hidden; }
+  .slide { width: 1100px; height: 620px; padding: 34px 44px; display: flex; flex-direction: column; }
+  .eyebrow { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .5px; }
+  .eyebrow .sq { width: 10px; height: 10px; background: #FFB700; display: inline-block; }
+  .title { font-size: 21px; font-weight: 800; color: #1a2454; margin-top: 6px; }
+  .subtitle { font-size: 12.5px; color: #666; margin-top: 4px; line-height: 1.4; max-width: 900px; }
+
+  .cal-wrap { margin-top: 16px; flex: 1; display: flex; flex-direction: column; }
+  .cal-grid { display: grid; grid-template-columns: 190px repeat(8, 1fr); gap: 3px; }
+
+  .yr-hdr { grid-column: span 4; background: #1a2454; color: #fff; text-align: center; font-size: 11px; font-weight: 800; padding: 4px 0; border-radius: 3px 3px 0 0; }
+  .q-hdr { background: #eef0f5; color: #444; text-align: center; font-size: 9.5px; font-weight: 700; padding: 3px 0; }
+  .row-label { display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; color: #333; padding: 3px 2px; }
+  .country-hdr { grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: #1a2454; margin-top: 8px; padding-bottom: 2px; border-bottom: 1px solid #dde0ea; }
+
+  .cell { position: relative; height: 30px; background: #f7f8fb; border-radius: 3px; }
+
+  .bar { position: absolute; top: 4px; bottom: 4px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #fff; padding: 0 4px; overflow: hidden; white-space: nowrap; }
+  .bar-solid-green { background: #16a085; }
+  .bar-solid-blue { background: #2d9cdb; }
+  .bar-exp { background: repeating-linear-gradient(135deg, currentColor 0 6px, transparent 6px 12px); opacity: .32; border: 1.5px dashed currentColor; border-radius: 4px; }
+  .exp-green { color: #16a085; }
+  .exp-orange { color: #f59e0b; }
+  .exp-purple { color: #8e44ad; }
+  .exp-blue { color: #2d9cdb; }
+
+  .star-wrap { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; width: 130px; }
+  .star { font-size: 13px; color: #e63946; }
+  .star-lbl { font-size: 7px; font-weight: 700; color: #333; text-align: center; line-height: 1.15; margin-top: 1px; }
+
+  .exp-lbl { font-size: 7.5px; font-weight: 800; letter-spacing: .3px; }
+
+  .legend { margin-top: 14px; display: flex; gap: 22px; align-items: center; font-size: 10.5px; color: #444; }
+  .legend .lg-item { display: flex; align-items: center; gap: 6px; }
+  .lg-star { color: #e63946; font-size: 13px; }
+  .lg-solid { width: 22px; height: 10px; border-radius: 3px; background: #2d9cdb; }
+  .lg-exp { width: 22px; height: 10px; border-radius: 3px; background: repeating-linear-gradient(135deg, #16a085 0 5px, transparent 5px 10px); opacity: .55; border: 1.5px dashed #16a085; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="eyebrow"><span class="sq"></span>01 · CALENDARIO</div>
+  <div class="title">Calendario de lanzamientos y expansión por país y vertical</div>
+  <div class="subtitle">Los hitos marcan el inicio — después de cada lanzamiento, el trabajo continúa expandiendo cobertura (zonas, tiendas, ciudades) a medida que se cumplen objetivos.</div>
+
+  <div class="cal-wrap">
+    <div class="cal-grid">
+      <div></div>
+      <div class="yr-hdr">2026</div>
+      <div class="yr-hdr">2027</div>
+      <div></div>
+      <div class="q-hdr">Q1</div><div class="q-hdr">Q2</div><div class="q-hdr">Q3</div><div class="q-hdr">Q4</div>
+      <div class="q-hdr">Q1</div><div class="q-hdr">Q2</div><div class="q-hdr">Q3</div><div class="q-hdr">Q4</div>
+
+      <!-- BRASIL -->
+      <div class="country-hdr">🇧🇷 Brasil</div>
+
+      <div class="row-label">☁️ Cloud build up</div>
+      <div class="cell"></div>
+      <div class="cell"><div class="bar bar-solid-green" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-solid-green" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-solid-green" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-solid-green" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-solid-green" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-solid-green" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-solid-green" style="left:0;right:0"></div></div>
+
+      <div class="row-label">🥬 QC 3P Instore</div>
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      <div class="cell">
+        <div class="star-wrap"><span class="star">★</span><span class="star-lbl">Supers Instore Instant CRF Brasil</span></div>
+      </div>
+      <div class="cell"><div class="bar bar-exp exp-green" style="left:0;right:0"><span class="exp-lbl">EXPANSIÓN</span></div></div>
+
+      <div class="row-label">💊 QC 3P Pharma</div>
+      <div class="cell"></div>
+      <div class="cell">
+        <div class="star-wrap"><span class="star">★</span><span class="star-lbl">POC QC 3P (1 zona San Pablo)</span></div>
+      </div>
+      <div class="cell"><div class="bar bar-exp exp-orange" style="left:0;right:0"><span class="exp-lbl">EXPANSIÓN</span></div></div>
+      <div class="cell"><div class="bar bar-exp exp-orange" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-exp exp-orange" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-exp exp-orange" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-exp exp-orange" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-exp exp-orange" style="left:0;right:0"></div></div>
+
+      <div class="row-label">🏠 QC 1P Darkstore</div>
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      <div class="cell">
+        <div class="star-wrap"><span class="star">★</span><span class="star-lbl">MVP 4 tiendas</span></div>
+      </div>
+      <div class="cell"><div class="bar bar-exp exp-purple" style="left:0;right:0"><span class="exp-lbl">EXPANSIÓN</span></div></div>
+      <div class="cell"><div class="bar bar-exp exp-purple" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-exp exp-purple" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-exp exp-purple" style="left:0;right:0"></div></div>
+
+      <!-- ARGENTINA -->
+      <div class="country-hdr">🇦🇷 Argentina</div>
+
+      <div class="row-label">🍕 QC 3P Food</div>
+      <div class="cell"><div class="bar bar-solid-blue" style="left:0;right:0">AS IS</div></div>
+      <div class="cell"><div class="bar bar-solid-blue" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-solid-blue" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-solid-blue" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-exp exp-blue" style="left:0;right:0">FOOD PROFITABLE-GROWTH</div></div>
+      <div class="cell"><div class="bar bar-exp exp-blue" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-exp exp-blue" style="left:0;right:0"></div></div>
+      <div class="cell"><div class="bar bar-exp exp-blue" style="left:0;right:0"></div></div>
+
+      <div class="row-label">🥬 QC 3P Instore</div>
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      <div class="cell">
+        <div class="star-wrap"><span class="star">★</span><span class="star-lbl">MVP CABA (4 tiendas)</span></div>
+      </div>
+      <div class="cell"><div class="bar bar-exp exp-green" style="left:0;right:0"><span class="exp-lbl">EXPANSIÓN</span></div></div>
+      <div class="cell"><div class="bar bar-exp exp-green" style="left:0;right:0"></div></div>
+
+      <div class="row-label">💊 QC 3P GM</div>
+      <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+      <div class="cell">
+        <div class="star-wrap"><span class="star">★</span><span class="star-lbl">MVP QC 3P (CABA)</span></div>
+      </div>
+      <div class="cell"><div class="bar bar-exp exp-orange" style="left:0;right:0"><span class="exp-lbl">EXPANSIÓN</span></div></div>
+
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="lg-item"><span class="lg-star">★</span> Hito de lanzamiento inicial</div>
+    <div class="lg-item"><span class="lg-solid"></span> Fase de construcción / piloto</div>
+    <div class="lg-item"><span class="lg-exp"></span> Expansión continua post-lanzamiento</div>
+  </div>
+
+</div>
+</body>
+</html>
