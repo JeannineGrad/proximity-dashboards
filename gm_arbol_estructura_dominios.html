@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Estructura de dominios MLB</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Proxima Nova', Arial, sans-serif; }
+  body { width: 1100px; height: 620px; background: #ffffff; overflow: hidden; }
+  .slide { width: 1100px; height: 620px; padding: 32px 50px; display: flex; flex-direction: column; }
+  .title { font-size: 22px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .subtitle { font-size: 13.5px; color: #555; margin-top: 6px; line-height: 1.4; }
+
+  .funnel { display: flex; align-items: center; justify-content: center; margin-top: 28px; }
+  .step { display: flex; flex-direction: column; align-items: center; }
+  .step-box { width: 130px; height: 92px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; }
+  .step-num { font-size: 30px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .step-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px; opacity: 0.9; }
+  .step1 { background: #94a3b8; }
+  .step2 { background: #64748b; }
+  .step3 { background: #475569; }
+  .step4 { background: #334155; }
+  .step5 { background: #1a2454; }
+  .arrow-wrap { display: flex; flex-direction: column; align-items: center; padding: 0 10px; }
+  .arrow { font-size: 22px; color: #c7cbe0; }
+  .mult { font-size: 12px; font-weight: 700; color: #1a2454; margin-top: 2px; }
+
+  .table-wrap { margin-top: 30px; flex: 1; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 8px 10px; text-align: center; font-size: 13px; }
+  th { background: #1a2454; color: #fff; font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.3px; }
+  th.row-label-header { text-align: left; padding-left: 14px; }
+  td.row-label { text-align: left; padding-left: 14px; font-weight: 600; color: #1a2454; background: #f4f5fa; }
+  tr:nth-child(even) td:not(.row-label) { background: #fafafd; }
+  td.value { font-variant-numeric: tabular-nums; }
+  tr.total-row td { border-top: 2px solid #1a2454; font-weight: 700; }
+  tr.total-row td.row-label { background: #e8eaf3; }
+
+  .footnote { margin-top: 14px; font-size: 11px; color: #888; line-height: 1.5; }
+  .footnote b { color: #555; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="title">Estructura de dominios MLB: granularidad por nivel de taxonomía</div>
+  <div class="subtitle">Combinaciones distintas de Vertical → AGG1 → AGG2 → AGG3 → Dominio en <code>LK_ITE_ITEM_DOMAINS</code>, site MLB. La cantidad de categorías crece fuerte en cada nivel de detalle.</div>
+
+  <div class="funnel">
+    <div class="step">
+      <div class="step-box step1"><div class="step-num">14</div><div class="step-label">Verticales</div></div>
+    </div>
+    <div class="arrow-wrap"><div class="arrow">→</div><div class="mult">×5,3</div></div>
+    <div class="step">
+      <div class="step-box step2"><div class="step-num">74</div><div class="step-label">AGG1</div></div>
+    </div>
+    <div class="arrow-wrap"><div class="arrow">→</div><div class="mult">×4,9</div></div>
+    <div class="step">
+      <div class="step-box step3"><div class="step-num">360</div><div class="step-label">AGG2</div></div>
+    </div>
+    <div class="arrow-wrap"><div class="arrow">→</div><div class="mult">×2,6</div></div>
+    <div class="step">
+      <div class="step-box step4"><div class="step-num">948</div><div class="step-label">AGG3</div></div>
+    </div>
+    <div class="arrow-wrap"><div class="arrow">→</div><div class="mult">×6,6</div></div>
+    <div class="step">
+      <div class="step-box step5"><div class="step-num">6.276</div><div class="step-label">Dominios</div></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="row-label-header">Vertical</th>
+          <th>AGG1</th>
+          <th>AGG2</th>
+          <th>AGG3</th>
+          <th>Dominios</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">Vehicle Parts &amp; Accessories</td><td class="value">10</td><td class="value">39</td><td class="value">157</td><td class="value">1.854</td></tr>
+        <tr><td class="row-label">Construction &amp; Industry</td><td class="value">7</td><td class="value">51</td><td class="value">191</td><td class="value">1.035</td></tr>
+        <tr><td class="row-label">Sports</td><td class="value">8</td><td class="value">45</td><td class="value">63</td><td class="value">481</td></tr>
+        <tr><td class="row-label">Furnishing &amp; Houseware</td><td class="value">6</td><td class="value">37</td><td class="value">75</td><td class="value">434</td></tr>
+        <tr><td class="row-label">CPG</td><td class="value">5</td><td class="value">30</td><td class="value">81</td><td class="value">426</td></tr>
+        <tr><td class="row-label">Technology</td><td class="value">8</td><td class="value">34</td><td class="value">94</td><td class="value">406</td></tr>
+        <tr><td class="row-label">T &amp; B</td><td class="value">3</td><td class="value">31</td><td class="value">81</td><td class="value">358</td></tr>
+        <tr><td class="row-label">Home Electronics</td><td class="value">6</td><td class="value">27</td><td class="value">59</td><td class="value">285</td></tr>
+        <tr><td class="row-label">Health</td><td class="value">3</td><td class="value">13</td><td class="value">36</td><td class="value">267</td></tr>
+        <tr><td class="row-label">Beauty</td><td class="value">6</td><td class="value">15</td><td class="value">27</td><td class="value">178</td></tr>
+        <tr><td class="row-label">Fashion</td><td class="value">3</td><td class="value">15</td><td class="value">43</td><td class="value">174</td></tr>
+        <tr><td class="row-label">Entertainment</td><td class="value">4</td><td class="value">13</td><td class="value">34</td><td class="value">170</td></tr>
+        <tr><td class="row-label">Others</td><td class="value">2</td><td class="value">7</td><td class="value">7</td><td class="value">106</td></tr>
+        <tr><td class="row-label">Vis</td><td class="value">3</td><td class="value">3</td><td class="value">3</td><td class="value">104</td></tr>
+        <tr class="total-row"><td class="row-label">Total (14 verticales)</td><td class="value">74</td><td class="value">360</td><td class="value">948</td><td class="value">6.276</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footnote"><b>Fuente:</b> <code>meli-bi-data.WHOWNER.LK_ITE_ITEM_DOMAINS</code>, SIT_SITE_ID='MLB'. Los totales por vertical no suman al total global porque 1.160 de los 6.276 dominios tienen items clasificados bajo más de una combinación de Vertical/AGG1/AGG2/AGG3 (tabla a nivel item, no a nivel dominio) — un mismo dominio puede sumar en más de una fila.</div>
+</div>
+</body>
+</html>
