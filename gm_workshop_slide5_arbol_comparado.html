@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Arbol comparado</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Proxima Nova', Arial, sans-serif; }
+  body { width: 1100px; height: 620px; background: #ffffff; overflow: hidden; }
+  .slide { width: 1100px; height: 620px; padding: 30px 55px; display: flex; flex-direction: column; }
+  .title { font-size: 20px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .subtitle { font-size: 12.5px; color: #555; margin-top: 5px; line-height: 1.4; }
+
+  .funnel-block { margin-top: 30px; }
+  .funnel-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 10px; }
+  .funnel { display: flex; align-items: center; }
+  .step { display: flex; flex-direction: column; align-items: center; }
+  .step-box { width: 130px; height: 60px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; }
+  .step-num { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .step-label { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 1px; opacity: 0.9; }
+  .arrow-wrap { display: flex; flex-direction: column; align-items: center; padding: 0 8px; flex: 1; }
+  .arrow { font-size: 16px; }
+
+  /* fila 1: universo completo (gris, conceptual) */
+  .row1 .step1 { background: #cbd2e0; color: #444; }
+  .row1 .step2 { background: #a9b2c8; }
+  .row1 .step3 { background: #8891ab; }
+  .row1 .step4 { background: #67708e; }
+  .row1 .step5 { background: #46506e; }
+  .row1 .arrow { color: #c7cbe0; }
+  .funnel-label.row1-label { color: #67708e; }
+
+  /* fila 2: venta real SP (color house style) */
+  .row2 .step1 { background: #94a3b8; } .row2 .step2 { background: #64748b; } .row2 .step3 { background: #475569; } .row2 .step4 { background: #334155; } .row2 .step5 { background: #1a2454; } .row2 .step6 { background: #b8860b; }
+  .row2 .arrow { color: #c7cbe0; }
+  .funnel-label.row2-label { color: #1a2454; }
+
+  .spacer-box { width: 130px; visibility: hidden; }
+
+  .footnote { margin-top: 28px; font-size: 10.5px; color: #999; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="title">Estructura de categorías: universo completo de MLB vs. lo que se vende en San Pablo</div>
+  <div class="subtitle">Cantidad de categorías distintas en cada nivel de la taxonomía (Vertical → AGG1 → AGG2 → AGG3 → Dominio → Product ID).</div>
+
+  <div class="funnel-block row1">
+    <div class="funnel-label row1-label">Universo completo MLB (toda la taxonomía, conceptual)</div>
+    <div class="funnel">
+      <div class="step"><div class="step-box step1"><div class="step-num">14</div><div class="step-label">Verticales</div></div></div>
+      <div class="arrow-wrap"><div class="arrow">&rarr;</div></div>
+      <div class="step"><div class="step-box step2"><div class="step-num">74</div><div class="step-label">AGG1</div></div></div>
+      <div class="arrow-wrap"><div class="arrow">&rarr;</div></div>
+      <div class="step"><div class="step-box step3"><div class="step-num">360</div><div class="step-label">AGG2</div></div></div>
+      <div class="arrow-wrap"><div class="arrow">&rarr;</div></div>
+      <div class="step"><div class="step-box step4"><div class="step-num">948</div><div class="step-label">AGG3</div></div></div>
+      <div class="arrow-wrap"><div class="arrow">&rarr;</div></div>
+      <div class="step"><div class="step-box step5"><div class="step-num">6.276</div><div class="step-label">Dominios</div></div></div>
+      <div class="arrow-wrap"></div>
+      <div class="spacer-box"></div>
+    </div>
+  </div>
+
+  <div class="funnel-block row2" style="margin-top:26px;">
+    <div class="funnel-label row2-label">Vendido efectivamente en San Pablo (ciudad, agosto 2026)</div>
+    <div class="funnel">
+      <div class="step"><div class="step-box step1"><div class="step-num">13</div><div class="step-label">Verticales</div></div></div>
+      <div class="arrow-wrap"><div class="arrow">&rarr;</div></div>
+      <div class="step"><div class="step-box step2"><div class="step-num">70</div><div class="step-label">AGG1</div></div></div>
+      <div class="arrow-wrap"><div class="arrow">&rarr;</div></div>
+      <div class="step"><div class="step-box step3"><div class="step-num">345</div><div class="step-label">AGG2</div></div></div>
+      <div class="arrow-wrap"><div class="arrow">&rarr;</div></div>
+      <div class="step"><div class="step-box step4"><div class="step-num">853</div><div class="step-label">AGG3</div></div></div>
+      <div class="arrow-wrap"><div class="arrow">&rarr;</div></div>
+      <div class="step"><div class="step-box step5"><div class="step-num">5.261</div><div class="step-label">Dominios</div></div></div>
+      <div class="arrow-wrap"><div class="arrow">&rarr;</div></div>
+      <div class="step"><div class="step-box step6"><div class="step-num">4,19M</div><div class="step-label">Product IDs</div></div></div>
+    </div>
+  </div>
+
+  <div class="footnote"><b>Lectura:</b> casi toda la taxonomía de MLB está representada en la venta de San Pablo (5.261 de 6.276 dominios, 84%) — la ciudad no está sub-representada en variedad de categorías, el foco del workshop pasa por la concentración DENTRO de esas categorías, no por la falta de amplitud. <b>Fuente:</b> LK_ITE_ITEM_DOMAINS (universo) y BT_ORD_ORDERS (venta real SP, agosto 2026).</div>
+</div>
+</body>
+</html>
