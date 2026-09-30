@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Estructura y Pareto de venta por dominio - San Pablo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Proxima Nova', Arial, sans-serif; }
+  body { width: 1100px; height: 620px; background: #ffffff; overflow: hidden; }
+  .slide { width: 1100px; height: 620px; padding: 26px 50px; display: flex; flex-direction: column; }
+  .title { font-size: 20px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .subtitle { font-size: 12px; color: #555; margin-top: 4px; line-height: 1.4; }
+
+  .funnel { display: flex; align-items: center; justify-content: center; margin-top: 14px; }
+  .step { display: flex; flex-direction: column; align-items: center; }
+  .step-box { width: 100px; height: 58px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; }
+  .step-num { font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .step-label { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 1px; opacity: 0.9; }
+  .step1 { background: #94a3b8; } .step2 { background: #64748b; } .step3 { background: #475569; } .step4 { background: #334155; } .step5 { background: #1a2454; } .step6 { background: #b8860b; }
+  .arrow-wrap { display: flex; flex-direction: column; align-items: center; padding: 0 6px; }
+  .arrow { font-size: 16px; color: #c7cbe0; }
+  .mult { font-size: 10px; font-weight: 700; color: #1a2454; }
+
+  .content-row { display: flex; gap: 24px; margin-top: 16px; flex: 1; min-height: 0; }
+
+  .pareto-wrap { flex: 1.4; min-height: 0; overflow-y: auto; border: 1px solid #eef0f6; border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th { position: sticky; top: 0; background: #1a2454; color: #fff; font-weight: 600; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.3px; padding: 6px 9px; text-align: left; }
+  th.num, td.num { text-align: right; }
+  tbody td { padding: 4px 9px; font-size: 12px; border-bottom: 1px solid #f2f3f8; color: #333; }
+  td.rank { color: #999; font-variant-numeric: tabular-nums; }
+  td.dom { font-weight: 600; color: #1a2454; }
+  td.num { font-variant-numeric: tabular-nums; }
+
+  .callouts { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .callout-box { background: #f7f8fc; border: 1px solid #eef0f6; border-radius: 8px; padding: 12px 14px; }
+  .callout-num { font-size: 26px; font-weight: 700; color: #1a2454; font-variant-numeric: tabular-nums; }
+  .callout-label { font-size: 11.5px; color: #555; margin-top: 2px; line-height: 1.35; }
+  .callout-box.amber { border-color: #e8cf94; background: #fdf8ef; }
+  .callout-box.amber .callout-num { color: #b8860b; }
+
+  .footnote { margin-top: 10px; font-size: 10px; color: #999; line-height: 1.4; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="title">Estructura y concentración de venta por dominio — Ciudad de San Pablo (agosto 2026)</div>
+  <div class="subtitle">Solo dominios con venta efectiva en el período (no el universo completo de la taxonomía MLB). Product IDs = SKUs distintos vendidos.</div>
+
+  <div class="funnel">
+    <div class="step"><div class="step-box step1"><div class="step-num">13</div><div class="step-label">Verticales</div></div></div>
+    <div class="arrow-wrap"><div class="arrow">&rarr;</div><div class="mult">x5,4</div></div>
+    <div class="step"><div class="step-box step2"><div class="step-num">70</div><div class="step-label">AGG1</div></div></div>
+    <div class="arrow-wrap"><div class="arrow">&rarr;</div><div class="mult">x4,9</div></div>
+    <div class="step"><div class="step-box step3"><div class="step-num">345</div><div class="step-label">AGG2</div></div></div>
+    <div class="arrow-wrap"><div class="arrow">&rarr;</div><div class="mult">x2,5</div></div>
+    <div class="step"><div class="step-box step4"><div class="step-num">853</div><div class="step-label">AGG3</div></div></div>
+    <div class="arrow-wrap"><div class="arrow">&rarr;</div><div class="mult">x6,2</div></div>
+    <div class="step"><div class="step-box step5"><div class="step-num">5.261</div><div class="step-label">Dominios</div></div></div>
+    <div class="arrow-wrap"><div class="arrow">&rarr;</div><div class="mult">x797</div></div>
+    <div class="step"><div class="step-box step6"><div class="step-num">4,19M</div><div class="step-label">Product IDs</div></div></div>
+  </div>
+
+  <div class="content-row">
+    <div class="pareto-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Dominio</th><th class="num">Product IDs</th><th class="num">% Acum.</th></tr></thead>
+        <tbody>
+          <tr><td class="rank">1</td><td class="dom">Supplements</td><td class="num">88.745</td><td class="num">2,1%</td></tr>
+          <tr><td class="rank">2</td><td class="dom">Books</td><td class="num">66.353</td><td class="num">3,7%</td></tr>
+          <tr><td class="rank">3</td><td class="dom">Sneakers</td><td class="num">49.342</td><td class="num">4,9%</td></tr>
+          <tr><td class="rank">4</td><td class="dom">T Shirts</td><td class="num">44.839</td><td class="num">5,9%</td></tr>
+          <tr><td class="rank">5</td><td class="dom">Perfumes</td><td class="num">40.631</td><td class="num">6,9%</td></tr>
+          <tr><td class="rank">6</td><td class="dom">Hair Treatments</td><td class="num">39.873</td><td class="num">7,9%</td></tr>
+          <tr><td class="rank">7</td><td class="dom">Sandals And Clogs</td><td class="num">35.101</td><td class="num">8,7%</td></tr>
+          <tr><td class="rank">8</td><td class="dom">Cellphone Cases And Covers</td><td class="num">28.530</td><td class="num">9,4%</td></tr>
+          <tr><td class="rank">9</td><td class="dom">Floor Ceiling And Wall Lights</td><td class="num">26.771</td><td class="num">10,0%</td></tr>
+          <tr><td class="rank">10</td><td class="dom">Pants</td><td class="num">25.133</td><td class="num">10,6%</td></tr>
+          <tr><td class="rank">11</td><td class="dom">Body Skin Care Products</td><td class="num">22.780</td><td class="num">11,2%</td></tr>
+          <tr><td class="rank">12</td><td class="dom">Hair Shampoos And Conditioners</td><td class="num">21.419</td><td class="num">11,7%</td></tr>
+          <tr><td class="rank">13</td><td class="dom">Blouses</td><td class="num">18.162</td><td class="num">12,1%</td></tr>
+          <tr><td class="rank">14</td><td class="dom">Dresses</td><td class="num">17.386</td><td class="num">12,5%</td></tr>
+          <tr><td class="rank">15</td><td class="dom">Headphones</td><td class="num">16.627</td><td class="num">12,9%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callouts">
+      <div class="callout-box">
+        <div class="callout-num">270</div>
+        <div class="callout-label"><b>dominios (5,1%)</b> explican el 50% de los product IDs vendidos en San Pablo</div>
+      </div>
+      <div class="callout-box amber">
+        <div class="callout-num">1.028</div>
+        <div class="callout-label"><b>dominios (19,5%)</b> explican el 80% — el 80,5% restante de los dominios activos son long tail puro</div>
+      </div>
+      <div class="callout-box">
+        <div class="callout-num">5.261</div>
+        <div class="callout-label">dominios distintos tuvieron al menos 1 venta en el período</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote"><b>Fuente:</b> venta de San Pablo ciudad, agosto 2026, todos los sellers (sin filtro instant). Dominios mapeados a Vertical/AGG1/AGG2/AGG3 vía LK_ITE_ITEM_DOMAINS (nivel item, se asignó a cada dominio su combinación más frecuente). 24 de 5.285 dominios de venta no tenían mapeo en la taxonomía y quedaron excluidos del árbol (no del Pareto original).</div>
+</div>
+</body>
+</html>
