@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Perfil de las 4 zonas</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Proxima Nova', Arial, sans-serif; }
+  body { width: 1100px; height: 620px; background: #ffffff; overflow: hidden; }
+  .slide { width: 1100px; height: 620px; padding: 32px 60px; display: flex; flex-direction: column; }
+  .title { font-size: 23px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .subtitle { font-size: 13px; color: #555; margin-top: 5px; line-height: 1.4; }
+
+  .zones { display: flex; gap: 18px; margin-top: 28px; flex: 1; }
+  .zone-card { flex: 1; border-radius: 10px; padding: 20px 18px; display: flex; flex-direction: column; }
+  .zone-card.z1 { background: #1a2454; color: #fff; }
+  .zone-card.z2 { background: #34406e; color: #fff; }
+  .zone-card.z3 { background: #eef0f6; color: #1a2454; }
+  .zone-card.z4 { background: #f7f8fc; color: #1a2454; border: 1px dashed #c7cde8; }
+  .zone-name { font-size: 15px; font-weight: 700; }
+  .zone-hex { font-size: 11px; opacity: 0.75; margin-top: 2px; }
+  .zone-gmv { font-size: 26px; font-weight: 700; margin-top: 18px; font-variant-numeric: tabular-nums; }
+  .zone-gmv-label { font-size: 10.5px; opacity: 0.8; margin-top: 2px; }
+  .zone-bar-track { height: 6px; background: rgba(255,255,255,0.25); border-radius: 3px; margin-top: 10px; overflow: hidden; }
+  .zone-card.z3 .zone-bar-track, .zone-card.z4 .zone-bar-track { background: #d8dced; }
+  .zone-bar-fill { height: 100%; background: #FFB700; border-radius: 3px; }
+  .zone-metrics { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .zone-metric-row { display: flex; justify-content: space-between; font-size: 12px; }
+  .zone-metric-label { opacity: 0.8; }
+  .zone-metric-val { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .footnote { margin-top: 16px; font-size: 10.5px; color: #999; line-height: 1.4; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="title">Perfil de las 4 zonas: concentración fuerte en Zona 1 y 2</div>
+  <div class="subtitle">GMV, pedidos y ticket promedio de referencia por zona (datos del equipo que armó la zonificación de los 55 hexágonos).</div>
+
+  <div class="zones">
+    <div class="zone-card z1">
+      <div class="zone-name">Zona 1</div>
+      <div class="zone-hex">12 hexágonos &middot; mayor potencial</div>
+      <div class="zone-gmv">R$ 1.266M</div>
+      <div class="zone-gmv-label">61,7% del GMV total</div>
+      <div class="zone-bar-track"><div class="zone-bar-fill" style="width:100%"></div></div>
+      <div class="zone-metrics">
+        <div class="zone-metric-row"><span class="zone-metric-label">Pedidos</span><span class="zone-metric-val">10,5M</span></div>
+        <div class="zone-metric-row"><span class="zone-metric-label">Ticket prom.</span><span class="zone-metric-val">R$ 120,18</span></div>
+      </div>
+    </div>
+    <div class="zone-card z2">
+      <div class="zone-name">Zona 2</div>
+      <div class="zone-hex">16 hexágonos</div>
+      <div class="zone-gmv">R$ 684M</div>
+      <div class="zone-gmv-label">33,3% del GMV total</div>
+      <div class="zone-bar-track"><div class="zone-bar-fill" style="width:54%"></div></div>
+      <div class="zone-metrics">
+        <div class="zone-metric-row"><span class="zone-metric-label">Pedidos</span><span class="zone-metric-val">5,7M</span></div>
+        <div class="zone-metric-row"><span class="zone-metric-label">Ticket prom.</span><span class="zone-metric-val">R$ 120,00</span></div>
+      </div>
+    </div>
+    <div class="zone-card z3">
+      <div class="zone-name">Zona 3</div>
+      <div class="zone-hex">14 hexágonos</div>
+      <div class="zone-gmv">R$ 99M</div>
+      <div class="zone-gmv-label">4,8% del GMV total</div>
+      <div class="zone-bar-track"><div class="zone-bar-fill" style="width:8%"></div></div>
+      <div class="zone-metrics">
+        <div class="zone-metric-row"><span class="zone-metric-label">Pedidos</span><span class="zone-metric-val">800k</span></div>
+        <div class="zone-metric-row"><span class="zone-metric-label">Ticket prom.</span><span class="zone-metric-val">R$ 124,24</span></div>
+      </div>
+    </div>
+    <div class="zone-card z4">
+      <div class="zone-name">Zona 4</div>
+      <div class="zone-hex">13 hexágonos &middot; menor potencial</div>
+      <div class="zone-gmv">R$ 1,6M</div>
+      <div class="zone-gmv-label">0,1% del GMV total</div>
+      <div class="zone-bar-track"><div class="zone-bar-fill" style="width:1%"></div></div>
+      <div class="zone-metrics">
+        <div class="zone-metric-row"><span class="zone-metric-label">Pedidos</span><span class="zone-metric-val">11,9k</span></div>
+        <div class="zone-metric-row"><span class="zone-metric-label">Ticket prom.</span><span class="zone-metric-val">R$ 134,31</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote"><b>Lectura:</b> Zona 1 + Zona 2 concentran el 95% del GMV con solo 28 de los 55 hexágonos — la Zona 3 y sobre todo la Zona 4 tienen volumen marginal en esta referencia. El ranking usa el promedio de percentil de GMV y de pedidos por hexágono (no solo GMV), para no subestimar zonas de alto volumen y ticket bajo.</div>
+</div>
+</body>
+</html>

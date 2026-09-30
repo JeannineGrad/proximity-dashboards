@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Concentracion de catalogo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Proxima Nova', Arial, sans-serif; }
+  body { width: 1100px; height: 620px; background: #ffffff; overflow: hidden; }
+  .slide { width: 1100px; height: 620px; padding: 30px 60px; display: flex; flex-direction: column; }
+  .title { font-size: 21px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .subtitle { font-size: 12.5px; color: #555; margin-top: 5px; line-height: 1.4; }
+
+  .headline { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 20px; }
+  .headline-num { font-size: 44px; font-weight: 700; color: #1a2454; }
+  .headline-text { font-size: 14px; color: #333; max-width: 480px; line-height: 1.4; }
+
+  .cols { display: flex; gap: 24px; margin-top: 24px; flex: 1; min-height: 0; }
+  .col { flex: 1; display: flex; flex-direction: column; }
+  .col-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; padding: 6px 10px; border-radius: 6px 6px 0 0; }
+  .col.concentrado .col-title { background: #1a2454; color: #fff; }
+  .col.fragmentado .col-title { background: #c0392b; color: #fff; }
+  .col-body { border: 1px solid #eef0f6; border-top: none; border-radius: 0 0 8px 8px; padding: 8px 0; flex: 1; }
+  .row { display: flex; justify-content: space-between; align-items: center; padding: 5px 12px; border-bottom: 1px solid #f2f3f8; font-size: 12px; }
+  .row .name { font-weight: 600; color: #1a2454; }
+  .row .pct { font-variant-numeric: tabular-nums; font-weight: 700; }
+  .col.concentrado .pct { color: #1a2454; }
+  .col.fragmentado .pct { color: #c0392b; }
+
+  .footnote { margin-top: 14px; font-size: 10px; color: #999; line-height: 1.4; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="title">Concentración de catálogo: 1 de cada 3 productos explica el 80% del volumen</div>
+  <div class="subtitle">Para cada dominio vendido en la ciudad de San Pablo (agosto 2026), % de product IDs necesarios para llegar al 80% de las unidades vendidas de ese dominio.</div>
+
+  <div class="headline">
+    <div class="headline-num">32,3%</div>
+    <div class="headline-text">de los product IDs de un dominio (promedio ponderado por volumen) explican el 80% de sus unidades vendidas — pero varía mucho según el tipo de categoría.</div>
+  </div>
+
+  <div class="cols">
+    <div class="col concentrado">
+      <div class="col-title">Más concentrados (pocos SKUs, mucho volumen)</div>
+      <div class="col-body">
+        <div class="row"><span class="name">Toilet Papers</span><span class="pct">4,7%</span></div>
+        <div class="row"><span class="name">Laundry Detergents</span><span class="pct">4,8%</span></div>
+        <div class="row"><span class="name">Dishwashing Detergents</span><span class="pct">5,6%</span></div>
+        <div class="row"><span class="name">Fabric Softeners</span><span class="pct">5,7%</span></div>
+        <div class="row"><span class="name">Cooking Oils</span><span class="pct">5,8%</span></div>
+        <div class="row"><span class="name">Milk</span><span class="pct">6,1%</span></div>
+        <div class="row"><span class="name">Disposable Baby Diapers</span><span class="pct">7,0%</span></div>
+        <div class="row"><span class="name">Ground &amp; Whole Beans Coffee</span><span class="pct">7,2%</span></div>
+      </div>
+    </div>
+    <div class="col fragmentado">
+      <div class="col-title">Más fragmentados (cada SKU vende poquito)</div>
+      <div class="col-body">
+        <div class="row"><span class="name">Physical Movies</span><span class="pct">78,9%</span></div>
+        <div class="row"><span class="name">TV Main Board Replacements</span><span class="pct">78,5%</span></div>
+        <div class="row"><span class="name">TV SMPS</span><span class="pct">76,5%</span></div>
+        <div class="row"><span class="name">Music Albums</span><span class="pct">75,2%</span></div>
+        <div class="row"><span class="name">Vehicle Engine Bearings</span><span class="pct">75,0%</span></div>
+        <div class="row"><span class="name">Vehicle Front Bumpers</span><span class="pct">74,3%</span></div>
+        <div class="row"><span class="name">Vehicle Racks And Pinions</span><span class="pct">74,3%</span></div>
+        <div class="row"><span class="name">Vehicle Shock Absorbers</span><span class="pct">73,3%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote"><b>Lectura:</b> commodities de reposición frecuente (limpieza, higiene, alimentos básicos) concentran ventas en pocas marcas/presentaciones top — ideales para asegurar disponibilidad con pocos SKUs. Repuestos de vehículo, electrónica de reparación y colecciones (películas, discos) son long tail puro, cada ítem es casi único — no conviene priorizarlos para cobertura de stock local. <b>Fuente:</b> query_concentracion_productos_por_dominio_sp.sql, dominios con &gt;1.000 product IDs.</div>
+</div>
+</body>
+</html>
