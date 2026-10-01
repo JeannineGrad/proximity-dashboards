@@ -115,10 +115,14 @@
   .c8-cols { display: flex; gap: 14px; margin-top: 16px; flex: 1; min-height: 0; }
   .c8-col.frag2 .c8-col-title { background: #b8860b; }
   .c8-col.frag2 .pct { color: #b8860b; }
-  .c8-cols .c8-row { padding: 4px 9px; font-size: 10.5px; }
-  .c8-cols .c8-row .abs { width: 92px; font-size: 9.5px; }
-  .c8-cols .c8-row .pct { width: 44px; }
-  .c8-cols .c8-col-title { font-size: 10.5px; padding: 6px 9px; }
+  .c8-col.conc2 .c8-col-title { background: #34406e; }
+  .c8-col.conc2 .pct { color: #34406e; }
+  .c8-cols { gap: 10px; }
+  .c8-cols .c8-row { padding: 4px 7px; font-size: 10px; }
+  .c8-cols .c8-row .abs { width: 76px; font-size: 9px; }
+  .c8-cols .c8-row .pct { width: 38px; }
+  .c8-cols .c8-col-title { font-size: 9.5px; padding: 6px 7px; }
+  .c8-cols .c8-row.head { font-size: 8.5px; }
   .c8-col { flex: 1; display: flex; flex-direction: column; }
   .c8-col-title { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; padding: 6px 12px; border-radius: 6px 6px 0 0; color: #fff; }
   .c8-col.conc .c8-col-title { background: #1a2454; }
@@ -386,6 +390,22 @@
           <div class="c8-row"><span class="name">Bodyweight Scales</span><span class="abs">82 de 1.012</span><span class="pct">8,1%</span></div>
         </div>
       </div>
+      <div class="c8-col conc2">
+        <div class="c8-col-title">10 m&aacute;s concentrados sin CPG</div>
+        <div class="c8-col-body">
+          <div class="c8-row head"><span class="name">Dominio</span><span class="abs">IDs 80% / total</span><span class="pct">%</span></div>
+          <div class="c8-row"><span class="name">Bodyweight Scales</span><span class="abs">82 de 1.012</span><span class="pct">8,1%</span></div>
+          <div class="c8-row"><span class="name">Cooking Scales</span><span class="abs">92 de 1.132</span><span class="pct">8,1%</span></div>
+          <div class="c8-row"><span class="name">Microwaves</span><span class="abs">81 de 803</span><span class="pct">10,1%</span></div>
+          <div class="c8-row"><span class="name">Blood Pressure Monitors</span><span class="abs">82 de 805</span><span class="pct">10,2%</span></div>
+          <div class="c8-row"><span class="name">Air Fryers</span><span class="abs">179 de 1.636</span><span class="pct">10,9%</span></div>
+          <div class="c8-row"><span class="name">Air Compressors</span><span class="abs">126 de 1.066</span><span class="pct">11,8%</span></div>
+          <div class="c8-row"><span class="name">Sport Bras</span><span class="abs">309 de 2.223</span><span class="pct">13,9%</span></div>
+          <div class="c8-row"><span class="name">Electric Drills</span><span class="abs">247 de 1.741</span><span class="pct">14,2%</span></div>
+          <div class="c8-row"><span class="name">Electric Screwdrivers</span><span class="abs">422 de 2.823</span><span class="pct">14,9%</span></div>
+          <div class="c8-row"><span class="name">Hair Clippers &amp; Trimmers</span><span class="abs">853 de 5.586</span><span class="pct">15,3%</span></div>
+        </div>
+      </div>
       <div class="c8-col frag">
         <div class="c8-col-title">10 m&aacute;s fragmentados</div>
         <div class="c8-col-body">
@@ -419,7 +439,7 @@
         </div>
       </div>
     </div>
-    <div class="c8-footnote"><b>Fuente:</b> query_concentracion_productos_por_dominio_sp.sql (venta ciudad de San Pablo, agosto 2026) cruzado con query_pareto_dominios_por_hexagono.sql. Distribuci&oacute;n de los 405: &lt;10% de product IDs: 13 &middot; 10-25%: 104 &middot; 25-40%: 189 &middot; 40-55%: 70 &middot; &ge;55%: 29. Vertical seg&uacute;n LK_ITE_ITEM_DOMAINS: 31 de los 405 son Vehicle Parts &amp; Accessories / VIS.</div>
+    <div class="c8-footnote"><b>Fuente:</b> query_concentracion_productos_por_dominio_sp.sql (venta ciudad de San Pablo, agosto 2026) cruzado con query_pareto_dominios_por_hexagono.sql. Distribuci&oacute;n de los 405: &lt;10% de product IDs: 13 &middot; 10-25%: 104 &middot; 25-40%: 189 &middot; 40-55%: 70 &middot; &ge;55%: 29. Vertical seg&uacute;n LK_ITE_ITEM_DOMAINS: 31 de los 405 son Vehicle Parts &amp; Accessories / VIS y 48 son CPG.</div>
   </div>
 </div>
 
