@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Histogramas por hexagono - Zonas 1-4 San Pablo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Proxima Nova', Arial, sans-serif; }
+  body { width: 1100px; height: 620px; overflow: hidden; }
+  .deck { width: 1100px; height: 620px; position: relative; }
+  .page { width: 1100px; height: 620px; position: absolute; top: 0; left: 0; display: none; }
+  .page.active { display: block; }
+  .nav { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 14px; z-index: 50; }
+  .nav button { width: 26px; height: 26px; border-radius: 50%; border: none; background: rgba(0,0,0,0.35); color: #fff; font-size: 13px; cursor: pointer; }
+  .nav button:hover { background: rgba(0,0,0,0.55); }
+  .dots { display: flex; gap: 6px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.2); cursor: pointer; }
+  .dot.on { background: #1a2454; }
+  .h-slide { width: 1100px; height: 620px; padding: 26px 50px 40px; display: flex; flex-direction: column; }
+
+  /* ===== estructura de categorias ===== */
+  .p5-slide { width: 1100px; height: 620px; padding: 30px 55px; display: flex; flex-direction: column; background: #fff; }
+  .p5-title { font-size: 20px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .p5-subtitle { font-size: 12.5px; color: #555; margin-top: 5px; line-height: 1.4; }
+  .p5-funnel-block { margin-top: 30px; }
+  .p5-funnel-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 10px; }
+  .p5-funnel { display: flex; align-items: center; }
+  .p5-step { display: flex; flex-direction: column; align-items: center; }
+  .p5-step-box { width: 130px; height: 60px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; }
+  .p5-step-num { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .p5-step-label { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 1px; opacity: 0.9; }
+  .p5-arrow-wrap { display: flex; flex-direction: column; align-items: center; padding: 0 8px; flex: 1; }
+  .p5-arrow { font-size: 16px; }
+  .p5-row1 .p5-step1 { background: #cbd2e0; color: #444; }
+  .p5-row1 .p5-step2 { background: #a9b2c8; }
+  .p5-row1 .p5-step3 { background: #8891ab; }
+  .p5-row1 .p5-step4 { background: #67708e; }
+  .p5-row1 .p5-step5 { background: #46506e; }
+  .p5-row1 .p5-arrow { color: #c7cbe0; }
+  .p5-funnel-label.p5-row1-label { color: #67708e; }
+  .p5-row2 .p5-step1 { background: #94a3b8; } .p5-row2 .p5-step2 { background: #64748b; } .p5-row2 .p5-step3 { background: #475569; } .p5-row2 .p5-step4 { background: #334155; } .p5-row2 .p5-step5 { background: #1a2454; } .p5-row2 .p5-step6 { background: #b8860b; }
+  .p5-row2 .p5-arrow { color: #c7cbe0; }
+  .p5-funnel-label.p5-row2-label { color: #1a2454; }
+  .p5-spacer-box { width: 130px; visibility: hidden; }
+  .p5-footnote { margin-top: 28px; margin-bottom: 30px; font-size: 10.5px; color: #999; line-height: 1.5; }
+  .p5-center { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .p5-center .p5-funnel-block { margin-top: 0; }
+  .p5-center .p5-step-box { width: 128px; height: 84px; border-radius: 10px; }
+  .p5-center .p5-arrow-wrap { padding: 0 4px; }
+
+  /* ===== pareto SP ===== */
+  .p6-slide { width: 1100px; height: 620px; padding: 30px 55px; display: flex; flex-direction: column; background: #fff; }
+  .p6-title { font-size: 20px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .p6-subtitle { font-size: 12.5px; color: #555; margin-top: 5px; line-height: 1.4; }
+  .p6-center { flex: 1; display: flex; align-items: center; }
+  .p6-stats-row { display: flex; gap: 22px; width: 100%; }
+  .p6-stat-box { flex: 1; border-radius: 10px; padding: 26px 24px; }
+  .p6-stat-box.s1 { background: #f7f8fc; border: 1px solid #eef0f6; }
+  .p6-stat-box.s2 { background: #fdf8ef; border: 1px solid #e8cf94; }
+  .p6-stat-box.s3 { background: #1a2454; }
+  .p6-stat-num { font-size: 38px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .p6-stat-num span { font-size: 18px; }
+  .p6-stat-box.s1 .p6-stat-num { color: #1a2454; }
+  .p6-stat-box.s2 .p6-stat-num { color: #b8860b; }
+  .p6-stat-box.s3 .p6-stat-num { color: #FFB700; }
+  .p6-stat-label { font-size: 13px; margin-top: 8px; line-height: 1.45; }
+  .p6-stat-box.s1 .p6-stat-label, .p6-stat-box.s2 .p6-stat-label { color: #444; }
+  .p6-stat-box.s3 .p6-stat-label { color: #c7cde8; }
+  /* ===== repeticion entre hexagonos ===== */
+  .r7-slide { width: 1100px; height: 620px; padding: 30px 55px 40px; display: flex; flex-direction: column; background: #fff; }
+  .r7-title { font-size: 20px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .r7-subtitle { font-size: 12.5px; color: #555; margin-top: 5px; line-height: 1.4; }
+  .r7-stats-row { display: flex; gap: 16px; margin-top: 18px; }
+  .r7-stat-box { flex: 1; border-radius: 8px; padding: 14px 18px; }
+  .r7-stat-box.a { background: #f7f8fc; border: 1px solid #eef0f6; }
+  .r7-stat-box.b { background: #1a2454; }
+  .r7-stat-num { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .r7-stat-num span { font-size: 15px; }
+  .r7-stat-box.a .r7-stat-num { color: #1a2454; }
+  .r7-stat-box.b .r7-stat-num { color: #FFB700; }
+  .r7-stat-label { font-size: 12px; margin-top: 4px; line-height: 1.4; }
+  .r7-stat-box.a .r7-stat-label { color: #444; }
+  .r7-stat-box.b .r7-stat-label { color: #c7cde8; }
+  .r7-content-row { display: flex; gap: 28px; margin-top: 18px; flex: 1; min-height: 0; }
+  .r7-chart-col { flex: 1.4; display: flex; flex-direction: column; }
+  .r7-chart-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; color: #67708e; margin-bottom: 8px; }
+  .r7-chart-bars { display: flex; align-items: flex-end; gap: 14px; flex: 1; }
+  .r7-bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; }
+  .r7-bar-val { font-size: 12px; font-weight: 700; color: #1a2454; margin-bottom: 5px; font-variant-numeric: tabular-nums; }
+  .r7-bar-track { width: 100%; height: 150px; background: #f0f2f6; border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; overflow: hidden; }
+  .r7-bar-fill { width: 100%; background: #94a3b8; border-radius: 4px 4px 0 0; }
+  .r7-bar-fill.hi { background: #1a2454; }
+  .r7-bar-label { font-size: 10px; color: #777; margin-top: 6px; text-align: center; line-height: 1.25; }
+  .r7-list-col { flex: 1; display: flex; flex-direction: column; }
+  .r7-list { border: 1px solid #eef0f6; border-radius: 8px; overflow: hidden; }
+  .r7-list-row { display: flex; justify-content: space-between; padding: 5px 12px; font-size: 11.5px; border-bottom: 1px solid #f2f3f8; }
+  .r7-list-row:last-child { border-bottom: none; }
+  .r7-list-row .n { font-weight: 600; color: #1a2454; }
+  .r7-list-row .v { color: #555; font-variant-numeric: tabular-nums; }
+  .r7-list-head { background: #1a2454; color: #fff; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .r7-list-head .n, .r7-list-head .v { color: #fff; }
+  .r7-footnote { margin-top: 12px; font-size: 10px; color: #999; line-height: 1.4; }
+
+  /* ===== concentracion catalogo dominios universales ===== */
+  .c8-slide { width: 1100px; height: 620px; padding: 30px 55px 40px; display: flex; flex-direction: column; background: #fff; }
+  .c8-title { font-size: 20px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .c8-subtitle { font-size: 12.5px; color: #555; margin-top: 5px; line-height: 1.4; }
+  .c8-stats-row { display: flex; gap: 16px; margin-top: 16px; }
+  .c8-stat-box { flex: 1; border-radius: 8px; padding: 12px 18px; background: #f7f8fc; border: 1px solid #eef0f6; }
+  .c8-stat-box.dark { background: #1a2454; border: none; }
+  .c8-stat-num { font-size: 26px; font-weight: 700; color: #1a2454; font-variant-numeric: tabular-nums; }
+  .c8-stat-num span { font-size: 14px; }
+  .c8-stat-box.dark .c8-stat-num { color: #FFB700; }
+  .c8-stat-label { font-size: 11.5px; color: #444; margin-top: 3px; line-height: 1.35; }
+  .c8-stat-box.dark .c8-stat-label { color: #c7cde8; }
+  .c8-cols { display: flex; gap: 14px; margin-top: 16px; flex: 1; min-height: 0; }
+  .c8-col.frag2 .c8-col-title { background: #b8860b; }
+  .c8-col.frag2 .pct { color: #b8860b; }
+  .c8-cols .c8-row { padding: 4px 9px; font-size: 10.5px; }
+  .c8-cols .c8-row .abs { width: 92px; font-size: 9.5px; }
+  .c8-cols .c8-row .pct { width: 44px; }
+  .c8-cols .c8-col-title { font-size: 10.5px; padding: 6px 9px; }
+  .c8-col { flex: 1; display: flex; flex-direction: column; }
+  .c8-col-title { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; padding: 6px 12px; border-radius: 6px 6px 0 0; color: #fff; }
+  .c8-col.conc .c8-col-title { background: #1a2454; }
+  .c8-col.frag .c8-col-title { background: #0e7490; }
+  .c8-col-body { border: 1px solid #eef0f6; border-top: none; border-radius: 0 0 8px 8px; }
+  .c8-row { display: flex; align-items: center; padding: 4px 12px; border-bottom: 1px solid #f2f3f8; font-size: 11.5px; }
+  .c8-row:last-child { border-bottom: none; }
+  .c8-row .name { flex: 1; font-weight: 600; color: #1a2454; }
+  .c8-row .abs { width: 140px; text-align: right; color: #777; font-variant-numeric: tabular-nums; font-size: 10.5px; }
+  .c8-row .pct { width: 56px; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .c8-col.conc .pct { color: #1a2454; }
+  .c8-col.frag .pct { color: #0e7490; }
+  .c8-row.head { background: #f7f8fc; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.3px; color: #777; }
+  .c8-row.head .name, .c8-row.head .pct { color: #777; font-weight: 600; }
+  .c8-footnote { margin-top: 10px; font-size: 10px; color: #999; line-height: 1.4; }
+
+  /* ===== cruce busqueda vs venta ===== */
+  .s9-slide { width: 1100px; height: 620px; padding: 30px 55px 40px; display: flex; flex-direction: column; background: #fff; }
+  .s9-title { font-size: 20px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .s9-subtitle { font-size: 12px; color: #555; margin-top: 5px; line-height: 1.4; }
+  .s9-body { display: flex; gap: 22px; margin-top: 16px; flex: 1; min-height: 0; }
+  .s9-left { width: 330px; display: flex; flex-direction: column; }
+  .s9-sec { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: #67708e; margin-bottom: 7px; }
+  .s9-tbl { width: 100%; border-collapse: collapse; border: 1px solid #eef0f6; }
+  .s9-tbl th { background: #1a2454; color: #fff; font-size: 10px; font-weight: 600; text-transform: uppercase; padding: 6px 8px; text-align: right; }
+  .s9-tbl th:first-child, .s9-tbl td:first-child { text-align: left; }
+  .s9-tbl td { font-size: 12px; padding: 6px 8px; border-bottom: 1px solid #f2f3f8; text-align: right; font-variant-numeric: tabular-nums; color: #333; }
+  .s9-tbl td:first-child { font-weight: 600; color: #1a2454; }
+  .s9-tbl tr.na td { color: #999; font-weight: 400; font-size: 11px; }
+  .s9-note { font-size: 10px; color: #777; margin-top: 8px; line-height: 1.4; }
+  .s9-ov { border: 1px solid #eef0f6; background: #f7f8fc; border-radius: 8px; padding: 12px 16px; margin-bottom: 10px; }
+  .s9-ov-num { font-size: 28px; font-weight: 700; color: #0e7490; font-variant-numeric: tabular-nums; }
+  .s9-ov-num span { font-size: 15px; color: #1a2454; }
+  .s9-ov-lbl { font-size: 11.5px; color: #444; margin-top: 2px; line-height: 1.35; }
+  .s9-right { flex: 1; display: flex; flex-direction: column; }
+  .s9-lists { display: flex; gap: 14px; flex: 1; min-height: 0; }
+  .s9-list { flex: 1; border: 1px solid #eef0f6; border-radius: 8px; overflow: hidden; }
+  .s9-list-head { background: #1a2454; color: #fff; font-size: 10.5px; font-weight: 600; text-transform: uppercase; padding: 6px 10px; }
+  .s9-li { display: flex; gap: 8px; padding: 2px 10px; font-size: 11px; color: #555; border-bottom: 1px solid #f5f6fa; }
+  .s9-li .r { width: 18px; color: #aaa; text-align: right; font-variant-numeric: tabular-nums; }
+  .s9-li.both { color: #0e7490; font-weight: 700; background: #eef7f9; }
+  .s9-legend { font-size: 10px; color: #777; margin-top: 6px; }
+  .s9-legend b { color: #0e7490; }
+  .s9-footnote { margin-top: 10px; font-size: 10px; color: #999; line-height: 1.4; }
+
+  .p6-stack { width: 100%; display: flex; flex-direction: column; }
+  .p6-main { flex: 2.4; }
+  .p6-ref { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .p6-ref-tag { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: #999; }
+  .p6-ref-num { font-size: 24px; font-weight: 700; color: #67708e; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .p6-ref-num span { font-size: 13px; }
+  .p6-ref-label { font-size: 11.5px; color: #666; margin-top: 4px; line-height: 1.4; }
+  .p6-rep { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 12px; color: #444; line-height: 1.4; }
+  .p6-rep-num { font-size: 18px; font-weight: 700; color: #0e7490; font-variant-numeric: tabular-nums; margin-right: 2px; }
+  .p6-row-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: #67708e; margin-bottom: 10px; }
+  .p6-stat-box.s1, .p6-stat-box.s2 { padding: 20px 24px; }
+  .p6-wide { display: flex; align-items: center; gap: 28px; padding: 20px 28px; }
+  .p6-wide-item { flex: 1; }
+  .p6-wide-sep { width: 1px; align-self: stretch; background: rgba(255,255,255,0.2); }
+  .p6-footnote { margin-bottom: 30px; font-size: 10.5px; color: #999; line-height: 1.5; }
+  .p5-center .p5-step-num { font-size: 24px; }
+  .p5-center .p5-step-label { font-size: 10.5px; margin-top: 3px; }
+  .p5-center .p5-arrow { font-size: 20px; }
+  .title { font-size: 19px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .subtitle { font-size: 11.5px; color: #555; margin-top: 4px; line-height: 1.4; }
+  .legend { display: flex; gap: 16px; margin-top: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: #444; }
+  .legend-swatch { width: 10px; height: 10px; border-radius: 2px; }
+  .grid { display: grid; gap: 14px; flex: 1; min-height: 0; }
+  .grid.g3 { grid-template-columns: repeat(3, 1fr); }
+  .grid.g2 { grid-template-columns: repeat(2, 1fr); }
+  .row-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: #67708e; margin: 12px 0 6px; }
+  .panel { border: 1px solid #eef0f6; border-radius: 8px; padding: 10px 12px 8px; display: flex; flex-direction: column; }
+  .panel-title { font-size: 11px; font-weight: 700; color: #1a2454; }
+  .panel-max { font-size: 9.5px; color: #999; margin-top: 1px; }
+  .hist { display: flex; align-items: flex-end; gap: 1px; flex: 1; margin-top: 6px; border-bottom: 1px solid #e4e6ef; }
+  .hbar { flex: 1; border-radius: 1px 1px 0 0; min-width: 1px; }
+  .footnote { margin-top: 10px; font-size: 9.5px; color: #999; line-height: 1.35; }
+</style>
+</head>
+<body>
+<div class="deck">
+<div class="page active">
+<div class="h-slide">
+  <div class="title">Info Meli: Vol&uacute;menes x Hex&aacute;gono</div>
+  <div class="subtitle">Cada barra = 1 de los 50 hex&aacute;gonos con venta en agosto 2026. Orden: por zona, de mayor a menor env&iacute;os totales dentro de cada zona (mismo orden en los 5 gr&aacute;ficos).</div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch" style="background:#1a2454"></div>Zona 1 (12 hex)</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#0e7490"></div>Zona 2 (16 hex)</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#94a3b8"></div>Zona 3 (14 hex)</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#FFB700"></div>Zona 4 (8 hex)</div>
+  </div>
+  <div class="row-label">Volumen y elegibilidad instant</div>
+  <div class="grid g3">
+    <div class="panel">
+      <div class="panel-title">Env&iacute;os totales</div>
+      <div class="panel-max">m&aacute;x: 608k &middot; media: 134k &middot; mediana: 89k</div>
+      <div class="hist"><div class='hbar' style='height:100%;background:#1a2454'></div><div class='hbar' style='height:71.2%;background:#1a2454'></div><div class='hbar' style='height:66.2%;background:#1a2454'></div><div class='hbar' style='height:63.8%;background:#1a2454'></div><div class='hbar' style='height:53%;background:#1a2454'></div><div class='hbar' style='height:46.5%;background:#1a2454'></div><div class='hbar' style='height:45.7%;background:#1a2454'></div><div class='hbar' style='height:43.1%;background:#1a2454'></div><div class='hbar' style='height:42.6%;background:#1a2454'></div><div class='hbar' style='height:42.4%;background:#1a2454'></div><div class='hbar' style='height:41.6%;background:#1a2454'></div><div class='hbar' style='height:38.1%;background:#1a2454'></div><div class='hbar' style='height:49.8%;background:#0e7490'></div><div class='hbar' style='height:33.8%;background:#0e7490'></div><div class='hbar' style='height:33.4%;background:#0e7490'></div><div class='hbar' style='height:32.6%;background:#0e7490'></div><div class='hbar' style='height:32.6%;background:#0e7490'></div><div class='hbar' style='height:28.4%;background:#0e7490'></div><div class='hbar' style='height:28.3%;background:#0e7490'></div><div class='hbar' style='height:24.6%;background:#0e7490'></div><div class='hbar' style='height:21.6%;background:#0e7490'></div><div class='hbar' style='height:20.4%;background:#0e7490'></div><div class='hbar' style='height:18.2%;background:#0e7490'></div><div class='hbar' style='height:18.1%;background:#0e7490'></div><div class='hbar' style='height:15.6%;background:#0e7490'></div><div class='hbar' style='height:13.8%;background:#0e7490'></div><div class='hbar' style='height:12.8%;background:#0e7490'></div><div class='hbar' style='height:11.2%;background:#0e7490'></div><div class='hbar' style='height:10.7%;background:#94a3b8'></div><div class='hbar' style='height:7.7%;background:#94a3b8'></div><div class='hbar' style='height:6.2%;background:#94a3b8'></div><div class='hbar' style='height:4.2%;background:#94a3b8'></div><div class='hbar' style='height:4.2%;background:#94a3b8'></div><div class='hbar' style='height:4.1%;background:#94a3b8'></div><div class='hbar' style='height:4%;background:#94a3b8'></div><div class='hbar' style='height:3.1%;background:#94a3b8'></div><div class='hbar' style='height:1.2%;background:#94a3b8'></div><div class='hbar' style='height:1.2%;background:#94a3b8'></div><div class='hbar' style='height:1.1%;background:#94a3b8'></div><div class='hbar' style='height:1%;background:#94a3b8'></div><div class='hbar' style='height:1%;background:#94a3b8'></div><div class='hbar' style='height:0.5%;background:#94a3b8'></div><div class='hbar' style='height:0.3%;background:#FFB700'></div><div class='hbar' style='height:0.1%;background:#FFB700'></div><div class='hbar' style='height:0.1%;background:#FFB700'></div><div class='hbar' style='height:0.1%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">% env&iacute;os elegibles instant</div>
+      <div class="panel-max">escala: 0-100% &middot; media pond. por vol.: 92,4% &middot; mediana: 92,5%</div>
+      <div class="hist"><div class='hbar' style='height:92.2%;background:#1a2454'></div><div class='hbar' style='height:92.8%;background:#1a2454'></div><div class='hbar' style='height:91.7%;background:#1a2454'></div><div class='hbar' style='height:92.6%;background:#1a2454'></div><div class='hbar' style='height:92.9%;background:#1a2454'></div><div class='hbar' style='height:93.1%;background:#1a2454'></div><div class='hbar' style='height:92.6%;background:#1a2454'></div><div class='hbar' style='height:91.7%;background:#1a2454'></div><div class='hbar' style='height:92.2%;background:#1a2454'></div><div class='hbar' style='height:92.6%;background:#1a2454'></div><div class='hbar' style='height:91.6%;background:#1a2454'></div><div class='hbar' style='height:92.2%;background:#1a2454'></div><div class='hbar' style='height:92.7%;background:#0e7490'></div><div class='hbar' style='height:92.9%;background:#0e7490'></div><div class='hbar' style='height:92.8%;background:#0e7490'></div><div class='hbar' style='height:92.6%;background:#0e7490'></div><div class='hbar' style='height:92.8%;background:#0e7490'></div><div class='hbar' style='height:92.5%;background:#0e7490'></div><div class='hbar' style='height:92.5%;background:#0e7490'></div><div class='hbar' style='height:92.3%;background:#0e7490'></div><div class='hbar' style='height:93.5%;background:#0e7490'></div><div class='hbar' style='height:92.8%;background:#0e7490'></div><div class='hbar' style='height:92.5%;background:#0e7490'></div><div class='hbar' style='height:91.9%;background:#0e7490'></div><div class='hbar' style='height:91.6%;background:#0e7490'></div><div class='hbar' style='height:92.5%;background:#0e7490'></div><div class='hbar' style='height:93.1%;background:#0e7490'></div><div class='hbar' style='height:92.3%;background:#0e7490'></div><div class='hbar' style='height:92.6%;background:#94a3b8'></div><div class='hbar' style='height:91.9%;background:#94a3b8'></div><div class='hbar' style='height:93%;background:#94a3b8'></div><div class='hbar' style='height:92.8%;background:#94a3b8'></div><div class='hbar' style='height:90%;background:#94a3b8'></div><div class='hbar' style='height:93%;background:#94a3b8'></div><div class='hbar' style='height:92.8%;background:#94a3b8'></div><div class='hbar' style='height:89%;background:#94a3b8'></div><div class='hbar' style='height:92.7%;background:#94a3b8'></div><div class='hbar' style='height:93.1%;background:#94a3b8'></div><div class='hbar' style='height:89.3%;background:#94a3b8'></div><div class='hbar' style='height:93.7%;background:#94a3b8'></div><div class='hbar' style='height:88.2%;background:#94a3b8'></div><div class='hbar' style='height:90.2%;background:#94a3b8'></div><div class='hbar' style='height:90%;background:#FFB700'></div><div class='hbar' style='height:92.3%;background:#FFB700'></div><div class='hbar' style='height:94.2%;background:#FFB700'></div><div class='hbar' style='height:89.7%;background:#FFB700'></div><div class='hbar' style='height:88.7%;background:#FFB700'></div><div class='hbar' style='height:91.2%;background:#FFB700'></div><div class='hbar' style='height:89.4%;background:#FFB700'></div><div class='hbar' style='height:66.7%;background:#FFB700'></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Ticket prom. elegible por env&iacute;o (BRL)</div>
+      <div class="panel-max">m&aacute;x: R$ 147 &middot; media pond. por vol.: R$ 104 &middot; mediana: R$ 101</div>
+      <div class="hist"><div class='hbar' style='height:75.5%;background:#1a2454'></div><div class='hbar' style='height:72.5%;background:#1a2454'></div><div class='hbar' style='height:87.4%;background:#1a2454'></div><div class='hbar' style='height:70.9%;background:#1a2454'></div><div class='hbar' style='height:68.4%;background:#1a2454'></div><div class='hbar' style='height:66.7%;background:#1a2454'></div><div class='hbar' style='height:70%;background:#1a2454'></div><div class='hbar' style='height:74.6%;background:#1a2454'></div><div class='hbar' style='height:68.6%;background:#1a2454'></div><div class='hbar' style='height:67.7%;background:#1a2454'></div><div class='hbar' style='height:78.1%;background:#1a2454'></div><div class='hbar' style='height:70.1%;background:#1a2454'></div><div class='hbar' style='height:69.3%;background:#0e7490'></div><div class='hbar' style='height:64.9%;background:#0e7490'></div><div class='hbar' style='height:71.1%;background:#0e7490'></div><div class='hbar' style='height:67.9%;background:#0e7490'></div><div class='hbar' style='height:68.8%;background:#0e7490'></div><div class='hbar' style='height:73.2%;background:#0e7490'></div><div class='hbar' style='height:67.2%;background:#0e7490'></div><div class='hbar' style='height:67.1%;background:#0e7490'></div><div class='hbar' style='height:62.5%;background:#0e7490'></div><div class='hbar' style='height:68.9%;background:#0e7490'></div><div class='hbar' style='height:67.8%;background:#0e7490'></div><div class='hbar' style='height:69.2%;background:#0e7490'></div><div class='hbar' style='height:70.5%;background:#0e7490'></div><div class='hbar' style='height:66.1%;background:#0e7490'></div><div class='hbar' style='height:66.3%;background:#0e7490'></div><div class='hbar' style='height:65.6%;background:#0e7490'></div><div class='hbar' style='height:68.8%;background:#94a3b8'></div><div class='hbar' style='height:69.5%;background:#94a3b8'></div><div class='hbar' style='height:62.1%;background:#94a3b8'></div><div class='hbar' style='height:64.8%;background:#94a3b8'></div><div class='hbar' style='height:73.6%;background:#94a3b8'></div><div class='hbar' style='height:63.6%;background:#94a3b8'></div><div class='hbar' style='height:61.3%;background:#94a3b8'></div><div class='hbar' style='height:79.6%;background:#94a3b8'></div><div class='hbar' style='height:65.8%;background:#94a3b8'></div><div class='hbar' style='height:63.2%;background:#94a3b8'></div><div class='hbar' style='height:80.6%;background:#94a3b8'></div><div class='hbar' style='height:63.1%;background:#94a3b8'></div><div class='hbar' style='height:87.3%;background:#94a3b8'></div><div class='hbar' style='height:68.5%;background:#94a3b8'></div><div class='hbar' style='height:83.3%;background:#FFB700'></div><div class='hbar' style='height:75.8%;background:#FFB700'></div><div class='hbar' style='height:54.2%;background:#FFB700'></div><div class='hbar' style='height:69.8%;background:#FFB700'></div><div class='hbar' style='height:100%;background:#FFB700'></div><div class='hbar' style='height:64%;background:#FFB700'></div><div class='hbar' style='height:76.9%;background:#FFB700'></div><div class='hbar' style='height:57%;background:#FFB700'></div></div>
+    </div>
+  </div>
+  <div class="row-label">Cobertura con sellers actuales (seller ubicado en el mismo hex&aacute;gono que el comprador)</div>
+  <div class="grid g2">
+    <div class="panel">
+      <div class="panel-title">% env&iacute;os locales (mismo hex&aacute;gono)</div>
+      <div class="panel-max">m&aacute;x: 28,7% &middot; media pond. por vol.: 3,9% &middot; mediana: 0,8%</div>
+      <div class="hist"><div class='hbar' style='height:36.8%;background:#1a2454'></div><div class='hbar' style='height:12.9%;background:#1a2454'></div><div class='hbar' style='height:3.8%;background:#1a2454'></div><div class='hbar' style='height:25.1%;background:#1a2454'></div><div class='hbar' style='height:13%;background:#1a2454'></div><div class='hbar' style='height:4.4%;background:#1a2454'></div><div class='hbar' style='height:9.1%;background:#1a2454'></div><div class='hbar' style='height:4.8%;background:#1a2454'></div><div class='hbar' style='height:8%;background:#1a2454'></div><div class='hbar' style='height:12.3%;background:#1a2454'></div><div class='hbar' style='height:15.6%;background:#1a2454'></div><div class='hbar' style='height:4.1%;background:#1a2454'></div><div class='hbar' style='height:20.4%;background:#0e7490'></div><div class='hbar' style='height:11%;background:#0e7490'></div><div class='hbar' style='height:9.1%;background:#0e7490'></div><div class='hbar' style='height:6.6%;background:#0e7490'></div><div class='hbar' style='height:27.9%;background:#0e7490'></div><div class='hbar' style='height:2.4%;background:#0e7490'></div><div class='hbar' style='height:4.2%;background:#0e7490'></div><div class='hbar' style='height:3.4%;background:#0e7490'></div><div class='hbar' style='height:1.6%;background:#0e7490'></div><div class='hbar' style='height:4.2%;background:#0e7490'></div><div class='hbar' style='height:3.8%;background:#0e7490'></div><div class='hbar' style='height:100%;background:#0e7490'></div><div class='hbar' style='height:0.5%;background:#0e7490'></div><div class='hbar' style='height:2.5%;background:#0e7490'></div><div class='hbar' style='height:17.8%;background:#0e7490'></div><div class='hbar' style='height:1.5%;background:#0e7490'></div><div class='hbar' style='height:1.7%;background:#94a3b8'></div><div class='hbar' style='height:1.5%;background:#94a3b8'></div><div class='hbar' style='height:2.4%;background:#94a3b8'></div><div class='hbar' style='height:0.5%;background:#94a3b8'></div><div class='hbar' style='height:0.1%;background:#94a3b8'></div><div class='hbar' style='height:15.5%;background:#94a3b8'></div><div class='hbar' style='height:0%;background:#94a3b8'></div><div class='hbar' style='height:0.1%;background:#94a3b8'></div><div class='hbar' style='height:0%;background:#94a3b8'></div><div class='hbar' style='height:0%;background:#94a3b8'></div><div class='hbar' style='height:0.1%;background:#94a3b8'></div><div class='hbar' style='height:14.9%;background:#94a3b8'></div><div class='hbar' style='height:0.1%;background:#94a3b8'></div><div class='hbar' style='height:0.1%;background:#94a3b8'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">% NMV local (mismo hex&aacute;gono)</div>
+      <div class="panel-max">m&aacute;x: 31% &middot; media pond. por vol.: 4,3% &middot; mediana: 0,9%</div>
+      <div class="hist"><div class='hbar' style='height:42.4%;background:#1a2454'></div><div class='hbar' style='height:11%;background:#1a2454'></div><div class='hbar' style='height:5.1%;background:#1a2454'></div><div class='hbar' style='height:23.9%;background:#1a2454'></div><div class='hbar' style='height:12.1%;background:#1a2454'></div><div class='hbar' style='height:4.3%;background:#1a2454'></div><div class='hbar' style='height:9.2%;background:#1a2454'></div><div class='hbar' style='height:4.5%;background:#1a2454'></div><div class='hbar' style='height:6.4%;background:#1a2454'></div><div class='hbar' style='height:9.4%;background:#1a2454'></div><div class='hbar' style='height:10.7%;background:#1a2454'></div><div class='hbar' style='height:4.7%;background:#1a2454'></div><div class='hbar' style='height:18.5%;background:#0e7490'></div><div class='hbar' style='height:9.1%;background:#0e7490'></div><div class='hbar' style='height:8.6%;background:#0e7490'></div><div class='hbar' style='height:6.1%;background:#0e7490'></div><div class='hbar' style='height:31.7%;background:#0e7490'></div><div class='hbar' style='height:3.2%;background:#0e7490'></div><div class='hbar' style='height:3%;background:#0e7490'></div><div class='hbar' style='height:2.7%;background:#0e7490'></div><div class='hbar' style='height:2.5%;background:#0e7490'></div><div class='hbar' style='height:3.6%;background:#0e7490'></div><div class='hbar' style='height:3.9%;background:#0e7490'></div><div class='hbar' style='height:100%;background:#0e7490'></div><div class='hbar' style='height:0.4%;background:#0e7490'></div><div class='hbar' style='height:1.9%;background:#0e7490'></div><div class='hbar' style='height:19%;background:#0e7490'></div><div class='hbar' style='height:0.9%;background:#0e7490'></div><div class='hbar' style='height:1%;background:#94a3b8'></div><div class='hbar' style='height:1.5%;background:#94a3b8'></div><div class='hbar' style='height:2.8%;background:#94a3b8'></div><div class='hbar' style='height:0.2%;background:#94a3b8'></div><div class='hbar' style='height:0.2%;background:#94a3b8'></div><div class='hbar' style='height:13.6%;background:#94a3b8'></div><div class='hbar' style='height:0%;background:#94a3b8'></div><div class='hbar' style='height:0.1%;background:#94a3b8'></div><div class='hbar' style='height:0%;background:#94a3b8'></div><div class='hbar' style='height:0%;background:#94a3b8'></div><div class='hbar' style='height:1.1%;background:#94a3b8'></div><div class='hbar' style='height:10.6%;background:#94a3b8'></div><div class='hbar' style='height:0.1%;background:#94a3b8'></div><div class='hbar' style='height:3.1%;background:#94a3b8'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div><div class='hbar' style='height:0%;background:#FFB700'></div></div>
+    </div>
+  </div>
+  <div class="footnote"><b>Fuente:</b> detalle_hexagonos_zonas1a4.csv (query_venta_local_por_hexagono.sql), agosto 2026 completo. Ticket elegible = NMV de unidades aptas para instant / env&iacute;os con al menos 1 unidad apta.</div>
+</div>
+</div>
+
+<div class="page">
+  <div class="p5-slide">
+    <div class="p5-title">Estructura de categor&iacute;as vendidas en San Pablo</div>
+    <div class="p5-subtitle">Cantidad de categor&iacute;as distintas con venta en cada nivel de la taxonom&iacute;a (Vertical &rarr; AGG1 &rarr; AGG2 &rarr; AGG3 &rarr; Dominio &rarr; Product ID). Ciudad de San Pablo, agosto 2026.</div>
+    <div class="p5-center">
+    <div class="p5-funnel-block p5-row2">
+      <div class="p5-funnel">
+        <div class="p5-step"><div class="p5-step-box p5-step1"><div class="p5-step-num">13</div><div class="p5-step-label">Verticales</div></div></div>
+        <div class="p5-arrow-wrap"><div class="p5-arrow">&rarr;</div></div>
+        <div class="p5-step"><div class="p5-step-box p5-step2"><div class="p5-step-num">70</div><div class="p5-step-label">AGG1</div></div></div>
+        <div class="p5-arrow-wrap"><div class="p5-arrow">&rarr;</div></div>
+        <div class="p5-step"><div class="p5-step-box p5-step3"><div class="p5-step-num">345</div><div class="p5-step-label">AGG2</div></div></div>
+        <div class="p5-arrow-wrap"><div class="p5-arrow">&rarr;</div></div>
+        <div class="p5-step"><div class="p5-step-box p5-step4"><div class="p5-step-num">853</div><div class="p5-step-label">AGG3</div></div></div>
+        <div class="p5-arrow-wrap"><div class="p5-arrow">&rarr;</div></div>
+        <div class="p5-step"><div class="p5-step-box p5-step5"><div class="p5-step-num">5.261</div><div class="p5-step-label">Dominios</div></div></div>
+        <div class="p5-arrow-wrap"><div class="p5-arrow">&rarr;</div></div>
+        <div class="p5-step"><div class="p5-step-box p5-step6"><div class="p5-step-num">4,19M</div><div class="p5-step-label">Product IDs</div></div></div>
+      </div>
+    </div>
+    </div>
+    <div class="p5-footnote"><b>Fuente:</b> BT_ORD_ORDERS + LK_ITE_ITEM_DOMAINS, venta de la ciudad de San Pablo, agosto 2026.</div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="p6-slide">
+    <div class="p6-title">Pareto de dominios en San Pablo: concentraci&oacute;n por unidades vendidas</div>
+    <div class="p6-subtitle">Dominios ordenados por unidades vendidas en la ciudad de San Pablo, agosto 2026 (5.261 dominios con venta).</div>
+    <div class="p6-center">
+      <div class="p6-stack">
+        <div class="p6-row-label">Pareto de dominios</div>
+        <div class="p6-stats-row">
+          <div class="p6-stat-box s2 p6-main">
+            <div class="p6-stat-num">785 <span>(14,9%)</span></div>
+            <div class="p6-stat-label">dominios explican el <b>80%</b> de las unidades vendidas</div>
+            <div class="p6-rep"><span class="p6-rep-num">405</span> de los 785 est&aacute;n entre los dominios que suman el 80% de las unidades en 41 o m&aacute;s de los 51 hex&aacute;gonos</div>
+          </div>
+          <div class="p6-stat-box s1 p6-ref">
+            <div class="p6-ref-tag">Referencia</div>
+            <div class="p6-ref-num">202 <span>(3,8%)</span></div>
+            <div class="p6-ref-label">dominios explican el 50% de las unidades vendidas</div>
+          </div>
+        </div>
+        <div class="p6-row-label" style="margin-top:22px;">Pareto intra-dominio (product IDs dentro de los 785 dominios del 80%)</div>
+        <div class="p6-stat-box s3 p6-wide">
+          <div class="p6-wide-item">
+            <div class="p6-stat-num">1,09M <span>de 3,01M</span></div>
+            <div class="p6-stat-label">product IDs explican el 80% de las unidades de su dominio (suma de los 785 dominios)</div>
+          </div>
+          <div class="p6-wide-sep"></div>
+          <div class="p6-wide-item">
+            <div class="p6-stat-num">33,3%</div>
+            <div class="p6-stat-label">promedio intra-dominio: % de product IDs necesarios para llegar al 80% de las unidades (promedio simple de los 785 dominios)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p6-footnote"><b>Fuente:</b> query_concentracion_productos_por_dominio_sp.sql &mdash; venta total de la ciudad de San Pablo, agosto 2026, todos los sellers, sin filtro instant. Repetici&oacute;n entre hex&aacute;gonos: query_pareto_dominios_por_hexagono.sql (Pareto de unidades de cada hex&aacute;gono, ubicaci&oacute;n del comprador, 51 hex&aacute;gonos con venta en agosto 2026; el 785 se compara contra el top-80% de cada hex&aacute;gono).</div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="r7-slide">
+    <div class="r7-title">Repetici&oacute;n de dominios entre los 51 hex&aacute;gonos</div>
+    <div class="r7-subtitle">Para cada hex&aacute;gono se toman los dominios que suman el 80% de sus unidades vendidas (top-80%). Se cuenta en cu&aacute;ntos de los 51 hex&aacute;gonos aparece cada dominio dentro de ese top-80%. Agosto 2026.</div>
+    <div class="r7-stats-row">
+      <div class="r7-stat-box a">
+        <div class="r7-stat-num">1.722</div>
+        <div class="r7-stat-label">dominios aparecen en el top-80% de al menos 1 hex&aacute;gono</div>
+      </div>
+      <div class="r7-stat-box a">
+        <div class="r7-stat-num">423 <span>(24,6%)</span></div>
+        <div class="r7-stat-label">aparecen en el top-80% de 1 solo hex&aacute;gono</div>
+      </div>
+      <div class="r7-stat-box b">
+        <div class="r7-stat-num">405 <span>(23,5%)</span></div>
+        <div class="r7-stat-label">aparecen en el top-80% de 41 o m&aacute;s hex&aacute;gonos &mdash; los 405 est&aacute;n dentro de los 785 dominios del Pareto 80% de San Pablo</div>
+      </div>
+    </div>
+    <div class="r7-content-row">
+      <div class="r7-chart-col">
+        <div class="r7-chart-title">Dominios seg&uacute;n en cu&aacute;ntos hex&aacute;gonos est&aacute;n en el top-80%</div>
+        <div class="r7-chart-bars">
+          <div class="r7-bar-col"><div class="r7-bar-val">423</div><div class="r7-bar-track"><div class="r7-bar-fill" style="height:100%"></div></div><div class="r7-bar-label">1 hex&aacute;gono</div></div>
+          <div class="r7-bar-col"><div class="r7-bar-val">303</div><div class="r7-bar-track"><div class="r7-bar-fill" style="height:72%"></div></div><div class="r7-bar-label">2-5 hex&aacute;gonos</div></div>
+          <div class="r7-bar-col"><div class="r7-bar-val">235</div><div class="r7-bar-track"><div class="r7-bar-fill" style="height:56%"></div></div><div class="r7-bar-label">6-20 hex&aacute;gonos</div></div>
+          <div class="r7-bar-col"><div class="r7-bar-val">356</div><div class="r7-bar-track"><div class="r7-bar-fill" style="height:84%"></div></div><div class="r7-bar-label">21-40 hex&aacute;gonos</div></div>
+          <div class="r7-bar-col"><div class="r7-bar-val">405</div><div class="r7-bar-track"><div class="r7-bar-fill hi" style="height:96%"></div></div><div class="r7-bar-label">41-51 hex&aacute;gonos</div></div>
+        </div>
+      </div>
+      <div class="r7-list-col">
+        <div class="r7-chart-title">Top 10 dominios por cantidad de hex&aacute;gonos</div>
+        <div class="r7-list">
+          <div class="r7-list-row r7-list-head"><span class="n">Dominio</span><span class="v">Hex. / rank prom.</span></div>
+          <div class="r7-list-row"><span class="n">Sneakers</span><span class="v">50 &middot; 4,6</span></div>
+          <div class="r7-list-row"><span class="n">Supplements</span><span class="v">49 &middot; 1,5</span></div>
+          <div class="r7-list-row"><span class="n">Pants</span><span class="v">49 &middot; 6,7</span></div>
+          <div class="r7-list-row"><span class="n">Sandals And Clogs</span><span class="v">49 &middot; 11,7</span></div>
+          <div class="r7-list-row"><span class="n">Socks</span><span class="v">49 &middot; 16,8</span></div>
+          <div class="r7-list-row"><span class="n">Body Skin Care Products</span><span class="v">49 &middot; 18,3</span></div>
+          <div class="r7-list-row"><span class="n">Cellphones</span><span class="v">49 &middot; 41,8</span></div>
+          <div class="r7-list-row"><span class="n">Laundry Detergents</span><span class="v">49 &middot; 42,3</span></div>
+          <div class="r7-list-row"><span class="n">Surveillance Cameras</span><span class="v">49 &middot; 52,1</span></div>
+          <div class="r7-list-row"><span class="n">Hats And Caps</span><span class="v">49 &middot; 57,4</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="r7-footnote"><b>Fuente:</b> query_pareto_dominios_por_hexagono.sql, ubicaci&oacute;n del comprador, 51 de 55 hex&aacute;gonos con venta en agosto 2026. Rank prom. = posici&oacute;n promedio del dominio dentro del ranking de unidades de los hex&aacute;gonos donde aparece.</div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="c8-slide">
+    <div class="c8-title">Concentraci&oacute;n de cat&aacute;logo en los 405 dominios que se repiten en casi todos los hex&aacute;gonos</div>
+    <div class="c8-subtitle">Dominios en el top-80% de 41 o m&aacute;s de los 51 hex&aacute;gonos. Para cada uno: % de product IDs necesarios para llegar al 80% de sus unidades vendidas en la ciudad de San Pablo, agosto 2026.</div>
+    <div class="c8-stats-row">
+      <div class="c8-stat-box">
+        <div class="c8-stat-num">405</div>
+        <div class="c8-stat-label">dominios (todos dentro de los 785 del Pareto 80%)</div>
+      </div>
+      <div class="c8-stat-box">
+        <div class="c8-stat-num">822k <span>de 2,35M</span></div>
+        <div class="c8-stat-label">product IDs explican el 80% de las unidades de su dominio (35,1%)</div>
+      </div>
+      <div class="c8-stat-box dark">
+        <div class="c8-stat-num">28,9%</div>
+        <div class="c8-stat-label">% de product IDs para el 80%, promedio ponderado por unidades (simple: 32,3% &middot; mediana: 31,0%)</div>
+      </div>
+    </div>
+    <div class="c8-cols">
+      <div class="c8-col conc">
+        <div class="c8-col-title">10 m&aacute;s concentrados</div>
+        <div class="c8-col-body">
+          <div class="c8-row head"><span class="name">Dominio</span><span class="abs">IDs 80% / total</span><span class="pct">%</span></div>
+          <div class="c8-row"><span class="name">Toilet Papers</span><span class="abs">62 de 1.331</span><span class="pct">4,7%</span></div>
+          <div class="c8-row"><span class="name">Laundry Detergents</span><span class="abs">144 de 2.970</span><span class="pct">4,8%</span></div>
+          <div class="c8-row"><span class="name">Sodium Bicarbonate</span><span class="abs">37 de 710</span><span class="pct">5,2%</span></div>
+          <div class="c8-row"><span class="name">Dishwashing Detergents</span><span class="abs">149 de 2.669</span><span class="pct">5,6%</span></div>
+          <div class="c8-row"><span class="name">Fabric Softeners</span><span class="abs">96 de 1.687</span><span class="pct">5,7%</span></div>
+          <div class="c8-row"><span class="name">Cooking Oils</span><span class="abs">142 de 2.445</span><span class="pct">5,8%</span></div>
+          <div class="c8-row"><span class="name">Milk</span><span class="abs">153 de 2.515</span><span class="pct">6,1%</span></div>
+          <div class="c8-row"><span class="name">Disposable Baby Diapers</span><span class="abs">167 de 2.389</span><span class="pct">7,0%</span></div>
+          <div class="c8-row"><span class="name">Ground And Whole Beans Coffee</span><span class="abs">225 de 3.120</span><span class="pct">7,2%</span></div>
+          <div class="c8-row"><span class="name">Bodyweight Scales</span><span class="abs">82 de 1.012</span><span class="pct">8,1%</span></div>
+        </div>
+      </div>
+      <div class="c8-col frag">
+        <div class="c8-col-title">10 m&aacute;s fragmentados</div>
+        <div class="c8-col-body">
+          <div class="c8-row head"><span class="name">Dominio</span><span class="abs">IDs 80% / total</span><span class="pct">%</span></div>
+          <div class="c8-row"><span class="name">Vehicle Moldings</span><span class="abs">3.277 de 4.673</span><span class="pct">70,1%</span></div>
+          <div class="c8-row"><span class="name">Vehicle Engine Gaskets</span><span class="abs">4.981 de 7.132</span><span class="pct">69,8%</span></div>
+          <div class="c8-row"><span class="name">Vehicle Emblems</span><span class="abs">4.916 de 7.191</span><span class="pct">68,4%</span></div>
+          <div class="c8-row"><span class="name">Party Decorative Backdrops</span><span class="abs">3.395 de 5.158</span><span class="pct">65,8%</span></div>
+          <div class="c8-row"><span class="name">Vehicle Weatherstrips</span><span class="abs">3.569 de 5.437</span><span class="pct">65,6%</span></div>
+          <div class="c8-row"><span class="name">Video Games</span><span class="abs">5.030 de 7.708</span><span class="pct">65,3%</span></div>
+          <div class="c8-row"><span class="name">Diecast Vehicles</span><span class="abs">6.069 de 9.390</span><span class="pct">64,6%</span></div>
+          <div class="c8-row"><span class="name">Vehicle Auxiliary Lights</span><span class="abs">2.818 de 4.369</span><span class="pct">64,5%</span></div>
+          <div class="c8-row"><span class="name">Light Vehicle Accessories</span><span class="abs">2.744 de 4.254</span><span class="pct">64,5%</span></div>
+          <div class="c8-row"><span class="name">Vehicle Turn Signal Lights</span><span class="abs">3.493 de 5.413</span><span class="pct">64,5%</span></div>
+        </div>
+      </div>
+      <div class="c8-col frag2">
+        <div class="c8-col-title">10 m&aacute;s fragmentados sin Vehicle Parts</div>
+        <div class="c8-col-body">
+          <div class="c8-row head"><span class="name">Dominio</span><span class="abs">IDs 80% / total</span><span class="pct">%</span></div>
+          <div class="c8-row"><span class="name">Party Decorative Backdrops</span><span class="abs">3.395 de 5.158</span><span class="pct">65,8%</span></div>
+          <div class="c8-row"><span class="name">Video Games</span><span class="abs">5.030 de 7.708</span><span class="pct">65,3%</span></div>
+          <div class="c8-row"><span class="name">Diecast Vehicles</span><span class="abs">6.069 de 9.390</span><span class="pct">64,6%</span></div>
+          <div class="c8-row"><span class="name">Action Figures</span><span class="abs">7.924 de 12.477</span><span class="pct">63,5%</span></div>
+          <div class="c8-row"><span class="name">Stickers</span><span class="abs">7.091 de 11.200</span><span class="pct">63,3%</span></div>
+          <div class="c8-row"><span class="name">Rings</span><span class="abs">2.619 de 4.213</span><span class="pct">62,2%</span></div>
+          <div class="c8-row"><span class="name">Party Decoration Kits</span><span class="abs">2.590 de 4.246</span><span class="pct">61,0%</span></div>
+          <div class="c8-row"><span class="name">Decorative Paintings</span><span class="abs">5.747 de 9.431</span><span class="pct">60,9%</span></div>
+          <div class="c8-row"><span class="name">Baby Bodysuits</span><span class="abs">2.523 de 4.151</span><span class="pct">60,8%</span></div>
+          <div class="c8-row"><span class="name">Charms</span><span class="abs">5.312 de 8.823</span><span class="pct">60,2%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="c8-footnote"><b>Fuente:</b> query_concentracion_productos_por_dominio_sp.sql (venta ciudad de San Pablo, agosto 2026) cruzado con query_pareto_dominios_por_hexagono.sql. Distribuci&oacute;n de los 405: &lt;10% de product IDs: 13 &middot; 10-25%: 104 &middot; 25-40%: 189 &middot; 40-55%: 70 &middot; &ge;55%: 29. Vertical seg&uacute;n LK_ITE_ITEM_DOMAINS: 31 de los 405 son Vehicle Parts &amp; Accessories / VIS.</div>
+  </div>
+</div>
+
+<div class="page-hidden" style="display:none">
+  <div class="s9-slide">
+    <div class="s9-title">Cruce entre dominios m&aacute;s buscados y m&aacute;s vendidos</div>
+    <div class="s9-subtitle">Overlap = cantidad de dominios que est&aacute;n a la vez en el top N de b&uacute;squedas (impresiones en posiciones 1-20, 14-29 sep 2026) y en el top N de unidades vendidas (agosto 2026).</div>
+    <div class="s9-body">
+      <div class="s9-left">
+        <div class="s9-sec">Overlap en San Pablo</div>
+        <div class="s9-ov"><div class="s9-ov-num">7 <span>de 10</span></div><div class="s9-ov-lbl">dominios en com&uacute;n entre top 10 buscados y top 10 vendidos</div></div>
+        <div class="s9-ov"><div class="s9-ov-num">10 <span>de 20</span></div><div class="s9-ov-lbl">dominios en com&uacute;n entre top 20 buscados y top 20 vendidos</div></div>
+        <div class="s9-ov"><div class="s9-ov-num">21 <span>de 50</span></div><div class="s9-ov-lbl">dominios en com&uacute;n entre top 50 buscados y top 50 vendidos</div></div>
+        <div class="s9-note">B&uacute;squedas: impresiones de compradores con CEP dentro de los 55 hex&aacute;gonos. Ventas: ciudad de San Pablo completa.</div>
+      </div>
+      <div class="s9-right">
+        <div class="s9-sec">San Pablo &mdash; top 20</div>
+        <div class="s9-lists">
+          <div class="s9-list">
+            <div class="s9-list-head">M&aacute;s buscados</div>
+            <div class="s9-li both"><span class="r">1</span>Sneakers</div>
+            <div class="s9-li both"><span class="r">2</span>Supplements</div>
+            <div class="s9-li"><span class="r">3</span>Cellphones</div>
+            <div class="s9-li both"><span class="r">4</span>Sandals And Clogs</div>
+            <div class="s9-li both"><span class="r">5</span>T Shirts</div>
+            <div class="s9-li both"><span class="r">6</span>Perfumes</div>
+            <div class="s9-li both"><span class="r">7</span>Books</div>
+            <div class="s9-li"><span class="r">8</span>Dresses</div>
+            <div class="s9-li both"><span class="r">9</span>Pants</div>
+            <div class="s9-li both"><span class="r">10</span>Hair Treatments</div>
+            <div class="s9-li"><span class="r">11</span>Cellphone Cases And Covers</div>
+            <div class="s9-li both"><span class="r">12</span>Headphones</div>
+            <div class="s9-li both"><span class="r">13</span>Floor Ceiling And Wall Lights</div>
+            <div class="s9-li"><span class="r">14</span>Video Games</div>
+            <div class="s9-li"><span class="r">15</span>Jackets And Coats</div>
+            <div class="s9-li"><span class="r">16</span>Wristwatches</div>
+            <div class="s9-li"><span class="r">17</span>Blouses</div>
+            <div class="s9-li"><span class="r">18</span>Boots And Booties</div>
+            <div class="s9-li"><span class="r">19</span>Costumes</div>
+            <div class="s9-li"><span class="r">20</span>Action Figures</div>
+          </div>
+          <div class="s9-list">
+            <div class="s9-list-head">M&aacute;s vendidos (unidades)</div>
+            <div class="s9-li both"><span class="r">1</span>Supplements</div>
+            <div class="s9-li both"><span class="r">2</span>Sneakers</div>
+            <div class="s9-li both"><span class="r">3</span>Books</div>
+            <div class="s9-li both"><span class="r">4</span>T Shirts</div>
+            <div class="s9-li both"><span class="r">5</span>Pants</div>
+            <div class="s9-li both"><span class="r">6</span>Hair Treatments</div>
+            <div class="s9-li both"><span class="r">7</span>Perfumes</div>
+            <div class="s9-li"><span class="r">8</span>Milk</div>
+            <div class="s9-li both"><span class="r">9</span>Floor Ceiling And Wall Lights</div>
+            <div class="s9-li both"><span class="r">10</span>Headphones</div>
+            <div class="s9-li"><span class="r">11</span>Food Storage Containers</div>
+            <div class="s9-li"><span class="r">12</span>Multipurpose Cleaners</div>
+            <div class="s9-li both"><span class="r">13</span>Sandals And Clogs</div>
+            <div class="s9-li"><span class="r">14</span>Body Skin Care Products</div>
+            <div class="s9-li"><span class="r">15</span>Facial Skin Care Products</div>
+            <div class="s9-li"><span class="r">16</span>Wines</div>
+            <div class="s9-li"><span class="r">17</span>Hair Shampoos And Conditioners</div>
+            <div class="s9-li"><span class="r">18</span>Infusion Capsules</div>
+            <div class="s9-li"><span class="r">19</span>Socks</div>
+            <div class="s9-li"><span class="r">20</span>Mobile Device Chargers</div>
+          </div>
+        </div>
+        <div class="s9-legend"><b>Resaltado:</b> dominio presente en ambos top 20 (10 de 20).</div>
+      </div>
+    </div>
+    <div class="s9-footnote"><b>Fuente:</b> BT_SEARCH_2_0_step_search_v7 (b&uacute;squedas) y query_concentracion_productos_por_dominio_sp.sql (ventas). Per&iacute;odos distintos: b&uacute;squedas 14-29 sep 2026, ventas agosto 2026.</div>
+  </div>
+</div>
+
+<div class="nav">
+  <button id="prevBtn">&#8249;</button>
+  <div class="dots">
+    <div class="dot" data-i="0"></div>
+    <div class="dot" data-i="1"></div>
+    <div class="dot" data-i="2"></div>
+    <div class="dot" data-i="3"></div>
+    <div class="dot" data-i="4"></div>
+  </div>
+  <button id="nextBtn">&#8250;</button>
+</div>
+</div>
+<script>
+  const pages = document.querySelectorAll('.page');
+  const dots = document.querySelectorAll('.dot');
+  let current = 0;
+  function show(i) {
+    current = (i + pages.length) % pages.length;
+    pages.forEach((p, idx) => p.classList.toggle('active', idx === current));
+    dots.forEach((d, idx) => d.classList.toggle('on', idx === current));
+  }
+  document.getElementById('prevBtn').addEventListener('click', () => show(current - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => show(current + 1));
+  dots.forEach(d => d.addEventListener('click', () => show(parseInt(d.dataset.i))));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') show(current + 1);
+    if (e.key === 'ArrowLeft') show(current - 1);
+  });
+  show(0);
+</script>
+</body>
+</html>
