@@ -143,6 +143,52 @@
   .p3-callout { background: #fdecea; border: 1px solid #f3c6c1; border-radius: 8px; padding: 14px 26px; max-width: 780px; text-align: center; }
   .p3-callout b { color: #c0392b; }
   .p3-footnote { margin-top: 20px; font-size: 10.5px; color: #999; line-height: 1.4; text-align: center; }
+
+  /* ===== Page 7: repeticion dominios entre hexagonos ===== */
+  .p7-bg { width: 1100px; height: 620px; background: #fff; }
+  .p7-slide { width: 1100px; height: 620px; padding: 30px 60px; display: flex; flex-direction: column; }
+  .p7-title { font-size: 21px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .p7-subtitle { font-size: 12.5px; color: #555; margin-top: 5px; line-height: 1.4; }
+  .p7-stats-row { display: flex; gap: 16px; margin-top: 20px; }
+  .p7-stat-box { flex: 1; border-radius: 8px; padding: 14px 18px; }
+  .p7-stat-box.hiperlocal { background: #fdecea; border: 1px solid #f3c6c1; }
+  .p7-stat-box.universal { background: #1a2454; }
+  .p7-stat-num { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .p7-stat-box.hiperlocal .p7-stat-num { color: #c0392b; }
+  .p7-stat-box.universal .p7-stat-num { color: #FFB700; }
+  .p7-stat-label { font-size: 11.5px; margin-top: 4px; line-height: 1.35; }
+  .p7-stat-box.hiperlocal .p7-stat-label { color: #444; }
+  .p7-stat-box.universal .p7-stat-label { color: #c7cde8; }
+  .p7-content-row { display: flex; gap: 24px; margin-top: 22px; flex: 1; min-height: 0; }
+  .p7-chart-col { flex: 1.3; display: flex; flex-direction: column; justify-content: flex-end; }
+  .p7-chart-bars { display: flex; align-items: flex-end; gap: 14px; height: 190px; }
+  .p7-bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; }
+  .p7-bar-val { font-size: 12px; font-weight: 700; color: #1a2454; margin-bottom: 6px; font-variant-numeric: tabular-nums; }
+  .p7-bar-track { width: 100%; height: 140px; background: #f0f2f6; border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; overflow: hidden; }
+  .p7-bar-fill { width: 100%; background: #34406e; border-radius: 4px 4px 0 0; }
+  .p7-bar-fill.extreme { background: #FFB700; }
+  .p7-bar-label { font-size: 9.5px; color: #999; margin-top: 6px; text-align: center; line-height: 1.25; }
+  .p7-examples-col { flex: 1; display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+  .p7-example-group-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #1a2454; letter-spacing: 0.3px; }
+  .p7-example-list { font-size: 12px; color: #333; line-height: 1.7; margin-top: 4px; }
+  .p7-example-list b { color: #1a2454; }
+  .p7-footnote { margin-top: 14px; font-size: 10px; color: #999; line-height: 1.4; }
+
+  /* ===== Page 8: gap busqueda vs venta instant ===== */
+  .p8-bg { width: 1100px; height: 620px; background: #fff; }
+  .p8-slide { width: 1100px; height: 620px; padding: 28px 55px; display: flex; flex-direction: column; }
+  .p8-title { font-size: 20px; font-weight: 700; color: #1a2454; line-height: 1.3; }
+  .p8-subtitle { font-size: 12px; color: #555; margin-top: 4px; line-height: 1.4; }
+  .p8-table-wrap { margin-top: 18px; border: 1px solid #eef0f6; border-radius: 8px; overflow-y: auto; flex: 1; min-height: 0; }
+  .p8-table-wrap table { width: 100%; border-collapse: collapse; }
+  .p8-table-wrap thead th { position: sticky; top: 0; background: #1a2454; color: #fff; font-weight: 600; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.3px; padding: 7px 10px; text-align: left; }
+  .p8-table-wrap th.num, .p8-table-wrap td.num { text-align: right; }
+  .p8-table-wrap tbody td { padding: 6px 10px; font-size: 12px; border-bottom: 1px solid #f2f3f8; color: #333; }
+  .p8-table-wrap td.dom { font-weight: 600; color: #1a2454; }
+  .p8-tag { display: inline-block; font-size: 9.5px; font-weight: 700; text-transform: uppercase; padding: 2px 7px; border-radius: 10px; letter-spacing: 0.2px; }
+  .p8-tag.durable { background: #eef0f6; color: #555; }
+  .p8-tag.impulsivo { background: #fdf8ef; color: #b8860b; }
+  .p8-footnote { margin-top: 12px; font-size: 10px; color: #999; line-height: 1.4; }
 </style>
 </head>
 <body>
@@ -359,6 +405,94 @@
   </div>
 
   <div class="page">
+    <div class="p7-bg">
+      <div class="p7-slide">
+        <div class="p7-title">&iquest;Los dominios "top" se repiten entre hex&aacute;gonos, o cambian zona a zona?</div>
+        <div class="p7-subtitle">Para cada uno de los 51 hex&aacute;gonos con venta en agosto, se identificaron los dominios que concentran el 80% de sus unidades vendidas &mdash; y se compar&oacute; esa lista entre los 51 hex&aacute;gonos.</div>
+        <div class="p7-stats-row">
+          <div class="p7-stat-box hiperlocal">
+            <div class="p7-stat-num">24,6%</div>
+            <div class="p7-stat-label">de los 1.722 dominios "top-80%" aparecen en UN SOLO hex&aacute;gono &mdash; son hiperlocales</div>
+          </div>
+          <div class="p7-stat-box universal">
+            <div class="p7-stat-num">23,5%</div>
+            <div class="p7-stat-label">aparecen en 41 o m&aacute;s de los 51 hex&aacute;gonos &mdash; son pr&aacute;cticamente universales</div>
+          </div>
+        </div>
+        <div class="p7-content-row">
+          <div class="p7-chart-col">
+            <div class="p7-chart-bars">
+              <div class="p7-bar-col">
+                <div class="p7-bar-val">423</div>
+                <div class="p7-bar-track"><div class="p7-bar-fill extreme" style="height:100%"></div></div>
+                <div class="p7-bar-label">1 hex&aacute;gono</div>
+              </div>
+              <div class="p7-bar-col">
+                <div class="p7-bar-val">303</div>
+                <div class="p7-bar-track"><div class="p7-bar-fill" style="height:72%"></div></div>
+                <div class="p7-bar-label">2-5 hex&aacute;gonos</div>
+              </div>
+              <div class="p7-bar-col">
+                <div class="p7-bar-val">235</div>
+                <div class="p7-bar-track"><div class="p7-bar-fill" style="height:56%"></div></div>
+                <div class="p7-bar-label">6-20 hex&aacute;gonos</div>
+              </div>
+              <div class="p7-bar-col">
+                <div class="p7-bar-val">356</div>
+                <div class="p7-bar-track"><div class="p7-bar-fill" style="height:84%"></div></div>
+                <div class="p7-bar-label">21-40 hex&aacute;gonos</div>
+              </div>
+              <div class="p7-bar-col">
+                <div class="p7-bar-val">405</div>
+                <div class="p7-bar-track"><div class="p7-bar-fill extreme" style="height:96%"></div></div>
+                <div class="p7-bar-label">41-50 hex&aacute;gonos</div>
+              </div>
+            </div>
+          </div>
+          <div class="p7-examples-col">
+            <div>
+              <div class="p7-example-group-title">N&uacute;cleo universal (ejemplos)</div>
+              <div class="p7-example-list"><b>Sneakers</b> (50/51 hex) &middot; <b>Supplements</b> (49/51, casi siempre #1-2) &middot; Pants, Cellphones, T Shirts, Books, Perfumes</div>
+            </div>
+            <div>
+              <div class="p7-example-group-title">Cola hiperlocal</div>
+              <div class="p7-example-list">Particulares de cada zona &mdash; ver <i>repeticion_dominios_top80_hexagonos.csv</i> para el detalle por dominio</div>
+            </div>
+          </div>
+        </div>
+        <div class="p7-footnote"><b>Lectura:</b> la distribuci&oacute;n es bimodal, no una cola larga suave &mdash; un dominio o es parte del "n&uacute;cleo" no negociable en toda la ciudad, o es hiperlocal y depende del perfil de cada zona. El n&uacute;cleo universal (~35-40 dominios) deber&iacute;a estar resuelto en todos los hex&aacute;gonos sin importar el perfil de zona. <b>Fuente:</b> query_pareto_dominios_por_hexagono.sql, agosto 2026, 51 de 55 hex&aacute;gonos con venta registrada.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="p8-bg">
+      <div class="p8-slide">
+        <div class="p8-title">Oportunidad de cat&aacute;logo: dominios muy buscados, con poca venta de unidades aptas para instant</div>
+        <div class="p8-subtitle">Cruce entre el ranking de b&uacute;squedas (top 50 por zona, 14-29 sep) y el ranking de venta real de unidades f&iacute;sicamente elegibles para instant (&le;50cm/lado, &le;100cm suma 3 lados, &le;15kg), agosto 2026. Excluye dominios con menos del 30% de su volumen elegible (ej. muebles, electrodom&eacute;sticos &mdash; estructuralmente no-instant).</div>
+        <div class="p8-table-wrap">
+          <table>
+            <thead><tr><th>Dominio</th><th class="num">Zonas con gap</th><th class="num">Rank b&uacute;squeda prom.</th><th class="num">Rank venta instant prom.</th><th>Lectura</th></tr></thead>
+            <tbody>
+              <tr><td class="dom">Game Consoles</td><td class="num">4</td><td class="num">21</td><td class="num">438</td><td><span class="p8-tag durable">Baja frecuencia</span></td></tr>
+              <tr><td class="dom">Notebooks</td><td class="num">4</td><td class="num">41,8</td><td class="num">361</td><td><span class="p8-tag durable">Baja frecuencia</span></td></tr>
+              <tr><td class="dom">Costumes</td><td class="num">4</td><td class="num">23,2</td><td class="num">248</td><td><span class="p8-tag impulsivo">Candidato impulsivo</span></td></tr>
+              <tr><td class="dom">Music Albums</td><td class="num">3</td><td class="num">35</td><td class="num">412</td><td><span class="p8-tag durable">Baja frecuencia</span></td></tr>
+              <tr><td class="dom">Video Games</td><td class="num">3</td><td class="num">16,7</td><td class="num">259</td><td><span class="p8-tag durable">Baja frecuencia</span></td></tr>
+              <tr><td class="dom">Motorcycle Helmets</td><td class="num">3</td><td class="num">29</td><td class="num">259</td><td><span class="p8-tag impulsivo">Candidato impulsivo</span></td></tr>
+              <tr><td class="dom">Dolls</td><td class="num">3</td><td class="num">40,3</td><td class="num">231</td><td><span class="p8-tag impulsivo">Candidato impulsivo</span></td></tr>
+              <tr><td class="dom">Action Figures</td><td class="num">3</td><td class="num">24</td><td class="num">147</td><td><span class="p8-tag impulsivo">Candidato impulsivo</span></td></tr>
+              <tr><td class="dom">Decorative Paintings</td><td class="num">2</td><td class="num">43</td><td class="num">342</td><td><span class="p8-tag impulsivo">Candidato impulsivo</span></td></tr>
+              <tr><td class="dom">Diecast Vehicles</td><td class="num">2</td><td class="num">36,5</td><td class="num">188</td><td><span class="p8-tag impulsivo">Candidato impulsivo</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="p8-footnote"><b>Lectura:</b> consolas, notebooks, videojuegos y discos son elegibles por tama&ntilde;o/peso, pero son compras consideradas de baja frecuencia &mdash; el gap probablemente no es de oferta. Disfraces, cascos, mu&ntilde;ecos, figuras de acci&oacute;n y pinturas decorativas son candidatos m&aacute;s accionables: inter&eacute;s puntual, compra m&aacute;s impulsiva, formato chico. <b>Fuente:</b> cruce_busquedas_vs_venta_elegible_zonas1a4.csv (BT_SEARCH_2_0_step_search_v7 + BT_ORD_ORDERS/BT_SHP_SHIPPING_ITEMS).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
     <div class="p3-bg">
       <div class="p3-slide">
         <div class="p3-title">Venta local: casi toda la demanda se resuelve con sellers de OTRO hexágono</div>
@@ -406,6 +540,8 @@
       <div class="dot" data-i="3"></div>
       <div class="dot" data-i="4"></div>
       <div class="dot" data-i="5"></div>
+      <div class="dot" data-i="6"></div>
+      <div class="dot" data-i="7"></div>
     </div>
     <button id="nextBtn">&#8250;</button>
   </div>
