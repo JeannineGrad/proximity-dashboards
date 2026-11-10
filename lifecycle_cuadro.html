@@ -274,14 +274,14 @@ table.pal-table{width:100%;border-collapse:collapse;font-size:11.5px;background:
         </tr>
         <tr>
           <th class="sub-vertical">Darkstore</th>
-          <td class="cell active" onclick="goToTrial('darkstore')"><span class="thr">🎯 Ver Trial →</span></td>
+          <td class="cell active" onclick="goToTrialCadencia('darkstore')"><span class="thr">🎯 Ver Trial →</span></td>
           <td class="cell active" onclick="document.getElementById('anchor-onboarding-darkstore').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">🏬 Ver journey →</span></td>
           <td class="cell active" rowspan="2" onclick="document.getElementById('anchor-graduado-groceries').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">🏆 Ver journey →</span></td>
           <td class="cell active" rowspan="2" onclick="document.getElementById('anchor-churn-groceries').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">🔔 Ver journey →</span></td>
         </tr>
         <tr>
           <th class="sub-vertical">Instore</th>
-          <td class="cell active" onclick="goToTrial('instore')"><span class="thr">🎯 Ver Trial →</span></td>
+          <td class="cell active" onclick="goToTrialCadencia('instore')"><span class="thr">🎯 Ver Trial →</span></td>
           <td class="cell active" data-cell="onb-instore" onclick="document.getElementById('anchor-onboarding-instore').scrollIntoView({behavior:'smooth',block:'start'})"><span class="thr">🏪 Ver journey →</span></td>
         </tr>
         <tr>
@@ -1794,6 +1794,14 @@ function ch2Render(vertical){
 }
 ['instore','darkstore','gm','pharma'].forEach(ch2Render);
 
+function goToTrialCadencia(vertical){
+  document.querySelectorAll('.doctabbtn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.doctab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelector('.doctabbtn[data-doctab="doctab-journeys"]').classList.add('active');
+  document.getElementById('doctab-journeys').classList.add('active');
+  document.querySelector('.tsel-btn[data-tsel="tsel-' + vertical + '"]').click();
+  document.getElementById('anchor-trial').scrollIntoView({behavior:'smooth',block:'start'});
+}
 function goToTrial(vertical){
   document.querySelectorAll('.doctabbtn').forEach(function(b){ b.classList.remove('active'); });
   document.querySelectorAll('.doctab-panel').forEach(function(p){ p.classList.remove('active'); });
